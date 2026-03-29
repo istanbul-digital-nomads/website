@@ -4,22 +4,133 @@
 
 @layer base {
   :root {
-    --background: #ffffff;
-    --foreground: #171717;
+    --background: #f5efe4;
+    --foreground: #111827;
+    --muted: #6b6257;
+    --line: rgba(17, 24, 39, 0.1);
   }
 
   .dark {
-    --background: #0a0a0a;
-    --foreground: #fafafa;
+    --background: #07111d;
+    --foreground: #f7f4ee;
+    --muted: #9fb0c6;
+    --line: rgba(247, 244, 238, 0.14);
+  }
+
+  * {
+    @apply border-neutral-200 dark:border-neutral-800;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-[var(--background)] text-[var(--foreground)] antialiased;
+    background:
+      radial-gradient(
+        circle at top left,
+        rgba(244, 114, 182, 0.12),
+        transparent 30%
+      ),
+      radial-gradient(
+        circle at top right,
+        rgba(56, 189, 248, 0.14),
+        transparent 32%
+      ),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent 25%),
+      var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), sans-serif;
+    @apply antialiased;
+  }
+
+  ::selection {
+    @apply bg-primary-500/25 text-neutral-950 dark:text-neutral-50;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply tracking-tight;
+  }
+
+  code,
+  pre,
+  .font-mono {
+    font-family: var(--font-mono), monospace;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .bg-noise {
+    background-image:
+      radial-gradient(rgba(255, 255, 255, 0.28) 0.7px, transparent 0.7px),
+      radial-gradient(rgba(17, 24, 39, 0.08) 0.6px, transparent 0.6px);
+    background-position:
+      0 0,
+      24px 24px;
+    background-size:
+      24px 24px,
+      24px 24px;
+  }
+
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.35em] text-neutral-500 dark:text-neutral-400;
+  }
+
+  .surface-blur {
+    @apply bg-white/55 backdrop-blur-xl dark:bg-white/5;
+  }
+
+  .text-muted {
+    color: var(--muted);
+  }
+
+  .animate-float {
+    animation: float 14s ease-in-out infinite;
+  }
+
+  .animate-float-slow {
+    animation: float 18s ease-in-out infinite;
+  }
+
+  .animate-pulse-line {
+    animation: pulse-line 4s ease-in-out infinite;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -18px, 0);
+  }
+}
+
+@keyframes pulse-line {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scaleX(0.98);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
   }
 }

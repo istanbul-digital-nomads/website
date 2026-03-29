@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { IBM_Plex_Mono, Manrope } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/layout/theme-provider";
@@ -7,7 +7,18 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import "@/styles/globals.css";
 
-const inter = Inter({ subsets: ["latin"], display: "swap" });
+const manrope = Manrope({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500"],
+  variable: "--font-mono",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -54,7 +65,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${manrope.variable} ${ibmPlexMono.variable}`}>
         <ThemeProvider>
           <Header />
           <main className="min-h-[calc(100vh-4rem)]">{children}</main>

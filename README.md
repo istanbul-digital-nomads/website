@@ -6,7 +6,7 @@ The official website for the Istanbul Digital Nomads community. A full-stack web
 
 ## Live Site
 
-🌐 Coming soon — `istanbuldigitalnomads.com`
+🌐 Coming soon — `istanbulnomads.com`
 
 ## Tech Stack
 
@@ -83,7 +83,7 @@ Open [http://localhost:3000](http://localhost:3000) to see the site.
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-NEXT_PUBLIC_PLAUSIBLE_DOMAIN=istanbuldigitalnomads.com
+NEXT_PUBLIC_PLAUSIBLE_DOMAIN=istanbulnomads.com
 ```
 
 ## Project Structure

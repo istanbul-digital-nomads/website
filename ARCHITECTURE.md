@@ -192,4 +192,4 @@ No global state library needed. Keep it simple.
 - **Branch deploys**: Every PR gets a preview URL
 - **Production**: Auto-deploy on merge to `main`
 - **Environment variables**: Managed in Vercel dashboard
-- **Domain**: `istanbuldigitalnomads.com` (pending setup)
+- **Domain**: `istanbulnomads.com` (pending setup)

@@ -1,3 +1,8 @@
+![CI](https://github.com/istanbul-digital-nomads/website/actions/workflows/ci.yml/badge.svg?branch=develop)
+![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue?logo=typescript&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=nextdotjs&logoColor=white)
+![License](https://img.shields.io/badge/License-Proprietary-red)
+
 # Istanbul Digital Nomads — Website
 
 The official website and community platform for Istanbul's digital nomad community. A full-stack web application built with **Next.js 14**, **Tailwind CSS**, **TypeScript**, and **Supabase**.

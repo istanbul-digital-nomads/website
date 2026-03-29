@@ -10,86 +10,86 @@ A detailed, implementation-ready plan for building istanbulnomads.com from MVP t
 
 ### 1.1 Project Foundation
 
-- [ ] Set up pnpm workspace and install all dependencies
-- [ ] Configure ESLint with Next.js + TypeScript + Prettier rules
-- [ ] Set up path aliases (`@/components`, `@/lib`, etc.)
-- [ ] Create `src/lib/constants.ts` with site config (name, description, URLs, social links, nav items)
-- [ ] Create `src/lib/utils.ts` with `cn()` helper (already done), `formatDate()`, `truncate()`
+- [x] Set up pnpm workspace and install all dependencies
+- [x] Configure ESLint with Next.js + TypeScript + Prettier rules
+- [x] Set up path aliases (`@/components`, `@/lib`, etc.)
+- [x] Create `src/lib/constants.ts` with site config (name, description, URLs, social links, nav items)
+- [x] Create `src/lib/utils.ts` with `cn()` helper, `formatDate()`, `truncate()`
 - [x] Set up Vercel Analytics and Speed Insights in root layout
 - [ ] Set up Plausible analytics script in root layout
-- [ ] Configure `next-sitemap` for automatic sitemap.xml and robots.txt
-- [ ] Create favicon set and app icons in `/public`
-- [ ] Set up Open Graph image generation (default + per-page)
+- [x] Configure `next-sitemap` for automatic sitemap.xml and robots.txt
+- [x] Create favicon set and app icons in `/public`
+- [x] Set up Open Graph image generation (default + per-page)
 
 ### 1.2 Design System & Base Components
 
-- [ ] **Button** - Primary, secondary, ghost, danger variants + sm/md/lg sizes + loading state
-- [ ] **Card** - Base card with hover shadow, optional image header, footer slot
-- [ ] **Input** - Text, email, textarea variants with label, error state, helper text
-- [ ] **Badge** - Event type badges (meetup=blue, coworking=green, workshop=purple, social=amber)
-- [ ] **Container** - Max-width wrapper with responsive padding
-- [ ] **Section** - Vertical section wrapper with consistent spacing
+- [x] **Button** - Primary, secondary, ghost, danger variants + sm/md/lg sizes + loading state
+- [x] **Card** - Base card with hover shadow, optional image header, footer slot
+- [x] **Input** - Text, email, textarea variants with label, error state, helper text
+- [x] **Badge** - Event type badges (meetup=blue, coworking=green, workshop=purple, social=amber)
+- [x] **Container** - Max-width wrapper with responsive padding
+- [x] **Section** - Vertical section wrapper with consistent spacing
 - [ ] **Modal** - Headless UI dialog with overlay, close button, size variants
 - [ ] **Dropdown** - Headless UI menu with hover/click trigger
-- [ ] **Skeleton** - Loading skeleton for cards, text, avatars
+- [x] **Skeleton** - Loading skeleton for cards, text, avatars
 - [ ] **Toast** - Success/error notification toast component
 
 ### 1.3 Layout Components
 
-- [ ] **Header** - Logo, desktop nav, mobile hamburger menu, dark mode toggle, CTA button
-- [ ] **Footer** - Logo, nav columns (Community, Resources, Connect), social icons, copyright
-- [ ] **MobileNav** - Slide-over navigation for small screens
-- [ ] **ThemeProvider** - Dark/light mode with system preference detection + localStorage persistence
+- [x] **Header** - Logo, desktop nav, mobile hamburger menu, dark mode toggle, CTA button
+- [x] **Footer** - Logo, nav columns (Community, Resources, Connect), social icons, copyright
+- [x] **MobileNav** - Slide-over navigation for small screens
+- [x] **ThemeProvider** - Dark/light mode with system preference detection + localStorage persistence
 - [ ] **Breadcrumbs** - Auto-generated from route segments
 - [ ] **ScrollToTop** - Subtle button on long pages
 
 ### 1.4 Homepage (`/`)
 
-- [ ] **Hero section** - Large heading "Your community in Istanbul", subtext, "Join on Telegram" primary CTA + "Explore guides" secondary CTA, hero image/illustration
-- [ ] **Stats bar** - Community member count, events hosted, guides published, neighborhoods covered (animated counters on scroll)
-- [ ] **Featured events** - 3 upcoming event cards with date, type badge, location, RSVP count
-- [ ] **Guide highlights** - 4 most popular guides as cards with icons
-- [ ] **How it works** - 3-step visual: Join Telegram → Come to a meetup → Become part of the community
-- [ ] **Testimonials** - 3 quotes from community members with name, photo, role
-- [ ] **CTA banner** - "Ready to join?" full-width section with Telegram link
+- [x] **Hero section** - Large heading "Your community in Istanbul", subtext, "Join on Telegram" primary CTA + "Explore guides" secondary CTA
+- [x] **Stats bar** - Community member count, events hosted, guides published, neighborhoods covered
+- [x] **Featured events** - 3 upcoming event cards with date, type badge, location, RSVP count
+- [x] **Guide highlights** - 4 most popular guides as cards with icons
+- [x] **How it works** - 3-step visual: Join Telegram -> Come to a meetup -> Become part of the community
+- [x] **Testimonials** - 3 quotes from community members with name, photo, role
+- [x] **CTA banner** - "Ready to join?" full-width section with Telegram link
 - [ ] **Newsletter signup** - Email input + "Subscribe" in footer area
 
 ### 1.5 About Page (`/about`)
 
-- [ ] **Story section** - How the community started, why Istanbul, the mission
-- [ ] **Values grid** - 4 cards: Inclusive, Helpful, Authentic, Fun
-- [ ] **Team section** - Organizer cards with photo, name, role, links
-- [ ] **Timeline** - Community milestones (founded, first event, 100 members, website launch)
-- [ ] **Join CTA** - Telegram link and contributing info
+- [x] **Story section** - How the community started, why Istanbul, the mission
+- [x] **Values grid** - 4 cards: Inclusive, Helpful, Authentic, Fun
+- [x] **Team section** - Organizer cards with photo, name, role, links
+- [x] **Timeline** - Community milestones (founded, first event, 100 members, website launch)
+- [x] **Join CTA** - Telegram link via shared CTA Banner component
 
 ### 1.6 Guides Section (`/guides`)
 
-- [ ] **Guides grid page** - Card for each of the 10 guides with icon, title, description, "Read guide" link
-- [ ] **Individual guide pages** (`/guides/[slug]`) - MDX rendered with table of contents, last updated date, related guides sidebar
+- [x] **Guides grid page** - Card for each of the 10 guides with icon, title, description, "Read guide" link
+- [x] **Individual guide pages** (`/guides/[slug]`) - Statically generated with placeholder content
 - [ ] **Guide MDX components** - Custom components for tips, warnings, price tables, neighborhood ratings
 - [ ] Import/sync content from GitHub resources repo into MDX files
 - [ ] Add structured data (FAQ schema) for SEO on guide pages
 
 ### 1.7 Events Page (`/events`)
 
-- [ ] **Events listing page** - Tabs for "Upcoming" and "Past" events
-- [ ] **EventCard** component - Date, title, type badge, location, organizer, RSVP count
-- [ ] **Event filters** - Filter by type (meetup, coworking, workshop, social), date range
+- [x] **Events listing page** - Tabs for "Upcoming" and "Past" events
+- [x] **EventCard** component - Date, title, type badge, location, attendee count
+- [x] **Event filters** - Filter by type (meetup, coworking, workshop, social)
 - [ ] **Event detail page** (`/events/[id]`) - Full description, map embed, organizer info, RSVP button (Phase 2), related events
-- [ ] **Empty state** - Friendly message when no upcoming events + link to propose one
+- [x] **Empty state** - Friendly message when no upcoming events
 
 ### 1.8 Contact Page (`/contact`)
 
-- [ ] **Contact form** - Name, email, message fields with Resend integration
-- [ ] **Quick links** - Telegram, GitHub, email cards
-- [ ] **FAQ accordion** - Top 5 questions from community FAQ
+- [x] **Contact form** - Name, email, message fields (Resend integration pending Phase 2)
+- [x] **Quick links** - Telegram, GitHub, email cards
+- [x] **FAQ section** - Top 5 questions from community FAQ
 
 ### 1.9 SEO & Performance
 
-- [ ] Meta tags on every page (title, description, OG image, Twitter card)
+- [x] Meta tags on every page (title, description, OG image, Twitter card)
 - [ ] Structured data (Organization, Event, Article schemas)
-- [ ] sitemap.xml auto-generation
-- [ ] robots.txt configuration
+- [x] sitemap.xml auto-generation
+- [x] robots.txt configuration
 - [ ] Lighthouse audit - target 95+ on all metrics
 - [ ] WCAG 2.1 AA accessibility pass
 - [ ] Canonical URLs on all pages
@@ -323,9 +323,10 @@ For anyone picking up tasks, here's the recommended order to build features. Eac
 |-----------|--------|--------|
 | Project setup & repo structure | Week 1 | ✅ Done |
 | Domain purchased (istanbulnomads.com) | Week 1 | ✅ Done |
-| Design system & base components | Week 2 | ⬜ Not started |
-| Homepage & layout live | Week 3 | ⬜ Not started |
-| All MVP pages complete | Week 4 | ⬜ Not started |
+| Vercel platform configuration | Week 1 | ✅ Done |
+| Design system & base components | Week 2 | ✅ Done |
+| Homepage & layout live | Week 3 | ✅ Done |
+| All MVP pages complete | Week 4 | ✅ Done |
 | Custom domain + production deploy | Week 4 | ⬜ Not started |
 | Blog system live | Week 6 | ⬜ Not started |
 | Event RSVP working | Week 7 | ⬜ Not started |

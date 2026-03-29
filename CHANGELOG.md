@@ -7,29 +7,42 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ## [Unreleased]
 
 ### Planned
-- Design system and base UI components (Button, Card, Input, Badge, Modal)
-- Layout components (Header, Footer, MobileNav, ThemeProvider)
-- Homepage with hero, stats, featured events, testimonials, CTA
-- About page with story, values, team, timeline
-- Guides section with MDX-rendered city guides
-- Events listing page with filtering
-- Contact page with form
-- Blog system with MDX
-- SEO optimization (meta tags, structured data, sitemap)
+- Blog system with MDX content rendering
+- Supabase database setup and auth integration
+- Event RSVP system
+- Member profiles and directory
 
 ### Added
+- Design system components: Button (4 variants, 3 sizes, loading state), Card (with header/footer/image slots), Input and Textarea (with labels, errors, helper text), Badge (event type colors), Container, Section, Skeleton
+- Layout: Header with responsive nav and dark mode toggle, Footer with 4-column nav and social icons, MobileNav slide-over panel, ThemeProvider (light/dark/system with localStorage persistence)
+- Homepage sections: Hero with gradient background, Stats bar (4 metrics), Featured Events (3 cards), Guide Highlights (4 cards), How It Works (3 steps), Testimonials (3 quotes), CTA Banner
+- About page: Story section, Values grid (4 cards), Team section (3 members), Timeline (6 milestones)
+- Guides section: Grid page with 10 city guide cards, dynamic `[slug]` pages with static generation
+- Events page: Listing with upcoming/past tabs, type filters (meetup/coworking/workshop/social), event cards with badges
+- Contact page: Form (name/email/message), Quick links (Telegram/GitHub/Email), FAQ section (5 items)
+- Blog placeholder page
+- Custom 404 page with navigation links
+- Site config and constants (`src/lib/constants.ts`) with nav items, social links, footer nav, event types
+- Utility functions: `formatDate()`, `formatDateShort()`, `truncate()` in `src/lib/utils.ts`
+- Sample data module (`src/lib/data.ts`) with guides and events
+- `next-sitemap` integration with auto-generated sitemap.xml and robots.txt on build
+- OG image generation API route (`/api/og`) with dynamic title and description
+- Dynamic favicon (`icon.tsx`) and Apple touch icon (`apple-icon.tsx`)
+- `.eslintrc.json` with Next.js strict config (fixes CI lint failure)
 - Vercel Analytics integration (`@vercel/analytics`) for visitor tracking and page views
 - Vercel Speed Insights integration (`@vercel/speed-insights`) for Core Web Vitals monitoring
-- `vercel.json` with security headers (X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy) and cache headers for static assets
+- `vercel.json` with security headers and cache headers for static assets
 - `.vercelignore` to exclude non-essential files from deployments
 - `.nvmrc` to pin Node.js 20 for consistent builds across environments
-- Vercel environment variable placeholders in `.env.example` (VERCEL_URL, VERCEL_ENV)
+- Vercel environment variable placeholders in `.env.example`
 
 ### Changed
-- Updated root layout with `<Analytics />` and `<SpeedInsights />` components
+- Root layout now includes ThemeProvider, Header, Footer, Analytics, and SpeedInsights
+- Homepage rebuilt with 7 full sections replacing the initial placeholder hero
 - Added `display: "swap"` to Inter font config for better loading performance
-- Added `poweredByHeader: false` to `next.config.mjs` (security - removes X-Powered-By header)
-- Added `compress: true` to `next.config.mjs` for explicit gzip compression
+- Added `metadataBase` to root layout metadata for proper OG URL resolution
+- Added `poweredByHeader: false` and `compress: true` to `next.config.mjs`
+- Added `postbuild` script for sitemap generation
 
 ---
 
@@ -64,6 +77,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 | Version | Date | Summary |
 |---------|------|---------|
+| 0.2.0 | 2026-03-30 | Phase 1 MVP - design system, layout, all pages, Vercel setup |
 | 0.1.0 | 2026-03-29 | Project setup, config files, initial homepage, documentation |
 
 [Unreleased]: https://github.com/istanbul-digital-nomads/website/compare/v0.1.0...HEAD

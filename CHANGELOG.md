@@ -16,7 +16,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Contact page with form
 - Blog system with MDX
 - SEO optimization (meta tags, structured data, sitemap)
-- CI/CD pipeline with GitHub Actions
+
+### Added
+- Vercel Analytics integration (`@vercel/analytics`) for visitor tracking and page views
+- Vercel Speed Insights integration (`@vercel/speed-insights`) for Core Web Vitals monitoring
+- `vercel.json` with security headers (X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy) and cache headers for static assets
+- `.vercelignore` to exclude non-essential files from deployments
+- `.nvmrc` to pin Node.js 20 for consistent builds across environments
+- Vercel environment variable placeholders in `.env.example` (VERCEL_URL, VERCEL_ENV)
+
+### Changed
+- Updated root layout with `<Analytics />` and `<SpeedInsights />` components
+- Added `display: "swap"` to Inter font config for better loading performance
+- Added `poweredByHeader: false` to `next.config.mjs` (security - removes X-Powered-By header)
+- Added `compress: true` to `next.config.mjs` for explicit gzip compression
 
 ---
 

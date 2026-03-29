@@ -176,6 +176,8 @@ No global state library needed. Keep it simple.
 - ISR for content pages (revalidate every hour)
 - Edge middleware for redirects and geo-detection
 - Plausible analytics (lightweight, no cookies)
+- Vercel Speed Insights for Core Web Vitals monitoring (LCP, CLS, INP)
+- Vercel Web Analytics for visitor and page view tracking
 
 ## Security
 
@@ -183,7 +185,8 @@ No global state library needed. Keep it simple.
 - Server-side validation for all API inputs
 - CSRF protection via Next.js
 - Rate limiting on API routes
-- Content Security Policy headers
+- Security headers via `vercel.json` (X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy)
+- `poweredByHeader: false` in Next.js config to suppress X-Powered-By
 - No sensitive data in client bundles
 
 ## Deployment
@@ -193,3 +196,7 @@ No global state library needed. Keep it simple.
 - **Production**: Auto-deploy on merge to `main`
 - **Environment variables**: Managed in Vercel dashboard
 - **Domain**: `istanbulnomads.com` (pending setup)
+- **Node version**: Pinned to 20 via `.nvmrc`
+- **Configuration**: `vercel.json` with security headers, cache rules, clean URLs
+- **Build exclusions**: `.vercelignore` excludes `.github/`, docs, and non-essential files
+- **Monitoring**: Vercel Analytics (visitors) + Speed Insights (Core Web Vitals)

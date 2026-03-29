@@ -15,6 +15,7 @@ A detailed, implementation-ready plan for building istanbulnomads.com from MVP t
 - [ ] Set up path aliases (`@/components`, `@/lib`, etc.)
 - [ ] Create `src/lib/constants.ts` with site config (name, description, URLs, social links, nav items)
 - [ ] Create `src/lib/utils.ts` with `cn()` helper (already done), `formatDate()`, `truncate()`
+- [x] Set up Vercel Analytics and Speed Insights in root layout
 - [ ] Set up Plausible analytics script in root layout
 - [ ] Configure `next-sitemap` for automatic sitemap.xml and robots.txt
 - [ ] Create favicon set and app icons in `/public`
@@ -95,11 +96,16 @@ A detailed, implementation-ready plan for building istanbulnomads.com from MVP t
 
 ### 1.10 CI/CD & Deployment
 
-- [ ] GitHub Actions workflow: lint → type-check → build on every PR
-- [ ] Vercel project setup with environment variables
+- [x] GitHub Actions workflow: lint -> type-check -> build on every PR
+- [x] Vercel project configuration (`vercel.json` with security headers, cache rules, clean URLs)
+- [x] Vercel Analytics and Speed Insights integration
+- [x] Node.js version pinned via `.nvmrc`
+- [x] `.vercelignore` for optimized deploy uploads
+- [x] Security hardening (`poweredByHeader: false`, security headers)
+- [ ] Vercel project setup with environment variables in dashboard
 - [ ] Preview deployments on PRs to `develop`
 - [ ] Production deploy on merge to `main`
-- [ ] Custom domain setup (istanbulnomads.com → Vercel)
+- [ ] Custom domain setup (istanbulnomads.com -> Vercel)
 
 ---
 

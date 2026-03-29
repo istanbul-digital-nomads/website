@@ -70,7 +70,8 @@ Istanbul Nomads is more than a landing page - it's a full community platform. He
 | Auth | Supabase Auth | Magic link + Google + GitHub OAuth |
 | Storage | Supabase Storage | Avatars, event images |
 | Hosting | Vercel | Preview deploys, edge network |
-| Analytics | Plausible | Privacy-friendly, lightweight |
+| Analytics | Plausible + Vercel Analytics | Privacy-friendly visitor tracking |
+| Performance | Vercel Speed Insights | Core Web Vitals monitoring |
 | Email | Resend | Transactional + newsletter |
 | Error Tracking | Sentry | Runtime error monitoring |
 | CI/CD | GitHub Actions | Lint, type check, build on every PR |
@@ -79,7 +80,7 @@ Istanbul Nomads is more than a landing page - it's a full community platform. He
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 20+ (pinned via `.nvmrc`)
 - pnpm (recommended) or npm
 - Supabase account (for database features)
 - Git
@@ -115,6 +116,8 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_PLAUSIBLE_DOMAIN=istanbulnomads.com
 RESEND_API_KEY=your_resend_api_key
 SENTRY_DSN=your_sentry_dsn
+VERCEL_URL=                    # Auto-populated on Vercel
+VERCEL_ENV=                    # Auto-populated on Vercel
 ```
 
 ## Project Structure
@@ -192,6 +195,9 @@ website/
 │       ├── ci.yml             # Lint + type check + build
 │       └── preview.yml        # Deploy preview on PR
 ├── .env.example
+├── .nvmrc                     # Node.js version pin
+├── .vercelignore              # Files excluded from Vercel deploys
+├── vercel.json                # Vercel config (headers, caching)
 ├── ARCHITECTURE.md
 ├── CHANGELOG.md
 ├── DESIGN.md

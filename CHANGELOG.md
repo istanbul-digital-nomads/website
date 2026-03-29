@@ -38,11 +38,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 - Root layout now includes ThemeProvider, Header, Footer, Analytics, and SpeedInsights
-- Homepage rebuilt with 7 full sections replacing the initial placeholder hero
-- Added `display: "swap"` to Inter font config for better loading performance
+- Switched typography from Inter to Manrope (sans) and IBM Plex Mono (mono) with CSS variable fonts (`--font-sans`, `--font-mono`)
+- Homepage fully redesigned with editorial layout - hero with animated grid/noise background, neighborhood visualization panel, inline stats, event cards, guide cards, testimonials, and CTA sections
+- Header restyled with rounded pill navigation, glowing logo dot, mono subtitle, and frosted glass background
+- Global CSS overhauled - warm parchment palette (`#f5efe4` light / `#07111d` dark), subtle radial gradient backgrounds, `.bg-grid`, `.bg-noise`, `.eyebrow`, `.surface-blur`, `.text-muted` utility classes, and float/pulse-line keyframe animations
 - Added `metadataBase` to root layout metadata for proper OG URL resolution
 - Added `poweredByHeader: false` and `compress: true` to `next.config.mjs`
 - Added `postbuild` script for sitemap generation
+- Pinned `packageManager` field in `package.json` for reproducible installs
 
 ---
 

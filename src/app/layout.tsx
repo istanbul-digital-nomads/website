@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { ThemeProvider } from "@/components/layout/theme-provider";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
 import "@/styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
@@ -22,6 +25,7 @@ export const metadata: Metadata = {
     "turkey",
     "expat",
   ],
+  metadataBase: new URL("https://istanbulnomads.com"),
   openGraph: {
     title: "Istanbul Digital Nomads",
     description:
@@ -51,7 +55,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        {children}
+        <ThemeProvider>
+          <Header />
+          <main className="min-h-[calc(100vh-4rem)]">{children}</main>
+          <Footer />
+        </ThemeProvider>
         <Analytics />
         <SpeedInsights />
       </body>

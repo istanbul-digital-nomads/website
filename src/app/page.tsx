@@ -4,6 +4,7 @@ import {
   CalendarDays,
   Clock3,
   Globe,
+  MessageCircle,
   MapPin,
   MoveUpRight,
   Sparkles,
@@ -17,24 +18,60 @@ import { socialLinks } from "@/lib/constants";
 
 const liveEvents = events.filter((event) => !event.isPast).slice(0, 3);
 const featuredGuides = guides.slice(0, 4);
+const heroTrustSignals = [
+  "Free to join",
+  "English-friendly meetups",
+  "Weekly coworking in the city",
+];
+const orientationSteps = [
+  {
+    label: "Arrive",
+    title: "Get your bearings fast",
+    description:
+      "Figure out the Asian side, the European side, ferry logic, and where people actually like to work.",
+  },
+  {
+    label: "Settle",
+    title: "Build a workable week",
+    description:
+      "Use the guides for housing, coworking, transit, internet, and the neighborhood tradeoffs that matter once you stay longer.",
+  },
+  {
+    label: "Belong",
+    title: "Meet people before the city feels huge",
+    description:
+      "Drop into coworking, rooftop meetups, and the Telegram channel to turn Istanbul into a social routine, not just a backdrop.",
+  },
+];
+const orientationLinks = [
+  { label: "Where should I stay?", href: "/guides/neighborhoods" },
+  { label: "Best areas for coworking", href: "/guides/coworking" },
+  { label: "What does a month cost?", href: "/guides/cost-of-living" },
+  { label: "How do I get online fast?", href: "/guides/internet" },
+];
+const eventMoments: Record<string, string> = {
+  "1": "Quiet work session with reliable wifi and plenty of regulars who welcome first-timers.",
+  "2": "The easiest event to meet people fast, especially if you just arrived and want social momentum.",
+  "3": "Bring real questions about freelancing, residency, and how to stay compliant while living here.",
+};
 const testimonials = [
   {
     quote:
       "I landed in Istanbul with two weeks booked. By the end of month one, I had a work rhythm, favorite ferry, and real friends.",
     name: "Sarah K.",
-    role: "Product designer from Berlin",
+    role: "First month in Kadikoy - Product designer from Berlin",
   },
   {
     quote:
       "Most communities feel transactional. This one feels local, generous, and surprisingly well tuned to how remote people actually live.",
     name: "Marco T.",
-    role: "Engineer from Lisbon",
+    role: "Three months in Cihangir - Engineer from Lisbon",
   },
   {
     quote:
       "The guides removed the friction, and the coworking days gave the city a pulse. Istanbul stopped feeling huge and started feeling legible.",
     name: "Aiko M.",
-    role: "Writer from Tokyo",
+    role: "Stayed for a year in Moda - Writer from Tokyo",
   },
 ];
 
@@ -68,18 +105,22 @@ export default function HomePage() {
 
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(420px,0.9fr)] lg:items-center">
             <div className="max-w-3xl">
-              <p className="eyebrow">Istanbul Nomads</p>
-              <h1 className="mt-5 max-w-4xl text-balance text-5xl font-semibold leading-[0.92] text-neutral-950 sm:text-6xl lg:text-[5.5rem] dark:text-neutral-50">
-                A warmer landing
+              <p className="eyebrow">Istanbul Digital Nomads</p>
+              <h1 className="mt-5 max-w-4xl text-balance text-[2.85rem] font-semibold leading-[0.96] text-neutral-950 sm:text-6xl lg:text-[5.15rem] dark:text-neutral-50">
+                Build a real remote
                 <br />
-                for people who work
+                life in Istanbul,
                 <br />
-                across cities.
+                faster.
               </h1>
-              <p className="text-muted mt-6 max-w-xl text-lg leading-8 sm:text-xl">
-                Meet people fast, find your work rhythm, and decode Istanbul
-                with a community built for remote lives, not tourists passing
-                through.
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-neutral-700 sm:text-xl dark:text-neutral-200">
+                A local community for digital nomads in Istanbul with weekly
+                coworking, meetups, practical city guides, and fast answers from
+                people already here.
+              </p>
+              <p className="text-muted mt-4 max-w-xl text-base leading-7 sm:text-lg">
+                Arrive, get oriented, find your work rhythm, and make the city
+                feel social before it feels overwhelming.
               </p>
 
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -102,81 +143,140 @@ export default function HomePage() {
                     size="lg"
                     className="w-full rounded-full border border-black/10 bg-white/60 px-7 text-neutral-950 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-neutral-50 dark:hover:bg-white/10 sm:w-auto"
                   >
-                    Explore city guides
+                    Start with the guides
                   </Button>
                 </Link>
               </div>
 
-              <div className="mt-12 grid gap-6 border-t border-black/10 pt-6 sm:grid-cols-3 dark:border-white/10">
-                <div>
-                  <p className="eyebrow">Why it feels different</p>
-                  <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                    Weekly coworking, social rituals, and practical guides
-                    designed for staying longer.
-                  </p>
-                </div>
-                <div>
-                  <p className="eyebrow">City intelligence</p>
-                  <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                    Neighborhood tradeoffs, transport logic, SIM cards, rent
-                    expectations, and where the wifi is actually good.
-                  </p>
-                </div>
-                <div>
-                  <p className="eyebrow">Human scale</p>
-                  <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                    Small enough to make friends quickly, active enough to keep
-                    your weeks full.
-                  </p>
-                </div>
+              <div className="mt-5 flex flex-wrap gap-3">
+                {heroTrustSignals.map((signal) => (
+                  <div
+                    key={signal}
+                    className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/55 px-3 py-2 text-sm text-neutral-700 dark:border-white/10 dark:bg-white/5 dark:text-neutral-200"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                    {signal}
+                  </div>
+                ))}
+              </div>
+
+              <p className="mt-5 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+                Join the Telegram, introduce yourself, and get pointed to this
+                week&apos;s meetup, a good place to work tomorrow, or the right
+                neighborhood to start from.
+              </p>
+
+              <div className="mt-12 grid gap-5 border-t border-black/10 pt-6 sm:grid-cols-3 dark:border-white/10">
+                {orientationSteps.map((step) => (
+                  <div key={step.label}>
+                    <p className="eyebrow">{step.label}</p>
+                    <p className="mt-2 text-base font-medium text-neutral-950 dark:text-neutral-50">
+                      {step.title}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+                      {step.description}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="relative min-h-[420px]">
-              <div className="surface-blur absolute inset-0 rounded-[2rem] border border-white/50 shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:border-white/10 dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]" />
+            <div className="relative min-h-[520px]">
+              <div className="surface-panel absolute inset-0 rounded-[2rem] shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]" />
               <div className="bg-grid absolute inset-6 rounded-[1.5rem] border border-black/5 dark:border-white/10" />
 
-              <div className="animate-pulse-line absolute left-[18%] top-[24%] h-px w-[56%] bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-              <div className="animate-pulse-line absolute left-[29%] top-[58%] h-px w-[40%] bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent [animation-delay:1.2s]" />
-              <div className="absolute left-[15%] top-[20%] h-24 w-24 rounded-full border border-cyan-500/40" />
-              <div className="absolute right-[12%] top-[16%] h-36 w-36 rounded-full border border-fuchsia-500/35" />
-              <div className="absolute bottom-[14%] left-[26%] h-44 w-44 rounded-full border border-emerald-500/30" />
+              <div className="animate-pulse-line absolute left-[18%] top-[20%] h-px w-[56%] bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
+              <div className="animate-pulse-line absolute left-[26%] top-[55%] h-px w-[46%] bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent [animation-delay:1.2s]" />
+              <div className="absolute left-[14%] top-[14%] h-24 w-24 rounded-full border border-cyan-500/40" />
+              <div className="absolute right-[10%] top-[14%] h-36 w-36 rounded-full border border-fuchsia-500/35" />
+              <div className="absolute bottom-[26%] left-[20%] h-44 w-44 rounded-full border border-emerald-500/30" />
 
-              <div className="absolute left-[16%] top-[18%] rounded-full bg-cyan-500 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-cyan-500/30">
+              <div className="absolute left-[13%] top-[13%] rounded-full bg-cyan-500 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-cyan-500/30">
                 Kadikoy
               </div>
-              <div className="absolute right-[10%] top-[22%] rounded-full bg-fuchsia-500 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-fuchsia-500/30">
+              <div className="absolute right-[8%] top-[19%] rounded-full bg-fuchsia-500 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-fuchsia-500/30">
                 Galata
               </div>
-              <div className="absolute bottom-[18%] left-[24%] rounded-full bg-emerald-500 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-emerald-500/30">
+              <div className="absolute bottom-[31%] left-[18%] rounded-full bg-emerald-500 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-emerald-500/30">
                 Moda
               </div>
-              <div className="absolute left-[44%] top-[42%] rounded-full border border-black/10 bg-white/70 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-700 shadow-sm dark:border-white/10 dark:bg-white/10 dark:text-neutral-200">
+              <div className="absolute left-[42%] top-[38%] rounded-full border border-black/10 bg-white/70 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-700 shadow-sm dark:border-white/10 dark:bg-white/10 dark:text-neutral-200">
                 Ferry line
               </div>
 
-              <div className="absolute bottom-10 left-8 right-8 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-3xl border border-black/10 bg-white/70 p-4 backdrop-blur-md dark:border-white/10 dark:bg-white/10">
+              <div className="absolute left-8 right-8 top-10 rounded-[1.75rem] border border-black/10 bg-white/70 p-5 backdrop-blur-md dark:border-white/10 dark:bg-white/10">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="eyebrow">New to Istanbul?</p>
+                    <h2 className="mt-2 text-2xl font-semibold text-neutral-950 dark:text-neutral-50">
+                      Start on the side of the city that fits your week.
+                    </h2>
+                  </div>
+                  <MapPin className="h-5 w-5 shrink-0 text-primary-600 dark:text-primary-400" />
+                </div>
+                <div className="mt-5 grid gap-3">
+                  <div className="surface-subtle flex items-start justify-between gap-4 rounded-[1.25rem] p-4">
+                    <div>
+                      <p className="font-medium text-neutral-950 dark:text-neutral-50">
+                        Kadikoy / Moda
+                      </p>
+                      <p className="mt-1 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+                        Easier routine, more neighborhood feel, strong cafe and
+                        coworking culture.
+                      </p>
+                    </div>
+                    <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">
+                      settle
+                    </span>
+                  </div>
+                  <div className="surface-subtle flex items-start justify-between gap-4 rounded-[1.25rem] p-4">
+                    <div>
+                      <p className="font-medium text-neutral-950 dark:text-neutral-50">
+                        Galata / Beyoglu
+                      </p>
+                      <p className="mt-1 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+                        Better if you want density, nightlife, and easier access
+                        to meetups on the European side.
+                      </p>
+                    </div>
+                    <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-fuchsia-600 dark:text-fuchsia-300">
+                      connect
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="absolute bottom-8 left-8 right-8 grid gap-3 sm:grid-cols-2">
+                <div className="surface-subtle rounded-3xl p-4">
                   <p className="eyebrow text-neutral-500 dark:text-neutral-400">
-                    City rhythm
+                    This week&apos;s rhythm
                   </p>
                   <p className="mt-3 text-2xl font-semibold text-neutral-950 dark:text-neutral-50">
-                    Work mornings.
+                    Wednesday coworking.
                     <br />
-                    Ferry sunsets.
+                    Saturday rooftop.
+                  </p>
+                  <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+                    Start with work, then meet people in a way that feels low
+                    pressure and easy to repeat.
                   </p>
                 </div>
                 <div className="rounded-3xl border border-black/10 bg-neutral-950 p-4 text-white dark:border-white/10 dark:bg-neutral-50 dark:text-neutral-950">
                   <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-white/65 dark:text-neutral-600">
-                    Live signal
+                    Start here
                   </p>
-                  <div className="mt-4 flex items-center justify-between text-sm">
-                    <span>Weekly coworking</span>
-                    <span>Wed 10:00</span>
+                  <div className="mt-4 flex items-start gap-3 text-sm">
+                    <MessageCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                    <span>
+                      Say hi in Telegram and ask where to work tomorrow.
+                    </span>
                   </div>
-                  <div className="mt-2 flex items-center justify-between text-sm text-white/70 dark:text-neutral-600">
-                    <span>Rooftop social</span>
-                    <span>Sat 18:00</span>
+                  <div className="mt-3 flex items-start gap-3 text-sm text-white/75 dark:text-neutral-600">
+                    <CalendarDays className="mt-0.5 h-4 w-4 shrink-0" />
+                    <span>
+                      Get pointed to the next meetup, coworking day, or
+                      neighborhood guide.
+                    </span>
                   </div>
                 </div>
               </div>
@@ -187,12 +287,20 @@ export default function HomePage() {
 
       <section className="border-b border-black/5 py-8 dark:border-white/10">
         <Container>
+          <p className="mb-5 max-w-2xl text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+            Built for people who want a city that becomes workable quickly, not
+            just another place to pass through.
+          </p>
           <div className="grid gap-6 md:grid-cols-4">
             {[
-              { value: "500+", label: "nomads in the loop", icon: Users },
-              { value: "80+", label: "gatherings hosted", icon: CalendarDays },
-              { value: "10", label: "deep city guides", icon: Globe },
-              { value: "15+", label: "neighborhood reads", icon: MapPin },
+              { value: "500+", label: "active members", icon: Users },
+              {
+                value: "Weekly",
+                label: "coworking rhythm",
+                icon: CalendarDays,
+              },
+              { value: "10", label: "local living guides", icon: Globe },
+              { value: "15+", label: "neighborhoods covered", icon: MapPin },
             ].map((item) => (
               <div
                 key={item.label}
@@ -245,6 +353,9 @@ export default function HomePage() {
                       <p className="mt-3 text-sm leading-7 text-neutral-600 dark:text-neutral-300">
                         {event.description}
                       </p>
+                      <p className="mt-4 text-sm font-medium leading-6 text-neutral-950 dark:text-neutral-100">
+                        {eventMoments[event.id]}
+                      </p>
                     </div>
 
                     <div className="min-w-[220px] border-t border-black/10 pt-4 md:border-l md:border-t-0 md:pl-6 md:pt-0 dark:border-white/10">
@@ -290,9 +401,25 @@ export default function HomePage() {
                 first week: where to live, how to move, how much things cost,
                 and which workspaces keep your day smooth.
               </p>
+              <p className="mt-5 max-w-md text-sm leading-7 text-neutral-600 dark:text-neutral-300">
+                Think of them as confidence builders for your first month, not a
+                static resource archive.
+              </p>
             </div>
 
             <div className="space-y-4">
+              <div className="flex flex-wrap gap-3">
+                {orientationLinks.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="rounded-full border border-black/10 bg-white/55 px-4 py-2 text-sm text-neutral-700 transition-colors hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-neutral-200 dark:hover:bg-white/10"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+
               {featuredGuides.map((guide, index) => (
                 <Link
                   key={guide.slug}
@@ -344,15 +471,78 @@ export default function HomePage() {
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
             <div className="rounded-[2rem] border border-black/10 bg-neutral-950 p-8 text-white dark:border-white/10 dark:bg-white dark:text-neutral-950">
               <p className="eyebrow text-white/60 dark:text-neutral-500">
+                New to Istanbul?
+              </p>
+              <h2 className="mt-4 max-w-md text-4xl font-semibold sm:text-5xl">
+                Start with the pieces that make the city easier to operate.
+              </h2>
+              <p className="mt-5 max-w-md text-base leading-8 text-white/72 dark:text-neutral-600">
+                If you just landed, begin with neighborhoods, internet, transit,
+                and this week&apos;s meetup. It is the fastest path from arrival
+                mode to a workable local routine.
+              </p>
+
+              <div className="mt-8 space-y-4">
+                {orientationLinks.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="flex items-center justify-between border-t border-white/10 pt-4 text-left transition-colors hover:text-primary-200 dark:border-neutral-300 dark:hover:text-primary-700"
+                  >
+                    <span className="text-base font-medium">{item.label}</span>
+                    <MoveUpRight className="h-4 w-4 shrink-0" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-3">
+              {testimonials.map((testimonial, index) => (
+                <blockquote
+                  key={testimonial.name}
+                  className="surface-panel flex h-full flex-col justify-between rounded-[2rem] p-6"
+                >
+                  <div>
+                    <p className="eyebrow">
+                      {index === 0
+                        ? "Arrival"
+                        : index === 1
+                          ? "Orientation"
+                          : "Attachment"}
+                    </p>
+                    <p className="mt-4 text-base leading-8 text-neutral-700 dark:text-neutral-200">
+                      &ldquo;{testimonial.quote}&rdquo;
+                    </p>
+                  </div>
+                  <footer className="mt-8 border-t border-black/10 pt-4 dark:border-white/10">
+                    <p className="font-semibold text-neutral-950 dark:text-neutral-50">
+                      {testimonial.name}
+                    </p>
+                    <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+                      {testimonial.role}
+                    </p>
+                  </footer>
+                </blockquote>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="py-20">
+        <Container>
+          <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
+            <div className="rounded-[2rem] border border-black/10 bg-neutral-950 p-8 text-white dark:border-white/10 dark:bg-white dark:text-neutral-950">
+              <p className="eyebrow text-white/60 dark:text-neutral-500">
                 Why people stay
               </p>
               <h2 className="mt-4 max-w-md text-4xl font-semibold sm:text-5xl">
                 Not another expat feed. A city operating system.
               </h2>
               <p className="mt-5 max-w-md text-base leading-8 text-white/72 dark:text-neutral-600">
-                The best part of the community is that it mixes warmth with
-                usefulness. You can ask where to find a quiet workspace at 11:00
-                and still end up at dinner with people that evening.
+                What changes after you join is simple: your workweeks get
+                steadier, the city gets easier to read, and familiar faces start
+                showing up in the places you already like to be.
               </p>
 
               <div className="mt-8 space-y-4">
@@ -392,25 +582,35 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-3">
-              {testimonials.map((testimonial) => (
-                <blockquote
-                  key={testimonial.name}
-                  className="surface-blur flex h-full flex-col justify-between rounded-[2rem] border border-black/10 p-6 dark:border-white/10"
-                >
-                  <p className="text-base leading-8 text-neutral-700 dark:text-neutral-200">
-                    &ldquo;{testimonial.quote}&rdquo;
-                  </p>
-                  <footer className="mt-8 border-t border-black/10 pt-4 dark:border-white/10">
-                    <p className="font-semibold text-neutral-950 dark:text-neutral-50">
-                      {testimonial.name}
-                    </p>
-                    <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
-                      {testimonial.role}
-                    </p>
-                  </footer>
-                </blockquote>
-              ))}
+            <div className="surface-panel flex flex-col justify-between rounded-[2rem] p-8">
+              <div>
+                <p className="eyebrow">Local knowledge, shared quickly</p>
+                <h3 className="mt-4 max-w-lg text-3xl font-semibold text-neutral-950 dark:text-neutral-50">
+                  Ask one question and skip hours of guesswork.
+                </h3>
+                <p className="mt-4 max-w-xl text-base leading-8 text-neutral-600 dark:text-neutral-300">
+                  Where should you base yourself for your first month? Which
+                  coworking spots have stable wifi? How do ferries change your
+                  commute? The community makes those answers social, current,
+                  and local.
+                </p>
+              </div>
+
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                {[
+                  "Neighborhood tradeoffs explained by people living here",
+                  "Weekly rituals that make meeting people feel easier",
+                  "Practical setup help for workdays, transit, and housing",
+                  "A softer landing if you are staying more than a few weeks",
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="surface-subtle rounded-[1.5rem] p-4 text-sm leading-7 text-neutral-700 dark:text-neutral-200"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </Container>
@@ -427,8 +627,13 @@ export default function HomePage() {
                   Join the channel and make Istanbul feel smaller by tonight.
                 </h2>
                 <p className="mt-5 max-w-xl text-lg leading-8 text-white/72">
-                  Drop into the Telegram, say hi, and get pointed toward the
-                  next good workday, neighborhood, or meetup.
+                  Drop into the Telegram, say hi, and get pointed toward this
+                  week&apos;s meetup, the best area to start from, or a good
+                  place to work tomorrow.
+                </p>
+                <p className="mt-4 max-w-xl text-sm leading-7 text-white/65">
+                  Free to join. No application. Best for people staying longer
+                  than a quick stopover.
                 </p>
               </div>
 

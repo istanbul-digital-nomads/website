@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Sun, Moon, Monitor } from "lucide-react";
+import { Menu, Sun, Moon, Monitor } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { navItems, siteConfig, socialLinks } from "@/lib/constants";
 import { Container } from "@/components/ui/container";
@@ -18,6 +18,20 @@ export function Header() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 12);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
   const cycleTheme = () => {
     const idx = themeOrder.indexOf(theme);
@@ -27,9 +41,20 @@ export function Header() {
   const ThemeIcon = themeIcons[theme];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-black/5 bg-[rgba(245,239,228,0.75)] backdrop-blur-xl dark:border-white/10 dark:bg-[rgba(7,17,29,0.72)]">
+    <header
+      className={cn(
+        "sticky top-0 z-50 border-b border-black/5 bg-[rgba(245,239,228,0.75)] backdrop-blur-xl transition-all dark:border-white/10 dark:bg-[rgba(7,17,29,0.72)]",
+        scrolled &&
+          "border-black/10 bg-[rgba(245,239,228,0.88)] shadow-[0_10px_30px_rgba(15,23,42,0.08)] dark:border-white/15 dark:bg-[rgba(7,17,29,0.88)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.25)]",
+      )}
+    >
       <Container>
-        <div className="flex h-16 items-center justify-between">
+        <div
+          className={cn(
+            "flex h-16 items-center justify-between transition-all",
+            scrolled && "h-14",
+          )}
+        >
           <Link href="/" className="flex items-center gap-3">
             <span className="h-2 w-2 rounded-full bg-primary-500 shadow-[0_0_20px_rgba(59,130,246,0.55)]" />
             <div>
@@ -37,7 +62,7 @@ export function Header() {
                 {siteConfig.shortName}
               </div>
               <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-neutral-500 dark:text-neutral-400">
-                Istanbul - remote city signal
+                Remote life, local rhythm
               </div>
             </div>
           </Link>

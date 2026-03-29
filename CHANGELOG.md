@@ -39,9 +39,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 - Root layout now includes ThemeProvider, Header, Footer, Analytics, and SpeedInsights
 - Switched typography from Inter to Manrope (sans) and IBM Plex Mono (mono) with CSS variable fonts (`--font-sans`, `--font-mono`)
-- Homepage fully redesigned with editorial layout - hero with animated grid/noise background, neighborhood visualization panel, inline stats, event cards, guide cards, testimonials, and CTA sections
-- Header restyled with rounded pill navigation, glowing logo dot, mono subtitle, and frosted glass background
-- Global CSS overhauled - warm parchment palette (`#f5efe4` light / `#07111d` dark), subtle radial gradient backgrounds, `.bg-grid`, `.bg-noise`, `.eyebrow`, `.surface-blur`, `.text-muted` utility classes, and float/pulse-line keyframe animations
+- Homepage fully redesigned with editorial layout - hero with trust signal pills, orientation steps (Arrive/Settle/Belong), neighborhood visualization panel, event moment descriptions, guide quick links, testimonials with location context, local knowledge panel, and refined CTA copy
+- Header restyled with rounded pill navigation, glowing logo dot, scroll-aware shrink and shadow, and updated subtitle ("Remote life, local rhythm")
+- Global CSS overhauled - warm parchment palette (`#f5efe4` light / `#07111d` dark), subtle radial gradient backgrounds, `.bg-grid`, `.bg-noise`, `.eyebrow`, `.surface-blur`, `.surface-panel`, `.surface-subtle`, `.text-muted` utility classes, float/pulse-line keyframe animations, and `prefers-reduced-motion` support
 - Added `metadataBase` to root layout metadata for proper OG URL resolution
 - Added `poweredByHeader: false` and `compress: true` to `next.config.mjs`
 - Added `postbuild` script for sitemap generation

@@ -96,6 +96,14 @@
     @apply bg-white/55 backdrop-blur-xl dark:bg-white/5;
   }
 
+  .surface-panel {
+    @apply border border-black/10 bg-white/60 backdrop-blur-xl dark:border-white/10 dark:bg-white/5;
+  }
+
+  .surface-subtle {
+    @apply border border-black/10 bg-white/50 dark:border-white/10 dark:bg-white/5;
+  }
+
   .text-muted {
     color: var(--muted);
   }
@@ -132,5 +140,17 @@
   50% {
     opacity: 1;
     transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-float,
+  .animate-float-slow,
+  .animate-pulse-line {
+    animation: none;
   }
 }

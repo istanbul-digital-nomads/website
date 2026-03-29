@@ -20,7 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
-## [0.1.0] — 2026-03-29
+## [0.1.0] - 2026-03-29
 
 ### Added
 - Initial Next.js 14 project with App Router and TypeScript (strict mode)

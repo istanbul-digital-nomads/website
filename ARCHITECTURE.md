@@ -6,8 +6,8 @@ This document describes the technical architecture and key design decisions for 
 
 The site is a full-stack Next.js application that serves two purposes:
 
-1. **Marketing site** — Public pages that showcase the community, resources, and events to attract new members
-2. **Community platform** — Authenticated features for members to interact, RSVP to events, and manage profiles
+1. **Marketing site** - Public pages that showcase the community, resources, and events to attract new members
+2. **Community platform** - Authenticated features for members to interact, RSVP to events, and manage profiles
 
 ## Tech Decisions
 
@@ -139,19 +139,19 @@ blog_posts
 
 We use a layered component architecture:
 
-**Base components** (`src/components/ui/`) — Unstyled, accessible primitives
+**Base components** (`src/components/ui/`) - Unstyled, accessible primitives
 - Button, Input, Card, Badge, Modal, Dropdown
 - Built on Headless UI for accessibility
 - Styled with Tailwind variants
 
-**Layout components** (`src/components/layout/`) — Structural elements
+**Layout components** (`src/components/layout/`) - Structural elements
 - Header (with responsive nav)
 - Footer
 - Sidebar
 - Container
 - Section wrapper
 
-**Section components** (`src/components/sections/`) — Page-level blocks
+**Section components** (`src/components/sections/`) - Page-level blocks
 - Hero section
 - Features grid
 - Event cards

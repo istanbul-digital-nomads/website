@@ -3,7 +3,7 @@
 ![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=nextdotjs&logoColor=white)
 ![License](https://img.shields.io/badge/License-Proprietary-red)
 
-# Istanbul Digital Nomads — Website
+# Istanbul Digital Nomads - Website
 
 The official website and community platform for Istanbul's digital nomad community. A full-stack web application built with **Next.js 14**, **Tailwind CSS**, **TypeScript**, and **Supabase**.
 
@@ -11,11 +11,11 @@ The official website and community platform for Istanbul's digital nomad communi
 
 ## Live Site
 
-🌐 **[istanbulnomads.com](https://istanbulnomads.com)** — launching soon
+🌐 **[istanbulnomads.com](https://istanbulnomads.com)** - launching soon
 
 ## What We're Building
 
-Istanbul Nomads is more than a landing page — it's a full community platform. Here's every service the domain will cover:
+Istanbul Nomads is more than a landing page - it's a full community platform. Here's every service the domain will cover:
 
 ### Core Services
 
@@ -32,7 +32,7 @@ Istanbul Nomads is more than a landing page — it's a full community platform. 
 
 | Service | Description | Route |
 |---------|-------------|-------|
-| **Dashboard** | Personal hub — upcoming RSVPs, activity feed, quick actions | `/dashboard` |
+| **Dashboard** | Personal hub - upcoming RSVPs, activity feed, quick actions | `/dashboard` |
 | **Member Directory** | Searchable, filterable list of community members (opt-in) | `/members` |
 | **Profiles** | Member profiles with bio, skills, neighborhood, links | `/members/[username]` |
 | **Event Management** | Create, edit, and manage community events | `/events/create`, `/events/[id]/manage` |
@@ -221,8 +221,8 @@ website/
 
 | Branch | Purpose |
 |--------|---------|
-| `main` | Production — auto-deploys to istanbulnomads.com |
-| `develop` | Integration branch — all feature PRs merge here first |
+| `main` | Production - auto-deploys to istanbulnomads.com |
+| `develop` | Integration branch - all feature PRs merge here first |
 | `feature/*` | Individual features (e.g., `feature/event-rsvp`) |
 | `fix/*` | Bug fixes (e.g., `fix/mobile-nav`) |
 
@@ -242,7 +242,7 @@ This is a private repo for core contributors. To get involved:
 
 1. Join the [community Telegram](https://t.me/istanbul_digital_nomads)
 2. Check the [community repo](https://github.com/istanbul-digital-nomads/community) for contributing guidelines
-3. Express interest in the Telegram group — we'll invite you as a collaborator
+3. Express interest in the Telegram group - we'll invite you as a collaborator
 
 ## Related Repos
 

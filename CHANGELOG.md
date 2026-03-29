@@ -47,6 +47,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Added `postbuild` script for sitemap generation
 - Pinned `packageManager` field in `package.json` for reproducible installs
 
+### Fixed
+- CI lint failure caused by missing `.eslintrc.json` - added Next.js strict config
+- CI pnpm version conflict - removed hardcoded `version: 9` from GitHub Actions workflow so it reads from `packageManager` field in `package.json` automatically
+
 ---
 
 ## [0.1.0] - 2026-03-29

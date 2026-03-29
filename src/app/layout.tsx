@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title: "Istanbul Digital Nomads",
     description:
       "A community for remote workers, freelancers, and digital nomads in Istanbul.",
-    url: "https://istanbuldigitalnomads.com",
+    url: "https://istanbulnomads.com",
     siteName: "Istanbul Digital Nomads",
     locale: "en_US",
     type: "website",

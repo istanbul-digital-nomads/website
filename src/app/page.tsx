@@ -54,32 +54,40 @@ const heroSides = [
 const heroMapPoints = [
   {
     name: "Galata",
-    x: 61,
-    y: 24,
+    x: 38,
+    y: 28,
     align: "left" as const,
     toneClass: "bg-accent-warm text-neutral-950 shadow-accent-warm/30",
   },
   {
     name: "Besiktas",
-    x: 54,
-    y: 44,
+    x: 32,
+    y: 48,
     align: "right" as const,
     toneClass:
       "bg-white text-neutral-950 shadow-black/10 dark:bg-white/15 dark:text-neutral-50",
   },
   {
     name: "Kadikoy",
-    x: 42,
-    y: 66,
+    x: 67,
+    y: 64,
     align: "right" as const,
     toneClass: "bg-primary-500 text-white shadow-primary-500/30",
   },
   {
     name: "Moda",
-    x: 50,
-    y: 77,
+    x: 73,
+    y: 76,
     align: "left" as const,
     toneClass: "bg-accent-green text-white shadow-accent-green/30",
+  },
+  {
+    name: "Uskudar",
+    x: 61,
+    y: 50,
+    align: "left" as const,
+    toneClass:
+      "bg-white text-neutral-950 shadow-black/10 dark:bg-white/15 dark:text-neutral-50",
   },
 ];
 const eventMoments: Record<string, string> = {
@@ -209,36 +217,57 @@ export default function HomePage() {
               delay={1}
               className="relative min-h-[500px] sm:min-h-[580px] lg:min-h-[560px]"
             >
-              <div className="surface-panel absolute inset-0 overflow-hidden rounded-[2.3rem] shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(227,75,50,0.18),transparent_24%),radial-gradient(circle_at_85%_70%,rgba(212,154,69,0.22),transparent_26%),linear-gradient(135deg,rgba(255,255,255,0.4),rgba(255,255,255,0.08))] dark:bg-[radial-gradient(circle_at_18%_18%,rgba(227,75,50,0.22),transparent_22%),radial-gradient(circle_at_85%_70%,rgba(212,154,69,0.16),transparent_24%),linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))]" />
-              <div className="bg-grid absolute inset-5 rounded-[1.8rem] border border-black/5 opacity-70 dark:border-white/10 dark:opacity-100" />
+              <div className="absolute inset-0 overflow-hidden rounded-[2.3rem] border border-primary-200/60 bg-[linear-gradient(180deg,rgba(229,240,245,0.82),rgba(210,225,233,0.62))] shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:border-primary-900/40 dark:bg-[linear-gradient(180deg,rgba(11,27,39,0.92),rgba(9,20,30,0.9))] dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]" />
+              <div className="bg-grid absolute inset-5 rounded-[1.8rem] border border-black/5 opacity-40 dark:border-white/10 dark:opacity-50" />
 
               <div className="absolute inset-5 overflow-hidden rounded-[1.8rem]">
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_72%,rgba(255,255,255,0.55),transparent_25%),radial-gradient(circle_at_82%_24%,rgba(255,255,255,0.38),transparent_22%)] dark:bg-[radial-gradient(circle_at_18%_72%,rgba(255,255,255,0.08),transparent_25%),radial-gradient(circle_at_82%_24%,rgba(255,255,255,0.05),transparent_22%)]" />
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(255,255,255,0.52),transparent_22%),radial-gradient(circle_at_74%_84%,rgba(255,255,255,0.26),transparent_18%)] dark:bg-[radial-gradient(circle_at_20%_15%,rgba(255,255,255,0.06),transparent_22%),radial-gradient(circle_at_74%_84%,rgba(255,255,255,0.04),transparent_18%)]" />
                 <svg
                   viewBox="0 0 100 100"
-                  className="absolute inset-0 h-full w-full opacity-[0.9]"
+                  className="absolute inset-0 h-full w-full"
                   aria-hidden="true"
                 >
                   <path
-                    d="M28 6C20 16 17 25 18 37c1 11 6 18 14 25 9 7 14 13 14 23v9h8v-8c0-12 5-18 14-25 9-7 14-15 15-27 1-10-2-20-10-28"
-                    className="fill-[rgba(255,255,255,0.18)] stroke-black/10 dark:fill-[rgba(255,255,255,0.04)] dark:stroke-white/10"
+                    d="M0 0h100v100H0z"
+                    className="fill-[rgba(178,207,220,0.62)] dark:fill-[rgba(20,44,58,0.78)]"
+                  />
+                  <path
+                    d="M0 8C8 8 15 10 22 13c5 2 10 7 13 12 3 6 4 11 9 18 4 5 7 10 7 17 0 6-4 12-8 18-5 8-6 15-5 24H0z"
+                    className="fill-[rgba(250,246,240,0.92)] stroke-[rgba(17,24,39,0.12)] dark:fill-[rgba(250,246,240,0.06)] dark:stroke-[rgba(255,255,255,0.12)]"
                     strokeWidth="0.6"
                   />
                   <path
-                    d="M46 7c-6 10-8 18-8 27 0 12 4 19 10 28 5 7 8 13 8 23M54 10c3 7 4 13 4 21 0 9-3 17-8 24"
-                    className="stroke-primary-500/65 dark:stroke-primary-400/60"
-                    strokeWidth="1.4"
+                    d="M69 12c8-1 18 1 31 5v83H60c-2-9 0-17 4-23 4-6 7-10 7-16 0-8-5-14-9-20-5-7-7-13-7-22 0-8 4-13 14-7"
+                    className="fill-[rgba(250,246,240,0.92)] stroke-[rgba(17,24,39,0.12)] dark:fill-[rgba(250,246,240,0.06)] dark:stroke-[rgba(255,255,255,0.12)]"
+                    strokeWidth="0.6"
+                  />
+                  <path
+                    d="M53 5c3 8 2 15 0 22-2 8-3 16-1 25 2 7 5 12 9 17 5 7 7 12 4 19"
+                    className="stroke-[rgba(85,123,141,0.7)] dark:stroke-[rgba(120,170,193,0.62)]"
+                    strokeWidth="3.2"
                     strokeLinecap="round"
-                    strokeDasharray="2 4"
                     fill="none"
                   />
                   <path
-                    d="M44 66C51 62 57 56 63 48c6-8 11-14 19-17"
-                    className="animate-map-route stroke-accent-warm/75 dark:stroke-accent-warm/70"
-                    strokeWidth="1.2"
+                    d="M45 27c6 0 12 0 18-2"
+                    className="stroke-[rgba(85,123,141,0.55)] dark:stroke-[rgba(120,170,193,0.5)]"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    fill="none"
+                  />
+                  <path
+                    d="M44 66C50 62 55 57 60 49c5-8 10-14 18-16"
+                    className="animate-map-route stroke-primary-500/80 dark:stroke-primary-400/75"
+                    strokeWidth="1.4"
                     strokeLinecap="round"
                     strokeDasharray="2 3"
+                    fill="none"
+                  />
+                  <path
+                    d="M36 31c4 0 7 2 9 5M63 59c3 2 6 4 8 7"
+                    className="stroke-accent-warm/70 dark:stroke-accent-warm/65"
+                    strokeWidth="1.1"
+                    strokeLinecap="round"
                     fill="none"
                   />
                 </svg>
@@ -271,8 +300,12 @@ export default function HomePage() {
                     <div>
                       <p className="eyebrow">Nomad Map - Istanbul</p>
                       <h2 className="mt-4 max-w-[11ch] text-[1.75rem] font-semibold leading-[1.02] text-neutral-950 dark:text-neutral-50 sm:text-[2.2rem]">
-                        Read the city faster with a real Bosphorus-first map.
+                        Read the city faster with a real Bosphorus map.
                       </h2>
+                      <p className="mt-3 max-w-sm text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+                        European side on the left, Asian side on the right, and
+                        ferry routes shaping how your week actually moves.
+                      </p>
                     </div>
                     <div className="hidden rounded-full border border-black/10 bg-white/70 p-3 shadow-sm dark:border-white/10 dark:bg-white/10 sm:block">
                       <MapPin className="h-5 w-5 text-primary-600 dark:text-primary-400" />
@@ -283,7 +316,7 @@ export default function HomePage() {
                     {heroSides.map((side, index) => (
                       <div
                         key={side.name}
-                        className="surface-subtle rounded-[1.7rem] p-5 backdrop-blur-md"
+                        className="rounded-[1.7rem] border border-black/10 bg-white/78 p-5 backdrop-blur-md dark:border-white/10 dark:bg-white/8"
                       >
                         <div className="flex items-center justify-between gap-4">
                           <p className="text-lg font-medium text-neutral-950 dark:text-neutral-50">
@@ -308,7 +341,7 @@ export default function HomePage() {
                 </div>
 
                 <div className="mt-6 grid gap-3 sm:grid-cols-[1.08fr_0.92fr]">
-                  <div className="rounded-[1.8rem] border border-black/10 bg-white/72 p-5 backdrop-blur-md dark:border-white/10 dark:bg-white/10">
+                  <div className="rounded-[1.8rem] border border-black/10 bg-white/82 p-5 backdrop-blur-md dark:border-white/10 dark:bg-white/10">
                     <p className="eyebrow text-neutral-500 dark:text-neutral-400">
                       Bosphorus rhythm
                     </p>

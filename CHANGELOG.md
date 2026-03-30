@@ -52,6 +52,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Hero art direction simplified to remove stacked widget clutter in favor of one editorial visual plane with side cards, Bosphorus rhythm framing, and clearer trust messaging
 - Hero comparison panel restructured into a stable top-and-bottom internal layout after live preview review, preventing overlapping cards and copy collisions across desktop breakpoints
 - Homepage hero visual shifted from an abstract comparison board to a real Istanbul-inspired map composition with animated routes and labeled districts
+- Homepage hero map refined again into a more literal Bosphorus composition with visible shoreline masses, stronger district placement, and clearer European-versus-Asian side reading
 - Homepage stats, testimonials, and local-knowledge blocks now use more deliberate stagger and hover polish for smoother page rhythm
 - Homepage fully redesigned with editorial layout - hero with trust signal pills, orientation steps (Arrive/Settle/Belong), neighborhood visualization panel, event moment descriptions, guide quick links, testimonials with location context, local knowledge panel, and refined CTA copy
 - Header restyled with rounded pill navigation, glowing logo dot, scroll-aware shrink and shadow, updated subtitle ("Remote life, local rhythm"), and smoother `transition-[background-color,border-color,box-shadow]` with `duration-300`

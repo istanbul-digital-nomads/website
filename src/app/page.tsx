@@ -251,7 +251,7 @@ export default function HomePage() {
               <div className="bg-grid absolute inset-5 rounded-[1.8rem] border border-black/5 opacity-40 dark:border-white/10 dark:opacity-50" />
 
               <div className="absolute inset-0 bottom-[34%] overflow-hidden rounded-t-[2.3rem]">
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.45),transparent_22%),radial-gradient(circle_at_78%_84%,rgba(255,255,255,0.26),transparent_18%)] dark:bg-[radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.08),transparent_22%),radial-gradient(circle_at_78%_84%,rgba(255,255,255,0.05),transparent_18%)]" />
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.4),transparent_22%),radial-gradient(circle_at_78%_84%,rgba(255,255,255,0.2),transparent_18%)] dark:bg-[radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.06),transparent_22%),radial-gradient(circle_at_78%_84%,rgba(255,255,255,0.04),transparent_18%)]" />
                 <svg
                   viewBox="0 0 100 100"
                   className="h-full w-full"
@@ -263,14 +263,14 @@ export default function HomePage() {
                     className="fill-[rgba(178,207,220,0.62)] dark:fill-[rgba(20,44,58,0.78)]"
                   />
                   <path
-                    d="M0 6c12 0 20 2 27 6 8 5 12 10 15 18 3 8 7 13 12 19 4 6 6 11 5 18-1 8-6 14-11 20-4 6-6 12-6 23H0z"
-                    className="fill-amber-50/95 stroke-amber-900/10 dark:fill-amber-950/20 dark:stroke-amber-100/10"
-                    strokeWidth="0.5"
+                    d="M0 8c10 0 20 2 27 6 9 6 14 13 17 21 3 8 6 13 10 19 4 6 6 12 5 19-1 7-5 12-10 18-5 7-7 14-6 27H0z"
+                    className="fill-amber-50/95 stroke-amber-900/10 dark:fill-amber-950/18 dark:stroke-amber-100/10"
+                    strokeWidth="0.4"
                   />
                   <path
-                    d="M73 8c10-2 18 1 27 6v86H54c-1-10 1-18 5-24 5-7 9-12 10-19 1-7-2-13-6-19-5-8-8-14-8-23 0-10 5-15 18-7"
-                    className="fill-sky-50/95 stroke-sky-900/10 dark:fill-sky-950/20 dark:stroke-sky-100/10"
-                    strokeWidth="0.5"
+                    d="M72 10c11-2 19 1 28 6v84H56c-1-9 1-16 5-23 5-8 9-13 10-20 1-8-3-14-8-22-5-8-8-15-8-24 0-8 5-15 17-11Z"
+                    className="fill-sky-50/95 stroke-sky-900/10 dark:fill-sky-950/18 dark:stroke-sky-100/10"
+                    strokeWidth="0.4"
                   />
                   <path
                     d="M50 2c4 9 4 17 2 25-2 9-3 17-2 26 1 8 4 15 9 22 5 8 6 14 4 23"
@@ -293,39 +293,19 @@ export default function HomePage() {
                     strokeLinecap="round"
                     fill="none"
                   />
-                  <ellipse
-                    rx="2"
-                    ry="1"
-                    fill="white"
-                    stroke="rgba(85,123,141,0.8)"
-                    strokeWidth="0.4"
-                  >
-                    <animateMotion
-                      dur="8s"
-                      repeatCount="indefinite"
-                      path="M50 22c2 9 2 17 0 26 1 8 3 15 8 22"
-                    />
-                  </ellipse>
                   <path
-                    d="M42 26c7 1 14 0 22-3M43 44c7 1 14 0 20-3M46 63c5 1 10 0 15-2"
-                    className="stroke-[rgba(85,123,141,0.55)] dark:stroke-[rgba(120,170,193,0.5)]"
-                    strokeWidth="1.8"
+                    d="M50 2c4 9 4 17 2 25-2 9-3 17-2 26 1 8 4 15 9 22 5 8 6 14 4 23"
+                    className="stroke-[rgba(85,123,141,0.62)] dark:stroke-[rgba(120,170,193,0.62)]"
+                    strokeWidth="4"
                     strokeLinecap="round"
                     fill="none"
                   />
                   <path
                     d="M63 62C58 56 54 50 50 44c-3-4-6-7-10-9"
                     className="animate-map-route stroke-primary-500/80 dark:stroke-primary-400/75"
-                    strokeWidth="1.4"
+                    strokeWidth="1.2"
                     strokeLinecap="round"
                     strokeDasharray="2 3"
-                    fill="none"
-                  />
-                  <path
-                    d="M62 34c6 0 11 1 16 4M59 74c6 1 12 3 16 7M22 50c5-1 10 0 14 3"
-                    className="stroke-accent-warm/70 dark:stroke-accent-warm/65"
-                    strokeWidth="1.1"
-                    strokeLinecap="round"
                     fill="none"
                   />
                 </svg>

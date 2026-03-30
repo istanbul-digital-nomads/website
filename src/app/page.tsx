@@ -42,13 +42,13 @@ const heroSides = [
     name: "Kadikoy / Moda",
     tone: "Calmer",
     description:
-      "Most newcomers start here for steadier routines, walkable cafes, and easier workday momentum.",
+      "Best if you want steadier routines, walkable cafes, and easier workday momentum.",
   },
   {
-    name: "Galata / Beyoglu / Besiktas",
+    name: "Galata / Besiktas",
     tone: "Livelier",
     description:
-      "Better if you want denser social energy, faster nights out, and easier access across the European side.",
+      "Best if you want denser social energy, later nights, and faster access to meetups.",
   },
 ];
 const heroMapPoints = [
@@ -144,10 +144,10 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(560px,1fr)] lg:items-center lg:gap-12">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(560px,1fr)] lg:items-center lg:gap-12">
             <Reveal delay={0} className="max-w-[30rem] pt-2 lg:pt-0">
               <p className="eyebrow">Istanbul Digital Nomads</p>
-              <h1 className="mt-5 max-w-[8.4ch] text-balance text-[3rem] font-semibold leading-[0.9] text-neutral-950 sm:text-[4rem] lg:text-[4.35rem] dark:text-neutral-50">
+              <h1 className="mt-5 max-w-[8.7ch] text-balance text-[3rem] font-semibold leading-[0.92] text-neutral-950 sm:text-[3.7rem] lg:text-[4rem] dark:text-neutral-50">
                 Build your
                 <br />
                 Istanbul base,
@@ -216,12 +216,12 @@ export default function HomePage() {
 
             <Reveal
               delay={1}
-              className="relative min-h-[500px] sm:min-h-[580px] lg:min-h-[560px]"
+              className="relative min-h-[520px] sm:min-h-[600px] lg:min-h-[580px]"
             >
               <div className="absolute inset-0 overflow-hidden rounded-[2.3rem] border border-primary-200/60 bg-[linear-gradient(180deg,rgba(229,240,245,0.82),rgba(210,225,233,0.62))] shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:border-primary-900/40 dark:bg-[linear-gradient(180deg,rgba(11,27,39,0.92),rgba(9,20,30,0.9))] dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]" />
               <div className="bg-grid absolute inset-5 rounded-[1.8rem] border border-black/5 opacity-40 dark:border-white/10 dark:opacity-50" />
 
-              <div className="absolute inset-5 overflow-hidden rounded-[1.8rem]">
+              <div className="absolute inset-[1.25rem] overflow-hidden rounded-[1.8rem]">
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(255,255,255,0.52),transparent_22%),radial-gradient(circle_at_74%_84%,rgba(255,255,255,0.26),transparent_18%)] dark:bg-[radial-gradient(circle_at_20%_15%,rgba(255,255,255,0.06),transparent_22%),radial-gradient(circle_at_74%_84%,rgba(255,255,255,0.04),transparent_18%)]" />
                 <svg
                   viewBox="0 0 100 100"
@@ -233,31 +233,31 @@ export default function HomePage() {
                     className="fill-[rgba(178,207,220,0.62)] dark:fill-[rgba(20,44,58,0.78)]"
                   />
                   <path
-                    d="M0 8C8 8 15 10 22 13c5 2 10 7 13 12 3 6 4 11 9 18 4 5 7 10 7 17 0 6-4 12-8 18-5 8-6 15-5 24H0z"
+                    d="M0 6c12 0 20 2 27 6 8 5 12 10 15 18 3 8 7 13 12 19 4 6 6 11 5 18-1 8-6 14-11 20-4 6-6 12-6 23H0z"
                     className="fill-[rgba(250,246,240,0.92)] stroke-[rgba(17,24,39,0.12)] dark:fill-[rgba(250,246,240,0.06)] dark:stroke-[rgba(255,255,255,0.12)]"
                     strokeWidth="0.6"
                   />
                   <path
-                    d="M69 12c8-1 18 1 31 5v83H60c-2-9 0-17 4-23 4-6 7-10 7-16 0-8-5-14-9-20-5-7-7-13-7-22 0-8 4-13 14-7"
+                    d="M73 8c10-2 18 1 27 6v86H54c-1-10 1-18 5-24 5-7 9-12 10-19 1-7-2-13-6-19-5-8-8-14-8-23 0-10 5-15 18-7"
                     className="fill-[rgba(250,246,240,0.92)] stroke-[rgba(17,24,39,0.12)] dark:fill-[rgba(250,246,240,0.06)] dark:stroke-[rgba(255,255,255,0.12)]"
                     strokeWidth="0.6"
                   />
                   <path
-                    d="M53 5c3 8 2 15 0 22-2 8-3 16-1 25 2 7 5 12 9 17 5 7 7 12 4 19"
+                    d="M50 2c4 9 4 17 2 25-2 9-3 17-2 26 1 8 4 15 9 22 5 8 6 14 4 23"
                     className="stroke-[rgba(85,123,141,0.7)] dark:stroke-[rgba(120,170,193,0.62)]"
-                    strokeWidth="3.2"
+                    strokeWidth="4.2"
                     strokeLinecap="round"
                     fill="none"
                   />
                   <path
-                    d="M45 27c6 0 12 0 18-2"
+                    d="M42 26c7 1 14 0 22-3M43 44c7 1 14 0 20-3M46 63c5 1 10 0 15-2"
                     className="stroke-[rgba(85,123,141,0.55)] dark:stroke-[rgba(120,170,193,0.5)]"
-                    strokeWidth="2.2"
+                    strokeWidth="1.8"
                     strokeLinecap="round"
                     fill="none"
                   />
                   <path
-                    d="M44 66C50 62 55 57 60 49c5-8 10-14 18-16"
+                    d="M63 62C58 56 54 50 50 44c-3-4-6-7-10-9"
                     className="animate-map-route stroke-primary-500/80 dark:stroke-primary-400/75"
                     strokeWidth="1.4"
                     strokeLinecap="round"
@@ -265,7 +265,7 @@ export default function HomePage() {
                     fill="none"
                   />
                   <path
-                    d="M36 31c4 0 7 2 9 5M63 59c3 2 6 4 8 7"
+                    d="M62 34c6 0 11 1 16 4M59 74c6 1 12 3 16 7M22 50c5-1 10 0 14 3"
                     className="stroke-accent-warm/70 dark:stroke-accent-warm/65"
                     strokeWidth="1.1"
                     strokeLinecap="round"
@@ -296,11 +296,11 @@ export default function HomePage() {
               ))}
 
               <div className="absolute inset-5 flex flex-col justify-between rounded-[1.8rem] px-5 py-6 sm:px-7 sm:py-7">
-                <div>
+                <div className="max-w-[20rem]">
                   <div className="flex items-start justify-between gap-5">
                     <div>
                       <p className="eyebrow">First-Month Map - Istanbul</p>
-                      <h2 className="mt-4 max-w-[11ch] text-[1.75rem] font-semibold leading-[1.02] text-neutral-950 dark:text-neutral-50 sm:text-[2.2rem]">
+                      <h2 className="mt-4 max-w-[10ch] text-[1.75rem] font-semibold leading-[1.02] text-neutral-950 dark:text-neutral-50 sm:text-[2rem]">
                         Read Istanbul the way locals do: by side, ferry, and
                         daily rhythm.
                       </h2>
@@ -314,15 +314,17 @@ export default function HomePage() {
                       <MapPin className="h-5 w-5 text-primary-600 dark:text-primary-400" />
                     </div>
                   </div>
+                </div>
 
-                  <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                <div className="mt-6 flex justify-end">
+                  <div className="w-full max-w-[22rem] space-y-3">
                     {heroSides.map((side, index) => (
                       <div
                         key={side.name}
-                        className="rounded-[1.7rem] border border-black/10 bg-white/78 p-5 backdrop-blur-md dark:border-white/10 dark:bg-white/8"
+                        className="rounded-[1.5rem] border border-black/10 bg-white/82 p-4 backdrop-blur-md dark:border-white/10 dark:bg-[rgba(10,20,29,0.72)]"
                       >
                         <div className="flex items-center justify-between gap-4">
-                          <p className="text-lg font-medium text-neutral-950 dark:text-neutral-50">
+                          <p className="text-base font-medium text-neutral-950 dark:text-neutral-50">
                             {side.name}
                           </p>
                           <span
@@ -335,47 +337,31 @@ export default function HomePage() {
                             {side.tone}
                           </span>
                         </div>
-                        <p className="mt-3 max-w-sm text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+                        <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
                           {side.description}
                         </p>
                       </div>
                     ))}
-                  </div>
-                </div>
 
-                <div className="mt-6 grid gap-3 sm:grid-cols-[1.08fr_0.92fr]">
-                  <div className="rounded-[1.8rem] border border-black/10 bg-white/82 p-5 backdrop-blur-md dark:border-white/10 dark:bg-white/10">
-                    <p className="eyebrow text-neutral-500 dark:text-neutral-400">
-                      Local logic
-                    </p>
-                    <p className="mt-3 text-[1.55rem] font-semibold leading-[1.04] text-neutral-950 dark:text-neutral-50 sm:text-[1.85rem]">
-                      Work on one side.
-                      <br />
-                      Meet on the other.
-                    </p>
-                    <p className="mt-3 max-w-md text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                      Ferries make the city legible: calmer mornings in Kadikoy,
-                      denser evenings around Galata, and easy resets in Uskudar
-                      between them.
-                    </p>
-                  </div>
-                  <div className="animate-drift-delayed rounded-[1.8rem] border border-black/10 bg-neutral-950 p-5 text-white dark:border-white/10 dark:bg-neutral-50 dark:text-neutral-950">
-                    <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-white/65 dark:text-neutral-600">
-                      Fresh signal
-                    </p>
-                    <div className="mt-4 flex items-start gap-3 text-sm leading-6">
-                      <MessageCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                      <span>
-                        Ask where to work tomorrow and get a local answer fast.
-                      </span>
-                    </div>
-                    <div className="mt-3 flex items-start gap-3 text-sm leading-6 text-white/75 dark:text-neutral-600">
-                      <CalendarDays className="mt-0.5 h-4 w-4 shrink-0" />
-                      <span>
-                        {nextEvent
-                          ? `Next meetup ${formatEventDate(nextEvent.date)} in ${nextEvent.location}.`
-                          : "Get pointed to the next meetup, coworking day, or neighborhood guide."}
-                      </span>
+                    <div className="animate-drift-delayed rounded-[1.6rem] border border-black/10 bg-neutral-950 p-4 text-white dark:border-white/10 dark:bg-neutral-50 dark:text-neutral-950">
+                      <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-white/65 dark:text-neutral-600">
+                        Local logic
+                      </p>
+                      <div className="mt-3 flex items-start gap-3 text-sm leading-6">
+                        <MessageCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                        <span>
+                          Ferries make the city legible: work from Kadikoy, meet
+                          people around Galata, reset through Uskudar.
+                        </span>
+                      </div>
+                      <div className="mt-3 flex items-start gap-3 text-sm leading-6 text-white/75 dark:text-neutral-600">
+                        <CalendarDays className="mt-0.5 h-4 w-4 shrink-0" />
+                        <span>
+                          {nextEvent
+                            ? `Next meetup ${formatEventDate(nextEvent.date)} in ${nextEvent.location}.`
+                            : "Get pointed to the next meetup, coworking day, or neighborhood guide."}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>

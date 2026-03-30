@@ -37,6 +37,20 @@ const orientationLinks = [
   { label: "What does a month cost?", href: "/guides/cost-of-living" },
   { label: "How do I get online fast?", href: "/guides/internet" },
 ];
+const heroSides = [
+  {
+    name: "Kadikoy / Moda",
+    tone: "Calmer",
+    description:
+      "Better for steady routines, ferry access, strong cafe culture, and neighborhood feel.",
+  },
+  {
+    name: "Galata / Beyoglu",
+    tone: "Livelier",
+    description:
+      "Better for social density, quicker nights out, and easy access across the European side.",
+  },
+];
 const eventMoments: Record<string, string> = {
   "1": "Quiet work session with reliable wifi and plenty of regulars who welcome first-timers.",
   "2": "The easiest event to meet people fast, especially if you just arrived and want social momentum.",
@@ -91,24 +105,23 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,0.98fr)_minmax(440px,0.92fr)] lg:items-center lg:gap-10">
-            <Reveal delay={0} className="max-w-[38rem] pt-2 lg:pt-0">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.78fr)_minmax(560px,1fr)] lg:items-center lg:gap-12">
+            <Reveal delay={0} className="max-w-[32rem] pt-2 lg:pt-0">
               <p className="eyebrow">Istanbul Digital Nomads</p>
-              <h1 className="mt-5 max-w-[9.6ch] text-balance text-[2.7rem] font-semibold leading-[0.92] text-neutral-950 sm:text-[4rem] lg:text-[4.35rem] dark:text-neutral-50">
-                Build a real digital
+              <h1 className="mt-5 max-w-[8.5ch] text-balance text-[3rem] font-semibold leading-[0.9] text-neutral-950 sm:text-[4.4rem] lg:text-[5rem] dark:text-neutral-50">
+                Build your
                 <br />
-                life in Istanbul,
+                Istanbul base,
                 <br />
                 faster.
               </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-neutral-700 sm:text-[1.3rem] dark:text-neutral-200">
-                A local community for digital nomads in Istanbul with weekly
-                coworking, meetups, practical city guides, and fast answers from
-                people already here.
+              <p className="mt-6 max-w-xl text-lg leading-8 text-neutral-700 sm:text-[1.22rem] dark:text-neutral-200">
+                Weekly coworking, practical guides, and local answers for
+                digital nomads building a real life in Istanbul.
               </p>
-              <p className="text-muted mt-4 max-w-lg text-base leading-7">
-                Ferry-friendly city logic, neighborhood tradeoffs, and a weekly
-                rhythm that helps newcomers settle in fast.
+              <p className="text-muted mt-4 max-w-md text-base leading-7">
+                Start with the right neighborhood, a reliable workspace, and
+                people already here.
               </p>
 
               <Reveal delay={1}>
@@ -154,108 +167,103 @@ export default function HomePage() {
 
               <Reveal delay={3}>
                 <p className="mt-5 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                  Join the Telegram, introduce yourself, and get pointed to this
-                  week&apos;s meetup, a good place to work tomorrow, or the
-                  right neighborhood to start from.
+                  Introduce yourself once and get pointed to this week&apos;s
+                  meetup, tomorrow&apos;s workspace, or the right district to
+                  start from.
                 </p>
               </Reveal>
             </Reveal>
 
             <Reveal
               delay={1}
-              className="relative min-h-[460px] sm:min-h-[520px] lg:min-h-[500px]"
+              className="relative min-h-[480px] sm:min-h-[560px] lg:min-h-[540px]"
             >
-              <div className="surface-panel absolute inset-0 rounded-[2rem] shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]" />
-              <div className="bg-grid absolute inset-6 rounded-[1.5rem] border border-black/5 dark:border-white/10" />
+              <div className="surface-panel absolute inset-0 overflow-hidden rounded-[2.3rem] shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(227,75,50,0.18),transparent_24%),radial-gradient(circle_at_85%_70%,rgba(212,154,69,0.22),transparent_26%),linear-gradient(135deg,rgba(255,255,255,0.4),rgba(255,255,255,0.08))] dark:bg-[radial-gradient(circle_at_18%_18%,rgba(227,75,50,0.22),transparent_22%),radial-gradient(circle_at_85%_70%,rgba(212,154,69,0.16),transparent_24%),linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))]" />
+              <div className="bg-grid absolute inset-5 rounded-[1.8rem] border border-black/5 opacity-80 dark:border-white/10 dark:opacity-100" />
+              <div className="animate-sweep absolute inset-y-10 left-[46%] w-px bg-gradient-to-b from-transparent via-primary-500/35 to-transparent" />
+              <div className="animate-pulse-line absolute left-[15%] top-[26%] h-px w-[58%] bg-gradient-to-r from-transparent via-primary-500/45 to-transparent" />
+              <div className="animate-pulse-line absolute bottom-[23%] left-[26%] h-px w-[42%] bg-gradient-to-r from-transparent via-accent-warm/60 to-transparent [animation-delay:1.1s]" />
 
-              <div className="animate-pulse-line absolute left-[18%] top-[20%] h-px w-[56%] bg-gradient-to-r from-transparent via-primary-500 to-transparent" />
-              <div className="animate-pulse-line absolute left-[26%] top-[55%] hidden h-px w-[46%] bg-gradient-to-r from-transparent via-accent-warm to-transparent [animation-delay:1.2s] sm:block" />
-              <div className="absolute left-[14%] top-[14%] hidden h-24 w-24 rounded-full border border-primary-500/35 sm:block" />
-              <div className="absolute right-[10%] top-[14%] hidden h-36 w-36 rounded-full border border-accent-warm/35 sm:block" />
-              <div className="absolute bottom-[26%] left-[20%] hidden h-44 w-44 rounded-full border border-accent-green/30 sm:block" />
+              <div className="animate-marker-pulse absolute left-[16%] top-[20%] h-3 w-3 rounded-full bg-primary-500 shadow-[0_0_0_10px_rgba(227,75,50,0.12)]" />
+              <div className="animate-marker-pulse absolute right-[12%] top-[34%] h-3 w-3 rounded-full bg-accent-warm shadow-[0_0_0_10px_rgba(212,154,69,0.12)] [animation-delay:1.2s]" />
+              <div className="animate-marker-pulse absolute bottom-[22%] left-[28%] h-3 w-3 rounded-full bg-accent-green shadow-[0_0_0_10px_rgba(47,143,123,0.12)] [animation-delay:2s]" />
 
-              <div className="animate-drift absolute left-[13%] top-[13%] rounded-full bg-primary-500 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-primary-500/30">
+              <div className="animate-drift absolute left-[13%] top-[14%] rounded-full bg-primary-500 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-primary-500/30">
                 Kadikoy
               </div>
-              <div className="animate-drift-delayed absolute right-[8%] top-[19%] rounded-full bg-accent-warm px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-950 shadow-lg shadow-accent-warm/30">
+              <div className="animate-drift-delayed absolute right-[8%] top-[28%] rounded-full bg-accent-warm px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-950 shadow-lg shadow-accent-warm/30">
                 Galata
               </div>
-              <div className="animate-drift absolute bottom-[31%] left-[18%] rounded-full bg-accent-green px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-accent-green/30">
+              <div className="animate-drift absolute bottom-[17%] left-[24%] rounded-full bg-accent-green px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-accent-green/30">
                 Moda
               </div>
-              <div className="absolute left-[42%] top-[38%] rounded-full border border-black/10 bg-white/70 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-700 shadow-sm dark:border-white/10 dark:bg-white/10 dark:text-neutral-200">
-                Ferry line
-              </div>
 
-              <div className="animate-drift absolute left-5 right-5 top-6 rounded-[1.6rem] border border-black/10 bg-white/70 p-4 backdrop-blur-md dark:border-white/10 dark:bg-white/10 sm:left-8 sm:right-8 sm:top-9 sm:p-5">
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className="eyebrow">Asian Side or European Side?</p>
-                    <h2 className="mt-2 max-w-[16ch] text-[1.75rem] font-semibold leading-tight text-neutral-950 dark:text-neutral-50 sm:text-2xl">
-                      Choose the side of the city that fits the way you want to
-                      live.
-                    </h2>
-                  </div>
-                  <MapPin className="h-5 w-5 shrink-0 text-primary-600 dark:text-primary-400" />
-                </div>
-                <div className="mt-5 grid gap-3">
-                  <div className="surface-subtle flex items-start justify-between gap-4 rounded-[1.25rem] p-4">
-                    <div>
-                      <p className="font-medium text-neutral-950 dark:text-neutral-50">
-                        Kadikoy / Moda
-                      </p>
-                      <p className="mt-1 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                        Easier routine, ferry access, more neighborhood feel,
-                        and strong cafe and coworking culture.
-                      </p>
-                    </div>
-                    <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-primary-600 dark:text-primary-300">
-                      calmer
-                    </span>
-                  </div>
-                  <div className="surface-subtle flex items-start justify-between gap-4 rounded-[1.25rem] p-4">
-                    <div>
-                      <p className="font-medium text-neutral-950 dark:text-neutral-50">
-                        Galata / Beyoglu
-                      </p>
-                      <p className="mt-1 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                        Better if you want density, nightlife, and easier access
-                        to meetups across the European side.
-                      </p>
-                    </div>
-                    <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-accent-warm dark:text-orange-300">
-                      livelier
-                    </span>
+              <div className="absolute inset-x-7 top-8 sm:inset-x-9 sm:top-10">
+                <p className="eyebrow">Choose Your Side of the City</p>
+                <div className="mt-4 flex items-start justify-between gap-5">
+                  <h2 className="max-w-[13ch] text-[2.05rem] font-semibold leading-[1.02] text-neutral-950 dark:text-neutral-50 sm:text-[2.6rem]">
+                    Find the side of Istanbul that matches your work rhythm.
+                  </h2>
+                  <div className="hidden rounded-full border border-black/10 bg-white/70 p-3 shadow-sm dark:border-white/10 dark:bg-white/10 sm:block">
+                    <MapPin className="h-5 w-5 text-primary-600 dark:text-primary-400" />
                   </div>
                 </div>
               </div>
 
-              <div className="absolute bottom-5 left-5 right-5 grid gap-3 sm:bottom-8 sm:left-8 sm:right-8 sm:grid-cols-2">
-                <div className="surface-subtle rounded-[1.75rem] p-4">
+              <div className="absolute inset-x-7 top-[11.75rem] grid gap-3 sm:inset-x-9 sm:top-[14rem] sm:grid-cols-2">
+                {heroSides.map((side, index) => (
+                  <div
+                    key={side.name}
+                    className="surface-subtle rounded-[1.7rem] p-5 backdrop-blur-md"
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <p className="text-lg font-medium text-neutral-950 dark:text-neutral-50">
+                        {side.name}
+                      </p>
+                      <span
+                        className={`font-mono text-[11px] uppercase tracking-[0.24em] ${
+                          index === 0
+                            ? "text-primary-600 dark:text-primary-300"
+                            : "text-accent-warm dark:text-orange-300"
+                        }`}
+                      >
+                        {side.tone}
+                      </span>
+                    </div>
+                    <p className="mt-3 max-w-sm text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+                      {side.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="absolute inset-x-7 bottom-7 grid gap-3 sm:inset-x-9 sm:grid-cols-[1.1fr_0.9fr]">
+                <div className="rounded-[1.8rem] border border-black/10 bg-white/72 p-5 backdrop-blur-md dark:border-white/10 dark:bg-white/10">
                   <p className="eyebrow text-neutral-500 dark:text-neutral-400">
-                    Bosphorus crossing
+                    Bosphorus rhythm
                   </p>
-                  <p className="mt-3 text-2xl font-semibold text-neutral-950 dark:text-neutral-50">
+                  <p className="mt-3 text-[1.9rem] font-semibold leading-[1.02] text-neutral-950 dark:text-neutral-50">
                     Work on one side.
                     <br />
                     Meet on the other.
                   </p>
-                  <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                    Ferries turn the city into a loop: calmer mornings in
-                    Kadikoy, denser social energy around Galata by evening.
+                  <p className="mt-3 max-w-md text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+                    Ferries make the city feel smaller: calmer mornings in
+                    Kadikoy, more social energy around Galata by evening.
                   </p>
                 </div>
-                <div className="animate-drift-delayed rounded-[1.75rem] border border-black/10 bg-neutral-950 p-4 text-white dark:border-white/10 dark:bg-neutral-50 dark:text-neutral-950">
+                <div className="animate-drift-delayed rounded-[1.8rem] border border-black/10 bg-neutral-950 p-5 text-white dark:border-white/10 dark:bg-neutral-50 dark:text-neutral-950">
                   <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-white/65 dark:text-neutral-600">
                     Fresh signal
                   </p>
-                  <div className="mt-4 flex items-start gap-3 text-sm">
+                  <div className="mt-4 flex items-start gap-3 text-sm leading-6">
                     <MessageCircle className="mt-0.5 h-4 w-4 shrink-0" />
                     <span>
-                      Say hi in Telegram and ask where to work tomorrow.
+                      Ask where to work tomorrow and get a local answer fast.
                     </span>
                   </div>
-                  <div className="mt-3 flex items-start gap-3 text-sm text-white/75 dark:text-neutral-600">
+                  <div className="mt-3 flex items-start gap-3 text-sm leading-6 text-white/75 dark:text-neutral-600">
                     <CalendarDays className="mt-0.5 h-4 w-4 shrink-0" />
                     <span>
                       {nextEvent

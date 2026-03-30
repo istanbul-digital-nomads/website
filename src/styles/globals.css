@@ -134,6 +134,14 @@
     animation-delay: 1.4s;
   }
 
+  .animate-sweep {
+    animation: sweep 9s ease-in-out infinite;
+  }
+
+  .animate-marker-pulse {
+    animation: marker-pulse 3.8s ease-in-out infinite;
+  }
+
   .route-shell {
     position: relative;
     isolation: isolate;
@@ -235,6 +243,30 @@
   }
 }
 
+@keyframes sweep {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: translate3d(0, 0, 0) scaleY(0.92);
+  }
+  50% {
+    opacity: 0.75;
+    transform: translate3d(0, -6px, 0) scaleY(1);
+  }
+}
+
+@keyframes marker-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+}
+
 @keyframes route-enter {
   from {
     opacity: 0;
@@ -301,6 +333,8 @@
   .animate-pulse-line,
   .animate-drift,
   .animate-drift-delayed,
+  .animate-sweep,
+  .animate-marker-pulse,
   .route-progress,
   .route-enter,
   .loading-bar,

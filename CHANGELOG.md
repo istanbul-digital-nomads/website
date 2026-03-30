@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Route transition system: `template.tsx` with progress bar and fade-up entry animation, `loading.tsx` with branded skeleton matching the editorial layout
 - CSS scroll-reveal system: `.reveal`, `.reveal-visible`, `.reveal-delay-{0-4}` classes with `translate3d` + `scale` transforms, 720ms cubic-bezier easing, and mobile-optimized 560ms durations
 - CSS `.animate-drift` and `.animate-drift-delayed` keyframe utilities for subtle vertical drift
+- CSS `.animate-sweep` and `.animate-marker-pulse` keyframe utilities for hero map-line motion and location-marker pulses
 - CSS route animations: `.route-shell`, `.route-progress`, `.route-enter`, `.loading-bar` keyframes with mobile-optimized durations
 - Design system components: Button (4 variants, 3 sizes, loading state), Card (with header/footer/image slots), Input and Textarea (with labels, errors, helper text), Badge (event type colors), Container, Section, Skeleton
 - Layout: Header with responsive nav and dark mode toggle, Footer with 4-column nav and social icons, MobileNav slide-over panel, ThemeProvider (light/dark/system with localStorage persistence)
@@ -46,6 +47,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Switched typography from Inter to Manrope (sans) and IBM Plex Mono (mono) with CSS variable fonts (`--font-sans`, `--font-mono`)
 - Homepage wrapped in `Reveal` components for scroll-triggered entrance animations with staggered delays across hero, events, guides, testimonials, and CTA sections
 - Section component now wraps children in `Reveal` for automatic scroll animation on all pages
+- Homepage hero redesigned into a cleaner single-plane composition with a shorter "Build your Istanbul base, faster" headline, tighter copy, and a stronger Istanbul side-selection visual anchored around Kadikoy / Moda and Galata / Beyoglu
+- Hero art direction simplified to remove stacked widget clutter in favor of one editorial visual plane with side cards, Bosphorus rhythm framing, and clearer trust messaging
+- Homepage stats, testimonials, and local-knowledge blocks now use more deliberate stagger and hover polish for smoother page rhythm
 - Homepage fully redesigned with editorial layout - hero with trust signal pills, orientation steps (Arrive/Settle/Belong), neighborhood visualization panel, event moment descriptions, guide quick links, testimonials with location context, local knowledge panel, and refined CTA copy
 - Header restyled with rounded pill navigation, glowing logo dot, scroll-aware shrink and shadow, updated subtitle ("Remote life, local rhythm"), and smoother `transition-[background-color,border-color,box-shadow]` with `duration-300`
 - Header link prefetch enabled for faster navigation

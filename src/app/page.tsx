@@ -181,27 +181,16 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(560px,1fr)] lg:items-center lg:gap-12">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(560px,1fr)] lg:items-start lg:gap-12">
             <Reveal delay={0} className="max-w-[30rem] pt-2 lg:pt-0">
-              <p className="eyebrow">Istanbul Digital Nomads</p>
               <h1 className="word-rise mt-5 max-w-[8.7ch] text-balance text-[3rem] font-semibold leading-[0.92] text-neutral-950 sm:text-[3.7rem] lg:text-[4rem] dark:text-neutral-50">
-                {"Build your Istanbul base, faster."
-                  .split(" ")
-                  .map((word, index) => (
-                    <span key={word + index}>
-                      {word}
-                      {index < 4 ? " " : ""}
-                    </span>
-                  ))}
+                <span>Build</span> <span>your</span> <span>Istanbul</span>{" "}
+                <span>base,</span> <span>faster.</span>
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-8 text-neutral-700 sm:text-[1.22rem] dark:text-neutral-200">
                 Weekly coworking, practical guides, and local answers for
                 digital nomads building a real life between Istanbul&apos;s
                 European and Asian sides.
-              </p>
-              <p className="text-muted mt-4 max-w-md text-base leading-7">
-                Start with the right side of the Bosphorus, a reliable
-                workspace, and people already here.
               </p>
 
               <Reveal delay={1}>
@@ -223,7 +212,7 @@ export default function HomePage() {
                     <Button
                       variant="secondary"
                       size="lg"
-                      className="w-full rounded-full border border-black/10 bg-white/60 px-7 text-neutral-950 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-neutral-50 dark:hover:bg-white/10 sm:w-auto"
+                      className="w-full rounded-full border border-black/60 bg-white/70 px-7 text-neutral-950 hover:bg-white dark:border-white/40 dark:bg-white/10 dark:text-neutral-50 dark:hover:bg-white/20 sm:w-auto"
                     >
                       Start with the guides
                     </Button>
@@ -232,11 +221,11 @@ export default function HomePage() {
               </Reveal>
 
               <Reveal delay={2}>
-                <div className="mt-5 flex flex-wrap gap-3">
+                <div className="mt-5 flex flex-wrap items-center gap-2 sm:flex-nowrap">
                   {heroTrustSignals.map((signal) => (
                     <div
                       key={signal}
-                      className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/55 px-3 py-2 text-sm text-neutral-700 dark:border-white/10 dark:bg-white/5 dark:text-neutral-200"
+                      className="inline-flex items-center gap-2 rounded-full border border-black/15 bg-white/70 px-3 py-2 text-xs font-medium text-neutral-700 dark:border-white/10 dark:bg-white/5 dark:text-neutral-200"
                     >
                       <span className="h-1.5 w-1.5 rounded-full bg-primary-500" />
                       {signal}
@@ -256,7 +245,7 @@ export default function HomePage() {
 
             <Reveal
               delay={1}
-              className="relative min-h-[520px] sm:min-h-[620px] lg:min-h-[600px]"
+              className="relative min-h-[520px] sm:min-h-[620px] lg:min-h-[600px] overflow-hidden pr-3 sm:pr-6"
             >
               <div className="absolute inset-0 overflow-hidden rounded-[2.3rem] border border-primary-200/60 bg-[linear-gradient(180deg,rgba(229,240,245,0.82),rgba(210,225,233,0.62))] shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:border-primary-900/40 dark:bg-[linear-gradient(180deg,rgba(11,27,39,0.92),rgba(9,20,30,0.9))] dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]" />
               <div className="bg-grid absolute inset-5 rounded-[1.8rem] border border-black/5 opacity-40 dark:border-white/10 dark:opacity-50" />

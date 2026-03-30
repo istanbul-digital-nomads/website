@@ -10,7 +10,8 @@ function Card({ className, hoverable = false, ...props }: CardProps) {
     <div
       className={cn(
         "rounded-lg border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900",
-        hoverable && "transition-shadow hover:shadow-sm",
+        hoverable &&
+          "transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary-200 hover:shadow-[0_16px_40px_rgba(200,53,31,0.08)] dark:hover:border-primary-900/40",
         className,
       )}
       {...props}
@@ -22,7 +23,10 @@ function CardHeader({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return <div className={cn("mb-4", className)} {...props} />;
 }
 
-function CardTitle({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) {
+function CardTitle({
+  className,
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h3
       className={cn("text-lg font-semibold tracking-tight", className)}
@@ -37,7 +41,10 @@ function CardDescription({
 }: HTMLAttributes<HTMLParagraphElement>) {
   return (
     <p
-      className={cn("text-sm text-neutral-500 dark:text-neutral-400", className)}
+      className={cn(
+        "text-sm text-neutral-500 dark:text-neutral-400",
+        className,
+      )}
       {...props}
     />
   );
@@ -49,26 +56,25 @@ function CardContent({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
 
 function CardFooter({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div
-      className={cn("mt-4 flex items-center gap-2", className)}
-      {...props}
-    />
+    <div className={cn("mt-4 flex items-center gap-2", className)} {...props} />
   );
 }
 
-function CardImage({
-  className,
-  ...props
-}: HTMLAttributes<HTMLDivElement>) {
+function CardImage({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn(
-        "-mx-6 -mt-6 mb-4 overflow-hidden rounded-t-lg",
-        className,
-      )}
+      className={cn("-mx-6 -mt-6 mb-4 overflow-hidden rounded-t-lg", className)}
       {...props}
     />
   );
 }
 
-export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, CardImage };
+export {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+  CardImage,
+};

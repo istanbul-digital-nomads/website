@@ -75,14 +75,14 @@ export default function HomePage() {
     <div className="overflow-hidden">
       <section className="relative isolate border-b border-black/5 dark:border-white/10">
         <div className="bg-grid bg-noise absolute inset-0 opacity-40 dark:opacity-20" />
-        <div className="animate-float absolute left-[-8%] top-20 h-72 w-72 rounded-full bg-cyan-400/15 blur-3xl dark:bg-cyan-400/20" />
-        <div className="animate-float-slow absolute right-[-6%] top-10 h-80 w-80 rounded-full bg-fuchsia-500/10 blur-3xl dark:bg-fuchsia-500/20" />
+        <div className="animate-float absolute left-[-8%] top-20 h-72 w-72 rounded-full bg-primary-400/15 blur-3xl dark:bg-primary-500/20" />
+        <div className="animate-float-slow absolute right-[-6%] top-10 h-80 w-80 rounded-full bg-accent-warm/15 blur-3xl dark:bg-accent-coral/20" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[var(--background)]" />
 
         <Container className="relative py-14 sm:py-20 lg:py-24">
           <div className="mb-10 flex flex-wrap items-center justify-between gap-4">
             <div className="eyebrow flex items-center gap-3">
-              <span className="h-2 w-2 rounded-full bg-emerald-500" />
+              <span className="h-2 w-2 rounded-full bg-primary-500" />
               Digital nomads in Istanbul
             </div>
             <div className="font-mono text-[11px] uppercase tracking-[0.28em] text-neutral-500 dark:text-neutral-400">
@@ -141,7 +141,7 @@ export default function HomePage() {
                     key={signal}
                     className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/55 px-3 py-2 text-sm text-neutral-700 dark:border-white/10 dark:bg-white/5 dark:text-neutral-200"
                   >
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary-500" />
                     {signal}
                   </div>
                 ))}
@@ -158,19 +158,19 @@ export default function HomePage() {
               <div className="surface-panel absolute inset-0 rounded-[2rem] shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]" />
               <div className="bg-grid absolute inset-6 rounded-[1.5rem] border border-black/5 dark:border-white/10" />
 
-              <div className="animate-pulse-line absolute left-[18%] top-[20%] h-px w-[56%] bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-              <div className="animate-pulse-line absolute left-[26%] top-[55%] h-px w-[46%] bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent [animation-delay:1.2s]" />
-              <div className="absolute left-[14%] top-[14%] h-24 w-24 rounded-full border border-cyan-500/40" />
-              <div className="absolute right-[10%] top-[14%] h-36 w-36 rounded-full border border-fuchsia-500/35" />
-              <div className="absolute bottom-[26%] left-[20%] h-44 w-44 rounded-full border border-emerald-500/30" />
+              <div className="animate-pulse-line absolute left-[18%] top-[20%] h-px w-[56%] bg-gradient-to-r from-transparent via-primary-500 to-transparent" />
+              <div className="animate-pulse-line absolute left-[26%] top-[55%] h-px w-[46%] bg-gradient-to-r from-transparent via-accent-warm to-transparent [animation-delay:1.2s]" />
+              <div className="absolute left-[14%] top-[14%] h-24 w-24 rounded-full border border-primary-500/35" />
+              <div className="absolute right-[10%] top-[14%] h-36 w-36 rounded-full border border-accent-warm/35" />
+              <div className="absolute bottom-[26%] left-[20%] h-44 w-44 rounded-full border border-accent-green/30" />
 
-              <div className="absolute left-[13%] top-[13%] rounded-full bg-cyan-500 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-cyan-500/30">
+              <div className="absolute left-[13%] top-[13%] rounded-full bg-primary-500 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-primary-500/30">
                 Kadikoy
               </div>
-              <div className="absolute right-[8%] top-[19%] rounded-full bg-fuchsia-500 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-fuchsia-500/30">
+              <div className="absolute right-[8%] top-[19%] rounded-full bg-accent-warm px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-950 shadow-lg shadow-accent-warm/30">
                 Galata
               </div>
-              <div className="absolute bottom-[31%] left-[18%] rounded-full bg-emerald-500 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-emerald-500/30">
+              <div className="absolute bottom-[31%] left-[18%] rounded-full bg-accent-green px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-accent-green/30">
                 Moda
               </div>
               <div className="absolute left-[42%] top-[38%] rounded-full border border-black/10 bg-white/70 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-700 shadow-sm dark:border-white/10 dark:bg-white/10 dark:text-neutral-200">
@@ -199,7 +199,7 @@ export default function HomePage() {
                         and strong cafe and coworking culture.
                       </p>
                     </div>
-                    <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-primary-600 dark:text-primary-300">
                       calmer
                     </span>
                   </div>
@@ -213,7 +213,7 @@ export default function HomePage() {
                         to meetups across the European side.
                       </p>
                     </div>
-                    <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-fuchsia-600 dark:text-fuchsia-300">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-accent-warm dark:text-orange-300">
                       livelier
                     </span>
                   </div>

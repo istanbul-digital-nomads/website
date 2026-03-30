@@ -38,14 +38,14 @@ export default function EventsPage() {
 
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         {/* Tabs */}
-        <div className="flex gap-1 rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800">
+        <div className="flex gap-1 rounded-full border border-primary-100/80 bg-white/70 p-1 dark:border-white/10 dark:bg-white/5">
           {tabs.map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`rounded-md px-4 py-2 text-sm font-medium capitalize transition-colors ${
+              className={`rounded-full px-4 py-2 text-sm font-medium capitalize transition-colors ${
                 tab === t
-                  ? "bg-white text-neutral-900 shadow-sm dark:bg-neutral-700 dark:text-neutral-100"
+                  ? "bg-primary-600 text-white shadow-[0_10px_24px_rgba(200,53,31,0.18)] dark:bg-primary-500"
                   : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400"
               }`}
             >
@@ -58,10 +58,10 @@ export default function EventsPage() {
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setFilterType("all")}
-            className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+            className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
               filterType === "all"
-                ? "bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400"
-                : "bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400"
+                ? "bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300"
+                : "bg-white/70 text-neutral-600 ring-1 ring-black/5 dark:bg-white/5 dark:text-neutral-400 dark:ring-white/10"
             }`}
           >
             All
@@ -70,10 +70,10 @@ export default function EventsPage() {
             <button
               key={type}
               onClick={() => setFilterType(type)}
-              className={`rounded-md px-3 py-1.5 text-xs font-medium capitalize transition-colors ${
+              className={`rounded-full px-3 py-1.5 text-xs font-medium capitalize transition-colors ${
                 filterType === type
-                  ? "bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400"
-                  : "bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400"
+                  ? "bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300"
+                  : "bg-white/70 text-neutral-600 ring-1 ring-black/5 dark:bg-white/5 dark:text-neutral-400 dark:ring-white/10"
               }`}
             >
               {eventTypes[type].label}
@@ -96,7 +96,9 @@ export default function EventsPage() {
             <Card key={event.id} hoverable>
               <CardContent>
                 <div className="flex items-center justify-between">
-                  <Badge variant={event.type}>{eventTypes[event.type].label}</Badge>
+                  <Badge variant={event.type}>
+                    {eventTypes[event.type].label}
+                  </Badge>
                   {event.isPast && (
                     <span className="text-xs text-neutral-400">Past</span>
                   )}

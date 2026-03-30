@@ -13,6 +13,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Member profiles and directory
 
 ### Added
+- Route transition system: `template.tsx` with progress bar and fade-up entry animation, `loading.tsx` with branded skeleton matching the editorial layout
+- CSS route animations: `.route-shell`, `.route-progress`, `.route-enter`, `.loading-bar` keyframes with mobile-optimized durations
 - Design system components: Button (4 variants, 3 sizes, loading state), Card (with header/footer/image slots), Input and Textarea (with labels, errors, helper text), Badge (event type colors), Container, Section, Skeleton
 - Layout: Header with responsive nav and dark mode toggle, Footer with 4-column nav and social icons, MobileNav slide-over panel, ThemeProvider (light/dark/system with localStorage persistence)
 - Homepage sections: Hero with gradient background, Stats bar (4 metrics), Featured Events (3 cards), Guide Highlights (4 cards), How It Works (3 steps), Testimonials (3 quotes), CTA Banner
@@ -40,12 +42,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Root layout now includes ThemeProvider, Header, Footer, Analytics, and SpeedInsights
 - Switched typography from Inter to Manrope (sans) and IBM Plex Mono (mono) with CSS variable fonts (`--font-sans`, `--font-mono`)
 - Homepage fully redesigned with editorial layout - hero with trust signal pills, orientation steps (Arrive/Settle/Belong), neighborhood visualization panel, event moment descriptions, guide quick links, testimonials with location context, local knowledge panel, and refined CTA copy
-- Header restyled with rounded pill navigation, glowing logo dot, scroll-aware shrink and shadow, and updated subtitle ("Remote life, local rhythm")
-- Global CSS overhauled - warm parchment palette (`#f5efe4` light / `#07111d` dark), subtle radial gradient backgrounds, `.bg-grid`, `.bg-noise`, `.eyebrow`, `.surface-blur`, `.surface-panel`, `.surface-subtle`, `.text-muted` utility classes, float/pulse-line keyframe animations, and `prefers-reduced-motion` support
+- Header restyled with rounded pill navigation, glowing logo dot, scroll-aware shrink and shadow, updated subtitle ("Remote life, local rhythm"), and smoother `transition-[background-color,border-color,box-shadow]` with `duration-300`
+- Header link prefetch enabled for faster navigation
+- MobileNav restyled with warm-tinted overlay, rounded links, brand subtitle, and themed borders
+- Global CSS overhauled - warm parchment palette (`#f5efe4` light / `#07111d` dark), Istanbul-inspired radial gradients (terracotta/amber/teal), `.bg-grid`, `.bg-noise`, `.eyebrow`, `.surface-blur`, `.surface-panel` (primary-tinted borders), `.surface-subtle`, `.text-muted` utility classes, route transition keyframes, float/pulse-line animations, mobile animation durations, and `prefers-reduced-motion` support
+- Tailwind color palette updated to terracotta/warm primary (`#e34b32` base), amber accent (`#d49a45`), coral accent (`#ff7b61`), teal accent (`#2f8f7b`), with font family using CSS variables
+- Badge colors updated to match warm palette - meetup (primary), coworking (teal), workshop (amber), social (coral)
+- Button primary variant shadow updated to warm terracotta tint; secondary variant uses primary-tinted borders
+- Card hover effect enhanced with lift transform, primary-tinted border, and warm shadow
+- Contact form success state restyled with primary-tinted colors
+- Events page tabs and filters restyled with rounded pills and warm color palette
 - Footer redesigned with dark CTA card (Telegram join + guide link, feature pills), social icon row, and updated copyright tagline
 - Site description and OG/Twitter meta descriptions rewritten with action-oriented copy focused on coworking, guides, and local answers
 - `siteConfig.shortName` updated from "Istanbul Nomads" to "Istanbul Digital Nomads" for brand consistency
-- Homepage copy refined - tightened CTA wording, added descriptive context to testimonials and event cards
+- Homepage hero headline updated to "Build a real digital life in Istanbul, faster" with ferry-friendly city logic subtitle
+- Homepage copy refined - dynamic next-event trust signal, tightened CTA wording, added descriptive context to testimonials and event cards
+- OG image, favicon, and Apple icon updated to terracotta gradient matching the warm brand palette
 - Added `metadataBase` to root layout metadata for proper OG URL resolution
 - Added `poweredByHeader: false` and `compress: true` to `next.config.mjs`
 - Added `postbuild` script for sitemap generation

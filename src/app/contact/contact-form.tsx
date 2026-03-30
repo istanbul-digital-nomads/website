@@ -15,11 +15,11 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-xl border border-green-200 bg-green-50 p-8 text-center dark:border-green-900 dark:bg-green-900/20">
-        <p className="text-lg font-semibold text-green-800 dark:text-green-300">
+      <div className="rounded-xl border border-primary-200 bg-primary-50/80 p-8 text-center dark:border-primary-900/40 dark:bg-primary-900/20">
+        <p className="text-lg font-semibold text-primary-800 dark:text-primary-300">
           Thanks for reaching out!
         </p>
-        <p className="mt-2 text-sm text-green-700 dark:text-green-400">
+        <p className="mt-2 text-sm text-primary-700 dark:text-primary-400">
           We&apos;ll get back to you as soon as we can.
         </p>
       </div>
@@ -28,12 +28,7 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <Input
-        label="Name"
-        name="name"
-        placeholder="Your name"
-        required
-      />
+      <Input label="Name" name="name" placeholder="Your name" required />
       <Input
         label="Email"
         name="email"

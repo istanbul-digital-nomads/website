@@ -43,7 +43,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-black/5 bg-[rgba(245,239,228,0.75)] backdrop-blur-xl transition-all dark:border-white/10 dark:bg-[rgba(7,17,29,0.72)]",
+        "sticky top-0 z-50 border-b border-black/5 bg-[rgba(245,239,228,0.75)] backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-300 dark:border-white/10 dark:bg-[rgba(7,17,29,0.72)]",
         scrolled &&
           "border-black/10 bg-[rgba(245,239,228,0.88)] shadow-[0_10px_30px_rgba(15,23,42,0.08)] dark:border-white/15 dark:bg-[rgba(7,17,29,0.88)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.25)]",
       )}
@@ -51,12 +51,12 @@ export function Header() {
       <Container>
         <div
           className={cn(
-            "flex h-16 items-center justify-between transition-all",
+            "flex h-16 items-center justify-between transition-[height] duration-300",
             scrolled && "h-14",
           )}
         >
-          <Link href="/" className="flex items-center gap-3">
-            <span className="h-2 w-2 rounded-full bg-primary-500 shadow-[0_0_20px_rgba(59,130,246,0.55)]" />
+          <Link href="/" prefetch className="flex items-center gap-3">
+            <span className="h-2 w-2 rounded-full bg-primary-500 shadow-[0_0_20px_rgba(227,75,50,0.5)]" />
             <div>
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-neutral-950 dark:text-neutral-50">
                 {siteConfig.shortName}
@@ -72,6 +72,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch
                 className={cn(
                   "rounded-full px-4 py-2 text-sm font-medium transition-all hover:bg-black/5 hover:text-neutral-950 dark:hover:bg-white/10 dark:hover:text-neutral-50",
                   pathname === item.href
@@ -101,7 +102,7 @@ export function Header() {
             >
               <Button
                 size="sm"
-                className="rounded-full bg-neutral-950 px-4 text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-200"
+                className="rounded-full bg-primary-600 px-4 text-white hover:bg-primary-700 dark:bg-primary-500 dark:text-white dark:hover:bg-primary-400"
               >
                 Join Community
               </Button>

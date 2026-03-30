@@ -12,13 +12,13 @@ const variantStyles: Record<BadgeVariant, string> = {
   default:
     "bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300",
   meetup:
-    "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+    "bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300",
   coworking:
-    "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+    "bg-[rgba(47,143,123,0.12)] text-[rgb(33,106,92)] dark:bg-[rgba(47,143,123,0.22)] dark:text-[rgb(144,222,204)]",
   workshop:
-    "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
+    "bg-[rgba(212,154,69,0.16)] text-[rgb(138,89,40)] dark:bg-[rgba(212,154,69,0.22)] dark:text-[rgb(243,203,162)]",
   social:
-    "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+    "bg-[rgba(255,123,97,0.18)] text-[rgb(154,64,44)] dark:bg-[rgba(255,123,97,0.2)] dark:text-[rgb(255,204,194)]",
 };
 
 function Badge({ className, variant = "default", ...props }: BadgeProps) {

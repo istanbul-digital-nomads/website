@@ -105,10 +105,10 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.78fr)_minmax(560px,1fr)] lg:items-center lg:gap-12">
-            <Reveal delay={0} className="max-w-[32rem] pt-2 lg:pt-0">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.74fr)_minmax(540px,0.98fr)] lg:items-center lg:gap-12">
+            <Reveal delay={0} className="max-w-[30rem] pt-2 lg:pt-0">
               <p className="eyebrow">Istanbul Digital Nomads</p>
-              <h1 className="mt-5 max-w-[8.5ch] text-balance text-[3rem] font-semibold leading-[0.9] text-neutral-950 sm:text-[4.4rem] lg:text-[5rem] dark:text-neutral-50">
+              <h1 className="mt-5 max-w-[8.4ch] text-balance text-[3rem] font-semibold leading-[0.9] text-neutral-950 sm:text-[4.15rem] lg:text-[4.55rem] dark:text-neutral-50">
                 Build your
                 <br />
                 Istanbul base,
@@ -176,7 +176,7 @@ export default function HomePage() {
 
             <Reveal
               delay={1}
-              className="relative min-h-[480px] sm:min-h-[560px] lg:min-h-[540px]"
+              className="relative min-h-[500px] sm:min-h-[580px] lg:min-h-[560px]"
             >
               <div className="surface-panel absolute inset-0 overflow-hidden rounded-[2.3rem] shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]" />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(227,75,50,0.18),transparent_24%),radial-gradient(circle_at_85%_70%,rgba(212,154,69,0.22),transparent_26%),linear-gradient(135deg,rgba(255,255,255,0.4),rgba(255,255,255,0.08))] dark:bg-[radial-gradient(circle_at_18%_18%,rgba(227,75,50,0.22),transparent_22%),radial-gradient(circle_at_85%_70%,rgba(212,154,69,0.16),transparent_24%),linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))]" />
@@ -199,77 +199,81 @@ export default function HomePage() {
                 Moda
               </div>
 
-              <div className="absolute inset-x-7 top-8 sm:inset-x-9 sm:top-10">
-                <p className="eyebrow">Choose Your Side of the City</p>
-                <div className="mt-4 flex items-start justify-between gap-5">
-                  <h2 className="max-w-[13ch] text-[2.05rem] font-semibold leading-[1.02] text-neutral-950 dark:text-neutral-50 sm:text-[2.6rem]">
-                    Find the side of Istanbul that matches your work rhythm.
-                  </h2>
-                  <div className="hidden rounded-full border border-black/10 bg-white/70 p-3 shadow-sm dark:border-white/10 dark:bg-white/10 sm:block">
-                    <MapPin className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+              <div className="absolute inset-5 flex flex-col justify-between rounded-[1.8rem] px-5 py-6 sm:px-7 sm:py-7">
+                <div>
+                  <div className="flex items-start justify-between gap-5">
+                    <div>
+                      <p className="eyebrow">Choose Your Side of the City</p>
+                      <h2 className="mt-4 max-w-[11ch] text-[1.75rem] font-semibold leading-[1.02] text-neutral-950 dark:text-neutral-50 sm:text-[2.2rem]">
+                        Find the side of Istanbul that matches your work rhythm.
+                      </h2>
+                    </div>
+                    <div className="hidden rounded-full border border-black/10 bg-white/70 p-3 shadow-sm dark:border-white/10 dark:bg-white/10 sm:block">
+                      <MapPin className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+                    </div>
+                  </div>
+
+                  <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                    {heroSides.map((side, index) => (
+                      <div
+                        key={side.name}
+                        className="surface-subtle rounded-[1.7rem] p-5 backdrop-blur-md"
+                      >
+                        <div className="flex items-center justify-between gap-4">
+                          <p className="text-lg font-medium text-neutral-950 dark:text-neutral-50">
+                            {side.name}
+                          </p>
+                          <span
+                            className={`font-mono text-[11px] uppercase tracking-[0.24em] ${
+                              index === 0
+                                ? "text-primary-600 dark:text-primary-300"
+                                : "text-accent-warm dark:text-orange-300"
+                            }`}
+                          >
+                            {side.tone}
+                          </span>
+                        </div>
+                        <p className="mt-3 max-w-sm text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+                          {side.description}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
 
-              <div className="absolute inset-x-7 top-[11.75rem] grid gap-3 sm:inset-x-9 sm:top-[14rem] sm:grid-cols-2">
-                {heroSides.map((side, index) => (
-                  <div
-                    key={side.name}
-                    className="surface-subtle rounded-[1.7rem] p-5 backdrop-blur-md"
-                  >
-                    <div className="flex items-center justify-between gap-4">
-                      <p className="text-lg font-medium text-neutral-950 dark:text-neutral-50">
-                        {side.name}
-                      </p>
-                      <span
-                        className={`font-mono text-[11px] uppercase tracking-[0.24em] ${
-                          index === 0
-                            ? "text-primary-600 dark:text-primary-300"
-                            : "text-accent-warm dark:text-orange-300"
-                        }`}
-                      >
-                        {side.tone}
-                      </span>
-                    </div>
-                    <p className="mt-3 max-w-sm text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                      {side.description}
+                <div className="mt-6 grid gap-3 sm:grid-cols-[1.08fr_0.92fr]">
+                  <div className="rounded-[1.8rem] border border-black/10 bg-white/72 p-5 backdrop-blur-md dark:border-white/10 dark:bg-white/10">
+                    <p className="eyebrow text-neutral-500 dark:text-neutral-400">
+                      Bosphorus rhythm
+                    </p>
+                    <p className="mt-3 text-[1.55rem] font-semibold leading-[1.04] text-neutral-950 dark:text-neutral-50 sm:text-[1.85rem]">
+                      Work on one side.
+                      <br />
+                      Meet on the other.
+                    </p>
+                    <p className="mt-3 max-w-md text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+                      Ferries make the city feel smaller: calmer mornings in
+                      Kadikoy, more social energy around Galata by evening.
                     </p>
                   </div>
-                ))}
-              </div>
-
-              <div className="absolute inset-x-7 bottom-7 grid gap-3 sm:inset-x-9 sm:grid-cols-[1.1fr_0.9fr]">
-                <div className="rounded-[1.8rem] border border-black/10 bg-white/72 p-5 backdrop-blur-md dark:border-white/10 dark:bg-white/10">
-                  <p className="eyebrow text-neutral-500 dark:text-neutral-400">
-                    Bosphorus rhythm
-                  </p>
-                  <p className="mt-3 text-[1.9rem] font-semibold leading-[1.02] text-neutral-950 dark:text-neutral-50">
-                    Work on one side.
-                    <br />
-                    Meet on the other.
-                  </p>
-                  <p className="mt-3 max-w-md text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                    Ferries make the city feel smaller: calmer mornings in
-                    Kadikoy, more social energy around Galata by evening.
-                  </p>
-                </div>
-                <div className="animate-drift-delayed rounded-[1.8rem] border border-black/10 bg-neutral-950 p-5 text-white dark:border-white/10 dark:bg-neutral-50 dark:text-neutral-950">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-white/65 dark:text-neutral-600">
-                    Fresh signal
-                  </p>
-                  <div className="mt-4 flex items-start gap-3 text-sm leading-6">
-                    <MessageCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                    <span>
-                      Ask where to work tomorrow and get a local answer fast.
-                    </span>
-                  </div>
-                  <div className="mt-3 flex items-start gap-3 text-sm leading-6 text-white/75 dark:text-neutral-600">
-                    <CalendarDays className="mt-0.5 h-4 w-4 shrink-0" />
-                    <span>
-                      {nextEvent
-                        ? `Next meetup ${formatEventDate(nextEvent.date)} in ${nextEvent.location}.`
-                        : "Get pointed to the next meetup, coworking day, or neighborhood guide."}
-                    </span>
+                  <div className="animate-drift-delayed rounded-[1.8rem] border border-black/10 bg-neutral-950 p-5 text-white dark:border-white/10 dark:bg-neutral-50 dark:text-neutral-950">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-white/65 dark:text-neutral-600">
+                      Fresh signal
+                    </p>
+                    <div className="mt-4 flex items-start gap-3 text-sm leading-6">
+                      <MessageCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                      <span>
+                        Ask where to work tomorrow and get a local answer fast.
+                      </span>
+                    </div>
+                    <div className="mt-3 flex items-start gap-3 text-sm leading-6 text-white/75 dark:text-neutral-600">
+                      <CalendarDays className="mt-0.5 h-4 w-4 shrink-0" />
+                      <span>
+                        {nextEvent
+                          ? `Next meetup ${formatEventDate(nextEvent.date)} in ${nextEvent.location}.`
+                          : "Get pointed to the next meetup, coworking day, or neighborhood guide."}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -49,6 +49,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Section component now wraps children in `Reveal` for automatic scroll animation on all pages
 - Homepage hero redesigned into a cleaner single-plane composition with a shorter "Build your Istanbul base, faster" headline, tighter copy, and a stronger Istanbul side-selection visual anchored around Kadikoy / Moda and Galata / Beyoglu
 - Hero art direction simplified to remove stacked widget clutter in favor of one editorial visual plane with side cards, Bosphorus rhythm framing, and clearer trust messaging
+- Hero comparison panel restructured into a stable top-and-bottom internal layout after live preview review, preventing overlapping cards and copy collisions across desktop breakpoints
 - Homepage stats, testimonials, and local-knowledge blocks now use more deliberate stagger and hover polish for smoother page rhythm
 - Homepage fully redesigned with editorial layout - hero with trust signal pills, orientation steps (Arrive/Settle/Belong), neighborhood visualization panel, event moment descriptions, guide quick links, testimonials with location context, local knowledge panel, and refined CTA copy
 - Header restyled with rounded pill navigation, glowing logo dot, scroll-aware shrink and shadow, updated subtitle ("Remote life, local rhythm"), and smoother `transition-[background-color,border-color,box-shadow]` with `duration-300`

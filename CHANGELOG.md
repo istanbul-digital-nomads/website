@@ -13,7 +13,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Member profiles and directory
 
 ### Added
+- `Reveal` component (`src/components/ui/reveal.tsx`) - IntersectionObserver-based scroll reveal with staggered delay support (0-4 steps), threshold 0.16, and one-shot animation
 - Route transition system: `template.tsx` with progress bar and fade-up entry animation, `loading.tsx` with branded skeleton matching the editorial layout
+- CSS scroll-reveal system: `.reveal`, `.reveal-visible`, `.reveal-delay-{0-4}` classes with `translate3d` + `scale` transforms, 720ms cubic-bezier easing, and mobile-optimized 560ms durations
+- CSS `.animate-drift` and `.animate-drift-delayed` keyframe utilities for subtle vertical drift
 - CSS route animations: `.route-shell`, `.route-progress`, `.route-enter`, `.loading-bar` keyframes with mobile-optimized durations
 - Design system components: Button (4 variants, 3 sizes, loading state), Card (with header/footer/image slots), Input and Textarea (with labels, errors, helper text), Badge (event type colors), Container, Section, Skeleton
 - Layout: Header with responsive nav and dark mode toggle, Footer with 4-column nav and social icons, MobileNav slide-over panel, ThemeProvider (light/dark/system with localStorage persistence)
@@ -41,11 +44,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 - Root layout now includes ThemeProvider, Header, Footer, Analytics, and SpeedInsights
 - Switched typography from Inter to Manrope (sans) and IBM Plex Mono (mono) with CSS variable fonts (`--font-sans`, `--font-mono`)
+- Homepage wrapped in `Reveal` components for scroll-triggered entrance animations with staggered delays across hero, events, guides, testimonials, and CTA sections
+- Section component now wraps children in `Reveal` for automatic scroll animation on all pages
 - Homepage fully redesigned with editorial layout - hero with trust signal pills, orientation steps (Arrive/Settle/Belong), neighborhood visualization panel, event moment descriptions, guide quick links, testimonials with location context, local knowledge panel, and refined CTA copy
 - Header restyled with rounded pill navigation, glowing logo dot, scroll-aware shrink and shadow, updated subtitle ("Remote life, local rhythm"), and smoother `transition-[background-color,border-color,box-shadow]` with `duration-300`
 - Header link prefetch enabled for faster navigation
 - MobileNav restyled with warm-tinted overlay, rounded links, brand subtitle, and themed borders
-- Global CSS overhauled - warm parchment palette (`#f5efe4` light / `#07111d` dark), Istanbul-inspired radial gradients (terracotta/amber/teal), `.bg-grid`, `.bg-noise`, `.eyebrow`, `.surface-blur`, `.surface-panel` (primary-tinted borders), `.surface-subtle`, `.text-muted` utility classes, route transition keyframes, float/pulse-line animations, mobile animation durations, and `prefers-reduced-motion` support
+- Global CSS overhauled - warm parchment palette (`#f5efe4` light / `#07111d` dark), Istanbul-inspired radial gradients (terracotta/amber/teal), `.bg-grid`, `.bg-noise`, `.eyebrow`, `.surface-blur`, `.surface-panel` (primary-tinted borders), `.surface-subtle`, `.text-muted` utility classes, scroll-reveal system, drift animations, route transition keyframes, float/pulse-line animations, mobile animation durations, and `prefers-reduced-motion` support (disables all animations including reveal transforms)
 - Tailwind color palette updated to terracotta/warm primary (`#e34b32` base), amber accent (`#d49a45`), coral accent (`#ff7b61`), teal accent (`#2f8f7b`), with font family using CSS variables
 - Badge colors updated to match warm palette - meetup (primary), coworking (teal), workshop (amber), social (coral)
 - Button primary variant shadow updated to warm terracotta tint; secondary variant uses primary-tinted borders

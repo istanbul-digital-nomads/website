@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | Istanbul Digital Nomads",
   },
   description:
-    "A community for remote workers, freelancers, and digital nomads living in or visiting Istanbul. Meetups, resources, and connections.",
+    "Build a real remote life in Istanbul with weekly coworking, newcomer-friendly meetups, local guides, and fast answers from people already here.",
   keywords: [
     "digital nomad",
     "istanbul",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Istanbul Digital Nomads",
     description:
-      "A community for remote workers, freelancers, and digital nomads in Istanbul.",
+      "Digital nomad community in Istanbul with weekly coworking, local guides, and newcomer-friendly meetups.",
     url: "https://istanbulnomads.com",
     siteName: "Istanbul Digital Nomads",
     locale: "en_US",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Istanbul Digital Nomads",
     description:
-      "A community for remote workers, freelancers, and digital nomads in Istanbul.",
+      "Build a real remote life in Istanbul with weekly coworking, local guides, and fast local answers.",
   },
   robots: {
     index: true,

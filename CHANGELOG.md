@@ -42,6 +42,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Homepage fully redesigned with editorial layout - hero with trust signal pills, orientation steps (Arrive/Settle/Belong), neighborhood visualization panel, event moment descriptions, guide quick links, testimonials with location context, local knowledge panel, and refined CTA copy
 - Header restyled with rounded pill navigation, glowing logo dot, scroll-aware shrink and shadow, and updated subtitle ("Remote life, local rhythm")
 - Global CSS overhauled - warm parchment palette (`#f5efe4` light / `#07111d` dark), subtle radial gradient backgrounds, `.bg-grid`, `.bg-noise`, `.eyebrow`, `.surface-blur`, `.surface-panel`, `.surface-subtle`, `.text-muted` utility classes, float/pulse-line keyframe animations, and `prefers-reduced-motion` support
+- Footer redesigned with dark CTA card (Telegram join + guide link, feature pills), social icon row, and updated copyright tagline
+- Site description and OG/Twitter meta descriptions rewritten with action-oriented copy focused on coworking, guides, and local answers
+- `siteConfig.shortName` updated from "Istanbul Nomads" to "Istanbul Digital Nomads" for brand consistency
+- Homepage copy refined - tightened CTA wording, added descriptive context to testimonials and event cards
 - Added `metadataBase` to root layout metadata for proper OG URL resolution
 - Added `poweredByHeader: false` and `compress: true` to `next.config.mjs`
 - Added `postbuild` script for sitemap generation

@@ -18,31 +18,18 @@ import { socialLinks } from "@/lib/constants";
 
 const liveEvents = events.filter((event) => !event.isPast).slice(0, 3);
 const featuredGuides = guides.slice(0, 4);
-const heroTrustSignals = [
-  "Free to join",
-  "English-friendly meetups",
-  "Weekly coworking in the city",
-];
-const orientationSteps = [
-  {
-    label: "Arrive",
-    title: "Get your bearings fast",
-    description:
-      "Figure out the Asian side, the European side, ferry logic, and where people actually like to work.",
-  },
-  {
-    label: "Settle",
-    title: "Build a workable week",
-    description:
-      "Use the guides for housing, coworking, transit, internet, and the neighborhood tradeoffs that matter once you stay longer.",
-  },
-  {
-    label: "Belong",
-    title: "Meet people before the city feels huge",
-    description:
-      "Drop into coworking, rooftop meetups, and the Telegram channel to turn Istanbul into a social routine, not just a backdrop.",
-  },
-];
+const nextEvent = liveEvents[0];
+const heroTrustSignals = nextEvent
+  ? [
+      `Next coworking ${formatEventDate(nextEvent.date)}`,
+      "Free to join",
+      "English-friendly meetups",
+    ]
+  : [
+      "Free to join",
+      "English-friendly meetups",
+      "Weekly coworking in the city",
+    ];
 const orientationLinks = [
   { label: "Where should I stay?", href: "/guides/neighborhoods" },
   { label: "Best areas for coworking", href: "/guides/coworking" },
@@ -107,7 +94,7 @@ export default function HomePage() {
             <div className="max-w-3xl">
               <p className="eyebrow">Istanbul Digital Nomads</p>
               <h1 className="mt-5 max-w-4xl text-balance text-[2.85rem] font-semibold leading-[0.96] text-neutral-950 sm:text-6xl lg:text-[5.15rem] dark:text-neutral-50">
-                Build a real remote
+                Build a real digital
                 <br />
                 life in Istanbul,
                 <br />
@@ -118,9 +105,9 @@ export default function HomePage() {
                 coworking, meetups, practical city guides, and fast answers from
                 people already here.
               </p>
-              <p className="text-muted mt-4 max-w-xl text-base leading-7 sm:text-lg">
-                Arrive, get oriented, find your work rhythm, and make the city
-                feel social before it feels overwhelming.
+              <p className="text-muted mt-4 max-w-xl text-base leading-7">
+                Ferry-friendly city logic, neighborhood tradeoffs, and a weekly
+                rhythm that helps newcomers settle in fast.
               </p>
 
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -165,20 +152,6 @@ export default function HomePage() {
                 week&apos;s meetup, a good place to work tomorrow, or the right
                 neighborhood to start from.
               </p>
-
-              <div className="mt-12 grid gap-5 border-t border-black/10 pt-6 sm:grid-cols-3 dark:border-white/10">
-                {orientationSteps.map((step) => (
-                  <div key={step.label}>
-                    <p className="eyebrow">{step.label}</p>
-                    <p className="mt-2 text-base font-medium text-neutral-950 dark:text-neutral-50">
-                      {step.title}
-                    </p>
-                    <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                      {step.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
             </div>
 
             <div className="relative min-h-[520px]">
@@ -207,9 +180,10 @@ export default function HomePage() {
               <div className="absolute left-8 right-8 top-10 rounded-[1.75rem] border border-black/10 bg-white/70 p-5 backdrop-blur-md dark:border-white/10 dark:bg-white/10">
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="eyebrow">New to Istanbul?</p>
+                    <p className="eyebrow">Asian Side or European Side?</p>
                     <h2 className="mt-2 text-2xl font-semibold text-neutral-950 dark:text-neutral-50">
-                      Start on the side of the city that fits your week.
+                      Choose the side of the city that fits the way you want to
+                      live.
                     </h2>
                   </div>
                   <MapPin className="h-5 w-5 shrink-0 text-primary-600 dark:text-primary-400" />
@@ -221,12 +195,12 @@ export default function HomePage() {
                         Kadikoy / Moda
                       </p>
                       <p className="mt-1 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                        Easier routine, more neighborhood feel, strong cafe and
-                        coworking culture.
+                        Easier routine, ferry access, more neighborhood feel,
+                        and strong cafe and coworking culture.
                       </p>
                     </div>
                     <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">
-                      settle
+                      calmer
                     </span>
                   </div>
                   <div className="surface-subtle flex items-start justify-between gap-4 rounded-[1.25rem] p-4">
@@ -236,11 +210,11 @@ export default function HomePage() {
                       </p>
                       <p className="mt-1 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
                         Better if you want density, nightlife, and easier access
-                        to meetups on the European side.
+                        to meetups across the European side.
                       </p>
                     </div>
                     <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-fuchsia-600 dark:text-fuchsia-300">
-                      connect
+                      livelier
                     </span>
                   </div>
                 </div>
@@ -249,21 +223,21 @@ export default function HomePage() {
               <div className="absolute bottom-8 left-8 right-8 grid gap-3 sm:grid-cols-2">
                 <div className="surface-subtle rounded-3xl p-4">
                   <p className="eyebrow text-neutral-500 dark:text-neutral-400">
-                    This week&apos;s rhythm
+                    Bosphorus crossing
                   </p>
                   <p className="mt-3 text-2xl font-semibold text-neutral-950 dark:text-neutral-50">
-                    Wednesday coworking.
+                    Work on one side.
                     <br />
-                    Saturday rooftop.
+                    Meet on the other.
                   </p>
                   <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                    Start with work, then meet people in a way that feels low
-                    pressure and easy to repeat.
+                    Ferries turn the city into a loop: calmer mornings in
+                    Kadikoy, denser social energy around Galata by evening.
                   </p>
                 </div>
                 <div className="rounded-3xl border border-black/10 bg-neutral-950 p-4 text-white dark:border-white/10 dark:bg-neutral-50 dark:text-neutral-950">
                   <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-white/65 dark:text-neutral-600">
-                    Start here
+                    Fresh signal
                   </p>
                   <div className="mt-4 flex items-start gap-3 text-sm">
                     <MessageCircle className="mt-0.5 h-4 w-4 shrink-0" />
@@ -274,8 +248,9 @@ export default function HomePage() {
                   <div className="mt-3 flex items-start gap-3 text-sm text-white/75 dark:text-neutral-600">
                     <CalendarDays className="mt-0.5 h-4 w-4 shrink-0" />
                     <span>
-                      Get pointed to the next meetup, coworking day, or
-                      neighborhood guide.
+                      {nextEvent
+                        ? `Next meetup ${formatEventDate(nextEvent.date)} in ${nextEvent.location}.`
+                        : "Get pointed to the next meetup, coworking day, or neighborhood guide."}
                     </span>
                   </div>
                 </div>
@@ -471,10 +446,10 @@ export default function HomePage() {
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
             <div className="rounded-[2rem] border border-black/10 bg-neutral-950 p-8 text-white dark:border-white/10 dark:bg-white dark:text-neutral-950">
               <p className="eyebrow text-white/60 dark:text-neutral-500">
-                New to Istanbul?
+                First month essentials
               </p>
               <h2 className="mt-4 max-w-md text-4xl font-semibold sm:text-5xl">
-                Start with the pieces that make the city easier to operate.
+                Start with the pieces that make remote life easier to operate.
               </h2>
               <p className="mt-5 max-w-md text-base leading-8 text-white/72 dark:text-neutral-600">
                 If you just landed, begin with neighborhoods, internet, transit,

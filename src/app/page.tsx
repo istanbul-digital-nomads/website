@@ -42,13 +42,13 @@ const heroSides = [
     name: "Kadikoy / Moda",
     tone: "Calmer",
     description:
-      "Better for steady routines, ferry access, strong cafe culture, and neighborhood feel.",
+      "Most newcomers start here for steadier routines, walkable cafes, and easier workday momentum.",
   },
   {
-    name: "Galata / Beyoglu",
+    name: "Galata / Beyoglu / Besiktas",
     tone: "Livelier",
     description:
-      "Better for social density, quicker nights out, and easy access across the European side.",
+      "Better if you want denser social energy, faster nights out, and easier access across the European side.",
   },
 ];
 const heroMapPoints = [
@@ -156,11 +156,12 @@ export default function HomePage() {
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-8 text-neutral-700 sm:text-[1.22rem] dark:text-neutral-200">
                 Weekly coworking, practical guides, and local answers for
-                digital nomads building a real life in Istanbul.
+                digital nomads building a real life between Istanbul&apos;s
+                European and Asian sides.
               </p>
               <p className="text-muted mt-4 max-w-md text-base leading-7">
-                Start with the right neighborhood, a reliable workspace, and
-                people already here.
+                Start with the right side of the Bosphorus, a reliable
+                workspace, and people already here.
               </p>
 
               <Reveal delay={1}>
@@ -298,13 +299,15 @@ export default function HomePage() {
                 <div>
                   <div className="flex items-start justify-between gap-5">
                     <div>
-                      <p className="eyebrow">Nomad Map - Istanbul</p>
+                      <p className="eyebrow">First-Month Map - Istanbul</p>
                       <h2 className="mt-4 max-w-[11ch] text-[1.75rem] font-semibold leading-[1.02] text-neutral-950 dark:text-neutral-50 sm:text-[2.2rem]">
-                        Read the city faster with a real Bosphorus map.
+                        Read Istanbul the way locals do: by side, ferry, and
+                        daily rhythm.
                       </h2>
                       <p className="mt-3 max-w-sm text-sm leading-6 text-neutral-600 dark:text-neutral-300">
                         European side on the left, Asian side on the right, and
-                        ferry routes shaping how your week actually moves.
+                        ferry routes shaping where you live, work, and meet
+                        people.
                       </p>
                     </div>
                     <div className="hidden rounded-full border border-black/10 bg-white/70 p-3 shadow-sm dark:border-white/10 dark:bg-white/10 sm:block">
@@ -343,7 +346,7 @@ export default function HomePage() {
                 <div className="mt-6 grid gap-3 sm:grid-cols-[1.08fr_0.92fr]">
                   <div className="rounded-[1.8rem] border border-black/10 bg-white/82 p-5 backdrop-blur-md dark:border-white/10 dark:bg-white/10">
                     <p className="eyebrow text-neutral-500 dark:text-neutral-400">
-                      Bosphorus rhythm
+                      Local logic
                     </p>
                     <p className="mt-3 text-[1.55rem] font-semibold leading-[1.04] text-neutral-950 dark:text-neutral-50 sm:text-[1.85rem]">
                       Work on one side.
@@ -351,8 +354,9 @@ export default function HomePage() {
                       Meet on the other.
                     </p>
                     <p className="mt-3 max-w-md text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                      Ferries make the city feel smaller: calmer mornings in
-                      Kadikoy, more social energy around Galata by evening.
+                      Ferries make the city legible: calmer mornings in Kadikoy,
+                      denser evenings around Galata, and easy resets in Uskudar
+                      between them.
                     </p>
                   </div>
                   <div className="animate-drift-delayed rounded-[1.8rem] border border-black/10 bg-neutral-950 p-5 text-white dark:border-white/10 dark:bg-neutral-50 dark:text-neutral-950">

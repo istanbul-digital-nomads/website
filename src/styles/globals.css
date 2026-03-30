@@ -142,6 +142,10 @@
     animation: marker-pulse 3.8s ease-in-out infinite;
   }
 
+  .animate-map-route {
+    animation: map-route 6s linear infinite;
+  }
+
   .route-shell {
     position: relative;
     isolation: isolate;
@@ -267,6 +271,20 @@
   }
 }
 
+@keyframes map-route {
+  0% {
+    stroke-dashoffset: 24;
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.55;
+  }
+}
+
 @keyframes route-enter {
   from {
     opacity: 0;
@@ -335,6 +353,7 @@
   .animate-drift-delayed,
   .animate-sweep,
   .animate-marker-pulse,
+  .animate-map-route,
   .route-progress,
   .route-enter,
   .loading-bar,

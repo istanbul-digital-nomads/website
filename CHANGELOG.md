@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - CSS scroll-reveal system: `.reveal`, `.reveal-visible`, `.reveal-delay-{0-4}` classes with `translate3d` + `scale` transforms, 720ms cubic-bezier easing, and mobile-optimized 560ms durations
 - CSS `.animate-drift` and `.animate-drift-delayed` keyframe utilities for subtle vertical drift
 - CSS `.animate-sweep` and `.animate-marker-pulse` keyframe utilities for hero map-line motion and location-marker pulses
+- CSS `.animate-map-route` keyframe utility for animated Bosphorus route strokes in the homepage hero map
 - CSS route animations: `.route-shell`, `.route-progress`, `.route-enter`, `.loading-bar` keyframes with mobile-optimized durations
 - Design system components: Button (4 variants, 3 sizes, loading state), Card (with header/footer/image slots), Input and Textarea (with labels, errors, helper text), Badge (event type colors), Container, Section, Skeleton
 - Layout: Header with responsive nav and dark mode toggle, Footer with 4-column nav and social icons, MobileNav slide-over panel, ThemeProvider (light/dark/system with localStorage persistence)
@@ -50,6 +51,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Homepage hero redesigned into a cleaner single-plane composition with a shorter "Build your Istanbul base, faster" headline, tighter copy, and a stronger Istanbul side-selection visual anchored around Kadikoy / Moda and Galata / Beyoglu
 - Hero art direction simplified to remove stacked widget clutter in favor of one editorial visual plane with side cards, Bosphorus rhythm framing, and clearer trust messaging
 - Hero comparison panel restructured into a stable top-and-bottom internal layout after live preview review, preventing overlapping cards and copy collisions across desktop breakpoints
+- Homepage hero visual shifted from an abstract comparison board to a real Istanbul-inspired map composition with animated routes and labeled districts
 - Homepage stats, testimonials, and local-knowledge blocks now use more deliberate stagger and hover polish for smoother page rhythm
 - Homepage fully redesigned with editorial layout - hero with trust signal pills, orientation steps (Arrive/Settle/Belong), neighborhood visualization panel, event moment descriptions, guide quick links, testimonials with location context, local knowledge panel, and refined CTA copy
 - Header restyled with rounded pill navigation, glowing logo dot, scroll-aware shrink and shadow, updated subtitle ("Remote life, local rhythm"), and smoother `transition-[background-color,border-color,box-shadow]` with `duration-300`

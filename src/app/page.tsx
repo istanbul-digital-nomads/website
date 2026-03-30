@@ -51,6 +51,37 @@ const heroSides = [
       "Better for social density, quicker nights out, and easy access across the European side.",
   },
 ];
+const heroMapPoints = [
+  {
+    name: "Galata",
+    x: 61,
+    y: 24,
+    align: "left" as const,
+    toneClass: "bg-accent-warm text-neutral-950 shadow-accent-warm/30",
+  },
+  {
+    name: "Besiktas",
+    x: 54,
+    y: 44,
+    align: "right" as const,
+    toneClass:
+      "bg-white text-neutral-950 shadow-black/10 dark:bg-white/15 dark:text-neutral-50",
+  },
+  {
+    name: "Kadikoy",
+    x: 42,
+    y: 66,
+    align: "right" as const,
+    toneClass: "bg-primary-500 text-white shadow-primary-500/30",
+  },
+  {
+    name: "Moda",
+    x: 50,
+    y: 77,
+    align: "left" as const,
+    toneClass: "bg-accent-green text-white shadow-accent-green/30",
+  },
+];
 const eventMoments: Record<string, string> = {
   "1": "Quiet work session with reliable wifi and plenty of regulars who welcome first-timers.",
   "2": "The easiest event to meet people fast, especially if you just arrived and want social momentum.",
@@ -105,10 +136,10 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.74fr)_minmax(540px,0.98fr)] lg:items-center lg:gap-12">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(560px,1fr)] lg:items-center lg:gap-12">
             <Reveal delay={0} className="max-w-[30rem] pt-2 lg:pt-0">
               <p className="eyebrow">Istanbul Digital Nomads</p>
-              <h1 className="mt-5 max-w-[8.4ch] text-balance text-[3rem] font-semibold leading-[0.9] text-neutral-950 sm:text-[4.15rem] lg:text-[4.55rem] dark:text-neutral-50">
+              <h1 className="mt-5 max-w-[8.4ch] text-balance text-[3rem] font-semibold leading-[0.9] text-neutral-950 sm:text-[4rem] lg:text-[4.35rem] dark:text-neutral-50">
                 Build your
                 <br />
                 Istanbul base,
@@ -180,32 +211,67 @@ export default function HomePage() {
             >
               <div className="surface-panel absolute inset-0 overflow-hidden rounded-[2.3rem] shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]" />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(227,75,50,0.18),transparent_24%),radial-gradient(circle_at_85%_70%,rgba(212,154,69,0.22),transparent_26%),linear-gradient(135deg,rgba(255,255,255,0.4),rgba(255,255,255,0.08))] dark:bg-[radial-gradient(circle_at_18%_18%,rgba(227,75,50,0.22),transparent_22%),radial-gradient(circle_at_85%_70%,rgba(212,154,69,0.16),transparent_24%),linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))]" />
-              <div className="bg-grid absolute inset-5 rounded-[1.8rem] border border-black/5 opacity-80 dark:border-white/10 dark:opacity-100" />
-              <div className="animate-sweep absolute inset-y-10 left-[46%] w-px bg-gradient-to-b from-transparent via-primary-500/35 to-transparent" />
-              <div className="animate-pulse-line absolute left-[15%] top-[26%] h-px w-[58%] bg-gradient-to-r from-transparent via-primary-500/45 to-transparent" />
-              <div className="animate-pulse-line absolute bottom-[23%] left-[26%] h-px w-[42%] bg-gradient-to-r from-transparent via-accent-warm/60 to-transparent [animation-delay:1.1s]" />
+              <div className="bg-grid absolute inset-5 rounded-[1.8rem] border border-black/5 opacity-70 dark:border-white/10 dark:opacity-100" />
 
-              <div className="animate-marker-pulse absolute left-[16%] top-[20%] h-3 w-3 rounded-full bg-primary-500 shadow-[0_0_0_10px_rgba(227,75,50,0.12)]" />
-              <div className="animate-marker-pulse absolute right-[12%] top-[34%] h-3 w-3 rounded-full bg-accent-warm shadow-[0_0_0_10px_rgba(212,154,69,0.12)] [animation-delay:1.2s]" />
-              <div className="animate-marker-pulse absolute bottom-[22%] left-[28%] h-3 w-3 rounded-full bg-accent-green shadow-[0_0_0_10px_rgba(47,143,123,0.12)] [animation-delay:2s]" />
+              <div className="absolute inset-5 overflow-hidden rounded-[1.8rem]">
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_72%,rgba(255,255,255,0.55),transparent_25%),radial-gradient(circle_at_82%_24%,rgba(255,255,255,0.38),transparent_22%)] dark:bg-[radial-gradient(circle_at_18%_72%,rgba(255,255,255,0.08),transparent_25%),radial-gradient(circle_at_82%_24%,rgba(255,255,255,0.05),transparent_22%)]" />
+                <svg
+                  viewBox="0 0 100 100"
+                  className="absolute inset-0 h-full w-full opacity-[0.9]"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M28 6C20 16 17 25 18 37c1 11 6 18 14 25 9 7 14 13 14 23v9h8v-8c0-12 5-18 14-25 9-7 14-15 15-27 1-10-2-20-10-28"
+                    className="fill-[rgba(255,255,255,0.18)] stroke-black/10 dark:fill-[rgba(255,255,255,0.04)] dark:stroke-white/10"
+                    strokeWidth="0.6"
+                  />
+                  <path
+                    d="M46 7c-6 10-8 18-8 27 0 12 4 19 10 28 5 7 8 13 8 23M54 10c3 7 4 13 4 21 0 9-3 17-8 24"
+                    className="stroke-primary-500/65 dark:stroke-primary-400/60"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    strokeDasharray="2 4"
+                    fill="none"
+                  />
+                  <path
+                    d="M44 66C51 62 57 56 63 48c6-8 11-14 19-17"
+                    className="animate-map-route stroke-accent-warm/75 dark:stroke-accent-warm/70"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                    strokeDasharray="2 3"
+                    fill="none"
+                  />
+                </svg>
+              </div>
 
-              <div className="animate-drift absolute left-[13%] top-[14%] rounded-full bg-primary-500 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-primary-500/30">
-                Kadikoy
-              </div>
-              <div className="animate-drift-delayed absolute right-[8%] top-[28%] rounded-full bg-accent-warm px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-950 shadow-lg shadow-accent-warm/30">
-                Galata
-              </div>
-              <div className="animate-drift absolute bottom-[17%] left-[24%] rounded-full bg-accent-green px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-white shadow-lg shadow-accent-green/30">
-                Moda
-              </div>
+              {heroMapPoints.map((point, index) => (
+                <div
+                  key={point.name}
+                  className="absolute"
+                  style={{ left: `${point.x}%`, top: `${point.y}%` }}
+                >
+                  <div
+                    className="animate-marker-pulse absolute -left-1.5 -top-1.5 h-3 w-3 rounded-full bg-primary-500 shadow-[0_0_0_10px_rgba(227,75,50,0.12)]"
+                    style={{ animationDelay: `${index * 0.7}s` }}
+                  />
+                  <div
+                    className={`animate-drift absolute top-3 rounded-full px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] shadow-lg ${
+                      point.align === "right" ? "-left-24" : "left-2"
+                    } ${point.toneClass}`}
+                    style={{ animationDelay: `${index * 0.45}s` }}
+                  >
+                    {point.name}
+                  </div>
+                </div>
+              ))}
 
               <div className="absolute inset-5 flex flex-col justify-between rounded-[1.8rem] px-5 py-6 sm:px-7 sm:py-7">
                 <div>
                   <div className="flex items-start justify-between gap-5">
                     <div>
-                      <p className="eyebrow">Choose Your Side of the City</p>
+                      <p className="eyebrow">Nomad Map - Istanbul</p>
                       <h2 className="mt-4 max-w-[11ch] text-[1.75rem] font-semibold leading-[1.02] text-neutral-950 dark:text-neutral-50 sm:text-[2.2rem]">
-                        Find the side of Istanbul that matches your work rhythm.
+                        Read the city faster with a real Bosphorus-first map.
                       </h2>
                     </div>
                     <div className="hidden rounded-full border border-black/10 bg-white/70 p-3 shadow-sm dark:border-white/10 dark:bg-white/10 sm:block">

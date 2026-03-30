@@ -16,6 +16,7 @@ import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { events, guides } from "@/lib/data";
 import { socialLinks } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 const liveEvents = events.filter((event) => !event.isPast).slice(0, 3);
 const featuredGuides = guides.slice(0, 4);
@@ -54,42 +55,78 @@ const heroSides = [
 const heroMapPoints = [
   {
     name: "Galata",
-    x: 38,
-    y: 28,
+    x: "32%",
+    y: "24%",
     align: "left" as const,
     toneClass: "bg-accent-warm text-neutral-950 shadow-accent-warm/30",
   },
   {
     name: "Besiktas",
-    x: 32,
-    y: 48,
+    x: "26%",
+    y: "44%",
     align: "right" as const,
     toneClass:
       "bg-white text-neutral-950 shadow-black/10 dark:bg-white/15 dark:text-neutral-50",
   },
   {
     name: "Kadikoy",
-    x: 67,
-    y: 64,
+    x: "64%",
+    y: "66%",
     align: "right" as const,
     toneClass: "bg-primary-500 text-white shadow-primary-500/30",
   },
   {
     name: "Moda",
-    x: 73,
-    y: 76,
+    x: "70%",
+    y: "76%",
     align: "left" as const,
     toneClass: "bg-accent-green text-white shadow-accent-green/30",
   },
   {
     name: "Uskudar",
-    x: 61,
-    y: 50,
+    x: "58%",
+    y: "52%",
     align: "left" as const,
     toneClass:
       "bg-white text-neutral-950 shadow-black/10 dark:bg-white/15 dark:text-neutral-50",
   },
 ];
+
+function LocationPin({
+  label,
+  left,
+  top,
+  delay = 0,
+  toneClass,
+}: {
+  label: string;
+  left: string;
+  top: string;
+  delay?: number;
+  toneClass: string;
+}) {
+  return (
+    <div
+      className="absolute -translate-x-1/2 -translate-y-1/2"
+      style={{ left, top }}
+    >
+      <span
+        className="absolute inset-0 animate-ping rounded-full bg-primary-500/30"
+        style={{ animationDelay: `${delay}ms` }}
+      />
+      <span className="relative block h-3 w-3 rounded-full bg-primary-500 shadow-md ring-2 ring-white/80 dark:ring-neutral-900/70" />
+      <span
+        className={cn(
+          "absolute left-4 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-black/8 bg-white/90 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-700 shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-neutral-800/90 dark:text-neutral-200",
+          toneClass,
+        )}
+        style={{ animationDelay: `${delay + 120}ms` }}
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
 const eventMoments: Record<string, string> = {
   "1": "Quiet work session with reliable wifi and plenty of regulars who welcome first-timers.",
   "2": "The easiest event to meet people fast, especially if you just arrived and want social momentum.",
@@ -147,12 +184,15 @@ export default function HomePage() {
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(560px,1fr)] lg:items-center lg:gap-12">
             <Reveal delay={0} className="max-w-[30rem] pt-2 lg:pt-0">
               <p className="eyebrow">Istanbul Digital Nomads</p>
-              <h1 className="mt-5 max-w-[8.7ch] text-balance text-[3rem] font-semibold leading-[0.92] text-neutral-950 sm:text-[3.7rem] lg:text-[4rem] dark:text-neutral-50">
-                Build your
-                <br />
-                Istanbul base,
-                <br />
-                faster.
+              <h1 className="word-rise mt-5 max-w-[8.7ch] text-balance text-[3rem] font-semibold leading-[0.92] text-neutral-950 sm:text-[3.7rem] lg:text-[4rem] dark:text-neutral-50">
+                {"Build your Istanbul base, faster."
+                  .split(" ")
+                  .map((word, index) => (
+                    <span key={word + index}>
+                      {word}
+                      {index < 4 ? " " : ""}
+                    </span>
+                  ))}
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-8 text-neutral-700 sm:text-[1.22rem] dark:text-neutral-200">
                 Weekly coworking, practical guides, and local answers for
@@ -216,16 +256,17 @@ export default function HomePage() {
 
             <Reveal
               delay={1}
-              className="relative min-h-[520px] sm:min-h-[600px] lg:min-h-[580px]"
+              className="relative min-h-[520px] sm:min-h-[620px] lg:min-h-[600px]"
             >
               <div className="absolute inset-0 overflow-hidden rounded-[2.3rem] border border-primary-200/60 bg-[linear-gradient(180deg,rgba(229,240,245,0.82),rgba(210,225,233,0.62))] shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:border-primary-900/40 dark:bg-[linear-gradient(180deg,rgba(11,27,39,0.92),rgba(9,20,30,0.9))] dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]" />
               <div className="bg-grid absolute inset-5 rounded-[1.8rem] border border-black/5 opacity-40 dark:border-white/10 dark:opacity-50" />
 
-              <div className="absolute inset-[1.25rem] overflow-hidden rounded-[1.8rem]">
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(255,255,255,0.52),transparent_22%),radial-gradient(circle_at_74%_84%,rgba(255,255,255,0.26),transparent_18%)] dark:bg-[radial-gradient(circle_at_20%_15%,rgba(255,255,255,0.06),transparent_22%),radial-gradient(circle_at_74%_84%,rgba(255,255,255,0.04),transparent_18%)]" />
+              <div className="absolute inset-0 bottom-[34%] overflow-hidden rounded-t-[2.3rem]">
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.45),transparent_22%),radial-gradient(circle_at_78%_84%,rgba(255,255,255,0.26),transparent_18%)] dark:bg-[radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.08),transparent_22%),radial-gradient(circle_at_78%_84%,rgba(255,255,255,0.05),transparent_18%)]" />
                 <svg
                   viewBox="0 0 100 100"
-                  className="absolute inset-0 h-full w-full"
+                  className="h-full w-full"
+                  preserveAspectRatio="xMidYMid slice"
                   aria-hidden="true"
                 >
                   <path
@@ -234,21 +275,48 @@ export default function HomePage() {
                   />
                   <path
                     d="M0 6c12 0 20 2 27 6 8 5 12 10 15 18 3 8 7 13 12 19 4 6 6 11 5 18-1 8-6 14-11 20-4 6-6 12-6 23H0z"
-                    className="fill-[rgba(250,246,240,0.92)] stroke-[rgba(17,24,39,0.12)] dark:fill-[rgba(250,246,240,0.06)] dark:stroke-[rgba(255,255,255,0.12)]"
-                    strokeWidth="0.6"
+                    className="fill-amber-50/95 stroke-amber-900/10 dark:fill-amber-950/20 dark:stroke-amber-100/10"
+                    strokeWidth="0.5"
                   />
                   <path
                     d="M73 8c10-2 18 1 27 6v86H54c-1-10 1-18 5-24 5-7 9-12 10-19 1-7-2-13-6-19-5-8-8-14-8-23 0-10 5-15 18-7"
-                    className="fill-[rgba(250,246,240,0.92)] stroke-[rgba(17,24,39,0.12)] dark:fill-[rgba(250,246,240,0.06)] dark:stroke-[rgba(255,255,255,0.12)]"
-                    strokeWidth="0.6"
+                    className="fill-sky-50/95 stroke-sky-900/10 dark:fill-sky-950/20 dark:stroke-sky-100/10"
+                    strokeWidth="0.5"
                   />
                   <path
                     d="M50 2c4 9 4 17 2 25-2 9-3 17-2 26 1 8 4 15 9 22 5 8 6 14 4 23"
-                    className="stroke-[rgba(85,123,141,0.7)] dark:stroke-[rgba(120,170,193,0.62)]"
-                    strokeWidth="4.2"
+                    stroke="rgba(85,123,141,0.15)"
+                    strokeWidth="9"
                     strokeLinecap="round"
                     fill="none"
                   />
+                  <path
+                    d="M50 2c4 9 4 17 2 25-2 9-3 17-2 26 1 8 4 15 9 22 5 8 6 14 4 23"
+                    stroke="rgba(85,123,141,0.6)"
+                    strokeWidth="4.5"
+                    strokeLinecap="round"
+                    fill="none"
+                  />
+                  <path
+                    d="M50 2c4 9 4 17 2 25-2 9-3 17-2 26 1 8 4 15 9 22 5 8 6 14 4 23"
+                    stroke="rgba(255,255,255,0.3)"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    fill="none"
+                  />
+                  <ellipse
+                    rx="2"
+                    ry="1"
+                    fill="white"
+                    stroke="rgba(85,123,141,0.8)"
+                    strokeWidth="0.4"
+                  >
+                    <animateMotion
+                      dur="8s"
+                      repeatCount="indefinite"
+                      path="M50 22c2 9 2 17 0 26 1 8 3 15 8 22"
+                    />
+                  </ellipse>
                   <path
                     d="M42 26c7 1 14 0 22-3M43 44c7 1 14 0 20-3M46 63c5 1 10 0 15-2"
                     className="stroke-[rgba(85,123,141,0.55)] dark:stroke-[rgba(120,170,193,0.5)]"
@@ -272,96 +340,90 @@ export default function HomePage() {
                     fill="none"
                   />
                 </svg>
+                {heroMapPoints.map((point, index) => (
+                  <LocationPin
+                    key={point.name}
+                    label={point.name}
+                    left={point.x}
+                    top={point.y}
+                    delay={index * 180}
+                    toneClass={point.toneClass}
+                  />
+                ))}
               </div>
 
-              {heroMapPoints.map((point, index) => (
-                <div
-                  key={point.name}
-                  className="absolute"
-                  style={{ left: `${point.x}%`, top: `${point.y}%` }}
-                >
-                  <div
-                    className="animate-marker-pulse absolute -left-1.5 -top-1.5 h-3 w-3 rounded-full bg-primary-500 shadow-[0_0_0_10px_rgba(227,75,50,0.12)]"
-                    style={{ animationDelay: `${index * 0.7}s` }}
-                  />
-                  <div
-                    className={`animate-drift absolute top-3 rounded-full px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] shadow-lg ${
-                      point.align === "right" ? "-left-24" : "left-2"
-                    } ${point.toneClass}`}
-                    style={{ animationDelay: `${index * 0.45}s` }}
-                  >
-                    {point.name}
+              <div className="absolute inset-x-5 bottom-5 top-[66%] rounded-b-[2.3rem] border border-black/5 bg-white/85 px-6 py-5 backdrop-blur-md shadow-[0_18px_60px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-neutral-900/80 dark:shadow-[0_18px_60px_rgba(0,0,0,0.4)] sm:inset-x-7 sm:px-7 sm:py-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="eyebrow">First-Month Map - Istanbul</p>
+                    <h2 className="mt-2 max-w-[11ch] text-[1.55rem] font-semibold leading-[1.08] text-neutral-950 dark:text-neutral-50 sm:text-[1.8rem]">
+                      Read Istanbul the way locals do: by side, ferry, and daily
+                      rhythm.
+                    </h2>
+                    <p className="mt-3 max-w-md text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+                      European side to your left, Asian side to your right,
+                      ferries tying the week together.
+                    </p>
                   </div>
-                </div>
-              ))}
-
-              <div className="absolute inset-5 flex flex-col justify-between rounded-[1.8rem] px-5 py-6 sm:px-7 sm:py-7">
-                <div className="max-w-[20rem]">
-                  <div className="flex items-start justify-between gap-5">
-                    <div>
-                      <p className="eyebrow">First-Month Map - Istanbul</p>
-                      <h2 className="mt-4 max-w-[10ch] text-[1.75rem] font-semibold leading-[1.02] text-neutral-950 dark:text-neutral-50 sm:text-[2rem]">
-                        Read Istanbul the way locals do: by side, ferry, and
-                        daily rhythm.
-                      </h2>
-                      <p className="mt-3 max-w-sm text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                        European side on the left, Asian side on the right, and
-                        ferry routes shaping where you live, work, and meet
-                        people.
-                      </p>
-                    </div>
-                    <div className="hidden rounded-full border border-black/10 bg-white/70 p-3 shadow-sm dark:border-white/10 dark:bg-white/10 sm:block">
-                      <MapPin className="h-5 w-5 text-primary-600 dark:text-primary-400" />
-                    </div>
+                  <div className="hidden rounded-full border border-black/10 bg-white/80 p-3 shadow-sm dark:border-white/10 dark:bg-white/10 sm:block">
+                    <MapPin className="h-5 w-5 text-primary-600 dark:text-primary-400" />
                   </div>
                 </div>
 
-                <div className="mt-6 flex justify-end">
-                  <div className="w-full max-w-[22rem] space-y-3">
+                <div className="mt-5 grid gap-3 sm:grid-cols-[1.1fr_0.9fr]">
+                  <div className="space-y-3">
                     {heroSides.map((side, index) => (
                       <div
                         key={side.name}
-                        className="rounded-[1.5rem] border border-black/10 bg-white/82 p-4 backdrop-blur-md dark:border-white/10 dark:bg-[rgba(10,20,29,0.72)]"
+                        className="animate-slide-up-fade rounded-[1.5rem] border border-white/30 bg-white/60 px-5 py-4 shadow-xl ring-1 ring-black/5 backdrop-blur-md dark:border-white/10 dark:bg-white/5 dark:ring-white/10"
+                        style={{
+                          animationDelay: `${0.18 * index}s`,
+                          opacity: 0,
+                        }}
                       >
                         <div className="flex items-center justify-between gap-4">
                           <p className="text-base font-medium text-neutral-950 dark:text-neutral-50">
                             {side.name}
                           </p>
                           <span
-                            className={`font-mono text-[11px] uppercase tracking-[0.24em] ${
+                            className={cn(
+                              "font-mono text-[11px] uppercase tracking-[0.24em]",
                               index === 0
                                 ? "text-primary-600 dark:text-primary-300"
-                                : "text-accent-warm dark:text-orange-300"
-                            }`}
+                                : "text-accent-warm dark:text-orange-300",
+                            )}
                           >
                             {side.tone}
                           </span>
                         </div>
-                        <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+                        <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
                           {side.description}
                         </p>
                       </div>
                     ))}
+                  </div>
 
-                    <div className="animate-drift-delayed rounded-[1.6rem] border border-black/10 bg-neutral-950 p-4 text-white dark:border-white/10 dark:bg-neutral-50 dark:text-neutral-950">
-                      <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-white/65 dark:text-neutral-600">
-                        Local logic
-                      </p>
-                      <div className="mt-3 flex items-start gap-3 text-sm leading-6">
-                        <MessageCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                        <span>
-                          Ferries make the city legible: work from Kadikoy, meet
-                          people around Galata, reset through Uskudar.
-                        </span>
-                      </div>
-                      <div className="mt-3 flex items-start gap-3 text-sm leading-6 text-white/75 dark:text-neutral-600">
-                        <CalendarDays className="mt-0.5 h-4 w-4 shrink-0" />
-                        <span>
-                          {nextEvent
-                            ? `Next meetup ${formatEventDate(nextEvent.date)} in ${nextEvent.location}.`
-                            : "Get pointed to the next meetup, coworking day, or neighborhood guide."}
-                        </span>
-                      </div>
+                  <div
+                    className="animate-slide-up-fade rounded-[1.6rem] border border-black/10 bg-neutral-950 p-4 text-white shadow-lg shadow-black/20 backdrop-blur-md dark:border-white/10 dark:bg-neutral-50 dark:text-neutral-950"
+                    style={{ animationDelay: "0.4s", opacity: 0 }}
+                  >
+                    <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-white/65 dark:text-neutral-600">
+                      Local logic
+                    </p>
+                    <div className="mt-3 flex items-start gap-3 text-sm leading-6">
+                      <MessageCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                      <span>
+                        Ferries make the city legible: work from Kadikoy, meet
+                        around Galata, reset through Uskudar.
+                      </span>
+                    </div>
+                    <div className="mt-3 flex items-start gap-3 text-sm leading-6 text-white/75 dark:text-neutral-600">
+                      <CalendarDays className="mt-0.5 h-4 w-4 shrink-0" />
+                      <span>
+                        {nextEvent
+                          ? `Next meetup ${formatEventDate(nextEvent.date)} in ${nextEvent.location}.`
+                          : "Get pointed to the next meetup, coworking day, or neighborhood guide."}
+                      </span>
                     </div>
                   </div>
                 </div>

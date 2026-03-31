@@ -7,8 +7,11 @@ import { MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/layout/theme-provider";
 
-const MAP_STYLE_LIGHT = "https://tiles.openfreemap.org/styles/liberty";
-const MAP_STYLE_DARK = "https://tiles.openfreemap.org/styles/dark";
+// CartoCDN tiles - reliable, free, no API key needed
+const MAP_STYLE_LIGHT =
+  "https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json";
+const MAP_STYLE_DARK =
+  "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json";
 
 const ISTANBUL_CENTER = { longitude: 29.0, latitude: 41.015 } as const;
 const INITIAL_ZOOM = 12.2;
@@ -194,6 +197,7 @@ export function IstanbulMap() {
   const { theme } = useTheme();
   const [activeMarker, setActiveMarker] = useState<string | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
+  const [mapError, setMapError] = useState(false);
   const mapRef = useRef<any>(null);
 
   const isDark =
@@ -206,6 +210,7 @@ export function IstanbulMap() {
     setMapLoaded(true);
     const map = mapRef.current?.getMap();
     if (map) {
+      map.on("error", () => setMapError(true));
       map.flyTo({
         center: [ISTANBUL_CENTER.longitude, ISTANBUL_CENTER.latitude],
         zoom: INITIAL_ZOOM + 0.3,

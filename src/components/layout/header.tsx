@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Sun, Moon, Monitor } from "lucide-react";
+import { Sun, Moon, Monitor, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { navItems, siteConfig, socialLinks } from "@/lib/constants";
 import { Container } from "@/components/ui/container";
@@ -81,6 +81,17 @@ export function Header() {
             >
               <ThemeIcon className="h-5 w-5" />
             </button>
+
+            <Link href="/login" className="hidden md:block">
+              <Button
+                size="sm"
+                variant="ghost"
+                className="rounded-full"
+              >
+                <User className="h-4 w-4" />
+                Sign In
+              </Button>
+            </Link>
 
             <a
               href={socialLinks.telegram}

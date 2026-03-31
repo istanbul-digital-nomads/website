@@ -78,6 +78,20 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
             ))}
           </div>
 
+          {/* Sign In */}
+          <Link
+            href="/login"
+            prefetch
+            onClick={onClose}
+            className="tap-highlight mt-4 flex items-center gap-3 rounded-2xl bg-primary-50 px-4 py-4 text-lg font-medium text-primary-700 transition-colors dark:bg-white/10 dark:text-primary-300"
+          >
+            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            Sign In with Google
+          </Link>
+
           {/* Theme toggle */}
           <div className="mt-8">
             <p className="px-4 font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-500 dark:text-neutral-400">

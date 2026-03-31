@@ -36,10 +36,12 @@ A detailed, implementation-ready plan for building istanbulnomads.com from MVP t
 
 ### 1.3 Layout Components
 
-- [x] **Header** - Logo, desktop nav, mobile hamburger menu, dark mode toggle, CTA button
-- [x] **Footer** - Logo, nav columns (Community, Resources, Connect), social icons, copyright
-- [x] **MobileNav** - Slide-over navigation for small screens
+- [x] **Header** - Logo, desktop nav, dark mode toggle, CTA button, auto-hide on mobile scroll
+- [x] **Footer** - Dark CTA card, social icons, nav columns, tab bar clearance padding
+- [x] **BottomTabBar** - Fixed 5-tab mobile navigation (Home, Guides, Events, Community, Menu)
+- [x] **MobileMenuOverlay** - Full-screen menu replacing side drawer, segmented theme toggle
 - [x] **ThemeProvider** - Dark/light mode with system preference detection + localStorage persistence
+- [x] **useScrollDirection** - Custom hook for scroll direction tracking with dead-zone
 - [ ] **Breadcrumbs** - Auto-generated from route segments
 - [ ] **ScrollToTop** - Subtle button on long pages
 

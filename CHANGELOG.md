@@ -21,7 +21,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - CSS `.animate-map-route` keyframe utility for animated Bosphorus route strokes in the homepage hero map
 - CSS route animations: `.route-shell`, `.route-progress`, `.route-enter`, `.loading-bar` keyframes with mobile-optimized durations
 - Design system components: Button (4 variants, 3 sizes, loading state), Card (with header/footer/image slots), Input and Textarea (with labels, errors, helper text), Badge (event type colors), Container, Section, Skeleton
-- Layout: Header with responsive nav and dark mode toggle, Footer with 4-column nav and social icons, MobileNav slide-over panel, ThemeProvider (light/dark/system with localStorage persistence)
+- Mobile-first bottom tab bar (`src/components/layout/bottom-tab-bar.tsx`) - 5 fixed tabs (Home, Guides, Events, Community, Menu) with active dot indicator, glass backdrop, safe-area padding for notch devices, entrance animation. Hidden on desktop.
+- Full-screen mobile menu overlay (`src/components/layout/mobile-menu-overlay.tsx`) - replaces old side drawer. Slides up from bottom, large touch targets, segmented theme toggle (Light/Dark/Auto), social links, CTA. Headless UI Dialog for accessibility.
+- `useScrollDirection` hook (`src/hooks/use-scroll-direction.ts`) - tracks scroll direction with 5px dead-zone, returns `{ direction, scrolled, atTop }`
+- Interactive MapLibre GL map (`src/components/ui/istanbul-map.tsx`) - real vector tile map of Istanbul via OpenFreeMap (free, no API key). 5 animated neighborhood markers with hover tooltips, Bosphorus ferry route lines with glow, bottom overlay panel, custom-styled controls, dark mode support via style switching
+- CSS `.tap-highlight` utility for native-app press feedback (active:scale-0.97)
+- CSS `@keyframes slide-up-bar` animation for tab bar entrance
+- MapLibre canvas warm filter (`.map-canvas-warm`, `.map-canvas-dark`) shifting cold map tiles toward the terracotta brand palette
+- Layout: Header with responsive nav and dark mode toggle, Footer with dark CTA card and social icons, ThemeProvider (light/dark/system with localStorage persistence)
 - Homepage sections: Hero with gradient background, Stats bar (4 metrics), Featured Events (3 cards), Guide Highlights (4 cards), How It Works (3 steps), Testimonials (3 quotes), CTA Banner
 - About page: Story section, Values grid (4 cards), Team section (3 members), Timeline (6 milestones)
 - Guides section: Grid page with 10 city guide cards, dynamic `[slug]` pages with static generation
@@ -55,9 +62,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Homepage hero map refined again into a more literal Bosphorus composition with visible shoreline masses, stronger district placement, and clearer European-versus-Asian side reading
 - Homepage stats, testimonials, and local-knowledge blocks now use more deliberate stagger and hover polish for smoother page rhythm
 - Homepage fully redesigned with editorial layout - hero with trust signal pills, orientation steps (Arrive/Settle/Belong), neighborhood visualization panel, event moment descriptions, guide quick links, testimonials with location context, local knowledge panel, and refined CTA copy
-- Header restyled with rounded pill navigation, glowing logo dot, scroll-aware shrink and shadow, updated subtitle ("Remote life, local rhythm"), and smoother `transition-[background-color,border-color,box-shadow]` with `duration-300`
+- Header now auto-hides on scroll down and reappears on scroll up (mobile only, via `useScrollDirection` hook). Hamburger menu button removed, replaced by bottom tab bar.
+- Header restyled with rounded pill navigation, glowing logo dot, scroll-aware shrink and shadow, updated subtitle ("Remote life, local rhythm"), and smoother transitions including transform for auto-hide
 - Header link prefetch enabled for faster navigation
-- MobileNav restyled with warm-tinted overlay, rounded links, brand subtitle, and themed borders
+- Root layout includes `<BottomTabBar />` after Footer, main content gets `pb-16 md:pb-0` for tab bar clearance
+- Footer copyright section gets extra bottom padding on mobile (`pb-20 md:pb-6`) for tab bar clearance
+- Homepage hero SVG map replaced with real interactive MapLibre map widget (dynamically imported with `ssr: false`). Markers have alternating label sides to prevent overlap, tooltips appear above markers.
+- Map tiles filtered with CSS sepia/hue-rotate to match Turkey Red brand palette. Warm radial gradient overlay adds terracotta/amber tints.
+- Map min-height reduced from 520px to 380px on mobile for less vertical scroll
+- Old `mobile-nav.tsx` side drawer deleted, replaced by `mobile-menu-overlay.tsx`
 - Global CSS overhauled - warm parchment palette (`#f5efe4` light / `#07111d` dark), Istanbul-inspired radial gradients (terracotta/amber/teal), `.bg-grid`, `.bg-noise`, `.eyebrow`, `.surface-blur`, `.surface-panel` (primary-tinted borders), `.surface-subtle`, `.text-muted` utility classes, scroll-reveal system, drift animations, route transition keyframes, float/pulse-line animations, mobile animation durations, and `prefers-reduced-motion` support (disables all animations including reveal transforms)
 - Tailwind color palette updated to terracotta/warm primary (`#e34b32` base), amber accent (`#d49a45`), coral accent (`#ff7b61`), teal accent (`#2f8f7b`), with font family using CSS variables
 - Badge colors updated to match warm palette - meetup (primary), coworking (teal), workshop (amber), social (coral)
@@ -79,6 +92,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Fixed
 - CI lint failure caused by missing `.eslintrc.json` - added Next.js strict config
 - CI pnpm version conflict - removed hardcoded `version: 9` from GitHub Actions workflow so it reads from `packageManager` field in `package.json` automatically
+- Reveal component not triggering for above-the-fold content - added `getBoundingClientRect` check on mount, lowered threshold to 0.05
+- MapLibre map zero-height issue - changed container to `absolute inset-0` positioning so canvas gets real dimensions
+- Map marker overlaps (Kadikoy/Moda) - spread coordinates further apart, added alternating `labelSide` property, tooltips now appear above markers
 
 ---
 

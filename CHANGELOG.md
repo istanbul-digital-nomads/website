@@ -13,6 +13,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Member profiles and directory
 
 ### Added
+- Supabase integration: `@supabase/supabase-js` and `@supabase/ssr` installed with browser client, server client, and middleware session management
+- Database schema: members, events, RSVPs, blog_posts tables with UUID PKs, enum types (event_type, rsvp_status), indexes, updated_at triggers, and auto-create member profile on signup trigger
+- Row Level Security policies: members (visible/own), events (published/organizer), RSVPs (public/own), blog_posts (published/author)
+- Storage buckets: `avatars` and `event-images` with public read and owner-based write policies
+- Auth callback route (`/auth/callback`) for OAuth code exchange (Google Auth ready)
+- Next.js middleware (`src/middleware.ts`) for Supabase session refresh on every request
+- TypeScript database types (`src/types/database.ts`) matching the schema
+- SQL migration files in `supabase/migrations/` (001_initial_schema.sql, 002_storage_buckets.sql)
+- Vercel environment variables configured: `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` on all environments
 - `Reveal` component (`src/components/ui/reveal.tsx`) - IntersectionObserver-based scroll reveal with staggered delay support (0-4 steps), threshold 0.16, and one-shot animation
 - Route transition system: `template.tsx` with progress bar and fade-up entry animation, `loading.tsx` with branded skeleton matching the editorial layout
 - CSS scroll-reveal system: `.reveal`, `.reveal-visible`, `.reveal-delay-{0-4}` classes with `translate3d` + `scale` transforms, 720ms cubic-bezier easing, and mobile-optimized 560ms durations

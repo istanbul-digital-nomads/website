@@ -26,10 +26,17 @@ function Reveal({ className, delay = 0, children, ...props }: RevealProps) {
         }
       },
       {
-        threshold: 0.16,
-        rootMargin: "0px 0px -10% 0px",
+        threshold: 0.05,
+        rootMargin: "40px 0px -8% 0px",
       },
     );
+
+    // Check if already in viewport on mount (handles above-the-fold content)
+    const rect = node.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      setVisible(true);
+      return;
+    }
 
     observer.observe(node);
 

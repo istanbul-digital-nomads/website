@@ -165,7 +165,7 @@ export default function HomePage() {
 
             <Reveal
               delay={1}
-              className="relative min-h-[520px] sm:min-h-[620px] lg:min-h-[600px]"
+              className="relative min-h-[380px] sm:min-h-[620px] lg:min-h-[600px]"
             >
               <IstanbulMap />
             </Reveal>

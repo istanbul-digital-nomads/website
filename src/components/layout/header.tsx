@@ -1,15 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Sun, Moon, Monitor } from "lucide-react";
+import { Sun, Moon, Monitor } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { navItems, siteConfig, socialLinks } from "@/lib/constants";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "./theme-provider";
-import { MobileNav } from "./mobile-nav";
+import { useScrollDirection } from "@/hooks/use-scroll-direction";
 
 const themeIcons = { light: Sun, dark: Moon, system: Monitor } as const;
 const themeOrder = ["light", "dark", "system"] as const;
@@ -17,21 +16,7 @@ const themeOrder = ["light", "dark", "system"] as const;
 export function Header() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 12);
-    };
-
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
+  const { direction, scrolled, atTop } = useScrollDirection();
 
   const cycleTheme = () => {
     const idx = themeOrder.indexOf(theme);
@@ -40,12 +25,15 @@ export function Header() {
 
   const ThemeIcon = themeIcons[theme];
 
+  const hideOnMobile = direction === "down" && !atTop;
+
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-black/5 bg-[rgba(245,239,228,0.75)] backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-300 dark:border-white/10 dark:bg-[rgba(7,17,29,0.72)]",
+        "sticky top-0 z-50 border-b border-black/5 bg-[rgba(245,239,228,0.75)] backdrop-blur-xl transition-[background-color,border-color,box-shadow,transform] duration-300 dark:border-white/10 dark:bg-[rgba(7,17,29,0.72)]",
         scrolled &&
           "border-black/10 bg-[rgba(245,239,228,0.88)] shadow-[0_10px_30px_rgba(15,23,42,0.08)] dark:border-white/15 dark:bg-[rgba(7,17,29,0.88)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.25)]",
+        hideOnMobile && "max-md:-translate-y-full",
       )}
     >
       <Container>
@@ -107,19 +95,9 @@ export function Header() {
                 Join Community
               </Button>
             </a>
-
-            <button
-              onClick={() => setMobileOpen(true)}
-              className="rounded-full p-2 text-neutral-500 md:hidden dark:text-neutral-300"
-              aria-label="Open menu"
-            >
-              <Menu className="h-5 w-5" />
-            </button>
           </div>
         </div>
       </Container>
-
-      <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} />
     </header>
   );
 }

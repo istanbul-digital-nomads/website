@@ -104,7 +104,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-black/10 py-6 dark:border-white/10">
+        <div className="border-t border-black/10 py-6 pb-20 md:pb-6 dark:border-white/10">
           <p className="text-center text-sm text-neutral-500 dark:text-neutral-400">
             &copy; {new Date().getFullYear()} {siteConfig.name}. Built for
             people turning Istanbul into a workable local life.

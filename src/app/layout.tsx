@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { BottomTabBar } from "@/components/layout/bottom-tab-bar";
 import "@/styles/globals.css";
 
 const manrope = Manrope({
@@ -68,8 +69,9 @@ export default function RootLayout({
       <body className={`${manrope.variable} ${ibmPlexMono.variable}`}>
         <ThemeProvider>
           <Header />
-          <main className="min-h-[calc(100vh-4rem)]">{children}</main>
+          <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">{children}</main>
           <Footer />
+          <BottomTabBar />
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />

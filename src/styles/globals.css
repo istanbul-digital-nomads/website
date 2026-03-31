@@ -113,6 +113,14 @@
     color: var(--muted);
   }
 
+  .tap-highlight {
+    @apply active:scale-[0.97] active:transition-transform active:duration-100;
+  }
+
+  .animate-slide-up-bar {
+    animation: slide-up-bar 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
   .animate-float {
     animation: float 14s ease-in-out infinite;
   }
@@ -238,6 +246,17 @@
 
   .reveal-delay-4 {
     transition-delay: 320ms;
+  }
+}
+
+@keyframes slide-up-bar {
+  from {
+    transform: translate3d(0, 100%, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
   }
 }
 
@@ -451,6 +470,7 @@
   .animate-sweep,
   .animate-marker-pulse,
   .animate-map-route,
+  .animate-slide-up-bar,
   .route-progress,
   .route-enter,
   .loading-bar,

@@ -202,7 +202,7 @@ export function IstanbulMap() {
   }, []);
 
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-[2.3rem] border border-primary-200/60 bg-[#e8e0d4] shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:border-primary-900/40 dark:bg-[#0d1a26] dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]">
+    <div className="absolute inset-0 overflow-hidden rounded-[2.3rem] border border-primary-200/60 bg-[#e8e0d4] shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:border-primary-900/40 dark:bg-[#0d1a26] dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]">
       <div
         className={cn(
           "absolute inset-0 transition-opacity duration-700",

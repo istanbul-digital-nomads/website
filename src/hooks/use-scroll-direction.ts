@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface ScrollState {
   direction: "up" | "down";
@@ -15,29 +15,32 @@ export function useScrollDirection(threshold = 12): ScrollState {
     atTop: true,
   });
   const lastY = useRef(0);
+  const directionRef = useRef<"up" | "down">("up");
+
+  const onScroll = useCallback(() => {
+    const DEAD_ZONE = 5;
+    const y = window.scrollY;
+    const delta = y - lastY.current;
+
+    let newDirection = directionRef.current;
+    if (Math.abs(delta) > DEAD_ZONE) {
+      newDirection = delta > 0 ? "down" : "up";
+      directionRef.current = newDirection;
+      lastY.current = y;
+    }
+
+    setState({
+      direction: newDirection,
+      scrolled: y > threshold,
+      atTop: y <= 0,
+    });
+  }, [threshold]);
 
   useEffect(() => {
-    const DEAD_ZONE = 5;
-
-    const onScroll = () => {
-      const y = window.scrollY;
-      const delta = y - lastY.current;
-
-      setState({
-        direction: Math.abs(delta) > DEAD_ZONE ? (delta > 0 ? "down" : "up") : state.direction,
-        scrolled: y > threshold,
-        atTop: y <= 0,
-      });
-
-      if (Math.abs(delta) > DEAD_ZONE) {
-        lastY.current = y;
-      }
-    };
-
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  });
+  }, [onScroll]);
 
   return state;
 }

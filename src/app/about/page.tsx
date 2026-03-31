@@ -1,13 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Heart,
-  HelpCircle,
-  Sparkles,
-  PartyPopper,
-  Github,
-  Twitter,
-  Linkedin,
-} from "lucide-react";
+import { Heart, HelpCircle, Sparkles, PartyPopper } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";

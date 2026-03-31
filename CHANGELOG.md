@@ -99,11 +99,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Pinned `packageManager` field in `package.json` for reproducible installs
 
 ### Fixed
+- **Client-side navigation completely broken** - root cause was `useScrollDirection` hook with missing `useEffect` dependency array, creating an infinite render loop that starved React's scheduler and prevented the router from processing navigation events
+- Supabase middleware corrupting Next.js RSC flight responses - `NextResponse.next({ request })` stripped RSC headers needed for client-side navigation. Removed `src/middleware.ts` entirely; auth refresh handled by server client instead
+- Removed `template.tsx` route wrapper - extra DOM nodes interfered with App Router reconciliation during route transitions
+- OpenFreeMap tile parsing errors - switched to CartoCDN Voyager/Dark Matter styles (free, no API key, more reliable)
 - CI lint failure caused by missing `.eslintrc.json` - added Next.js strict config
 - CI pnpm version conflict - removed hardcoded `version: 9` from GitHub Actions workflow so it reads from `packageManager` field in `package.json` automatically
 - Reveal component not triggering for above-the-fold content - added `getBoundingClientRect` check on mount, lowered threshold to 0.05
 - MapLibre map zero-height issue - changed container to `absolute inset-0` positioning so canvas gets real dimensions
 - Map marker overlaps (Kadikoy/Moda) - spread coordinates further apart, added alternating `labelSide` property, tooltips now appear above markers
+
+### Removed
+- `src/middleware.ts` - Supabase session middleware deleted (broke client navigation)
+- `src/app/template.tsx` - route animation wrapper deleted (broke client navigation)
+- `src/components/sections/hero.tsx`, `stats.tsx`, `featured-events.tsx`, `guide-highlights.tsx`, `how-it-works.tsx`, `testimonials.tsx` - 6 unused section components from the original homepage design, replaced by inline editorial layout in `page.tsx`
+- Unused icon imports (`Github`, `Twitter`, `Linkedin`) from about page
+- Inline `formatEventDate` function from homepage - moved to `src/lib/utils.ts`
 
 ---
 

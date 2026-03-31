@@ -17,7 +17,7 @@ import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { events, guides } from "@/lib/data";
 import { socialLinks } from "@/lib/constants";
-import { cn } from "@/lib/utils";
+import { cn, formatEventDate } from "@/lib/utils";
 
 const IstanbulMap = dynamic(
   () =>
@@ -72,14 +72,6 @@ const testimonials = [
     role: "Stayed for a year in Moda - Writer from Tokyo",
   },
 ];
-
-function formatEventDate(date: string) {
-  return new Intl.DateTimeFormat("en", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-  }).format(new Date(date));
-}
 
 export default function HomePage() {
   return (

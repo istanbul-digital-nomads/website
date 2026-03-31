@@ -21,6 +21,7 @@ interface Neighborhood {
   side: "European" | "Asian";
   color: string;
   bgClass: string;
+  labelSide: "left" | "right";
 }
 
 const neighborhoods: Neighborhood[] = [
@@ -32,6 +33,7 @@ const neighborhoods: Neighborhood[] = [
     side: "European",
     color: "#d49a45",
     bgClass: "bg-accent-warm text-neutral-950",
+    labelSide: "right",
   },
   {
     name: "Besiktas",
@@ -41,24 +43,27 @@ const neighborhoods: Neighborhood[] = [
     side: "European",
     color: "#737373",
     bgClass: "bg-neutral-200 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100",
+    labelSide: "left",
   },
   {
     name: "Kadikoy",
-    lng: 29.025,
-    lat: 40.99,
+    lng: 29.027,
+    lat: 40.993,
     vibe: "Calm Asian side, walkable cafes, daily rhythm hub",
     side: "Asian",
     color: "#e34b32",
     bgClass: "bg-primary-500 text-white",
+    labelSide: "right",
   },
   {
     name: "Moda",
-    lng: 29.031,
-    lat: 40.983,
+    lng: 29.026,
+    lat: 40.978,
     vibe: "Seaside promenades, quiet streets, creative scene",
     side: "Asian",
     color: "#2f8f7b",
     bgClass: "bg-accent-green text-white",
+    labelSide: "left",
   },
   {
     name: "Uskudar",
@@ -68,6 +73,7 @@ const neighborhoods: Neighborhood[] = [
     side: "Asian",
     color: "#737373",
     bgClass: "bg-neutral-200 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100",
+    labelSide: "right",
   },
 ];
 
@@ -148,8 +154,9 @@ function AnimatedMarker({
 
         <div
           className={cn(
-            "absolute left-5 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.25em] shadow-md transition-all duration-200",
+            "absolute top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.25em] shadow-md transition-all duration-200",
             neighborhood.bgClass,
+            neighborhood.labelSide === "right" ? "left-5" : "right-5",
             isActive
               ? "scale-105 opacity-100"
               : "opacity-90 group-hover:scale-105 group-hover:opacity-100",
@@ -159,7 +166,14 @@ function AnimatedMarker({
         </div>
 
         {isActive && (
-          <div className="animate-slide-up-fade absolute left-5 top-full mt-1 w-48 rounded-xl border border-black/10 bg-white/95 p-3 shadow-lg backdrop-blur-sm dark:border-white/10 dark:bg-neutral-900/95">
+          <div
+            className={cn(
+              "animate-slide-up-fade absolute bottom-full mb-2 w-48 rounded-xl border border-black/10 bg-white/95 p-3 shadow-lg backdrop-blur-sm dark:border-white/10 dark:bg-neutral-900/95",
+              neighborhood.labelSide === "right"
+                ? "left-0"
+                : "right-0",
+            )}
+          >
             <p className="text-xs font-medium text-neutral-900 dark:text-neutral-100">
               {neighborhood.name}
             </p>

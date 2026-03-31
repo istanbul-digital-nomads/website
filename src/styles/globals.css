@@ -372,6 +372,15 @@
   }
 }
 
+/* MapLibre warm brand filter — applies only to the canvas, not markers */
+.map-canvas-warm .maplibregl-canvas {
+  filter: sepia(0.22) saturate(0.78) hue-rotate(345deg) brightness(1.06) contrast(0.94);
+}
+
+.map-canvas-dark .maplibregl-canvas {
+  filter: sepia(0.15) saturate(0.82) hue-rotate(-5deg) brightness(0.88);
+}
+
 /* MapLibre custom controls */
 .maplibregl-ctrl-group {
   border-radius: 12px !important;

@@ -223,6 +223,7 @@ export function IstanbulMap() {
           mapLoaded ? "opacity-100" : "opacity-0",
         )}
       >
+      <div className={cn("absolute inset-0", isDark ? "map-canvas-dark" : "map-canvas-warm")}>
       <Map
         ref={mapRef}
         mapStyle={isDark ? MAP_STYLE_DARK : MAP_STYLE_LIGHT}
@@ -273,6 +274,17 @@ export function IstanbulMap() {
           />
         ))}
       </Map>
+      </div>
+
+      {/* Warm tint overlay on the map tiles */}
+      <div
+        className={cn(
+          "pointer-events-none absolute inset-0",
+          isDark
+            ? "bg-[rgba(15,10,8,0.12)]"
+            : "bg-[radial-gradient(circle_at_40%_40%,rgba(227,75,50,0.06),transparent_60%),radial-gradient(circle_at_70%_70%,rgba(212,154,69,0.05),transparent_50%)]",
+        )}
+      />
       </div>
 
       <div className="pointer-events-none absolute inset-0 rounded-[2.3rem] ring-1 ring-inset ring-black/5 dark:ring-white/10" />

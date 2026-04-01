@@ -114,7 +114,7 @@ export default function HomePage() {
                   >
                     <Button
                       size="lg"
-                      className="w-full rounded-full bg-neutral-950 px-7 text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-200 sm:w-auto"
+                      className="w-full rounded-full bg-[#1c1614] px-7 text-white hover:bg-[#2a2018] dark:bg-white dark:text-[#2a2018] dark:hover:bg-neutral-200 sm:w-auto"
                     >
                       Join the Telegram
                       <ArrowRight className="h-5 w-5" />
@@ -147,7 +147,7 @@ export default function HomePage() {
               </Reveal>
 
               <Reveal delay={3}>
-                <p className="mt-5 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+                <p className="mt-5 text-sm leading-6 text-[#6b6257] dark:text-[#b8a898]">
                   Introduce yourself once and get pointed to this week&apos;s
                   meetup, tomorrow&apos;s workspace, or the right district to
                   start from.
@@ -168,7 +168,7 @@ export default function HomePage() {
       <section className="border-b border-black/5 py-8 dark:border-white/10">
         <Container>
           <Reveal>
-            <p className="mb-5 max-w-2xl text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+            <p className="mb-5 max-w-2xl text-sm leading-6 text-[#6b6257] dark:text-[#b8a898]">
               Built for people who want a city that becomes workable quickly,
               not just another place to pass through.
             </p>
@@ -190,7 +190,7 @@ export default function HomePage() {
                 >
                   <item.icon className="mt-1 h-5 w-5 text-primary-600 dark:text-primary-400" />
                   <div>
-                    <p className="text-3xl font-semibold text-neutral-950 dark:text-neutral-50">
+                    <p className="text-3xl font-semibold text-[#2a2018] dark:text-[#f7f2ea]">
                       {item.value}
                     </p>
                     <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-500 dark:text-neutral-400">
@@ -231,27 +231,27 @@ export default function HomePage() {
                       <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-primary-600 dark:text-primary-400">
                         {event.type}
                       </p>
-                      <h3 className="mt-3 text-2xl font-semibold text-neutral-950 dark:text-neutral-50">
+                      <h3 className="mt-3 text-2xl font-semibold text-[#2a2018] dark:text-[#f7f2ea]">
                         {event.title}
                       </h3>
-                      <p className="mt-3 text-sm leading-7 text-neutral-600 dark:text-neutral-300">
+                      <p className="mt-3 text-sm leading-7 text-[#6b6257] dark:text-[#b8a898]">
                         {event.description}
                       </p>
-                      <p className="mt-4 text-sm font-medium leading-6 text-neutral-950 dark:text-neutral-100">
+                      <p className="mt-4 text-sm font-medium leading-6 text-neutral-950 dark:text-[#f0e8dc]">
                         {eventMoments[event.id]}
                       </p>
                     </div>
 
                     <div className="min-w-[220px] border-t border-black/10 pt-4 md:border-l md:border-t-0 md:pl-6 md:pt-0 dark:border-white/10">
-                      <div className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300">
+                      <div className="flex items-center gap-2 text-sm text-[#6b6257] dark:text-[#b8a898]">
                         <CalendarDays className="h-4 w-4" />
                         {formatEventDate(event.date)}
                       </div>
-                      <div className="mt-3 flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300">
+                      <div className="mt-3 flex items-center gap-2 text-sm text-[#6b6257] dark:text-[#b8a898]">
                         <MapPin className="h-4 w-4" />
                         {event.location}
                       </div>
-                      <div className="mt-3 flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300">
+                      <div className="mt-3 flex items-center gap-2 text-sm text-[#6b6257] dark:text-[#b8a898]">
                         <Users className="h-4 w-4" />
                         {event.attendees} attending
                       </div>
@@ -287,7 +287,7 @@ export default function HomePage() {
                 first week: where to live, how to move, how much things cost,
                 and which workspaces keep your day smooth.
               </p>
-              <p className="mt-5 max-w-md text-sm leading-7 text-neutral-600 dark:text-neutral-300">
+              <p className="mt-5 max-w-md text-sm leading-7 text-[#6b6257] dark:text-[#b8a898]">
                 Think of them as confidence builders for your first month, not a
                 static resource archive.
               </p>
@@ -320,10 +320,10 @@ export default function HomePage() {
                         0{index + 1}
                       </div>
                       <div>
-                        <h3 className="text-2xl font-semibold text-neutral-950 dark:text-neutral-50">
+                        <h3 className="text-2xl font-semibold text-[#2a2018] dark:text-[#f7f2ea]">
                           {guide.title}
                         </h3>
-                        <p className="mt-2 max-w-xl text-sm leading-7 text-neutral-600 dark:text-neutral-300">
+                        <p className="mt-2 max-w-xl text-sm leading-7 text-[#6b6257] dark:text-[#b8a898]">
                           {guide.description}
                         </p>
                       </div>
@@ -338,7 +338,7 @@ export default function HomePage() {
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                       <p className="eyebrow">Fast answers</p>
-                      <p className="mt-2 text-lg font-medium text-neutral-950 dark:text-neutral-50">
+                      <p className="mt-2 text-lg font-medium text-[#2a2018] dark:text-[#f7f2ea]">
                         Housing, internet, transport, visa basics, and
                         neighborhood fit.
                       </p>
@@ -361,14 +361,14 @@ export default function HomePage() {
       <section className="py-20">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-            <Reveal className="rounded-[2rem] border border-black/10 bg-neutral-950 p-8 text-white dark:border-white/10 dark:bg-white dark:text-neutral-950">
+            <Reveal className="rounded-[2rem] border border-black/10 bg-[#1c1614] p-8 text-white dark:border-white/10 dark:bg-white dark:text-[#2a2018]">
               <p className="eyebrow text-white/60 dark:text-neutral-500">
                 First month essentials
               </p>
               <h2 className="mt-4 max-w-md text-4xl font-semibold sm:text-5xl">
                 Start with the pieces that make remote life easier to operate.
               </h2>
-              <p className="mt-5 max-w-md text-base leading-8 text-white/72 dark:text-neutral-600">
+              <p className="mt-5 max-w-md text-base leading-8 text-white/72 dark:text-[#6b6257]">
                 If you just landed, begin with neighborhoods, internet, transit,
                 and this week&apos;s meetup. It is the fastest path from arrival
                 mode to a workable local routine.
@@ -400,12 +400,12 @@ export default function HomePage() {
                             ? "Orientation"
                             : "Attachment"}
                       </p>
-                      <p className="mt-4 text-base leading-8 text-neutral-700 dark:text-neutral-200">
+                      <p className="mt-4 text-base leading-8 text-[#5a4f43] dark:text-[#d4c4b4]">
                         &ldquo;{testimonial.quote}&rdquo;
                       </p>
                     </div>
                     <footer className="mt-8 border-t border-black/10 pt-4 dark:border-white/10">
-                      <p className="font-semibold text-neutral-950 dark:text-neutral-50">
+                      <p className="font-semibold text-[#2a2018] dark:text-[#f7f2ea]">
                         {testimonial.name}
                       </p>
                       <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
@@ -423,14 +423,14 @@ export default function HomePage() {
       <section className="py-20">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-            <Reveal className="rounded-[2rem] border border-black/10 bg-neutral-950 p-8 text-white dark:border-white/10 dark:bg-white dark:text-neutral-950">
+            <Reveal className="rounded-[2rem] border border-black/10 bg-[#1c1614] p-8 text-white dark:border-white/10 dark:bg-white dark:text-[#2a2018]">
               <p className="eyebrow text-white/60 dark:text-neutral-500">
                 Why people stay
               </p>
               <h2 className="mt-4 max-w-md text-4xl font-semibold sm:text-5xl">
                 Not another expat feed. A city operating system.
               </h2>
-              <p className="mt-5 max-w-md text-base leading-8 text-white/72 dark:text-neutral-600">
+              <p className="mt-5 max-w-md text-base leading-8 text-white/72 dark:text-[#6b6257]">
                 What changes after you join is simple: your workweeks get
                 steadier, the city gets easier to read, and familiar faces start
                 showing up in the places you already like to be.
@@ -465,7 +465,7 @@ export default function HomePage() {
                       <item.icon className="h-5 w-5" />
                       <h3 className="text-lg font-medium">{item.title}</h3>
                     </div>
-                    <p className="mt-2 text-sm leading-7 text-white/70 dark:text-neutral-600">
+                    <p className="mt-2 text-sm leading-7 text-white/70 dark:text-[#6b6257]">
                       {item.description}
                     </p>
                   </div>
@@ -479,10 +479,10 @@ export default function HomePage() {
             >
               <div>
                 <p className="eyebrow">Local knowledge, shared quickly</p>
-                <h3 className="mt-4 max-w-lg text-3xl font-semibold text-neutral-950 dark:text-neutral-50">
+                <h3 className="mt-4 max-w-lg text-3xl font-semibold text-primary-950 dark:text-primary-100">
                   Ask one question and skip hours of guesswork.
                 </h3>
-                <p className="mt-4 max-w-xl text-base leading-8 text-neutral-600 dark:text-neutral-300">
+                <p className="mt-4 max-w-xl text-base leading-8 text-[#6b6257] dark:text-[#b8a898]">
                   Where should you base yourself for your first month? Which
                   coworking spots have stable wifi? How do ferries change your
                   commute? The community makes those answers social, current,
@@ -499,7 +499,7 @@ export default function HomePage() {
                 ].map((item) => (
                   <div
                     key={item}
-                    className="surface-subtle rounded-[1.5rem] p-4 text-sm leading-7 text-neutral-700 transition-transform duration-300 hover:-translate-y-1 dark:text-neutral-200"
+                    className="surface-subtle rounded-[1.5rem] p-4 text-sm leading-7 text-[#6b6257] transition-transform duration-300 hover:-translate-y-1 dark:text-[#d4c4b4]"
                   >
                     {item}
                   </div>
@@ -512,7 +512,7 @@ export default function HomePage() {
 
       <section className="pb-20">
         <Container>
-          <Reveal className="relative overflow-hidden rounded-[2.5rem] border border-black/10 bg-neutral-950 px-6 py-10 text-white dark:border-white/10 dark:bg-[#08111b] sm:px-10 sm:py-14">
+          <Reveal className="relative overflow-hidden rounded-[2.5rem] border border-black/10 bg-[#1c1614] px-6 py-10 text-white dark:border-white/10 dark:bg-[#08111b] sm:px-10 sm:py-14">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.35),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(236,72,153,0.22),transparent_30%)]" />
             <div className="relative">
               <p className="eyebrow text-white/60">Start with one message</p>

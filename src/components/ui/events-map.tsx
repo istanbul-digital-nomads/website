@@ -195,8 +195,10 @@ export function EventsMap({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-[2rem] border border-primary-200/40 shadow-[0_20px_60px_rgba(200,53,31,0.06)] transition-all duration-500 dark:border-[rgba(200,100,60,0.12)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.2)]",
-        expanded ? "h-[70vh] min-h-[500px]" : "h-[280px] sm:h-[360px]",
+        "relative overflow-hidden transition-all duration-500",
+        expanded
+          ? "h-[80vh] min-h-[560px] rounded-none"
+          : "h-[320px] rounded-none sm:h-[400px]",
       )}
     >
       <div

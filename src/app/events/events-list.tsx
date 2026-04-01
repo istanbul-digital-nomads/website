@@ -6,12 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/container";
-import {
-  Section,
-  SectionHeader,
-  SectionTitle,
-  SectionDescription,
-} from "@/components/ui/section";
+import { Section } from "@/components/ui/section";
 import { formatDate } from "@/lib/utils";
 import { eventTypes } from "@/lib/constants";
 import type { Event, EventType } from "@/types/models";
@@ -38,13 +33,6 @@ export function EventsList({ upcomingEvents, pastEvents, selectedId, onSelect }:
 
   return (
     <Section>
-      <SectionHeader>
-        <SectionTitle>Events</SectionTitle>
-        <SectionDescription>
-          Coworking, meetups, and workshops in Istanbul.
-        </SectionDescription>
-      </SectionHeader>
-
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex gap-1 rounded-full border border-primary-100/80 bg-white/70 p-1 dark:border-white/10 dark:bg-white/5">
           {tabs.map((t) => (

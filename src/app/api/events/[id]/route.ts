@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getEventById } from "@/lib/supabase/queries";
+import { validateUpdateEvent } from "@/lib/validations";
 
 export async function GET(
   _request: Request,
@@ -29,9 +30,14 @@ export async function PATCH(
   }
 
   const body = await request.json();
-  const { data, error } = await (supabase
-    .from("events") as any)
-    .update(body)
+  const result = validateUpdateEvent(body);
+
+  if (result.error) {
+    return NextResponse.json({ error: result.error }, { status: 400 });
+  }
+
+  const { data, error } = await (supabase.from("events") as any)
+    .update(result.data)
     .eq("id", params.id)
     .select()
     .single();

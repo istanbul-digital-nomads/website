@@ -1,10 +1,14 @@
 import { createClient } from "./server";
-import type { Database } from "@/types/database";
-
-type Event = Database["public"]["Tables"]["events"]["Row"];
-type Member = Database["public"]["Tables"]["members"]["Row"];
-type BlogPost = Database["public"]["Tables"]["blog_posts"]["Row"];
-type RSVP = Database["public"]["Tables"]["rsvps"]["Row"];
+import type {
+  Event,
+  EventWithRSVPCount,
+  Member,
+  MemberPublic,
+  BlogPost,
+  BlogPostWithAuthor,
+  RSVP,
+  RSVPWithMember,
+} from "@/types/models";
 
 // --- Events ---
 
@@ -56,7 +60,7 @@ export async function getEventById(id: string) {
 
   const eventWithCount = Object.assign({}, event, { rsvp_count: count ?? 0 });
   return {
-    data: eventWithCount as Event & { rsvp_count: number },
+    data: eventWithCount as EventWithRSVPCount,
     error: null,
   };
 }
@@ -70,7 +74,7 @@ export async function getRSVPsForEvent(eventId: string) {
     .select("*, member:members(id, display_name, avatar_url)")
     .eq("event_id", eventId);
 
-  return { data, error };
+  return { data: data as RSVPWithMember[] | null, error };
 }
 
 export async function getUserRSVP(eventId: string) {
@@ -101,7 +105,7 @@ export async function getMembers() {
     .eq("is_visible", true)
     .order("created_at", { ascending: false });
 
-  return { data: data as Partial<Member>[] | null, error };
+  return { data: data as MemberPublic[] | null, error };
 }
 
 export async function getCurrentMember() {
@@ -148,5 +152,5 @@ export async function getBlogPostBySlug(slug: string) {
     .eq("is_published", true)
     .single();
 
-  return { data, error };
+  return { data: data as BlogPostWithAuthor | null, error };
 }

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getEvents } from "@/lib/supabase/queries";
+import { validateCreateEvent } from "@/lib/validations";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -32,28 +33,25 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json();
-  const { title, description, type, date, end_date, location_name, location_address, location_url, capacity, image_url } = body;
+  const result = validateCreateEvent(body);
 
-  if (!title || !description || !type || !date || !location_name) {
-    return NextResponse.json(
-      { error: "Missing required fields: title, description, type, date, location_name" },
-      { status: 400 },
-    );
+  if (result.error) {
+    return NextResponse.json({ error: result.error }, { status: 400 });
   }
 
-  const { data, error } = await (supabase
-    .from("events") as any)
+  const validated = result.data!;
+  const { data, error } = await (supabase.from("events") as any)
     .insert({
-      title,
-      description,
-      type,
-      date,
-      end_date: end_date ?? null,
-      location_name,
-      location_address: location_address ?? null,
-      location_url: location_url ?? null,
-      capacity: capacity ?? null,
-      image_url: image_url ?? null,
+      title: validated.title,
+      description: validated.description,
+      type: validated.type,
+      date: validated.date,
+      end_date: validated.end_date,
+      location_name: validated.location_name,
+      location_address: validated.location_address,
+      location_url: validated.location_url,
+      capacity: validated.capacity,
+      image_url: validated.image_url,
       organizer_id: user.id,
       is_published: false,
     })

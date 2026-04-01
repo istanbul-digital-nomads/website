@@ -52,4 +52,4 @@ export const eventTypes = {
   social: { label: "Social", color: "amber" },
 } as const;
 
-export type EventType = keyof typeof eventTypes;
+export type { EventType } from "@/types/models";

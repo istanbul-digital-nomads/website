@@ -12,10 +12,8 @@ import {
   SectionDescription,
 } from "@/components/ui/section";
 import { formatDate } from "@/lib/utils";
-import { eventTypes, type EventType } from "@/lib/constants";
-import type { Database } from "@/types/database";
-
-type Event = Database["public"]["Tables"]["events"]["Row"];
+import { eventTypes } from "@/lib/constants";
+import type { Event, EventType } from "@/types/models";
 
 const tabs = ["upcoming", "past"] as const;
 type Tab = (typeof tabs)[number];

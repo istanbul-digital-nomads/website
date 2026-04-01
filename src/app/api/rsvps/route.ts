@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getRSVPsForEvent } from "@/lib/supabase/queries";
+import { validateCreateRSVP } from "@/lib/validations";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -32,26 +33,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { event_id, status } = await request.json();
+  const body = await request.json();
+  const result = validateCreateRSVP(body);
 
-  if (!event_id || !status) {
-    return NextResponse.json(
-      { error: "Missing required fields: event_id, status" },
-      { status: 400 },
-    );
+  if (result.error) {
+    return NextResponse.json({ error: result.error }, { status: 400 });
   }
 
-  if (!["going", "maybe", "not_going"].includes(status)) {
-    return NextResponse.json(
-      { error: "Invalid status. Must be: going, maybe, or not_going" },
-      { status: 400 },
-    );
-  }
-
-  const { data, error } = await (supabase
-    .from("rsvps") as any)
+  const { data, error } = await (supabase.from("rsvps") as any)
     .upsert(
-      { event_id, member_id: user.id, status },
+      { ...result.data, member_id: user.id },
       { onConflict: "event_id,member_id" },
     )
     .select()

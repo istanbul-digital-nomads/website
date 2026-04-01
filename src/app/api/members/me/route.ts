@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentMember } from "@/lib/supabase/queries";
+import { validateUpdateMember } from "@/lib/validations";
 
 export async function GET() {
   const { data, error } = await getCurrentMember();
@@ -27,32 +28,14 @@ export async function PATCH(request: Request) {
   }
 
   const body = await request.json();
+  const result = validateUpdateMember(body);
 
-  const allowedFields = [
-    "display_name",
-    "bio",
-    "avatar_url",
-    "location",
-    "skills",
-    "website",
-    "telegram_handle",
-    "is_visible",
-  ];
-
-  const updates: Record<string, unknown> = {};
-  for (const key of allowedFields) {
-    if (key in body) {
-      updates[key] = body[key];
-    }
+  if (result.error) {
+    return NextResponse.json({ error: result.error }, { status: 400 });
   }
 
-  if (Object.keys(updates).length === 0) {
-    return NextResponse.json({ error: "No valid fields to update" }, { status: 400 });
-  }
-
-  const { data, error } = await (supabase
-    .from("members") as any)
-    .update(updates)
+  const { data, error } = await (supabase.from("members") as any)
+    .update(result.data)
     .eq("id", user.id)
     .select()
     .single();

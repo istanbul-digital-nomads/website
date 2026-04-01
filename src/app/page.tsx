@@ -15,9 +15,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
-import { events, guides } from "@/lib/data";
+import { guides } from "@/lib/data";
 import { socialLinks } from "@/lib/constants";
 import { cn, formatEventDate } from "@/lib/utils";
+import { getEvents } from "@/lib/supabase/queries";
 
 const IstanbulMap = dynamic(
   () =>
@@ -27,20 +28,7 @@ const IstanbulMap = dynamic(
   { ssr: false },
 );
 
-const liveEvents = events.filter((event) => !event.isPast).slice(0, 3);
 const featuredGuides = guides.slice(0, 4);
-const nextEvent = liveEvents[0];
-const heroTrustSignals = nextEvent
-  ? [
-      `Next coworking ${formatEventDate(nextEvent.date)}`,
-      "Free to join",
-      "English-friendly meetups",
-    ]
-  : [
-      "Free to join",
-      "English-friendly meetups",
-      "Weekly coworking in the city",
-    ];
 const orientationLinks = [
   { label: "Where should I stay?", href: "/guides/neighborhoods" },
   { label: "Best areas for coworking", href: "/guides/coworking" },
@@ -73,7 +61,22 @@ const testimonials = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { data: upcomingEvents } = await getEvents({ past: false, limit: 3 });
+  const liveEvents = upcomingEvents ?? [];
+  const nextEvent = liveEvents[0];
+  const heroTrustSignals = nextEvent
+    ? [
+        `Next coworking ${formatEventDate(nextEvent.date)}`,
+        "Free to join",
+        "English-friendly meetups",
+      ]
+    : [
+        "Free to join",
+        "English-friendly meetups",
+        "Weekly coworking in the city",
+      ];
+
   return (
     <div className="overflow-hidden">
       <section className="relative isolate border-b border-black/5 dark:border-white/10">
@@ -249,11 +252,11 @@ export default function HomePage() {
                       </div>
                       <div className="mt-3 flex items-center gap-2 text-sm text-[#6b6257] dark:text-[#b8a898]">
                         <MapPin className="h-4 w-4" />
-                        {event.location}
+                        {event.location_name}
                       </div>
                       <div className="mt-3 flex items-center gap-2 text-sm text-[#6b6257] dark:text-[#b8a898]">
                         <Users className="h-4 w-4" />
-                        {event.attendees} attending
+                        {event.capacity ? `${event.capacity} spots` : "Open"}
                       </div>
                     </div>
                   </div>

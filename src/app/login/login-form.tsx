@@ -3,14 +3,13 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
+import { showToast } from "@/lib/toast";
 
 export function LoginForm() {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   async function signInWithGoogle() {
     setLoading(true);
-    setError(null);
 
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithOAuth({
@@ -21,7 +20,7 @@ export function LoginForm() {
     });
 
     if (error) {
-      setError(error.message);
+      showToast.error("Sign in failed", error.message);
       setLoading(false);
     }
   }
@@ -56,11 +55,6 @@ export function LoginForm() {
         Continue with Google
       </Button>
 
-      {error && (
-        <p className="text-center text-sm text-red-600 dark:text-red-400">
-          {error}
-        </p>
-      )}
     </div>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono, Manrope } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -73,6 +74,14 @@ export default function RootLayout({
           <Footer />
           <BottomTabBar />
         </ThemeProvider>
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            className: "toast-brand",
+            duration: 4000,
+          }}
+          richColors
+        />
         <Analytics />
         <SpeedInsights />
       </body>

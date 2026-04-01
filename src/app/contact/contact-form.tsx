@@ -3,14 +3,44 @@
 import { useState, type FormEvent } from "react";
 import { Input, Textarea } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { showToast } from "@/lib/toast";
 
 export function ContactForm() {
+  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // Will integrate with Resend API in Phase 2
-    setSubmitted(true);
+    setLoading(true);
+
+    const formData = new FormData(e.currentTarget);
+    const body = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      message: formData.get("message") as string,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        showToast.error("Could not send message", data.error);
+        return;
+      }
+
+      setSubmitted(true);
+      showToast.contact();
+    } catch {
+      showToast.error("Something went wrong", "Please try again later.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   if (submitted) {
@@ -42,7 +72,7 @@ export function ContactForm() {
         placeholder="How can we help?"
         required
       />
-      <Button type="submit" className="w-full sm:w-auto">
+      <Button type="submit" loading={loading} className="w-full sm:w-auto">
         Send Message
       </Button>
     </form>

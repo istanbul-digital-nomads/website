@@ -118,7 +118,7 @@ export default async function HomePage() {
                       size="lg"
                       className="w-full rounded-full bg-[#1c1614] px-7 text-white hover:bg-[#2a2018] dark:bg-[#f7f2ea] dark:text-[#1c1614] dark:hover:bg-[#e8dfd3] sm:w-auto"
                     >
-                      Join the Telegram
+                      Join on Telegram
                       <ArrowRight className="h-5 w-5" />
                     </Button>
                   </a>

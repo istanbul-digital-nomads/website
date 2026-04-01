@@ -89,7 +89,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>
-            Sign In with Google
+            Sign In
           </Link>
 
           {/* Theme toggle */}
@@ -146,7 +146,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
             onClick={onClose}
           >
             <Button className="w-full rounded-full" size="lg">
-              Join the Telegram
+              Join on Telegram
             </Button>
           </a>
         </div>

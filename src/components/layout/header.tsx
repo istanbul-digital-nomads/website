@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Sun, Moon, Monitor, User } from "lucide-react";
+import { Sun, Moon, Monitor } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { navItems, siteConfig, socialLinks } from "@/lib/constants";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "./theme-provider";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
+import { AuthButton } from "./auth-button";
 
 const themeIcons = { light: Sun, dark: Moon, system: Monitor } as const;
 const themeOrder = ["light", "dark", "system"] as const;
@@ -82,16 +83,7 @@ export function Header() {
               <ThemeIcon className="h-5 w-5" />
             </button>
 
-            <Link href="/login" className="hidden md:block">
-              <Button
-                size="sm"
-                variant="ghost"
-                className="rounded-full"
-              >
-                <User className="h-4 w-4" />
-                Sign In
-              </Button>
-            </Link>
+            <AuthButton />
 
             <a
               href={socialLinks.telegram}
@@ -103,7 +95,7 @@ export function Header() {
                 size="sm"
                 className="rounded-full bg-primary-600 px-4 text-white hover:bg-primary-700 dark:bg-primary-500 dark:text-white dark:hover:bg-primary-400"
               >
-                Join Community
+                Join on Telegram
               </Button>
             </a>
           </div>

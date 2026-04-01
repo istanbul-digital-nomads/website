@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
-import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { Button } from "@/components/ui/button";
 import { guides } from "@/lib/data";
 
 interface GuidePageProps {
@@ -33,12 +30,25 @@ export default function GuidePage({ params }: GuidePageProps) {
   return (
     <Section>
       <div className="mx-auto max-w-3xl">
-        <Link href="/guides">
-          <Button variant="ghost" size="sm" className="mb-6">
-            <ArrowLeft className="h-4 w-4" />
-            Back to guides
-          </Button>
-        </Link>
+        <nav className="mb-6 flex items-center gap-2 text-sm text-[#6b6257] dark:text-[#b8a898]">
+          <Link
+            href="/"
+            className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+          >
+            Home
+          </Link>
+          <span>/</span>
+          <Link
+            href="/guides"
+            className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+          >
+            Guides
+          </Link>
+          <span>/</span>
+          <span className="text-[#2a2018] dark:text-[#f7f2ea]">
+            {guide.title}
+          </span>
+        </nav>
 
         <h1 className="text-4xl font-bold tracking-tight">{guide.title}</h1>
         <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400">

@@ -10,7 +10,7 @@ interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 
 const variantStyles: Record<BadgeVariant, string> = {
   default:
-    "bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300",
+    "bg-neutral-100 text-neutral-700 dark:bg-[rgba(180,140,110,0.1)] dark:text-[#d4c4b4]",
   meetup:
     "bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300",
   coworking:

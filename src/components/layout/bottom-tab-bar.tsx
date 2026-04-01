@@ -38,7 +38,7 @@ export function BottomTabBar() {
   return (
     <>
       <div
-        className="animate-slide-up-bar fixed inset-x-0 bottom-0 z-50 border-t border-black/10 bg-[rgba(245,239,228,0.92)] backdrop-blur-xl md:hidden dark:border-white/10 dark:bg-[rgba(7,17,29,0.92)]"
+        className="animate-slide-up-bar fixed inset-x-0 bottom-0 z-50 border-t border-black/10 bg-[rgba(245,239,228,0.92)] backdrop-blur-xl md:hidden dark:border-white/10 dark:bg-[rgba(21,16,16,0.94)]"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
         <div className="flex h-16 items-stretch">

@@ -9,7 +9,7 @@ function Card({ className, hoverable = false, ...props }: CardProps) {
   return (
     <div
       className={cn(
-        "rounded-lg border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900",
+        "rounded-lg border border-neutral-200 bg-white p-6 dark:border-[rgba(180,140,110,0.12)] dark:bg-[#1c1614]",
         hoverable &&
           "transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary-200 hover:shadow-[0_16px_40px_rgba(200,53,31,0.08)] dark:hover:border-primary-900/40",
         className,

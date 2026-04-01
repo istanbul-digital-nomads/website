@@ -30,9 +30,9 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-black/5 bg-[rgba(245,239,228,0.75)] backdrop-blur-xl transition-[background-color,border-color,box-shadow,transform] duration-300 dark:border-white/10 dark:bg-[rgba(7,17,29,0.72)]",
+        "sticky top-0 z-50 border-b border-black/5 bg-[rgba(245,239,228,0.75)] backdrop-blur-xl transition-[background-color,border-color,box-shadow,transform] duration-300 dark:border-white/10 dark:bg-[rgba(21,16,16,0.78)]",
         scrolled &&
-          "border-black/10 bg-[rgba(245,239,228,0.88)] shadow-[0_10px_30px_rgba(15,23,42,0.08)] dark:border-white/15 dark:bg-[rgba(7,17,29,0.88)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.25)]",
+          "border-black/10 bg-[rgba(245,239,228,0.88)] shadow-[0_10px_30px_rgba(15,23,42,0.08)] dark:border-white/15 dark:bg-[rgba(21,16,16,0.92)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.25)]",
         hideOnMobile && "max-md:-translate-y-full",
       )}
     >
@@ -44,7 +44,7 @@ export function Header() {
           )}
         >
           <Link href="/" prefetch className="flex items-center gap-3">
-            <span className="h-2 w-2 rounded-full bg-primary-500 shadow-[0_0_20px_rgba(227,75,50,0.5)]" />
+            <span className="h-2 w-2 rounded-full bg-primary-500 shadow-[0_0_24px_rgba(227,75,50,0.55)]" />
             <div>
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-neutral-950 dark:text-neutral-50">
                 {siteConfig.shortName}

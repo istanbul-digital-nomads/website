@@ -11,14 +11,14 @@
   }
 
   .dark {
-    --background: #07111d;
-    --foreground: #f7f4ee;
-    --muted: #9fb0c6;
-    --line: rgba(247, 244, 238, 0.14);
+    --background: #151010;
+    --foreground: #f7f2ea;
+    --muted: #b8a898;
+    --line: rgba(247, 242, 234, 0.12);
   }
 
   * {
-    @apply border-neutral-200 dark:border-neutral-800;
+    @apply border-neutral-200 dark:border-[rgba(180,140,110,0.12)];
   }
 
   html {
@@ -42,7 +42,11 @@
         rgba(47, 143, 123, 0.08),
         transparent 26%
       ),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent 25%),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.3),
+        transparent 25%
+      ),
       var(--background);
     color: var(--foreground);
     font-family: var(--font-sans), sans-serif;
@@ -98,15 +102,15 @@
   }
 
   .surface-blur {
-    @apply bg-white/55 backdrop-blur-xl dark:bg-white/5;
+    @apply bg-white/55 backdrop-blur-xl dark:bg-[rgba(28,22,20,0.6)];
   }
 
   .surface-panel {
-    @apply border border-primary-200/50 bg-white/60 backdrop-blur-xl dark:border-primary-900/40 dark:bg-white/5;
+    @apply border border-primary-200/50 bg-white/60 backdrop-blur-xl dark:border-[rgba(200,100,60,0.12)] dark:bg-[rgba(28,22,20,0.65)];
   }
 
   .surface-subtle {
-    @apply border border-primary-200/40 bg-white/50 dark:border-primary-900/35 dark:bg-white/5;
+    @apply border border-primary-200/40 bg-white/50 dark:border-[rgba(200,100,60,0.08)] dark:bg-[rgba(28,22,20,0.4)];
   }
 
   .text-muted {

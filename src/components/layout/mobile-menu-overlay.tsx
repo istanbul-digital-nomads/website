@@ -37,7 +37,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
         className="fixed inset-0 bg-black/20 backdrop-blur-sm"
         aria-hidden="true"
       />
-      <DialogPanel className="fixed inset-0 flex flex-col bg-[rgba(255,247,243,0.98)] backdrop-blur-xl transition-transform duration-300 data-[closed]:translate-y-full dark:bg-[rgba(7,17,29,0.98)]">
+      <DialogPanel className="fixed inset-0 flex flex-col bg-[rgba(255,247,243,0.98)] backdrop-blur-xl transition-transform duration-300 data-[closed]:translate-y-full dark:bg-[rgba(21,16,16,0.98)]">
         {/* Header */}
         <div className="flex items-center justify-between px-6 pt-[env(safe-area-inset-top)] pt-4">
           <div>

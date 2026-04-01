@@ -13,7 +13,7 @@ const socialIcons = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-black/5 bg-[rgba(245,239,228,0.72)] dark:border-white/10 dark:bg-[#07111d]">
+    <footer className="border-t border-black/5 bg-[rgba(245,239,228,0.72)] dark:border-white/10 dark:bg-[#151010]">
       <Container>
         <div className="grid gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="rounded-[2rem] border border-black/10 bg-neutral-950 px-6 py-8 text-white dark:border-white/10 dark:bg-white dark:text-neutral-950 sm:px-8">

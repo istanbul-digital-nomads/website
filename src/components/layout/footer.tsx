@@ -16,15 +16,15 @@ export function Footer() {
     <footer className="border-t border-black/5 bg-[rgba(245,239,228,0.72)] dark:border-white/10 dark:bg-[#151010]">
       <Container>
         <div className="grid gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="rounded-[2rem] border border-primary-900/20 bg-[#1c1614] px-6 py-8 text-white dark:border-[rgba(200,100,60,0.15)] dark:bg-[#f7f2ea] dark:text-[#2a2018] sm:px-8">
-            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/60 dark:text-[#6b6257]">
+          <div className="rounded-[2rem] border border-primary-900/20 bg-[#1c1614] px-6 py-8 text-white dark:border-white/10 dark:bg-[#231a14] dark:text-[#f7f2ea] sm:px-8">
+            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/60 dark:text-[#b8a898]">
               Istanbul Digital Nomads
             </p>
             <h2 className="mt-4 max-w-lg text-3xl font-semibold sm:text-4xl">
               Remote life in Istanbul works better when local knowledge moves
               fast.
             </h2>
-            <p className="mt-4 max-w-xl text-base leading-8 text-white/72 dark:text-[#6b6257]">
+            <p className="mt-4 max-w-xl text-base leading-8 text-white/72 dark:text-white/65">
               Weekly coworking, practical city guides, and a community that
               helps newcomers settle in without wasting their first month.
             </p>
@@ -37,7 +37,7 @@ export function Footer() {
               ].map((item) => (
                 <div
                   key={item}
-                  className="rounded-full border border-white/15 px-3 py-2 text-sm text-white/80 dark:border-primary-200/40 dark:text-[#5a4f43]"
+                  className="rounded-full border border-white/15 px-3 py-2 text-sm text-white/80 dark:border-white/15 dark:text-white/70"
                 >
                   {item}
                 </div>
@@ -53,7 +53,7 @@ export function Footer() {
               >
                 <Button
                   size="lg"
-                  className="h-14 w-full rounded-2xl bg-white px-8 text-base font-semibold text-[#1c1614] shadow-lg shadow-white/10 hover:bg-primary-50 dark:bg-[#1c1614] dark:text-white dark:shadow-black/20 dark:hover:bg-[#2a2018] sm:w-auto"
+                  className="h-14 w-full rounded-2xl bg-white px-8 text-base font-semibold text-[#1c1614] shadow-lg shadow-white/10 hover:bg-primary-50 dark:bg-[#f7f2ea] dark:text-[#1c1614] dark:shadow-black/20 dark:hover:bg-[#e8dfd3] sm:w-auto"
                 >
                   Join on Telegram
                   <ArrowRight className="h-5 w-5" />
@@ -63,7 +63,7 @@ export function Footer() {
                 <Button
                   variant="ghost"
                   size="lg"
-                  className="h-14 w-full rounded-2xl border border-white/20 px-8 text-base font-medium text-white/90 hover:bg-white/10 hover:text-white dark:border-primary-200/40 dark:text-[#5a4f43] dark:hover:bg-primary-50 dark:hover:text-primary-800 sm:w-auto"
+                  className="h-14 w-full rounded-2xl border border-white/20 px-8 text-base font-medium text-white/90 hover:bg-white/10 hover:text-white dark:border-white/20 dark:text-white/80 dark:hover:bg-white/10 dark:hover:text-white sm:w-auto"
                 >
                   Learn about the community
                 </Button>

@@ -114,7 +114,7 @@ export default function HomePage() {
                   >
                     <Button
                       size="lg"
-                      className="w-full rounded-full bg-[#1c1614] px-7 text-white hover:bg-[#2a2018] dark:bg-white dark:text-[#2a2018] dark:hover:bg-neutral-200 sm:w-auto"
+                      className="w-full rounded-full bg-[#1c1614] px-7 text-white hover:bg-[#2a2018] dark:bg-[#f7f2ea] dark:text-[#1c1614] dark:hover:bg-[#e8dfd3] sm:w-auto"
                     >
                       Join the Telegram
                       <ArrowRight className="h-5 w-5" />
@@ -361,14 +361,14 @@ export default function HomePage() {
       <section className="py-20">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-            <Reveal className="rounded-[2rem] border border-black/10 bg-[#1c1614] p-8 text-white dark:border-white/10 dark:bg-white dark:text-[#2a2018]">
-              <p className="eyebrow text-white/60 dark:text-neutral-500">
+            <Reveal className="rounded-[2rem] border border-black/10 bg-[#1c1614] p-8 text-white dark:border-white/10 dark:bg-[#231a14] dark:text-[#f7f2ea]">
+              <p className="eyebrow text-white/60 dark:text-[#b8a898]">
                 First month essentials
               </p>
               <h2 className="mt-4 max-w-md text-4xl font-semibold sm:text-5xl">
                 Start with the pieces that make remote life easier to operate.
               </h2>
-              <p className="mt-5 max-w-md text-base leading-8 text-white/72 dark:text-[#6b6257]">
+              <p className="mt-5 max-w-md text-base leading-8 text-white/72 dark:text-white/65">
                 If you just landed, begin with neighborhoods, internet, transit,
                 and this week&apos;s meetup. It is the fastest path from arrival
                 mode to a workable local routine.
@@ -379,7 +379,7 @@ export default function HomePage() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center justify-between border-t border-white/10 pt-4 text-left transition-colors hover:text-primary-200 dark:border-neutral-300 dark:hover:text-primary-700"
+                    className="flex items-center justify-between border-t border-white/10 pt-4 text-left transition-colors hover:text-primary-200 dark:border-white/10 dark:hover:text-primary-300"
                   >
                     <span className="text-base font-medium">{item.label}</span>
                     <MoveUpRight className="h-4 w-4 shrink-0" />
@@ -423,14 +423,14 @@ export default function HomePage() {
       <section className="py-20">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-            <Reveal className="rounded-[2rem] border border-black/10 bg-[#1c1614] p-8 text-white dark:border-white/10 dark:bg-white dark:text-[#2a2018]">
-              <p className="eyebrow text-white/60 dark:text-neutral-500">
+            <Reveal className="rounded-[2rem] border border-black/10 bg-[#1c1614] p-8 text-white dark:border-white/10 dark:bg-[#231a14] dark:text-[#f7f2ea]">
+              <p className="eyebrow text-white/60 dark:text-[#b8a898]">
                 Why people stay
               </p>
               <h2 className="mt-4 max-w-md text-4xl font-semibold sm:text-5xl">
                 Not another expat feed. A city operating system.
               </h2>
-              <p className="mt-5 max-w-md text-base leading-8 text-white/72 dark:text-[#6b6257]">
+              <p className="mt-5 max-w-md text-base leading-8 text-white/72 dark:text-white/65">
                 What changes after you join is simple: your workweeks get
                 steadier, the city gets easier to read, and familiar faces start
                 showing up in the places you already like to be.
@@ -459,13 +459,13 @@ export default function HomePage() {
                 ].map((item) => (
                   <div
                     key={item.title}
-                    className="border-t border-white/10 pt-4 dark:border-neutral-300"
+                    className="border-t border-white/10 pt-4 dark:border-white/10"
                   >
                     <div className="flex items-center gap-3">
                       <item.icon className="h-5 w-5" />
                       <h3 className="text-lg font-medium">{item.title}</h3>
                     </div>
-                    <p className="mt-2 text-sm leading-7 text-white/70 dark:text-[#6b6257]">
+                    <p className="mt-2 text-sm leading-7 text-white/70 dark:text-white/60">
                       {item.description}
                     </p>
                   </div>
@@ -512,8 +512,8 @@ export default function HomePage() {
 
       <section className="pb-20">
         <Container>
-          <Reveal className="relative overflow-hidden rounded-[2.5rem] border border-black/10 bg-[#1c1614] px-6 py-10 text-white dark:border-white/10 dark:bg-[#08111b] sm:px-10 sm:py-14">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.35),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(236,72,153,0.22),transparent_30%)]" />
+          <Reveal className="relative overflow-hidden rounded-[2.5rem] border border-black/10 bg-[#1c1614] px-6 py-10 text-white dark:border-white/10 dark:bg-[#1a0f09] sm:px-10 sm:py-14">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(200,80,30,0.28),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(212,154,69,0.18),transparent_30%)]" />
             <div className="relative">
               <p className="eyebrow text-white/60">Start with one message</p>
               <h2 className="mt-4 max-w-3xl text-4xl font-semibold sm:text-5xl">

@@ -75,11 +75,11 @@ export function Footer() {
             <div>
               <Link
                 href="/"
-                className="text-sm font-semibold uppercase tracking-[0.22em] text-neutral-950 dark:text-neutral-50"
+                className="text-sm font-semibold uppercase tracking-[0.22em] text-primary-800 dark:text-primary-200"
               >
                 {siteConfig.name}
               </Link>
-              <p className="mt-3 max-w-sm text-sm leading-7 text-neutral-600 dark:text-neutral-300">
+              <p className="mt-3 max-w-sm text-sm leading-7 text-[#6b6257] dark:text-[#b8a898]">
                 Local rhythm, practical guides, and a softer landing for digital
                 nomads staying longer in Istanbul.
               </p>
@@ -92,7 +92,7 @@ export function Footer() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="tap-highlight flex items-center gap-2 rounded-xl border border-black/10 bg-white/60 px-3.5 py-2.5 text-sm font-medium text-neutral-700 transition-all hover:border-primary-200 hover:bg-primary-50 hover:text-primary-700 dark:border-white/10 dark:bg-white/5 dark:text-neutral-300 dark:hover:border-primary-900/40 dark:hover:bg-primary-900/20 dark:hover:text-primary-300"
+                  className="tap-highlight flex items-center gap-2 rounded-xl border border-primary-200/30 bg-white/60 px-3.5 py-2.5 text-sm font-medium text-primary-800 transition-all hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 dark:border-[rgba(200,100,60,0.15)] dark:bg-[rgba(28,22,20,0.5)] dark:text-[#d4c4b4] dark:hover:border-primary-700/40 dark:hover:bg-primary-950/30 dark:hover:text-primary-300"
                   aria-label={label}
                 >
                   <Icon className="h-4.5 w-4.5" />
@@ -129,10 +129,10 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+      <h3 className="text-sm font-semibold text-primary-900 dark:text-primary-200">
         {title}
       </h3>
-      <ul className="mt-3 space-y-2">
+      <ul className="mt-3 space-y-2.5">
         {links.map((link) => (
           <li key={link.label}>
             {link.external ? (
@@ -140,14 +140,14 @@ function FooterColumn({
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-neutral-600 transition-colors hover:text-primary-600 dark:text-neutral-400 dark:hover:text-primary-300"
+                className="text-sm text-[#6b6257] transition-colors hover:text-primary-600 dark:text-[#b8a898] dark:hover:text-primary-300"
               >
                 {link.label}
               </a>
             ) : (
               <Link
                 href={link.href}
-                className="text-sm text-neutral-600 transition-colors hover:text-primary-600 dark:text-neutral-400 dark:hover:text-primary-300"
+                className="text-sm text-[#6b6257] transition-colors hover:text-primary-600 dark:text-[#b8a898] dark:hover:text-primary-300"
               >
                 {link.label}
               </Link>

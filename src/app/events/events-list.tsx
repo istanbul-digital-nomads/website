@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Calendar, MapPin, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/container";
 import {
   Section,
@@ -21,9 +22,11 @@ type Tab = (typeof tabs)[number];
 interface EventsListProps {
   upcomingEvents: Event[];
   pastEvents: Event[];
+  selectedId?: string | null;
+  onSelect?: (id: string | null) => void;
 }
 
-export function EventsList({ upcomingEvents, pastEvents }: EventsListProps) {
+export function EventsList({ upcomingEvents, pastEvents, selectedId, onSelect }: EventsListProps) {
   const [tab, setTab] = useState<Tab>("upcoming");
   const [filterType, setFilterType] = useState<EventType | "all">("all");
 
@@ -97,7 +100,15 @@ export function EventsList({ upcomingEvents, pastEvents }: EventsListProps) {
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((event) => (
-            <Card key={event.id} hoverable>
+            <Card
+              key={event.id}
+              hoverable
+              className={cn(
+                "cursor-pointer transition-all",
+                selectedId === event.id && "ring-2 ring-primary-500 ring-offset-2 dark:ring-offset-[#151010]",
+              )}
+              onClick={() => onSelect?.(selectedId === event.id ? null : event.id)}
+            >
               <CardContent>
                 <div className="flex items-center justify-between">
                   <Badge variant={event.type}>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getEvents } from "@/lib/supabase/queries";
-import { EventsList } from "./events-list";
+import { EventsView } from "./events-view";
 
 export const metadata: Metadata = {
   title: "Events",
@@ -15,7 +15,7 @@ export default async function EventsPage() {
   ]);
 
   return (
-    <EventsList
+    <EventsView
       upcomingEvents={upcoming ?? []}
       pastEvents={past ?? []}
     />

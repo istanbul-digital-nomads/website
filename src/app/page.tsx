@@ -514,42 +514,41 @@ export default function HomePage() {
         <Container>
           <Reveal className="relative overflow-hidden rounded-[2.5rem] border border-black/10 bg-neutral-950 px-6 py-10 text-white dark:border-white/10 dark:bg-[#08111b] sm:px-10 sm:py-14">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.35),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(236,72,153,0.22),transparent_30%)]" />
-            <div className="relative flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-              <div className="max-w-2xl">
-                <p className="eyebrow text-white/60">Start with one message</p>
-                <h2 className="mt-4 text-4xl font-semibold sm:text-5xl">
-                  Join the channel and make Istanbul feel smaller by tonight.
-                </h2>
-                <p className="mt-5 max-w-xl text-lg leading-8 text-white/72">
-                  Drop into the Telegram, say hi, and get pointed toward this
-                  week&apos;s meetup, the best area to start from, or a good
-                  place to work tomorrow.
-                </p>
-                <p className="mt-4 max-w-xl text-sm leading-7 text-white/65">
-                  Free to join. No application. Best for people staying longer
-                  than a quick stopover.
-                </p>
-              </div>
+            <div className="relative">
+              <p className="eyebrow text-white/60">Start with one message</p>
+              <h2 className="mt-4 max-w-3xl text-4xl font-semibold sm:text-5xl">
+                Join the channel and make Istanbul feel smaller by tonight.
+              </h2>
+              <p className="mt-5 max-w-xl text-lg leading-8 text-white/72">
+                Drop into the Telegram, say hi, and get pointed toward this
+                week&apos;s meetup, the best area to start from, or a good
+                place to work tomorrow.
+              </p>
+              <p className="mt-3 max-w-xl text-sm leading-7 text-white/55">
+                Free to join. No application. Best for people staying longer
+                than a quick stopover.
+              </p>
 
-              <div className="flex flex-col gap-4 sm:flex-row">
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                 <a
                   href={socialLinks.telegram}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="flex-1 sm:flex-none"
                 >
                   <Button
                     size="lg"
-                    className="w-full rounded-full bg-white px-7 text-neutral-950 hover:bg-neutral-200 sm:w-auto"
+                    className="h-14 w-full rounded-2xl bg-white px-8 text-base font-semibold text-neutral-950 shadow-lg shadow-white/10 hover:bg-neutral-100 sm:w-auto"
                   >
                     Join on Telegram
                     <ArrowRight className="h-5 w-5" />
                   </Button>
                 </a>
-                <Link href="/about">
+                <Link href="/about" className="flex-1 sm:flex-none">
                   <Button
                     variant="ghost"
                     size="lg"
-                    className="w-full rounded-full border border-white/15 px-7 text-white hover:bg-white/10 hover:text-white sm:w-auto"
+                    className="h-14 w-full rounded-2xl border border-white/20 px-8 text-base font-medium text-white/90 backdrop-blur-sm hover:bg-white/10 hover:text-white sm:w-auto"
                   >
                     Learn about the community
                   </Button>

@@ -67,8 +67,7 @@ export default function ContactPage() {
         <SectionHeader>
           <SectionTitle>Contact Us</SectionTitle>
           <SectionDescription>
-            Have a question, suggestion, or just want to say hi? We&apos;d love
-            to hear from you.
+            Questions, ideas, or feedback - we&apos;d like to hear it.
           </SectionDescription>
         </SectionHeader>
 

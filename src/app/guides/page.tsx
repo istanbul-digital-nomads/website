@@ -47,8 +47,8 @@ export default function GuidesPage() {
       <SectionHeader>
         <SectionTitle>City Guides</SectionTitle>
         <SectionDescription>
-          Everything you need to know about living and working in Istanbul as a
-          digital nomad. Curated by the community.
+          Practical guides for living and working in Istanbul. Written and
+          maintained by the community.
         </SectionDescription>
       </SectionHeader>
 

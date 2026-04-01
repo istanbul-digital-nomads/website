@@ -47,11 +47,11 @@ export default function GuidePage({ params }: GuidePageProps) {
 
         <div className="mt-12 rounded-xl border border-dashed border-neutral-300 bg-neutral-50 p-12 text-center dark:border-neutral-700 dark:bg-neutral-900/50">
           <p className="text-neutral-500">
-            This guide is coming soon. We&apos;re working with the community to
-            create comprehensive, up-to-date content.
+            We&apos;re writing this guide with input from the community. Check
+            back soon.
           </p>
           <p className="mt-2 text-sm text-neutral-400">
-            Want to contribute? Share your knowledge in the{" "}
+            Know something useful? Share it in the{" "}
             <a
               href="https://t.me/istanbul_digital_nomads"
               target="_blank"

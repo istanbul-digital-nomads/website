@@ -41,7 +41,7 @@ export function EventsList({ upcomingEvents, pastEvents, selectedId, onSelect }:
       <SectionHeader>
         <SectionTitle>Events</SectionTitle>
         <SectionDescription>
-          Meetups, coworking sessions, workshops, and social events.
+          Coworking, meetups, and workshops in Istanbul.
         </SectionDescription>
       </SectionHeader>
 
@@ -93,7 +93,7 @@ export function EventsList({ upcomingEvents, pastEvents, selectedId, onSelect }:
         <div className="rounded-xl border border-dashed border-primary-200/50 bg-primary-50/30 p-12 text-center dark:border-primary-900/30 dark:bg-primary-950/10">
           <p className="text-[#6b6257] dark:text-[#b8a898]">
             {tab === "upcoming"
-              ? "No upcoming events right now. Check back soon!"
+              ? "No events scheduled yet. New events are posted weekly in the Telegram group."
               : "No past events matching your filter."}
           </p>
         </div>

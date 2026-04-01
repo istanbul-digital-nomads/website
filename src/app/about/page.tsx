@@ -69,7 +69,7 @@ const timeline = [
   { year: "2024", event: "100 members milestone" },
   { year: "2024", event: "Weekly coworking sessions launched" },
   { year: "2025", event: "500+ members" },
-  { year: "2026", event: "Website launched" },
+  { year: "2026", event: "Website and platform launched" },
 ];
 
 export default function AboutPage() {

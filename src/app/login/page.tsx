@@ -18,10 +18,9 @@ export default function LoginPage() {
                 IN
               </span>
             </div>
-            <h1 className="mt-6 text-2xl font-bold">Welcome back</h1>
+            <h1 className="mt-6 text-2xl font-bold">Sign in</h1>
             <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-              Sign in to access your profile, RSVP to events, and connect with
-              the community.
+              Sign in to RSVP to events and manage your profile.
             </p>
           </div>
 

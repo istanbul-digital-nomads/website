@@ -21,8 +21,7 @@ export function Footer() {
               Istanbul Digital Nomads
             </p>
             <h2 className="mt-4 max-w-lg text-3xl font-semibold sm:text-4xl">
-              Remote life in Istanbul works better when local knowledge moves
-              fast.
+              The easiest way to settle into Istanbul as a remote worker.
             </h2>
             <p className="mt-4 max-w-xl text-base leading-8 text-white/72 dark:text-white/65">
               Weekly coworking, practical city guides, and a community that
@@ -65,7 +64,7 @@ export function Footer() {
                   size="lg"
                   className="h-14 w-full rounded-2xl border border-white/20 px-8 text-base font-medium text-white/90 hover:bg-white/10 hover:text-white dark:border-white/20 dark:text-white/80 dark:hover:bg-white/10 dark:hover:text-white sm:w-auto"
                 >
-                  Learn about the community
+                  About the community
                 </Button>
               </Link>
             </div>
@@ -111,8 +110,8 @@ export function Footer() {
 
         <div className="border-t border-black/10 py-6 pb-20 md:pb-6 dark:border-white/10">
           <p className="text-center text-sm text-neutral-500 dark:text-neutral-400">
-            &copy; {new Date().getFullYear()} {siteConfig.name}. Built for
-            people turning Istanbul into a workable local life.
+            &copy; {new Date().getFullYear()} {siteConfig.name}. Made by remote
+            workers, for remote workers in Istanbul.
           </p>
         </div>
       </Container>

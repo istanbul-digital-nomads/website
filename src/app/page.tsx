@@ -69,12 +69,12 @@ export default async function HomePage() {
     ? [
         `Next coworking ${formatEventDate(nextEvent.date)}`,
         "Free to join",
-        "English-friendly meetups",
+        "All remote workers welcome",
       ]
     : [
         "Free to join",
-        "English-friendly meetups",
-        "Weekly coworking in the city",
+        "All remote workers welcome",
+        "Weekly coworking sessions",
       ];
 
   return (
@@ -99,13 +99,12 @@ export default async function HomePage() {
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(560px,1fr)] lg:items-start lg:gap-12">
             <Reveal delay={0} className="max-w-[30rem] pt-2 lg:pt-0">
               <h1 className="word-rise mt-5 max-w-[8.7ch] text-balance text-[3rem] font-semibold leading-[0.92] text-neutral-950 sm:text-[3.7rem] lg:text-[4rem] dark:text-neutral-50">
-                <span>Build</span> <span>your</span> <span>Istanbul</span>{" "}
-                <span>base,</span> <span>faster.</span>
+                <span>Find</span> <span>your</span> <span>rhythm</span>{" "}
+                <span>in</span> <span>Istanbul.</span>
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-8 text-neutral-700 sm:text-[1.22rem] dark:text-neutral-200">
-                Weekly coworking, practical guides, and local answers for
-                digital nomads building a real life between Istanbul&apos;s
-                European and Asian sides.
+                Weekly coworking, practical city guides, and a community of
+                remote workers who help each other settle in.
               </p>
 
               <Reveal delay={1}>
@@ -129,7 +128,7 @@ export default async function HomePage() {
                       size="lg"
                       className="w-full rounded-full border border-black/60 bg-white/70 px-7 text-neutral-950 hover:bg-white dark:border-white/40 dark:bg-white/10 dark:text-neutral-50 dark:hover:bg-white/20 sm:w-auto"
                     >
-                      Start with the guides
+                      Browse the guides
                     </Button>
                   </Link>
                 </div>
@@ -149,13 +148,6 @@ export default async function HomePage() {
                 </div>
               </Reveal>
 
-              <Reveal delay={3}>
-                <p className="mt-5 text-sm leading-6 text-[#6b6257] dark:text-[#b8a898]">
-                  Introduce yourself once and get pointed to this week&apos;s
-                  meetup, tomorrow&apos;s workspace, or the right district to
-                  start from.
-                </p>
-              </Reveal>
             </Reveal>
 
             <Reveal
@@ -211,14 +203,13 @@ export default async function HomePage() {
         <Container>
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <Reveal className="lg:sticky lg:top-24 lg:self-start">
-              <p className="eyebrow">This week in the city</p>
+              <p className="eyebrow">What&apos;s happening</p>
               <h2 className="mt-4 max-w-md text-4xl font-semibold text-neutral-950 sm:text-5xl dark:text-neutral-50">
-                The community runs on repeatable rituals.
+                This week&apos;s events
               </h2>
               <p className="text-muted mt-5 max-w-md text-lg leading-8">
-                Less one-off networking, more dependable moments to plug into:
-                coworking days, rooftop meetups, practical workshops, and a
-                group chat that actually answers questions.
+                Coworking sessions, meetups, and workshops happening in
+                Istanbul this week.
               </p>
             </Reveal>
 
@@ -281,14 +272,13 @@ export default async function HomePage() {
         <Container>
           <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr]">
             <Reveal className="max-w-xl">
-              <p className="eyebrow">Remote life, decoded</p>
+              <p className="eyebrow">City guides</p>
               <h2 className="mt-4 max-w-lg text-4xl font-semibold text-neutral-950 sm:text-5xl dark:text-neutral-50">
-                The guides turn Istanbul from overwhelming into usable.
+                Everything you need for your first month.
               </h2>
               <p className="text-muted mt-5 max-w-md text-lg leading-8">
-                We focus on the questions that matter once you stay past the
-                first week: where to live, how to move, how much things cost,
-                and which workspaces keep your day smooth.
+                Neighborhoods, coworking, housing, internet, transport, cost of
+                living, and more - written by people living here.
               </p>
               <p className="mt-5 max-w-md text-sm leading-7 text-[#6b6257] dark:text-[#b8a898]">
                 Think of them as confidence builders for your first month, not a
@@ -518,18 +508,14 @@ export default async function HomePage() {
           <Reveal className="relative overflow-hidden rounded-[2.5rem] border border-black/10 bg-[#1c1614] px-6 py-10 text-white dark:border-white/10 dark:bg-[#1a0f09] sm:px-10 sm:py-14">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(200,80,30,0.28),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(212,154,69,0.18),transparent_30%)]" />
             <div className="relative">
-              <p className="eyebrow text-white/60">Start with one message</p>
+              <p className="eyebrow text-white/60">Get started</p>
               <h2 className="mt-4 max-w-3xl text-4xl font-semibold sm:text-5xl">
-                Join the channel and make Istanbul feel smaller by tonight.
+                Join us on Telegram.
               </h2>
               <p className="mt-5 max-w-xl text-lg leading-8 text-white/72">
-                Drop into the Telegram, say hi, and get pointed toward this
-                week&apos;s meetup, the best area to start from, or a good
-                place to work tomorrow.
-              </p>
-              <p className="mt-3 max-w-xl text-sm leading-7 text-white/55">
-                Free to join. No application. Best for people staying longer
-                than a quick stopover.
+                Introduce yourself and we&apos;ll point you to this week&apos;s
+                meetup, a good workspace, or the right neighborhood to start
+                from.
               </p>
 
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
@@ -553,7 +539,7 @@ export default async function HomePage() {
                     size="lg"
                     className="h-14 w-full rounded-2xl border border-white/20 px-8 text-base font-medium text-white/90 backdrop-blur-sm hover:bg-white/10 hover:text-white sm:w-auto"
                   >
-                    Learn about the community
+                    About the community
                   </Button>
                 </Link>
               </div>

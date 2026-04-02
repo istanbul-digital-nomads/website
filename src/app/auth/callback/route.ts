@@ -10,6 +10,31 @@ export async function GET(request: Request) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
+      // Check if onboarding is completed
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        const { data: member } = await (supabase.from("members") as any)
+          .select("onboarding_completed")
+          .eq("id", user.id)
+          .single();
+
+        // Redirect to onboarding if not completed
+        if (!member?.onboarding_completed) {
+          const forwardedHost = request.headers.get("x-forwarded-host");
+          const isLocalEnv = process.env.NODE_ENV === "development";
+          if (isLocalEnv) {
+            return NextResponse.redirect(`${origin}/onboarding`);
+          } else if (forwardedHost) {
+            return NextResponse.redirect(`https://${forwardedHost}/onboarding`);
+          } else {
+            return NextResponse.redirect(`${origin}/onboarding`);
+          }
+        }
+      }
+
       const forwardedHost = request.headers.get("x-forwarded-host");
       const isLocalEnv = process.env.NODE_ENV === "development";
       if (isLocalEnv) {

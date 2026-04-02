@@ -12,12 +12,20 @@ import type { User as SupabaseUser } from "@supabase/supabase-js";
 export function AuthButton() {
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [loading, setLoading] = useState(true);
+  const [onboardingComplete, setOnboardingComplete] = useState(true);
 
   useEffect(() => {
     const supabase = createClient();
 
-    supabase.auth.getUser().then(({ data }) => {
+    supabase.auth.getUser().then(async ({ data }) => {
       setUser(data.user);
+      if (data.user) {
+        const { data: member } = await (supabase.from("members") as any)
+          .select("onboarding_completed")
+          .eq("id", data.user.id)
+          .single();
+        setOnboardingComplete(member?.onboarding_completed ?? false);
+      }
       setLoading(false);
     });
 
@@ -70,11 +78,22 @@ export function AuthButton() {
           <span className="max-w-[100px] truncate">{name}</span>
         </button>
 
-        {/* Mobile - just avatar */}
-        <button
-          onClick={handleSignOut}
-          className="rounded-full p-1.5 md:hidden"
-          title="Sign out"
+        {/* Complete profile nudge */}
+        {!onboardingComplete && (
+          <Link
+            href="/onboarding"
+            className="hidden items-center gap-1.5 rounded-full bg-primary-50 px-3 py-1.5 text-xs font-medium text-primary-700 transition-colors hover:bg-primary-100 md:flex dark:bg-primary-900/20 dark:text-primary-300"
+          >
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary-500" />
+            Complete profile
+          </Link>
+        )}
+
+        {/* Mobile - avatar with nudge dot */}
+        <Link
+          href={onboardingComplete ? "#" : "/onboarding"}
+          onClick={onboardingComplete ? handleSignOut : undefined}
+          className="relative rounded-full p-1.5 md:hidden"
         >
           {avatar ? (
             <Image
@@ -89,7 +108,10 @@ export function AuthButton() {
               {name[0].toUpperCase()}
             </div>
           )}
-        </button>
+          {!onboardingComplete && (
+            <span className="absolute right-1 top-1 h-2.5 w-2.5 animate-pulse rounded-full bg-primary-500 ring-2 ring-white dark:ring-[#151010]" />
+          )}
+        </Link>
       </div>
     );
   }

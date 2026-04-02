@@ -1,32 +1,36 @@
 import type { Metadata } from "next";
-import {
-  Section,
-  SectionHeader,
-  SectionTitle,
-  SectionDescription,
-} from "@/components/ui/section";
+import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
+import { getAllBlogPosts, getAllTags } from "@/lib/blog";
+import { BlogListing } from "./blog-listing";
 
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Community stories, Istanbul tips, nomad interviews, and remote work insights.",
+    "Community stories, Istanbul tips, and remote work insights from digital nomads living in Istanbul.",
 };
 
 export default function BlogPage() {
+  const posts = getAllBlogPosts();
+  const allTags = getAllTags();
+
   return (
-    <Section>
-      <SectionHeader>
-        <SectionTitle>Blog</SectionTitle>
-        <SectionDescription>
-          Community stories, Istanbul tips, and remote work insights.
-        </SectionDescription>
-      </SectionHeader>
-      <div className="mx-auto max-w-xl rounded-xl border border-dashed border-neutral-300 bg-neutral-50 p-12 text-center dark:border-neutral-700 dark:bg-neutral-900/50">
-        <p className="text-neutral-500">
-          Blog posts are on the way. We&apos;re writing about coworking spots,
-          visa tips, and what it&apos;s actually like to live here.
-        </p>
-      </div>
-    </Section>
+    <section className="py-16 md:py-24">
+      <Container>
+        <Reveal>
+          <div className="mx-auto mb-12 max-w-2xl text-center">
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Blog
+            </h1>
+            <p className="mt-4 text-lg text-[#6b6257] dark:text-[#b8a898]">
+              Stories, tips, and insights from remote workers living in
+              Istanbul.
+            </p>
+          </div>
+
+          <BlogListing posts={posts} allTags={allTags} />
+        </Reveal>
+      </Container>
+    </section>
   );
 }

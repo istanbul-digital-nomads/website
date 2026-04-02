@@ -19,6 +19,7 @@ import { guides } from "@/lib/data";
 import { socialLinks } from "@/lib/constants";
 import { cn, formatEventDate } from "@/lib/utils";
 import { getEvents } from "@/lib/supabase/queries";
+import { FAQSection } from "@/components/sections/faq-section";
 
 const IstanbulMap = dynamic(
   () =>
@@ -349,6 +350,8 @@ export default async function HomePage() {
           </div>
         </Container>
       </section>
+
+      <FAQSection />
 
       <section className="py-20">
         <Container>

@@ -6,7 +6,10 @@ describe("Database migrations", () => {
   const migrationsDir = join(process.cwd(), "supabase/migrations");
 
   it("001_initial_schema.sql exists and contains required tables", () => {
-    const sql = readFileSync(join(migrationsDir, "001_initial_schema.sql"), "utf-8");
+    const sql = readFileSync(
+      join(migrationsDir, "001_initial_schema.sql"),
+      "utf-8",
+    );
 
     expect(sql).toContain("create table members");
     expect(sql).toContain("create table events");
@@ -15,7 +18,10 @@ describe("Database migrations", () => {
   });
 
   it("001_initial_schema.sql has RLS enabled on all tables", () => {
-    const sql = readFileSync(join(migrationsDir, "001_initial_schema.sql"), "utf-8");
+    const sql = readFileSync(
+      join(migrationsDir, "001_initial_schema.sql"),
+      "utf-8",
+    );
 
     expect(sql).toContain("alter table members enable row level security");
     expect(sql).toContain("alter table events enable row level security");
@@ -24,7 +30,10 @@ describe("Database migrations", () => {
   });
 
   it("001_initial_schema.sql has RLS policies for all tables", () => {
-    const sql = readFileSync(join(migrationsDir, "001_initial_schema.sql"), "utf-8");
+    const sql = readFileSync(
+      join(migrationsDir, "001_initial_schema.sql"),
+      "utf-8",
+    );
 
     expect(sql).toContain('create policy "Members are viewable');
     expect(sql).toContain('create policy "Published events are viewable');
@@ -33,14 +42,20 @@ describe("Database migrations", () => {
   });
 
   it("001_initial_schema.sql has auto-create member trigger", () => {
-    const sql = readFileSync(join(migrationsDir, "001_initial_schema.sql"), "utf-8");
+    const sql = readFileSync(
+      join(migrationsDir, "001_initial_schema.sql"),
+      "utf-8",
+    );
 
     expect(sql).toContain("create or replace function handle_new_user");
     expect(sql).toContain("on_auth_user_created");
   });
 
   it("001_initial_schema.sql has updated_at triggers", () => {
-    const sql = readFileSync(join(migrationsDir, "001_initial_schema.sql"), "utf-8");
+    const sql = readFileSync(
+      join(migrationsDir, "001_initial_schema.sql"),
+      "utf-8",
+    );
 
     expect(sql).toContain("members_updated_at");
     expect(sql).toContain("events_updated_at");
@@ -48,14 +63,20 @@ describe("Database migrations", () => {
   });
 
   it("002_storage_buckets.sql exists and creates buckets", () => {
-    const sql = readFileSync(join(migrationsDir, "002_storage_buckets.sql"), "utf-8");
+    const sql = readFileSync(
+      join(migrationsDir, "002_storage_buckets.sql"),
+      "utf-8",
+    );
 
     expect(sql).toContain("'avatars'");
     expect(sql).toContain("'event-images'");
   });
 
   it("002_storage_buckets.sql has storage policies", () => {
-    const sql = readFileSync(join(migrationsDir, "002_storage_buckets.sql"), "utf-8");
+    const sql = readFileSync(
+      join(migrationsDir, "002_storage_buckets.sql"),
+      "utf-8",
+    );
 
     expect(sql).toContain("Avatar images are publicly accessible");
     expect(sql).toContain("Event images are publicly accessible");

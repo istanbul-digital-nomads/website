@@ -42,11 +42,7 @@
         rgba(47, 143, 123, 0.08),
         transparent 26%
       ),
-      linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.3),
-        transparent 25%
-      ),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent 25%),
       var(--background);
     color: var(--foreground);
     font-family: var(--font-sans), sans-serif;
@@ -125,14 +121,18 @@
     font-family: var(--font-sans), sans-serif;
     border-radius: 1rem;
     backdrop-filter: blur(12px);
-    box-shadow: 0 8px 32px rgba(200, 53, 31, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+    box-shadow:
+      0 8px 32px rgba(200, 53, 31, 0.08),
+      0 2px 8px rgba(0, 0, 0, 0.04);
   }
 
   .dark .toast-brand [data-sonner-toast] {
     --normal-bg: rgba(35, 26, 20, 0.95);
     --normal-border: rgba(200, 100, 60, 0.18);
     --normal-text: #f7f2ea;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(200, 53, 31, 0.06);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.25),
+      0 2px 8px rgba(200, 53, 31, 0.06);
   }
 
   .toast-brand [data-sonner-toast][data-type="success"] {
@@ -439,7 +439,8 @@
 
 /* MapLibre warm brand filter — applies only to the canvas, not markers */
 .map-canvas-warm .maplibregl-canvas {
-  filter: sepia(0.22) saturate(0.78) hue-rotate(345deg) brightness(1.06) contrast(0.94);
+  filter: sepia(0.22) saturate(0.78) hue-rotate(345deg) brightness(1.06)
+    contrast(0.94);
 }
 
 .map-canvas-dark .maplibregl-canvas {

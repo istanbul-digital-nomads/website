@@ -101,7 +101,9 @@ export async function getMembers() {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("members")
-    .select("id, display_name, bio, avatar_url, location, skills, website, telegram_handle")
+    .select(
+      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle",
+    )
     .eq("is_visible", true)
     .order("created_at", { ascending: false });
 
@@ -131,7 +133,9 @@ export async function getBlogPosts(options?: { limit?: number }) {
   const supabase = await createClient();
   let query = supabase
     .from("blog_posts")
-    .select("id, slug, title, excerpt, author_id, cover_image_url, tags, published_at")
+    .select(
+      "id, slug, title, excerpt, author_id, cover_image_url, tags, published_at",
+    )
     .eq("is_published", true)
     .order("published_at", { ascending: false });
 

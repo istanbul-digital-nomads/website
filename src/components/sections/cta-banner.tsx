@@ -12,7 +12,8 @@ export function CtaBanner() {
             Ready to join?
           </h2>
           <p className="mt-4 text-lg text-primary-100">
-            Connect with 500+ remote workers in Istanbul. Free, open, and welcoming.
+            Connect with 500+ remote workers in Istanbul. Free, open, and
+            welcoming.
           </p>
           <div className="mt-8">
             <a

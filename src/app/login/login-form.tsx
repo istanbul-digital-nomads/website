@@ -54,7 +54,6 @@ export function LoginForm() {
         </svg>
         Continue with Google
       </Button>
-
     </div>
   );
 }

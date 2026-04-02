@@ -13,8 +13,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Event } from "@/types/models";
 
-const MAP_STYLE_LIGHT = "https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json";
-const MAP_STYLE_DARK = "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json";
+const MAP_STYLE_LIGHT =
+  "https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json";
+const MAP_STYLE_DARK =
+  "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json";
 const ISTANBUL_CENTER = { longitude: 29.0, latitude: 41.015 };
 
 interface EventsMapProps {
@@ -72,7 +74,9 @@ function EventPin({
             "bg-white/95 text-[#2a2018] dark:bg-[#231a14]/95 dark:text-[#f7f2ea]",
           )}
         >
-          {event.title.length > 25 ? event.title.slice(0, 25) + "..." : event.title}
+          {event.title.length > 25
+            ? event.title.slice(0, 25) + "..."
+            : event.title}
         </span>
       </button>
     </Marker>
@@ -207,7 +211,12 @@ export function EventsMap({
           mapLoaded ? "opacity-0" : "opacity-100",
         )}
       />
-      <div className={cn("absolute inset-0", isDark ? "map-canvas-dark" : "map-canvas-warm")}>
+      <div
+        className={cn(
+          "absolute inset-0",
+          isDark ? "map-canvas-dark" : "map-canvas-warm",
+        )}
+      >
         <Map
           ref={mapRef}
           mapStyle={isDark ? MAP_STYLE_DARK : MAP_STYLE_LIGHT}

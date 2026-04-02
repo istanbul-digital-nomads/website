@@ -20,7 +20,12 @@ const tabs: Tab[] = [
   { label: "Home", icon: Home, href: "/" },
   { label: "Guides", icon: BookOpen, href: "/guides" },
   { label: "Events", icon: Calendar, href: "/events" },
-  { label: "Community", icon: Send, href: socialLinks.telegram, external: true },
+  {
+    label: "Community",
+    icon: Send,
+    href: socialLinks.telegram,
+    external: true,
+  },
   { label: "Menu", icon: Menu, action: "menu" },
 ];
 

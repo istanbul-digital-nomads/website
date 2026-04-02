@@ -84,20 +84,21 @@ export default function AboutPage() {
           <div className="mt-6 space-y-4 text-lg text-neutral-600 dark:text-neutral-400">
             <p>
               Istanbul Digital Nomads started in 2023 as a small Telegram group
-              for remote workers who had just arrived in Istanbul and were looking
-              for others in the same boat.
+              for remote workers who had just arrived in Istanbul and were
+              looking for others in the same boat.
             </p>
             <p>
-              What began as casual cafe meetups grew into a thriving community of
-              500+ members from all over the world - developers, designers,
+              What began as casual cafe meetups grew into a thriving community
+              of 500+ members from all over the world - developers, designers,
               writers, founders, and freelancers who chose Istanbul as their
               base.
             </p>
             <p>
               We believe Istanbul is one of the best cities in the world for
-              remote work - affordable, culturally rich, incredibly well-connected,
-              and full of energy. Our mission is to make the transition easier
-              and the experience richer for every nomad who comes here.
+              remote work - affordable, culturally rich, incredibly
+              well-connected, and full of energy. Our mission is to make the
+              transition easier and the experience richer for every nomad who
+              comes here.
             </p>
           </div>
         </div>

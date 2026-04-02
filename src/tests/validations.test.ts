@@ -90,9 +90,15 @@ describe("validateCreateRSVP", () => {
   });
 
   it("accepts all valid statuses", () => {
-    expect(validateCreateRSVP({ event_id: "1", status: "going" }).error).toBeUndefined();
-    expect(validateCreateRSVP({ event_id: "1", status: "maybe" }).error).toBeUndefined();
-    expect(validateCreateRSVP({ event_id: "1", status: "not_going" }).error).toBeUndefined();
+    expect(
+      validateCreateRSVP({ event_id: "1", status: "going" }).error,
+    ).toBeUndefined();
+    expect(
+      validateCreateRSVP({ event_id: "1", status: "maybe" }).error,
+    ).toBeUndefined();
+    expect(
+      validateCreateRSVP({ event_id: "1", status: "not_going" }).error,
+    ).toBeUndefined();
   });
 
   it("rejects invalid status", () => {

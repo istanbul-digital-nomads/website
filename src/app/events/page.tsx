@@ -14,10 +14,5 @@ export default async function EventsPage() {
     getEvents({ past: true }),
   ]);
 
-  return (
-    <EventsView
-      upcomingEvents={upcoming ?? []}
-      pastEvents={past ?? []}
-    />
-  );
+  return <EventsView upcomingEvents={upcoming ?? []} pastEvents={past ?? []} />;
 }

@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Section, SectionHeader, SectionTitle, SectionDescription } from "@/components/ui/section";
+import {
+  Section,
+  SectionHeader,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/section";
 
 export const metadata: Metadata = {
   title: "Blog",

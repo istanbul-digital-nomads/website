@@ -70,7 +70,9 @@ export default function RootLayout({
       <body className={`${manrope.variable} ${ibmPlexMono.variable}`}>
         <ThemeProvider>
           <Header />
-          <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">{children}</main>
+          <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">
+            {children}
+          </main>
           <Footer />
           <BottomTabBar />
         </ThemeProvider>

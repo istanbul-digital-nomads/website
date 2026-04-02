@@ -46,9 +46,7 @@ export function AuthButton() {
 
   if (user) {
     const name =
-      user.user_metadata?.full_name ||
-      user.email?.split("@")[0] ||
-      "Member";
+      user.user_metadata?.full_name || user.email?.split("@")[0] || "Member";
     const avatar = user.user_metadata?.avatar_url;
 
     return (

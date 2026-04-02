@@ -147,7 +147,6 @@ export default async function HomePage() {
                   ))}
                 </div>
               </Reveal>
-
             </Reveal>
 
             <Reveal
@@ -208,8 +207,8 @@ export default async function HomePage() {
                 This week&apos;s events
               </h2>
               <p className="text-muted mt-5 max-w-md text-lg leading-8">
-                Coworking sessions, meetups, and workshops happening in
-                Istanbul this week.
+                Coworking sessions, meetups, and workshops happening in Istanbul
+                this week.
               </p>
             </Reveal>
 

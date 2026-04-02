@@ -17,6 +17,9 @@ export async function POST(request: Request) {
   void message;
 
   return NextResponse.json({
-    data: { success: true, message: "Message received. We will get back to you soon." },
+    data: {
+      success: true,
+      message: "Message received. We will get back to you soon.",
+    },
   });
 }

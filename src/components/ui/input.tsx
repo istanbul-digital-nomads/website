@@ -1,4 +1,8 @@
-import { forwardRef, type InputHTMLAttributes, type TextareaHTMLAttributes } from "react";
+import {
+  forwardRef,
+  type InputHTMLAttributes,
+  type TextareaHTMLAttributes,
+} from "react";
 import { cn } from "@/lib/utils";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -30,11 +34,20 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             className,
           )}
           aria-invalid={error ? "true" : undefined}
-          aria-describedby={error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined}
+          aria-describedby={
+            error
+              ? `${inputId}-error`
+              : helperText
+                ? `${inputId}-helper`
+                : undefined
+          }
           {...props}
         />
         {error && (
-          <p id={`${inputId}-error`} className="text-sm text-red-600 dark:text-red-400">
+          <p
+            id={`${inputId}-error`}
+            className="text-sm text-red-600 dark:text-red-400"
+          >
             {error}
           </p>
         )}
@@ -83,7 +96,10 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           {...props}
         />
         {error && (
-          <p id={`${inputId}-error`} className="text-sm text-red-600 dark:text-red-400">
+          <p
+            id={`${inputId}-error`}
+            className="text-sm text-red-600 dark:text-red-400"
+          >
             {error}
           </p>
         )}

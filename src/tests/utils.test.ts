@@ -1,5 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { cn, formatDate, formatDateShort, formatEventDate, truncate } from "@/lib/utils";
+import {
+  cn,
+  formatDate,
+  formatDateShort,
+  formatEventDate,
+  truncate,
+} from "@/lib/utils";
 
 describe("cn", () => {
   it("merges class names", () => {
@@ -47,7 +53,9 @@ describe("formatEventDate", () => {
 
 describe("truncate", () => {
   it("truncates long strings", () => {
-    expect(truncate("Hello World, this is a long string", 11)).toBe("Hello World...");
+    expect(truncate("Hello World, this is a long string", 11)).toBe(
+      "Hello World...",
+    );
   });
 
   it("returns short strings unchanged", () => {

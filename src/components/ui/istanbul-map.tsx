@@ -1,7 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Map, { Marker, Source, Layer, NavigationControl } from "react-map-gl/maplibre";
+import Map, {
+  Marker,
+  Source,
+  Layer,
+  NavigationControl,
+} from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -45,7 +50,8 @@ const neighborhoods: Neighborhood[] = [
     vibe: "Lively waterfront, markets, great transport links",
     side: "European",
     color: "#737373",
-    bgClass: "bg-neutral-200 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100",
+    bgClass:
+      "bg-neutral-200 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100",
     labelSide: "left",
   },
   {
@@ -75,7 +81,8 @@ const neighborhoods: Neighborhood[] = [
     vibe: "Traditional neighborhood, ferry hub, Bosphorus views",
     side: "Asian",
     color: "#737373",
-    bgClass: "bg-neutral-200 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100",
+    bgClass:
+      "bg-neutral-200 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100",
     labelSide: "right",
   },
 ];
@@ -133,7 +140,11 @@ function AnimatedMarker({
   }, [delay]);
 
   return (
-    <Marker longitude={neighborhood.lng} latitude={neighborhood.lat} anchor="center">
+    <Marker
+      longitude={neighborhood.lng}
+      latitude={neighborhood.lat}
+      anchor="center"
+    >
       <div
         className={cn(
           "map-marker group relative cursor-pointer transition-all duration-300",
@@ -172,9 +183,7 @@ function AnimatedMarker({
           <div
             className={cn(
               "animate-slide-up-fade absolute bottom-full mb-2 w-48 rounded-xl border border-black/10 bg-white/95 p-3 shadow-lg backdrop-blur-sm dark:border-white/10 dark:bg-neutral-900/95",
-              neighborhood.labelSide === "right"
-                ? "left-0"
-                : "right-0",
+              neighborhood.labelSide === "right" ? "left-0" : "right-0",
             )}
           >
             <p className="text-xs font-medium text-neutral-900 dark:text-neutral-100">
@@ -228,68 +237,73 @@ export function IstanbulMap() {
           mapLoaded ? "opacity-100" : "opacity-0",
         )}
       >
-      <div className={cn("absolute inset-0", isDark ? "map-canvas-dark" : "map-canvas-warm")}>
-      <Map
-        ref={mapRef}
-        mapStyle={isDark ? MAP_STYLE_DARK : MAP_STYLE_LIGHT}
-        initialViewState={{
-          ...ISTANBUL_CENTER,
-          zoom: INITIAL_ZOOM,
-        }}
-        style={{ width: "100%", height: "100%" }}
-        scrollZoom={false}
-        attributionControl={false}
-        onLoad={onLoad}
-      >
-        <NavigationControl position="top-right" showCompass={false} />
-
-        <Source id="ferry-routes" type="geojson" data={ferryRoute}>
-          <Layer
-            id="ferry-glow"
-            type="line"
-            paint={{
-              "line-color": isDark
-                ? "rgba(47,143,123,0.25)"
-                : "rgba(47,143,123,0.15)",
-              "line-width": 8,
-              "line-blur": 6,
+        <div
+          className={cn(
+            "absolute inset-0",
+            isDark ? "map-canvas-dark" : "map-canvas-warm",
+          )}
+        >
+          <Map
+            ref={mapRef}
+            mapStyle={isDark ? MAP_STYLE_DARK : MAP_STYLE_LIGHT}
+            initialViewState={{
+              ...ISTANBUL_CENTER,
+              zoom: INITIAL_ZOOM,
             }}
-          />
-          <Layer
-            id="ferry-line"
-            type="line"
-            paint={{
-              "line-color": isDark
-                ? "rgba(47,143,123,0.7)"
-                : "rgba(47,143,123,0.5)",
-              "line-width": 2,
-              "line-dasharray": [2, 3],
-            }}
-          />
-        </Source>
+            style={{ width: "100%", height: "100%" }}
+            scrollZoom={false}
+            attributionControl={false}
+            onLoad={onLoad}
+          >
+            <NavigationControl position="top-right" showCompass={false} />
 
-        {neighborhoods.map((n, i) => (
-          <AnimatedMarker
-            key={n.name}
-            neighborhood={n}
-            delay={600 + i * 250}
-            onHover={() => setActiveMarker(n.name)}
-            onLeave={() => setActiveMarker(null)}
-            isActive={activeMarker === n.name}
-          />
-        ))}
-      </Map>
-      </div>
+            <Source id="ferry-routes" type="geojson" data={ferryRoute}>
+              <Layer
+                id="ferry-glow"
+                type="line"
+                paint={{
+                  "line-color": isDark
+                    ? "rgba(47,143,123,0.25)"
+                    : "rgba(47,143,123,0.15)",
+                  "line-width": 8,
+                  "line-blur": 6,
+                }}
+              />
+              <Layer
+                id="ferry-line"
+                type="line"
+                paint={{
+                  "line-color": isDark
+                    ? "rgba(47,143,123,0.7)"
+                    : "rgba(47,143,123,0.5)",
+                  "line-width": 2,
+                  "line-dasharray": [2, 3],
+                }}
+              />
+            </Source>
 
-      {/* Warm tint overlay on the map tiles */}
-      <div
-        className={cn(
-          "pointer-events-none absolute inset-0",
-          isDark
-            ? "bg-[rgba(15,10,8,0.12)]"
-            : "bg-[radial-gradient(circle_at_40%_40%,rgba(227,75,50,0.06),transparent_60%),radial-gradient(circle_at_70%_70%,rgba(212,154,69,0.05),transparent_50%)]",
-        )}
-      />
+            {neighborhoods.map((n, i) => (
+              <AnimatedMarker
+                key={n.name}
+                neighborhood={n}
+                delay={600 + i * 250}
+                onHover={() => setActiveMarker(n.name)}
+                onLeave={() => setActiveMarker(null)}
+                isActive={activeMarker === n.name}
+              />
+            ))}
+          </Map>
+        </div>
+
+        {/* Warm tint overlay on the map tiles */}
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-0",
+            isDark
+              ? "bg-[rgba(15,10,8,0.12)]"
+              : "bg-[radial-gradient(circle_at_40%_40%,rgba(227,75,50,0.06),transparent_60%),radial-gradient(circle_at_70%_70%,rgba(212,154,69,0.05),transparent_50%)]",
+          )}
+        />
       </div>
 
       <div className="pointer-events-none absolute inset-0 rounded-[2.3rem] ring-1 ring-inset ring-black/5 dark:ring-white/10" />

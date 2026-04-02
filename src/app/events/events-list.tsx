@@ -21,15 +21,18 @@ interface EventsListProps {
   onSelect?: (id: string | null) => void;
 }
 
-export function EventsList({ upcomingEvents, pastEvents, selectedId, onSelect }: EventsListProps) {
+export function EventsList({
+  upcomingEvents,
+  pastEvents,
+  selectedId,
+  onSelect,
+}: EventsListProps) {
   const [tab, setTab] = useState<Tab>("upcoming");
   const [filterType, setFilterType] = useState<EventType | "all">("all");
 
   const events = tab === "upcoming" ? upcomingEvents : pastEvents;
   const filtered =
-    filterType === "all"
-      ? events
-      : events.filter((e) => e.type === filterType);
+    filterType === "all" ? events : events.filter((e) => e.type === filterType);
 
   return (
     <Section>
@@ -93,9 +96,12 @@ export function EventsList({ upcomingEvents, pastEvents, selectedId, onSelect }:
               hoverable
               className={cn(
                 "cursor-pointer transition-all",
-                selectedId === event.id && "ring-2 ring-primary-500 ring-offset-2 dark:ring-offset-[#151010]",
+                selectedId === event.id &&
+                  "ring-2 ring-primary-500 ring-offset-2 dark:ring-offset-[#151010]",
               )}
-              onClick={() => onSelect?.(selectedId === event.id ? null : event.id)}
+              onClick={() =>
+                onSelect?.(selectedId === event.id ? null : event.id)
+              }
             >
               <CardContent>
                 <div className="flex items-center justify-between">

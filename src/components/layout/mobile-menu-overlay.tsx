@@ -85,7 +85,15 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
             onClick={onClose}
             className="tap-highlight mt-4 flex items-center gap-3 rounded-2xl bg-primary-50 px-4 py-4 text-lg font-medium text-primary-700 transition-colors dark:bg-white/10 dark:text-primary-300"
           >
-            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              className="h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>
@@ -138,7 +146,10 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
         </nav>
 
         {/* Bottom CTA */}
-        <div className="px-6 pb-6" style={{ paddingBottom: "max(1.5rem, env(safe-area-inset-bottom))" }}>
+        <div
+          className="px-6 pb-6"
+          style={{ paddingBottom: "max(1.5rem, env(safe-area-inset-bottom))" }}
+        >
           <a
             href={socialLinks.telegram}
             target="_blank"

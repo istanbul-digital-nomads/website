@@ -11,14 +11,16 @@ export type RSVP = Database["public"]["Tables"]["rsvps"]["Row"];
 
 export type EventInsert = Database["public"]["Tables"]["events"]["Insert"];
 export type MemberInsert = Database["public"]["Tables"]["members"]["Insert"];
-export type BlogPostInsert = Database["public"]["Tables"]["blog_posts"]["Insert"];
+export type BlogPostInsert =
+  Database["public"]["Tables"]["blog_posts"]["Insert"];
 export type RSVPInsert = Database["public"]["Tables"]["rsvps"]["Insert"];
 
 // --- Update Types (what you send to patch a record) ---
 
 export type EventUpdate = Database["public"]["Tables"]["events"]["Update"];
 export type MemberUpdate = Database["public"]["Tables"]["members"]["Update"];
-export type BlogPostUpdate = Database["public"]["Tables"]["blog_posts"]["Update"];
+export type BlogPostUpdate =
+  Database["public"]["Tables"]["blog_posts"]["Update"];
 
 // --- Enum Types ---
 

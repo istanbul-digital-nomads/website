@@ -14,10 +14,7 @@ export async function DELETE(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { error } = await supabase
-    .from("rsvps")
-    .delete()
-    .eq("id", params.id);
+  const { error } = await supabase.from("rsvps").delete().eq("id", params.id);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

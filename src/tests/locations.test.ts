@@ -8,7 +8,9 @@ describe("getEventCoordinates", () => {
   });
 
   it("fuzzy matches location names", () => {
-    expect(getEventCoordinates("Beyoglu Rooftop Bar")).toEqual([28.977, 41.034]);
+    expect(getEventCoordinates("Beyoglu Rooftop Bar")).toEqual([
+      28.977, 41.034,
+    ]);
     expect(getEventCoordinates("Setup Cihangir")).toEqual([28.984, 41.031]);
   });
 

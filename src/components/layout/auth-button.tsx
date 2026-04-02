@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { User, LogOut } from "lucide-react";
+import Image from "next/image";
+import { User } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { showToast } from "@/lib/toast";
@@ -58,9 +59,11 @@ export function AuthButton() {
           title="Sign out"
         >
           {avatar ? (
-            <img
+            <Image
               src={avatar}
               alt={name}
+              width={20}
+              height={20}
               className="h-5 w-5 rounded-full"
             />
           ) : (
@@ -76,9 +79,11 @@ export function AuthButton() {
           title="Sign out"
         >
           {avatar ? (
-            <img
+            <Image
               src={avatar}
               alt={name}
+              width={28}
+              height={28}
               className="h-7 w-7 rounded-full ring-2 ring-primary-500/30"
             />
           ) : (

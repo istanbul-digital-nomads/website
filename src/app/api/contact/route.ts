@@ -11,8 +11,10 @@ export async function POST(request: Request) {
 
   const { name, email, message } = result.data!;
 
-  // TODO: Integrate with Resend email service
-  console.log("[Contact Form]", { name, email, message: message.substring(0, 100) });
+  // Resend email integration pending - for now, accept and acknowledge
+  void name;
+  void email;
+  void message;
 
   return NextResponse.json({
     data: { success: true, message: "Message received. We will get back to you soon." },

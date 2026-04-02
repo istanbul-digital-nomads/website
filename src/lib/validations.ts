@@ -22,7 +22,7 @@ export function validateCreateEvent(body: unknown): Result<CreateEventBody> {
 
   if (!isString(b.title)) return { error: "title is required" };
   if (!isString(b.description)) return { error: "description is required" };
-  if (!isString(b.type) || !EVENT_TYPES.includes(b.type as any))
+  if (!isString(b.type) || !(EVENT_TYPES as readonly string[]).includes(b.type as string))
     return { error: "type must be one of: meetup, coworking, workshop, social" };
   if (!isString(b.date)) return { error: "date is required" };
   if (!isString(b.location_name)) return { error: "location_name is required" };
@@ -47,7 +47,7 @@ export function validateUpdateEvent(body: unknown): Result<UpdateEventBody> {
   if (!body || typeof body !== "object") return { error: "Invalid request body" };
   const b = body as Record<string, unknown>;
 
-  if (b.type !== undefined && (!isString(b.type) || !EVENT_TYPES.includes(b.type as any)))
+  if (b.type !== undefined && (!isString(b.type) || !(EVENT_TYPES as readonly string[]).includes(b.type as string)))
     return { error: "type must be one of: meetup, coworking, workshop, social" };
 
   const data: UpdateEventBody = {};
@@ -73,7 +73,7 @@ export function validateCreateRSVP(body: unknown): Result<CreateRSVPBody> {
   const b = body as Record<string, unknown>;
 
   if (!isString(b.event_id)) return { error: "event_id is required" };
-  if (!isString(b.status) || !RSVP_STATUSES.includes(b.status as any))
+  if (!isString(b.status) || !(RSVP_STATUSES as readonly string[]).includes(b.status as string))
     return { error: "status must be one of: going, maybe, not_going" };
 
   return {

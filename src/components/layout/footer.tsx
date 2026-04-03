@@ -16,7 +16,7 @@ export function Footer() {
     <footer className="border-t border-black/5 bg-[rgba(245,239,228,0.72)] dark:border-white/10 dark:bg-[#151010]">
       <Container>
         <div className="grid gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="rounded-[2rem] border border-primary-900/20 bg-[#1c1614] px-6 py-8 text-white dark:border-white/10 dark:bg-[#231a14] dark:text-[#f7f2ea] sm:px-8">
+          <div className="rounded-[2rem] border border-primary-700/20 bg-gradient-to-br from-primary-800 to-primary-950 px-6 py-8 text-white dark:border-primary-800/30 dark:from-primary-900 dark:to-[#231a14] sm:px-8">
             <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/60 dark:text-[#b8a898]">
               Istanbul Digital Nomads
             </p>

@@ -356,8 +356,8 @@ export default async function HomePage() {
       <section className="py-20">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-            <Reveal className="rounded-[2rem] border border-black/10 bg-[#1c1614] p-8 text-white dark:border-white/10 dark:bg-[#231a14] dark:text-[#f7f2ea]">
-              <p className="eyebrow text-white/60 dark:text-[#b8a898]">
+            <Reveal className="rounded-[2rem] border border-primary-700/20 bg-gradient-to-br from-primary-800 to-primary-950 p-8 text-white dark:border-primary-800/30 dark:from-primary-900 dark:to-[#231a14]">
+              <p className="eyebrow text-white/70">
                 First month essentials
               </p>
               <h2 className="mt-4 max-w-md text-4xl font-semibold sm:text-5xl">
@@ -418,12 +418,12 @@ export default async function HomePage() {
       <section className="py-20">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-            <Reveal className="rounded-[2rem] border border-black/10 bg-[#1c1614] p-8 text-white dark:border-white/10 dark:bg-[#231a14] dark:text-[#f7f2ea]">
-              <p className="eyebrow text-white/60 dark:text-[#b8a898]">
+            <Reveal className="rounded-[2rem] border border-primary-700/20 bg-gradient-to-br from-primary-800 to-primary-950 p-8 text-white dark:border-primary-800/30 dark:from-primary-900 dark:to-[#231a14]">
+              <p className="eyebrow text-white/70">
                 Why people stay
               </p>
               <h2 className="mt-4 max-w-md text-4xl font-semibold sm:text-5xl">
-                Not another expat feed. A city operating system.
+                Why nomads keep extending their stay.
               </h2>
               <p className="mt-5 max-w-md text-base leading-8 text-white/72 dark:text-white/65">
                 What changes after you join is simple: your workweeks get
@@ -507,7 +507,7 @@ export default async function HomePage() {
 
       <section className="pb-20">
         <Container>
-          <Reveal className="relative overflow-hidden rounded-[2.5rem] border border-black/10 bg-[#1c1614] px-6 py-10 text-white dark:border-white/10 dark:bg-[#1a0f09] sm:px-10 sm:py-14">
+          <Reveal className="relative overflow-hidden rounded-[2.5rem] border border-primary-700/20 bg-gradient-to-br from-primary-800 via-primary-900 to-primary-950 px-6 py-10 text-white dark:border-primary-800/30 dark:from-primary-900 dark:via-[#231a14] dark:to-[#1a0f09] sm:px-10 sm:py-14">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(200,80,30,0.28),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(212,154,69,0.18),transparent_30%)]" />
             <div className="relative">
               <p className="eyebrow text-white/60">Get started</p>

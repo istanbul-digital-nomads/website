@@ -356,7 +356,7 @@ export default async function HomePage() {
       <section className="py-20">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-            <Reveal className="rounded-[2rem] border border-primary-700/20 bg-gradient-to-br from-primary-800 to-primary-950 p-8 text-white dark:border-primary-800/30 dark:from-primary-900 dark:to-[#231a14]">
+            <Reveal className="rounded-[2rem] border border-primary-700/20 bg-[linear-gradient(135deg,#8a2a1a_0%,#5c1a12_50%,#3d1410_100%)] p-8 text-white dark:bg-[linear-gradient(135deg,#5c1a12_0%,#3d1410_50%,#231a14_100%)]">
               <p className="eyebrow text-white/70">
                 First month essentials
               </p>
@@ -418,7 +418,7 @@ export default async function HomePage() {
       <section className="py-20">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-            <Reveal className="rounded-[2rem] border border-primary-700/20 bg-gradient-to-br from-primary-800 to-primary-950 p-8 text-white dark:border-primary-800/30 dark:from-primary-900 dark:to-[#231a14]">
+            <Reveal className="rounded-[2rem] border border-primary-700/20 bg-[linear-gradient(135deg,#8a2a1a_0%,#5c1a12_50%,#3d1410_100%)] p-8 text-white dark:bg-[linear-gradient(135deg,#5c1a12_0%,#3d1410_50%,#231a14_100%)]">
               <p className="eyebrow text-white/70">
                 Why people stay
               </p>
@@ -507,7 +507,7 @@ export default async function HomePage() {
 
       <section className="pb-20">
         <Container>
-          <Reveal className="relative overflow-hidden rounded-[2.5rem] border border-primary-700/20 bg-gradient-to-br from-primary-800 via-primary-900 to-primary-950 px-6 py-10 text-white dark:border-primary-800/30 dark:from-primary-900 dark:via-[#231a14] dark:to-[#1a0f09] sm:px-10 sm:py-14">
+          <Reveal className="relative overflow-hidden rounded-[2.5rem] border border-primary-700/20 bg-[linear-gradient(135deg,#8a2a1a_0%,#5c1a12_40%,#3d1410_100%)] px-6 py-10 text-white dark:bg-[linear-gradient(135deg,#5c1a12_0%,#3d1410_40%,#231a14_100%)] sm:px-10 sm:py-14">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(200,80,30,0.28),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(212,154,69,0.18),transparent_30%)]" />
             <div className="relative">
               <p className="eyebrow text-white/60">Get started</p>

@@ -3,6 +3,7 @@ import { IBM_Plex_Mono, Manrope } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "sonner";
+import { NavigationProgress } from "@/components/ui/navigation-progress";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -69,6 +70,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${manrope.variable} ${ibmPlexMono.variable}`}>
         <ThemeProvider>
+          <NavigationProgress />
           <Header />
           <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">
             {children}

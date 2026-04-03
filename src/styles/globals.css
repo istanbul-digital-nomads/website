@@ -527,4 +527,73 @@
     transform: none;
     transition: none;
   }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+/* View Transitions API - smooth page crossfade */
+::view-transition-old(root) {
+  animation: vt-fade-out 180ms ease-out forwards;
+}
+
+::view-transition-new(root) {
+  animation: vt-fade-in 220ms ease-in forwards;
+}
+
+@keyframes vt-fade-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(1.01);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Navigation progress bar */
+.nav-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  z-index: 9999;
+  background: linear-gradient(
+    90deg,
+    var(--progress-from, #e34b32),
+    var(--progress-to, #d49a45)
+  );
+  border-radius: 0 2px 2px 0;
+  transition:
+    width 300ms ease-out,
+    opacity 200ms ease-out;
+  box-shadow: 0 0 12px rgba(227, 75, 50, 0.4);
+}
+
+.nav-progress-pulse {
+  animation: nav-progress-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes nav-progress-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(227, 75, 50, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(227, 75, 50, 0.6);
+  }
 }

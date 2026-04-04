@@ -92,18 +92,18 @@ export default async function HomePage() {
               <span className="h-2 w-2 rounded-full bg-primary-500" />
               Digital nomads in Istanbul
             </div>
-            <div className="font-mono text-[11px] uppercase tracking-[0.28em] text-neutral-500 dark:text-neutral-400">
+            <div className="font-mono text-[11px] uppercase tracking-[0.28em] text-neutral-500 dark:text-[#8a7a6a]">
               GMT+3 - ferry-friendly - walkable workdays
             </div>
           </div>
 
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(560px,1fr)] lg:items-start lg:gap-12">
             <Reveal delay={0} className="max-w-[30rem] pt-2 lg:pt-0">
-              <h1 className="word-rise mt-5 max-w-[8.7ch] text-balance text-[3rem] font-semibold leading-[0.92] text-neutral-950 sm:text-[3.7rem] lg:text-[4rem] dark:text-neutral-50">
+              <h1 className="word-rise mt-5 max-w-[8.7ch] text-balance text-[3rem] font-semibold leading-[0.92] text-neutral-950 sm:text-[3.7rem] lg:text-[4rem] dark:text-[#f7f2ea]">
                 <span>Find</span> <span>your</span> <span>rhythm</span>{" "}
                 <span>in</span> <span>Istanbul.</span>
               </h1>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-neutral-700 sm:text-[1.22rem] dark:text-neutral-200">
+              <p className="mt-6 max-w-xl text-lg leading-8 text-neutral-700 sm:text-[1.22rem] dark:text-[#d4c4b4]">
                 Weekly coworking, practical city guides, and a community of
                 remote workers who help each other settle in.
               </p>
@@ -127,7 +127,7 @@ export default async function HomePage() {
                     <Button
                       variant="secondary"
                       size="lg"
-                      className="w-full rounded-full border border-black/60 bg-white/70 px-7 text-neutral-950 hover:bg-white dark:border-white/40 dark:bg-white/10 dark:text-neutral-50 dark:hover:bg-white/20 sm:w-auto"
+                      className="w-full rounded-full border border-black/60 bg-white/70 px-7 text-neutral-950 hover:bg-white dark:border-white/40 dark:bg-white/10 dark:text-[#f7f2ea] dark:hover:bg-white/20 sm:w-auto"
                     >
                       Browse the guides
                     </Button>
@@ -140,7 +140,7 @@ export default async function HomePage() {
                   {heroTrustSignals.map((signal) => (
                     <div
                       key={signal}
-                      className="inline-flex items-center gap-2 rounded-full border border-black/15 bg-white/70 px-3 py-2 text-xs font-medium text-neutral-700 dark:border-white/10 dark:bg-white/5 dark:text-neutral-200"
+                      className="inline-flex items-center gap-2 rounded-full border border-black/15 bg-white/70 px-3 py-2 text-xs font-medium text-neutral-700 dark:border-white/10 dark:bg-white/5 dark:text-[#d4c4b4]"
                     >
                       <span className="h-1.5 w-1.5 rounded-full bg-primary-500" />
                       {signal}
@@ -188,7 +188,7 @@ export default async function HomePage() {
                     <p className="text-3xl font-semibold text-[#2a2018] dark:text-[#f7f2ea]">
                       {item.value}
                     </p>
-                    <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-500 dark:text-neutral-400">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#8a7a6a]">
                       {item.label}
                     </p>
                   </div>
@@ -204,7 +204,7 @@ export default async function HomePage() {
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <Reveal className="lg:sticky lg:top-24 lg:self-start">
               <p className="eyebrow">What&apos;s happening</p>
-              <h2 className="mt-4 max-w-md text-4xl font-semibold text-neutral-950 sm:text-5xl dark:text-neutral-50">
+              <h2 className="mt-4 max-w-md text-4xl font-semibold text-neutral-950 sm:text-5xl dark:text-[#f7f2ea]">
                 This week&apos;s events
               </h2>
               <p className="text-muted mt-5 max-w-md text-lg leading-8">
@@ -257,7 +257,7 @@ export default async function HomePage() {
               <Reveal delay={3}>
                 <Link
                   href="/events"
-                  className="group inline-flex items-center gap-2 font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-neutral-50 dark:hover:text-primary-400"
+                  className="group inline-flex items-center gap-2 font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-[#f7f2ea] dark:hover:text-primary-400"
                 >
                   See all events
                   <MoveUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -273,7 +273,7 @@ export default async function HomePage() {
           <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr]">
             <Reveal className="max-w-xl">
               <p className="eyebrow">City guides</p>
-              <h2 className="mt-4 max-w-lg text-4xl font-semibold text-neutral-950 sm:text-5xl dark:text-neutral-50">
+              <h2 className="mt-4 max-w-lg text-4xl font-semibold text-neutral-950 sm:text-5xl dark:text-[#f7f2ea]">
                 Everything you need for your first month.
               </h2>
               <p className="text-muted mt-5 max-w-md text-lg leading-8">
@@ -292,7 +292,7 @@ export default async function HomePage() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="rounded-full border border-black/10 bg-white/55 px-4 py-2 text-sm text-neutral-700 transition-colors hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-neutral-200 dark:hover:bg-white/10"
+                    className="rounded-full border border-black/10 bg-white/55 px-4 py-2 text-sm text-neutral-700 transition-colors hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-[#d4c4b4] dark:hover:bg-white/10"
                   >
                     {item.label}
                   </Link>
@@ -309,7 +309,7 @@ export default async function HomePage() {
                     className="group flex items-start justify-between gap-6 rounded-[1.75rem] border border-transparent px-1 py-4 transition-all hover:border-black/10 hover:bg-white/45 hover:px-5 dark:hover:border-white/10 dark:hover:bg-white/5"
                   >
                     <div className="flex gap-5">
-                      <div className="font-mono text-xs uppercase tracking-[0.3em] text-neutral-400 dark:text-neutral-500">
+                      <div className="font-mono text-xs uppercase tracking-[0.3em] text-neutral-400 dark:text-[#6b6257]">
                         0{index + 1}
                       </div>
                       <div>
@@ -338,7 +338,7 @@ export default async function HomePage() {
                     </div>
                     <Link
                       href="/guides"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-neutral-50 dark:hover:text-primary-400"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-[#f7f2ea] dark:hover:text-primary-400"
                     >
                       Browse all guides
                       <MoveUpRight className="h-4 w-4" />
@@ -357,9 +357,7 @@ export default async function HomePage() {
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
             <Reveal className="rounded-[2rem] border border-primary-700/20 bg-[linear-gradient(135deg,#8a2a1a_0%,#5c1a12_50%,#3d1410_100%)] p-8 text-white dark:bg-[linear-gradient(135deg,#5c1a12_0%,#3d1410_50%,#231a14_100%)]">
-              <p className="eyebrow text-white/70">
-                First month essentials
-              </p>
+              <p className="eyebrow text-white/70">First month essentials</p>
               <h2 className="mt-4 max-w-md text-4xl font-semibold sm:text-5xl">
                 Start with the pieces that make remote life easier to operate.
               </h2>
@@ -403,7 +401,7 @@ export default async function HomePage() {
                       <p className="font-semibold text-[#2a2018] dark:text-[#f7f2ea]">
                         {testimonial.name}
                       </p>
-                      <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+                      <p className="mt-1 text-sm text-neutral-500 dark:text-[#8a7a6a]">
                         {testimonial.role}
                       </p>
                     </footer>
@@ -419,9 +417,7 @@ export default async function HomePage() {
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
             <Reveal className="rounded-[2rem] border border-primary-700/20 bg-[linear-gradient(135deg,#8a2a1a_0%,#5c1a12_50%,#3d1410_100%)] p-8 text-white dark:bg-[linear-gradient(135deg,#5c1a12_0%,#3d1410_50%,#231a14_100%)]">
-              <p className="eyebrow text-white/70">
-                Why people stay
-              </p>
+              <p className="eyebrow text-white/70">Why people stay</p>
               <h2 className="mt-4 max-w-md text-4xl font-semibold sm:text-5xl">
                 Why nomads keep extending their stay.
               </h2>

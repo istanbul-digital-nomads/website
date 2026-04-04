@@ -51,7 +51,7 @@ const neighborhoods: Neighborhood[] = [
     side: "European",
     color: "#737373",
     bgClass:
-      "bg-neutral-200 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100",
+      "bg-neutral-200 text-neutral-800 dark:bg-[#3a302a] dark:text-[#e8dfd3]",
     labelSide: "left",
   },
   {
@@ -82,7 +82,7 @@ const neighborhoods: Neighborhood[] = [
     side: "Asian",
     color: "#737373",
     bgClass:
-      "bg-neutral-200 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100",
+      "bg-neutral-200 text-neutral-800 dark:bg-[#3a302a] dark:text-[#e8dfd3]",
     labelSide: "right",
   },
 ];
@@ -162,7 +162,7 @@ function AnimatedMarker({
           }}
         />
         <span
-          className="relative block h-3.5 w-3.5 rounded-full shadow-lg ring-2 ring-white/90 dark:ring-neutral-900/80"
+          className="relative block h-3.5 w-3.5 rounded-full shadow-lg ring-2 ring-white/90 dark:ring-[#1c1614]/80"
           style={{ backgroundColor: neighborhood.color }}
         />
 
@@ -182,17 +182,17 @@ function AnimatedMarker({
         {isActive && (
           <div
             className={cn(
-              "animate-slide-up-fade absolute bottom-full mb-2 w-48 rounded-xl border border-black/10 bg-white/95 p-3 shadow-lg backdrop-blur-sm dark:border-white/10 dark:bg-neutral-900/95",
+              "animate-slide-up-fade absolute bottom-full mb-2 w-48 rounded-xl border border-black/10 bg-white/95 p-3 shadow-lg backdrop-blur-sm dark:border-white/10 dark:bg-[#1c1614]/95",
               neighborhood.labelSide === "right" ? "left-0" : "right-0",
             )}
           >
-            <p className="text-xs font-medium text-neutral-900 dark:text-neutral-100">
+            <p className="text-xs font-medium text-neutral-900 dark:text-[#e8dfd3]">
               {neighborhood.name}
             </p>
-            <p className="mt-0.5 text-[10px] uppercase tracking-wider text-neutral-500">
+            <p className="mt-0.5 text-[10px] uppercase tracking-wider text-[#8a7a6a]">
               {neighborhood.side} side
             </p>
-            <p className="mt-1.5 text-xs leading-relaxed text-neutral-600 dark:text-neutral-300">
+            <p className="mt-1.5 text-xs leading-relaxed text-neutral-600 dark:text-[#b8a898]">
               {neighborhood.vibe}
             </p>
           </div>
@@ -309,11 +309,11 @@ export function IstanbulMap() {
       <div className="pointer-events-none absolute inset-0 rounded-[2.3rem] ring-1 ring-inset ring-black/5 dark:ring-white/10" />
 
       <div className="absolute inset-x-4 bottom-4 sm:inset-x-6 sm:bottom-6">
-        <div className="rounded-2xl border border-black/8 bg-white/88 px-5 py-4 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/85">
+        <div className="rounded-2xl border border-black/8 bg-white/88 px-5 py-4 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-[#1c1614]/85">
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="eyebrow">First-month map - Istanbul</p>
-              <p className="mt-2 max-w-sm text-sm leading-6 text-neutral-700 dark:text-neutral-300">
+              <p className="mt-2 max-w-sm text-sm leading-6 text-neutral-700 dark:text-[#b8a898]">
                 European side left, Asian side right, ferries tying the week
                 together. Hover neighborhoods to explore.
               </p>
@@ -322,7 +322,7 @@ export function IstanbulMap() {
               <MapPin className="h-4 w-4 text-primary-600 dark:text-primary-400" />
             </div>
           </div>
-          <div className="mt-3 flex gap-4 text-xs text-neutral-500 dark:text-neutral-400">
+          <div className="mt-3 flex gap-4 text-xs text-[#6b6257] dark:text-[#8a7a6a]">
             <span className="flex items-center gap-1.5">
               <span className="h-2 w-2 rounded-full bg-accent-warm" />
               European side

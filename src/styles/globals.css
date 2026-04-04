@@ -50,7 +50,7 @@
   }
 
   ::selection {
-    @apply bg-primary-500/25 text-neutral-950 dark:text-neutral-50;
+    @apply bg-primary-500/25 text-neutral-950 dark:text-[#f7f2ea];
   }
 
   h1,
@@ -94,7 +94,7 @@
   }
 
   .eyebrow {
-    @apply font-mono text-[11px] uppercase tracking-[0.35em] text-neutral-500 dark:text-neutral-400;
+    @apply font-mono text-[11px] uppercase tracking-[0.35em] text-neutral-500 dark:text-[#8a7a6a];
   }
 
   .surface-blur {

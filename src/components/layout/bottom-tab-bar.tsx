@@ -61,7 +61,7 @@ export function BottomTabBar() {
                     "h-5 w-5 transition-colors",
                     active
                       ? "text-primary-600 dark:text-primary-400"
-                      : "text-neutral-500 dark:text-neutral-400",
+                      : "text-neutral-500 dark:text-[#8a7a6a]",
                   )}
                 />
                 <span
@@ -69,7 +69,7 @@ export function BottomTabBar() {
                     "text-[10px] font-medium transition-colors",
                     active
                       ? "text-primary-600 dark:text-primary-400"
-                      : "text-neutral-500 dark:text-neutral-400",
+                      : "text-neutral-500 dark:text-[#8a7a6a]",
                   )}
                 >
                   {tab.label}

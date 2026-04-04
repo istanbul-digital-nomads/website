@@ -47,10 +47,10 @@ export function Header() {
           <Link href="/" prefetch className="flex items-center gap-3">
             <span className="h-2 w-2 rounded-full bg-primary-500 shadow-[0_0_24px_rgba(227,75,50,0.55)]" />
             <div>
-              <div className="text-sm font-semibold uppercase tracking-[0.22em] text-neutral-950 dark:text-neutral-50">
+              <div className="text-sm font-semibold uppercase tracking-[0.22em] text-neutral-950 dark:text-[#f7f2ea]">
                 {siteConfig.shortName}
               </div>
-              <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-neutral-500 dark:text-neutral-400">
+              <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-neutral-500 dark:text-[#8a7a6a]">
                 Remote life, local rhythm
               </div>
             </div>
@@ -63,10 +63,10 @@ export function Header() {
                 href={item.href}
                 prefetch
                 className={cn(
-                  "rounded-full px-4 py-2 text-sm font-medium transition-all hover:bg-black/5 hover:text-neutral-950 dark:hover:bg-white/10 dark:hover:text-neutral-50",
+                  "rounded-full px-4 py-2 text-sm font-medium transition-all hover:bg-black/5 hover:text-neutral-950 dark:hover:bg-white/10 dark:hover:text-[#f7f2ea]",
                   pathname === item.href
-                    ? "bg-black/5 text-neutral-950 dark:bg-white/10 dark:text-neutral-50"
-                    : "text-neutral-600 dark:text-neutral-400",
+                    ? "bg-black/5 text-neutral-950 dark:bg-white/10 dark:text-[#f7f2ea]"
+                    : "text-neutral-600 dark:text-[#8a7a6a]",
                 )}
               >
                 {item.label}
@@ -77,7 +77,7 @@ export function Header() {
           <div className="flex items-center gap-2">
             <button
               onClick={cycleTheme}
-              className="rounded-full border border-black/5 p-2 text-neutral-500 transition-colors hover:bg-black/5 dark:border-white/10 dark:text-neutral-300 dark:hover:bg-white/10"
+              className="rounded-full border border-black/5 p-2 text-neutral-500 transition-colors hover:bg-black/5 dark:border-white/10 dark:text-[#b8a898] dark:hover:bg-white/10"
               aria-label={`Switch theme (current: ${theme})`}
             >
               <ThemeIcon className="h-5 w-5" />

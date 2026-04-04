@@ -44,7 +44,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
             <span className="text-lg font-bold text-primary-600 dark:text-primary-400">
               Menu
             </span>
-            <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.26em] text-neutral-500 dark:text-neutral-400">
+            <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.26em] text-neutral-500 dark:text-[#8a7a6a]">
               Istanbul Digital Nomads
             </p>
           </div>
@@ -70,7 +70,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
                   "tap-highlight flex items-center rounded-2xl px-4 py-4 text-lg font-medium transition-colors",
                   pathname === item.href
                     ? "bg-primary-50 text-primary-700 dark:bg-white/10 dark:text-primary-300"
-                    : "text-neutral-700 hover:bg-black/5 dark:text-neutral-300 dark:hover:bg-white/5",
+                    : "text-neutral-700 hover:bg-black/5 dark:text-[#b8a898] dark:hover:bg-white/5",
                 )}
               >
                 {item.label}
@@ -102,7 +102,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
 
           {/* Theme toggle */}
           <div className="mt-8">
-            <p className="px-4 font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-500 dark:text-neutral-400">
+            <p className="px-4 font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-500 dark:text-[#8a7a6a]">
               Appearance
             </p>
             <div className="mt-3 flex gap-1 rounded-full border border-black/10 bg-white/60 p-1 dark:border-white/10 dark:bg-white/5">
@@ -114,7 +114,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
                     "tap-highlight flex-1 rounded-full py-2.5 text-sm font-medium transition-colors",
                     theme === t.value
                       ? "bg-primary-600 text-white shadow-sm dark:bg-primary-500"
-                      : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200",
+                      : "text-neutral-600 hover:text-neutral-900 dark:text-[#8a7a6a] dark:hover:text-[#d4c4b4]",
                   )}
                 >
                   {t.label}
@@ -125,7 +125,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
 
           {/* Social links */}
           <div className="mt-8">
-            <p className="px-4 font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-500 dark:text-neutral-400">
+            <p className="px-4 font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-500 dark:text-[#8a7a6a]">
               Connect
             </p>
             <div className="mt-3 flex gap-3 px-4">
@@ -135,7 +135,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="tap-highlight rounded-full border border-black/10 p-3 text-neutral-500 transition-colors hover:bg-black/5 hover:text-neutral-900 dark:border-white/10 dark:text-neutral-300 dark:hover:bg-white/10 dark:hover:text-white"
+                  className="tap-highlight rounded-full border border-black/10 p-3 text-neutral-500 transition-colors hover:bg-black/5 hover:text-neutral-900 dark:border-white/10 dark:text-[#b8a898] dark:hover:bg-white/10 dark:hover:text-white"
                   aria-label={label}
                 >
                   <Icon className="h-5 w-5" />

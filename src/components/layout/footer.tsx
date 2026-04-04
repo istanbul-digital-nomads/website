@@ -109,7 +109,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-black/10 py-6 pb-20 md:pb-6 dark:border-white/10">
-          <p className="text-center text-sm text-neutral-500 dark:text-neutral-400">
+          <p className="text-center text-sm text-neutral-500 dark:text-[#8a7a6a]">
             &copy; {new Date().getFullYear()} {siteConfig.name}. Made by remote
             workers, for remote workers in Istanbul.
           </p>

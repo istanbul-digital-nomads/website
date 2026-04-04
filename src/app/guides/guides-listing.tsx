@@ -13,6 +13,7 @@ import {
   Train,
   UtensilsCrossed,
   Stethoscope,
+  Music,
   Globe,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -30,6 +31,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Train,
   UtensilsCrossed,
   Stethoscope,
+  Music,
   Globe,
 };
 

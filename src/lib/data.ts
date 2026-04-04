@@ -97,6 +97,14 @@ export const guides: Guide[] = [
     category: "living-here",
   },
   {
+    slug: "entertainment",
+    title: "Entertainment & Leisure",
+    description:
+      "Nightlife, live music, sports, day trips, and how to enjoy Istanbul beyond your laptop.",
+    icon: "Music",
+    category: "living-here",
+  },
+  {
     slug: "culture",
     title: "Culture & Language",
     description: "Basic Turkish, cultural norms, and tips for fitting in.",

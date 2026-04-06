@@ -18,7 +18,8 @@ const variantStyles: Record<ButtonVariant, string> = {
     "border border-primary-200/60 bg-primary-50/80 text-primary-800 hover:bg-primary-100 dark:border-[rgba(200,120,80,0.3)] dark:bg-[rgba(200,120,80,0.12)] dark:text-primary-100 dark:hover:bg-[rgba(200,120,80,0.2)]",
   ghost:
     "text-[#6b6257] hover:bg-primary-50 hover:text-primary-700 dark:text-[#d4c4b4] dark:hover:bg-[rgba(200,120,80,0.12)] dark:hover:text-primary-200",
-  danger: "bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-500",
+  danger:
+    "bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-500 dark:bg-red-500 dark:hover:bg-red-400 dark:focus-visible:ring-red-400",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

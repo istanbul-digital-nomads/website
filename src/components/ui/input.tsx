@@ -29,7 +29,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           id={inputId}
           className={cn(
-            "w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm placeholder:text-neutral-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-[rgba(180,140,110,0.15)] dark:bg-[#1c1614] dark:placeholder:text-[#8a7a6a]",
+            "w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm placeholder:text-neutral-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-[rgba(180,140,110,0.15)] dark:bg-[#1c1614] dark:text-[#f7f2ea] dark:placeholder:text-[#8a7a6a]",
             error && "border-red-500 focus:ring-red-500",
             className,
           )}
@@ -52,7 +52,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           </p>
         )}
         {helperText && !error && (
-          <p id={`${inputId}-helper`} className="text-sm text-neutral-500">
+          <p
+            id={`${inputId}-helper`}
+            className="text-sm text-neutral-500 dark:text-[#8a7a6a]"
+          >
             {helperText}
           </p>
         )}
@@ -87,7 +90,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           ref={ref}
           id={inputId}
           className={cn(
-            "w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm placeholder:text-neutral-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-[rgba(180,140,110,0.15)] dark:bg-[#1c1614] dark:placeholder:text-[#8a7a6a]",
+            "w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm placeholder:text-neutral-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-[rgba(180,140,110,0.15)] dark:bg-[#1c1614] dark:text-[#f7f2ea] dark:placeholder:text-[#8a7a6a]",
             error && "border-red-500 focus:ring-red-500",
             className,
           )}
@@ -104,7 +107,10 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           </p>
         )}
         {helperText && !error && (
-          <p id={`${inputId}-helper`} className="text-sm text-neutral-500">
+          <p
+            id={`${inputId}-helper`}
+            className="text-sm text-neutral-500 dark:text-[#8a7a6a]"
+          >
             {helperText}
           </p>
         )}

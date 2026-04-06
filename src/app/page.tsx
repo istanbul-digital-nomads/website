@@ -175,7 +175,7 @@ export default async function HomePage() {
                   label: "coworking rhythm",
                   icon: CalendarDays,
                 },
-                { value: "10", label: "local living guides", icon: Globe },
+                { value: "11", label: "local living guides", icon: Globe },
                 { value: "15+", label: "neighborhoods covered", icon: MapPin },
               ].map((item, index) => (
                 <Reveal
@@ -363,8 +363,8 @@ export default async function HomePage() {
               </h2>
               <p className="mt-5 max-w-md text-base leading-8 text-white/72 dark:text-white/65">
                 If you just landed, begin with neighborhoods, internet, transit,
-                and this week&apos;s meetup. It is the fastest path from arrival
-                mode to a workable local routine.
+                and this week&apos;s meetup. It&apos;s the fastest path from
+                arrival mode to a workable local routine.
               </p>
 
               <div className="mt-8 space-y-4">
@@ -486,7 +486,7 @@ export default async function HomePage() {
                   "Neighborhood tradeoffs explained by people living here",
                   "Weekly rituals that make meeting people feel easier",
                   "Practical setup help for workdays, transit, and housing",
-                  "A softer landing if you are staying more than a few weeks",
+                  "A softer landing if you're staying more than a few weeks",
                 ].map((item) => (
                   <div
                     key={item}
@@ -525,7 +525,7 @@ export default async function HomePage() {
                 >
                   <Button
                     size="lg"
-                    className="h-14 w-full rounded-2xl bg-white px-8 text-base font-semibold text-neutral-950 shadow-lg shadow-white/10 hover:bg-neutral-100 sm:w-auto"
+                    className="h-14 w-full rounded-2xl bg-white px-8 text-base font-semibold text-neutral-950 shadow-lg shadow-white/10 hover:bg-primary-50 sm:w-auto"
                   >
                     Join on Telegram
                     <ArrowRight className="h-5 w-5" />

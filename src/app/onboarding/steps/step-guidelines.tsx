@@ -96,7 +96,7 @@ export function StepGuidelines({ data, updateField }: StepProps) {
       />
 
       <YesNoToggle
-        label="We have a strict policy against unsolicited private messages (DMs) to members without consent. Do you agree?"
+        label="We've got a strict policy against unsolicited private messages (DMs) to members without consent. Do you agree?"
         value={data.agrees_no_unsolicited_dms as boolean | null}
         onChange={(v) => updateField("agrees_no_unsolicited_dms", v)}
       />

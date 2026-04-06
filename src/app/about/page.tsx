@@ -95,7 +95,7 @@ export default function AboutPage() {
             </p>
             <p>
               We believe Istanbul is one of the best cities in the world for
-              remote work - affordable, culturally rich, incredibly
+              remote work - affordable, culturally rich, extremely
               well-connected, and full of energy. Our mission is to make the
               transition easier and the experience richer for every nomad who
               comes here.

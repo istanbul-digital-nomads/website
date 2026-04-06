@@ -32,6 +32,7 @@ export function FAQSection() {
                   <div key={index}>
                     <button
                       onClick={() => setOpenIndex(isOpen ? null : index)}
+                      aria-expanded={openIndex === index}
                       className="flex w-full items-center justify-between py-5 text-left"
                     >
                       <span className="pr-4 text-base font-medium text-[#2a2018] dark:text-[#f7f2ea]">

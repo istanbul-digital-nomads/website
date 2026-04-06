@@ -48,7 +48,7 @@ const faqs = [
   },
   {
     q: "Do I need to be a developer or work in tech?",
-    a: "Not at all. We have designers, writers, marketers, founders, and more. Anyone who works remotely is welcome.",
+    a: "Not at all. We've got designers, writers, marketers, founders, and more. Anyone who works remotely is welcome.",
   },
   {
     q: "How do I find out about upcoming events?",

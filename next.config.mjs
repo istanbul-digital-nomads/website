@@ -16,7 +16,6 @@ const nextConfig = {
     ],
   },
   experimental: {
-    viewTransition: true,
     optimizePackageImports: ["lucide-react"],
   },
 };

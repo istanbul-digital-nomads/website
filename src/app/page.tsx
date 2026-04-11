@@ -87,11 +87,7 @@ export default async function HomePage() {
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[var(--background)]" />
 
         <Container className="relative py-8 sm:py-12 lg:min-h-[calc(100svh-7rem)] lg:py-8">
-          <div className="mb-10 flex flex-wrap items-center justify-between gap-4">
-            <div className="eyebrow flex items-center gap-3">
-              <span className="h-2 w-2 rounded-full bg-primary-500" />
-              Digital nomads in Istanbul
-            </div>
+          <div className="mb-10 flex flex-wrap items-center justify-end gap-4">
             <div className="font-mono text-[11px] uppercase tracking-[0.28em] text-neutral-500 dark:text-[#8a7a6a]">
               GMT+3 - ferry-friendly - walkable workdays
             </div>

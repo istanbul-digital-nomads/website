@@ -81,9 +81,9 @@ export default async function HomePage() {
   return (
     <div className="overflow-hidden">
       <section className="relative isolate border-b border-black/5 dark:border-white/10">
-        <div className="bg-grid bg-noise absolute inset-0 opacity-40 dark:opacity-20" />
-        <div className="animate-float absolute left-[-8%] top-20 h-72 w-72 rounded-full bg-primary-400/15 blur-3xl dark:bg-primary-500/20" />
-        <div className="animate-float-slow absolute right-[-6%] top-10 h-80 w-80 rounded-full bg-accent-warm/15 blur-3xl dark:bg-accent-coral/20" />
+        <div className="bg-grid absolute inset-0 opacity-40 dark:opacity-20" />
+        <div className="absolute left-[-8%] top-20 h-72 w-72 rounded-full bg-primary-400/15 blur-3xl motion-safe:animate-float dark:bg-primary-500/20" />
+        <div className="absolute right-[-6%] top-10 h-80 w-80 rounded-full bg-accent-warm/15 blur-3xl motion-safe:animate-float-slow dark:bg-accent-coral/20" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[var(--background)]" />
 
         <Container className="relative py-8 sm:py-12 lg:min-h-[calc(100svh-7rem)] lg:py-8">
@@ -95,7 +95,7 @@ export default async function HomePage() {
 
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(560px,1fr)] lg:items-start lg:gap-12">
             <Reveal delay={0} className="max-w-[30rem] pt-2 lg:pt-0">
-              <h1 className="word-rise mt-5 max-w-[8.7ch] text-balance text-[3rem] font-semibold leading-[0.92] text-neutral-950 sm:text-[3.7rem] lg:text-[4rem] dark:text-[#f7f2ea]">
+              <h1 className="motion-safe:word-rise mt-5 max-w-[8.7ch] text-balance text-[3rem] font-semibold leading-[0.92] text-neutral-950 sm:text-[3.7rem] lg:text-[4rem] dark:text-[#f7f2ea]">
                 <span>Find</span> <span>your</span> <span>rhythm</span>{" "}
                 <span>in</span> <span>Istanbul.</span>
               </h1>

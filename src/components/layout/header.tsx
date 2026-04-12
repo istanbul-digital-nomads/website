@@ -116,9 +116,9 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-black/5 bg-[rgba(245,239,228,0.75)] backdrop-blur-xl transition-[background-color,border-color,box-shadow,transform] duration-300 dark:border-white/10 dark:bg-[rgba(21,16,16,0.78)]",
+        "sticky top-0 z-50 border-b border-black/5 bg-[rgba(245,239,228,0.88)] backdrop-blur-md transition-[background-color,border-color,box-shadow,transform] duration-300 dark:border-white/10 dark:bg-[rgba(21,16,16,0.88)]",
         scrolled &&
-          "border-black/10 bg-[rgba(245,239,228,0.88)] shadow-[0_10px_30px_rgba(15,23,42,0.08)] dark:border-white/15 dark:bg-[rgba(21,16,16,0.92)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.25)]",
+          "border-black/10 bg-[rgba(245,239,228,0.95)] shadow-[0_10px_30px_rgba(15,23,42,0.08)] dark:border-white/15 dark:bg-[rgba(21,16,16,0.95)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.25)]",
         hideOnMobile && "max-md:-translate-y-full",
       )}
     >

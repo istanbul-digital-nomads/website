@@ -4,8 +4,6 @@ export default function Loading() {
   return (
     <div className="relative overflow-hidden py-12 sm:py-16">
       <div className="absolute inset-0 bg-grid opacity-30 dark:opacity-15" />
-      <div className="animate-float absolute left-[-6%] top-12 h-56 w-56 rounded-full bg-primary-400/12 blur-3xl dark:bg-primary-500/16 sm:h-64 sm:w-64" />
-      <div className="animate-float-slow absolute right-[-6%] top-6 h-60 w-60 rounded-full bg-accent-warm/12 blur-3xl dark:bg-accent-green/16 sm:h-72 sm:w-72" />
 
       <Container className="relative">
         <div className="mb-8 h-1.5 w-28 overflow-hidden rounded-full bg-black/10 dark:bg-white/10 sm:mb-10 sm:w-32">

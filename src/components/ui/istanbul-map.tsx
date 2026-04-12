@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, memo } from "react";
 import Map, {
   Marker,
   Source,
@@ -220,10 +220,11 @@ export function IstanbulMap() {
     const map = mapRef.current?.getMap();
     if (map) {
       map.on("error", () => setMapError(true));
+      // Simplified zoom-in - shorter duration for better perceived perf
       map.flyTo({
         center: [ISTANBUL_CENTER.longitude, ISTANBUL_CENTER.latitude],
         zoom: INITIAL_ZOOM + 0.3,
-        duration: 2000,
+        duration: 800,
         easing: (t: number) => t * (2 - t),
       });
     }
@@ -286,7 +287,7 @@ export function IstanbulMap() {
               <AnimatedMarker
                 key={n.name}
                 neighborhood={n}
-                delay={600 + i * 250}
+                delay={200 + i * 100}
                 onHover={() => setActiveMarker(n.name)}
                 onLeave={() => setActiveMarker(null)}
                 isActive={activeMarker === n.name}

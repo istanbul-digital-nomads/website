@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { render } from "@react-email/render";
 import { createClient } from "@/lib/supabase/server";
 import { validateGuideApplication } from "@/lib/validations";
 import { GuideApplicationEmail } from "@/lib/emails";
@@ -50,12 +51,8 @@ export async function POST(request: Request) {
 
   // Send notification email (non-fatal - application is already saved)
   try {
-    await getResend().emails.send({
-      from: "Istanbul Nomads <noreply@istanbulnomads.com>",
-      to: "hello@istanbulnomads.com",
-      replyTo: application.email,
-      subject: `Guide application: ${application.name}`,
-      react: GuideApplicationEmail({
+    const html = await render(
+      GuideApplicationEmail({
         name: application.name,
         email: application.email,
         specializations: application.specializations,
@@ -65,6 +62,13 @@ export async function POST(request: Request) {
         bio: application.bio,
         motivation: application.motivation,
       }),
+    );
+    await getResend().emails.send({
+      from: "Istanbul Nomads <noreply@istanbulnomads.com>",
+      to: "hello@istanbulnomads.com",
+      replyTo: application.email,
+      subject: `Guide application: ${application.name}`,
+      html,
     });
   } catch {
     // Email failed but application is saved - that's okay

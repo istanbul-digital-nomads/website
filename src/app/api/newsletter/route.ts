@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { render } from "@react-email/render";
 import { createClient } from "@/lib/supabase/server";
 import { NewsletterWelcomeEmail } from "@/lib/emails";
 
@@ -45,14 +46,18 @@ export async function POST(request: Request) {
   }
 
   try {
-    await getResend().emails.send({
+    const html = await render(NewsletterWelcomeEmail());
+    const { error: emailError } = await getResend().emails.send({
       from: "Istanbul Nomads <noreply@istanbulnomads.com>",
       to: email,
       subject: "Welcome to Istanbul Digital Nomads",
-      react: NewsletterWelcomeEmail(),
+      html,
     });
-  } catch {
-    // Subscriber saved even if welcome email fails
+    if (emailError) {
+      console.error("Resend newsletter error:", emailError);
+    }
+  } catch (err) {
+    console.error("Newsletter email failed:", err);
   }
 
   return NextResponse.json({

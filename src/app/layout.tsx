@@ -84,7 +84,8 @@ export default function RootLayout({
             className: "toast-brand",
             duration: 4000,
           }}
-          richColors
+          gap={8}
+          visibleToasts={3}
         />
         <Analytics />
         <SpeedInsights />

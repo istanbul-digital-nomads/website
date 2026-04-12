@@ -41,24 +41,24 @@ const eventMoments: Record<string, string> = {
   "2": "The easiest event to meet people fast, especially if you just arrived and want social momentum.",
   "3": "Bring real questions about freelancing, residency, and how to stay compliant while living here.",
 };
-const testimonials = [
+const whatPeopleFind = [
   {
-    quote:
-      "I landed in Istanbul with two weeks booked. By the end of month one, I had a work rhythm, favorite ferry, and real friends.",
-    name: "Sarah K.",
-    role: "First month in Kadikoy - Product designer from Berlin",
+    phase: "Week one",
+    title: "A workable routine, fast",
+    description:
+      "Wifi-tested cafes, a coworking session to drop into, and a neighborhood that fits your pace.",
   },
   {
-    quote:
-      "Most communities feel transactional. This one feels local, generous, and surprisingly well tuned to how remote people actually live.",
-    name: "Marco T.",
-    role: "Three months in Cihangir - Engineer from Lisbon",
+    phase: "Month one",
+    title: "Familiar faces in familiar places",
+    description:
+      "The weekly rhythm means you keep running into the same people - and that's how real friendships start.",
   },
   {
-    quote:
-      "The guides removed the friction, and the coworking days gave the city a pulse. Istanbul stopped feeling huge and started feeling legible.",
-    name: "Aiko M.",
-    role: "Stayed for a year in Moda - Writer from Tokyo",
+    phase: "Month three+",
+    title: "A city that feels like yours",
+    description:
+      "You've got a ferry route, a favorite baklava spot, and people who text you when something good is happening.",
   },
 ];
 
@@ -165,7 +165,7 @@ export default async function HomePage() {
             </p>
             <div className="grid gap-6 md:grid-cols-4">
               {[
-                { value: "500+", label: "active members", icon: Users },
+                { value: "Growing", label: "community", icon: Users },
                 {
                   value: "Weekly",
                   label: "coworking rhythm",
@@ -378,30 +378,28 @@ export default async function HomePage() {
             </Reveal>
 
             <div className="grid gap-4 sm:grid-cols-3">
-              {testimonials.map((testimonial, index) => (
-                <Reveal key={testimonial.name} delay={index as 0 | 1 | 2}>
-                  <blockquote className="surface-panel flex h-full flex-col justify-between rounded-[2rem] p-6 transition-transform duration-300 hover:-translate-y-1">
+              {whatPeopleFind.map((item, index) => (
+                <Reveal key={item.phase} delay={index as 0 | 1 | 2}>
+                  <div className="surface-panel flex h-full flex-col justify-between rounded-[2rem] p-6 transition-transform duration-300 hover:-translate-y-1">
                     <div>
-                      <p className="eyebrow">
+                      <p className="eyebrow">{item.phase}</p>
+                      <h3 className="mt-4 text-lg font-semibold text-[#2a2018] dark:text-[#f7f2ea]">
+                        {item.title}
+                      </h3>
+                      <p className="mt-3 text-base leading-8 text-[#5a4f43] dark:text-[#d4c4b4]">
+                        {item.description}
+                      </p>
+                    </div>
+                    <footer className="mt-8 border-t border-black/10 pt-4 dark:border-white/10">
+                      <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#8a7a6a]">
                         {index === 0
                           ? "Arrival"
                           : index === 1
                             ? "Orientation"
                             : "Attachment"}
                       </p>
-                      <p className="mt-4 text-base leading-8 text-[#5a4f43] dark:text-[#d4c4b4]">
-                        &ldquo;{testimonial.quote}&rdquo;
-                      </p>
-                    </div>
-                    <footer className="mt-8 border-t border-black/10 pt-4 dark:border-white/10">
-                      <p className="font-semibold text-[#2a2018] dark:text-[#f7f2ea]">
-                        {testimonial.name}
-                      </p>
-                      <p className="mt-1 text-sm text-neutral-500 dark:text-[#8a7a6a]">
-                        {testimonial.role}
-                      </p>
                     </footer>
-                  </blockquote>
+                  </div>
                 </Reveal>
               ))}
             </div>

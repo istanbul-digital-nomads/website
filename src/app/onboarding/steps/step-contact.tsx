@@ -1,14 +1,15 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import type { OnboardingData } from "../onboarding-wizard";
+import type { OnboardingData, FieldErrors } from "../onboarding-wizard";
 
 interface StepProps {
   data: OnboardingData;
   updateField: (field: string, value: unknown) => void;
+  errors: FieldErrors;
 }
 
-export function StepContact({ data, updateField }: StepProps) {
+export function StepContact({ data, updateField, errors }: StepProps) {
   return (
     <div className="space-y-6">
       <div>
@@ -26,6 +27,7 @@ export function StepContact({ data, updateField }: StepProps) {
         onChange={(e) => updateField("phone_whatsapp", e.target.value)}
         placeholder="+90 5XX XXX XXXX"
         type="tel"
+        helperText="Include country code. This isn't shared publicly."
       />
 
       <Input
@@ -39,7 +41,9 @@ export function StepContact({ data, updateField }: StepProps) {
         label="Profession / Field of Work"
         value={(data.profession as string) || ""}
         onChange={(e) => updateField("profession", e.target.value)}
-        placeholder="e.g., Software Developer, Designer, Writer"
+        placeholder="e.g., freelance developer, UX designer, English teacher"
+        required
+        error={errors.profession}
       />
 
       <Input

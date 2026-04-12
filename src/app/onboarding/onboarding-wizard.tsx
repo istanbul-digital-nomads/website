@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ import { StepGuidelines } from "./steps/step-guidelines";
 import { StepFinal } from "./steps/step-final";
 
 export type OnboardingData = Record<string, unknown>;
+export type FieldErrors = Record<string, string>;
 
 interface OnboardingWizardProps {
   initialData: {
@@ -30,6 +31,49 @@ const STEPS = [
   { label: "Almost Done", component: StepFinal },
 ];
 
+function validateStep(step: number, data: OnboardingData): FieldErrors {
+  const errors: FieldErrors = {};
+
+  switch (step) {
+    case 0: {
+      const name = (data.display_name as string)?.trim();
+      if (!name) errors.display_name = "Your name is required.";
+      if (!data.age_range && !data.birthday) {
+        errors.age_or_birthday =
+          "Pick an age range or share your birthday - either works.";
+      }
+      break;
+    }
+    case 1: {
+      const profession = (data.profession as string)?.trim();
+      if (!profession)
+        errors.profession =
+          "Let us know what you do - even something short like 'freelancer' works.";
+      break;
+    }
+    case 2: {
+      if (!data.member_type)
+        errors.member_type = "Pick the option that fits you best.";
+      break;
+    }
+    case 3: {
+      if (!data.agrees_guidelines)
+        errors.agrees_guidelines =
+          "Please read and agree to the guidelines to continue.";
+      break;
+    }
+    case 4: {
+      const why = (data.why_join as string)?.trim();
+      if (!why || why.length < 10)
+        errors.why_join =
+          "Tell us a bit about why you want to join (at least a sentence).";
+      break;
+    }
+  }
+
+  return errors;
+}
+
 export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
@@ -37,17 +81,41 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
     display_name: initialData.display_name,
     email: initialData.email,
   });
+  const [errors, setErrors] = useState<FieldErrors>({});
+  const [shakeButton, setShakeButton] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   const StepComponent = STEPS[currentStep].component;
   const isLastStep = currentStep === STEPS.length - 1;
   const isFirstStep = currentStep === 0;
 
-  function updateField(field: string, value: unknown) {
+  const updateField = useCallback((field: string, value: unknown) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
-  }
+    setErrors((prev) => {
+      if (!prev[field]) return prev;
+      const next = { ...prev };
+      delete next[field];
+      return next;
+    });
+  }, []);
 
   function handleNext() {
+    const stepErrors = validateStep(currentStep, formData);
+    if (Object.keys(stepErrors).length > 0) {
+      setErrors(stepErrors);
+      setShakeButton(true);
+      setTimeout(() => setShakeButton(false), 400);
+
+      const firstErrorKey = Object.keys(stepErrors)[0];
+      const el = document.querySelector(
+        `[data-field="${firstErrorKey}"], #${firstErrorKey}`,
+      );
+      el?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+
+    setErrors({});
+
     if (isLastStep) {
       handleSubmit();
     } else {
@@ -57,6 +125,7 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
   }
 
   function handleBack() {
+    setErrors({});
     setCurrentStep((prev) => Math.max(0, prev - 1));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -82,10 +151,32 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
         return;
       }
 
-      const { email, ...updateData } = formData;
+      const { email, agrees_guidelines, ...updateData } = formData;
+
+      // Map single agreement checkbox to all legacy DB boolean fields
+      const legacyAgreements = {
+        agrees_community_values: true,
+        agrees_no_unsolicited_dms: true,
+        agrees_kindness: true,
+        agrees_mixed_environments: true,
+        understands_rsvp_policy: true,
+        agrees_payment_policy: true,
+        confirms_rules: true,
+        confirms_positive_behavior: true,
+        confirms_admin_removal: true,
+        confirms_not_dating_app: true,
+        agrees_no_misuse: [
+          "no-selling",
+          "no-mass-dm",
+          "no-politics",
+          "no-harassment",
+        ],
+      };
+
       const { error } = await (supabase.from("members") as any)
         .update({
           ...updateData,
+          ...legacyAgreements,
           onboarding_completed: true,
           onboarding_completed_at: new Date().toISOString(),
         })
@@ -142,7 +233,11 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
 
           {/* Step content */}
           <div className="rounded-2xl border border-primary-200/30 bg-white/70 p-6 shadow-sm backdrop-blur-sm sm:p-8 dark:border-[rgba(200,100,60,0.12)] dark:bg-[#1c1614]/70">
-            <StepComponent data={formData} updateField={updateField} />
+            <StepComponent
+              data={formData}
+              updateField={updateField}
+              errors={errors}
+            />
           </div>
 
           {/* Navigation buttons */}
@@ -161,7 +256,7 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
             <Button
               onClick={handleNext}
               loading={submitting}
-              className="rounded-xl px-8"
+              className={`rounded-xl px-8 ${shakeButton ? "animate-shake" : ""}`}
               size="lg"
             >
               {isLastStep ? "Submit Application" : "Continue"}

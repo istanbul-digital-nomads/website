@@ -23,6 +23,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             className="block text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]"
           >
             {label}
+            {props.required && (
+              <span className="ml-0.5 text-red-500" aria-hidden="true">
+                *
+              </span>
+            )}
           </label>
         )}
         <input
@@ -46,7 +51,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {error && (
           <p
             id={`${inputId}-error`}
-            className="text-sm text-red-600 dark:text-red-400"
+            className="animate-error-fade-in text-sm text-red-600 dark:text-red-400"
           >
             {error}
           </p>
@@ -84,6 +89,11 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             className="block text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]"
           >
             {label}
+            {props.required && (
+              <span className="ml-0.5 text-red-500" aria-hidden="true">
+                *
+              </span>
+            )}
           </label>
         )}
         <textarea
@@ -101,7 +111,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         {error && (
           <p
             id={`${inputId}-error`}
-            className="text-sm text-red-600 dark:text-red-400"
+            className="animate-error-fade-in text-sm text-red-600 dark:text-red-400"
           >
             {error}
           </p>

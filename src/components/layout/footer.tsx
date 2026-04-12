@@ -3,6 +3,7 @@ import { ArrowRight, Github, Mail, Send, Twitter } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { siteConfig, footerNav, socialLinks } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
+import { NewsletterForm } from "@/components/newsletter-form";
 
 const socialIcons = [
   { href: socialLinks.telegram, icon: Send, label: "Telegram" },
@@ -43,7 +44,14 @@ export function Footer() {
               ))}
             </div>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8">
+              <p className="mb-3 text-sm font-medium text-white/80">
+                Get updates on new guides and events
+              </p>
+              <NewsletterForm variant="footer" />
+            </div>
+
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <a
                 href={socialLinks.telegram}
                 target="_blank"

@@ -1,6 +1,7 @@
 import { toast } from "sonner";
 
 // Branded toast presets for Istanbul Digital Nomads
+// Glassy design with Turkey Red brand accent
 // Usage: showToast.success("RSVP confirmed!") or showToast.error("Failed to save")
 
 export const showToast = {

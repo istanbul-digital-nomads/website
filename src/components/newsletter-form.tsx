@@ -4,7 +4,11 @@ import { useState, type FormEvent } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { showToast } from "@/lib/toast";
 
-export function NewsletterForm({ variant = "default" }: { variant?: "default" | "footer" }) {
+export function NewsletterForm({
+  variant = "default",
+}: {
+  variant?: "default" | "footer";
+}) {
   const [loading, setLoading] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
 

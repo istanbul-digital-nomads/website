@@ -27,10 +27,7 @@ export default function Error({
             Try again
           </Button>
           <a href="/">
-            <Button
-              variant="secondary"
-              className="w-full rounded-xl sm:w-auto"
-            >
+            <Button variant="secondary" className="w-full rounded-xl sm:w-auto">
               <Home className="h-4 w-4" />
               Go home
             </Button>

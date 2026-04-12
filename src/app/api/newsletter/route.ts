@@ -18,7 +18,9 @@ export async function POST(request: Request) {
 
   const supabase = await createClient();
 
-  const { data: existing } = await (supabase.from("newsletter_subscribers") as any)
+  const { data: existing } = await (
+    supabase.from("newsletter_subscribers") as any
+  )
     .select("id")
     .eq("email", email)
     .single();
@@ -29,8 +31,9 @@ export async function POST(request: Request) {
     });
   }
 
-  const { error: dbError } = await (supabase.from("newsletter_subscribers") as any)
-    .insert({ email });
+  const { error: dbError } = await (
+    supabase.from("newsletter_subscribers") as any
+  ).insert({ email });
 
   if (dbError) {
     return NextResponse.json(

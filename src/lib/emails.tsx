@@ -274,8 +274,9 @@ export function NewsletterWelcomeEmail() {
           lineHeight: "26px",
         }}
       >
-        You&apos;re in. We&apos;ll send you the occasional update - new guides, upcoming
-        events, and things worth knowing about Istanbul as a remote worker.
+        You&apos;re in. We&apos;ll send you the occasional update - new guides,
+        upcoming events, and things worth knowing about Istanbul as a remote
+        worker.
       </p>
 
       <p

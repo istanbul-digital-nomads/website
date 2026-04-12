@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { render } from "@react-email/render";
 import { validateContactForm } from "@/lib/validations";
 import { ContactFormEmail } from "@/lib/emails";
 
@@ -18,12 +19,13 @@ export async function POST(request: Request) {
   const { name, email, message } = result.data!;
 
   try {
+    const html = await render(ContactFormEmail({ name, email, message }));
     await getResend().emails.send({
       from: "Istanbul Nomads <noreply@istanbulnomads.com>",
       to: "hello@istanbulnomads.com",
       replyTo: email,
       subject: `Contact form: ${name}`,
-      react: ContactFormEmail({ name, email, message }),
+      html,
     });
   } catch {
     return NextResponse.json(

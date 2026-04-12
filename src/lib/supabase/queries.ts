@@ -9,6 +9,9 @@ import type {
   RSVP,
   RSVPWithMember,
 } from "@/types/models";
+import type { Database } from "@/types/database";
+
+type LocalGuideRow = Database["public"]["Tables"]["local_guides"]["Row"];
 
 // --- Events ---
 
@@ -146,6 +149,32 @@ export async function getBlogPosts(options?: { limit?: number }) {
   const { data, error } = await query;
   return { data: data as Partial<BlogPost>[] | null, error };
 }
+
+// --- Local Guides ---
+
+export async function getLocalGuides(options?: {
+  specialization?: string;
+  neighborhood?: string;
+}) {
+  const supabase = await createClient();
+  let query = (supabase.from("local_guides") as any)
+    .select("*")
+    .eq("is_visible", true)
+    .order("created_at", { ascending: false });
+
+  if (options?.specialization) {
+    query = query.contains("specializations", [options.specialization]);
+  }
+
+  if (options?.neighborhood) {
+    query = query.contains("neighborhoods", [options.neighborhood]);
+  }
+
+  const { data, error } = await query;
+  return { data: data as LocalGuideRow[] | null, error };
+}
+
+// --- Blog ---
 
 export async function getBlogPostBySlug(slug: string) {
   const supabase = await createClient();

@@ -18,6 +18,7 @@ export const socialLinks = {
 
 export const navItems = [
   { label: "About", href: "/about" },
+  { label: "Local Guides", href: "/local-guides" },
   { label: "Guides", href: "/guides" },
   { label: "Events", href: "/events" },
   { label: "Blog", href: "/blog" },
@@ -27,6 +28,7 @@ export const navItems = [
 export const footerNav = {
   community: [
     { label: "About Us", href: "/about" },
+    { label: "Local Guides", href: "/local-guides" },
     { label: "Events", href: "/events" },
     { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/contact" },
@@ -44,6 +46,47 @@ export const footerNav = {
     { label: "Email", href: `mailto:${socialLinks.email}`, external: true },
   ],
 } as const;
+
+export const guideSpecializations = [
+  { value: "neighborhoods", label: "Neighborhoods" },
+  { value: "visa-legal", label: "Visa & Legal" },
+  { value: "housing", label: "Housing" },
+  { value: "food-dining", label: "Food & Dining" },
+  { value: "coworking", label: "Coworking" },
+  { value: "nightlife", label: "Nightlife" },
+  { value: "culture", label: "Culture" },
+  { value: "healthcare", label: "Healthcare" },
+  { value: "transport", label: "Transport" },
+  { value: "tech-freelancing", label: "Tech & Freelancing" },
+] as const;
+
+export const istanbulNeighborhoods = [
+  { value: "kadikoy", label: "Kadikoy" },
+  { value: "besiktas", label: "Besiktas" },
+  { value: "cihangir", label: "Cihangir" },
+  { value: "moda", label: "Moda" },
+  { value: "uskudar", label: "Uskudar" },
+  { value: "beyoglu", label: "Beyoglu" },
+  { value: "nisantasi", label: "Nisantasi" },
+  { value: "karakoy", label: "Karakoy" },
+  { value: "galata", label: "Galata" },
+  { value: "sisli", label: "Sisli" },
+] as const;
+
+export const commonLanguages = [
+  "English",
+  "Turkish",
+  "German",
+  "French",
+  "Spanish",
+  "Arabic",
+  "Russian",
+  "Portuguese",
+  "Italian",
+  "Dutch",
+  "Japanese",
+  "Korean",
+] as const;
 
 export const eventTypes = {
   meetup: { label: "Meetup", color: "blue" },

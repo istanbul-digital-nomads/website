@@ -400,3 +400,212 @@ export function NewsletterWelcomeEmail() {
     </EmailLayout>
   );
 }
+
+export function GuideApplicationEmail({
+  name,
+  email,
+  specializations,
+  neighborhoods,
+  languages,
+  years_in_istanbul,
+  bio,
+  motivation,
+}: {
+  name: string;
+  email: string;
+  specializations: string[];
+  neighborhoods: string[];
+  languages: string[];
+  years_in_istanbul: number;
+  bio: string;
+  motivation: string;
+}) {
+  return (
+    <EmailLayout previewText={`New guide application from ${name}`}>
+      <h1
+        style={{
+          margin: "0 0 8px",
+          fontSize: 22,
+          fontWeight: 700,
+          color: brandColors.text,
+        }}
+      >
+        New local guide application
+      </h1>
+      <p
+        style={{
+          margin: "0 0 24px",
+          fontSize: 14,
+          color: brandColors.muted,
+          lineHeight: "22px",
+        }}
+      >
+        Someone applied to become a local guide on istanbulnomads.com
+      </p>
+
+      <table
+        role="presentation"
+        width="100%"
+        cellPadding={0}
+        cellSpacing={0}
+        style={{
+          backgroundColor: brandColors.bg,
+          borderRadius: 12,
+          marginBottom: 24,
+        }}
+      >
+        <tr>
+          <td style={{ padding: "16px 20px" }}>
+            <p
+              style={{
+                margin: "0 0 4px",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase" as const,
+                color: brandColors.muted,
+              }}
+            >
+              From
+            </p>
+            <p
+              style={{
+                margin: "0 0 16px",
+                fontSize: 15,
+                color: brandColors.text,
+                fontWeight: 600,
+              }}
+            >
+              {name} - {years_in_istanbul} years in Istanbul
+            </p>
+
+            <p
+              style={{
+                margin: "0 0 4px",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase" as const,
+                color: brandColors.muted,
+              }}
+            >
+              Specializations
+            </p>
+            <p
+              style={{
+                margin: "0 0 16px",
+                fontSize: 15,
+                color: brandColors.text,
+              }}
+            >
+              {specializations.join(", ")}
+            </p>
+
+            <p
+              style={{
+                margin: "0 0 4px",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase" as const,
+                color: brandColors.muted,
+              }}
+            >
+              Neighborhoods
+            </p>
+            <p
+              style={{
+                margin: "0 0 16px",
+                fontSize: 15,
+                color: brandColors.text,
+              }}
+            >
+              {neighborhoods.join(", ")}
+            </p>
+
+            <p
+              style={{
+                margin: "0 0 4px",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase" as const,
+                color: brandColors.muted,
+              }}
+            >
+              Languages
+            </p>
+            <p style={{ margin: 0, fontSize: 15, color: brandColors.text }}>
+              {languages.join(", ")}
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <p
+        style={{
+          margin: "0 0 8px",
+          fontSize: 11,
+          fontWeight: 600,
+          letterSpacing: "0.16em",
+          textTransform: "uppercase" as const,
+          color: brandColors.muted,
+        }}
+      >
+        Bio
+      </p>
+      <p
+        style={{
+          margin: "0 0 20px",
+          fontSize: 15,
+          lineHeight: "26px",
+          color: brandColors.text,
+        }}
+      >
+        {bio.slice(0, 200)}
+        {bio.length > 200 ? "..." : ""}
+      </p>
+
+      <p
+        style={{
+          margin: "0 0 8px",
+          fontSize: 11,
+          fontWeight: 600,
+          letterSpacing: "0.16em",
+          textTransform: "uppercase" as const,
+          color: brandColors.muted,
+        }}
+      >
+        Motivation
+      </p>
+      <p
+        style={{
+          margin: 0,
+          fontSize: 15,
+          lineHeight: "26px",
+          color: brandColors.text,
+        }}
+      >
+        {motivation.slice(0, 200)}
+        {motivation.length > 200 ? "..." : ""}
+      </p>
+
+      <hr
+        style={{
+          border: "none",
+          borderTop: `1px solid ${brandColors.border}`,
+          margin: "28px 0",
+        }}
+      />
+      <p style={{ margin: 0, fontSize: 13, color: brandColors.muted }}>
+        Reply to this email to reach {name} at{" "}
+        <a
+          href={`mailto:${email}`}
+          style={{ color: brandColors.primaryLight, textDecoration: "none" }}
+        >
+          {email}
+        </a>
+      </p>
+    </EmailLayout>
+  );
+}

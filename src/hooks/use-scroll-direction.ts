@@ -16,30 +16,41 @@ export function useScrollDirection(threshold = 12): ScrollState {
   });
   const lastY = useRef(0);
   const directionRef = useRef<"up" | "down">("up");
+  const rafRef = useRef<number | null>(null);
 
   const onScroll = useCallback(() => {
-    const DEAD_ZONE = 5;
-    const y = window.scrollY;
-    const delta = y - lastY.current;
+    if (rafRef.current !== null) return;
 
-    let newDirection = directionRef.current;
-    if (Math.abs(delta) > DEAD_ZONE) {
-      newDirection = delta > 0 ? "down" : "up";
-      directionRef.current = newDirection;
-      lastY.current = y;
-    }
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      const DEAD_ZONE = 5;
+      const y = window.scrollY;
+      const delta = y - lastY.current;
 
-    setState({
-      direction: newDirection,
-      scrolled: y > threshold,
-      atTop: y <= 0,
+      let newDirection = directionRef.current;
+      if (Math.abs(delta) > DEAD_ZONE) {
+        newDirection = delta > 0 ? "down" : "up";
+        directionRef.current = newDirection;
+        lastY.current = y;
+      }
+
+      setState({
+        direction: newDirection,
+        scrolled: y > threshold,
+        atTop: y <= 0,
+      });
     });
   }, [threshold]);
 
   useEffect(() => {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
   }, [onScroll]);
 
   return state;

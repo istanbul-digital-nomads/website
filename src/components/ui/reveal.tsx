@@ -10,11 +10,21 @@ interface RevealProps extends HTMLAttributes<HTMLDivElement> {
 function Reveal({ className, delay = 0, children, ...props }: RevealProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
+  const checkedRef = useRef(false);
 
   useEffect(() => {
     const node = ref.current;
 
-    if (!node) {
+    if (!node || checkedRef.current) {
+      return;
+    }
+    checkedRef.current = true;
+
+    // Check if already in viewport on mount (above-the-fold content)
+    // This runs synchronously before paint to prevent CLS
+    const rect = node.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      setVisible(true);
       return;
     }
 
@@ -30,13 +40,6 @@ function Reveal({ className, delay = 0, children, ...props }: RevealProps) {
         rootMargin: "40px 0px -8% 0px",
       },
     );
-
-    // Check if already in viewport on mount (handles above-the-fold content)
-    const rect = node.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-      setVisible(true);
-      return;
-    }
 
     observer.observe(node);
 

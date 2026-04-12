@@ -1,19 +1,39 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { IBM_Plex_Mono, Manrope } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Toaster } from "sonner";
-import { NavigationProgress } from "@/components/ui/navigation-progress";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { BottomTabBar } from "@/components/layout/bottom-tab-bar";
 import "@/styles/globals.css";
+
+const BottomTabBar = dynamic(
+  () =>
+    import("@/components/layout/bottom-tab-bar").then((m) => ({
+      default: m.BottomTabBar,
+    })),
+  { ssr: false },
+);
+
+const NavigationProgress = dynamic(
+  () =>
+    import("@/components/ui/navigation-progress").then((m) => ({
+      default: m.NavigationProgress,
+    })),
+  { ssr: false },
+);
+
+const Toaster = dynamic(
+  () => import("sonner").then((m) => ({ default: m.Toaster })),
+  { ssr: false },
+);
 
 const manrope = Manrope({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",
+  preload: true,
 });
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -21,6 +41,7 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: "swap",
   weight: ["400", "500"],
   variable: "--font-mono",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -68,6 +89,30 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://basemaps.cartocdn.com" />
+        <link rel="dns-prefetch" href="https://basemaps.cartocdn.com" />
+        <link
+          rel="preconnect"
+          href={process.env.NEXT_PUBLIC_SUPABASE_URL ?? ""}
+        />
+        <meta
+          name="theme-color"
+          content="#f5efe4"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="#151010"
+          media="(prefers-color-scheme: dark)"
+        />
+        {/* Inline critical theme script to prevent FOUC */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("theme");var d=document.documentElement;if(t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme:dark)").matches))d.classList.add("dark")}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className={`${manrope.variable} ${ibmPlexMono.variable}`}>
         <ThemeProvider>
           <NavigationProgress />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { User } from "lucide-react";
@@ -15,36 +15,46 @@ export function AuthButton() {
   const [onboardingComplete, setOnboardingComplete] = useState(true);
 
   useEffect(() => {
-    const supabase = createClient();
+    let cleanupRef: (() => void) | null = null;
 
-    supabase.auth.getUser().then(async ({ data }) => {
-      setUser(data.user);
-      if (data.user) {
-        const { data: member } = await (supabase.from("members") as any)
-          .select("onboarding_completed")
-          .eq("id", data.user.id)
-          .single();
-        setOnboardingComplete(member?.onboarding_completed ?? false);
-      }
-      setLoading(false);
-    });
+    // Defer auth check to avoid blocking initial render
+    const timer = setTimeout(() => {
+      const supabase = createClient();
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
+      supabase.auth.getUser().then(async ({ data }) => {
+        setUser(data.user);
+        if (data.user) {
+          const { data: member } = await (supabase.from("members") as any)
+            .select("onboarding_completed")
+            .eq("id", data.user.id)
+            .single();
+          setOnboardingComplete(member?.onboarding_completed ?? false);
+        }
+        setLoading(false);
+      });
 
-    return () => subscription.unsubscribe();
+      const {
+        data: { subscription },
+      } = supabase.auth.onAuthStateChange((_event, session) => {
+        setUser(session?.user ?? null);
+      });
+
+      cleanupRef = () => subscription.unsubscribe();
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      cleanupRef?.();
+    };
   }, []);
 
-  async function handleSignOut() {
+  const handleSignOut = useCallback(async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
     setUser(null);
     showToast.success("Signed out");
     window.location.href = "/";
-  }
+  }, []);
 
   if (loading) {
     return (

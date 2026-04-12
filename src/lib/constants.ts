@@ -19,6 +19,7 @@ export const socialLinks = {
 export const navItems = [
   { label: "About", href: "/about" },
   { label: "Local Guides", href: "/local-guides" },
+  { label: "Spaces", href: "/spaces" },
   { label: "Guides", href: "/guides" },
   { label: "Events", href: "/events" },
   { label: "Blog", href: "/blog" },
@@ -34,6 +35,7 @@ export const footerNav = {
     { label: "Contact", href: "/contact" },
   ],
   resources: [
+    { label: "Nomad Spaces", href: "/spaces" },
     { label: "City Guides", href: "/guides" },
     { label: "Neighborhoods", href: "/guides/neighborhoods" },
     { label: "Coworking", href: "/guides/coworking" },

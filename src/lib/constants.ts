@@ -16,15 +16,52 @@ export const socialLinks = {
   email: "hello@istanbulnomads.com",
 } as const;
 
-export const navItems = [
+export type NavItem =
+  | { label: string; href: string }
+  | {
+      label: string;
+      children: { label: string; href: string; description: string }[];
+    };
+
+export const navItems: NavItem[] = [
   { label: "About", href: "/about" },
-  { label: "Local Guides", href: "/local-guides" },
-  { label: "Spaces", href: "/spaces" },
-  { label: "Guides", href: "/guides" },
-  { label: "Events", href: "/events" },
-  { label: "Blog", href: "/blog" },
+  {
+    label: "Explore",
+    children: [
+      {
+        label: "City Guides",
+        href: "/guides",
+        description: "Neighborhoods, housing, visa, and more",
+      },
+      {
+        label: "Nomad Spaces",
+        href: "/spaces",
+        description: "Wifi-tested cafes and coworking spots",
+      },
+      {
+        label: "Local Guides",
+        href: "/local-guides",
+        description: "People who help you settle in",
+      },
+    ],
+  },
+  {
+    label: "Community",
+    children: [
+      {
+        label: "Events",
+        href: "/events",
+        description: "Coworking sessions, meetups, and workshops",
+      },
+      {
+        label: "Blog",
+        href: "/blog",
+        description: "Stories and tips from the community",
+      },
+    ],
+  },
   { label: "Contact", href: "/contact" },
-] as const;
+];
 
 export const footerNav = {
   community: [

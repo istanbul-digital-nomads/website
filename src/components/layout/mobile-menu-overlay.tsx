@@ -5,7 +5,7 @@ import { X, Github, Send, Twitter, Mail } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { navItems, socialLinks } from "@/lib/constants";
+import { navItems, socialLinks, type NavItem } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "./theme-provider";
 
@@ -65,22 +65,47 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
         {/* Navigation */}
         <nav className="mt-6 flex-1 overflow-y-auto px-4">
           <div className="space-y-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                prefetch
-                onClick={onClose}
-                className={cn(
-                  "tap-highlight flex items-center rounded-2xl px-4 py-3 text-lg font-medium transition-colors",
-                  pathname === item.href
-                    ? "bg-primary-50 text-primary-700 dark:bg-white/10 dark:text-primary-300"
-                    : "text-neutral-700 hover:bg-black/5 dark:text-[#b8a898] dark:hover:bg-white/5",
-                )}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) =>
+              "children" in item ? (
+                <div key={item.label}>
+                  <p className="px-4 pb-1 pt-4 font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-400 dark:text-[#6b6257]">
+                    {item.label}
+                  </p>
+                  {item.children.map((child) => (
+                    <Link
+                      key={child.href}
+                      href={child.href}
+                      prefetch
+                      onClick={onClose}
+                      className={cn(
+                        "tap-highlight flex items-center rounded-2xl px-4 py-3 text-lg font-medium transition-colors",
+                        pathname === child.href ||
+                          pathname.startsWith(child.href + "/")
+                          ? "bg-primary-50 text-primary-700 dark:bg-white/10 dark:text-primary-300"
+                          : "text-neutral-700 hover:bg-black/5 dark:text-[#b8a898] dark:hover:bg-white/5",
+                      )}
+                    >
+                      {child.label}
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  prefetch
+                  onClick={onClose}
+                  className={cn(
+                    "tap-highlight flex items-center rounded-2xl px-4 py-3 text-lg font-medium transition-colors",
+                    pathname === item.href
+                      ? "bg-primary-50 text-primary-700 dark:bg-white/10 dark:text-primary-300"
+                      : "text-neutral-700 hover:bg-black/5 dark:text-[#b8a898] dark:hover:bg-white/5",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
           </div>
 
           {/* Sign In */}

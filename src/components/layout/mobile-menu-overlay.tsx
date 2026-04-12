@@ -39,7 +39,12 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
       />
       <DialogPanel className="fixed inset-0 flex flex-col bg-[rgba(255,247,243,0.98)] backdrop-blur-xl transition-transform duration-300 data-[closed]:translate-y-full dark:bg-[rgba(21,16,16,0.98)]">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 pt-[env(safe-area-inset-top)] pt-4">
+        <div
+          className="flex items-center justify-between px-6"
+          style={{
+            paddingTop: "max(1rem, env(safe-area-inset-top, 0px))",
+          }}
+        >
           <div>
             <span className="text-lg font-bold text-primary-600 dark:text-primary-400">
               Menu
@@ -67,7 +72,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
                 prefetch
                 onClick={onClose}
                 className={cn(
-                  "tap-highlight flex items-center rounded-2xl px-4 py-4 text-lg font-medium transition-colors",
+                  "tap-highlight flex items-center rounded-2xl px-4 py-3 text-lg font-medium transition-colors",
                   pathname === item.href
                     ? "bg-primary-50 text-primary-700 dark:bg-white/10 dark:text-primary-300"
                     : "text-neutral-700 hover:bg-black/5 dark:text-[#b8a898] dark:hover:bg-white/5",
@@ -83,7 +88,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
             href="/login"
             prefetch
             onClick={onClose}
-            className="tap-highlight mt-4 flex items-center gap-3 rounded-2xl bg-primary-50 px-4 py-4 text-lg font-medium text-primary-700 transition-colors dark:bg-white/10 dark:text-primary-300"
+            className="tap-highlight mt-2 flex items-center gap-3 rounded-2xl bg-primary-50 px-4 py-3 text-lg font-medium text-primary-700 transition-colors dark:bg-white/10 dark:text-primary-300"
           >
             <svg
               className="h-5 w-5"
@@ -101,7 +106,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
           </Link>
 
           {/* Theme toggle */}
-          <div className="mt-8">
+          <div className="mt-6">
             <p className="px-4 font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-500 dark:text-[#8a7a6a]">
               Appearance
             </p>
@@ -124,7 +129,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
           </div>
 
           {/* Social links */}
-          <div className="mt-8">
+          <div className="mt-6">
             <p className="px-4 font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-500 dark:text-[#8a7a6a]">
               Connect
             </p>
@@ -147,8 +152,10 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
 
         {/* Bottom CTA */}
         <div
-          className="px-6 pb-6"
-          style={{ paddingBottom: "max(1.5rem, env(safe-area-inset-bottom))" }}
+          className="px-6 pb-4"
+          style={{
+            paddingBottom: "max(1rem, env(safe-area-inset-bottom, 0px))",
+          }}
         >
           <a
             href={socialLinks.telegram}

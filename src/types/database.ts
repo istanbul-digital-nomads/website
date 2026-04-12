@@ -170,6 +170,97 @@ export interface Database {
           created_at?: string;
         };
       };
+      local_guides: {
+        Row: {
+          id: string;
+          name: string;
+          email: string;
+          phone_whatsapp: string | null;
+          photo_url: string | null;
+          role_title: string | null;
+          bio: string;
+          specializations: string[];
+          neighborhoods: string[];
+          languages: string[];
+          years_in_istanbul: number;
+          social_instagram: string | null;
+          social_linkedin: string | null;
+          social_twitter: string | null;
+          social_website: string | null;
+          is_visible: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          email: string;
+          phone_whatsapp?: string | null;
+          photo_url?: string | null;
+          role_title?: string | null;
+          bio: string;
+          specializations?: string[];
+          neighborhoods?: string[];
+          languages?: string[];
+          years_in_istanbul: number;
+          social_instagram?: string | null;
+          social_linkedin?: string | null;
+          social_twitter?: string | null;
+          social_website?: string | null;
+          is_visible?: boolean;
+        };
+        Update: {
+          [key: string]: unknown;
+        };
+      };
+      guide_applications: {
+        Row: {
+          id: string;
+          name: string;
+          email: string;
+          phone_whatsapp: string | null;
+          photo_url: string | null;
+          languages: string[];
+          specializations: string[];
+          neighborhoods: string[];
+          years_in_istanbul: number;
+          bio: string;
+          sample_tip: string;
+          motivation: string;
+          social_instagram: string | null;
+          social_linkedin: string | null;
+          social_twitter: string | null;
+          social_website: string | null;
+          agrees_guidelines: boolean;
+          references_text: string | null;
+          status: string;
+          reviewed_at: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          email: string;
+          phone_whatsapp?: string | null;
+          photo_url?: string | null;
+          languages: string[];
+          specializations: string[];
+          neighborhoods: string[];
+          years_in_istanbul: number;
+          bio: string;
+          sample_tip: string;
+          motivation: string;
+          social_instagram?: string | null;
+          social_linkedin?: string | null;
+          social_twitter?: string | null;
+          social_website?: string | null;
+          agrees_guidelines: boolean;
+          references_text?: string | null;
+        };
+        Update: {
+          [key: string]: unknown;
+        };
+      };
       blog_posts: {
         Row: {
           id: string;

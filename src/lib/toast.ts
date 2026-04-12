@@ -58,4 +58,10 @@ export const showToast = {
       description: "Your changes have been saved.",
     });
   },
+
+  guideApplication() {
+    toast.success("Application submitted!", {
+      description: "We'll review it and get back to you soon.",
+    });
+  },
 };

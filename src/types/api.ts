@@ -66,3 +66,25 @@ export interface ContactFormBody {
   email: string;
   message: string;
 }
+
+// --- Guide Application ---
+
+export interface GuideApplicationBody {
+  name: string;
+  email: string;
+  phone_whatsapp?: string;
+  languages: string[];
+  specializations: string[];
+  neighborhoods: string[];
+  years_in_istanbul: number;
+  bio: string;
+  sample_tip: string;
+  motivation: string;
+  social_instagram?: string;
+  social_linkedin?: string;
+  social_twitter?: string;
+  social_website?: string;
+  photo_url?: string;
+  agrees_guidelines: boolean;
+  references_text?: string;
+}

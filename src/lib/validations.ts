@@ -4,6 +4,7 @@ import type {
   CreateRSVPBody,
   UpdateMemberBody,
   ContactFormBody,
+  GuideApplicationBody,
 } from "@/types/api";
 
 type Result<T> = { data: T; error?: never } | { data?: never; error: string };
@@ -189,6 +190,56 @@ export function validateContactForm(body: unknown): Result<ContactFormBody> {
       name: b.name as string,
       email: b.email as string,
       message: b.message as string,
+    },
+  };
+}
+
+export function validateGuideApplication(
+  body: unknown,
+): Result<GuideApplicationBody> {
+  if (!body || typeof body !== "object")
+    return { error: "Invalid request body" };
+  const b = body as Record<string, unknown>;
+
+  if (!isString(b.name)) return { error: "Your name is required" };
+  if (!isString(b.email) || !EMAIL_REGEX.test(b.email as string))
+    return { error: "A valid email is required" };
+  if (!Array.isArray(b.languages) || b.languages.length === 0)
+    return { error: "Select at least one language" };
+  if (!Array.isArray(b.specializations) || b.specializations.length === 0)
+    return { error: "Select at least one area of expertise" };
+  if (!Array.isArray(b.neighborhoods) || b.neighborhoods.length === 0)
+    return { error: "Select at least one neighborhood" };
+  if (typeof b.years_in_istanbul !== "number" || b.years_in_istanbul < 0)
+    return { error: "Years in Istanbul is required" };
+  if (!isString(b.bio) || (b.bio as string).length < 50)
+    return { error: "Bio must be at least 50 characters" };
+  if (!isString(b.sample_tip) || (b.sample_tip as string).length < 20)
+    return { error: "Your local tip must be at least 20 characters" };
+  if (!isString(b.motivation) || (b.motivation as string).length < 20)
+    return { error: "Motivation must be at least 20 characters" };
+  if (b.agrees_guidelines !== true)
+    return { error: "You must agree to the community guidelines" };
+
+  return {
+    data: {
+      name: b.name as string,
+      email: b.email as string,
+      phone_whatsapp: (b.phone_whatsapp as string) || undefined,
+      languages: b.languages as string[],
+      specializations: b.specializations as string[],
+      neighborhoods: b.neighborhoods as string[],
+      years_in_istanbul: b.years_in_istanbul as number,
+      bio: b.bio as string,
+      sample_tip: b.sample_tip as string,
+      motivation: b.motivation as string,
+      social_instagram: (b.social_instagram as string) || undefined,
+      social_linkedin: (b.social_linkedin as string) || undefined,
+      social_twitter: (b.social_twitter as string) || undefined,
+      social_website: (b.social_website as string) || undefined,
+      photo_url: (b.photo_url as string) || undefined,
+      agrees_guidelines: true,
+      references_text: (b.references_text as string) || undefined,
     },
   };
 }

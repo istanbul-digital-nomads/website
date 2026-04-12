@@ -19,14 +19,28 @@ import { guides } from "@/lib/data";
 import { socialLinks } from "@/lib/constants";
 import { cn, formatEventDate } from "@/lib/utils";
 import { getEvents } from "@/lib/supabase/queries";
-import { FAQSection } from "@/components/sections/faq-section";
+const FAQSection = dynamic(
+  () =>
+    import("@/components/sections/faq-section").then((m) => ({
+      default: m.FAQSection,
+    })),
+  {
+    ssr: true,
+    loading: () => <div className="py-16 md:py-24" />,
+  },
+);
 
 const IstanbulMap = dynamic(
   () =>
     import("@/components/ui/istanbul-map").then((mod) => ({
       default: mod.IstanbulMap,
     })),
-  { ssr: false },
+  {
+    ssr: false,
+    loading: () => (
+      <div className="absolute inset-0 rounded-[2.3rem] border border-primary-200/60 bg-[#e8e0d4] dark:border-primary-900/40 dark:bg-[#1a1410]" />
+    ),
+  },
 );
 
 const featuredGuides = guides.slice(0, 4);

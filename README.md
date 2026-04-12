@@ -1,4 +1,9 @@
-# Istanbul Digital Nomads — Website
+![CI](https://github.com/istanbul-digital-nomads/website/actions/workflows/ci.yml/badge.svg?branch=develop)
+![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue?logo=typescript&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=nextdotjs&logoColor=white)
+![License](https://img.shields.io/badge/License-Proprietary-red)
+
+# Istanbul Digital Nomads - Website
 
 The official website and community platform for Istanbul's digital nomad community. A full-stack web application built with **Next.js 14**, **Tailwind CSS**, **TypeScript**, and **Supabase**.
 
@@ -6,11 +11,11 @@ The official website and community platform for Istanbul's digital nomad communi
 
 ## Live Site
 
-🌐 **[istanbulnomads.com](https://istanbulnomads.com)** — launching soon
+🌐 **[istanbulnomads.com](https://istanbulnomads.com)** - launching soon
 
 ## What We're Building
 
-Istanbul Nomads is more than a landing page — it's a full community platform. Here's every service the domain will cover:
+Istanbul Nomads is more than a landing page - it's a full community platform. Here's every service the domain will cover:
 
 ### Core Services
 
@@ -27,7 +32,7 @@ Istanbul Nomads is more than a landing page — it's a full community platform. 
 
 | Service | Description | Route |
 |---------|-------------|-------|
-| **Dashboard** | Personal hub — upcoming RSVPs, activity feed, quick actions | `/dashboard` |
+| **Dashboard** | Personal hub - upcoming RSVPs, activity feed, quick actions | `/dashboard` |
 | **Member Directory** | Searchable, filterable list of community members (opt-in) | `/members` |
 | **Profiles** | Member profiles with bio, skills, neighborhood, links | `/members/[username]` |
 | **Event Management** | Create, edit, and manage community events | `/events/create`, `/events/[id]/manage` |
@@ -65,7 +70,8 @@ Istanbul Nomads is more than a landing page — it's a full community platform. 
 | Auth | Supabase Auth | Magic link + Google + GitHub OAuth |
 | Storage | Supabase Storage | Avatars, event images |
 | Hosting | Vercel | Preview deploys, edge network |
-| Analytics | Plausible | Privacy-friendly, lightweight |
+| Analytics | Plausible + Vercel Analytics | Privacy-friendly visitor tracking |
+| Performance | Vercel Speed Insights | Core Web Vitals monitoring |
 | Email | Resend | Transactional + newsletter |
 | Error Tracking | Sentry | Runtime error monitoring |
 | CI/CD | GitHub Actions | Lint, type check, build on every PR |
@@ -74,7 +80,7 @@ Istanbul Nomads is more than a landing page — it's a full community platform. 
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 20+ (pinned via `.nvmrc`)
 - pnpm (recommended) or npm
 - Supabase account (for database features)
 - Git
@@ -110,6 +116,8 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_PLAUSIBLE_DOMAIN=istanbulnomads.com
 RESEND_API_KEY=your_resend_api_key
 SENTRY_DSN=your_sentry_dsn
+VERCEL_URL=                    # Auto-populated on Vercel
+VERCEL_ENV=                    # Auto-populated on Vercel
 ```
 
 ## Project Structure
@@ -187,6 +195,9 @@ website/
 │       ├── ci.yml             # Lint + type check + build
 │       └── preview.yml        # Deploy preview on PR
 ├── .env.example
+├── .nvmrc                     # Node.js version pin
+├── .vercelignore              # Files excluded from Vercel deploys
+├── vercel.json                # Vercel config (headers, caching)
 ├── ARCHITECTURE.md
 ├── CHANGELOG.md
 ├── DESIGN.md
@@ -216,8 +227,8 @@ website/
 
 | Branch | Purpose |
 |--------|---------|
-| `main` | Production — auto-deploys to istanbulnomads.com |
-| `develop` | Integration branch — all feature PRs merge here first |
+| `main` | Production - auto-deploys to istanbulnomads.com |
+| `develop` | Integration branch - all feature PRs merge here first |
 | `feature/*` | Individual features (e.g., `feature/event-rsvp`) |
 | `fix/*` | Bug fixes (e.g., `fix/mobile-nav`) |
 
@@ -237,7 +248,7 @@ This is a private repo for core contributors. To get involved:
 
 1. Join the [community Telegram](https://t.me/istanbul_digital_nomads)
 2. Check the [community repo](https://github.com/istanbul-digital-nomads/community) for contributing guidelines
-3. Express interest in the Telegram group — we'll invite you as a collaborator
+3. Express interest in the Telegram group - we'll invite you as a collaborator
 
 ## Related Repos
 

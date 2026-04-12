@@ -1,0 +1,6 @@
+.github/
+*.md
+!README.md
+LICENSE
+CODEOWNERS
+.editorconfig

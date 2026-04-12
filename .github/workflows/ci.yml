@@ -1,0 +1,136 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install
+
+      - name: ESLint
+        run: pnpm lint
+
+      - name: Prettier check
+        run: pnpm format:check
+
+  typecheck:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install
+
+      - name: TypeScript
+        run: pnpm type-check
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install
+
+      - name: Run tests
+        run: pnpm test
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [lint, typecheck, test]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install
+
+      - name: Build
+        run: pnpm build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co' }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key' }}
+
+  database:
+    name: Database Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate migration SQL syntax
+        run: |
+          for file in supabase/migrations/*.sql; do
+            echo "Checking $file..."
+            # Basic syntax checks
+            if ! grep -q "create table\|create policy\|create function\|insert into\|alter table" "$file"; then
+              echo "Warning: $file may not contain valid SQL statements"
+            fi
+            # Check for dangerous patterns
+            if grep -qi "drop database\|drop schema public\|truncate.*cascade" "$file"; then
+              echo "Error: $file contains dangerous SQL patterns"
+              exit 1
+            fi
+            echo "$file - OK"
+          done
+
+      - name: Verify RLS is enabled
+        run: |
+          SCHEMA="supabase/migrations/001_initial_schema.sql"
+          for table in members events rsvps blog_posts; do
+            if ! grep -q "alter table $table enable row level security" "$SCHEMA"; then
+              echo "Error: RLS not enabled for table $table"
+              exit 1
+            fi
+            echo "RLS enabled for $table - OK"
+          done
+
+      - name: Verify TypeScript types match schema
+        run: |
+          SCHEMA="supabase/migrations/001_initial_schema.sql"
+          TYPES="src/types/database.ts"
+          for table in members events rsvps blog_posts; do
+            if ! grep -q "$table" "$TYPES"; then
+              echo "Error: Table $table missing from TypeScript types"
+              exit 1
+            fi
+            echo "Type definition for $table - OK"
+          done

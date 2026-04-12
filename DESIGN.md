@@ -4,11 +4,11 @@ The visual identity and design guidelines for the Istanbul Digital Nomads websit
 
 ## Design Principles
 
-1. **Clean over cluttered** — Every element earns its place. Generous whitespace. No decoration for decoration's sake.
-2. **Content first** — The design serves the content, not the other way around.
-3. **Accessible by default** — High contrast, readable fonts, keyboard navigable, screen reader friendly.
-4. **Consistently warm** — Minimal doesn't mean cold. Subtle warmth through color accents and friendly copy.
-5. **Fast and light** — No heavy animations or large assets. Performance is a feature.
+1. **Clean over cluttered** - Every element earns its place. Generous whitespace. No decoration for decoration's sake.
+2. **Content first** - The design serves the content, not the other way around.
+3. **Accessible by default** - High contrast, readable fonts, keyboard navigable, screen reader friendly.
+4. **Consistently warm** - Minimal doesn't mean cold. Subtle warmth through color accents and friendly copy.
+5. **Fast and light** - No heavy animations or large assets. Performance is a feature.
 
 ## Color Palette
 
@@ -28,9 +28,9 @@ The visual identity and design guidelines for the Istanbul Digital Nomads websit
 
 ### Accent Colors
 ```
---color-accent-warm:  #f59e0b    (amber — Istanbul-inspired warmth)
---color-accent-coral: #f43f5e    (coral — for highlights and badges)
---color-accent-green: #10b981    (emerald — success states)
+--color-accent-warm:  #f59e0b    (amber - Istanbul-inspired warmth)
+--color-accent-coral: #f43f5e    (coral - for highlights and badges)
+--color-accent-green: #10b981    (emerald - success states)
 ```
 
 ### Neutrals
@@ -80,16 +80,16 @@ Text secondary:#737373 (neutral-500)
 
 ### Type Scale
 ```
-text-xs:    0.75rem  / 1rem      (12px — captions, badges)
-text-sm:    0.875rem / 1.25rem   (14px — secondary text, metadata)
-text-base:  1rem     / 1.5rem    (16px — body text)
-text-lg:    1.125rem / 1.75rem   (18px — lead paragraphs)
-text-xl:    1.25rem  / 1.75rem   (20px — card titles)
-text-2xl:   1.5rem   / 2rem      (24px — section headers)
-text-3xl:   1.875rem / 2.25rem   (30px — page titles)
-text-4xl:   2.25rem  / 2.5rem    (36px — hero subheading)
-text-5xl:   3rem     / 1          (48px — hero heading)
-text-6xl:   3.75rem  / 1          (60px — hero heading large screens)
+text-xs:    0.75rem  / 1rem      (12px - captions, badges)
+text-sm:    0.875rem / 1.25rem   (14px - secondary text, metadata)
+text-base:  1rem     / 1.5rem    (16px - body text)
+text-lg:    1.125rem / 1.75rem   (18px - lead paragraphs)
+text-xl:    1.25rem  / 1.75rem   (20px - card titles)
+text-2xl:   1.5rem   / 2rem      (24px - section headers)
+text-3xl:   1.875rem / 2.25rem   (30px - page titles)
+text-4xl:   2.25rem  / 2.5rem    (36px - hero subheading)
+text-5xl:   3rem     / 1          (48px - hero heading)
+text-6xl:   3.75rem  / 1          (60px - hero heading large screens)
 ```
 
 ### Usage Guidelines
@@ -104,28 +104,28 @@ text-6xl:   3.75rem  / 1          (60px — hero heading large screens)
 Use Tailwind's default spacing scale. Key values:
 
 ```
-4px   (1)   — Tight spacing (between icon and label)
-8px   (2)   — Compact spacing (between related items)
-12px  (3)   — Default inner padding
-16px  (4)   — Standard padding
-24px  (6)   — Section inner padding
-32px  (8)   — Card padding
-48px  (12)  — Between sections (mobile)
-64px  (16)  — Between sections (desktop)
-96px  (24)  — Page top/bottom padding
-128px (32)  — Hero section padding
+4px   (1)   - Tight spacing (between icon and label)
+8px   (2)   - Compact spacing (between related items)
+12px  (3)   - Default inner padding
+16px  (4)   - Standard padding
+24px  (6)   - Section inner padding
+32px  (8)   - Card padding
+48px  (12)  - Between sections (mobile)
+64px  (16)  - Between sections (desktop)
+96px  (24)  - Page top/bottom padding
+128px (32)  - Hero section padding
 ```
 
 ## Border Radius
 
 ```
-rounded-sm:   0.125rem  (2px)   — Badges, tags
-rounded:      0.25rem   (4px)   — Inputs, small buttons
-rounded-md:   0.375rem  (6px)   — Default for most elements
-rounded-lg:   0.5rem    (8px)   — Cards
-rounded-xl:   0.75rem   (12px)  — Modals, large cards
-rounded-2xl:  1rem      (16px)  — Hero cards, feature blocks
-rounded-full: 9999px             — Avatars, pills
+rounded-sm:   0.125rem  (2px)   - Badges, tags
+rounded:      0.25rem   (4px)   - Inputs, small buttons
+rounded-md:   0.375rem  (6px)   - Default for most elements
+rounded-lg:   0.5rem    (8px)   - Cards
+rounded-xl:   0.75rem   (12px)  - Modals, large cards
+rounded-2xl:  1rem      (16px)  - Hero cards, feature blocks
+rounded-full: 9999px             - Avatars, pills
 ```
 
 ## Shadows
@@ -133,9 +133,9 @@ rounded-full: 9999px             — Avatars, pills
 Minimal shadow usage. Only for elevated elements:
 
 ```
-shadow-sm:    0 1px 2px rgba(0,0,0,0.05)       — Subtle lift (cards on hover)
-shadow:       0 1px 3px rgba(0,0,0,0.1)         — Cards
-shadow-lg:    0 10px 15px rgba(0,0,0,0.1)       — Modals, dropdowns
+shadow-sm:    0 1px 2px rgba(0,0,0,0.05)       - Subtle lift (cards on hover)
+shadow:       0 1px 3px rgba(0,0,0,0.1)         - Cards
+shadow-lg:    0 10px 15px rgba(0,0,0,0.1)       - Modals, dropdowns
 ```
 
 In dark mode, use border outlines instead of shadows.
@@ -210,10 +210,10 @@ xl:   1280px   (desktops)
 Keep animations subtle and purposeful:
 
 ```
-transition-colors duration-150   — Color changes (hover states)
-transition-shadow duration-200   — Shadow changes (card hover)
-transition-transform duration-200 — Scale changes
-transition-opacity duration-300   — Fade in/out
+transition-colors duration-150   - Color changes (hover states)
+transition-shadow duration-200   - Shadow changes (card hover)
+transition-transform duration-200 - Scale changes
+transition-opacity duration-300   - Fade in/out
 ```
 
 No scroll-triggered animations. No parallax. No bouncing elements.

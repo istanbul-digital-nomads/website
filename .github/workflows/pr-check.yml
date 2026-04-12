@@ -1,0 +1,62 @@
+name: PR Quality Check
+
+on:
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  size-check:
+    name: Bundle Size Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install
+
+      - name: Build and check bundle size
+        run: |
+          pnpm build 2>&1 | tee build-output.txt
+
+          # Extract First Load JS size from build output
+          TOTAL_SIZE=$(grep "First Load JS shared" build-output.txt | grep -o '[0-9.]*\s*kB' | head -1)
+          echo "First Load JS: $TOTAL_SIZE"
+
+          # Warn if shared JS exceeds 100kB
+          SIZE_NUM=$(echo "$TOTAL_SIZE" | grep -o '[0-9.]*')
+          if [ "$(echo "$SIZE_NUM > 100" | bc -l)" -eq 1 ]; then
+            echo "::warning::First Load JS shared bundle is $TOTAL_SIZE (target: <100kB)"
+          fi
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co' }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key' }}
+
+  migration-check:
+    name: Migration Safety
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for migration changes
+        run: |
+          CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- supabase/migrations/)
+          if [ -n "$CHANGED" ]; then
+            echo "Database migration files changed:"
+            echo "$CHANGED"
+            echo ""
+            echo "Please ensure:"
+            echo "  1. Migrations are backward-compatible"
+            echo "  2. RLS policies are included for new tables"
+            echo "  3. Migrations have been tested locally"
+            echo "  4. TypeScript types in src/types/database.ts are updated"
+          else
+            echo "No migration changes in this PR"
+          fi

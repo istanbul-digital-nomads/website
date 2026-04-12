@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: General Questions
+    url: https://github.com/istanbul-digital-nomads/community/issues
+    about: For non-website questions, use the community repo.
+  - name: Telegram Group
+    url: https://t.me/istanbul_digital_nomads
+    about: For quick questions, join our Telegram group.

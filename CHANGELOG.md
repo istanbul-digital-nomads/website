@@ -4,46 +4,134 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0] - 2026-04-12
 
-### Planned
-- Design system and base UI components (Button, Card, Input, Badge, Modal)
-- Layout components (Header, Footer, MobileNav, ThemeProvider)
-- Homepage with hero, stats, featured events, testimonials, CTA
-- About page with story, values, team, timeline
-- Guides section with MDX-rendered city guides
-- Events listing page with filtering
-- Contact page with form
-- Blog system with MDX
-- SEO optimization (meta tags, structured data, sitemap)
-- CI/CD pipeline with GitHub Actions
+### Added
+
+#### Email system
+- Resend integration for transactional emails (`resend` package)
+- Branded HTML email templates (`src/lib/emails.tsx`) with warm brand palette, card layout, and footer links
+- Contact form now sends formatted HTML emails to `hello@istanbulnomads.com` with reply-to set to sender
+- Newsletter signup API endpoint (`/api/newsletter`) with email validation, deduplication, and welcome email
+- Newsletter welcome email with links to top 3 starter guides and Telegram CTA
+- Newsletter form component (`src/components/newsletter-form.tsx`) with footer variant styling
+- Newsletter signup added to the footer gradient panel on every page
+- `newsletter_subscribers` table type definition in database schema
+- `RESEND_API_KEY` environment variable in `.env.example`
+
+#### Error handling
+- Branded error boundary (`src/app/error.tsx`) with "Try again" and "Go home" buttons, matching the 404 page style
+
+#### SEO and sitemap
+- Dynamic Next.js sitemap (`src/app/sitemap.ts`) that auto-generates from guides and blog posts data
+- Proper URL priorities: homepage (1.0), guides listing (0.9), about/blog/events (0.8), individual guides (0.7), blog posts (0.6), contact (0.5)
+- Sitemap auto-updates when new content is added - no build step needed
+
+#### Onboarding improvements
+- Refactored onboarding wizard with cleaner step validation and error handling
+- Improved step components with better UX patterns and field-level error clearing
+- Input component now supports `helperText` prop for additional field context
+
+#### Content
+- 3 new blog articles with deep cross-linking to guides
+- Entertainment & Leisure guide completing all 11 city guides
+- Image generation rules documentation
+
+### Changed
+- Contact form API now uses branded HTML email template instead of plain text
+- `robots.txt` updated from `localhost:3000` to `istanbulnomads.com` for production
+- Replaced placeholder testimonials with honest "What people find" section showing community value at week one / month one / month three+ stages
+- Changed "500+ active members" stat to "Growing community" (homepage and CTA banner)
+- Hero alignment and spacing cleaned up for better visual balance
+- Full codebase polish pass - dark mode warm palette, gradient panels, typography consistency
+- Page transitions added with View Transitions API and navigation progress bar
+- Dark mode overhauled - replaced all cold neutral grays with warm brown palette
+- Gradient panels now use rich terracotta-to-maroon instead of muddy fade
+- Dark black panels replaced with warm terracotta gradients
+- Onboarding wizard now has birthday/age toggle option
+- Brand voice rules added to CLAUDE.md for consistent tone across all content
+- Casual contractions standardized across all user-facing content
+- Toast notification system updated with additional helper methods
+
+### Removed
+- Static `next-sitemap` postbuild step and config (`next-sitemap.config.js`)
+- Old static sitemap files (`public/sitemap.xml`, `public/sitemap-0.xml`) - replaced by dynamic generation
+- Placeholder testimonials with fictional names
+
+### Fixed
+- `robots.txt` and sitemap pointing to `localhost:3000` instead of production domain
+- Contact form silently discarding messages (Resend integration was pending)
+- CTA banner still showing "500+" placeholder count
 
 ---
 
-## [0.1.0] — 2026-03-29
+## [0.2.0] - 2026-03-30
+
+### Added
+- Supabase integration: `@supabase/supabase-js` and `@supabase/ssr` installed with browser client, server client, and middleware session management
+- Database schema: members, events, RSVPs, blog_posts tables with UUID PKs, enum types (event_type, rsvp_status), indexes, updated_at triggers, and auto-create member profile on signup trigger
+- Row Level Security policies: members (visible/own), events (published/organizer), RSVPs (public/own), blog_posts (published/author)
+- Storage buckets: `avatars` and `event-images` with public read and owner-based write policies
+- Auth callback route (`/auth/callback`) for OAuth code exchange (Google Auth ready)
+- Login page with Google Sign-In button and auth links in nav
+- Next.js middleware (`src/middleware.ts`) for Supabase session refresh on every request
+- TypeScript database types (`src/types/database.ts`) matching the schema
+- SQL migration files in `supabase/migrations/`
+- Structured REST API: events, members, RSVPs, blog, contact endpoints
+- Typed API contracts with central models layer and validation
+- Interactive MapLibre GL map with neighborhood markers and Bosphorus ferry routes
+- Events page with integrated map header, pins, selection, and smart empty state
+- Multi-step onboarding wizard (5 steps: About, Contact, Interests, Guidelines, Final)
+- MDX guide system with all 11 city guides (Neighborhoods, Coworking, Housing, Cost of Living, Visa, Internet, Transport, Food, Healthcare, Entertainment, Culture)
+- Guide search and filter functionality
+- MDX blog system with search, tag filters, and 9 launch posts
+- Homepage FAQ section
+- `Reveal` component with IntersectionObserver-based scroll animations
+- Page transitions with View Transitions API and navigation progress bar
+- Mobile-first bottom tab bar with auto-hide header
+- Sonner toast notification system with brand styling
+- Design system components: Button, Card, Input, Textarea, Badge, Container, Section, Skeleton
+- `next-sitemap` integration with auto-generated sitemap and robots.txt
+- OG image generation API route (`/api/og`)
+- Vercel Analytics and Speed Insights integration
+- `vercel.json` with security headers and cache headers
+- Test suite with Vitest and Testing Library
+- CI/CD workflows for build, lint, format, and type checking
+
+### Changed
+- Homepage fully redesigned with editorial layout, hero map, trust signals, event moments, guide highlights, and refined CTA
+- Typography switched from Inter to Manrope (sans) and IBM Plex Mono (mono)
+- Color palette updated to warm terracotta primary, amber/coral/teal accents
+- Dark mode with warm parchment palette
+- Footer redesigned with dark CTA card, social icons, and feature pills
+- Header with auto-hide on scroll, rounded pill nav, glowing logo dot
+- All content rewritten with warm, practical community voice
+
+### Fixed
+- Client-side navigation broken by `useScrollDirection` infinite render loop
+- Supabase middleware corrupting Next.js RSC flight responses
+- MapLibre map zero-height and marker overlap issues
+- CI lint and pnpm version conflicts
+
+### Removed
+- `src/middleware.ts` - broke client navigation
+- `src/app/template.tsx` - broke client navigation
+- 6 unused homepage section components replaced by inline editorial layout
+
+---
+
+## [0.1.0] - 2026-03-29
 
 ### Added
 - Initial Next.js 14 project with App Router and TypeScript (strict mode)
-- Tailwind CSS with custom design tokens (primary blue palette, accent colors, Inter font)
-- PostCSS configuration with Tailwind and Autoprefixer
-- TypeScript configuration with strict mode, bundler resolution, and `@/*` path alias
-- Next.js configuration with Supabase image optimization and package imports
-- Global CSS with Tailwind layers, CSS variables for light/dark mode
-- Utility function `cn()` for merging Tailwind classes (clsx + tailwind-merge)
-- Root layout with Inter font, full SEO metadata (title, description, keywords, OpenGraph, Twitter card)
-- Homepage hero component with heading, description, Telegram CTA, and Learn More link
-- Environment variable template (`.env.example`) for Supabase, site URL, and Plausible analytics
-- `.gitignore` for Node.js, Next.js, environment files, and IDE configs
-- `package.json` with Next.js 14, React 18, Headless UI, Lucide React, and dev tooling
+- Tailwind CSS with custom design tokens
+- Root layout with full SEO metadata
+- Homepage hero component with Telegram CTA
+- Environment variable template
 - Project documentation: README, ARCHITECTURE, DESIGN, ROADMAP
-- Comprehensive design system documentation (colors, typography, spacing, components)
-- Technical architecture documentation (route groups, data models, component architecture)
 
 ### Changed
-- Updated domain from `istanbuldigitalnomads.com` to `istanbulnomads.com` across all files
-- Updated README with comprehensive service coverage and branch strategy
-- Updated ROADMAP with detailed, implementation-ready task breakdown
-- Updated ARCHITECTURE deployment section with new domain
+- Updated domain from `istanbuldigitalnomads.com` to `istanbulnomads.com`
 
 ---
 
@@ -51,7 +139,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 | Version | Date | Summary |
 |---------|------|---------|
+| 1.0.0 | 2026-04-12 | Launch-ready - email system, newsletter, dynamic sitemap, honest social proof, error handling |
+| 0.2.0 | 2026-03-30 | Full MVP - Supabase, auth, 11 guides, 9 blog posts, events, onboarding, interactive map |
 | 0.1.0 | 2026-03-29 | Project setup, config files, initial homepage, documentation |
 
-[Unreleased]: https://github.com/istanbul-digital-nomads/website/compare/v0.1.0...HEAD
+[1.0.0]: https://github.com/istanbul-digital-nomads/website/compare/v0.2.0...v1.0.0
+[0.2.0]: https://github.com/istanbul-digital-nomads/website/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/istanbul-digital-nomads/website/releases/tag/v0.1.0

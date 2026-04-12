@@ -3,7 +3,9 @@ import { Resend } from "resend";
 import { validateContactForm } from "@/lib/validations";
 import { ContactFormEmail } from "@/lib/emails";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  return new Resend(process.env.RESEND_API_KEY);
+}
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -16,7 +18,7 @@ export async function POST(request: Request) {
   const { name, email, message } = result.data!;
 
   try {
-    await resend.emails.send({
+    await getResend().emails.send({
       from: "Istanbul Nomads <noreply@istanbulnomads.com>",
       to: "hello@istanbulnomads.com",
       replyTo: email,

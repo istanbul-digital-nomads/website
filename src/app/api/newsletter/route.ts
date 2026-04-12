@@ -3,7 +3,9 @@ import { Resend } from "resend";
 import { createClient } from "@/lib/supabase/server";
 import { NewsletterWelcomeEmail } from "@/lib/emails";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  return new Resend(process.env.RESEND_API_KEY);
+}
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -43,7 +45,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    await resend.emails.send({
+    await getResend().emails.send({
       from: "Istanbul Nomads <noreply@istanbulnomads.com>",
       to: email,
       subject: "Welcome to Istanbul Digital Nomads",

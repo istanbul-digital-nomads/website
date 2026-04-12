@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-head-element */
 import * as React from "react";
 
 const brandColors = {
@@ -273,7 +274,7 @@ export function NewsletterWelcomeEmail() {
           lineHeight: "26px",
         }}
       >
-        You're in. We'll send you the occasional update - new guides, upcoming
+        You&apos;re in. We&apos;ll send you the occasional update - new guides, upcoming
         events, and things worth knowing about Istanbul as a remote worker.
       </p>
 
@@ -387,7 +388,7 @@ export function NewsletterWelcomeEmail() {
           textAlign: "center" as const,
         }}
       >
-        Don't want these emails?{" "}
+        Don&apos;t want these emails?{" "}
         <a
           href="https://istanbulnomads.com/unsubscribe?email={email}"
           style={{ color: brandColors.primaryLight, textDecoration: "none" }}

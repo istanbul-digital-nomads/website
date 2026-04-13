@@ -50,7 +50,7 @@ export function SpaceCard({
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-base font-semibold text-neutral-900 dark:text-[#f7f2ea]">
+                  <h3 className="text-base font-semibold text-neutral-900 dark:text-[#f2f3f4]">
                     {space.name}
                   </h3>
                   <Badge
@@ -61,7 +61,7 @@ export function SpaceCard({
                     {space.type === "coworking" ? "Coworking" : "Cafe"}
                   </Badge>
                 </div>
-                <div className="mt-1 flex items-center gap-1 text-xs text-neutral-500 dark:text-[#8a7a6a]">
+                <div className="mt-1 flex items-center gap-1 text-xs text-neutral-500 dark:text-[#85929e]">
                   <MapPin className="h-3 w-3" />
                   {space.neighborhood}
                 </div>
@@ -70,7 +70,7 @@ export function SpaceCard({
             </div>
 
             {/* Quick info */}
-            <div className="mt-3 flex flex-wrap gap-3 text-xs text-neutral-600 dark:text-[#b8a898]">
+            <div className="mt-3 flex flex-wrap gap-3 text-xs text-neutral-600 dark:text-[#99a3ad]">
               {space.wifi_speed && (
                 <span className="flex items-center gap-1">
                   <Wifi className="h-3 w-3" />
@@ -89,7 +89,7 @@ export function SpaceCard({
             </div>
 
             {/* Description */}
-            <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-[#b8a898]">
+            <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-[#99a3ad]">
               {expanded
                 ? space.description
                 : space.description.slice(0, 100) + "..."}
@@ -105,7 +105,7 @@ export function SpaceCard({
                     {space.amenities.map((a) => (
                       <span
                         key={a}
-                        className="rounded-full bg-black/5 px-2.5 py-1 text-xs text-neutral-600 dark:bg-white/5 dark:text-[#b8a898]"
+                        className="rounded-full bg-black/5 px-2.5 py-1 text-xs text-neutral-600 dark:bg-white/5 dark:text-[#99a3ad]"
                       >
                         {a}
                       </span>

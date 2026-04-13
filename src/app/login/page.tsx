@@ -19,7 +19,7 @@ export default function LoginPage() {
               </span>
             </div>
             <h1 className="mt-6 text-2xl font-bold">Sign in</h1>
-            <p className="mt-2 text-sm text-neutral-600 dark:text-[#8a7a6a]">
+            <p className="mt-2 text-sm text-neutral-600 dark:text-[#85929e]">
               Sign in to RSVP to events and manage your profile.
             </p>
           </div>
@@ -28,7 +28,7 @@ export default function LoginPage() {
             <LoginForm />
           </div>
 
-          <p className="mt-8 text-center text-xs text-neutral-500 dark:text-[#8a7a6a]">
+          <p className="mt-8 text-center text-xs text-neutral-500 dark:text-[#85929e]">
             By signing in, you agree to be a respectful member of the Istanbul
             Digital Nomads community.
           </p>

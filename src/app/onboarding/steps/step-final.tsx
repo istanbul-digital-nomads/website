@@ -55,7 +55,7 @@ function CheckboxGroup({
               className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
                 value.includes(key)
                   ? "bg-primary-600 text-white"
-                  : "bg-white/70 text-[#6b6257] ring-1 ring-black/5 hover:bg-primary-50 dark:bg-[#231a14] dark:text-[#b8a898] dark:ring-white/5"
+                  : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 hover:bg-primary-50 dark:bg-[#1e2130] dark:text-[#99a3ad] dark:ring-white/5"
               }`}
             >
               {opt}
@@ -112,10 +112,10 @@ export function StepFinal({ data, updateField, errors }: StepProps) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-[#2a2018] dark:text-[#f7f2ea]">
+        <h2 className="text-2xl font-bold text-[#1a1a2e] dark:text-[#f2f3f4]">
           You&apos;re almost in!
         </h2>
-        <p className="mt-1 text-sm text-[#6b6257] dark:text-[#b8a898]">
+        <p className="mt-1 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
           One last thing - tell us why you&apos;d like to join.
         </p>
       </div>
@@ -134,7 +134,7 @@ export function StepFinal({ data, updateField, errors }: StepProps) {
         <label className="block text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]">
           Photo Verification
         </label>
-        <p className="mt-1 text-xs text-[#6b6257] dark:text-[#b8a898]">
+        <p className="mt-1 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
           Upload a clear photo of yourself. This helps us maintain a safe
           community. Max 10 MB.
         </p>

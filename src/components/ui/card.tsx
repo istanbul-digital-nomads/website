@@ -9,9 +9,9 @@ function Card({ className, hoverable = false, ...props }: CardProps) {
   return (
     <div
       className={cn(
-        "rounded-lg border border-neutral-200 bg-white p-6 dark:border-[rgba(180,140,110,0.12)] dark:bg-[#1c1614]",
+        "rounded-lg border border-neutral-200 bg-white p-6 dark:border-[rgba(44,62,80,0.12)] dark:bg-[#1a1a2e]",
         hoverable &&
-          "transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary-200 hover:shadow-[0_16px_40px_rgba(200,53,31,0.08)] dark:hover:border-primary-900/40",
+          "transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary-200 hover:shadow-[0_16px_40px_rgba(192,57,43,0.08)] dark:hover:border-primary-900/40",
         className,
       )}
       {...props}
@@ -41,7 +41,7 @@ function CardDescription({
 }: HTMLAttributes<HTMLParagraphElement>) {
   return (
     <p
-      className={cn("text-sm text-neutral-500 dark:text-[#b8a898]", className)}
+      className={cn("text-sm text-neutral-500 dark:text-[#99a3ad]", className)}
       {...props}
     />
   );

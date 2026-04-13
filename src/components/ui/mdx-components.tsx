@@ -5,7 +5,7 @@ type Props<T extends keyof JSX.IntrinsicElements> = ComponentPropsWithoutRef<T>;
 export const mdxComponents = {
   h2: ({ children, ...props }: Props<"h2">) => (
     <h2
-      className="mb-4 mt-10 text-2xl font-bold text-[#2a2018] dark:text-[#f7f2ea]"
+      className="mb-4 mt-10 text-2xl font-bold text-[#1a1a2e] dark:text-[#f2f3f4]"
       {...props}
     >
       {children}
@@ -13,7 +13,7 @@ export const mdxComponents = {
   ),
   h3: ({ children, ...props }: Props<"h3">) => (
     <h3
-      className="mb-3 mt-8 text-xl font-semibold text-[#2a2018] dark:text-[#f7f2ea]"
+      className="mb-3 mt-8 text-xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]"
       {...props}
     >
       {children}
@@ -21,7 +21,7 @@ export const mdxComponents = {
   ),
   h4: ({ children, ...props }: Props<"h4">) => (
     <h4
-      className="mb-2 mt-6 text-lg font-semibold text-[#2a2018] dark:text-[#f7f2ea]"
+      className="mb-2 mt-6 text-lg font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]"
       {...props}
     >
       {children}
@@ -29,7 +29,7 @@ export const mdxComponents = {
   ),
   p: ({ children, ...props }: Props<"p">) => (
     <p
-      className="mb-4 text-base leading-7 text-[#5a4f43] dark:text-[#d4c4b4]"
+      className="mb-4 text-base leading-7 text-[#526e89] dark:text-[#99a3ad]"
       {...props}
     >
       {children}
@@ -48,7 +48,7 @@ export const mdxComponents = {
   ),
   ul: ({ children, ...props }: Props<"ul">) => (
     <ul
-      className="mb-4 ml-6 list-disc space-y-2 text-[#5a4f43] marker:text-primary-400 dark:text-[#d4c4b4]"
+      className="mb-4 ml-6 list-disc space-y-2 text-[#526e89] marker:text-primary-400 dark:text-[#99a3ad]"
       {...props}
     >
       {children}
@@ -56,7 +56,7 @@ export const mdxComponents = {
   ),
   ol: ({ children, ...props }: Props<"ol">) => (
     <ol
-      className="mb-4 ml-6 list-decimal space-y-2 text-[#5a4f43] marker:text-primary-400 dark:text-[#d4c4b4]"
+      className="mb-4 ml-6 list-decimal space-y-2 text-[#526e89] marker:text-primary-400 dark:text-[#99a3ad]"
       {...props}
     >
       {children}
@@ -69,7 +69,7 @@ export const mdxComponents = {
   ),
   strong: ({ children, ...props }: Props<"strong">) => (
     <strong
-      className="font-semibold text-[#2a2018] dark:text-[#f7f2ea]"
+      className="font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]"
       {...props}
     >
       {children}
@@ -84,7 +84,7 @@ export const mdxComponents = {
     </blockquote>
   ),
   table: ({ children, ...props }: Props<"table">) => (
-    <div className="my-6 overflow-x-auto rounded-xl border border-primary-200/40 dark:border-[rgba(200,100,60,0.12)]">
+    <div className="my-6 overflow-x-auto rounded-xl border border-[#e5e8eb]/60 dark:border-[#2c2f3a]">
       <table className="w-full text-left text-sm" {...props}>
         {children}
       </table>
@@ -92,7 +92,7 @@ export const mdxComponents = {
   ),
   thead: ({ children, ...props }: Props<"thead">) => (
     <thead
-      className="border-b border-primary-200/40 bg-primary-50/60 text-xs uppercase tracking-wider text-primary-800 dark:border-[rgba(200,100,60,0.12)] dark:bg-primary-950/20 dark:text-primary-200"
+      className="border-b border-[#e5e8eb]/60 bg-primary-50/60 text-xs uppercase tracking-wider text-primary-800 dark:border-[#2c2f3a] dark:bg-primary-950/20 dark:text-primary-200"
       {...props}
     >
       {children}
@@ -105,17 +105,14 @@ export const mdxComponents = {
   ),
   td: ({ children, ...props }: Props<"td">) => (
     <td
-      className="border-b border-primary-100/30 px-4 py-3 text-[#5a4f43] dark:border-[rgba(200,100,60,0.06)] dark:text-[#d4c4b4]"
+      className="border-b border-primary-100/30 px-4 py-3 text-[#526e89] dark:border-[rgba(44,62,80,0.06)] dark:text-[#99a3ad]"
       {...props}
     >
       {children}
     </td>
   ),
   hr: (props: Props<"hr">) => (
-    <hr
-      className="my-8 border-primary-200/30 dark:border-[rgba(200,100,60,0.1)]"
-      {...props}
-    />
+    <hr className="my-8 border-[#e5e8eb]/40 dark:border-[#2c2f3a]" {...props} />
   ),
   code: ({ children, ...props }: Props<"code">) => (
     <code

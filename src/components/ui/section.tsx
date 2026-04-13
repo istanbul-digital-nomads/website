@@ -57,7 +57,7 @@ function SectionDescription({
   return (
     <p
       className={cn(
-        "mt-4 text-lg text-neutral-600 dark:text-[#b8a898]",
+        "mt-4 text-lg text-neutral-600 dark:text-[#99a3ad]",
         className,
       )}
       {...props}

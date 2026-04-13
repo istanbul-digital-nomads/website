@@ -59,8 +59,8 @@ export function getEventCoordinates(
 
 // Event type colors matching the badge system
 export const EVENT_TYPE_COLORS: Record<string, string> = {
-  meetup: "#e34b32",
-  coworking: "#2f8f7b",
-  workshop: "#d49a45",
-  social: "#ff7b61",
+  meetup: "#c0392b",
+  coworking: "#27ae60",
+  workshop: "#f39c12",
+  social: "#e74c3c",
 };

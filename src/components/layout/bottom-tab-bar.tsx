@@ -43,7 +43,7 @@ export function BottomTabBar() {
   return (
     <>
       <div
-        className="animate-slide-up-bar fixed inset-x-0 bottom-0 z-50 border-t border-black/10 bg-[rgba(245,239,228,0.95)] backdrop-blur-md md:hidden dark:border-white/10 dark:bg-[rgba(21,16,16,0.96)]"
+        className="animate-slide-up-bar fixed inset-x-0 bottom-0 z-50 border-t border-black/10 bg-[rgba(250,250,250,0.95)] backdrop-blur-md md:hidden dark:border-white/10 dark:bg-[rgba(26,29,39,0.96)]"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
         <div className="flex h-16 items-stretch">
@@ -61,7 +61,7 @@ export function BottomTabBar() {
                     "h-5 w-5 transition-colors",
                     active
                       ? "text-primary-600 dark:text-primary-400"
-                      : "text-neutral-500 dark:text-[#8a7a6a]",
+                      : "text-neutral-500 dark:text-[#85929e]",
                   )}
                 />
                 <span
@@ -69,7 +69,7 @@ export function BottomTabBar() {
                     "text-[10px] font-medium transition-colors",
                     active
                       ? "text-primary-600 dark:text-primary-400"
-                      : "text-neutral-500 dark:text-[#8a7a6a]",
+                      : "text-neutral-500 dark:text-[#85929e]",
                   )}
                 >
                   {tab.label}

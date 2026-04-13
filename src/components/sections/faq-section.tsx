@@ -17,15 +17,15 @@ export function FAQSection() {
         <Reveal>
           <div className="mx-auto max-w-3xl">
             <p className="eyebrow">Common questions</p>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-[#2a2018] sm:text-4xl dark:text-[#f7f2ea]">
+            <h2 className="mt-4 text-3xl font-bold tracking-tight text-[#1a1a2e] sm:text-4xl dark:text-[#f2f3f4]">
               What nomads ask before arriving.
             </h2>
-            <p className="mt-4 text-lg text-[#6b6257] dark:text-[#b8a898]">
+            <p className="mt-4 text-lg text-[#5d6d7e] dark:text-[#99a3ad]">
               Quick answers from our city guides. Click any question for more
               detail.
             </p>
 
-            <div className="mt-10 divide-y divide-primary-200/30 dark:divide-[rgba(200,100,60,0.1)]">
+            <div className="mt-10 divide-y divide-primary-200/30 dark:divide-[rgba(44,47,58,0.5)]">
               {faqItems.map((item, index) => {
                 const isOpen = openIndex === index;
                 return (
@@ -35,12 +35,12 @@ export function FAQSection() {
                       aria-expanded={openIndex === index}
                       className="flex w-full items-center justify-between py-5 text-left"
                     >
-                      <span className="pr-4 text-base font-medium text-[#2a2018] dark:text-[#f7f2ea]">
+                      <span className="pr-4 text-base font-medium text-[#1a1a2e] dark:text-[#f2f3f4]">
                         {item.question}
                       </span>
                       <ChevronDown
                         className={cn(
-                          "h-5 w-5 shrink-0 text-[#6b6257] transition-transform duration-200 dark:text-[#b8a898]",
+                          "h-5 w-5 shrink-0 text-[#5d6d7e] transition-transform duration-200 dark:text-[#99a3ad]",
                           isOpen && "rotate-180",
                         )}
                       />
@@ -55,7 +55,7 @@ export function FAQSection() {
                     >
                       <div className="overflow-hidden">
                         <div className="pb-5">
-                          <p className="text-sm leading-7 text-[#5a4f43] dark:text-[#d4c4b4]">
+                          <p className="text-sm leading-7 text-[#526e89] dark:text-[#99a3ad]">
                             {item.answer}
                           </p>
                           <Link

@@ -13,10 +13,10 @@ export function StepContact({ data, updateField, errors }: StepProps) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-[#2a2018] dark:text-[#f7f2ea]">
+        <h2 className="text-2xl font-bold text-[#1a1a2e] dark:text-[#f2f3f4]">
           Contact & Work
         </h2>
-        <p className="mt-1 text-sm text-[#6b6257] dark:text-[#b8a898]">
+        <p className="mt-1 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
           How can the community reach you, and what do you do?
         </p>
       </div>

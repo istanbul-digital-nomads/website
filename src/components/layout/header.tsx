@@ -55,10 +55,10 @@ function NavDropdown({
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          "flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium transition-all hover:bg-black/5 hover:text-neutral-950 dark:hover:bg-white/10 dark:hover:text-[#f7f2ea]",
+          "flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium transition-all hover:bg-black/5 hover:text-neutral-950 dark:hover:bg-white/10 dark:hover:text-[#f2f3f4]",
           isChildActive
-            ? "bg-black/5 text-neutral-950 dark:bg-white/10 dark:text-[#f7f2ea]"
-            : "text-neutral-600 dark:text-[#8a7a6a]",
+            ? "bg-black/5 text-neutral-950 dark:bg-white/10 dark:text-[#f2f3f4]"
+            : "text-neutral-600 dark:text-[#85929e]",
         )}
       >
         {item.label}
@@ -71,7 +71,7 @@ function NavDropdown({
       </button>
 
       {open && (
-        <div className="absolute left-1/2 top-full z-50 mt-2 w-64 -translate-x-1/2 rounded-2xl border border-black/10 bg-white/95 p-2 shadow-[0_16px_48px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-white/10 dark:bg-[#1c1614]/95 dark:shadow-[0_16px_48px_rgba(0,0,0,0.4)]">
+        <div className="absolute left-1/2 top-full z-50 mt-2 w-64 -translate-x-1/2 rounded-2xl border border-black/10 bg-white/95 p-2 shadow-[0_16px_48px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-white/10 dark:bg-[#1a1d27]/95 dark:shadow-[0_16px_48px_rgba(0,0,0,0.4)]">
           {item.children.map((child) => (
             <Link
               key={child.href}
@@ -85,10 +85,10 @@ function NavDropdown({
                   "bg-primary-50/80 dark:bg-primary-900/20",
               )}
             >
-              <div className="text-sm font-medium text-neutral-900 dark:text-[#f7f2ea]">
+              <div className="text-sm font-medium text-neutral-900 dark:text-[#f2f3f4]">
                 {child.label}
               </div>
-              <div className="mt-0.5 text-xs text-neutral-500 dark:text-[#8a7a6a]">
+              <div className="mt-0.5 text-xs text-neutral-500 dark:text-[#85929e]">
                 {child.description}
               </div>
             </Link>
@@ -116,9 +116,9 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-black/5 bg-[rgba(245,239,228,0.88)] backdrop-blur-md transition-[background-color,border-color,box-shadow,transform] duration-300 dark:border-white/10 dark:bg-[rgba(21,16,16,0.88)]",
+        "sticky top-0 z-50 border-b border-black/5 bg-[rgba(250,250,250,0.88)] backdrop-blur-md transition-[background-color,border-color,box-shadow,transform] duration-300 dark:border-white/10 dark:bg-[rgba(26,29,39,0.88)]",
         scrolled &&
-          "border-black/10 bg-[rgba(245,239,228,0.95)] shadow-[0_10px_30px_rgba(15,23,42,0.08)] dark:border-white/15 dark:bg-[rgba(21,16,16,0.95)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.25)]",
+          "border-black/10 bg-[rgba(250,250,250,0.95)] shadow-[0_10px_30px_rgba(15,23,42,0.08)] dark:border-white/15 dark:bg-[rgba(26,29,39,0.95)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.25)]",
         hideOnMobile && "max-md:-translate-y-full",
       )}
     >
@@ -130,12 +130,12 @@ export function Header() {
           )}
         >
           <Link href="/" prefetch className="flex items-center gap-3">
-            <span className="h-2 w-2 rounded-full bg-primary-500 shadow-[0_0_24px_rgba(227,75,50,0.55)]" />
+            <span className="h-2 w-2 rounded-full bg-primary-500 shadow-[0_0_24px_rgba(192,57,43,0.55)]" />
             <div>
-              <div className="text-sm font-semibold uppercase tracking-[0.22em] text-neutral-950 dark:text-[#f7f2ea]">
+              <div className="text-sm font-semibold uppercase tracking-[0.22em] text-neutral-950 dark:text-[#f2f3f4]">
                 {siteConfig.shortName}
               </div>
-              <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-neutral-500 dark:text-[#8a7a6a]">
+              <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-neutral-500 dark:text-[#85929e]">
                 Remote life, local rhythm
               </div>
             </div>
@@ -151,10 +151,10 @@ export function Header() {
                   href={item.href}
                   prefetch
                   className={cn(
-                    "rounded-full px-4 py-2 text-sm font-medium transition-all hover:bg-black/5 hover:text-neutral-950 dark:hover:bg-white/10 dark:hover:text-[#f7f2ea]",
+                    "rounded-full px-4 py-2 text-sm font-medium transition-all hover:bg-black/5 hover:text-neutral-950 dark:hover:bg-white/10 dark:hover:text-[#f2f3f4]",
                     pathname === item.href
-                      ? "bg-black/5 text-neutral-950 dark:bg-white/10 dark:text-[#f7f2ea]"
-                      : "text-neutral-600 dark:text-[#8a7a6a]",
+                      ? "bg-black/5 text-neutral-950 dark:bg-white/10 dark:text-[#f2f3f4]"
+                      : "text-neutral-600 dark:text-[#85929e]",
                   )}
                 >
                   {item.label}
@@ -166,7 +166,7 @@ export function Header() {
           <div className="flex items-center gap-2">
             <button
               onClick={cycleTheme}
-              className="rounded-full border border-black/5 p-2 text-neutral-500 transition-colors hover:bg-black/5 dark:border-white/10 dark:text-[#b8a898] dark:hover:bg-white/10"
+              className="rounded-full border border-black/5 p-2 text-neutral-500 transition-colors hover:bg-black/5 dark:border-white/10 dark:text-[#99a3ad] dark:hover:bg-white/10"
               aria-label={`Switch theme (current: ${theme})`}
             >
               <ThemeIcon className="h-5 w-5" />

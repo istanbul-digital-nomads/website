@@ -4,6 +4,30 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-04-13
+
+### Changed
+
+#### Brand palette migration
+- New primary color: Pomegranate Red (#C0392B) replacing terracotta (#e34b32)
+- New secondary color: Navy (#2C3E50) replacing warm brown tones
+- Light mode: clean #fafafa backgrounds with #1a1a2e foreground
+- Dark mode: deep navy #0f1117 backgrounds with #f2f3f4 foreground
+- Updated all hardcoded hex values across 30+ files
+- Typography changed from Manrope to Inter
+- Accent colors: warm (#f39c12), coral (#e74c3c), green (#27ae60)
+
+#### Reveal animation rewrite
+- Rewrote scroll-reveal to be CSS-first and production-safe
+- Content is visible by default - JS only hides below-fold elements for animation
+- Fixes invisible sections when JS fails to hydrate or intersection observers don't fire
+- Renamed `.reveal` to `.reveal-hidden` for progressive enhancement
+
+### Fixed
+- Guide card photos now use `next/image` instead of `<img>` for automatic optimization
+- Fixed stale route-progress gradient colors
+- Fixed remaining old rgba color values in onboarding steps
+
 ## [1.1.0] - 2026-04-13
 
 ### Added

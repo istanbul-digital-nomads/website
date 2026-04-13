@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import {
   ChevronDown,
   ChevronUp,
@@ -43,9 +44,11 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
           {/* Header */}
           <div className="flex items-start gap-4">
             {guide.photo_url ? (
-              <img
+              <Image
                 src={guide.photo_url}
                 alt={guide.name}
+                width={64}
+                height={64}
                 className="h-16 w-16 rounded-full object-cover"
               />
             ) : (
@@ -54,7 +57,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
               </div>
             )}
             <div className="min-w-0">
-              <h3 className="text-lg font-semibold text-neutral-900 dark:text-[#f7f2ea]">
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-[#f2f3f4]">
                 {guide.name}
               </h3>
               {guide.role_title && (
@@ -62,7 +65,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
                   {guide.role_title}
                 </p>
               )}
-              <div className="mt-1 flex items-center gap-1 text-xs text-neutral-500 dark:text-[#8a7a6a]">
+              <div className="mt-1 flex items-center gap-1 text-xs text-neutral-500 dark:text-[#85929e]">
                 <Clock className="h-3 w-3" />
                 {guide.years_in_istanbul}{" "}
                 {guide.years_in_istanbul === 1 ? "year" : "years"} in Istanbul
@@ -71,7 +74,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
           </div>
 
           {/* Bio */}
-          <p className="mt-4 text-sm leading-7 text-neutral-600 dark:text-[#b8a898]">
+          <p className="mt-4 text-sm leading-7 text-neutral-600 dark:text-[#99a3ad]">
             {expanded ? guide.bio : guide.bio.slice(0, 120)}
             {!expanded && guide.bio.length > 120 && "..."}
           </p>
@@ -88,13 +91,13 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
           {/* Neighborhoods + Languages */}
           <div className="mt-3 space-y-1.5">
             {guide.neighborhoods.length > 0 && (
-              <div className="flex items-center gap-1.5 text-xs text-neutral-500 dark:text-[#8a7a6a]">
+              <div className="flex items-center gap-1.5 text-xs text-neutral-500 dark:text-[#85929e]">
                 <MapPin className="h-3 w-3 shrink-0" />
                 {guide.neighborhoods.map(getNeighborhoodLabel).join(", ")}
               </div>
             )}
             {guide.languages.length > 0 && (
-              <div className="flex items-center gap-1.5 text-xs text-neutral-500 dark:text-[#8a7a6a]">
+              <div className="flex items-center gap-1.5 text-xs text-neutral-500 dark:text-[#85929e]">
                 <Languages className="h-3 w-3 shrink-0" />
                 {guide.languages.join(", ")}
               </div>

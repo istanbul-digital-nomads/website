@@ -37,7 +37,7 @@ export default function GuidePage({ params }: GuidePageProps) {
   return (
     <Section>
       <div className="mx-auto max-w-3xl">
-        <nav className="mb-6 flex items-center gap-2 text-sm text-[#6b6257] dark:text-[#b8a898]">
+        <nav className="mb-6 flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
           <Link
             href="/"
             className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
@@ -52,20 +52,20 @@ export default function GuidePage({ params }: GuidePageProps) {
             Guides
           </Link>
           <span>/</span>
-          <span className="text-[#2a2018] dark:text-[#f7f2ea]">
+          <span className="text-[#1a1a2e] dark:text-[#f2f3f4]">
             {guide.title}
           </span>
         </nav>
 
-        <h1 className="text-4xl font-bold tracking-tight text-[#2a2018] dark:text-[#f7f2ea]">
+        <h1 className="text-4xl font-bold tracking-tight text-[#1a1a2e] dark:text-[#f2f3f4]">
           {guide.title}
         </h1>
-        <p className="mt-4 text-lg text-[#6b6257] dark:text-[#b8a898]">
+        <p className="mt-4 text-lg text-[#5d6d7e] dark:text-[#99a3ad]">
           {guideContent?.frontmatter.description || guide.description}
         </p>
 
         {guideContent?.frontmatter.lastUpdated && (
-          <div className="mt-4 flex items-center gap-2 text-sm text-[#6b6257] dark:text-[#b8a898]">
+          <div className="mt-4 flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
             <Calendar className="h-4 w-4" />
             Last updated {formatDate(guideContent.frontmatter.lastUpdated)}
           </div>
@@ -80,11 +80,11 @@ export default function GuidePage({ params }: GuidePageProps) {
           </article>
         ) : (
           <div className="mt-12 rounded-xl border border-dashed border-primary-200/50 bg-primary-50/30 p-12 text-center dark:border-primary-900/30 dark:bg-primary-950/10">
-            <p className="text-[#6b6257] dark:text-[#b8a898]">
+            <p className="text-[#5d6d7e] dark:text-[#99a3ad]">
               We&apos;re writing this guide with input from the community. Check
               back soon.
             </p>
-            <p className="mt-2 text-sm text-[#6b6257]/70 dark:text-[#b8a898]/70">
+            <p className="mt-2 text-sm text-[#5d6d7e]/70 dark:text-[#99a3ad]/70">
               Know something useful? Share it in the{" "}
               <a
                 href="https://t.me/istanbul_digital_nomads"

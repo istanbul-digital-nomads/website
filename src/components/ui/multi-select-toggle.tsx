@@ -29,7 +29,7 @@ export function MultiSelectToggle({
 
   return (
     <div>
-      <label className="block text-sm font-medium text-neutral-900 dark:text-[#f7f2ea]">
+      <label className="block text-sm font-medium text-neutral-900 dark:text-[#f2f3f4]">
         {label}
         {required && <span className="ml-0.5 text-red-500">*</span>}
       </label>
@@ -48,7 +48,7 @@ export function MultiSelectToggle({
                 "rounded-xl px-3.5 py-2 text-sm font-medium transition-colors",
                 isSelected
                   ? "bg-primary-600 text-white dark:bg-primary-500"
-                  : "bg-white/70 text-neutral-600 ring-1 ring-black/10 hover:bg-primary-50 hover:text-primary-700 dark:bg-white/5 dark:text-[#b8a898] dark:ring-white/10 dark:hover:bg-white/10",
+                  : "bg-white/70 text-neutral-600 ring-1 ring-black/10 hover:bg-primary-50 hover:text-primary-700 dark:bg-white/5 dark:text-[#99a3ad] dark:ring-white/10 dark:hover:bg-white/10",
               )}
             >
               {optLabel}

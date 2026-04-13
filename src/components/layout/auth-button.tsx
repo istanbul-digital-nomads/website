@@ -71,7 +71,7 @@ export function AuthButton() {
       <div className="flex items-center gap-2">
         <button
           onClick={handleSignOut}
-          className="hidden items-center gap-2 rounded-full border border-black/5 px-3 py-1.5 text-sm font-medium text-[#6b6257] transition-colors hover:bg-black/5 md:flex dark:border-white/10 dark:text-[#b8a898] dark:hover:bg-white/10"
+          className="hidden items-center gap-2 rounded-full border border-black/5 px-3 py-1.5 text-sm font-medium text-[#5d6d7e] transition-colors hover:bg-black/5 md:flex dark:border-white/10 dark:text-[#99a3ad] dark:hover:bg-white/10"
           title="Sign out"
         >
           {avatar ? (
@@ -119,7 +119,7 @@ export function AuthButton() {
             </div>
           )}
           {!onboardingComplete && (
-            <span className="absolute right-1 top-1 h-2.5 w-2.5 animate-pulse rounded-full bg-primary-500 ring-2 ring-white dark:ring-[#151010]" />
+            <span className="absolute right-1 top-1 h-2.5 w-2.5 animate-pulse rounded-full bg-primary-500 ring-2 ring-white dark:ring-[#0f1117]" />
           )}
         </Link>
       </div>

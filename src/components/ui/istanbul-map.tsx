@@ -39,7 +39,7 @@ const neighborhoods: Neighborhood[] = [
     lat: 41.026,
     vibe: "Historic tower district, cafes, galleries, nightlife",
     side: "European",
-    color: "#d49a45",
+    color: "#f39c12",
     bgClass: "bg-accent-warm text-neutral-950",
     labelSide: "right",
   },
@@ -51,7 +51,7 @@ const neighborhoods: Neighborhood[] = [
     side: "European",
     color: "#737373",
     bgClass:
-      "bg-neutral-200 text-neutral-800 dark:bg-[#3a302a] dark:text-[#e8dfd3]",
+      "bg-neutral-200 text-neutral-800 dark:bg-[#2c2f3a] dark:text-[#d5dce3]",
     labelSide: "left",
   },
   {
@@ -60,7 +60,7 @@ const neighborhoods: Neighborhood[] = [
     lat: 40.993,
     vibe: "Calm Asian side, walkable cafes, daily rhythm hub",
     side: "Asian",
-    color: "#e34b32",
+    color: "#c0392b",
     bgClass: "bg-primary-500 text-white",
     labelSide: "right",
   },
@@ -70,7 +70,7 @@ const neighborhoods: Neighborhood[] = [
     lat: 40.978,
     vibe: "Seaside promenades, quiet streets, creative scene",
     side: "Asian",
-    color: "#2f8f7b",
+    color: "#27ae60",
     bgClass: "bg-accent-green text-white",
     labelSide: "left",
   },
@@ -82,7 +82,7 @@ const neighborhoods: Neighborhood[] = [
     side: "Asian",
     color: "#737373",
     bgClass:
-      "bg-neutral-200 text-neutral-800 dark:bg-[#3a302a] dark:text-[#e8dfd3]",
+      "bg-neutral-200 text-neutral-800 dark:bg-[#2c2f3a] dark:text-[#d5dce3]",
     labelSide: "right",
   },
 ];
@@ -162,7 +162,7 @@ function AnimatedMarker({
           }}
         />
         <span
-          className="relative block h-3.5 w-3.5 rounded-full shadow-lg ring-2 ring-white/90 dark:ring-[#1c1614]/80"
+          className="relative block h-3.5 w-3.5 rounded-full shadow-lg ring-2 ring-white/90 dark:ring-[#1a1a2e]/80"
           style={{ backgroundColor: neighborhood.color }}
         />
 
@@ -182,17 +182,17 @@ function AnimatedMarker({
         {isActive && (
           <div
             className={cn(
-              "animate-slide-up-fade absolute bottom-full mb-2 w-48 rounded-xl border border-black/10 bg-white/95 p-3 shadow-lg backdrop-blur-sm dark:border-white/10 dark:bg-[#1c1614]/95",
+              "animate-slide-up-fade absolute bottom-full mb-2 w-48 rounded-xl border border-black/10 bg-white/95 p-3 shadow-lg backdrop-blur-sm dark:border-white/10 dark:bg-[#1a1a2e]/95",
               neighborhood.labelSide === "right" ? "left-0" : "right-0",
             )}
           >
-            <p className="text-xs font-medium text-neutral-900 dark:text-[#e8dfd3]">
+            <p className="text-xs font-medium text-neutral-900 dark:text-[#d5dce3]">
               {neighborhood.name}
             </p>
-            <p className="mt-0.5 text-[10px] uppercase tracking-wider text-[#8a7a6a]">
+            <p className="mt-0.5 text-[10px] uppercase tracking-wider text-[#85929e]">
               {neighborhood.side} side
             </p>
-            <p className="mt-1.5 text-xs leading-relaxed text-neutral-600 dark:text-[#b8a898]">
+            <p className="mt-1.5 text-xs leading-relaxed text-neutral-600 dark:text-[#99a3ad]">
               {neighborhood.vibe}
             </p>
           </div>
@@ -231,7 +231,7 @@ export function IstanbulMap() {
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden rounded-[2.3rem] border border-primary-200/60 bg-[#e8e0d4] shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:border-primary-900/40 dark:bg-[#1a1410] dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]">
+    <div className="absolute inset-0 overflow-hidden rounded-[2.3rem] border border-primary-200/60 bg-[#d5dce3] shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:border-primary-900/40 dark:bg-[#1a1d27] dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]">
       <div
         className={cn(
           "absolute inset-0 transition-opacity duration-700",
@@ -264,8 +264,8 @@ export function IstanbulMap() {
                 type="line"
                 paint={{
                   "line-color": isDark
-                    ? "rgba(47,143,123,0.25)"
-                    : "rgba(47,143,123,0.15)",
+                    ? "rgba(39,174,96,0.25)"
+                    : "rgba(39,174,96,0.15)",
                   "line-width": 8,
                   "line-blur": 6,
                 }}
@@ -275,8 +275,8 @@ export function IstanbulMap() {
                 type="line"
                 paint={{
                   "line-color": isDark
-                    ? "rgba(47,143,123,0.7)"
-                    : "rgba(47,143,123,0.5)",
+                    ? "rgba(39,174,96,0.7)"
+                    : "rgba(39,174,96,0.5)",
                   "line-width": 2,
                   "line-dasharray": [2, 3],
                 }}
@@ -302,7 +302,7 @@ export function IstanbulMap() {
             "pointer-events-none absolute inset-0",
             isDark
               ? "bg-[rgba(15,10,8,0.12)]"
-              : "bg-[radial-gradient(circle_at_40%_40%,rgba(227,75,50,0.06),transparent_60%),radial-gradient(circle_at_70%_70%,rgba(212,154,69,0.05),transparent_50%)]",
+              : "bg-[radial-gradient(circle_at_40%_40%,rgba(192,57,43,0.06),transparent_60%),radial-gradient(circle_at_70%_70%,rgba(243,156,18,0.05),transparent_50%)]",
           )}
         />
       </div>
@@ -310,11 +310,11 @@ export function IstanbulMap() {
       <div className="pointer-events-none absolute inset-0 rounded-[2.3rem] ring-1 ring-inset ring-black/5 dark:ring-white/10" />
 
       <div className="absolute inset-x-4 bottom-4 sm:inset-x-6 sm:bottom-6">
-        <div className="rounded-2xl border border-black/8 bg-white/88 px-5 py-4 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-[#1c1614]/85">
+        <div className="rounded-2xl border border-black/8 bg-white/88 px-5 py-4 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-[#1a1a2e]/85">
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="eyebrow">First-month map - Istanbul</p>
-              <p className="mt-2 max-w-sm text-sm leading-6 text-neutral-700 dark:text-[#b8a898]">
+              <p className="mt-2 max-w-sm text-sm leading-6 text-neutral-700 dark:text-[#99a3ad]">
                 European side left, Asian side right, ferries tying the week
                 together. Hover neighborhoods to explore.
               </p>
@@ -323,7 +323,7 @@ export function IstanbulMap() {
               <MapPin className="h-4 w-4 text-primary-600 dark:text-primary-400" />
             </div>
           </div>
-          <div className="mt-3 flex gap-4 text-xs text-[#6b6257] dark:text-[#8a7a6a]">
+          <div className="mt-3 flex gap-4 text-xs text-[#5d6d7e] dark:text-[#85929e]">
             <span className="flex items-center gap-1.5">
               <span className="h-2 w-2 rounded-full bg-accent-warm" />
               European side

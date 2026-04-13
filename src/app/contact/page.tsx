@@ -90,7 +90,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="font-medium">{link.title}</h4>
-                      <p className="text-sm text-neutral-600 dark:text-[#8a7a6a]">
+                      <p className="text-sm text-neutral-600 dark:text-[#85929e]">
                         {link.description}
                       </p>
                     </div>
@@ -103,7 +103,7 @@ export default function ContactPage() {
       </Section>
 
       {/* FAQ */}
-      <Section className="bg-neutral-50 dark:bg-[#1c1614]/50">
+      <Section className="bg-neutral-50 dark:bg-[#1a1d27]/50">
         <SectionHeader>
           <SectionTitle>Frequently Asked Questions</SectionTitle>
         </SectionHeader>
@@ -111,7 +111,7 @@ export default function ContactPage() {
           {faqs.map((faq) => (
             <div key={faq.q}>
               <h3 className="font-semibold">{faq.q}</h3>
-              <p className="mt-1 text-neutral-600 dark:text-[#8a7a6a]">
+              <p className="mt-1 text-neutral-600 dark:text-[#85929e]">
                 {faq.a}
               </p>
             </div>

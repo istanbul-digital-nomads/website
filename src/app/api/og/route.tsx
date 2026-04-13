@@ -19,9 +19,9 @@ export async function GET(request: NextRequest) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#140b09",
+        backgroundColor: "#0f1117",
         backgroundImage:
-          "radial-gradient(circle at 24% 24%, #c8351f 0%, transparent 48%), radial-gradient(circle at 80% 20%, #d49a45 0%, transparent 36%), radial-gradient(circle at 78% 78%, rgba(47,143,123,0.72) 0%, transparent 34%)",
+          "radial-gradient(circle at 24% 24%, #a93226 0%, transparent 48%), radial-gradient(circle at 80% 20%, #f39c12 0%, transparent 36%), radial-gradient(circle at 78% 78%, rgba(39,174,96,0.72) 0%, transparent 34%)",
       }}
     >
       <div
@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
           style={{
             fontSize: 24,
             fontWeight: 600,
-            color: "#ffb3a4",
+            color: "#e74c3c",
             marginBottom: 16,
             letterSpacing: "0.08em",
           }}
@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
         <div
           style={{
             fontSize: 22,
-            color: "#d1c6be",
+            color: "#99a3ad",
             textAlign: "center",
             lineHeight: 1.5,
           }}
@@ -76,7 +76,7 @@ export async function GET(request: NextRequest) {
           alignItems: "center",
           gap: 8,
           fontSize: 18,
-          color: "#c6b7ad",
+          color: "#85929e",
         }}
       >
         istanbulnomads.com

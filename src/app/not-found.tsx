@@ -12,7 +12,7 @@ export default function NotFound() {
           404
         </p>
         <h1 className="mt-4 text-2xl font-bold">Page not found</h1>
-        <p className="mt-2 text-[#6b6257] dark:text-[#b8a898]">
+        <p className="mt-2 text-[#5d6d7e] dark:text-[#99a3ad]">
           This page doesn&apos;t exist or has been moved. Here are some places
           to go instead:
         </p>
@@ -41,7 +41,7 @@ export default function NotFound() {
             href={socialLinks.telegram}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-[#6b6257] transition-colors hover:text-primary-600 dark:text-[#b8a898] dark:hover:text-primary-400"
+            className="inline-flex items-center gap-2 text-sm text-[#5d6d7e] transition-colors hover:text-primary-600 dark:text-[#99a3ad] dark:hover:text-primary-400"
           >
             <Send className="h-3.5 w-3.5" />
             Or ask in the Telegram group

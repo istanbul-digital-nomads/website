@@ -37,7 +37,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
         className="fixed inset-0 bg-black/20 backdrop-blur-sm"
         aria-hidden="true"
       />
-      <DialogPanel className="fixed inset-0 flex flex-col bg-[rgba(255,247,243,0.98)] backdrop-blur-xl transition-transform duration-300 data-[closed]:translate-y-full dark:bg-[rgba(21,16,16,0.98)]">
+      <DialogPanel className="fixed inset-0 flex flex-col bg-[rgba(255,247,243,0.98)] backdrop-blur-xl transition-transform duration-300 data-[closed]:translate-y-full dark:bg-[rgba(26,29,39,0.98)]">
         {/* Header */}
         <div
           className="flex items-center justify-between px-6"
@@ -49,7 +49,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
             <span className="text-lg font-bold text-primary-600 dark:text-primary-400">
               Menu
             </span>
-            <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.26em] text-neutral-500 dark:text-[#8a7a6a]">
+            <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.26em] text-neutral-500 dark:text-[#85929e]">
               Istanbul Digital Nomads
             </p>
           </div>
@@ -68,7 +68,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
             {navItems.map((item) =>
               "children" in item ? (
                 <div key={item.label}>
-                  <p className="px-4 pb-1 pt-4 font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-400 dark:text-[#6b6257]">
+                  <p className="px-4 pb-1 pt-4 font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-400 dark:text-[#5d6d7e]">
                     {item.label}
                   </p>
                   {item.children.map((child) => (
@@ -82,7 +82,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
                         pathname === child.href ||
                           pathname.startsWith(child.href + "/")
                           ? "bg-primary-50 text-primary-700 dark:bg-white/10 dark:text-primary-300"
-                          : "text-neutral-700 hover:bg-black/5 dark:text-[#b8a898] dark:hover:bg-white/5",
+                          : "text-neutral-700 hover:bg-black/5 dark:text-[#99a3ad] dark:hover:bg-white/5",
                       )}
                     >
                       {child.label}
@@ -99,7 +99,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
                     "tap-highlight flex items-center rounded-2xl px-4 py-3 text-lg font-medium transition-colors",
                     pathname === item.href
                       ? "bg-primary-50 text-primary-700 dark:bg-white/10 dark:text-primary-300"
-                      : "text-neutral-700 hover:bg-black/5 dark:text-[#b8a898] dark:hover:bg-white/5",
+                      : "text-neutral-700 hover:bg-black/5 dark:text-[#99a3ad] dark:hover:bg-white/5",
                   )}
                 >
                   {item.label}
@@ -132,7 +132,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
 
           {/* Theme toggle */}
           <div className="mt-6">
-            <p className="px-4 font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-500 dark:text-[#8a7a6a]">
+            <p className="px-4 font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-500 dark:text-[#85929e]">
               Appearance
             </p>
             <div className="mt-3 flex gap-1 rounded-full border border-black/10 bg-white/60 p-1 dark:border-white/10 dark:bg-white/5">
@@ -144,7 +144,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
                     "tap-highlight flex-1 rounded-full py-2.5 text-sm font-medium transition-colors",
                     theme === t.value
                       ? "bg-primary-600 text-white shadow-sm dark:bg-primary-500"
-                      : "text-neutral-600 hover:text-neutral-900 dark:text-[#8a7a6a] dark:hover:text-[#d4c4b4]",
+                      : "text-neutral-600 hover:text-neutral-900 dark:text-[#85929e] dark:hover:text-[#99a3ad]",
                   )}
                 >
                   {t.label}
@@ -155,7 +155,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
 
           {/* Social links */}
           <div className="mt-6">
-            <p className="px-4 font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-500 dark:text-[#8a7a6a]">
+            <p className="px-4 font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-500 dark:text-[#85929e]">
               Connect
             </p>
             <div className="mt-3 flex gap-3 px-4">
@@ -165,7 +165,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="tap-highlight rounded-full border border-black/10 p-3 text-neutral-500 transition-colors hover:bg-black/5 hover:text-neutral-900 dark:border-white/10 dark:text-[#b8a898] dark:hover:bg-white/10 dark:hover:text-white"
+                  className="tap-highlight rounded-full border border-black/10 p-3 text-neutral-500 transition-colors hover:bg-black/5 hover:text-neutral-900 dark:border-white/10 dark:text-[#99a3ad] dark:hover:bg-white/10 dark:hover:text-white"
                   aria-label={label}
                 >
                   <Icon className="h-5 w-5" />

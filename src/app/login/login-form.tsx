@@ -32,7 +32,7 @@ export function LoginForm() {
         loading={loading}
         variant="secondary"
         size="lg"
-        className="w-full rounded-xl border border-black/10 bg-white px-6 py-6 text-neutral-900 shadow-sm hover:bg-neutral-50 dark:border-white/10 dark:bg-[#1c1614] dark:text-[#e8dfd3] dark:hover:bg-[#2a2220]"
+        className="w-full rounded-xl border border-black/10 bg-white px-6 py-6 text-neutral-900 shadow-sm hover:bg-neutral-50 dark:border-white/10 dark:bg-[#1a1d27] dark:text-[#d5dce3] dark:hover:bg-[#252838]"
       >
         <svg className="mr-3 h-5 w-5" viewBox="0 0 24 24">
           <path

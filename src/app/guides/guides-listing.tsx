@@ -65,13 +65,13 @@ export function GuidesListing({ guidesWithContent }: GuidesListingProps) {
       {/* Search + Filters */}
       <div className="mb-8 space-y-4">
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#6b6257] dark:text-[#b8a898]" />
+          <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#5d6d7e] dark:text-[#99a3ad]" />
           <input
             type="text"
             placeholder="Search guides..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-xl border border-primary-200/40 bg-white/70 py-3 pl-11 pr-4 text-sm text-[#2a2018] placeholder:text-[#6b6257]/60 focus:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-500/20 dark:border-[rgba(200,100,60,0.12)] dark:bg-[#1c1614] dark:text-[#f7f2ea] dark:placeholder:text-[#b8a898]/60"
+            className="w-full rounded-xl border border-primary-200/40 bg-white/70 py-3 pl-11 pr-4 text-sm text-[#1a1a2e] placeholder:text-[#5d6d7e]/60 focus:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-500/20 dark:border-[rgba(44,62,80,0.12)] dark:bg-[#1a1a2e] dark:text-[#f2f3f4] dark:placeholder:text-[#99a3ad]/60"
           />
         </div>
 
@@ -83,8 +83,8 @@ export function GuidesListing({ guidesWithContent }: GuidesListingProps) {
               className={cn(
                 "rounded-full px-4 py-2 text-sm font-medium transition-colors",
                 category === cat.value
-                  ? "bg-primary-600 text-white shadow-[0_6px_20px_rgba(200,53,31,0.15)] dark:bg-primary-500"
-                  : "bg-white/70 text-[#6b6257] ring-1 ring-black/5 hover:bg-primary-50 hover:text-primary-700 dark:bg-[#1c1614] dark:text-[#b8a898] dark:ring-white/5 dark:hover:bg-primary-950/30",
+                  ? "bg-primary-600 text-white shadow-[0_6px_20px_rgba(192,57,43,0.15)] dark:bg-primary-500"
+                  : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 hover:bg-primary-50 hover:text-primary-700 dark:bg-[#1a1a2e] dark:text-[#99a3ad] dark:ring-white/5 dark:hover:bg-primary-950/30",
               )}
             >
               {cat.label}
@@ -96,7 +96,7 @@ export function GuidesListing({ guidesWithContent }: GuidesListingProps) {
       {/* Results */}
       {filtered.length === 0 ? (
         <div className="rounded-xl border border-dashed border-primary-200/50 bg-primary-50/30 p-12 text-center dark:border-primary-900/30 dark:bg-primary-950/10">
-          <p className="text-[#6b6257] dark:text-[#b8a898]">
+          <p className="text-[#5d6d7e] dark:text-[#99a3ad]">
             No guides match your search. Try a different term or category.
           </p>
         </div>
@@ -117,10 +117,10 @@ export function GuidesListing({ guidesWithContent }: GuidesListingProps) {
                         </span>
                       )}
                     </div>
-                    <h2 className="mt-4 text-lg font-semibold text-[#2a2018] dark:text-[#f7f2ea]">
+                    <h2 className="mt-4 text-lg font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
                       {guide.title}
                     </h2>
-                    <p className="mt-2 text-sm text-[#6b6257] dark:text-[#b8a898]">
+                    <p className="mt-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
                       {guide.description}
                     </p>
                     <span className="mt-4 inline-block text-sm font-medium text-primary-600 dark:text-primary-400">

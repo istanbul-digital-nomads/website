@@ -204,12 +204,12 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
           {/* Progress bar */}
           <div className="mb-8">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-[#2a2018] dark:text-[#f7f2ea]">
+              <span className="text-sm font-medium text-[#1a1a2e] dark:text-[#f2f3f4]">
                 Step {currentStep + 1} of {STEPS.length}
               </span>
               <button
                 onClick={handleSkip}
-                className="text-sm text-[#6b6257] transition-colors hover:text-primary-600 dark:text-[#b8a898]"
+                className="text-sm text-[#5d6d7e] transition-colors hover:text-primary-600 dark:text-[#99a3ad]"
               >
                 Skip for now
               </button>
@@ -226,13 +226,13 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
                 />
               ))}
             </div>
-            <p className="mt-2 text-xs text-[#6b6257] dark:text-[#b8a898]">
+            <p className="mt-2 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
               {STEPS[currentStep].label}
             </p>
           </div>
 
           {/* Step content */}
-          <div className="rounded-2xl border border-primary-200/30 bg-white/70 p-6 shadow-sm backdrop-blur-sm sm:p-8 dark:border-[rgba(200,100,60,0.12)] dark:bg-[#1c1614]/70">
+          <div className="rounded-2xl border border-primary-200/30 bg-white/70 p-6 shadow-sm backdrop-blur-sm sm:p-8 dark:border-[rgba(192,57,43,0.12)] dark:bg-[#1a1d27]/70">
             <StepComponent
               data={formData}
               updateField={updateField}

@@ -13,8 +13,8 @@ const DARK_STYLE =
   "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json";
 
 const TYPE_COLORS = {
-  coworking: "#2f8f7b",
-  cafe: "#d49a45",
+  coworking: "#27ae60",
+  cafe: "#f39c12",
 };
 
 function SpaceMarker({
@@ -50,7 +50,7 @@ function SpaceMarker({
         )}
         <div
           className={cn(
-            "rounded-full shadow-lg ring-2 ring-white/90 transition-transform dark:ring-[#1c1614]/80",
+            "rounded-full shadow-lg ring-2 ring-white/90 transition-transform dark:ring-[#1a1a2e]/80",
             isSelected ? "h-5 w-5 scale-125" : "h-3.5 w-3.5",
           )}
           style={{ backgroundColor: color }}
@@ -89,7 +89,7 @@ export function SpacesMap({
       className={cn(
         "relative overflow-hidden rounded-[2rem] border shadow-[0_20px_60px_rgba(15,23,42,0.1)] transition-opacity duration-700",
         isDark
-          ? "map-canvas-dark border-primary-900/40 bg-[#1a1410]"
+          ? "map-canvas-dark border-primary-900/40 bg-[#1a1d27]"
           : "map-canvas-warm border-primary-200/60 bg-[#e8e0d4]",
         mounted ? "opacity-100" : "opacity-0",
       )}
@@ -145,7 +145,7 @@ export function SpacesMap({
                   {selectedSpace.type === "coworking" ? "Coworking" : "Cafe"}
                 </span>
                 <span>-</span>
-                <span className="font-medium text-[#2f8f7b]">
+                <span className="font-medium text-[#27ae60]">
                   {computeNomadScore(selectedSpace.nomad_score).toFixed(1)}{" "}
                   score
                 </span>
@@ -156,16 +156,16 @@ export function SpacesMap({
       </Map>
 
       {/* Legend */}
-      <div className="absolute bottom-4 left-4 flex gap-3 rounded-xl border border-black/10 bg-white/90 px-3 py-2 backdrop-blur-sm dark:border-white/10 dark:bg-[#1c1614]/90">
+      <div className="absolute bottom-4 left-4 flex gap-3 rounded-xl border border-black/10 bg-white/90 px-3 py-2 backdrop-blur-sm dark:border-white/10 dark:bg-[#1a1a2e]/90">
         <div className="flex items-center gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-[#2f8f7b]" />
-          <span className="text-[10px] font-medium text-neutral-600 dark:text-[#b8a898]">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#27ae60]" />
+          <span className="text-[10px] font-medium text-neutral-600 dark:text-[#99a3ad]">
             Coworking
           </span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-[#d49a45]" />
-          <span className="text-[10px] font-medium text-neutral-600 dark:text-[#b8a898]">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#f39c12]" />
+          <span className="text-[10px] font-medium text-neutral-600 dark:text-[#99a3ad]">
             Cafe
           </span>
         </div>

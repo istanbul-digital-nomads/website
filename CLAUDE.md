@@ -56,8 +56,17 @@ All user-facing content (guides, blog posts, FAQ answers, UI text, meta descript
 
 **Bad:** "Kadikoy is widely considered to be an optimal neighborhood selection for digital nomads seeking a balanced lifestyle experience."
 
-## Versioning & Changelog
+## Git Workflow
 
+### Branch strategy
+1. All work happens on `develop`
+2. When ready to ship, push `develop` to origin
+3. Create a PR from `develop` to `main` using `gh pr create`
+4. Merge the PR using `gh pr merge` (not `git merge`)
+5. After merge, tag the release on `main` with the version from CHANGELOG.md
+6. Never push directly to `main` - always go through a PR
+
+### Versioning & Changelog
 - Follow [Semantic Versioning](https://semver.org/): MAJOR.MINOR.PATCH
 - Always check the latest version in `CHANGELOG.md` before adding a new entry
 - Increment the PATCH version for bug fixes and small improvements
@@ -65,3 +74,6 @@ All user-facing content (guides, blog posts, FAQ answers, UI text, meta descript
 - Never reuse or duplicate an existing version number
 - When updating the changelog, add entries under the correct existing version or create a new version section if needed
 - When creating git tags, always check existing tags with `git tag -l` first
+
+### Commits
+- Never add `Co-Authored-By` lines to commit messages

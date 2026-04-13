@@ -164,7 +164,7 @@ export default async function HomePage() {
 
       <section className="border-b border-black/5 py-8 dark:border-white/10">
         <Container>
-          <Reveal>
+          <div>
             <p className="mb-5 max-w-2xl text-sm leading-6 text-[#6b6257] dark:text-[#b8a898]">
               Built for people who want a city that becomes workable quickly,
               not just another place to pass through.
@@ -179,10 +179,9 @@ export default async function HomePage() {
                 },
                 { value: "11", label: "local living guides", icon: Globe },
                 { value: "15+", label: "neighborhoods covered", icon: MapPin },
-              ].map((item, index) => (
-                <Reveal
+              ].map((item) => (
+                <div
                   key={item.label}
-                  delay={index as 0 | 1 | 2 | 3}
                   className="flex items-start gap-4 border-l border-black/10 pl-4 first:border-l-0 first:pl-0 dark:border-white/10"
                 >
                   <item.icon className="mt-1 h-5 w-5 text-primary-600 dark:text-primary-400" />
@@ -194,10 +193,10 @@ export default async function HomePage() {
                       {item.label}
                     </p>
                   </div>
-                </Reveal>
+                </div>
               ))}
             </div>
-          </Reveal>
+          </div>
         </Container>
       </section>
 

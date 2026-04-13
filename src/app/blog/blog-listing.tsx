@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Search, Calendar, Clock, User } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -14,8 +15,12 @@ interface BlogListingProps {
 }
 
 export function BlogListing({ posts, allTags }: BlogListingProps) {
+  const searchParams = useSearchParams();
+  const tagFromUrl = searchParams.get("tag");
   const [search, setSearch] = useState("");
-  const [activeTag, setActiveTag] = useState<string | null>(null);
+  const [activeTag, setActiveTag] = useState<string | null>(
+    tagFromUrl && allTags.includes(tagFromUrl) ? tagFromUrl : null,
+  );
 
   const filtered = posts.filter((post) => {
     const matchesSearch =

@@ -39,7 +39,7 @@ function EventPin({
   const coords = getEventCoordinates(event.location_name);
   if (!coords) return null;
 
-  const color = EVENT_TYPE_COLORS[event.type] || "#e34b32";
+  const color = EVENT_TYPE_COLORS[event.type] || "#c0392b";
 
   return (
     <Marker longitude={coords[0]} latitude={coords[1]} anchor="center">
@@ -60,8 +60,8 @@ function EventPin({
           className={cn(
             "relative block rounded-full shadow-lg ring-2 transition-all",
             selected
-              ? "h-5 w-5 ring-white dark:ring-[#231a14]"
-              : "h-3.5 w-3.5 ring-white/80 dark:ring-[#231a14]/80",
+              ? "h-5 w-5 ring-white dark:ring-[#1a1a2e]"
+              : "h-3.5 w-3.5 ring-white/80 dark:ring-[#1a1a2e]/80",
           )}
           style={{ backgroundColor: color }}
         />
@@ -69,9 +69,9 @@ function EventPin({
           className={cn(
             "absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.2em] shadow-md transition-all",
             selected
-              ? "scale-105 bg-[#1c1614] text-white opacity-100 dark:bg-[#f7f2ea] dark:text-[#1c1614]"
+              ? "scale-105 bg-[#1a1a2e] text-white opacity-100 dark:bg-[#f2f3f4] dark:text-[#1a1a2e]"
               : "opacity-0 group-hover:opacity-100",
-            "bg-white/95 text-[#2a2018] dark:bg-[#231a14]/95 dark:text-[#f7f2ea]",
+            "bg-white/95 text-[#1a1a2e] dark:bg-[#1a1a2e]/95 dark:text-[#f2f3f4]",
           )}
         >
           {event.title.length > 25
@@ -91,25 +91,25 @@ function EventDetailPanel({
   onClose: () => void;
 }) {
   return (
-    <div className="absolute bottom-4 right-4 top-4 z-30 w-80 overflow-hidden rounded-2xl border border-primary-200/30 bg-white/92 shadow-xl backdrop-blur-xl sm:w-96 dark:border-[rgba(200,100,60,0.15)] dark:bg-[#231a14]/95">
+    <div className="absolute bottom-4 right-4 top-4 z-30 w-80 overflow-hidden rounded-2xl border border-[#e5e8eb]/40 bg-white/92 shadow-xl backdrop-blur-xl sm:w-96 dark:border-[#2c2f3a] dark:bg-[#1a1a2e]/95">
       <div className="flex h-full flex-col">
         <div className="flex items-start justify-between border-b border-black/5 p-5 dark:border-white/10">
           <div>
             <Badge variant={event.type}>{eventTypes[event.type].label}</Badge>
-            <h3 className="mt-2 text-xl font-semibold text-[#2a2018] dark:text-[#f7f2ea]">
+            <h3 className="mt-2 text-xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
               {event.title}
             </h3>
           </div>
           <button
             onClick={onClose}
-            className="rounded-full border border-black/10 p-1.5 text-[#6b6257] hover:bg-black/5 dark:border-white/10 dark:text-[#b8a898] dark:hover:bg-white/10"
+            className="rounded-full border border-black/10 p-1.5 text-[#5d6d7e] hover:bg-black/5 dark:border-white/10 dark:text-[#99a3ad] dark:hover:bg-white/10"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
         <div className="flex-1 overflow-y-auto p-5">
-          <div className="space-y-3 text-sm text-[#6b6257] dark:text-[#b8a898]">
+          <div className="space-y-3 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4 shrink-0" />
               {formatDate(event.date)}
@@ -129,7 +129,7 @@ function EventDetailPanel({
             )}
           </div>
 
-          <p className="mt-4 text-sm leading-7 text-[#5a4f43] dark:text-[#d4c4b4]">
+          <p className="mt-4 text-sm leading-7 text-[#526e89] dark:text-[#99a3ad]">
             {event.description}
           </p>
         </div>
@@ -152,16 +152,16 @@ function MiniEventBar({
   onExpand: () => void;
 }) {
   return (
-    <div className="absolute inset-x-4 bottom-4 z-20 flex items-center justify-between rounded-2xl border border-primary-200/30 bg-white/92 px-5 py-3 shadow-lg backdrop-blur-xl dark:border-[rgba(200,100,60,0.15)] dark:bg-[#231a14]/95">
+    <div className="absolute inset-x-4 bottom-4 z-20 flex items-center justify-between rounded-2xl border border-[#e5e8eb]/40 bg-white/92 px-5 py-3 shadow-lg backdrop-blur-xl dark:border-[#2c2f3a] dark:bg-[#1a1a2e]/95">
       <div className="flex items-center gap-3">
         <Badge variant={event.type}>{eventTypes[event.type].label}</Badge>
-        <span className="text-sm font-medium text-[#2a2018] dark:text-[#f7f2ea]">
+        <span className="text-sm font-medium text-[#1a1a2e] dark:text-[#f2f3f4]">
           {event.title}
         </span>
       </div>
       <button
         onClick={onExpand}
-        className="rounded-lg border border-black/10 px-3 py-1.5 text-xs font-medium text-[#6b6257] hover:bg-black/5 dark:border-white/10 dark:text-[#b8a898] dark:hover:bg-white/10"
+        className="rounded-lg border border-black/10 px-3 py-1.5 text-xs font-medium text-[#5d6d7e] hover:bg-black/5 dark:border-white/10 dark:text-[#99a3ad] dark:hover:bg-white/10"
       >
         View details
       </button>
@@ -207,7 +207,7 @@ export function EventsMap({
     >
       <div
         className={cn(
-          "absolute inset-0 bg-[#e8e0d4] transition-opacity duration-500 dark:bg-[#1a1410]",
+          "absolute inset-0 bg-[#d5dce3] transition-opacity duration-500 dark:bg-[#1a1d27]",
           mapLoaded ? "opacity-0" : "opacity-100",
         )}
       />
@@ -244,7 +244,7 @@ export function EventsMap({
       {/* Expand/Collapse toggle */}
       <button
         onClick={onToggleExpand}
-        className="absolute left-4 top-4 z-20 flex items-center gap-1.5 rounded-xl border border-black/10 bg-white/90 px-3 py-2 text-xs font-medium text-[#6b6257] shadow-sm backdrop-blur-sm transition-colors hover:bg-white dark:border-white/10 dark:bg-[#231a14]/90 dark:text-[#b8a898] dark:hover:bg-[#231a14]"
+        className="absolute left-4 top-4 z-20 flex items-center gap-1.5 rounded-xl border border-black/10 bg-white/90 px-3 py-2 text-xs font-medium text-[#5d6d7e] shadow-sm backdrop-blur-sm transition-colors hover:bg-white dark:border-white/10 dark:bg-[#1a1a2e]/90 dark:text-[#99a3ad] dark:hover:bg-[#1a1a2e]"
       >
         {expanded ? (
           <>

@@ -9,52 +9,43 @@ interface RevealProps extends HTMLAttributes<HTMLDivElement> {
 
 function Reveal({ className, delay = 0, children, ...props }: RevealProps) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
-  const checkedRef = useRef(false);
+  const [state, setState] = useState<"idle" | "hidden" | "visible">("idle");
 
   useEffect(() => {
     const node = ref.current;
+    if (!node) return;
 
-    if (!node || checkedRef.current) {
-      return;
-    }
-    checkedRef.current = true;
-
-    // Check if already in viewport on mount (above-the-fold content)
-    // This runs synchronously before paint to prevent CLS
+    // Already in viewport on mount - no animation needed
     const rect = node.getBoundingClientRect();
     if (rect.top < window.innerHeight && rect.bottom > 0) {
-      setVisible(true);
       return;
     }
+
+    // Below viewport - hide it, then reveal on scroll
+    setState("hidden");
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          setState("visible");
           observer.disconnect();
         }
       },
-      {
-        threshold: 0.05,
-        rootMargin: "40px 0px -8% 0px",
-      },
+      { threshold: 0.05, rootMargin: "40px 0px -8% 0px" },
     );
 
     observer.observe(node);
-
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
     <div
       ref={ref}
       className={cn(
-        "reveal",
-        `reveal-delay-${delay}`,
-        visible && "reveal-visible",
+        state === "hidden" && "reveal-hidden",
+        state === "hidden" && `reveal-delay-${delay}`,
+        state === "visible" && "reveal-hidden reveal-visible",
+        state === "visible" && `reveal-delay-${delay}`,
         className,
       )}
       {...props}

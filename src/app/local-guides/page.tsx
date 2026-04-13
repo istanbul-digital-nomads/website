@@ -44,10 +44,10 @@ export default async function LocalGuidesPage() {
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary-100 dark:bg-primary-900/30">
                 <Users className="h-8 w-8 text-primary-600 dark:text-primary-400" />
               </div>
-              <h3 className="mt-6 text-xl font-semibold text-neutral-900 dark:text-[#f7f2ea]">
+              <h3 className="mt-6 text-xl font-semibold text-neutral-900 dark:text-[#f2f3f4]">
                 We&apos;re building our guide network
               </h3>
-              <p className="mt-3 text-neutral-600 dark:text-[#b8a898]">
+              <p className="mt-3 text-neutral-600 dark:text-[#99a3ad]">
                 Know Istanbul well enough to help newcomers find their feet?
                 We&apos;d love to have you as one of our first local guides.
               </p>
@@ -67,7 +67,7 @@ export default async function LocalGuidesPage() {
         <Section className="border-t border-black/5 dark:border-white/10">
           <Container>
             <Reveal>
-              <div className="mx-auto max-w-2xl rounded-[2rem] border border-primary-700/20 bg-[linear-gradient(135deg,#8a2a1a_0%,#5c1a12_50%,#3d1410_100%)] px-6 py-10 text-center text-white dark:bg-[linear-gradient(135deg,#5c1a12_0%,#3d1410_50%,#231a14_100%)] sm:px-10">
+              <div className="mx-auto max-w-2xl rounded-[2rem] border border-primary-500/20 bg-[linear-gradient(135deg,#8a2a1a_0%,#5c1a12_50%,#3d1410_100%)] px-6 py-10 text-center text-white dark:bg-[linear-gradient(135deg,#5c1a12_0%,#3d1410_50%,#1e2130_100%)] sm:px-10">
                 <h2 className="text-2xl font-semibold sm:text-3xl">
                   Want to become a local guide?
                 </h2>

@@ -37,7 +37,7 @@ const IstanbulMap = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="absolute inset-0 rounded-[2.3rem] border border-primary-200/60 bg-[#e8e0d4] dark:border-primary-900/40 dark:bg-[#1a1410]" />
+      <div className="absolute inset-0 rounded-[2.3rem] border border-primary-200/60 bg-[#e8e0d4] dark:border-primary-900/40 dark:bg-[#1a1d27]" />
     ),
   },
 );
@@ -101,7 +101,7 @@ export default async function HomePage() {
 
         <Container className="relative py-8 sm:py-12 lg:min-h-[calc(100svh-7rem)] lg:py-8">
           <div className="mb-10 flex flex-wrap items-center justify-end gap-4">
-            <div className="font-mono text-[11px] uppercase tracking-[0.28em] text-neutral-500 dark:text-[#8a7a6a]">
+            <div className="font-mono text-[11px] uppercase tracking-[0.28em] text-neutral-500 dark:text-[#85929e]">
               GMT+3 - ferry-friendly - walkable workdays
             </div>
           </div>
@@ -109,10 +109,10 @@ export default async function HomePage() {
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(560px,1fr)] lg:items-start lg:gap-12">
             {/* Hero text - NO Reveal wrapper to ensure LCP element is immediately visible */}
             <div className="max-w-[30rem] pt-2 lg:pt-0">
-              <h1 className="mt-5 max-w-[8.7ch] text-balance text-[3rem] font-semibold leading-[0.92] text-neutral-950 sm:text-[3.7rem] lg:text-[4rem] dark:text-[#f7f2ea]">
+              <h1 className="mt-5 max-w-[8.7ch] text-balance text-[3rem] font-semibold leading-[0.92] text-neutral-950 sm:text-[3.7rem] lg:text-[4rem] dark:text-[#f2f3f4]">
                 Find your rhythm in Istanbul.
               </h1>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-neutral-700 sm:text-[1.22rem] dark:text-[#d4c4b4]">
+              <p className="mt-6 max-w-xl text-lg leading-8 text-neutral-700 sm:text-[1.22rem] dark:text-[#99a3ad]">
                 Weekly coworking, practical city guides, and a community of
                 remote workers who help each other settle in.
               </p>
@@ -125,7 +125,7 @@ export default async function HomePage() {
                 >
                   <Button
                     size="lg"
-                    className="w-full rounded-full bg-[#1c1614] px-7 text-white hover:bg-[#2a2018] dark:bg-[#f7f2ea] dark:text-[#1c1614] dark:hover:bg-[#e8dfd3] sm:w-auto"
+                    className="w-full rounded-full bg-[#1a1a2e] px-7 text-white hover:bg-[#1a1a2e] dark:bg-[#f2f3f4] dark:text-[#1a1a2e] dark:hover:bg-[#d5dce3] sm:w-auto"
                   >
                     Join on Telegram
                     <ArrowRight className="h-5 w-5" />
@@ -135,7 +135,7 @@ export default async function HomePage() {
                   <Button
                     variant="secondary"
                     size="lg"
-                    className="w-full rounded-full border border-black/60 bg-white/70 px-7 text-neutral-950 hover:bg-white dark:border-white/40 dark:bg-white/10 dark:text-[#f7f2ea] dark:hover:bg-white/20 sm:w-auto"
+                    className="w-full rounded-full border border-black/60 bg-white/70 px-7 text-neutral-950 hover:bg-white dark:border-white/40 dark:bg-white/10 dark:text-[#f2f3f4] dark:hover:bg-white/20 sm:w-auto"
                   >
                     Browse the guides
                   </Button>
@@ -146,7 +146,7 @@ export default async function HomePage() {
                 {heroTrustSignals.map((signal) => (
                   <div
                     key={signal}
-                    className="inline-flex items-center gap-2 rounded-full border border-black/15 bg-white/70 px-3 py-2 text-xs font-medium text-neutral-700 dark:border-white/10 dark:bg-white/5 dark:text-[#d4c4b4]"
+                    className="inline-flex items-center gap-2 rounded-full border border-black/15 bg-white/70 px-3 py-2 text-xs font-medium text-neutral-700 dark:border-white/10 dark:bg-white/5 dark:text-[#99a3ad]"
                   >
                     <span className="h-1.5 w-1.5 rounded-full bg-primary-500" />
                     {signal}
@@ -165,7 +165,7 @@ export default async function HomePage() {
       <section className="border-b border-black/5 py-8 dark:border-white/10">
         <Container>
           <div>
-            <p className="mb-5 max-w-2xl text-sm leading-6 text-[#6b6257] dark:text-[#b8a898]">
+            <p className="mb-5 max-w-2xl text-sm leading-6 text-[#5d6d7e] dark:text-[#99a3ad]">
               Built for people who want a city that becomes workable quickly,
               not just another place to pass through.
             </p>
@@ -186,10 +186,10 @@ export default async function HomePage() {
                 >
                   <item.icon className="mt-1 h-5 w-5 text-primary-600 dark:text-primary-400" />
                   <div>
-                    <p className="text-3xl font-semibold text-[#2a2018] dark:text-[#f7f2ea]">
+                    <p className="text-3xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
                       {item.value}
                     </p>
-                    <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#8a7a6a]">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#85929e]">
                       {item.label}
                     </p>
                   </div>
@@ -205,7 +205,7 @@ export default async function HomePage() {
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <Reveal className="lg:sticky lg:top-24 lg:self-start">
               <p className="eyebrow">What&apos;s happening</p>
-              <h2 className="mt-4 max-w-md text-4xl font-semibold text-neutral-950 sm:text-5xl dark:text-[#f7f2ea]">
+              <h2 className="mt-4 max-w-md text-4xl font-semibold text-neutral-950 sm:text-5xl dark:text-[#f2f3f4]">
                 This week&apos;s events
               </h2>
               <p className="text-muted mt-5 max-w-md text-lg leading-8">
@@ -226,27 +226,27 @@ export default async function HomePage() {
                       <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-primary-600 dark:text-primary-400">
                         {event.type}
                       </p>
-                      <h3 className="mt-3 text-2xl font-semibold text-[#2a2018] dark:text-[#f7f2ea]">
+                      <h3 className="mt-3 text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
                         {event.title}
                       </h3>
-                      <p className="mt-3 text-sm leading-7 text-[#6b6257] dark:text-[#b8a898]">
+                      <p className="mt-3 text-sm leading-7 text-[#5d6d7e] dark:text-[#99a3ad]">
                         {event.description}
                       </p>
-                      <p className="mt-4 text-sm font-medium leading-6 text-neutral-950 dark:text-[#f0e8dc]">
+                      <p className="mt-4 text-sm font-medium leading-6 text-neutral-950 dark:text-[#f2f3f4]">
                         {eventMoments[event.id]}
                       </p>
                     </div>
 
                     <div className="min-w-[220px] border-t border-black/10 pt-4 md:border-l md:border-t-0 md:pl-6 md:pt-0 dark:border-white/10">
-                      <div className="flex items-center gap-2 text-sm text-[#6b6257] dark:text-[#b8a898]">
+                      <div className="flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
                         <CalendarDays className="h-4 w-4" />
                         {formatEventDate(event.date)}
                       </div>
-                      <div className="mt-3 flex items-center gap-2 text-sm text-[#6b6257] dark:text-[#b8a898]">
+                      <div className="mt-3 flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
                         <MapPin className="h-4 w-4" />
                         {event.location_name}
                       </div>
-                      <div className="mt-3 flex items-center gap-2 text-sm text-[#6b6257] dark:text-[#b8a898]">
+                      <div className="mt-3 flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
                         <Users className="h-4 w-4" />
                         {event.capacity ? `${event.capacity} spots` : "Open"}
                       </div>
@@ -258,7 +258,7 @@ export default async function HomePage() {
               <Reveal delay={3}>
                 <Link
                   href="/events"
-                  className="group inline-flex items-center gap-2 font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-[#f7f2ea] dark:hover:text-primary-400"
+                  className="group inline-flex items-center gap-2 font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-[#f2f3f4] dark:hover:text-primary-400"
                 >
                   See all events
                   <MoveUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -274,14 +274,14 @@ export default async function HomePage() {
           <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr]">
             <Reveal className="max-w-xl">
               <p className="eyebrow">City guides</p>
-              <h2 className="mt-4 max-w-lg text-4xl font-semibold text-neutral-950 sm:text-5xl dark:text-[#f7f2ea]">
+              <h2 className="mt-4 max-w-lg text-4xl font-semibold text-neutral-950 sm:text-5xl dark:text-[#f2f3f4]">
                 Everything you need for your first month.
               </h2>
               <p className="text-muted mt-5 max-w-md text-lg leading-8">
                 Neighborhoods, coworking, housing, internet, transport, cost of
                 living, and more - written by people living here.
               </p>
-              <p className="mt-5 max-w-md text-sm leading-7 text-[#6b6257] dark:text-[#b8a898]">
+              <p className="mt-5 max-w-md text-sm leading-7 text-[#5d6d7e] dark:text-[#99a3ad]">
                 Think of them as confidence builders for your first month, not a
                 static resource archive.
               </p>
@@ -293,7 +293,7 @@ export default async function HomePage() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="rounded-full border border-black/10 bg-white/55 px-4 py-2 text-sm text-neutral-700 transition-colors hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-[#d4c4b4] dark:hover:bg-white/10"
+                    className="rounded-full border border-black/10 bg-white/55 px-4 py-2 text-sm text-neutral-700 transition-colors hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-[#99a3ad] dark:hover:bg-white/10"
                   >
                     {item.label}
                   </Link>
@@ -310,14 +310,14 @@ export default async function HomePage() {
                     className="group flex items-start justify-between gap-6 rounded-[1.75rem] border border-transparent px-1 py-4 transition-all hover:border-black/10 hover:bg-white/45 hover:px-5 dark:hover:border-white/10 dark:hover:bg-white/5"
                   >
                     <div className="flex gap-5">
-                      <div className="font-mono text-xs uppercase tracking-[0.3em] text-neutral-400 dark:text-[#6b6257]">
+                      <div className="font-mono text-xs uppercase tracking-[0.3em] text-neutral-400 dark:text-[#5d6d7e]">
                         0{index + 1}
                       </div>
                       <div>
-                        <h3 className="text-2xl font-semibold text-[#2a2018] dark:text-[#f7f2ea]">
+                        <h3 className="text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
                           {guide.title}
                         </h3>
-                        <p className="mt-2 max-w-xl text-sm leading-7 text-[#6b6257] dark:text-[#b8a898]">
+                        <p className="mt-2 max-w-xl text-sm leading-7 text-[#5d6d7e] dark:text-[#99a3ad]">
                           {guide.description}
                         </p>
                       </div>
@@ -332,14 +332,14 @@ export default async function HomePage() {
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                       <p className="eyebrow">Fast answers</p>
-                      <p className="mt-2 text-lg font-medium text-[#2a2018] dark:text-[#f7f2ea]">
+                      <p className="mt-2 text-lg font-medium text-[#1a1a2e] dark:text-[#f2f3f4]">
                         Housing, internet, transport, visa basics, and
                         neighborhood fit.
                       </p>
                     </div>
                     <Link
                       href="/guides"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-[#f7f2ea] dark:hover:text-primary-400"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-[#f2f3f4] dark:hover:text-primary-400"
                     >
                       Browse all guides
                       <MoveUpRight className="h-4 w-4" />
@@ -357,7 +357,7 @@ export default async function HomePage() {
       <section className="py-20">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-            <Reveal className="rounded-[2rem] border border-primary-700/20 bg-[linear-gradient(135deg,#8a2a1a_0%,#5c1a12_50%,#3d1410_100%)] p-8 text-white dark:bg-[linear-gradient(135deg,#5c1a12_0%,#3d1410_50%,#231a14_100%)]">
+            <Reveal className="rounded-[2rem] border border-primary-500/20 bg-[linear-gradient(135deg,#c0392b_0%,#922b21_50%,#641e16_100%)] p-8 text-white dark:bg-[linear-gradient(135deg,#922b21_0%,#641e16_50%,#15212c_100%)]">
               <p className="eyebrow text-white/70">First month essentials</p>
               <h2 className="mt-4 max-w-md text-4xl font-semibold sm:text-5xl">
                 Start with the pieces that make remote life easier to operate.
@@ -388,15 +388,15 @@ export default async function HomePage() {
                   <div className="surface-panel flex h-full flex-col justify-between rounded-[2rem] p-6 transition-transform duration-300 hover:-translate-y-1">
                     <div>
                       <p className="eyebrow">{item.phase}</p>
-                      <h3 className="mt-4 text-lg font-semibold text-[#2a2018] dark:text-[#f7f2ea]">
+                      <h3 className="mt-4 text-lg font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
                         {item.title}
                       </h3>
-                      <p className="mt-3 text-base leading-8 text-[#5a4f43] dark:text-[#d4c4b4]">
+                      <p className="mt-3 text-base leading-8 text-[#526e89] dark:text-[#99a3ad]">
                         {item.description}
                       </p>
                     </div>
                     <footer className="mt-8 border-t border-black/10 pt-4 dark:border-white/10">
-                      <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#8a7a6a]">
+                      <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#85929e]">
                         {index === 0
                           ? "Arrival"
                           : index === 1
@@ -415,7 +415,7 @@ export default async function HomePage() {
       <section className="py-20">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-            <Reveal className="rounded-[2rem] border border-primary-700/20 bg-[linear-gradient(135deg,#8a2a1a_0%,#5c1a12_50%,#3d1410_100%)] p-8 text-white dark:bg-[linear-gradient(135deg,#5c1a12_0%,#3d1410_50%,#231a14_100%)]">
+            <Reveal className="rounded-[2rem] border border-primary-500/20 bg-[linear-gradient(135deg,#c0392b_0%,#922b21_50%,#641e16_100%)] p-8 text-white dark:bg-[linear-gradient(135deg,#922b21_0%,#641e16_50%,#15212c_100%)]">
               <p className="eyebrow text-white/70">Why people stay</p>
               <h2 className="mt-4 max-w-md text-4xl font-semibold sm:text-5xl">
                 Why nomads keep extending their stay.
@@ -472,7 +472,7 @@ export default async function HomePage() {
                 <h3 className="mt-4 max-w-lg text-3xl font-semibold text-primary-950 dark:text-primary-100">
                   Ask one question and skip hours of guesswork.
                 </h3>
-                <p className="mt-4 max-w-xl text-base leading-8 text-[#6b6257] dark:text-[#b8a898]">
+                <p className="mt-4 max-w-xl text-base leading-8 text-[#5d6d7e] dark:text-[#99a3ad]">
                   Where should you base yourself for your first month? Which
                   coworking spots have stable wifi? How do ferries change your
                   commute? The community makes those answers social, current,
@@ -489,7 +489,7 @@ export default async function HomePage() {
                 ].map((item) => (
                   <div
                     key={item}
-                    className="surface-subtle rounded-[1.5rem] p-4 text-sm leading-7 text-[#6b6257] transition-transform duration-300 hover:-translate-y-1 dark:text-[#d4c4b4]"
+                    className="surface-subtle rounded-[1.5rem] p-4 text-sm leading-7 text-[#5d6d7e] transition-transform duration-300 hover:-translate-y-1 dark:text-[#99a3ad]"
                   >
                     {item}
                   </div>
@@ -502,8 +502,8 @@ export default async function HomePage() {
 
       <section className="pb-20">
         <Container>
-          <Reveal className="relative overflow-hidden rounded-[2.5rem] border border-primary-700/20 bg-[linear-gradient(135deg,#8a2a1a_0%,#5c1a12_40%,#3d1410_100%)] px-6 py-10 text-white dark:bg-[linear-gradient(135deg,#5c1a12_0%,#3d1410_40%,#231a14_100%)] sm:px-10 sm:py-14">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(200,80,30,0.28),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(212,154,69,0.18),transparent_30%)]" />
+          <Reveal className="relative overflow-hidden rounded-[2.5rem] border border-primary-500/20 bg-[linear-gradient(135deg,#c0392b_0%,#922b21_40%,#641e16_100%)] px-6 py-10 text-white dark:bg-[linear-gradient(135deg,#922b21_0%,#641e16_40%,#15212c_100%)] sm:px-10 sm:py-14">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(192,57,43,0.28),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(243,156,18,0.18),transparent_30%)]" />
             <div className="relative">
               <p className="eyebrow text-white/60">Get started</p>
               <h2 className="mt-4 max-w-3xl text-4xl font-semibold sm:text-5xl">

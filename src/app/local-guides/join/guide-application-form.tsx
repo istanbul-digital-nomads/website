@@ -118,10 +118,10 @@ export function GuideApplicationForm() {
       {/* Section 1: Your Details */}
       <div className="space-y-4">
         <div>
-          <h2 className="text-lg font-semibold text-neutral-900 dark:text-[#f7f2ea]">
+          <h2 className="text-lg font-semibold text-neutral-900 dark:text-[#f2f3f4]">
             Your details
           </h2>
-          <p className="mt-1 text-sm text-neutral-500 dark:text-[#8a7a6a]">
+          <p className="mt-1 text-sm text-neutral-500 dark:text-[#85929e]">
             Basic info so we know who you are.
           </p>
         </div>
@@ -152,10 +152,10 @@ export function GuideApplicationForm() {
       {/* Section 2: Your Expertise */}
       <div className="space-y-4">
         <div>
-          <h2 className="text-lg font-semibold text-neutral-900 dark:text-[#f7f2ea]">
+          <h2 className="text-lg font-semibold text-neutral-900 dark:text-[#f2f3f4]">
             Your expertise
           </h2>
-          <p className="mt-1 text-sm text-neutral-500 dark:text-[#8a7a6a]">
+          <p className="mt-1 text-sm text-neutral-500 dark:text-[#85929e]">
             What do you know best about Istanbul?
           </p>
         </div>
@@ -194,10 +194,10 @@ export function GuideApplicationForm() {
       {/* Section 3: Tell Us About Yourself */}
       <div className="space-y-4">
         <div>
-          <h2 className="text-lg font-semibold text-neutral-900 dark:text-[#f7f2ea]">
+          <h2 className="text-lg font-semibold text-neutral-900 dark:text-[#f2f3f4]">
             Tell us about yourself
           </h2>
-          <p className="mt-1 text-sm text-neutral-500 dark:text-[#8a7a6a]">
+          <p className="mt-1 text-sm text-neutral-500 dark:text-[#85929e]">
             Help us understand what makes you a great guide.
           </p>
         </div>
@@ -229,10 +229,10 @@ export function GuideApplicationForm() {
       {/* Section 4: Social Profiles */}
       <div className="space-y-4">
         <div>
-          <h2 className="text-lg font-semibold text-neutral-900 dark:text-[#f7f2ea]">
+          <h2 className="text-lg font-semibold text-neutral-900 dark:text-[#f2f3f4]">
             Social profiles
           </h2>
-          <p className="mt-1 text-sm text-neutral-500 dark:text-[#8a7a6a]">
+          <p className="mt-1 text-sm text-neutral-500 dark:text-[#85929e]">
             Optional - helps us verify who you are and lets people find you.
           </p>
         </div>
@@ -265,7 +265,7 @@ export function GuideApplicationForm() {
       {/* Section 5: Almost Done */}
       <div className="space-y-4">
         <div>
-          <h2 className="text-lg font-semibold text-neutral-900 dark:text-[#f7f2ea]">
+          <h2 className="text-lg font-semibold text-neutral-900 dark:text-[#f2f3f4]">
             Almost done
           </h2>
         </div>
@@ -291,7 +291,7 @@ export function GuideApplicationForm() {
               className="mt-1 h-4 w-4 rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
               required
             />
-            <span className="text-sm text-neutral-600 dark:text-[#b8a898]">
+            <span className="text-sm text-neutral-600 dark:text-[#99a3ad]">
               I agree to the community guidelines and understand that my
               application will be reviewed by the team. I&apos;ll represent the
               community with kindness and honesty.{" "}

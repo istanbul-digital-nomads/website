@@ -17,7 +17,7 @@ export default function Error({
           Oops
         </p>
         <h1 className="mt-4 text-2xl font-bold">Something went wrong</h1>
-        <p className="mt-2 text-[#6b6257] dark:text-[#b8a898]">
+        <p className="mt-2 text-[#5d6d7e] dark:text-[#99a3ad]">
           Don&apos;t worry, it&apos;s not you. Try refreshing, or head back
           home.
         </p>

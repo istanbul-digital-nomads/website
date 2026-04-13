@@ -86,7 +86,7 @@ function RadioGroup({
             className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
               value === opt.toLowerCase().replace(/[^a-z0-9]+/g, "-")
                 ? "bg-primary-600 text-white"
-                : "bg-white/70 text-[#6b6257] ring-1 ring-black/5 hover:bg-primary-50 dark:bg-[#231a14] dark:text-[#b8a898] dark:ring-white/5"
+                : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 hover:bg-primary-50 dark:bg-[#1e2130] dark:text-[#99a3ad] dark:ring-white/5"
             }`}
           >
             {opt}
@@ -138,7 +138,7 @@ function CheckboxGroup({
               className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
                 value.includes(key)
                   ? "bg-primary-600 text-white"
-                  : "bg-white/70 text-[#6b6257] ring-1 ring-black/5 hover:bg-primary-50 dark:bg-[#231a14] dark:text-[#b8a898] dark:ring-white/5"
+                  : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 hover:bg-primary-50 dark:bg-[#1e2130] dark:text-[#99a3ad] dark:ring-white/5"
               }`}
             >
               {opt}
@@ -154,10 +154,10 @@ export function StepInterests({ data, updateField, errors }: StepProps) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-[#2a2018] dark:text-[#f7f2ea]">
+        <h2 className="text-2xl font-bold text-[#1a1a2e] dark:text-[#f2f3f4]">
           Your interests
         </h2>
-        <p className="mt-1 text-sm text-[#6b6257] dark:text-[#b8a898]">
+        <p className="mt-1 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
           Help us match you with the right events and people.
         </p>
       </div>

@@ -44,7 +44,7 @@ export function LocalGuidesDirectory({ guides }: { guides: LocalGuide[] }) {
           placeholder="Search guides by name or expertise..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full rounded-xl border border-black/10 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition-colors placeholder:text-neutral-400 focus:border-primary-400 focus:ring-1 focus:ring-primary-400 dark:border-white/10 dark:bg-white/5 dark:text-[#f7f2ea] dark:placeholder:text-[#6b6257]"
+          className="w-full rounded-xl border border-black/10 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition-colors placeholder:text-neutral-400 focus:border-primary-400 focus:ring-1 focus:ring-primary-400 dark:border-white/10 dark:bg-white/5 dark:text-[#f2f3f4] dark:placeholder:text-[#5d6d7e]"
         />
       </div>
 
@@ -56,7 +56,7 @@ export function LocalGuidesDirectory({ guides }: { guides: LocalGuide[] }) {
             "rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
             activeSpec === null
               ? "bg-primary-600 text-white dark:bg-primary-500"
-              : "bg-white/70 text-neutral-600 ring-1 ring-black/10 hover:bg-primary-50 dark:bg-white/5 dark:text-[#b8a898] dark:ring-white/10",
+              : "bg-white/70 text-neutral-600 ring-1 ring-black/10 hover:bg-primary-50 dark:bg-white/5 dark:text-[#99a3ad] dark:ring-white/10",
           )}
         >
           All expertise
@@ -71,7 +71,7 @@ export function LocalGuidesDirectory({ guides }: { guides: LocalGuide[] }) {
               "rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
               activeSpec === spec.value
                 ? "bg-primary-600 text-white dark:bg-primary-500"
-                : "bg-white/70 text-neutral-600 ring-1 ring-black/10 hover:bg-primary-50 dark:bg-white/5 dark:text-[#b8a898] dark:ring-white/10",
+                : "bg-white/70 text-neutral-600 ring-1 ring-black/10 hover:bg-primary-50 dark:bg-white/5 dark:text-[#99a3ad] dark:ring-white/10",
             )}
           >
             {spec.label}
@@ -87,7 +87,7 @@ export function LocalGuidesDirectory({ guides }: { guides: LocalGuide[] }) {
             "rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
             activeNeighborhood === null
               ? "bg-primary-600 text-white dark:bg-primary-500"
-              : "bg-white/70 text-neutral-600 ring-1 ring-black/10 hover:bg-primary-50 dark:bg-white/5 dark:text-[#b8a898] dark:ring-white/10",
+              : "bg-white/70 text-neutral-600 ring-1 ring-black/10 hover:bg-primary-50 dark:bg-white/5 dark:text-[#99a3ad] dark:ring-white/10",
           )}
         >
           All areas
@@ -104,7 +104,7 @@ export function LocalGuidesDirectory({ guides }: { guides: LocalGuide[] }) {
               "rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
               activeNeighborhood === n.value
                 ? "bg-primary-600 text-white dark:bg-primary-500"
-                : "bg-white/70 text-neutral-600 ring-1 ring-black/10 hover:bg-primary-50 dark:bg-white/5 dark:text-[#b8a898] dark:ring-white/10",
+                : "bg-white/70 text-neutral-600 ring-1 ring-black/10 hover:bg-primary-50 dark:bg-white/5 dark:text-[#99a3ad] dark:ring-white/10",
             )}
           >
             {n.label}
@@ -121,10 +121,10 @@ export function LocalGuidesDirectory({ guides }: { guides: LocalGuide[] }) {
         </div>
       ) : (
         <div className="mt-12 text-center">
-          <p className="text-lg font-medium text-neutral-900 dark:text-[#f7f2ea]">
+          <p className="text-lg font-medium text-neutral-900 dark:text-[#f2f3f4]">
             No guides match your filters
           </p>
-          <p className="mt-2 text-sm text-neutral-500 dark:text-[#8a7a6a]">
+          <p className="mt-2 text-sm text-neutral-500 dark:text-[#85929e]">
             Try broadening your search or clearing some filters.
           </p>
         </div>

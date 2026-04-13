@@ -39,7 +39,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         <Reveal>
           <div className="mx-auto max-w-3xl">
             {/* Breadcrumb */}
-            <nav className="mb-6 flex items-center gap-2 text-sm text-[#6b6257] dark:text-[#b8a898]">
+            <nav className="mb-6 flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
               <Link
                 href="/"
                 className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
@@ -54,21 +54,21 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                 Blog
               </Link>
               <span>/</span>
-              <span className="truncate text-[#2a2018] dark:text-[#f7f2ea]">
+              <span className="truncate text-[#1a1a2e] dark:text-[#f2f3f4]">
                 {post.meta.title}
               </span>
             </nav>
 
             {/* Header */}
-            <h1 className="text-3xl font-bold tracking-tight text-[#2a2018] sm:text-4xl dark:text-[#f7f2ea]">
+            <h1 className="text-3xl font-bold tracking-tight text-[#1a1a2e] sm:text-4xl dark:text-[#f2f3f4]">
               {post.meta.title}
             </h1>
-            <p className="mt-4 text-lg text-[#6b6257] dark:text-[#b8a898]">
+            <p className="mt-4 text-lg text-[#5d6d7e] dark:text-[#99a3ad]">
               {post.meta.description}
             </p>
 
             {/* Meta */}
-            <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-[#6b6257] dark:text-[#b8a898]">
+            <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
               <span className="flex items-center gap-1.5">
                 <User className="h-4 w-4" />
                 {post.meta.author}
@@ -102,7 +102,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
             </article>
 
             {/* Back to blog */}
-            <div className="mt-12 border-t border-primary-200/30 pt-8 dark:border-[rgba(200,100,60,0.1)]">
+            <div className="mt-12 border-t border-primary-200/30 pt-8 dark:border-[rgba(44,62,80,0.1)]">
               <Link
                 href="/blog"
                 className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 transition-colors hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300"

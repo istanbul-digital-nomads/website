@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { IBM_Plex_Mono, Manrope } from "next/font/google";
+import { IBM_Plex_Mono, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/layout/theme-provider";
@@ -29,7 +29,7 @@ const Toaster = dynamic(
   { ssr: false },
 );
 
-const manrope = Manrope({
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",
@@ -98,12 +98,12 @@ export default function RootLayout({
         />
         <meta
           name="theme-color"
-          content="#f5efe4"
+          content="#fafafa"
           media="(prefers-color-scheme: light)"
         />
         <meta
           name="theme-color"
-          content="#151010"
+          content="#0f1117"
           media="(prefers-color-scheme: dark)"
         />
         {/* Inline critical theme script to prevent FOUC */}
@@ -113,7 +113,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${manrope.variable} ${ibmPlexMono.variable}`}>
+      <body className={`${inter.variable} ${ibmPlexMono.variable}`}>
         <ThemeProvider>
           <NavigationProgress />
           <Header />

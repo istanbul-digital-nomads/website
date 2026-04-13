@@ -22,7 +22,7 @@ export default function BlogPage() {
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
               Blog
             </h1>
-            <p className="mt-4 text-lg text-[#6b6257] dark:text-[#b8a898]">
+            <p className="mt-4 text-lg text-[#5d6d7e] dark:text-[#99a3ad]">
               Stories, tips, and insights from remote workers living in
               Istanbul.
             </p>

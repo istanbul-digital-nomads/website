@@ -81,7 +81,7 @@ export default function AboutPage() {
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
             Our Story
           </h1>
-          <div className="mt-6 space-y-4 text-lg text-neutral-600 dark:text-[#8a7a6a]">
+          <div className="mt-6 space-y-4 text-lg text-neutral-600 dark:text-[#85929e]">
             <p>
               Istanbul Digital Nomads started in 2023 as a small Telegram group
               for remote workers who had just arrived in Istanbul and were
@@ -105,7 +105,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Values */}
-      <Section className="bg-neutral-50 dark:bg-[#1c1614]/50">
+      <Section className="bg-neutral-50 dark:bg-[#1a1d27]/50">
         <SectionHeader>
           <SectionTitle>What We Believe In</SectionTitle>
           <SectionDescription>
@@ -118,7 +118,7 @@ export default function AboutPage() {
               <CardContent>
                 <v.icon className="h-8 w-8 text-primary-600 dark:text-primary-400" />
                 <h3 className="mt-4 font-semibold">{v.title}</h3>
-                <p className="mt-2 text-sm text-neutral-600 dark:text-[#8a7a6a]">
+                <p className="mt-2 text-sm text-neutral-600 dark:text-[#85929e]">
                   {v.description}
                 </p>
               </CardContent>
@@ -146,7 +146,7 @@ export default function AboutPage() {
                 <p className="text-sm font-medium text-primary-600 dark:text-primary-400">
                   {member.role}
                 </p>
-                <p className="mt-2 text-sm text-neutral-600 dark:text-[#8a7a6a]">
+                <p className="mt-2 text-sm text-neutral-600 dark:text-[#85929e]">
                   {member.bio}
                 </p>
               </CardContent>
@@ -156,7 +156,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Timeline */}
-      <Section className="bg-neutral-50 dark:bg-[#1c1614]/50">
+      <Section className="bg-neutral-50 dark:bg-[#1a1d27]/50">
         <SectionHeader>
           <SectionTitle>Milestones</SectionTitle>
           <SectionDescription>Our journey so far.</SectionDescription>
@@ -175,7 +175,7 @@ export default function AboutPage() {
                   <span className="text-sm font-medium text-primary-600 dark:text-primary-400">
                     {item.year}
                   </span>
-                  <p className="mt-1 text-neutral-700 dark:text-[#b8a898]">
+                  <p className="mt-1 text-neutral-700 dark:text-[#99a3ad]">
                     {item.event}
                   </p>
                 </div>

@@ -32,10 +32,10 @@ export function StepAbout({ data, updateField, errors }: StepProps) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-[#2a2018] dark:text-[#f7f2ea]">
+        <h2 className="text-2xl font-bold text-[#1a1a2e] dark:text-[#f2f3f4]">
           About you
         </h2>
-        <p className="mt-1 text-sm text-[#6b6257] dark:text-[#b8a898]">
+        <p className="mt-1 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
           Let&apos;s start with the basics so the community can get to know you.
         </p>
       </div>
@@ -79,7 +79,7 @@ export function StepAbout({ data, updateField, errors }: StepProps) {
                 className={`rounded-xl px-4 py-2 text-sm font-medium transition-colors ${
                   data.age_range === range
                     ? "bg-primary-600 text-white"
-                    : "bg-white/70 text-[#6b6257] ring-1 ring-black/5 hover:bg-primary-50 dark:bg-[#231a14] dark:text-[#b8a898] dark:ring-white/5"
+                    : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 hover:bg-primary-50 dark:bg-[#1e2130] dark:text-[#99a3ad] dark:ring-white/5"
                 }`}
               >
                 {range}
@@ -116,7 +116,7 @@ export function StepAbout({ data, updateField, errors }: StepProps) {
               className={`rounded-xl px-4 py-2 text-sm font-medium transition-colors ${
                 data.gender === g.value
                   ? "bg-primary-600 text-white"
-                  : "bg-white/70 text-[#6b6257] ring-1 ring-black/5 hover:bg-primary-50 dark:bg-[#231a14] dark:text-[#b8a898] dark:ring-white/5"
+                  : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 hover:bg-primary-50 dark:bg-[#1e2130] dark:text-[#99a3ad] dark:ring-white/5"
               }`}
             >
               {g.label}

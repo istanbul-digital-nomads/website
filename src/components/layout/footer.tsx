@@ -14,11 +14,11 @@ const socialIcons = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-black/5 bg-[rgba(245,239,228,0.72)] dark:border-white/10 dark:bg-[#151010]">
+    <footer className="border-t border-black/5 bg-[rgba(250,250,250,0.72)] dark:border-white/10 dark:bg-[#0f1117]">
       <Container>
         <div className="grid gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="rounded-[2rem] border border-primary-700/20 bg-[linear-gradient(135deg,#8a2a1a_0%,#5c1a12_50%,#3d1410_100%)] px-6 py-8 text-white dark:bg-[linear-gradient(135deg,#5c1a12_0%,#3d1410_50%,#231a14_100%)] sm:px-8">
-            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/60 dark:text-[#b8a898]">
+          <div className="rounded-[2rem] border border-primary-500/20 bg-[linear-gradient(135deg,#c0392b_0%,#922b21_50%,#641e16_100%)] px-6 py-8 text-white dark:bg-[linear-gradient(135deg,#922b21_0%,#641e16_50%,#15212c_100%)] sm:px-8">
+            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/60 dark:text-[#99a3ad]">
               Istanbul Digital Nomads
             </p>
             <h2 className="mt-4 max-w-lg text-3xl font-semibold sm:text-4xl">
@@ -60,7 +60,7 @@ export function Footer() {
               >
                 <Button
                   size="lg"
-                  className="h-14 w-full rounded-2xl bg-white px-8 text-base font-semibold text-[#1c1614] shadow-lg shadow-white/10 hover:bg-primary-50 dark:bg-[#f7f2ea] dark:text-[#1c1614] dark:shadow-black/20 dark:hover:bg-[#e8dfd3] sm:w-auto"
+                  className="h-14 w-full rounded-2xl bg-white px-8 text-base font-semibold text-[#1a1a2e] shadow-lg shadow-white/10 hover:bg-primary-50 dark:bg-[#f2f3f4] dark:text-[#1a1a2e] dark:shadow-black/20 dark:hover:bg-[#d5dce3] sm:w-auto"
                 >
                   Join on Telegram
                   <ArrowRight className="h-5 w-5" />
@@ -86,7 +86,7 @@ export function Footer() {
               >
                 {siteConfig.name}
               </Link>
-              <p className="mt-3 max-w-sm text-sm leading-7 text-[#6b6257] dark:text-[#b8a898]">
+              <p className="mt-3 max-w-sm text-sm leading-7 text-[#5d6d7e] dark:text-[#99a3ad]">
                 Local rhythm, practical guides, and a softer landing for digital
                 nomads staying longer in Istanbul.
               </p>
@@ -99,7 +99,7 @@ export function Footer() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="tap-highlight flex items-center gap-2 rounded-xl border border-primary-200/30 bg-white/60 px-3.5 py-2.5 text-sm font-medium text-primary-800 transition-all hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 dark:border-[rgba(200,100,60,0.15)] dark:bg-[rgba(28,22,20,0.5)] dark:text-[#d4c4b4] dark:hover:border-primary-700/40 dark:hover:bg-primary-950/30 dark:hover:text-primary-300"
+                  className="tap-highlight flex items-center gap-2 rounded-xl border border-[#e5e8eb] bg-white/60 px-3.5 py-2.5 text-sm font-medium text-primary-800 transition-all hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 dark:border-[#2c2f3a] dark:bg-[rgba(26,29,39,0.5)] dark:text-[#99a3ad] dark:hover:border-primary-700/40 dark:hover:bg-primary-950/30 dark:hover:text-primary-300"
                   aria-label={label}
                 >
                   <Icon className="h-4.5 w-4.5" />
@@ -117,7 +117,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-black/10 py-6 pb-20 md:pb-6 dark:border-white/10">
-          <p className="text-center text-sm text-neutral-500 dark:text-[#8a7a6a]">
+          <p className="text-center text-sm text-neutral-500 dark:text-[#85929e]">
             &copy; {new Date().getFullYear()} {siteConfig.name}. Made by remote
             workers, for remote workers in Istanbul.
           </p>
@@ -147,14 +147,14 @@ function FooterColumn({
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-[#6b6257] transition-colors hover:text-primary-600 dark:text-[#b8a898] dark:hover:text-primary-300"
+                className="text-sm text-[#5d6d7e] transition-colors hover:text-primary-600 dark:text-[#99a3ad] dark:hover:text-primary-300"
               >
                 {link.label}
               </a>
             ) : (
               <Link
                 href={link.href}
-                className="text-sm text-[#6b6257] transition-colors hover:text-primary-600 dark:text-[#b8a898] dark:hover:text-primary-300"
+                className="text-sm text-[#5d6d7e] transition-colors hover:text-primary-600 dark:text-[#99a3ad] dark:hover:text-primary-300"
               >
                 {link.label}
               </Link>

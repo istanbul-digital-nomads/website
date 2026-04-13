@@ -2,14 +2,14 @@
 import * as React from "react";
 
 const brandColors = {
-  bg: "#f5efe4",
+  bg: "#f2f3f4",
   cardBg: "#ffffff",
-  primary: "#8a2a1a",
-  primaryLight: "#e34b32",
-  text: "#2a2018",
-  muted: "#6b6257",
-  border: "#e8e0d4",
-  accent: "#d49a45",
+  primary: "#c0392b",
+  primaryLight: "#c0392b",
+  text: "#1a1a2e",
+  muted: "#5d6d7e",
+  border: "#d5dce3",
+  accent: "#f39c12",
 };
 
 function EmailLayout({

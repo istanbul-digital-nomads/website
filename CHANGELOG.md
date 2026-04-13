@@ -24,6 +24,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Renamed `.reveal` to `.reveal-hidden` for progressive enhancement
 
 ### Fixed
+- Blog tag filter now reads `?tag=` from URL and pre-selects the matching tag
+- Clicking a tag updates the URL to `/blog?tag=X` so filtered views are shareable
 - Guide card photos now use `next/image` instead of `<img>` for automatic optimization
 - Fixed stale route-progress gradient colors
 - Fixed remaining old rgba color values in onboarding steps

@@ -55,3 +55,13 @@ All user-facing content (guides, blog posts, FAQ answers, UI text, meta descript
 **Good:** "We recommend starting in Kadikoy if you want a calm routine with great cafes."
 
 **Bad:** "Kadikoy is widely considered to be an optimal neighborhood selection for digital nomads seeking a balanced lifestyle experience."
+
+## Versioning & Changelog
+
+- Follow [Semantic Versioning](https://semver.org/): MAJOR.MINOR.PATCH
+- Always check the latest version in `CHANGELOG.md` before adding a new entry
+- Increment the PATCH version for bug fixes and small improvements
+- Increment the MINOR version for new features or significant changes
+- Never reuse or duplicate an existing version number
+- When updating the changelog, add entries under the correct existing version or create a new version section if needed
+- When creating git tags, always check existing tags with `git tag -l` first

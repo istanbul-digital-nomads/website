@@ -4,6 +4,62 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-04-13
+
+### Added
+
+#### Nomad Spaces
+- Interactive cafe and coworking directory (`/spaces`) with MapLibre map
+- Nomad Score rating system - weighted average of wifi (25%), power (20%), comfort (15%), noise (15%), value (15%), vibe (10%)
+- 21 pre-populated spaces (5 coworking + 16 cafes) with coordinates, descriptions, and scores
+- Search, type filter, neighborhood filter, and sort functionality
+- Color-coded map markers (green = coworking, warm = cafe) with popups
+- Expandable space cards with score breakdown bars and amenity tags
+
+#### Local Guides
+- Local Guides directory page (`/local-guides`) with filtering by specialization, neighborhood, and search
+- Guide application form (`/local-guides/join`) with 5-section vetting process
+- Supabase tables for `local_guides` and `guide_applications` with RLS policies
+- Email notification to admin on new applications via Resend
+
+#### Dropdown navigation
+- Restructured top nav from flat links to dropdown menus (Explore, Community)
+- NavItem union type pattern supporting both direct links and dropdown groups
+- Click-outside dismiss, chevron animation, glassmorphism dropdown panels
+- Mobile menu updated to render dropdowns as section headers with flat links
+
+### Changed
+
+#### Performance optimization (PageSpeed 75 -> 90)
+- Added `preconnect` and `dns-prefetch` for CartoCDN and Supabase CDN
+- Inline theme script in `<head>` to prevent flash of unstyled content (FOUC)
+- Dynamic imports for BottomTabBar, NavigationProgress, Toaster, and FAQSection
+- Added `optimizePackageImports` for headlessui, sonner, supabase, react-map-gl
+- Throttled scroll handler with `requestAnimationFrame` instead of every-pixel events
+- Reduced `backdrop-blur-xl` to `backdrop-blur-md` on header and tab bar
+- Moved body gradients to `::before` pseudo-element for deferred paint
+- Removed excessive `will-change` declarations to save GPU memory
+- Gated `word-rise` and float animations behind `prefers-reduced-motion`
+- Faster map flyTo animation (2000ms to 800ms) and shorter marker delays
+- Added `theme-color` meta tags, image format optimization (AVIF/WebP), cache headers
+- Deferred Supabase auth check with `setTimeout` to avoid blocking render
+- Added loading placeholder for IstanbulMap dynamic import to prevent CLS
+- CLS reduced to 0, Best Practices and SEO both at 100
+
+#### Loading skeleton
+- Redesigned mobile loading skeleton with proper contrast in both light and dark modes
+- Uses `neutral-200`/`neutral-700` instead of low-opacity black/white
+- Proportional widths that fit mobile screens (75%, 50%, 85%, 65%)
+- Removed oversized desktop-oriented layout, single column on mobile
+
+### Fixed
+- Emails not sending - installed `@react-email/render`, switched from `react:` to `html:` prop (Resend v6 breaking change)
+- Mobile menu padding - duplicate `pt-` classes, used `max()` for safe-area-inset
+- CI build crash - lazy-init Resend with `getResend()` to avoid crash when API key missing
+- Loading skeleton invisible in dark mode on mobile
+
+---
+
 ## [1.0.0] - 2026-04-12
 
 ### Added
@@ -139,10 +195,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 | Version | Date | Summary |
 |---------|------|---------|
+| 1.1.0 | 2026-04-13 | Nomad Spaces directory, Local Guides, dropdown nav, performance optimization (90 PageSpeed) |
 | 1.0.0 | 2026-04-12 | Launch-ready - email system, newsletter, dynamic sitemap, honest social proof, error handling |
 | 0.2.0 | 2026-03-30 | Full MVP - Supabase, auth, 11 guides, 9 blog posts, events, onboarding, interactive map |
 | 0.1.0 | 2026-03-29 | Project setup, config files, initial homepage, documentation |
 
+[1.1.0]: https://github.com/istanbul-digital-nomads/website/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/istanbul-digital-nomads/website/compare/v0.2.0...v1.0.0
 [0.2.0]: https://github.com/istanbul-digital-nomads/website/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/istanbul-digital-nomads/website/releases/tag/v0.1.0

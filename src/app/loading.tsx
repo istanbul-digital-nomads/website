@@ -2,41 +2,38 @@ import { Container } from "@/components/ui/container";
 
 export default function Loading() {
   return (
-    <div className="relative overflow-hidden py-12 sm:py-16">
-      <div className="absolute inset-0 bg-grid opacity-30 dark:opacity-15" />
-
+    <div className="relative overflow-hidden py-10 sm:py-16">
       <Container className="relative">
-        <div className="mb-8 h-1.5 w-28 overflow-hidden rounded-full bg-black/10 dark:bg-white/10 sm:mb-10 sm:w-32">
+        {/* Animated loading bar */}
+        <div className="mb-6 h-1.5 w-24 overflow-hidden rounded-full bg-neutral-200 sm:mb-10 sm:w-32 dark:bg-neutral-700">
           <div className="loading-bar h-full w-full rounded-full bg-gradient-to-r from-primary-500 via-accent-warm to-accent-green" />
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <div>
-            <p className="eyebrow">Loading next page</p>
-            <div className="mt-5 space-y-3 sm:space-y-4">
-              <div className="h-12 w-full max-w-2xl rounded-2xl bg-black/8 dark:bg-white/8 sm:h-14" />
-              <div className="h-12 w-full max-w-xl rounded-2xl bg-black/8 dark:bg-white/8 sm:h-14" />
-            </div>
-            <div className="mt-5 h-5 w-full max-w-2xl rounded-full bg-black/8 dark:bg-white/8 sm:mt-6 sm:h-6" />
-            <div className="mt-3 h-5 w-full max-w-xl rounded-full bg-black/8 dark:bg-white/8 sm:h-6" />
+        {/* Eyebrow */}
+        <div className="h-3 w-24 rounded-full bg-neutral-200 dark:bg-neutral-700" />
 
-            <div className="mt-6 flex gap-3 sm:mt-8">
-              <div className="h-11 w-40 rounded-full bg-black/8 dark:bg-white/8" />
-              <div className="h-11 w-36 rounded-full bg-black/8 dark:bg-white/8" />
-            </div>
-          </div>
+        {/* Title skeleton */}
+        <div className="mt-5 space-y-2.5 sm:space-y-3">
+          <div className="h-8 w-[75%] max-w-[280px] rounded-xl bg-neutral-200 sm:h-12 sm:max-w-lg dark:bg-neutral-700" />
+          <div className="h-8 w-[50%] max-w-[180px] rounded-xl bg-neutral-200/80 sm:h-12 sm:max-w-sm dark:bg-neutral-700/70" />
+        </div>
 
-          <div className="surface-panel rounded-[2rem] p-5 sm:p-6">
-            <div className="h-8 w-40 rounded-full bg-black/8 dark:bg-white/8" />
-            <div className="mt-5 grid gap-3">
-              <div className="surface-subtle h-24 rounded-[1.5rem]" />
-              <div className="surface-subtle h-24 rounded-[1.5rem]" />
-            </div>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              <div className="surface-subtle h-32 rounded-[1.5rem]" />
-              <div className="surface-subtle h-32 rounded-[1.5rem]" />
-            </div>
-          </div>
+        {/* Description lines */}
+        <div className="mt-5 space-y-2.5">
+          <div className="h-4 w-[85%] max-w-[300px] rounded-full bg-neutral-200/80 sm:max-w-xl dark:bg-neutral-700/60" />
+          <div className="h-4 w-[65%] max-w-[240px] rounded-full bg-neutral-200/70 sm:max-w-lg dark:bg-neutral-700/50" />
+        </div>
+
+        {/* Action buttons */}
+        <div className="mt-7 flex gap-3 sm:mt-8">
+          <div className="h-11 w-36 rounded-full bg-neutral-200 sm:w-40 dark:bg-neutral-700" />
+          <div className="h-11 w-32 rounded-full bg-neutral-200/80 sm:w-36 dark:bg-neutral-700/70" />
+        </div>
+
+        {/* Content cards - stacked on mobile, side by side on desktop */}
+        <div className="mt-10 grid gap-4 sm:mt-12 sm:grid-cols-2">
+          <div className="h-32 rounded-2xl border border-neutral-200 bg-neutral-100/50 sm:h-36 dark:border-neutral-700 dark:bg-neutral-800/50" />
+          <div className="h-32 rounded-2xl border border-neutral-200 bg-neutral-100/50 sm:h-36 dark:border-neutral-700 dark:bg-neutral-800/50" />
         </div>
 
         <span className="sr-only">Loading page content</span>

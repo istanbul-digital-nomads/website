@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Search, Calendar, Clock, User } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -15,11 +15,21 @@ interface BlogListingProps {
 }
 
 export function BlogListing({ posts, allTags }: BlogListingProps) {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const tagFromUrl = searchParams.get("tag");
   const [search, setSearch] = useState("");
   const [activeTag, setActiveTag] = useState<string | null>(
     tagFromUrl && allTags.includes(tagFromUrl) ? tagFromUrl : null,
+  );
+
+  const selectTag = useCallback(
+    (tag: string | null) => {
+      setActiveTag(tag);
+      const url = tag ? `/blog?tag=${encodeURIComponent(tag)}` : "/blog";
+      router.replace(url, { scroll: false });
+    },
+    [router],
   );
 
   const filtered = posts.filter((post) => {
@@ -48,7 +58,7 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
 
         <div className="flex flex-wrap gap-2">
           <button
-            onClick={() => setActiveTag(null)}
+            onClick={() => selectTag(null)}
             className={cn(
               "rounded-full px-4 py-2 text-sm font-medium transition-colors",
               !activeTag
@@ -61,7 +71,7 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
           {allTags.map((tag) => (
             <button
               key={tag}
-              onClick={() => setActiveTag(activeTag === tag ? null : tag)}
+              onClick={() => selectTag(activeTag === tag ? null : tag)}
               className={cn(
                 "rounded-full px-4 py-2 text-sm font-medium capitalize transition-colors",
                 activeTag === tag

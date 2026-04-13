@@ -5,7 +5,6 @@ import {
   CalendarDays,
   Clock3,
   Globe,
-  MessageCircle,
   MapPin,
   MoveUpRight,
   Sparkles,
@@ -17,7 +16,7 @@ import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { guides } from "@/lib/data";
 import { socialLinks } from "@/lib/constants";
-import { cn, formatEventDate } from "@/lib/utils";
+import { formatEventDate } from "@/lib/utils";
 import { getEvents } from "@/lib/supabase/queries";
 const FAQSection = dynamic(
   () =>
@@ -108,64 +107,57 @@ export default async function HomePage() {
           </div>
 
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(560px,1fr)] lg:items-start lg:gap-12">
-            <Reveal delay={0} className="max-w-[30rem] pt-2 lg:pt-0">
-              <h1 className="motion-safe:word-rise mt-5 max-w-[8.7ch] text-balance text-[3rem] font-semibold leading-[0.92] text-neutral-950 sm:text-[3.7rem] lg:text-[4rem] dark:text-[#f7f2ea]">
-                <span>Find</span> <span>your</span> <span>rhythm</span>{" "}
-                <span>in</span> <span>Istanbul.</span>
+            {/* Hero text - NO Reveal wrapper to ensure LCP element is immediately visible */}
+            <div className="max-w-[30rem] pt-2 lg:pt-0">
+              <h1 className="mt-5 max-w-[8.7ch] text-balance text-[3rem] font-semibold leading-[0.92] text-neutral-950 sm:text-[3.7rem] lg:text-[4rem] dark:text-[#f7f2ea]">
+                Find your rhythm in Istanbul.
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-8 text-neutral-700 sm:text-[1.22rem] dark:text-[#d4c4b4]">
                 Weekly coworking, practical city guides, and a community of
                 remote workers who help each other settle in.
               </p>
 
-              <Reveal delay={1}>
-                <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                  <a
-                    href={socialLinks.telegram}
-                    target="_blank"
-                    rel="noopener noreferrer"
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+                <a
+                  href={socialLinks.telegram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button
+                    size="lg"
+                    className="w-full rounded-full bg-[#1c1614] px-7 text-white hover:bg-[#2a2018] dark:bg-[#f7f2ea] dark:text-[#1c1614] dark:hover:bg-[#e8dfd3] sm:w-auto"
                   >
-                    <Button
-                      size="lg"
-                      className="w-full rounded-full bg-[#1c1614] px-7 text-white hover:bg-[#2a2018] dark:bg-[#f7f2ea] dark:text-[#1c1614] dark:hover:bg-[#e8dfd3] sm:w-auto"
-                    >
-                      Join on Telegram
-                      <ArrowRight className="h-5 w-5" />
-                    </Button>
-                  </a>
-                  <Link href="/guides">
-                    <Button
-                      variant="secondary"
-                      size="lg"
-                      className="w-full rounded-full border border-black/60 bg-white/70 px-7 text-neutral-950 hover:bg-white dark:border-white/40 dark:bg-white/10 dark:text-[#f7f2ea] dark:hover:bg-white/20 sm:w-auto"
-                    >
-                      Browse the guides
-                    </Button>
-                  </Link>
-                </div>
-              </Reveal>
+                    Join on Telegram
+                    <ArrowRight className="h-5 w-5" />
+                  </Button>
+                </a>
+                <Link href="/guides">
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    className="w-full rounded-full border border-black/60 bg-white/70 px-7 text-neutral-950 hover:bg-white dark:border-white/40 dark:bg-white/10 dark:text-[#f7f2ea] dark:hover:bg-white/20 sm:w-auto"
+                  >
+                    Browse the guides
+                  </Button>
+                </Link>
+              </div>
 
-              <Reveal delay={2}>
-                <div className="mt-5 flex flex-wrap items-center gap-2 sm:flex-nowrap">
-                  {heroTrustSignals.map((signal) => (
-                    <div
-                      key={signal}
-                      className="inline-flex items-center gap-2 rounded-full border border-black/15 bg-white/70 px-3 py-2 text-xs font-medium text-neutral-700 dark:border-white/10 dark:bg-white/5 dark:text-[#d4c4b4]"
-                    >
-                      <span className="h-1.5 w-1.5 rounded-full bg-primary-500" />
-                      {signal}
-                    </div>
-                  ))}
-                </div>
-              </Reveal>
-            </Reveal>
+              <div className="mt-5 flex flex-wrap items-center gap-2 sm:flex-nowrap">
+                {heroTrustSignals.map((signal) => (
+                  <div
+                    key={signal}
+                    className="inline-flex items-center gap-2 rounded-full border border-black/15 bg-white/70 px-3 py-2 text-xs font-medium text-neutral-700 dark:border-white/10 dark:bg-white/5 dark:text-[#d4c4b4]"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary-500" />
+                    {signal}
+                  </div>
+                ))}
+              </div>
+            </div>
 
-            <Reveal
-              delay={1}
-              className="relative min-h-[380px] sm:min-h-[620px] lg:min-h-[600px]"
-            >
+            <div className="relative min-h-[380px] sm:min-h-[620px] lg:min-h-[600px]">
               <IstanbulMap />
-            </Reveal>
+            </div>
           </div>
         </Container>
       </section>

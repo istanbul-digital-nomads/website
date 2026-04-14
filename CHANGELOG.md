@@ -4,6 +4,14 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.1] - 2026-04-14
+
+### Changed
+- Path to Istanbul map: click feedback with loading overlay and pulse animation so users know navigation is starting
+- Uber-style dashed great-circle route lines from each supported country to Istanbul
+- Turkey filled in brand red to anchor the destination visually
+- Constant ping animation on supported country markers to draw attention
+
 ## [1.3.0] - 2026-04-14
 
 ### Added

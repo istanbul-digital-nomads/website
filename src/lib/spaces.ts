@@ -43,21 +43,29 @@ const WEIGHTS: Record<keyof NomadScores, number> = {
   vibe: 0.1,
 };
 
-// Returns null when not enough dimensions are scored to produce a meaningful
-// number (we require at least the wifi + power anchors). Otherwise renormalizes
-// over the present dimensions so a partially scored space still surfaces honestly.
+// Returns null only when fewer than 3 dimensions are scored. Otherwise
+// renormalizes over the present dimensions so a partially scored space
+// surfaces honestly. We don't gate on wifi specifically because confirmed
+// Mbps numbers are rare in the wild (Google reviews don't mention them).
+const MIN_DIMENSIONS = 3;
 export function computeNomadScore(scores: NomadScores): number | null {
-  if (scores.wifi == null || scores.power == null) return null;
   let total = 0;
   let weightSum = 0;
+  let count = 0;
   for (const [key, weight] of Object.entries(WEIGHTS)) {
     const v = scores[key as keyof NomadScores];
     if (v == null) continue;
     total += v * weight;
     weightSum += weight;
+    count += 1;
   }
-  if (weightSum === 0) return null;
+  if (count < MIN_DIMENSIONS || weightSum === 0) return null;
   return Math.round((total / weightSum) * 10) / 10;
+}
+
+// True when the score was computed from a partial set of dimensions.
+export function isPartialScore(scores: NomadScores): boolean {
+  return Object.values(scores).some((v) => v == null);
 }
 
 export const SCORE_LABELS: Record<keyof NomadScores, string> = {

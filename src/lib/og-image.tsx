@@ -28,27 +28,15 @@ export function renderOgImage({ category, title, description }: OgImageProps) {
         flexDirection: "column",
         justifyContent: "space-between",
         padding: "72px 80px",
-        background: BG,
+        // Two stacked linear-gradients give a smooth corner glow without
+        // satori's low-res blur rasterization. Top layer fades the brand red
+        // from the top-left corner; bottom layer is the dark canvas.
+        backgroundImage: `linear-gradient(135deg, rgba(192,57,43,0.35) 0%, rgba(192,57,43,0.10) 35%, rgba(15,17,23,0) 60%), linear-gradient(180deg, #141822 0%, ${BG} 100%)`,
+        backgroundColor: BG,
         fontFamily: "Inter, system-ui, sans-serif",
         overflow: "hidden",
       }}
     >
-      {/* Accent blob - satori doesn't support radial-gradient, so fake it
-            with a blurred colored circle in the top-left corner. */}
-      <div
-        style={{
-          position: "absolute",
-          top: -220,
-          left: -220,
-          width: 700,
-          height: 700,
-          borderRadius: 9999,
-          background: BRAND,
-          opacity: 0.22,
-          filter: "blur(120px)",
-          display: "flex",
-        }}
-      />
       {/* Brand wordmark */}
       <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
         <div

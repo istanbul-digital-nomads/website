@@ -144,6 +144,13 @@ export function WorldMap() {
 
   useEffect(() => setMounted(true), []);
 
+  // Prefetch supported country routes so clicks feel instant.
+  useEffect(() => {
+    COUNTRIES.filter((c) => c.supported).forEach((c) => {
+      router.prefetch(`/path-to-istanbul/${c.slug}`);
+    });
+  }, [router]);
+
   // Keep canvas sized to the container.
   useEffect(() => {
     if (!mounted || !containerRef.current) return;

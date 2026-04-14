@@ -72,7 +72,11 @@ export function MilestonesTimeline() {
                       {m.upcoming && (
                         <span
                           aria-hidden="true"
-                          className="pointer-events-none absolute inset-0 rounded-2xl bg-primary-500/30 animate-ping"
+                          className="pointer-events-none absolute inset-0 rounded-2xl bg-primary-500/25"
+                          style={{
+                            animation:
+                              "milestone-pulse 3.2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+                          }}
                         />
                       )}
                       <Icon className="relative h-6 w-6 sm:h-7 sm:w-7" />

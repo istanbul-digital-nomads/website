@@ -8,15 +8,12 @@ import { Search, ArrowRight } from "lucide-react";
 import { COUNTRIES, type Country } from "@/lib/path-to-istanbul";
 import { cn } from "@/lib/utils";
 
-const WorldMap = dynamic(
-  () => import("./world-map").then((m) => m.WorldMap),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-[420px] w-full animate-pulse rounded-2xl bg-neutral-100 dark:bg-white/5" />
-    ),
-  },
-);
+const WorldMap = dynamic(() => import("./world-map").then((m) => m.WorldMap), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[420px] w-full animate-pulse rounded-2xl bg-neutral-100 dark:bg-white/5" />
+  ),
+});
 
 export function CountrySelector() {
   const router = useRouter();

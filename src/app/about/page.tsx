@@ -48,8 +48,8 @@ const values = [
 const team = [
   {
     name: "Ali",
-    role: "Community Lead",
-    bio: "Full-stack developer and community builder. Moved to Istanbul in 2023 and never left.",
+    role: "Founder",
+    bio: "Full-stack developer who moved to Istanbul in early 2026 and started this community to help the next person land easier.",
   },
   {
     name: "Dina",
@@ -64,12 +64,14 @@ const team = [
 ];
 
 const timeline = [
-  { year: "2023", event: "Telegram group created with 10 members" },
-  { year: "2023", event: "First meetup at a Kadikoy cafe" },
-  { year: "2024", event: "100 members milestone" },
-  { year: "2024", event: "Weekly coworking sessions launched" },
-  { year: "2025", event: "500+ members" },
-  { year: "2026", event: "Website and platform launched" },
+  { year: "Feb 2026", event: "Decided to move to Turkey" },
+  { year: "Mar 2026", event: "Started the Istanbul Digital Nomads idea" },
+  { year: "Apr 2026", event: "Website launched" },
+  {
+    year: "Q2 2026",
+    event: "First community meetup (planned)",
+    upcoming: true,
+  },
 ];
 
 export default function AboutPage() {
@@ -83,22 +85,21 @@ export default function AboutPage() {
           </h1>
           <div className="mt-6 space-y-4 text-lg text-neutral-600 dark:text-[#85929e]">
             <p>
-              Istanbul Digital Nomads started in 2023 as a small Telegram group
-              for remote workers who had just arrived in Istanbul and were
-              looking for others in the same boat.
+              Istanbul Digital Nomads is a brand-new community, started in 2026
+              by one person who decided to make the move and wanted to build the
+              thing that didn&apos;t exist yet for the next people coming.
             </p>
             <p>
-              What began as casual cafe meetups grew into a thriving community
-              of 500+ members from all over the world - developers, designers,
-              writers, founders, and freelancers who chose Istanbul as their
-              base.
+              The decision came in February 2026. The idea took shape in March.
+              The website went live in April. The first meetup is planned for
+              Q2. That&apos;s the whole story so far - we&apos;re writing the
+              rest with whoever shows up.
             </p>
             <p>
-              We believe Istanbul is one of the best cities in the world for
-              remote work - affordable, culturally rich, extremely
-              well-connected, and full of energy. Our mission is to make the
-              transition easier and the experience richer for every nomad who
-              comes here.
+              Istanbul is one of the best cities in the world for remote work -
+              affordable, culturally rich, extremely well-connected, and full of
+              energy. Our mission is to make the transition easier and the
+              experience richer for every nomad who comes here.
             </p>
           </div>
         </div>
@@ -166,7 +167,13 @@ export default function AboutPage() {
             {timeline.map((item, idx) => (
               <div key={idx} className="flex gap-4">
                 <div className="flex flex-col items-center">
-                  <div className="h-3 w-3 rounded-full bg-primary-600 dark:bg-primary-400" />
+                  <div
+                    className={
+                      item.upcoming
+                        ? "h-3 w-3 rounded-full border-2 border-primary-600 bg-transparent dark:border-primary-400"
+                        : "h-3 w-3 rounded-full bg-primary-600 dark:bg-primary-400"
+                    }
+                  />
                   {idx < timeline.length - 1 && (
                     <div className="w-px flex-1 bg-neutral-300 dark:bg-[#3a302a]" />
                   )}

@@ -4,6 +4,21 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-04-14
+
+### Added
+- Dynamic OpenGraph social cards for blog posts, city guides, Path to Istanbul landing, and country pages (Claude Code Docs-style dark canvas with brand wordmark, category label, title, and description)
+
+## [1.3.1] - 2026-04-14
+
+### Changed
+- Path to Istanbul map: click feedback with loading overlay and pulse animation so users know navigation is starting
+- Prefetch supported country routes so clicks feel instant (no more 1-2s wait)
+- Uber-style dashed great-circle route lines from each supported country to Istanbul
+- Turkey filled in brand red to anchor the destination visually
+- Constant ping animation on supported country markers to draw attention
+- SEO description block on `/path-to-istanbul` covering why country-specific guides matter, what each guide covers, and who they're for
+
 ## [1.3.0] - 2026-04-14
 
 ### Added

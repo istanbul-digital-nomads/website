@@ -12,6 +12,14 @@ export const metadata: Metadata = {
   title: "Path to Istanbul - Relocation Guides by Country",
   description:
     "Country-specific relocation guides for moving to Istanbul. Visa, flights, housing, banking, and community - everything you need to land well.",
+  alternates: { canonical: "/path-to-istanbul" },
+  openGraph: {
+    title: "Path to Istanbul - Relocation Guides by Country",
+    description:
+      "Pick your country and get an end-to-end playbook for moving to Istanbul: visa, flights, housing, banking, and the community already here.",
+    url: "/path-to-istanbul",
+    type: "website",
+  },
 };
 
 export default function PathToIstanbulPage() {
@@ -32,6 +40,64 @@ export default function PathToIstanbulPage() {
         </div>
 
         <CountrySelector />
+
+        <div className="mx-auto mt-12 max-w-3xl space-y-6 text-base leading-7 text-[#5d6d7e] dark:text-[#99a3ad] sm:mt-16">
+          <h2 className="text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4] sm:text-3xl">
+            Why a country-specific guide matters
+          </h2>
+          <p>
+            Generic &quot;move to Istanbul&quot; articles miss the details that
+            actually decide your move. An Iranian passport holder gets 90 days
+            visa-free but can&apos;t open most Turkish bank accounts without a
+            residence permit. An Indian applicant needs apostilled documents
+            before flying. A Russian arrival has cheap direct flights but
+            trickier card payments. Your starting country shapes every step.
+          </p>
+          <p>
+            That&apos;s why each path starts with your country and walks through
+            the three things that matter when you land: paperwork, money, and
+            community. No filler, no SEO word salad - just the order of
+            operations we&apos;d give a friend.
+          </p>
+
+          <h2 className="pt-4 text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4] sm:text-3xl">
+            What you&apos;ll find in every country page
+          </h2>
+          <ul className="list-disc space-y-2 pl-6">
+            <li>
+              <span className="font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
+                Visa, residence &amp; documents
+              </span>{" "}
+              - entry rules, residence permit (ikamet) path, which documents
+              need apostille or sworn translation before you fly.
+            </li>
+            <li>
+              <span className="font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
+                Flights, arrival &amp; money
+              </span>{" "}
+              - direct routes, typical fares, what actually works on day one for
+              cash, cards, and transfers from your country.
+            </li>
+            <li>
+              <span className="font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
+                Housing, healthcare &amp; community
+              </span>{" "}
+              - neighborhoods that fit your budget, how to rent without getting
+              burned, SGK vs private insurance, and the people from your country
+              already here.
+            </li>
+          </ul>
+
+          <h2 className="pt-4 text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4] sm:text-3xl">
+            Who these guides are for
+          </h2>
+          <p>
+            Digital nomads, remote workers, students, and families planning a
+            real move - not a two-week holiday. If you&apos;re weighing Istanbul
+            against Lisbon or Dubai, start with your country page to see what
+            the move actually looks like from where you are.
+          </p>
+        </div>
       </Section>
 
       <Section className="border-t border-black/5 dark:border-white/10">

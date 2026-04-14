@@ -240,6 +240,9 @@ export function validateGuideApplication(
       photo_url: (b.photo_url as string) || undefined,
       agrees_guidelines: true,
       references_text: (b.references_text as string) || undefined,
+      origin_countries: Array.isArray(b.origin_countries)
+        ? (b.origin_countries as string[])
+        : undefined,
     },
   };
 }

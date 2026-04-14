@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { FlagBadge } from "@/components/ui/flag-badge";
 import { guideSpecializations, istanbulNeighborhoods } from "@/lib/constants";
 import type { Database } from "@/types/database";
 
@@ -87,6 +88,20 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
               </Badge>
             ))}
           </div>
+
+          {/* Origin countries */}
+          {guide.origin_countries && guide.origin_countries.length > 0 && (
+            <div className="mt-3">
+              <p className="mb-1.5 text-[10px] font-medium uppercase tracking-wider text-neutral-500 dark:text-[#85929e]">
+                Helps people from
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {guide.origin_countries.map((code) => (
+                  <FlagBadge key={code} code={code} linkToCountryPage />
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Neighborhoods + Languages */}
           <div className="mt-3 space-y-1.5">

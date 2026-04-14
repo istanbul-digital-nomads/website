@@ -188,6 +188,7 @@ export interface Database {
           social_twitter: string | null;
           social_website: string | null;
           is_visible: boolean;
+          origin_countries: string[];
           created_at: string;
           updated_at: string;
         };
@@ -208,6 +209,7 @@ export interface Database {
           social_twitter?: string | null;
           social_website?: string | null;
           is_visible?: boolean;
+          origin_countries?: string[];
         };
         Update: {
           [key: string]: unknown;
@@ -233,6 +235,7 @@ export interface Database {
           social_website: string | null;
           agrees_guidelines: boolean;
           references_text: string | null;
+          origin_countries: string[];
           status: string;
           reviewed_at: string | null;
           created_at: string;
@@ -256,6 +259,7 @@ export interface Database {
           social_website?: string | null;
           agrees_guidelines: boolean;
           references_text?: string | null;
+          origin_countries?: string[];
         };
         Update: {
           [key: string]: unknown;

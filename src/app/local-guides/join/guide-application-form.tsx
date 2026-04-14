@@ -10,6 +10,12 @@ import {
   istanbulNeighborhoods,
   commonLanguages,
 } from "@/lib/constants";
+import { COUNTRIES } from "@/lib/path-to-istanbul";
+
+const ORIGIN_COUNTRY_OPTIONS = COUNTRIES.map((c) => ({
+  value: c.code,
+  label: `${c.flag} ${c.name}`,
+}));
 
 interface FormData {
   name: string;
@@ -18,6 +24,7 @@ interface FormData {
   languages: string[];
   specializations: string[];
   neighborhoods: string[];
+  origin_countries: string[];
   years_in_istanbul: string;
   bio: string;
   sample_tip: string;
@@ -38,6 +45,7 @@ const initial: FormData = {
   languages: [],
   specializations: [],
   neighborhoods: [],
+  origin_countries: [],
   years_in_istanbul: "",
   bio: "",
   sample_tip: "",
@@ -74,6 +82,9 @@ export function GuideApplicationForm() {
       social_website: form.social_website || undefined,
       photo_url: form.photo_url || undefined,
       references_text: form.references_text || undefined,
+      origin_countries: form.origin_countries.length
+        ? form.origin_countries
+        : undefined,
     };
 
     try {
@@ -188,6 +199,12 @@ export function GuideApplicationForm() {
           onChange={(e) => update("years_in_istanbul", e.target.value)}
           placeholder="2"
           required
+        />
+        <MultiSelectToggle
+          label="Where did you move from?"
+          options={ORIGIN_COUNTRY_OPTIONS}
+          value={form.origin_countries}
+          onChange={(v) => update("origin_countries", v)}
         />
       </div>
 

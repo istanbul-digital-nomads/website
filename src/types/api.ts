@@ -87,4 +87,5 @@ export interface GuideApplicationBody {
   photo_url?: string;
   agrees_guidelines: boolean;
   references_text?: string;
+  origin_countries?: string[];
 }

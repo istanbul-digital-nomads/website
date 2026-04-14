@@ -4,6 +4,21 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.3] - 2026-04-15
+
+### Changed
+- About page Milestones: replaced flat list with an animated vertical timeline (gradient connector, Lucide icon nodes, staggered scroll-reveal, dashed "Coming up" card)
+- Smoother slower pulse on the upcoming Q2 milestone (custom 3.2s ease-in-out keyframe instead of the harsh 1s `animate-ping`)
+- Path to Istanbul: replaced the empty `FeaturedGuides` slot with a "Popular paths" country grid fallback so the section is never visually empty before guides are seeded
+
+## [1.4.2] - 2026-04-14
+
+### Changed
+- About page: replaced fabricated 2023-2025 history with the true 2026 timeline (decided Feb, idea Mar, website Apr, first meetup planned Q2)
+- Updated "Our Story" copy to reflect the project's actual one-person 2026 origin
+- Marked upcoming Q2 meetup with a hollow timeline dot
+- Updated Ali's bio to match the true 2026 arrival
+
 ## [1.4.1] - 2026-04-14
 
 ### Changed

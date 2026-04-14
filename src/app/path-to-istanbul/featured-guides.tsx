@@ -5,16 +5,60 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getLocalGuides } from "@/lib/supabase/queries";
 import { guideSpecializations } from "@/lib/constants";
-import { getCountryByCode } from "@/lib/path-to-istanbul";
+import { COUNTRIES, getCountryByCode } from "@/lib/path-to-istanbul";
 
 function specLabel(v: string) {
   return guideSpecializations.find((s) => s.value === v)?.label ?? v;
 }
 
+function PopularPaths() {
+  const supported = COUNTRIES.filter((c) => c.supported);
+  return (
+    <div>
+      <div className="mb-6 flex items-end justify-between">
+        <div>
+          <h2 className="text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4] sm:text-3xl">
+            Popular paths to Istanbul
+          </h2>
+          <p className="mt-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
+            Country playbooks ready to read - pick yours and skip the guesswork.
+          </p>
+        </div>
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {supported.map((c) => (
+          <Link
+            key={c.code}
+            href={`/path-to-istanbul/${c.slug}`}
+            className="group rounded-2xl border border-black/5 bg-white/70 p-5 transition-colors hover:border-primary-300/60 hover:bg-primary-50/40 dark:border-white/10 dark:bg-white/5 dark:hover:border-primary-700/40 dark:hover:bg-primary-950/20"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="text-3xl" aria-hidden="true">
+                  {c.flag}
+                </span>
+                <div>
+                  <div className="text-base font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
+                    {c.name}
+                  </div>
+                  <div className="text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
+                    Visa, money, housing, community
+                  </div>
+                </div>
+              </div>
+              <ArrowRight className="h-4 w-4 text-primary-600 transition-transform group-hover:translate-x-0.5 dark:text-primary-400" />
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export async function FeaturedGuides() {
   const { data } = await getLocalGuides({ limit: 6 });
   const guides = data ?? [];
-  if (guides.length === 0) return null;
+  if (guides.length === 0) return <PopularPaths />;
 
   return (
     <div>

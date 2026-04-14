@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/section";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { socialLinks } from "@/lib/constants";
+import { MilestonesTimeline } from "./milestones-timeline";
 
 export const metadata: Metadata = {
   title: "About",
@@ -48,8 +49,8 @@ const values = [
 const team = [
   {
     name: "Ali",
-    role: "Community Lead",
-    bio: "Full-stack developer and community builder. Moved to Istanbul in 2023 and never left.",
+    role: "Founder",
+    bio: "Full-stack developer who moved to Istanbul in early 2026 and started this community to help the next person land easier.",
   },
   {
     name: "Dina",
@@ -63,15 +64,6 @@ const team = [
   },
 ];
 
-const timeline = [
-  { year: "2023", event: "Telegram group created with 10 members" },
-  { year: "2023", event: "First meetup at a Kadikoy cafe" },
-  { year: "2024", event: "100 members milestone" },
-  { year: "2024", event: "Weekly coworking sessions launched" },
-  { year: "2025", event: "500+ members" },
-  { year: "2026", event: "Website and platform launched" },
-];
-
 export default function AboutPage() {
   return (
     <>
@@ -83,22 +75,21 @@ export default function AboutPage() {
           </h1>
           <div className="mt-6 space-y-4 text-lg text-neutral-600 dark:text-[#85929e]">
             <p>
-              Istanbul Digital Nomads started in 2023 as a small Telegram group
-              for remote workers who had just arrived in Istanbul and were
-              looking for others in the same boat.
+              Istanbul Digital Nomads is a brand-new community, started in 2026
+              by one person who decided to make the move and wanted to build the
+              thing that didn&apos;t exist yet for the next people coming.
             </p>
             <p>
-              What began as casual cafe meetups grew into a thriving community
-              of 500+ members from all over the world - developers, designers,
-              writers, founders, and freelancers who chose Istanbul as their
-              base.
+              The decision came in February 2026. The idea took shape in March.
+              The website went live in April. The first meetup is planned for
+              Q2. That&apos;s the whole story so far - we&apos;re writing the
+              rest with whoever shows up.
             </p>
             <p>
-              We believe Istanbul is one of the best cities in the world for
-              remote work - affordable, culturally rich, extremely
-              well-connected, and full of energy. Our mission is to make the
-              transition easier and the experience richer for every nomad who
-              comes here.
+              Istanbul is one of the best cities in the world for remote work -
+              affordable, culturally rich, extremely well-connected, and full of
+              energy. Our mission is to make the transition easier and the
+              experience richer for every nomad who comes here.
             </p>
           </div>
         </div>
@@ -159,30 +150,11 @@ export default function AboutPage() {
       <Section className="bg-neutral-50 dark:bg-[#1a1d27]/50">
         <SectionHeader>
           <SectionTitle>Milestones</SectionTitle>
-          <SectionDescription>Our journey so far.</SectionDescription>
+          <SectionDescription>
+            A short journey so far - the rest gets written with you.
+          </SectionDescription>
         </SectionHeader>
-        <div className="mx-auto max-w-xl">
-          <div className="space-y-6">
-            {timeline.map((item, idx) => (
-              <div key={idx} className="flex gap-4">
-                <div className="flex flex-col items-center">
-                  <div className="h-3 w-3 rounded-full bg-primary-600 dark:bg-primary-400" />
-                  {idx < timeline.length - 1 && (
-                    <div className="w-px flex-1 bg-neutral-300 dark:bg-[#3a302a]" />
-                  )}
-                </div>
-                <div className="pb-6">
-                  <span className="text-sm font-medium text-primary-600 dark:text-primary-400">
-                    {item.year}
-                  </span>
-                  <p className="mt-1 text-neutral-700 dark:text-[#99a3ad]">
-                    {item.event}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <MilestonesTimeline />
       </Section>
 
       <CtaBanner />

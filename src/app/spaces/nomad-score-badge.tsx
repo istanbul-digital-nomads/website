@@ -36,6 +36,28 @@ export function NomadScoreBadge({
     lg: "h-16 w-16 text-2xl",
   };
 
+  // Unscored / unverified state: render a neutral dash badge instead of a fake number.
+  if (score == null) {
+    return (
+      <div className={cn("flex flex-col items-center gap-0.5", className)}>
+        <div
+          className={cn(
+            "flex items-center justify-center rounded-full font-bold ring-2 ring-neutral-300/60 bg-neutral-200/40 text-neutral-500 dark:ring-white/10 dark:bg-white/5 dark:text-[#85929e]",
+            sizes[size],
+          )}
+          title="Not yet verified"
+        >
+          -
+        </div>
+        {size !== "sm" && (
+          <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-neutral-500 dark:text-[#85929e]">
+            Unverified
+          </span>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className={cn("flex flex-col items-center gap-0.5", className)}>
       <div

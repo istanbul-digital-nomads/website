@@ -9,13 +9,15 @@ export function ScoreBreakdown({ scores }: { scores: NomadScores }) {
             {SCORE_LABELS[key]}
           </span>
           <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-black/5 dark:bg-white/10">
-            <div
-              className="h-full rounded-full bg-primary-500 transition-all duration-500"
-              style={{ width: `${(scores[key] / 5) * 100}%` }}
-            />
+            {scores[key] != null && (
+              <div
+                className="h-full rounded-full bg-primary-500 transition-all duration-500"
+                style={{ width: `${(scores[key]! / 5) * 100}%` }}
+              />
+            )}
           </div>
           <span className="w-4 text-right text-xs font-medium text-neutral-700 dark:text-[#99a3ad]">
-            {scores[key]}
+            {scores[key] ?? "-"}
           </span>
         </div>
       ))}

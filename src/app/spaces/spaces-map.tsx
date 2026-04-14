@@ -145,10 +145,16 @@ export function SpacesMap({
                   {selectedSpace.type === "coworking" ? "Coworking" : "Cafe"}
                 </span>
                 <span>-</span>
-                <span className="font-medium text-[#27ae60]">
-                  {computeNomadScore(selectedSpace.nomad_score).toFixed(1)}{" "}
-                  score
-                </span>
+                {(() => {
+                  const s = computeNomadScore(selectedSpace.nomad_score);
+                  return s == null ? (
+                    <span className="text-neutral-500">unverified</span>
+                  ) : (
+                    <span className="font-medium text-[#27ae60]">
+                      {s.toFixed(1)} score
+                    </span>
+                  );
+                })()}
               </div>
             </div>
           </Popup>

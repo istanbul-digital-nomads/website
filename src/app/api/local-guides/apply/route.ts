@@ -40,6 +40,7 @@ export async function POST(request: Request) {
     photo_url: application.photo_url || null,
     agrees_guidelines: application.agrees_guidelines,
     references_text: application.references_text || null,
+    origin_countries: application.origin_countries || [],
   });
 
   if (dbError) {

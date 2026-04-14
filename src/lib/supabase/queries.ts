@@ -155,6 +155,8 @@ export async function getBlogPosts(options?: { limit?: number }) {
 export async function getLocalGuides(options?: {
   specialization?: string;
   neighborhood?: string;
+  originCountry?: string;
+  limit?: number;
 }) {
   const supabase = await createClient();
   let query = (supabase.from("local_guides") as any)
@@ -170,8 +172,22 @@ export async function getLocalGuides(options?: {
     query = query.contains("neighborhoods", [options.neighborhood]);
   }
 
+  if (options?.originCountry) {
+    query = query.contains("origin_countries", [
+      options.originCountry.toUpperCase(),
+    ]);
+  }
+
+  if (options?.limit) {
+    query = query.limit(options.limit);
+  }
+
   const { data, error } = await query;
   return { data: data as LocalGuideRow[] | null, error };
+}
+
+export async function getGuidesByOriginCountry(code: string, limit = 6) {
+  return getLocalGuides({ originCountry: code, limit });
 }
 
 // --- Blog ---

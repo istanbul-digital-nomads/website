@@ -4,6 +4,31 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-04-14
+
+### Added
+
+#### Path to Istanbul
+- Country-specific relocation guides with interactive world map (`/path-to-istanbul`)
+- Per-country playbooks for Iran, India, Russia, Pakistan, and Nigeria (`/path-to-istanbul/[country]`)
+- MapLibre world map with destination marker on Istanbul, highlighted supported countries, and "coming soon" markers for 20 other origins
+- Three-section structure per country: visa/residence/documents, flights/arrival/money, housing/healthcare/community
+- Sticky TOC with scrollspy on desktop, collapsible sections on mobile
+- JSON-LD HowTo structured data for each country page
+- Static generation via `generateStaticParams` for all supported countries
+- Search + SEO-crawlable grid fallback alongside the map
+- "Guides from [Country]" section with three-tier fallback: origin match → language match → recruit CTA
+
+#### Local Guides integration
+- `origin_countries` field added to `local_guides` and `guide_applications` (GIN-indexed text[])
+- "Where did you move from?" multi-select in the guide application form
+- Flag badges on guide cards linking to the matching country page
+
+### Changed
+- Mobile-first polish on Path to Istanbul pages: tightened hero spacing, stacked flag above title on small screens, smaller map markers to reduce overlap, always-visible "See the path" hint on touch devices
+- Added `/path-to-istanbul` and country subpages to sitemap
+- Added Path to Istanbul entry to the Explore nav dropdown and footer resources
+
 ## [1.2.0] - 2026-04-13
 
 ### Changed

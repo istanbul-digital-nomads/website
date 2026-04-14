@@ -34,6 +34,11 @@ export const navItems: NavItem[] = [
         description: "Neighborhoods, housing, visa, and more",
       },
       {
+        label: "Path to Istanbul",
+        href: "/path-to-istanbul",
+        description: "Country-by-country relocation playbooks",
+      },
+      {
         label: "Nomad Spaces",
         href: "/spaces",
         description: "Wifi-tested cafes and coworking spots",
@@ -74,8 +79,8 @@ export const footerNav = {
   resources: [
     { label: "Nomad Spaces", href: "/spaces" },
     { label: "City Guides", href: "/guides" },
+    { label: "Path to Istanbul", href: "/path-to-istanbul" },
     { label: "Neighborhoods", href: "/guides/neighborhoods" },
-    { label: "Coworking", href: "/guides/coworking" },
     { label: "Cost of Living", href: "/guides/cost-of-living" },
   ],
   connect: [

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { guides } from "@/lib/data";
 import { getAllBlogPosts } from "@/lib/blog";
+import { getSupportedCountries } from "@/lib/path-to-istanbul";
 
 const BASE_URL = "https://istanbulnomads.com";
 
@@ -51,6 +52,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${BASE_URL}/path-to-istanbul`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: `${BASE_URL}/local-guides/join`,
       lastModified: new Date(),
       changeFrequency: "monthly",
@@ -78,5 +85,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...guidePages, ...blogPages];
+  const countryPages: MetadataRoute.Sitemap = getSupportedCountries().map(
+    (country) => ({
+      url: `${BASE_URL}/path-to-istanbul/${country.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.75,
+    }),
+  );
+
+  return [...staticPages, ...guidePages, ...blogPages, ...countryPages];
 }

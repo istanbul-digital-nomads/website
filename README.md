@@ -24,6 +24,9 @@ Istanbul Nomads is more than a landing page - it's a full community platform. He
 | **Homepage** | Hero, community stats, featured events, social proof, join CTA | `/` |
 | **About** | Our story, values, organizer team, community timeline | `/about` |
 | **City Guides** | 10 curated guides (neighborhoods, coworking, cafes, visa, housing, internet, transport, cost of living, healthcare, food) | `/guides`, `/guides/[slug]` |
+| **Path to Istanbul** | Country-specific relocation playbooks with interactive world map (Iran, India, Russia, Pakistan, Nigeria) | `/path-to-istanbul`, `/path-to-istanbul/[country]` |
+| **Nomad Spaces** | Wifi-tested cafes and coworking spots with scores, map, and filters | `/spaces` |
+| **Local Guides** | People who help newcomers settle in, filterable by specialization and neighborhood | `/local-guides`, `/local-guides/join` |
 | **Events** | Upcoming meetups, coworking sessions, workshops, past events archive | `/events`, `/events/[id]` |
 | **Blog** | Community stories, Istanbul tips, nomad interviews, remote work insights | `/blog`, `/blog/[slug]` |
 | **Contact** | Reach us form, Telegram link, email, social links | `/contact` |

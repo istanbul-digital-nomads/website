@@ -1,11 +1,22 @@
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 type Props<T extends keyof JSX.IntrinsicElements> = ComponentPropsWithoutRef<T>;
 
+function slugify(children: ReactNode): string {
+  const text = typeof children === "string" ? children : String(children ?? "");
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/gi, "")
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
+
 export const mdxComponents = {
-  h2: ({ children, ...props }: Props<"h2">) => (
+  h2: ({ children, id, ...props }: Props<"h2">) => (
     <h2
-      className="mb-4 mt-10 text-2xl font-bold text-[#1a1a2e] dark:text-[#f2f3f4]"
+      id={id ?? slugify(children)}
+      className="mb-4 mt-10 scroll-mt-24 text-2xl font-bold text-[#1a1a2e] dark:text-[#f2f3f4]"
       {...props}
     >
       {children}

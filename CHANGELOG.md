@@ -4,6 +4,18 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-04-15
+
+### Added
+- `nomad-space-scorer` Claude Code subagent (`.claude/agents/nomad-space-scorer.md`) - strict no-invention rubric with cited sources of truth (Google Maps, official site, Workfrom, Coworker.com), 1-5 anchored scoring across wifi/power/comfort/noise/value/vibe, and verification metadata
+- `NomadSpace` schema extended with `status`, `last_verified`, `sources`, `unverified_fields` so verified data is distinguishable from seed data
+- "Unverified" pill rendered in `NomadScoreBadge` and map popup when scores aren't yet evidence-backed
+
+### Changed
+- `NomadScores` dimensions are now `number | null`; `computeNomadScore` returns `null` when wifi or power are missing and renormalizes weights over the present dimensions
+- All 21 existing seed spaces flagged `status: "unverified"` until the scorer agent re-verifies them with sources
+- Score-sort puts unscored spaces at the bottom
+
 ## [1.4.3] - 2026-04-15
 
 ### Changed

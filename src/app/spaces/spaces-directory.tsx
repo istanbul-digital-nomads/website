@@ -57,9 +57,10 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
 
     result = [...result].sort((a, b) => {
       if (sortBy === "score") {
-        return (
-          computeNomadScore(b.nomad_score) - computeNomadScore(a.nomad_score)
-        );
+        // Unscored spaces sink to the bottom.
+        const sa = computeNomadScore(a.nomad_score) ?? -1;
+        const sb = computeNomadScore(b.nomad_score) ?? -1;
+        return sb - sa;
       }
       return a.name.localeCompare(b.name);
     });

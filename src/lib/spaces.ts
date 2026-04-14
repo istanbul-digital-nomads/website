@@ -1,10 +1,15 @@
 export interface NomadScores {
-  wifi: number;
-  power: number;
-  comfort: number;
-  noise: number;
-  value: number;
-  vibe: number;
+  wifi: number | null;
+  power: number | null;
+  comfort: number | null;
+  noise: number | null;
+  value: number | null;
+  vibe: number | null;
+}
+
+export interface SpaceSource {
+  label: string;
+  url: string;
 }
 
 export interface NomadSpace {
@@ -22,6 +27,11 @@ export interface NomadSpace {
   website?: string;
   amenities?: string[];
   laptop_friendly: boolean;
+  // Verification metadata - populated/maintained by the nomad-space-scorer agent.
+  status?: "open" | "closed" | "unverified";
+  last_verified?: string; // ISO date, YYYY-MM-DD
+  sources?: SpaceSource[];
+  unverified_fields?: string[];
 }
 
 const WEIGHTS: Record<keyof NomadScores, number> = {
@@ -33,12 +43,21 @@ const WEIGHTS: Record<keyof NomadScores, number> = {
   vibe: 0.1,
 };
 
-export function computeNomadScore(scores: NomadScores): number {
-  const total = Object.entries(WEIGHTS).reduce(
-    (sum, [key, weight]) => sum + scores[key as keyof NomadScores] * weight,
-    0,
-  );
-  return Math.round(total * 10) / 10;
+// Returns null when not enough dimensions are scored to produce a meaningful
+// number (we require at least the wifi + power anchors). Otherwise renormalizes
+// over the present dimensions so a partially scored space still surfaces honestly.
+export function computeNomadScore(scores: NomadScores): number | null {
+  if (scores.wifi == null || scores.power == null) return null;
+  let total = 0;
+  let weightSum = 0;
+  for (const [key, weight] of Object.entries(WEIGHTS)) {
+    const v = scores[key as keyof NomadScores];
+    if (v == null) continue;
+    total += v * weight;
+    weightSum += weight;
+  }
+  if (weightSum === 0) return null;
+  return Math.round((total / weightSum) * 10) / 10;
 }
 
 export const SCORE_LABELS: Record<keyof NomadScores, string> = {
@@ -75,6 +94,7 @@ export const spaces: NomadSpace[] = [
       "library",
     ],
     laptop_friendly: true,
+    status: "unverified",
   },
   {
     id: "workinton",
@@ -98,6 +118,7 @@ export const spaces: NomadSpace[] = [
       "printing",
     ],
     laptop_friendly: true,
+    status: "unverified",
   },
   {
     id: "mob-kadikoy",
@@ -121,6 +142,7 @@ export const spaces: NomadSpace[] = [
       "art space",
     ],
     laptop_friendly: true,
+    status: "unverified",
   },
   {
     id: "impact-hub",
@@ -138,6 +160,7 @@ export const spaces: NomadSpace[] = [
     website: "https://istanbul.impacthub.net",
     amenities: ["event space", "mentoring", "startup community", "kitchen"],
     laptop_friendly: true,
+    status: "unverified",
   },
   {
     id: "justwork",
@@ -163,6 +186,7 @@ export const spaces: NomadSpace[] = [
       "garden",
     ],
     laptop_friendly: true,
+    status: "unverified",
   },
 
   // --- Cafes: Kadikoy / Moda ---
@@ -181,6 +205,7 @@ export const spaces: NomadSpace[] = [
     hours: "8am-10pm",
     amenities: ["specialty coffee", "spacious", "good lighting"],
     laptop_friendly: true,
+    status: "unverified",
   },
   {
     id: "coffee-manifesto",
@@ -197,6 +222,7 @@ export const spaces: NomadSpace[] = [
     hours: "8am-11pm",
     amenities: ["outdoor seating", "good coffee"],
     laptop_friendly: true,
+    status: "unverified",
   },
   {
     id: "walters-coffee",
@@ -213,6 +239,7 @@ export const spaces: NomadSpace[] = [
     hours: "9am-11pm",
     amenities: ["themed decor", "good coffee", "outdoor seating"],
     laptop_friendly: true,
+    status: "unverified",
   },
   {
     id: "montag-coffee",
@@ -229,6 +256,7 @@ export const spaces: NomadSpace[] = [
     hours: "8am-10pm",
     amenities: ["quiet", "coastal neighborhood", "outlets"],
     laptop_friendly: true,
+    status: "unverified",
   },
 
   // --- Cafes: Cihangir / Beyoglu ---
@@ -247,6 +275,7 @@ export const spaces: NomadSpace[] = [
     hours: "8am-11pm",
     amenities: ["food menu", "nomad crowd", "Bosphorus views nearby"],
     laptop_friendly: true,
+    status: "unverified",
   },
   {
     id: "coffee-sapiens",
@@ -263,6 +292,7 @@ export const spaces: NomadSpace[] = [
     hours: "8am-10pm",
     amenities: ["specialty roaster", "minimal design"],
     laptop_friendly: true,
+    status: "unverified",
   },
   {
     id: "norm-coffee",
@@ -279,6 +309,7 @@ export const spaces: NomadSpace[] = [
     hours: "8am-11pm",
     amenities: ["multi-level", "quiet upstairs", "good food"],
     laptop_friendly: true,
+    status: "unverified",
   },
   {
     id: "espressolab",
@@ -295,6 +326,7 @@ export const spaces: NomadSpace[] = [
     hours: "7am-11pm",
     amenities: ["terrace", "chain reliability"],
     laptop_friendly: true,
+    status: "unverified",
   },
 
   // --- Cafes: Karakoy / Galata ---
@@ -313,6 +345,7 @@ export const spaces: NomadSpace[] = [
     hours: "8am-10pm",
     amenities: ["courtyard", "food menu", "hidden gem"],
     laptop_friendly: true,
+    status: "unverified",
   },
   {
     id: "kronotrop",
@@ -329,6 +362,7 @@ export const spaces: NomadSpace[] = [
     hours: "8am-8pm",
     amenities: ["specialty coffee", "pour-over", "small space"],
     laptop_friendly: true,
+    status: "unverified",
   },
   {
     id: "moc-karakoy",
@@ -345,6 +379,7 @@ export const spaces: NomadSpace[] = [
     hours: "8am-10pm",
     amenities: ["spacious", "industrial design", "food menu"],
     laptop_friendly: true,
+    status: "unverified",
   },
 
   // --- Cafes: Besiktas ---
@@ -363,6 +398,7 @@ export const spaces: NomadSpace[] = [
     hours: "9am-10pm",
     amenities: ["japanese inspired", "matcha", "calm atmosphere"],
     laptop_friendly: true,
+    status: "unverified",
   },
   {
     id: "coffeetopia",
@@ -379,6 +415,7 @@ export const spaces: NomadSpace[] = [
     hours: "7am-11pm",
     amenities: ["near ferry", "chain reliability", "affordable"],
     laptop_friendly: true,
+    status: "unverified",
   },
   {
     id: "coffee-department",
@@ -395,6 +432,7 @@ export const spaces: NomadSpace[] = [
     hours: "8am-10pm",
     amenities: ["work area upstairs", "power strips", "third-wave coffee"],
     laptop_friendly: true,
+    status: "unverified",
   },
   {
     id: "cafe-fes",
@@ -411,5 +449,6 @@ export const spaces: NomadSpace[] = [
     hours: "8am-midnight",
     amenities: ["Bosphorus view", "outdoor seating", "institution"],
     laptop_friendly: true,
+    status: "unverified",
   },
 ];

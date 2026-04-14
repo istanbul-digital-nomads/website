@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/section";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { socialLinks } from "@/lib/constants";
+import { MilestonesTimeline } from "./milestones-timeline";
 
 export const metadata: Metadata = {
   title: "About",
@@ -60,17 +61,6 @@ const team = [
     name: "Kerem",
     role: "Local Guide",
     bio: "Istanbul native and freelance translator. Bridges the gap between nomads and local culture.",
-  },
-];
-
-const timeline = [
-  { year: "Feb 2026", event: "Decided to move to Turkey" },
-  { year: "Mar 2026", event: "Started the Istanbul Digital Nomads idea" },
-  { year: "Apr 2026", event: "Website launched" },
-  {
-    year: "Q2 2026",
-    event: "First community meetup (planned)",
-    upcoming: true,
   },
 ];
 
@@ -160,36 +150,11 @@ export default function AboutPage() {
       <Section className="bg-neutral-50 dark:bg-[#1a1d27]/50">
         <SectionHeader>
           <SectionTitle>Milestones</SectionTitle>
-          <SectionDescription>Our journey so far.</SectionDescription>
+          <SectionDescription>
+            A short journey so far - the rest gets written with you.
+          </SectionDescription>
         </SectionHeader>
-        <div className="mx-auto max-w-xl">
-          <div className="space-y-6">
-            {timeline.map((item, idx) => (
-              <div key={idx} className="flex gap-4">
-                <div className="flex flex-col items-center">
-                  <div
-                    className={
-                      item.upcoming
-                        ? "h-3 w-3 rounded-full border-2 border-primary-600 bg-transparent dark:border-primary-400"
-                        : "h-3 w-3 rounded-full bg-primary-600 dark:bg-primary-400"
-                    }
-                  />
-                  {idx < timeline.length - 1 && (
-                    <div className="w-px flex-1 bg-neutral-300 dark:bg-[#3a302a]" />
-                  )}
-                </div>
-                <div className="pb-6">
-                  <span className="text-sm font-medium text-primary-600 dark:text-primary-400">
-                    {item.year}
-                  </span>
-                  <p className="mt-1 text-neutral-700 dark:text-[#99a3ad]">
-                    {item.event}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <MilestonesTimeline />
       </Section>
 
       <CtaBanner />

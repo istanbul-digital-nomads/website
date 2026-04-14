@@ -131,7 +131,10 @@ export default function CountryPage({ params }: CountryPageProps) {
 
             {(relatedGuideObjects.length > 0 ||
               relatedPostObjects.length > 0) && (
-              <div id="related" className="mt-12 max-w-3xl scroll-mt-24 sm:mt-16">
+              <div
+                id="related"
+                className="mt-12 max-w-3xl scroll-mt-24 sm:mt-16"
+              >
                 <h2 className="mb-6 text-2xl font-bold text-[#1a1a2e] dark:text-[#f2f3f4]">
                   Related reading
                 </h2>

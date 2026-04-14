@@ -8,9 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 - Path to Istanbul map: click feedback with loading overlay and pulse animation so users know navigation is starting
+- Prefetch supported country routes so clicks feel instant (no more 1-2s wait)
 - Uber-style dashed great-circle route lines from each supported country to Istanbul
 - Turkey filled in brand red to anchor the destination visually
 - Constant ping animation on supported country markers to draw attention
+- SEO description block on `/path-to-istanbul` covering why country-specific guides matter, what each guide covers, and who they're for
 
 ## [1.3.0] - 2026-04-14
 

@@ -1,5 +1,9 @@
 import { cn } from "@/lib/utils";
-import { computeNomadScore, type NomadScores } from "@/lib/spaces";
+import {
+  computeNomadScore,
+  isPartialScore,
+  type NomadScores,
+} from "@/lib/spaces";
 
 function getScoreColor(score: number) {
   if (score >= 4) return "text-[#27ae60] dark:text-[#3db89e]";
@@ -29,6 +33,7 @@ export function NomadScoreBadge({
   className?: string;
 }) {
   const score = computeNomadScore(scores);
+  const partial = score != null && isPartialScore(scores);
 
   const sizes = {
     sm: "h-8 w-8 text-sm",
@@ -73,7 +78,7 @@ export function NomadScoreBadge({
       </div>
       {size !== "sm" && (
         <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-neutral-500 dark:text-[#85929e]">
-          Nomad Score
+          {partial ? "Partial Score" : "Nomad Score"}
         </span>
       )}
     </div>

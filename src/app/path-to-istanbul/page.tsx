@@ -93,9 +93,9 @@ export default function PathToIstanbulPage() {
           </h2>
           <p>
             Digital nomads, remote workers, students, and families planning a
-            real move - not a two-week holiday. If you&apos;re weighing
-            Istanbul against Lisbon or Dubai, start with your country page to
-            see what the move actually looks like from where you are.
+            real move - not a two-week holiday. If you&apos;re weighing Istanbul
+            against Lisbon or Dubai, start with your country page to see what
+            the move actually looks like from where you are.
           </p>
         </div>
       </Section>

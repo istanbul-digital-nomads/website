@@ -7,7 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ## [1.4.3] - 2026-04-15
 
 ### Changed
-- About page Milestones: replaced flat list with an animated vertical timeline (gradient connector, Lucide icon nodes, staggered scroll-reveal, dashed "Coming up" card and ping animation for the upcoming Q2 meetup)
+- About page Milestones: replaced flat list with an animated vertical timeline (gradient connector, Lucide icon nodes, staggered scroll-reveal, dashed "Coming up" card)
+- Smoother slower pulse on the upcoming Q2 milestone (custom 3.2s ease-in-out keyframe instead of the harsh 1s `animate-ping`)
+- Path to Istanbul: replaced the empty `FeaturedGuides` slot with a "Popular paths" country grid fallback so the section is never visually empty before guides are seeded
 
 ## [1.4.2] - 2026-04-14
 

@@ -4,6 +4,13 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.5] - 2026-04-16
+
+### Added
+- `docs/visual-identity.md` - single source of truth for AI-generated imagery: palette lock (pulled from real Tailwind tokens), master style cards for Nano Banana / Midjourney v7 / Flux, 8 reusable scene archetypes, carousel consistency protocol, typography direction (Manrope + IBM Plex Mono), QA checklist, negative prompt snippets
+- `docs/linkedin-content-calendar.md` - evidence-backed 30-day LinkedIn content calendar (Apr 16 - May 15 2026), 14 dated posts across 5 pillars, first 10 paste-ready drafts with image prompts, zero-follower launch tactics, 2026 algorithm research with cited sources, creators-to-engage list
+- `docs/blog-content-calendar.md` - paired 30-day blog publishing calendar, 6 priority briefs (B1-B6) with full outlines, SEO pillar clusters, pairing map to LinkedIn posts, gap analysis against existing content
+
 ## [1.5.4] - 2026-04-15
 
 ### Added

@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 - `blog-author` Claude Code subagent (`.claude/agents/blog-author.md`) - writes as a digital nomad living in Istanbul, strict brand voice (no em dashes, casual contractions, no marketing fluff), no fabricated evidence (no fake surveys or quotes), heavy cross-linking into guides/spaces/blog, one signature "lived here" moment per piece
+- `linkedin-marketer` Claude Code subagent (`.claude/agents/linkedin-marketer.md`) - senior social-media manager persona for istanbulnomads.com, writes LinkedIn-native content (single posts, carousels, document PDFs, newsletters, polls, comment starters, outreach DMs), transforms existing site content into LinkedIn formats, follows 2026 algorithm best practices (hook mechanics, line-break formatting, native text over external links, 3-5 hashtag cap), refuses fabrication and engagement bait
 
 ## [1.5.3] - 2026-04-15
 

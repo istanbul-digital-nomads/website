@@ -4,6 +4,11 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.3] - 2026-04-15
+
+### Fixed
+- `robots.txt` had a duplicate `User-agent: *` block so the intended `/api/`, `/dashboard/`, `/settings/` disallows were being ignored by Google (crawlers only read the first matching group). Replaced the static `public/robots.txt` (stale `next-sitemap` artifact) with a native Next.js `src/app/robots.ts`, merged the rules into one block, and added `/login`, `/auth/`, `/onboarding` to the disallow list. Dropped the useless Yandex-specific `Host` directive.
+
 ## [1.5.2] - 2026-04-15
 
 ### Added

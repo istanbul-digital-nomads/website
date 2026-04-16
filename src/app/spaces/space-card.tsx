@@ -8,6 +8,7 @@ import {
   Clock,
   Wifi,
   Globe,
+  ShieldCheck,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -124,6 +125,35 @@ export function SpaceCard({
                     <Globe className="h-3.5 w-3.5" />
                     Visit website
                   </a>
+                )}
+
+                {space.sources && space.sources.length > 0 && (
+                  <div className="space-y-2 rounded-lg bg-black/[0.02] p-3 dark:bg-white/[0.03]">
+                    <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-[#99a3ad]">
+                      <ShieldCheck className="h-3.5 w-3.5 text-primary-500" />
+                      Sources
+                      {space.last_verified && (
+                        <span className="ml-1 font-normal normal-case text-neutral-500 dark:text-[#85929e]">
+                          (verified {space.last_verified})
+                        </span>
+                      )}
+                    </div>
+                    <ul className="flex flex-wrap gap-x-3 gap-y-1.5 text-xs">
+                      {space.sources.map((s) => (
+                        <li key={s.url}>
+                          <a
+                            href={s.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary-600 underline decoration-primary-300 underline-offset-2 hover:text-primary-700 dark:text-primary-400 dark:decoration-primary-700 dark:hover:text-primary-300"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {s.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
               </div>
             )}

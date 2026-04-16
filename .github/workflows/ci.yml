@@ -68,6 +68,24 @@ jobs:
       - name: Run tests
         run: pnpm test
 
+  links:
+    name: External Links Policy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install
+
+      - name: Validate external link policy
+        run: pnpm check-links
+
   build:
     name: Build
     runs-on: ubuntu-latest

@@ -4,6 +4,23 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.6] - 2026-04-16
+
+### Added
+- `src/lib/external-links.ts` - single source of truth for external-link policy: domain registry (64 known domains across 7 categories) + `recommendedRel()` helper that maps category to the correct rel attribute (authority/directory/news/own-social/third-party/tool/partner -> noopener noreferrer; sponsored -> sponsored noopener; ugc -> ugc noopener; low-value -> nofollow noopener)
+- `<ExternalLink>` component (`src/components/ui/external-link.tsx`) for inline TSX external links - auto-applies target="_blank" + the policy-correct rel based on the domain registry, supports `category` and `rel` overrides
+- `scripts/check-external-links.ts` + `pnpm check-links` script - scans MDX/TSX for external URLs, validates each against the registry, fails CI on unknown domains or non-descriptive anchor text. Skips preconnect/dns-prefetch hints and code comments.
+- New CI job "External Links Policy" wired into `.github/workflows/ci.yml`
+- Sources block on the expanded space card - renders `space.sources` with verification date, fixes the dead-data issue where 67 source URLs in `spaces.ts` were declared but never displayed (E-E-A-T win)
+- `docs/external-links-audit.md` - full audit of all ~170 external links across the codebase, with severity-tagged findings and per-file action checklist
+
+### Fixed
+- Broken `hfrfly.com` link in `transport.mdx` (P0) - was a typo for `hava.ist` (Havaist airport bus)
+- Sketchy citation in `slowmad-guide-istanbul.mdx` (P0) - removed the unverified "40 million digital nomads" stat sourced from atlys.com (a visa aggregator, not a primary research source); rewrote the lede without a fabricated number
+
+### Changed
+- `tsx@^4.19.2` added as devDependency for running TypeScript scripts in CI
+
 ## [1.5.5] - 2026-04-16
 
 ### Added

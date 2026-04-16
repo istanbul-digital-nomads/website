@@ -1,5 +1,9 @@
 import type { AnchorHTMLAttributes, ReactNode } from "react";
-import { recommendedRel, type LinkCategory, relForCategory } from "@/lib/external-links";
+import {
+  recommendedRel,
+  type LinkCategory,
+  relForCategory,
+} from "@/lib/external-links";
 
 type Props = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "rel"> & {
   href: string;

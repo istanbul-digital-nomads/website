@@ -45,12 +45,36 @@ export interface DomainEntry {
  */
 export const DOMAIN_REGISTRY: DomainEntry[] = [
   // ---------- authority (gov, edu, well-known orgs) ----------
-  { domain: "goc.gov.tr", category: "authority", note: "Turkish migration authority" },
-  { domain: "evisa.gov.tr", category: "authority", note: "Turkish e-visa portal" },
-  { domain: "mfa.gov.tr", category: "authority", note: "Turkish foreign ministry" },
-  { domain: "turkiye.gov.tr", category: "authority", note: "Turkish e-government portal" },
-  { domain: "digitalnomads.goturkiye.com", category: "authority", note: "Turkish official digital nomad portal" },
-  { domain: "mea.gov.in", category: "authority", note: "Indian Ministry of External Affairs" },
+  {
+    domain: "goc.gov.tr",
+    category: "authority",
+    note: "Turkish migration authority",
+  },
+  {
+    domain: "evisa.gov.tr",
+    category: "authority",
+    note: "Turkish e-visa portal",
+  },
+  {
+    domain: "mfa.gov.tr",
+    category: "authority",
+    note: "Turkish foreign ministry",
+  },
+  {
+    domain: "turkiye.gov.tr",
+    category: "authority",
+    note: "Turkish e-government portal",
+  },
+  {
+    domain: "digitalnomads.goturkiye.com",
+    category: "authority",
+    note: "Turkish official digital nomad portal",
+  },
+  {
+    domain: "mea.gov.in",
+    category: "authority",
+    note: "Indian Ministry of External Affairs",
+  },
   { domain: "wikipedia.org", category: "authority" },
   { domain: "europa.eu", category: "authority" },
 
@@ -61,11 +85,31 @@ export const DOMAIN_REGISTRY: DomainEntry[] = [
   { domain: "openstreetmap.org", category: "directory" },
   { domain: "workfrom.co", category: "directory" },
   { domain: "coworker.com", category: "directory" },
-  { domain: "sahibinden.com", category: "directory", note: "Turkish housing listings" },
-  { domain: "hepsiemlak.com", category: "directory", note: "Turkish housing listings" },
-  { domain: "emlakjet.com", category: "directory", note: "Turkish housing listings" },
-  { domain: "sehirhatlari.istanbul", category: "directory", note: "Istanbul ferry operator" },
-  { domain: "facebook.com", category: "directory", note: "Used for community group links" },
+  {
+    domain: "sahibinden.com",
+    category: "directory",
+    note: "Turkish housing listings",
+  },
+  {
+    domain: "hepsiemlak.com",
+    category: "directory",
+    note: "Turkish housing listings",
+  },
+  {
+    domain: "emlakjet.com",
+    category: "directory",
+    note: "Turkish housing listings",
+  },
+  {
+    domain: "sehirhatlari.istanbul",
+    category: "directory",
+    note: "Istanbul ferry operator",
+  },
+  {
+    domain: "facebook.com",
+    category: "directory",
+    note: "Used for community group links",
+  },
 
   // ---------- news / publications ----------
   { domain: "freakingnomads.com", category: "news" },
@@ -98,7 +142,11 @@ export const DOMAIN_REGISTRY: DomainEntry[] = [
   { domain: "uber.com", category: "tool" },
   { domain: "fast.com", category: "tool", note: "Wifi speed test" },
   { domain: "migros.com.tr", category: "tool", note: "Turkish grocery chain" },
-  { domain: "bedas.com.tr", category: "tool", note: "Istanbul European-side electricity utility" },
+  {
+    domain: "bedas.com.tr",
+    category: "tool",
+    note: "Istanbul European-side electricity utility",
+  },
   { domain: "igdas.istanbul", category: "tool", note: "Istanbul gas utility" },
   // Telcos / connectivity
   { domain: "airalo.com", category: "tool", note: "eSIM provider" },
@@ -106,7 +154,11 @@ export const DOMAIN_REGISTRY: DomainEntry[] = [
   // Insurance
   { domain: "safetywing.com", category: "tool", note: "Nomad insurance" },
   { domain: "worldnomads.com", category: "tool", note: "Travel insurance" },
-  { domain: "iyisigorta.com", category: "tool", note: "Turkish insurance broker" },
+  {
+    domain: "iyisigorta.com",
+    category: "tool",
+    note: "Turkish insurance broker",
+  },
   // Housing platforms
   { domain: "airbnb.com", category: "tool" },
   { domain: "spotahome.com", category: "tool", note: "Mid-term housing" },
@@ -146,7 +198,8 @@ for (const entry of DOMAIN_REGISTRY) {
 export function getHost(url: string): string | null {
   try {
     const parsed = new URL(url);
-    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return null;
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:")
+      return null;
     return parsed.hostname.toLowerCase().replace(/^www\./, "");
   } catch {
     return null;

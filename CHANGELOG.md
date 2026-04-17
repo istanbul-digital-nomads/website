@@ -4,6 +4,14 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.7] - 2026-04-16
+
+### Added
+- New brand logo (`public/images/logo-light.png` + `logo-dark.png`) integrated into header, footer, and mobile menu with automatic light/dark mode switching via `next/image`
+
+### Fixed
+- Removed `Host:` directive from `robots.ts` - it's a Yandex-only extension that Google explicitly ignores (was causing "Rule ignored by Googlebot" warning in Search Console)
+
 ## [1.5.6] - 2026-04-16
 
 ### Added

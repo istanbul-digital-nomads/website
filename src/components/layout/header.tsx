@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Sun, Moon, Monitor, ChevronDown } from "lucide-react";
@@ -129,8 +130,23 @@ export function Header() {
             scrolled && "h-14",
           )}
         >
-          <Link href="/" prefetch className="flex items-center gap-3">
-            <span className="h-2 w-2 rounded-full bg-primary-500 shadow-[0_0_24px_rgba(192,57,43,0.55)]" />
+          <Link href="/" prefetch className="flex items-center gap-2.5">
+            <Image
+              src="/images/logo-light.png"
+              alt="Istanbul Nomads"
+              width={36}
+              height={36}
+              className="block object-contain dark:hidden"
+              priority
+            />
+            <Image
+              src="/images/logo-dark.png"
+              alt="Istanbul Nomads"
+              width={36}
+              height={36}
+              className="hidden object-contain dark:block"
+              priority
+            />
             <div>
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-neutral-950 dark:text-[#f2f3f4]">
                 {siteConfig.shortName}

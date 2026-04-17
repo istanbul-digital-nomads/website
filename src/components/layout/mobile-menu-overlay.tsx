@@ -2,6 +2,7 @@
 
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { X, Github, Send, Twitter, Mail } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -45,13 +46,29 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
             paddingTop: "max(1rem, env(safe-area-inset-top, 0px))",
           }}
         >
-          <div>
-            <span className="text-lg font-bold text-primary-600 dark:text-primary-400">
-              Menu
-            </span>
-            <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.26em] text-neutral-500 dark:text-[#85929e]">
-              Istanbul Digital Nomads
-            </p>
+          <div className="flex items-center gap-2.5">
+            <Image
+              src="/images/logo-light.png"
+              alt="Istanbul Nomads"
+              width={32}
+              height={32}
+              className="block object-contain dark:hidden"
+            />
+            <Image
+              src="/images/logo-dark.png"
+              alt="Istanbul Nomads"
+              width={32}
+              height={32}
+              className="hidden object-contain dark:block"
+            />
+            <div>
+              <span className="text-lg font-bold text-primary-600 dark:text-primary-400">
+                Menu
+              </span>
+              <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.26em] text-neutral-500 dark:text-[#85929e]">
+                Istanbul Digital Nomads
+              </p>
+            </div>
           </div>
           <button
             onClick={onClose}

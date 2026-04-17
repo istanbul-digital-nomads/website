@@ -134,17 +134,17 @@ export function Header() {
             <Image
               src="/images/logo-light.png"
               alt="Istanbul Nomads"
-              width={44}
+              width={34}
               height={44}
-              className="block object-contain drop-shadow-[0_0_8px_rgba(192,57,43,0.3)] dark:hidden"
+              className="block drop-shadow-[0_0_8px_rgba(192,57,43,0.3)] dark:hidden"
               priority
             />
             <Image
               src="/images/logo-dark.png"
               alt="Istanbul Nomads"
-              width={44}
+              width={34}
               height={44}
-              className="hidden object-contain drop-shadow-[0_0_8px_rgba(192,57,43,0.4)] dark:block"
+              className="hidden drop-shadow-[0_0_8px_rgba(192,57,43,0.4)] dark:block"
               priority
             />
             <div>

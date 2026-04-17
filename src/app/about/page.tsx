@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Heart, HelpCircle, Sparkles, PartyPopper } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -67,12 +68,44 @@ const team = [
 export default function AboutPage() {
   return (
     <>
+      {/* Logo Hero */}
+      <Section className="overflow-hidden">
+        <div className="flex flex-col items-center text-center">
+          <div className="relative">
+            {/* Glow ring behind logo */}
+            <div className="absolute inset-0 scale-110 rounded-full bg-primary-500/10 blur-3xl" />
+            <Image
+              src="/images/logo-light.png"
+              alt="Istanbul Digital Nomads"
+              width={200}
+              height={200}
+              className="relative block object-contain drop-shadow-[0_0_40px_rgba(192,57,43,0.25)] dark:hidden"
+              priority
+            />
+            <Image
+              src="/images/logo-dark.png"
+              alt="Istanbul Digital Nomads"
+              width={200}
+              height={200}
+              className="relative hidden object-contain drop-shadow-[0_0_40px_rgba(192,57,43,0.35)] dark:block"
+              priority
+            />
+          </div>
+          <h1 className="mt-8 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+            Istanbul Digital Nomads
+          </h1>
+          <p className="mt-4 font-mono text-sm uppercase tracking-[0.3em] text-primary-600 dark:text-primary-400">
+            Remote life, local rhythm
+          </p>
+        </div>
+      </Section>
+
       {/* Story */}
       <Section>
         <div className="mx-auto max-w-3xl">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Our Story
-          </h1>
+          </h2>
           <div className="mt-6 space-y-4 text-lg text-neutral-600 dark:text-[#85929e]">
             <p>
               Istanbul Digital Nomads is a brand-new community, started in 2026

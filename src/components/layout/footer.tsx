@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Github, Mail, Send, Twitter } from "lucide-react";
 import { Container } from "@/components/ui/container";
@@ -80,11 +81,24 @@ export function Footer() {
 
           <div className="grid gap-8 md:grid-cols-3 lg:grid-cols-1">
             <div>
-              <Link
-                href="/"
-                className="text-sm font-semibold uppercase tracking-[0.22em] text-primary-800 dark:text-primary-200"
-              >
-                {siteConfig.name}
+              <Link href="/" className="flex items-center gap-2.5">
+                <Image
+                  src="/images/logo-light.png"
+                  alt="Istanbul Nomads"
+                  width={32}
+                  height={32}
+                  className="block object-contain dark:hidden"
+                />
+                <Image
+                  src="/images/logo-dark.png"
+                  alt="Istanbul Nomads"
+                  width={32}
+                  height={32}
+                  className="hidden object-contain dark:block"
+                />
+                <span className="text-sm font-semibold uppercase tracking-[0.22em] text-primary-800 dark:text-primary-200">
+                  {siteConfig.name}
+                </span>
               </Link>
               <p className="mt-3 max-w-sm text-sm leading-7 text-[#5d6d7e] dark:text-[#99a3ad]">
                 Local rhythm, practical guides, and a softer landing for digital

@@ -17,6 +17,5 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: "https://istanbulnomads.com/sitemap.xml",
-    host: "https://istanbulnomads.com",
   };
 }

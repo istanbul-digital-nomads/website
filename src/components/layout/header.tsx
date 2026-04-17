@@ -130,21 +130,21 @@ export function Header() {
             scrolled && "h-14",
           )}
         >
-          <Link href="/" prefetch className="flex items-center gap-2.5">
+          <Link href="/" prefetch className="flex items-center gap-3">
             <Image
               src="/images/logo-light.png"
               alt="Istanbul Nomads"
-              width={36}
-              height={36}
-              className="block object-contain dark:hidden"
+              width={44}
+              height={44}
+              className="block object-contain drop-shadow-[0_0_8px_rgba(192,57,43,0.3)] dark:hidden"
               priority
             />
             <Image
               src="/images/logo-dark.png"
               alt="Istanbul Nomads"
-              width={36}
-              height={36}
-              className="hidden object-contain dark:block"
+              width={44}
+              height={44}
+              className="hidden object-contain drop-shadow-[0_0_8px_rgba(192,57,43,0.4)] dark:block"
               priority
             />
             <div>

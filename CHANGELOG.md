@@ -4,6 +4,12 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.8] - 2026-04-16
+
+### Changed
+- Header logo enlarged from 36px to 44px with a subtle brand-red drop shadow so it reads clearly on both light and dark backgrounds
+- About page now opens with a full-width logo hero section (200px logo with glow ring, brand name as h1, tagline) before the "Our Story" copy
+
 ## [1.5.7] - 2026-04-16
 
 ### Added

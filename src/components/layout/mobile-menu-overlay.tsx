@@ -50,16 +50,16 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
             <Image
               src="/images/logo-light.png"
               alt="Istanbul Nomads"
-              width={32}
+              width={25}
               height={32}
-              className="block object-contain dark:hidden"
+              className="block dark:hidden"
             />
             <Image
               src="/images/logo-dark.png"
               alt="Istanbul Nomads"
-              width={32}
+              width={25}
               height={32}
-              className="hidden object-contain dark:block"
+              className="hidden dark:block"
             />
             <div>
               <span className="text-lg font-bold text-primary-600 dark:text-primary-400">

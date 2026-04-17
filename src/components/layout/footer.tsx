@@ -85,16 +85,16 @@ export function Footer() {
                 <Image
                   src="/images/logo-light.png"
                   alt="Istanbul Nomads"
-                  width={32}
+                  width={25}
                   height={32}
-                  className="block object-contain dark:hidden"
+                  className="block dark:hidden"
                 />
                 <Image
                   src="/images/logo-dark.png"
                   alt="Istanbul Nomads"
-                  width={32}
+                  width={25}
                   height={32}
-                  className="hidden object-contain dark:block"
+                  className="hidden dark:block"
                 />
                 <span className="text-sm font-semibold uppercase tracking-[0.22em] text-primary-800 dark:text-primary-200">
                   {siteConfig.name}

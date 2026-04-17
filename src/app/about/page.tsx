@@ -77,17 +77,17 @@ export default function AboutPage() {
             <Image
               src="/images/logo-light.png"
               alt="Istanbul Digital Nomads"
-              width={200}
-              height={200}
-              className="relative block object-contain drop-shadow-[0_0_40px_rgba(192,57,43,0.25)] dark:hidden"
+              width={220}
+              height={280}
+              className="relative block drop-shadow-[0_0_40px_rgba(192,57,43,0.25)] dark:hidden"
               priority
             />
             <Image
               src="/images/logo-dark.png"
               alt="Istanbul Digital Nomads"
-              width={200}
-              height={200}
-              className="relative hidden object-contain drop-shadow-[0_0_40px_rgba(192,57,43,0.35)] dark:block"
+              width={220}
+              height={280}
+              className="relative hidden drop-shadow-[0_0_40px_rgba(192,57,43,0.35)] dark:block"
               priority
             />
           </div>

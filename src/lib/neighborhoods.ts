@@ -78,7 +78,8 @@ export const neighborhoods: Neighborhood[] = [
       "The most popular neighborhood for digital nomads. Kadikoy has a walkable center packed with independent cafes, a daily fish market, bookshops, and street food. The ferry to the European side takes 20 minutes and is one of the best commutes in the world.",
     rentUsd: { low: 480, high: 800 },
     rentTl: { low: 15000, high: 25000 },
-    transport: "Ferry to Eminonu/Karakoy (20 min), metro to Taksim via Marmaray",
+    transport:
+      "Ferry to Eminonu/Karakoy (20 min), metro to Taksim via Marmaray",
     bestFor: ["Steady work routine", "Local neighborhood feel", "Fair rent"],
     vibe: "Local, independent, walkable. Feels like a small city within Istanbul.",
     noise: "Medium",
@@ -111,7 +112,9 @@ export const neighborhoods: Neighborhood[] = [
           "Tevfikpaşa St. Kadıköy 6 July 2024 (1).jpg",
           "Wikimedia contributor",
         ),
-        sourceUrl: wikiFilePathUrl("Tevfikpaşa St. Kadıköy 6 July 2024 (1).jpg"),
+        sourceUrl: wikiFilePathUrl(
+          "Tevfikpaşa St. Kadıköy 6 July 2024 (1).jpg",
+        ),
         sourceFilename: "Tevfikpaşa St. Kadıköy 6 July 2024 (1).jpg",
       },
       {
@@ -145,7 +148,10 @@ export const neighborhoods: Neighborhood[] = [
     hero: {
       src: "/images/neighborhoods/moda/hero.jpg",
       alt: "Moda seaside coast in Istanbul",
-      credit: wikiCredit("Moda sahili - panoramio.jpg", "Panoramio contributor"),
+      credit: wikiCredit(
+        "Moda sahili - panoramio.jpg",
+        "Panoramio contributor",
+      ),
       sourceUrl: wikiFilePathUrl("Moda sahili - panoramio.jpg"),
       sourceFilename: "Moda sahili - panoramio.jpg",
     },
@@ -163,10 +169,7 @@ export const neighborhoods: Neighborhood[] = [
       {
         src: "/images/neighborhoods/moda/gallery-02.jpg",
         alt: "Nostalgic Kadikoy-Moda tram",
-        credit: wikiCredit(
-          "Istanbul Moda Tram 2.jpg",
-          "Wikimedia contributor",
-        ),
+        credit: wikiCredit("Istanbul Moda Tram 2.jpg", "Wikimedia contributor"),
         sourceUrl: wikiFilePathUrl("Istanbul Moda Tram 2.jpg"),
         sourceFilename: "Istanbul Moda Tram 2.jpg",
       },
@@ -287,7 +290,11 @@ export const neighborhoods: Neighborhood[] = [
     rentTl: { low: 25000, high: 45000 },
     transport:
       "Tram to Sultanahmet and Kabatas, walk to Beyoglu, ferries to Asian side",
-    bestFor: ["Short stays (1-2 weeks)", "Central base", "Design and galleries"],
+    bestFor: [
+      "Short stays (1-2 weeks)",
+      "Central base",
+      "Design and galleries",
+    ],
     vibe: "Trendy, artsy, touristy. Beautiful architecture, lots of foot traffic.",
     noise: "High",
     coords: [28.977, 41.022],
@@ -315,10 +322,7 @@ export const neighborhoods: Neighborhood[] = [
       {
         src: "/images/neighborhoods/galata/gallery-02.jpg",
         alt: "Galata and Karakoy waterfront",
-        credit: wikiCredit(
-          "Galata karakoy.jpg",
-          "Wikimedia contributor",
-        ),
+        credit: wikiCredit("Galata karakoy.jpg", "Wikimedia contributor"),
         sourceUrl: wikiFilePathUrl("Galata karakoy.jpg"),
         sourceFilename: "Galata karakoy.jpg",
       },
@@ -332,16 +336,13 @@ export const neighborhoods: Neighborhood[] = [
         sourceUrl: wikiFilePathUrl(
           "Istanbul asv2020-02 img46 Galata Bridge and Tower.jpg",
         ),
-        sourceFilename:
-          "Istanbul asv2020-02 img46 Galata Bridge and Tower.jpg",
+        sourceFilename: "Istanbul asv2020-02 img46 Galata Bridge and Tower.jpg",
       },
     ],
   },
 ];
 
-export function getNeighborhoodBySlug(
-  slug: string,
-): Neighborhood | undefined {
+export function getNeighborhoodBySlug(slug: string): Neighborhood | undefined {
   return neighborhoods.find((n) => n.slug === slug);
 }
 

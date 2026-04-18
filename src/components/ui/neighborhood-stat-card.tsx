@@ -18,33 +18,36 @@ interface Props {
 
 export function NeighborhoodStatCard({ neighborhood }: Props) {
   const spacesInNeighborhood = getSpacesInNeighborhood(neighborhood.slug);
-  const cafeCount = spacesInNeighborhood.filter((s) => s.type === "cafe").length;
+  const cafeCount = spacesInNeighborhood.filter(
+    (s) => s.type === "cafe",
+  ).length;
   const coworkingCount = spacesInNeighborhood.filter(
     (s) => s.type === "coworking",
   ).length;
 
-  const rows: Array<{ icon: React.ElementType; label: string; value: string }> = [
-    {
-      icon: Compass,
-      label: "Side",
-      value: `${neighborhood.side} side`,
-    },
-    {
-      icon: Banknote,
-      label: "Furnished 1BR rent",
-      value: formatRentRange(neighborhood),
-    },
-    {
-      icon: Volume2,
-      label: "Noise level",
-      value: neighborhood.noise,
-    },
-    {
-      icon: Train,
-      label: "Transport",
-      value: neighborhood.transport,
-    },
-  ];
+  const rows: Array<{ icon: React.ElementType; label: string; value: string }> =
+    [
+      {
+        icon: Compass,
+        label: "Side",
+        value: `${neighborhood.side} side`,
+      },
+      {
+        icon: Banknote,
+        label: "Furnished 1BR rent",
+        value: formatRentRange(neighborhood),
+      },
+      {
+        icon: Volume2,
+        label: "Noise level",
+        value: neighborhood.noise,
+      },
+      {
+        icon: Train,
+        label: "Transport",
+        value: neighborhood.transport,
+      },
+    ];
 
   if (coworkingCount > 0) {
     rows.push({

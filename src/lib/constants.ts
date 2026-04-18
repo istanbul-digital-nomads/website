@@ -82,6 +82,7 @@ export const footerNav = {
     { label: "Path to Istanbul", href: "/path-to-istanbul" },
     { label: "Neighborhoods", href: "/guides/neighborhoods" },
     { label: "Cost of Living", href: "/guides/cost-of-living" },
+    { label: "Photo credits", href: "/credits" },
   ],
   connect: [
     { label: "Telegram", href: socialLinks.telegram, external: true },

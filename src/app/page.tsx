@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
+import { NeighborhoodCardsSection } from "@/components/sections/neighborhood-cards";
 import { guides } from "@/lib/data";
 import { socialLinks } from "@/lib/constants";
 import { formatEventDate } from "@/lib/utils";
@@ -268,6 +269,8 @@ export default async function HomePage() {
           </div>
         </Container>
       </section>
+
+      <NeighborhoodCardsSection />
 
       <section className="border-y border-black/5 py-20 dark:border-white/10">
         <Container>

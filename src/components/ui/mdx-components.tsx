@@ -1,4 +1,5 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import Image from "next/image";
 
 type Props<T extends keyof JSX.IntrinsicElements> = ComponentPropsWithoutRef<T>;
 
@@ -133,4 +134,31 @@ export const mdxComponents = {
       {children}
     </code>
   ),
+  // Alt text may include a caption after " | " for attribution.
+  // Example: ![Ferry docking at Kadikoy | Photo: Contributor / Wikimedia Commons (CC-BY-SA)](/images/...)
+  // Note: markdown wraps `![]()` in <p>. We avoid nested block elements
+  // (figure/div/figcaption) to prevent hydration errors - use spans only.
+  img: ({ src, alt }: Props<"img">) => {
+    if (!src || typeof src !== "string") return null;
+    const [plainAlt, ...captionParts] = (alt ?? "").split(" | ");
+    const caption = captionParts.join(" | ").trim();
+    return (
+      <span className="my-8 block">
+        <span className="relative block aspect-[3/2] w-full overflow-hidden rounded-2xl bg-primary-50/40 dark:bg-primary-950/20">
+          <Image
+            src={src}
+            alt={plainAlt || ""}
+            fill
+            sizes="(max-width: 768px) 100vw, 768px"
+            className="object-cover"
+          />
+        </span>
+        {caption && (
+          <span className="mt-2 block text-right font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-400 dark:text-[#5d6d7e]">
+            {caption}
+          </span>
+        )}
+      </span>
+    );
+  },
 };

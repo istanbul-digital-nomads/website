@@ -4,6 +4,24 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2026-04-19
+
+### Added
+- `src/lib/neighborhoods.ts` - canonical data model for the 5 canonical neighborhoods (Kadikoy, Moda, Cihangir, Besiktas, Karakoy/Galata) with verified stats (rent range, side, transport, noise, vibe, best-for tags) lifted directly from `src/content/guides/neighborhoods.mdx`. No fabricated numbers. Coworking and cafe counts are derived live from `src/lib/spaces.ts` at render time.
+- 17 curated neighborhood photos under `public/images/neighborhoods/<slug>/` (hero 1600x1000 + gallery 1200x800, JPEG + WebP siblings) sourced from Wikimedia Commons under CC-BY-SA, with full per-photo attribution in `public/images/neighborhoods/attributions.json`
+- `scripts/fetch-neighborhood-photos.ts` - idempotent ingestion script using sharp. Reads the manifest in `src/lib/neighborhoods.ts`, downloads each source via the Wikimedia `Special:FilePath` redirect, resizes, optimizes, and writes the attribution manifest
+- `sharp@^0.34.5` added as devDependency for the ingestion script
+- `src/components/sections/neighborhood-cards.tsx` - new homepage section "Where people land", 5 photo cards with side badge, rent range, one-liner, tracked-space count, and detail-page link
+- `src/app/guides/neighborhoods/page.tsx` - takes over `/guides/neighborhoods` from the dynamic `[slug]` catch-all. Renders the 5-card overview grid at the top, then the existing MDX below (now with inline hero photos under each neighborhood subsection)
+- `src/app/guides/neighborhoods/[neighborhood]/page.tsx` - per-neighborhood detail pages with full-bleed hero, verified stat card, gallery grid, "Coworking and cafes here" block pulling live from `spaces.ts`, Telegram CTA, and cross-links to the other neighborhoods. Full metadata + OG image per page
+- `src/app/credits/page.tsx` - photo attribution page reading `attributions.json`, grouped by neighborhood, linked from the footer under Resources
+- `src/components/ui/neighborhood-photo.tsx` and `src/components/ui/neighborhood-stat-card.tsx` - shared primitives
+- Inline hero photo under each neighborhood heading in `src/content/guides/neighborhoods.mdx`
+- 5 new routes registered in `src/app/sitemap.ts` (`/credits` + `/guides/neighborhoods/{slug}` x5)
+
+### Changed
+- `src/components/ui/mdx-components.tsx` now renders MDX `img` via `next/image` with optional caption parsing (caption after ` | ` in alt text). Uses block-styled spans rather than `figure`/`figcaption` to avoid hydration errors from markdown wrapping images in `<p>`
+
 ## [1.5.8] - 2026-04-16
 
 ### Changed

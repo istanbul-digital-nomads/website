@@ -43,7 +43,7 @@ export function NeighborhoodCardsSection() {
                       src={n.hero.src}
                       alt={n.hero.alt}
                       fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
                       className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                     />
                     <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-white/85 px-3 py-1.5 text-xs font-medium text-[#1a1a2e] backdrop-blur dark:bg-[#1a1d27]/85 dark:text-[#f2f3f4]">

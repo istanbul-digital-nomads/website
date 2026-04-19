@@ -63,6 +63,23 @@ const wikiCredit = (filename: string, author: string): PhotoCredit => ({
   licenseHref: "https://creativecommons.org/licenses/by-sa/4.0/",
 });
 
+// Unsplash photos: the page slug looks like
+// `foo-bar-SHORTID` where SHORTID is ~11 chars at the very end. The CDN
+// URL is `images.unsplash.com/photo-<timestamp>-<hash>`. We store both.
+const unsplashCdn = (photoId: string, width = 1920): string =>
+  `https://images.unsplash.com/${photoId}?w=${width}&q=85&auto=format`;
+
+const unsplashPageUrl = (pageSlug: string): string =>
+  `https://unsplash.com/photos/${pageSlug}`;
+
+const unsplashCredit = (pageSlug: string): PhotoCredit => ({
+  author: "Unsplash contributor",
+  source: "Unsplash",
+  sourceHref: unsplashPageUrl(pageSlug),
+  license: "Unsplash",
+  licenseHref: "https://unsplash.com/license",
+});
+
 // Stats below are lifted directly from src/content/guides/neighborhoods.mdx.
 // Nothing is invented - every number has a source. Photos are curated from
 // Wikimedia Commons (CC-BY-SA). See /credits for full attributions.
@@ -86,16 +103,29 @@ export const neighborhoods: Neighborhood[] = [
     coords: [29.025, 40.99],
     hero: {
       src: "/images/neighborhoods/kadikoy/hero.jpg",
-      alt: "A regular residential street in Kadikoy, Istanbul",
-      credit: wikiCredit(
-        "A regular street in Kadıköy, İstanbul.jpg",
-        "Wikimedia contributor",
-      ),
-      sourceUrl: wikiFilePathUrl("A regular street in Kadıköy, İstanbul.jpg"),
-      sourceFilename: "A regular street in Kadıköy, İstanbul.jpg",
+      alt: "Kadikoy ferry crossing the Bosphorus at sunset",
+      credit: unsplashCredit("white-ship-on-sea-during-sunset-TLN3Id1tuGU"),
+      sourceUrl: unsplashCdn("photo-1607153084771-2c9e1562f64c"),
+      sourceFilename: "unsplash-TLN3Id1tuGU.jpg",
     },
-    // Gallery pending community-submitted photos.
-    gallery: [],
+    gallery: [
+      {
+        src: "/images/neighborhoods/kadikoy/gallery-01.jpg",
+        alt: "Istanbul street cat lounging on a car in Kadikoy",
+        credit: unsplashCredit("a-cat-sitting-on-top-of-a-car-yLLPlmcKRe0"),
+        sourceUrl: unsplashCdn("photo-1663874824464-92b274717d2b"),
+        sourceFilename: "unsplash-yLLPlmcKRe0.jpg",
+      },
+      {
+        src: "/images/neighborhoods/kadikoy/gallery-02.jpg",
+        alt: "Nostalgic tram on a Kadikoy street",
+        credit: unsplashCredit(
+          "a-red-and-white-train-traveling-down-a-street-next-to-tall-buildings-Ge3CSfKrDV4",
+        ),
+        sourceUrl: unsplashCdn("photo-1689410763484-d7fd8c775e25"),
+        sourceFilename: "unsplash-Ge3CSfKrDV4.jpg",
+      },
+    ],
   },
   {
     slug: "moda",
@@ -123,7 +153,35 @@ export const neighborhoods: Neighborhood[] = [
       sourceUrl: wikiFilePathUrl("Moda sahili - panoramio.jpg"),
       sourceFilename: "Moda sahili - panoramio.jpg",
     },
-    gallery: [],
+    gallery: [
+      {
+        src: "/images/neighborhoods/moda/gallery-01.jpg",
+        alt: "Istanbul cat watching over the water in Moda",
+        credit: unsplashCredit(
+          "a-cat-sitting-on-a-rock-looking-out-over-the-water-0-NbTd_vnag",
+        ),
+        sourceUrl: unsplashCdn("photo-1699973776441-c150e4b1798c"),
+        sourceFilename: "unsplash-0-NbTd_vnag.jpg",
+      },
+      {
+        src: "/images/neighborhoods/moda/gallery-02.jpg",
+        alt: "Walking the Moda seaside promenade",
+        credit: unsplashCredit(
+          "a-woman-walking-down-a-sidewalk-next-to-a-body-of-water-qPHojBgOpo8",
+        ),
+        sourceUrl: unsplashCdn("photo-1685432531593-1afc8a152e5f"),
+        sourceFilename: "unsplash-qPHojBgOpo8.jpg",
+      },
+      {
+        src: "/images/neighborhoods/moda/gallery-03.jpg",
+        alt: "Moda ferry pier (Moda Iskelesi) on the water",
+        credit: unsplashCredit(
+          "a-pier-with-a-building-on-it-next-to-a-body-of-water-LRkNXKqjsgg",
+        ),
+        sourceUrl: unsplashCdn("photo-1695920875600-d17340b5d9a5"),
+        sourceFilename: "unsplash-LRkNXKqjsgg.jpg",
+      },
+    ],
   },
   {
     slug: "cihangir",
@@ -144,15 +202,42 @@ export const neighborhoods: Neighborhood[] = [
     coords: [28.983, 41.032],
     hero: {
       src: "/images/neighborhoods/cihangir/hero.jpg",
-      alt: "Firuzaga Mosque in the Cihangir neighborhood of Istanbul",
-      credit: wikiCredit(
-        "Istanbul photos by J.Lubbock 2014 201.jpg",
-        "J. Lubbock",
+      alt: "Steep narrow Cihangir street with an angled old building",
+      credit: unsplashCredit(
+        "old-buildings-angled-corner-in-a-narrow-street-hw-6oSwz-Ic",
       ),
-      sourceUrl: wikiFilePathUrl("Istanbul photos by J.Lubbock 2014 201.jpg"),
-      sourceFilename: "Istanbul photos by J.Lubbock 2014 201.jpg",
+      sourceUrl: unsplashCdn("photo-1751220593645-7644cd559b67"),
+      sourceFilename: "unsplash-hw-6oSwz-Ic.jpg",
     },
-    gallery: [],
+    gallery: [
+      {
+        src: "/images/neighborhoods/cihangir/gallery-01.jpg",
+        alt: "Remote worker at a laptop in a Cihangir cafe",
+        credit: unsplashCredit(
+          "a-man-sitting-in-front-of-a-laptop-computer-exj6iT6MTE8",
+        ),
+        sourceUrl: unsplashCdn("photo-1653754056000-bcc6c5a402ff"),
+        sourceFilename: "unsplash-exj6iT6MTE8.jpg",
+      },
+      {
+        src: "/images/neighborhoods/cihangir/gallery-02.jpg",
+        alt: "Sunny Cihangir street with yellow buildings",
+        credit: unsplashCredit(
+          "people-walk-down-a-sunny-street-with-yellow-buildings-OOWvtB0p4iw",
+        ),
+        sourceUrl: unsplashCdn("photo-1749025061374-4211520af944"),
+        sourceFilename: "unsplash-OOWvtB0p4iw.jpg",
+      },
+      {
+        src: "/images/neighborhoods/cihangir/gallery-03.jpg",
+        alt: "Cihangir bakery cafe with a green umbrella",
+        credit: unsplashCredit(
+          "a-bakery-with-a-green-umbrella-on-a-rainy-day-fghsnRFm3Fk",
+        ),
+        sourceUrl: unsplashCdn("photo-1737294305452-57c92a4a1cb8"),
+        sourceFilename: "unsplash-fghsnRFm3Fk.jpg",
+      },
+    ],
   },
   {
     slug: "besiktas",
@@ -183,7 +268,35 @@ export const neighborhoods: Neighborhood[] = [
       ),
       sourceFilename: "Fish Market Beşiktaş ISTANBUL (15651621734).jpg",
     },
-    gallery: [],
+    gallery: [
+      {
+        src: "/images/neighborhoods/besiktas/gallery-01.jpg",
+        alt: "Orange street cat in Besiktas",
+        credit: unsplashCredit(
+          "an-orange-and-white-cat-sitting-on-top-of-a-table-PSVzt4pAOPs",
+        ),
+        sourceUrl: unsplashCdn("photo-1588933179927-bd91b38a6be1"),
+        sourceFilename: "unsplash-PSVzt4pAOPs.jpg",
+      },
+      {
+        src: "/images/neighborhoods/besiktas/gallery-02.jpg",
+        alt: "Ferry approaching Besiktas on the Bosphorus",
+        credit: unsplashCredit(
+          "white-and-red-boat-on-sea-during-daytime-UVgsRero2qg",
+        ),
+        sourceUrl: unsplashCdn("photo-1593445598539-9a0768b242e6"),
+        sourceFilename: "unsplash-UVgsRero2qg.jpg",
+      },
+      {
+        src: "/images/neighborhoods/besiktas/gallery-03.jpg",
+        alt: "Looking out over the water from Besiktas waterfront",
+        credit: unsplashCredit(
+          "a-person-looking-out-over-the-water-Ghu6x9y7jFc",
+        ),
+        sourceUrl: unsplashCdn("photo-1667652720780-7ffaaacf0375"),
+        sourceFilename: "unsplash-Ghu6x9y7jFc.jpg",
+      },
+    ],
   },
   {
     slug: "galata",
@@ -208,24 +321,36 @@ export const neighborhoods: Neighborhood[] = [
     coords: [28.977, 41.022],
     hero: {
       src: "/images/neighborhoods/galata/hero.jpg",
-      alt: "Galata Tower viewed from the Karakoy district below",
-      credit: wikiCredit(
-        "Galata Tower, from Karaköy..jpg",
-        "Wikimedia contributor",
+      alt: "Galata Tower standing tall in the Istanbul sky",
+      credit: unsplashCredit(
+        "the-galata-tower-stands-tall-in-the-cloudy-sky-KB1tO3RPZN8",
       ),
-      sourceUrl: wikiFilePathUrl("Galata Tower, from Karaköy..jpg"),
-      sourceFilename: "Galata Tower, from Karaköy..jpg",
+      sourceUrl: unsplashCdn("photo-1746708221016-e36a3c8f7c03"),
+      sourceFilename: "unsplash-KB1tO3RPZN8.jpg",
     },
     gallery: [
       {
         src: "/images/neighborhoods/galata/gallery-01.jpg",
-        alt: "Galata Tower and the Port of Karakoy",
-        credit: wikiCredit(
-          "Galata Tower - Port of Karaköy, 2006.jpg",
-          "Wikimedia contributor",
+        alt: "People walking on the Karakoy pier",
+        credit: unsplashCredit("people-walking-on-pier-IFFxkQFi0Qs"),
+        sourceUrl: unsplashCdn("photo-1551029814-dadbffdf7b2c"),
+        sourceFilename: "unsplash-IFFxkQFi0Qs.jpg",
+      },
+      {
+        src: "/images/neighborhoods/galata/gallery-02.jpg",
+        alt: "Street food cart in the Karakoy district",
+        credit: unsplashCredit("people-standing-beside-food-cart-jXJBEDuoEN8"),
+        sourceUrl: unsplashCdn("photo-1577900576414-f353b502c496"),
+        sourceFilename: "unsplash-jXJBEDuoEN8.jpg",
+      },
+      {
+        src: "/images/neighborhoods/galata/gallery-03.jpg",
+        alt: "Sunset over Istanbul viewed from the Galata district",
+        credit: unsplashCredit(
+          "the-sun-is-setting-over-a-large-city-6gWV88dLj3Y",
         ),
-        sourceUrl: wikiFilePathUrl("Galata Tower - Port of Karaköy, 2006.jpg"),
-        sourceFilename: "Galata Tower - Port of Karaköy, 2006.jpg",
+        sourceUrl: unsplashCdn("photo-1727080440760-c70e153ef4e2"),
+        sourceFilename: "unsplash-6gWV88dLj3Y.jpg",
       },
     ],
   },

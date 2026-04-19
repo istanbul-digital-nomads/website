@@ -38,8 +38,7 @@ function guideListingMarkdown(): string {
   );
   const items = guides
     .map(
-      (g) =>
-        `- [${g.title}](${SITE}/guides/${g.slug}.md) - ${g.description}`,
+      (g) => `- [${g.title}](${SITE}/guides/${g.slug}.md) - ${g.description}`,
     )
     .join("\n");
   return `${header}\n## Available guides\n\n${items}\n`;
@@ -121,8 +120,7 @@ function pathIndexMarkdown(): string {
   );
   const items = countries
     .map(
-      (c) =>
-        `- [${c.flag} ${c.name}](${SITE}/path-to-istanbul/${c.slug}.md)`,
+      (c) => `- [${c.flag} ${c.name}](${SITE}/path-to-istanbul/${c.slug}.md)`,
     )
     .join("\n");
   return `${header}## Supported countries\n\n${items}\n`;
@@ -149,7 +147,6 @@ function spacesIndexMarkdown(): string {
     .join("\n\n");
   return `${header}${sections}\n`;
 }
-
 
 function homepageMarkdown(): string {
   return `# Istanbul Digital Nomads
@@ -183,9 +180,7 @@ function simpleStubMarkdown(
   return `${frontmatterHeader(title, description, canonical)}See the HTML version at ${canonical} for the full interactive page.\n`;
 }
 
-export function getMarkdownForPath(
-  pathname: string,
-): { body: string } | null {
+export function getMarkdownForPath(pathname: string): { body: string } | null {
   const p = pathname.replace(/\/$/, "") || "/";
 
   if (p === "/" || p === "/home" || p === "/index") {

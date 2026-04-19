@@ -94,40 +94,8 @@ export const neighborhoods: Neighborhood[] = [
       sourceUrl: wikiFilePathUrl("A regular street in Kadıköy, İstanbul.jpg"),
       sourceFilename: "A regular street in Kadıköy, İstanbul.jpg",
     },
-    gallery: [
-      {
-        src: "/images/neighborhoods/kadikoy/gallery-01.jpg",
-        alt: "Bagdat Avenue in Kadikoy",
-        credit: wikiCredit(
-          "Bağdat St. Kadıköy 6 July 2024 (3).jpg",
-          "Wikimedia contributor",
-        ),
-        sourceUrl: wikiFilePathUrl("Bağdat St. Kadıköy 6 July 2024 (3).jpg"),
-        sourceFilename: "Bağdat St. Kadıköy 6 July 2024 (3).jpg",
-      },
-      {
-        src: "/images/neighborhoods/kadikoy/gallery-02.jpg",
-        alt: "Tevfikpasa Street in central Kadikoy",
-        credit: wikiCredit(
-          "Tevfikpaşa St. Kadıköy 6 July 2024 (1).jpg",
-          "Wikimedia contributor",
-        ),
-        sourceUrl: wikiFilePathUrl(
-          "Tevfikpaşa St. Kadıköy 6 July 2024 (1).jpg",
-        ),
-        sourceFilename: "Tevfikpaşa St. Kadıköy 6 July 2024 (1).jpg",
-      },
-      {
-        src: "/images/neighborhoods/kadikoy/gallery-03.jpg",
-        alt: "Fuatpasa Street in Kadikoy",
-        credit: wikiCredit(
-          "Fuatpaşa St. Kadıköy 6 July 2024 (2).jpg",
-          "Wikimedia contributor",
-        ),
-        sourceUrl: wikiFilePathUrl("Fuatpaşa St. Kadıköy 6 July 2024 (2).jpg"),
-        sourceFilename: "Fuatpaşa St. Kadıköy 6 July 2024 (2).jpg",
-      },
-    ],
+    // Gallery pending community-submitted photos.
+    gallery: [],
   },
   {
     slug: "moda",
@@ -155,35 +123,7 @@ export const neighborhoods: Neighborhood[] = [
       sourceUrl: wikiFilePathUrl("Moda sahili - panoramio.jpg"),
       sourceFilename: "Moda sahili - panoramio.jpg",
     },
-    gallery: [
-      {
-        src: "/images/neighborhoods/moda/gallery-01.jpg",
-        alt: "Moda ferry pier (Moda Iskelesi)",
-        credit: wikiCredit(
-          "Moda İskelesi 2019-08.jpg",
-          "Wikimedia contributor",
-        ),
-        sourceUrl: wikiFilePathUrl("Moda İskelesi 2019-08.jpg"),
-        sourceFilename: "Moda İskelesi 2019-08.jpg",
-      },
-      {
-        src: "/images/neighborhoods/moda/gallery-02.jpg",
-        alt: "Nostalgic Kadikoy-Moda tram",
-        credit: wikiCredit("Istanbul Moda Tram 2.jpg", "Wikimedia contributor"),
-        sourceUrl: wikiFilePathUrl("Istanbul Moda Tram 2.jpg"),
-        sourceFilename: "Istanbul Moda Tram 2.jpg",
-      },
-      {
-        src: "/images/neighborhoods/moda/gallery-03.jpg",
-        alt: "A street in Moda, Istanbul",
-        credit: wikiCredit(
-          "Istanbul moda - panoramio.jpg",
-          "Panoramio contributor",
-        ),
-        sourceUrl: wikiFilePathUrl("Istanbul moda - panoramio.jpg"),
-        sourceFilename: "Istanbul moda - panoramio.jpg",
-      },
-    ],
+    gallery: [],
   },
   {
     slug: "cihangir",
@@ -212,18 +152,7 @@ export const neighborhoods: Neighborhood[] = [
       sourceUrl: wikiFilePathUrl("Istanbul photos by J.Lubbock 2014 201.jpg"),
       sourceFilename: "Istanbul photos by J.Lubbock 2014 201.jpg",
     },
-    gallery: [
-      {
-        src: "/images/neighborhoods/cihangir/gallery-01.jpg",
-        alt: "Street view of Firuzaga Mosque area in Cihangir",
-        credit: wikiCredit(
-          "Istanbul photos by J.Lubbock 2014 202.jpg",
-          "J. Lubbock",
-        ),
-        sourceUrl: wikiFilePathUrl("Istanbul photos by J.Lubbock 2014 202.jpg"),
-        sourceFilename: "Istanbul photos by J.Lubbock 2014 202.jpg",
-      },
-    ],
+    gallery: [],
   },
   {
     slug: "besiktas",
@@ -254,28 +183,7 @@ export const neighborhoods: Neighborhood[] = [
       ),
       sourceFilename: "Fish Market Beşiktaş ISTANBUL (15651621734).jpg",
     },
-    gallery: [
-      {
-        src: "/images/neighborhoods/besiktas/gallery-01.jpg",
-        alt: "Istanbul Naval Museum (Deniz Muzesi) in Besiktas",
-        credit: wikiCredit(
-          "İstanbul Deniz Müzesi, Beşiktaş 2015.jpg",
-          "Wikimedia contributor",
-        ),
-        sourceUrl: wikiFilePathUrl("İstanbul Deniz Müzesi, Beşiktaş 2015.jpg"),
-        sourceFilename: "İstanbul Deniz Müzesi, Beşiktaş 2015.jpg",
-      },
-      {
-        src: "/images/neighborhoods/besiktas/gallery-02.jpg",
-        alt: "Ihlamur Pavilion gardens in Besiktas",
-        credit: wikiCredit(
-          "Ihlamur Kasrı, Beşiktaş 2014.jpg",
-          "Wikimedia contributor",
-        ),
-        sourceUrl: wikiFilePathUrl("Ihlamur Kasrı, Beşiktaş 2014.jpg"),
-        sourceFilename: "Ihlamur Kasrı, Beşiktaş 2014.jpg",
-      },
-    ],
+    gallery: [],
   },
   {
     slug: "galata",
@@ -318,25 +226,6 @@ export const neighborhoods: Neighborhood[] = [
         ),
         sourceUrl: wikiFilePathUrl("Galata Tower - Port of Karaköy, 2006.jpg"),
         sourceFilename: "Galata Tower - Port of Karaköy, 2006.jpg",
-      },
-      {
-        src: "/images/neighborhoods/galata/gallery-02.jpg",
-        alt: "Galata and Karakoy waterfront",
-        credit: wikiCredit("Galata karakoy.jpg", "Wikimedia contributor"),
-        sourceUrl: wikiFilePathUrl("Galata karakoy.jpg"),
-        sourceFilename: "Galata karakoy.jpg",
-      },
-      {
-        src: "/images/neighborhoods/galata/gallery-03.jpg",
-        alt: "Galata Bridge and Tower seen together",
-        credit: wikiCredit(
-          "Istanbul asv2020-02 img46 Galata Bridge and Tower.jpg",
-          "A. Savin",
-        ),
-        sourceUrl: wikiFilePathUrl(
-          "Istanbul asv2020-02 img46 Galata Bridge and Tower.jpg",
-        ),
-        sourceFilename: "Istanbul asv2020-02 img46 Galata Bridge and Tower.jpg",
       },
     ],
   },

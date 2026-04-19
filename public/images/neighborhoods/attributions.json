@@ -12,42 +12,6 @@
     "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
   },
   {
-    "slug": "kadikoy",
-    "neighborhood": "Kadikoy",
-    "role": "gallery",
-    "src": "/images/neighborhoods/kadikoy/gallery-01.jpg",
-    "alt": "Bagdat Avenue in Kadikoy",
-    "author": "Wikimedia contributor",
-    "source": "Wikimedia Commons",
-    "sourceHref": "https://commons.wikimedia.org/wiki/File:Ba%C4%9Fdat_St._Kad%C4%B1k%C3%B6y_6_July_2024_(3).jpg",
-    "license": "CC-BY-SA",
-    "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
-  },
-  {
-    "slug": "kadikoy",
-    "neighborhood": "Kadikoy",
-    "role": "gallery",
-    "src": "/images/neighborhoods/kadikoy/gallery-02.jpg",
-    "alt": "Tevfikpasa Street in central Kadikoy",
-    "author": "Wikimedia contributor",
-    "source": "Wikimedia Commons",
-    "sourceHref": "https://commons.wikimedia.org/wiki/File:Tevfikpa%C5%9Fa_St._Kad%C4%B1k%C3%B6y_6_July_2024_(1).jpg",
-    "license": "CC-BY-SA",
-    "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
-  },
-  {
-    "slug": "kadikoy",
-    "neighborhood": "Kadikoy",
-    "role": "gallery",
-    "src": "/images/neighborhoods/kadikoy/gallery-03.jpg",
-    "alt": "Fuatpasa Street in Kadikoy",
-    "author": "Wikimedia contributor",
-    "source": "Wikimedia Commons",
-    "sourceHref": "https://commons.wikimedia.org/wiki/File:Fuatpa%C5%9Fa_St._Kad%C4%B1k%C3%B6y_6_July_2024_(2).jpg",
-    "license": "CC-BY-SA",
-    "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
-  },
-  {
     "slug": "moda",
     "neighborhood": "Moda",
     "role": "hero",
@@ -56,42 +20,6 @@
     "author": "Panoramio contributor",
     "source": "Wikimedia Commons",
     "sourceHref": "https://commons.wikimedia.org/wiki/File:Moda_sahili_-_panoramio.jpg",
-    "license": "CC-BY-SA",
-    "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
-  },
-  {
-    "slug": "moda",
-    "neighborhood": "Moda",
-    "role": "gallery",
-    "src": "/images/neighborhoods/moda/gallery-01.jpg",
-    "alt": "Moda ferry pier (Moda Iskelesi)",
-    "author": "Wikimedia contributor",
-    "source": "Wikimedia Commons",
-    "sourceHref": "https://commons.wikimedia.org/wiki/File:Moda_%C4%B0skelesi_2019-08.jpg",
-    "license": "CC-BY-SA",
-    "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
-  },
-  {
-    "slug": "moda",
-    "neighborhood": "Moda",
-    "role": "gallery",
-    "src": "/images/neighborhoods/moda/gallery-02.jpg",
-    "alt": "Nostalgic Kadikoy-Moda tram",
-    "author": "Wikimedia contributor",
-    "source": "Wikimedia Commons",
-    "sourceHref": "https://commons.wikimedia.org/wiki/File:Istanbul_Moda_Tram_2.jpg",
-    "license": "CC-BY-SA",
-    "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
-  },
-  {
-    "slug": "moda",
-    "neighborhood": "Moda",
-    "role": "gallery",
-    "src": "/images/neighborhoods/moda/gallery-03.jpg",
-    "alt": "A street in Moda, Istanbul",
-    "author": "Panoramio contributor",
-    "source": "Wikimedia Commons",
-    "sourceHref": "https://commons.wikimedia.org/wiki/File:Istanbul_moda_-_panoramio.jpg",
     "license": "CC-BY-SA",
     "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
   },
@@ -108,18 +36,6 @@
     "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
   },
   {
-    "slug": "cihangir",
-    "neighborhood": "Cihangir",
-    "role": "gallery",
-    "src": "/images/neighborhoods/cihangir/gallery-01.jpg",
-    "alt": "Street view of Firuzaga Mosque area in Cihangir",
-    "author": "J. Lubbock",
-    "source": "Wikimedia Commons",
-    "sourceHref": "https://commons.wikimedia.org/wiki/File:Istanbul_photos_by_J.Lubbock_2014_202.jpg",
-    "license": "CC-BY-SA",
-    "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
-  },
-  {
     "slug": "besiktas",
     "neighborhood": "Besiktas",
     "role": "hero",
@@ -128,30 +44,6 @@
     "author": "Wikimedia contributor",
     "source": "Wikimedia Commons",
     "sourceHref": "https://commons.wikimedia.org/wiki/File:Fish_Market_Be%C5%9Fikta%C5%9F_ISTANBUL_(15651621734).jpg",
-    "license": "CC-BY-SA",
-    "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
-  },
-  {
-    "slug": "besiktas",
-    "neighborhood": "Besiktas",
-    "role": "gallery",
-    "src": "/images/neighborhoods/besiktas/gallery-01.jpg",
-    "alt": "Istanbul Naval Museum (Deniz Muzesi) in Besiktas",
-    "author": "Wikimedia contributor",
-    "source": "Wikimedia Commons",
-    "sourceHref": "https://commons.wikimedia.org/wiki/File:%C4%B0stanbul_Deniz_M%C3%BCzesi%2C_Be%C5%9Fikta%C5%9F_2015.jpg",
-    "license": "CC-BY-SA",
-    "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
-  },
-  {
-    "slug": "besiktas",
-    "neighborhood": "Besiktas",
-    "role": "gallery",
-    "src": "/images/neighborhoods/besiktas/gallery-02.jpg",
-    "alt": "Ihlamur Pavilion gardens in Besiktas",
-    "author": "Wikimedia contributor",
-    "source": "Wikimedia Commons",
-    "sourceHref": "https://commons.wikimedia.org/wiki/File:Ihlamur_Kasr%C4%B1%2C_Be%C5%9Fikta%C5%9F_2014.jpg",
     "license": "CC-BY-SA",
     "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
   },
@@ -176,30 +68,6 @@
     "author": "Wikimedia contributor",
     "source": "Wikimedia Commons",
     "sourceHref": "https://commons.wikimedia.org/wiki/File:Galata_Tower_-_Port_of_Karak%C3%B6y%2C_2006.jpg",
-    "license": "CC-BY-SA",
-    "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
-  },
-  {
-    "slug": "galata",
-    "neighborhood": "Karakoy / Galata",
-    "role": "gallery",
-    "src": "/images/neighborhoods/galata/gallery-02.jpg",
-    "alt": "Galata and Karakoy waterfront",
-    "author": "Wikimedia contributor",
-    "source": "Wikimedia Commons",
-    "sourceHref": "https://commons.wikimedia.org/wiki/File:Galata_karakoy.jpg",
-    "license": "CC-BY-SA",
-    "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
-  },
-  {
-    "slug": "galata",
-    "neighborhood": "Karakoy / Galata",
-    "role": "gallery",
-    "src": "/images/neighborhoods/galata/gallery-03.jpg",
-    "alt": "Galata Bridge and Tower seen together",
-    "author": "A. Savin",
-    "source": "Wikimedia Commons",
-    "sourceHref": "https://commons.wikimedia.org/wiki/File:Istanbul_asv2020-02_img46_Galata_Bridge_and_Tower.jpg",
     "license": "CC-BY-SA",
     "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
   }

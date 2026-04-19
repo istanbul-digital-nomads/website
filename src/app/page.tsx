@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { NeighborhoodCardsSection } from "@/components/sections/neighborhood-cards";
+import { NeighborhoodsMapSection } from "@/components/sections/neighborhoods-map-section";
 import { guides } from "@/lib/data";
 import { socialLinks } from "@/lib/constants";
 import { formatEventDate } from "@/lib/utils";
@@ -279,6 +280,8 @@ export default async function HomePage() {
           </div>
         </Container>
       </section>
+
+      <NeighborhoodsMapSection />
 
       <NeighborhoodCardsSection />
 

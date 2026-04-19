@@ -4,6 +4,15 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.1] - 2026-04-19
+
+### Added
+- `Content-Signal` directive in `public/robots.txt` (`search=yes, ai-input=yes, ai-train=no`) so AI crawlers know the site opts into search indexing and answer-engine citations but declines model training use. Unlocks Level 2 (Bot-Aware) on isitagentready.com's scan
+- Global `Link: <https://istanbulnomads.com/sitemap.xml>; rel="sitemap"` response header via `next.config.mjs` so agents can discover the sitemap from any page without parsing HTML
+
+### Changed
+- Replaced the dynamic `src/app/robots.ts` metadata route with a static `public/robots.txt` file. Next.js's `MetadataRoute.Robots` type doesn't accept custom directives like `Content-Signal`, and the content was fully static anyway (no dynamic values)
+
 ## [1.6.0] - 2026-04-19
 
 ### Added

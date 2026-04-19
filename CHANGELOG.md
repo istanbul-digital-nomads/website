@@ -4,6 +4,21 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0] - 2026-04-20
+
+### Changed
+- Homepage now renders as ISR (`export const revalidate = 300`) instead of dynamic per-request. Unlocks bf-cache, removes the `Cache-Control: no-store` header, and serves the HTML from Vercel's edge cache after the first request. Lighthouse measured this as a large TTFB / bf-cache win
+- Homepage's `getEvents` call swapped for a new `getEventsPublic` that uses a cookie-less Supabase client. Required to let ISR actually render statically - `cookies()` from `next/headers` was opting the route into dynamic mode
+- Hero map (`IstanbulMap` with `react-map-gl` + `maplibre-gl`) replaced with a static Galata WebP hero image + a "Explore 5 nomad neighborhoods" link. Removes ~269KB of JS from the homepage critical path (of which Lighthouse flagged 154KB as unused), and was the single largest perf regression on the landing page. The interactive maps remain in place on `/spaces` and `/path-to-istanbul` where they're the primary content
+- Tightened `sizes="..., 420px"` on neighborhood card photos (was `33vw` which over-delivered on wide desktop viewports). Saves ~85KB of image bytes per Lighthouse
+
+### Added
+- `createPublicClient()` in `src/lib/supabase/server.ts` - cookie-less Supabase client for public-read queries that must stay static
+- `getEventsPublic()` in `src/lib/supabase/queries.ts`
+
+### Removed
+- `src/components/ui/istanbul-map.tsx` - the hero map component, now unused (maps on `/spaces` and `/path-to-istanbul` have their own dedicated components)
+
 ## [1.7.1] - 2026-04-19
 
 ### Changed

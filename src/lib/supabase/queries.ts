@@ -1,4 +1,4 @@
-import { createClient } from "./server";
+import { createClient, createPublicClient } from "./server";
 import type {
   Event,
   EventWithRSVPCount,
@@ -14,6 +14,31 @@ import type { Database } from "@/types/database";
 type LocalGuideRow = Database["public"]["Tables"]["local_guides"]["Row"];
 
 // --- Events ---
+
+// Public (cookie-less) events query. Safe for ISR/SSG pages where we don't
+// want the route bailed out to dynamic rendering by `cookies()`.
+export async function getEventsPublic(options?: {
+  type?: string;
+  past?: boolean;
+  limit?: number;
+}) {
+  const supabase = createPublicClient();
+  let query = supabase
+    .from("events")
+    .select("*")
+    .eq("is_published", true)
+    .order("date", { ascending: true });
+
+  if (options?.type) query = query.eq("type", options.type);
+  if (options?.past === true)
+    query = query.lt("date", new Date().toISOString());
+  else if (options?.past === false)
+    query = query.gte("date", new Date().toISOString());
+  if (options?.limit) query = query.limit(options.limit);
+
+  const { data, error } = await query;
+  return { data: data as Event[] | null, error };
+}
 
 export async function getEvents(options?: {
   type?: string;

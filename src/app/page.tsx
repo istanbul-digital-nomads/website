@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -18,7 +19,9 @@ import { NeighborhoodCardsSection } from "@/components/sections/neighborhood-car
 import { guides } from "@/lib/data";
 import { socialLinks } from "@/lib/constants";
 import { formatEventDate } from "@/lib/utils";
-import { getEvents } from "@/lib/supabase/queries";
+import { getEventsPublic } from "@/lib/supabase/queries";
+
+export const revalidate = 300;
 const FAQSection = dynamic(
   () =>
     import("@/components/sections/faq-section").then((m) => ({
@@ -27,19 +30,6 @@ const FAQSection = dynamic(
   {
     ssr: true,
     loading: () => <div className="py-16 md:py-24" />,
-  },
-);
-
-const IstanbulMap = dynamic(
-  () =>
-    import("@/components/ui/istanbul-map").then((mod) => ({
-      default: mod.IstanbulMap,
-    })),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="absolute inset-0 rounded-[2.3rem] border border-primary-200/60 bg-[#e8e0d4] dark:border-primary-900/40 dark:bg-[#1a1d27]" />
-    ),
   },
 );
 
@@ -77,7 +67,10 @@ const whatPeopleFind = [
 ];
 
 export default async function HomePage() {
-  const { data: upcomingEvents } = await getEvents({ past: false, limit: 3 });
+  const { data: upcomingEvents } = await getEventsPublic({
+    past: false,
+    limit: 3,
+  });
   const liveEvents = upcomingEvents ?? [];
   const nextEvent = liveEvents[0];
   const heroTrustSignals = nextEvent
@@ -156,8 +149,25 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="relative min-h-[380px] sm:min-h-[620px] lg:min-h-[600px]">
-              <IstanbulMap />
+            <div className="relative hidden aspect-[4/3] overflow-hidden rounded-[2.3rem] border border-black/10 lg:block lg:aspect-auto lg:min-h-[600px] dark:border-white/10">
+              <Image
+                src="/images/neighborhoods/galata/hero.webp"
+                alt="Istanbul skyline from Galata"
+                fill
+                priority
+                sizes="(max-width: 1024px) 0px, 700px"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4">
+                <Link
+                  href="/guides/neighborhoods"
+                  className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-neutral-950 backdrop-blur-md transition-colors hover:bg-white dark:bg-[#1a1d27]/90 dark:text-[#f2f3f4] dark:hover:bg-[#1a1d27]"
+                >
+                  <MapPin className="h-4 w-4 text-primary-600 dark:text-primary-400" />
+                  Explore 5 nomad neighborhoods
+                </Link>
+              </div>
             </div>
           </div>
         </Container>

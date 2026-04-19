@@ -35,6 +35,10 @@ const nextConfig = {
             key: "X-DNS-Prefetch-Control",
             value: "on",
           },
+          {
+            key: "Link",
+            value: '<https://istanbulnomads.com/sitemap.xml>; rel="sitemap"',
+          },
         ],
       },
       {

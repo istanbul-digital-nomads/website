@@ -96,8 +96,8 @@ export default async function HomePage() {
     <div className="overflow-hidden">
       <section className="relative isolate border-b border-black/5 dark:border-white/10">
         <div className="bg-grid absolute inset-0 opacity-40 dark:opacity-20" />
-        <div className="absolute left-[-8%] top-20 h-72 w-72 rounded-full bg-primary-400/15 blur-3xl motion-safe:animate-float dark:bg-primary-500/20" />
-        <div className="absolute right-[-6%] top-10 h-80 w-80 rounded-full bg-accent-warm/15 blur-3xl motion-safe:animate-float-slow dark:bg-accent-coral/20" />
+        <div className="absolute left-[-8%] top-20 hidden h-72 w-72 rounded-full bg-primary-400/15 blur-3xl motion-safe:animate-float lg:block dark:bg-primary-500/20" />
+        <div className="absolute right-[-6%] top-10 hidden h-80 w-80 rounded-full bg-accent-warm/15 blur-3xl motion-safe:animate-float-slow lg:block dark:bg-accent-coral/20" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[var(--background)]" />
 
         <Container className="relative py-8 sm:py-12 lg:min-h-[calc(100svh-7rem)] lg:py-8">

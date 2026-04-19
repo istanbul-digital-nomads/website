@@ -4,6 +4,19 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0] - 2026-04-19
+
+### Added
+- Markdown content negotiation. Every page on the site now has a machine-readable markdown equivalent. Agents can either append `.md` to any URL (e.g. `/guides/visa.md`) or send `Accept: text/markdown` on the regular URL, and they get a clean markdown representation instead of rendered HTML. Unlocks Level 3 (Agent-Readable) on isitagentready.com's scan
+- `src/app/api/md/[[...slug]]/route.ts` - catch-all route handler that returns `text/markdown` for any known path
+- `src/lib/markdown.ts` - per-route markdown generator. Reads MDX source for guides/blog/path-to-istanbul (9 blog posts, 11 guides, 5 country relocation guides), generates markdown from typed data for neighborhoods (5) and the spaces directory, and serves curated summaries for static pages (home, about, events, contact, credits, local-guides)
+- `src/app/llms.txt/route.ts` - site index for LLMs (llmstxt.org convention) listing every guide, neighborhood, blog post, country page, and directory with links to their markdown equivalents
+- Per-page `Link: <{path}.md>; rel="alternate"; type="text/markdown"` response header on every HTML response. Skipped on auth/dashboard/settings/login/onboarding paths that have no markdown representation
+- `Vary: Accept` response header so Vercel's CDN correctly caches the HTML and markdown variants separately
+
+### Changed
+- `src/middleware.ts` extended to handle markdown content negotiation before the existing Supabase session refresh logic. `.md` URLs and `Accept: text/markdown` requests are rewritten to the markdown API; everything else flows through unchanged
+
 ## [1.6.1] - 2026-04-19
 
 ### Added

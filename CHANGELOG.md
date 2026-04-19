@@ -4,6 +4,15 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.1] - 2026-04-20
+
+### Added
+- `src/components/sections/neighborhoods-map-section.tsx` - new "Where they sit on the map" section between the hero and the neighborhood cards. Lazy-loads `IstanbulMap` via `IntersectionObserver` (400px rootMargin) so the maplibre-gl + react-map-gl chunks only download when the user scrolls near the section
+- Restored `src/components/ui/istanbul-map.tsx` (deleted in 1.8.0) so the below-the-fold map section can use it
+
+### Changed
+- Homepage now shows the interactive map in its own dedicated section rather than competing with the hero. Keeps the Lighthouse 100 win from 1.8.0 because the map chunks stay off the critical path until scroll
+
 ## [1.8.0] - 2026-04-20
 
 ### Changed

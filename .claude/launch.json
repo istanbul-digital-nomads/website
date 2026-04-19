@@ -7,6 +7,13 @@
       "runtimeArgs": ["-c", "export PATH=/opt/homebrew/bin:$PATH && pnpm dev --port $PORT"],
       "port": 3000,
       "autoPort": true
+    },
+    {
+      "name": "prod",
+      "runtimeExecutable": "/bin/bash",
+      "runtimeArgs": ["-c", "export PATH=/opt/homebrew/bin:$PATH && pnpm start --port $PORT"],
+      "port": 3001,
+      "autoPort": true
     }
   ]
 }

@@ -4,6 +4,15 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.1] - 2026-04-19
+
+### Changed
+- Google Analytics now loads with `strategy="lazyOnload"` via `next/script` instead of `@next/third-parties/google`'s default `afterInteractive`. Drops the `<link rel="preload" href="gtag/js">` from the HTML head so the analytics script no longer competes with first-paint assets, and defers the ~30KB gtag.js payload until the browser is idle. Should improve TBT and INP on mobile
+- Hero-section animated blur blobs (the two `motion-safe:animate-float` decorative circles behind the homepage title) are now hidden on mobile with `hidden lg:block`. Reduces paint + composite cost on low-power devices where they're the largest continuously-animating elements above the fold
+
+### Removed
+- `@next/third-parties/google` `GoogleAnalytics` component (replaced with direct `next/script` tags). The wrapper's baked-in eager-preload behavior was the main thing slowing down mobile first paint
+
 ## [1.7.0] - 2026-04-19
 
 ### Added

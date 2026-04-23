@@ -287,7 +287,7 @@ async function handleRpc(rpc: JsonRpcRequest) {
 
 export async function POST(request: Request) {
   const ip = getClientIp(request);
-  const rl = rateLimit(`mcp:${ip}`, MCP_LIMIT, MCP_WINDOW_MS);
+  const rl = await rateLimit(`mcp:${ip}`, MCP_LIMIT, MCP_WINDOW_MS);
   const rlHeaders = rateLimitHeaders(rl, MCP_LIMIT);
   if (!rl.allowed) {
     return NextResponse.json(

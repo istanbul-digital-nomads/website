@@ -4,6 +4,17 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.2] - 2026-04-24
+
+### Added
+- Distributed rate-limit backend via `@upstash/ratelimit` + `@upstash/redis`. `src/lib/rate-limit.ts` now auto-selects Upstash when `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` are set, and falls back to the existing in-memory sliding-window limiter otherwise. Upstash path uses one `Ratelimit` instance per `(limit, windowMs)` tuple, reused across callers that share a budget. Emits `X-RateLimit-Backend: upstash|memory` header so we can see which path is live in production
+- Graceful degradation on Upstash errors: any thrown error from the SDK (network failure, Redis unreachable) falls through to the in-memory limiter rather than blocking the request. Logs a `console.warn` for observability
+- Per-user rate limit on `POST /api/events` (5 drafts per hour, keyed by `user.id`). Applied after the Supabase auth check so the limiter key is always a real user UUID, never an IP
+- Per-user rate limit on `POST /api/rsvps` (30 RSVPs per hour, keyed by `user.id`). RSVPs are idempotent via upsert, but the 30/hour cap still meaningfully limits sustained abuse
+
+### Changed
+- `rateLimit()` is now async. All call sites in `/api/mcp`, `/api/newsletter`, `/api/contact` updated to `await`
+
 ## [1.10.1] - 2026-04-23
 
 ### Added

@@ -26,7 +26,7 @@ const UNIFIED_SUCCESS = {
 
 export async function POST(request: Request) {
   const ip = getClientIp(request);
-  const rl = rateLimit(
+  const rl = await rateLimit(
     `newsletter:${ip}`,
     NEWSLETTER_LIMIT,
     NEWSLETTER_WINDOW_MS,

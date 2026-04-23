@@ -14,7 +14,7 @@ const CONTACT_WINDOW_MS = 60_000;
 
 export async function POST(request: Request) {
   const ip = getClientIp(request);
-  const rl = rateLimit(`contact:${ip}`, CONTACT_LIMIT, CONTACT_WINDOW_MS);
+  const rl = await rateLimit(`contact:${ip}`, CONTACT_LIMIT, CONTACT_WINDOW_MS);
   const rlHeaders = rateLimitHeaders(rl, CONTACT_LIMIT);
   if (!rl.allowed) {
     return NextResponse.json(

@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getEvents } from "@/lib/supabase/queries";
 import { validateCreateEvent } from "@/lib/validations";
+import { rateLimit, rateLimitHeaders } from "@/lib/rate-limit";
+
+const EVENTS_CREATE_LIMIT = 5;
+const EVENTS_CREATE_WINDOW_MS = 60 * 60 * 1000; // 5 drafts per hour per user
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -32,11 +36,29 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const rl = await rateLimit(
+    `events-create:${user.id}`,
+    EVENTS_CREATE_LIMIT,
+    EVENTS_CREATE_WINDOW_MS,
+  );
+  const rlHeaders = rateLimitHeaders(rl, EVENTS_CREATE_LIMIT);
+  if (!rl.allowed) {
+    return NextResponse.json(
+      {
+        error: `You can create ${EVENTS_CREATE_LIMIT} events per hour. Try again in ${rl.retryAfterSeconds}s.`,
+      },
+      { status: 429, headers: rlHeaders },
+    );
+  }
+
   const body = await request.json();
   const result = validateCreateEvent(body);
 
   if (result.error) {
-    return NextResponse.json({ error: result.error }, { status: 400 });
+    return NextResponse.json(
+      { error: result.error },
+      { status: 400, headers: rlHeaders },
+    );
   }
 
   const validated = result.data!;
@@ -59,8 +81,11 @@ export async function POST(request: Request) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message },
+      { status: 500, headers: rlHeaders },
+    );
   }
 
-  return NextResponse.json({ data }, { status: 201 });
+  return NextResponse.json({ data }, { status: 201, headers: rlHeaders });
 }

@@ -4,6 +4,14 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.3] - 2026-04-24
+
+### Fixed
+- `src/lib/rate-limit.ts` now recognises the env var names Vercel's "KV by Upstash" Marketplace integration actually sets (`UPSTASH_REDIS_REST_KV_REST_API_URL` / `UPSTASH_REDIS_REST_KV_REST_API_TOKEN`), in addition to the plain Upstash names (`UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN`) and the legacy Vercel KV names (`KV_REST_API_URL` / `KV_REST_API_TOKEN`). Without this the code silently fell back to the in-memory limiter in production, because `Redis.fromEnv()` only reads the plain names. The integration dashboard for our store provisions the mangled names, so this was the actual production path and had to be fixed before #28 could deliver the distributed limiter it advertised
+
+### Changed
+- Replaced `Redis.fromEnv()` with explicit `new Redis({ url, token })` construction so the credential resolver is fully in our control. First matching pair wins, in order: plain Upstash → KV-by-Upstash → legacy Vercel KV
+
 ## [1.10.2] - 2026-04-24
 
 ### Added

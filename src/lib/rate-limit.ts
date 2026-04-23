@@ -22,13 +22,39 @@ export interface RateLimitResult {
   resetAt: number;
 }
 
-const upstashConfigured = Boolean(
-  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN,
-);
+// Vercel's Upstash integration can provision env vars under three different
+// naming schemes depending on whether it was added as plain Upstash, "KV by
+// Upstash" (the default via the Marketplace integration), or legacy Vercel KV.
+// Pick whichever pair is actually set.
+function resolveUpstashCredentials(): { url: string; token: string } | null {
+  const env = process.env;
+  const pairs: Array<[string | undefined, string | undefined]> = [
+    [env.UPSTASH_REDIS_REST_URL, env.UPSTASH_REDIS_REST_TOKEN],
+    [
+      env.UPSTASH_REDIS_REST_KV_REST_API_URL,
+      env.UPSTASH_REDIS_REST_KV_REST_API_TOKEN,
+    ],
+    [env.KV_REST_API_URL, env.KV_REST_API_TOKEN],
+  ];
+  for (const [url, token] of pairs) {
+    if (url && token) return { url, token };
+  }
+  return null;
+}
+
+const upstashCreds = resolveUpstashCredentials();
+const upstashConfigured = upstashCreds !== null;
 
 let redisClient: Redis | null = null;
 function getRedis() {
-  if (!redisClient) redisClient = Redis.fromEnv();
+  if (!redisClient) {
+    if (!upstashCreds) {
+      throw new Error(
+        "Upstash credentials resolved null after configured check",
+      );
+    }
+    redisClient = new Redis(upstashCreds);
+  }
   return redisClient;
 }
 

@@ -4,6 +4,19 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.1] - 2026-04-23
+
+### Added
+- `src/lib/rate-limit.ts` - in-memory sliding-window rate limiter shared across API routes. Returns `{ allowed, remaining, retryAfterSeconds, resetAt }` and emits `X-RateLimit-Limit` / `X-RateLimit-Remaining` / `X-RateLimit-Reset` / `Retry-After` headers. Documented in-file as a per-instance limiter (Vercel scales horizontally, so it stops casual abuse but isn't a security boundary; follow-up would be Upstash or Vercel KV)
+- Rate limiting on `/api/mcp` (60 req/min per IP), `/api/newsletter` (5 req/min per IP), `/api/contact` (3 req/min per IP). All three now return 429 with `Retry-After` when the window is exceeded
+- `unstable_cache` wrapper around the `list_events` MCP tool's Supabase call. Tag `events`, 60s revalidation. Caps Supabase events queries at one per minute per (limit, type) combination even if an agent loops `tools/call list_events` hot
+
+### Changed
+- `/api/newsletter` now returns a unified success message whether the email is new or already subscribed. Removes the previous "You're already subscribed!" branch, which was an email enumeration oracle (agents could probe for specific addresses). Real validation failures (malformed email) still return 400 because those reflect user typos
+
+### Security
+- After publishing OAuth/OIDC discovery in 1.10.0, the authentication path to protected write endpoints became structurally discoverable. This release is the defensive follow-up: rate-limit the endpoints most exposed to automated abuse (unauthenticated email sends + the public MCP server)
+
 ## [1.10.0] - 2026-04-23
 
 ### Added

@@ -4,6 +4,17 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.0] - 2026-04-23
+
+### Added
+- Four more agent-discovery endpoints to close the remaining items in the isitagentready.com "API, Auth, MCP & Skill Discovery" bucket. Target state: 6/6 for that category, overall score 100
+- `src/app/api/mcp/route.ts` - real MCP server speaking JSON-RPC 2.0 over HTTP POST. Implements `initialize`, `tools/list`, `tools/call`, `ping`, and `notifications/initialized`. Exposes six read-only tools backed by existing data sources: `list_spaces` (with neighborhood/type/laptop_friendly filters, sourced from `src/lib/spaces.ts`), `list_guides` + `get_guide` (from `src/lib/data.ts` and `getMarkdownForPath`), `list_blog_posts` + `get_blog_post` (from `src/lib/blog.ts`), and `list_events` (from `getEventsPublic` in `src/lib/supabase/queries.ts`). All read-only so no auth required
+- `src/app/.well-known/mcp/server-card.json/route.ts` - MCP Server Card pointing at `/api/mcp` with `serverInfo` (name/version/title), `protocolVersion` 2024-11-05, `transport.type` http, and `capabilities.tools`
+- `src/app/.well-known/openid-configuration/route.ts` - OIDC discovery document. Issuer points at the real Supabase Auth server for the project (`NEXT_PUBLIC_SUPABASE_URL/auth/v1`); endpoints for authorize, token, userinfo, and jwks match the tokens Supabase actually mints. Honest metadata, not a proxy lie - Supabase is genuinely the OIDC provider for any protected endpoint on this origin
+- `src/app/.well-known/oauth-protected-resource/route.ts` - RFC 9728 Protected Resource Metadata declaring istanbulnomads.com as the `resource` with Supabase Auth listed in `authorization_servers`. `scopes_supported` mirrors what Supabase grants; `bearer_methods_supported: ["header"]` matches how our routes read the Authorization header
+- `src/components/web-mcp-register.tsx` - client component that calls `navigator.modelContext.registerTool()` on mount with four tools: `search_istanbul_spaces`, `open_istanbul_guide`, `list_upcoming_istanbul_events`, `list_istanbul_blog_posts`. Handles both the `registerTool` and legacy `provideContext` surfaces, no-ops gracefully in browsers that don't implement WebMCP
+- `src/app/layout.tsx` mounts `WebMcpRegister` inside `<body>` via `dynamic(..., { ssr: false })` so it only runs client-side
+
 ## [1.9.0] - 2026-04-23
 
 ### Added

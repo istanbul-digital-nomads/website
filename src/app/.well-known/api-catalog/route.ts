@@ -13,7 +13,8 @@ export async function GET() {
           {
             href: `${SITE}/llms.txt`,
             type: "text/plain",
-            title: "Content index (llms.txt) - every guide, blog post, and directory on the site",
+            title:
+              "Content index (llms.txt) - every guide, blog post, and directory on the site",
           },
         ],
         status: [

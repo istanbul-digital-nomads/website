@@ -1,9 +1,5 @@
 import { NextResponse } from "next/server";
-import {
-  agentSkills,
-  skillDigest,
-  skillUrl,
-} from "@/lib/agent-skills";
+import { agentSkills, skillDigest, skillUrl } from "@/lib/agent-skills";
 
 export const dynamic = "force-static";
 

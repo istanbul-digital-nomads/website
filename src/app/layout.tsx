@@ -30,6 +30,14 @@ const Toaster = dynamic(
   { ssr: false },
 );
 
+const WebMcpRegister = dynamic(
+  () =>
+    import("@/components/web-mcp-register").then((m) => ({
+      default: m.WebMcpRegister,
+    })),
+  { ssr: false },
+);
+
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -133,6 +141,7 @@ export default function RootLayout({
           gap={8}
           visibleToasts={3}
         />
+        <WebMcpRegister />
         <Analytics />
         <SpeedInsights />
         {process.env.NEXT_PUBLIC_GA_ID && (

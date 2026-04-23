@@ -4,11 +4,23 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.0] - 2026-04-23
+
+### Added
+- Four more agent-discovery endpoints to close the remaining items in the isitagentready.com "API, Auth, MCP & Skill Discovery" bucket. Target state: 6/6 for that category, overall score 100
+- `src/app/api/mcp/route.ts` - real MCP server speaking JSON-RPC 2.0 over HTTP POST. Implements `initialize`, `tools/list`, `tools/call`, `ping`, and `notifications/initialized`. Exposes six read-only tools backed by existing data sources: `list_spaces` (with neighborhood/type/laptop_friendly filters, sourced from `src/lib/spaces.ts`), `list_guides` + `get_guide` (from `src/lib/data.ts` and `getMarkdownForPath`), `list_blog_posts` + `get_blog_post` (from `src/lib/blog.ts`), and `list_events` (from `getEventsPublic` in `src/lib/supabase/queries.ts`). All read-only so no auth required
+- `src/app/.well-known/mcp/server-card.json/route.ts` - MCP Server Card pointing at `/api/mcp` with `serverInfo` (name/version/title), `protocolVersion` 2024-11-05, `transport.type` http, and `capabilities.tools`
+- `src/app/.well-known/openid-configuration/route.ts` - OIDC discovery document. Issuer points at the real Supabase Auth server for the project (`NEXT_PUBLIC_SUPABASE_URL/auth/v1`); endpoints for authorize, token, userinfo, and jwks match the tokens Supabase actually mints. Honest metadata, not a proxy lie - Supabase is genuinely the OIDC provider for any protected endpoint on this origin
+- `src/app/.well-known/oauth-protected-resource/route.ts` - RFC 9728 Protected Resource Metadata declaring istanbulnomads.com as the `resource` with Supabase Auth listed in `authorization_servers`. `scopes_supported` mirrors what Supabase grants; `bearer_methods_supported: ["header"]` matches how our routes read the Authorization header
+- `src/components/web-mcp-register.tsx` - client component that calls `navigator.modelContext.registerTool()` on mount with four tools: `search_istanbul_spaces`, `open_istanbul_guide`, `list_upcoming_istanbul_events`, `list_istanbul_blog_posts`. Handles both the `registerTool` and legacy `provideContext` surfaces, no-ops gracefully in browsers that don't implement WebMCP
+- `src/app/layout.tsx` mounts `WebMcpRegister` inside `<body>` via `dynamic(..., { ssr: false })` so it only runs client-side
+
 ## [1.9.0] - 2026-04-23
 
 ### Added
 - Agent discovery endpoints under `/.well-known/*` to close the gap on isitagentready.com's "API, Auth, MCP & Skill Discovery" category (previously 0/6). Current scan sat at a total score of 50 because every check in this bucket failed; these two additions target the highest-leverage ones for a content site
-- `src/app/.well-known/api-catalog/route.ts` - RFC 9727 `application/linkset+json` catalog. Each linkset entry advertises a site surface (homepage, `/api/events`, `/spaces`) with `service-doc`, `status`, `describedby`, and `related` link relations pointing at the markdown index, sitemap, robots.txt, events feed, and spaces directory
+- `src/app/.well-known/api-catalog/route.ts` - RFC 9727 `application/linkset+json` catalog. Both linkset entries (`/api/events` and the origin) carry a `service-desc` relation pointing at the OpenAPI spec, a `service-doc` relation pointing at human documentation, and supporting `status` / `describedby` relations. The scanner's SKILL.md specifies `anchor` + `service-desc` + `service-doc` as the mandatory trio; the previous version only had `service-doc` and would have failed validation
+- `src/app/openapi.json/route.ts` - OpenAPI 3.1 specification for the public `/api/events` surface (the only documented read-only API). Referenced as `service-desc` from the api-catalog so agents can discover request shapes, query parameters, and the `Event` schema without calling the endpoint first
 - `src/app/.well-known/agent-skills/index.json/route.ts` - Agent Skills Discovery RFC v0.2.0 index listing three capabilities the site exposes to agents: read-istanbul-content, find-coworking-spaces, browse-istanbul-events. Each entry carries a `sha256-<base64>` digest of its SKILL.md body, computed at request time from the shared skill module so digests stay in sync with the content
 - `src/app/.well-known/agent-skills/[name]/SKILL.md/route.ts` - serves the individual SKILL.md body as `text/markdown`. Uses `generateStaticParams` so each skill is statically generated at build, and returns a plain-text 404 for unknown names
 - `src/lib/agent-skills.ts` - single source of truth for skill names, descriptions, and body content. Exports `agentSkills`, `skillUrl`, `skillDigest`, and `findSkill` so the index route and SKILL.md route share one definition

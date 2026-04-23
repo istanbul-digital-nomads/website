@@ -8,7 +8,44 @@ export async function GET() {
   const linkset = {
     linkset: [
       {
+        anchor: `${SITE}/api/events`,
+        "service-desc": [
+          {
+            href: `${SITE}/openapi.json`,
+            type: "application/openapi+json",
+            title: "OpenAPI 3.1 specification for the public events API",
+          },
+        ],
+        "service-doc": [
+          {
+            href: `${SITE}/events`,
+            type: "text/html",
+            title: "Events calendar",
+          },
+          {
+            href: `${SITE}/events.md`,
+            type: "text/markdown",
+            title: "Events calendar (markdown)",
+          },
+        ],
+        status: [
+          {
+            href: `${SITE}/sitemap.xml`,
+            type: "application/xml",
+            title: "XML sitemap - confirms the origin is live",
+          },
+        ],
+      },
+      {
         anchor: `${SITE}/`,
+        "service-desc": [
+          {
+            href: `${SITE}/openapi.json`,
+            type: "application/openapi+json",
+            title:
+              "OpenAPI 3.1 spec for every publicly documented endpoint on the origin",
+          },
+        ],
         "service-doc": [
           {
             href: `${SITE}/llms.txt`,
@@ -17,55 +54,11 @@ export async function GET() {
               "Content index (llms.txt) - every guide, blog post, and directory on the site",
           },
         ],
-        status: [
-          {
-            href: `${SITE}/sitemap.xml`,
-            type: "application/xml",
-            title: "XML sitemap",
-          },
-        ],
         describedby: [
           {
             href: `${SITE}/robots.txt`,
             type: "text/plain",
             title: "robots.txt with Content-Signal directives",
-          },
-        ],
-      },
-      {
-        anchor: `${SITE}/api/events`,
-        "service-doc": [
-          {
-            href: `${SITE}/guides/entertainment.md`,
-            type: "text/markdown",
-            title: "What events are on - human overview",
-          },
-        ],
-        related: [
-          {
-            href: `${SITE}/events.md`,
-            type: "text/markdown",
-            title: "Markdown feed of upcoming events",
-          },
-          {
-            href: `${SITE}/events`,
-            type: "text/html",
-            title: "Events calendar (HTML)",
-          },
-        ],
-      },
-      {
-        anchor: `${SITE}/spaces`,
-        related: [
-          {
-            href: `${SITE}/spaces.md`,
-            type: "text/markdown",
-            title: "Coworking and cafe directory (markdown)",
-          },
-          {
-            href: `${SITE}/guides/coworking.md`,
-            type: "text/markdown",
-            title: "Curated coworking picks with context",
           },
         ],
       },

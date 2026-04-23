@@ -14,8 +14,12 @@ const NO_MARKDOWN_PREFIXES = [
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // Skip Next internals and API routes entirely
-  if (pathname.startsWith("/_next") || pathname.startsWith("/api")) {
+  // Skip Next internals, API routes, and well-known discovery paths entirely
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/.well-known")
+  ) {
     return NextResponse.next();
   }
 

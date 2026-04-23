@@ -4,6 +4,18 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.0] - 2026-04-23
+
+### Added
+- Agent discovery endpoints under `/.well-known/*` to close the gap on isitagentready.com's "API, Auth, MCP & Skill Discovery" category (previously 0/6). Current scan sat at a total score of 50 because every check in this bucket failed; these two additions target the highest-leverage ones for a content site
+- `src/app/.well-known/api-catalog/route.ts` - RFC 9727 `application/linkset+json` catalog. Each linkset entry advertises a site surface (homepage, `/api/events`, `/spaces`) with `service-doc`, `status`, `describedby`, and `related` link relations pointing at the markdown index, sitemap, robots.txt, events feed, and spaces directory
+- `src/app/.well-known/agent-skills/index.json/route.ts` - Agent Skills Discovery RFC v0.2.0 index listing three capabilities the site exposes to agents: read-istanbul-content, find-coworking-spaces, browse-istanbul-events. Each entry carries a `sha256-<base64>` digest of its SKILL.md body, computed at request time from the shared skill module so digests stay in sync with the content
+- `src/app/.well-known/agent-skills/[name]/SKILL.md/route.ts` - serves the individual SKILL.md body as `text/markdown`. Uses `generateStaticParams` so each skill is statically generated at build, and returns a plain-text 404 for unknown names
+- `src/lib/agent-skills.ts` - single source of truth for skill names, descriptions, and body content. Exports `agentSkills`, `skillUrl`, `skillDigest`, and `findSkill` so the index route and SKILL.md route share one definition
+
+### Changed
+- `src/middleware.ts` now early-returns for any `/.well-known/*` path, next to the existing `/_next` and `/api` skips. Required because the SKILL.md route ends in `.md`, which the markdown-negotiation rewrite would otherwise redirect into `/api/md/...` and 404
+
 ## [1.8.2] - 2026-04-23
 
 ### Added

@@ -108,6 +108,78 @@ Title, date and time (Europe/Istanbul timezone), venue, neighborhood, category (
 Events are added and updated frequently. Re-fetch before answering time-sensitive questions.
 `,
   },
+  {
+    name: "build-relocation-plan",
+    type: "instruction",
+    description:
+      "Generate a personalised Istanbul relocation plan from a small intake (budget, duration, lifestyle, work mode, optional origin country). Returns a structured JSON plan with neighborhood pick, cost breakdown, first-month setup, strategy, and tips.",
+    body: `# build-relocation-plan
+
+Istanbul Digital Nomads runs a relocation decision agent that takes a visitor's situation and returns a structured, citation-backed plan grounded in the site's verified content.
+
+## Endpoint
+
+\`POST ${SITE}/api/relocation-agent\`
+
+\`Content-Type: application/json\`
+
+## Request body
+
+\`\`\`json
+{
+  "budget": 1500,
+  "currency": "USD",
+  "duration": "3-6-months",
+  "lifestyle": "social",
+  "work": "remote-fulltime",
+  "originCountry": "india",
+  "mustHaves": ["fast wifi", "near coworking"],
+  "notes": "Coming with a partner."
+}
+\`\`\`
+
+Field rules:
+
+- \`budget\` (required): integer, 200-20000.
+- \`currency\` (required): one of \`USD\`, \`EUR\`, \`TL\`.
+- \`duration\` (required): one of \`few-weeks\`, \`1-3-months\`, \`3-6-months\`, \`6-plus-months\`.
+- \`lifestyle\` (required): one of \`social\`, \`quiet\`, \`mixed\`.
+- \`work\` (required): one of \`remote-fulltime\`, \`remote-flex\`, \`freelance\`, \`founder\`, \`other\`.
+- \`originCountry\` (optional): a path-to-istanbul slug (\`india\`, \`iran\`, \`nigeria\`, \`pakistan\`, \`russia\`) when known.
+- \`mustHaves\` (optional): up to 10 short tags.
+- \`notes\` (optional): free text up to 800 chars.
+
+## Response
+
+200 with a JSON envelope:
+
+\`\`\`json
+{
+  "data": {
+    "plan_text": "6-8 sentence narrative...",
+    "plan_json": { "neighborhood_match": "...", "cost_breakdown": "...", "setup_plan": "...", "strategy": "...", "tips": "...", "citations": "..." },
+    "model": "claude-sonnet-4-6",
+    "retrieved_chunk_count": 8,
+    "request_id": "..."
+  }
+}
+\`\`\`
+
+## Limits
+
+Anonymous: 5 plans per hour per IP. Authenticated: 20 plans per hour per user. Rate-limit headers (\`X-RateLimit-*\`, \`Retry-After\`) are returned on every response.
+
+## Failure modes
+
+- 400 with \`issues\` if the body fails Zod validation.
+- 429 if the rate limit is exceeded; honour the \`Retry-After\` header.
+- 502 if the agent or retrieval pipeline fails; safe to retry once.
+
+## Caveats
+
+The plan is grounded in our verified content but reflects a snapshot in time. Visa rules, residence permit timelines, and prices change. Always cross-link the relevant guide via the \`citations\` array.
+`,
+  },
 ];
 
 export function skillUrl(name: string) {

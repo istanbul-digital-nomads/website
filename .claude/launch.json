@@ -5,7 +5,7 @@
       "name": "dev",
       "runtimeExecutable": "/bin/bash",
       "runtimeArgs": ["-c", "export PATH=/opt/homebrew/bin:$PATH && pnpm dev --port $PORT"],
-      "port": 3000,
+      "port": 3030,
       "autoPort": true
     },
     {

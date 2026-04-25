@@ -5,6 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Calendar, MapPin, Send } from "lucide-react";
 import { EventsList } from "./events-list";
+import { SurpriseEventWaitlist } from "./surprise-event-waitlist";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { socialLinks } from "@/lib/constants";
@@ -101,6 +102,11 @@ export function EventsView({ upcomingEvents, pastEvents }: EventsViewProps) {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Surprise event waitlist */}
+      <div className="mt-10">
+        <SurpriseEventWaitlist />
       </div>
 
       {/* Event cards below */}

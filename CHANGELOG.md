@@ -4,6 +4,19 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.0] - 2026-04-25
+
+### Added
+- Surprise event waitlist on `/events`. Persistent section above the event cards for an unannounced community event - title and date stay hidden until the day, visitors join a waitlist with first name + email. Avatar stack of the latest 10 signups (gradient initials, no stock photos), real-only count - no fake padding ever, "Be the first to join" empty state until the first real signup
+- `surprise_event_waitlist` table (migration `009_surprise_event_waitlist.sql`) with public-insert RLS, no auth required. Email is unique-constrained for dedup
+- `POST /api/waitlist` (rate-limited 5/min per IP, dedup-safe with the same unified-success pattern as the newsletter route to avoid email enumeration) and `GET /api/waitlist` returning `{ count, recent }` - emails are never exposed, only first names of the latest 10 signups
+- `validateWaitlistSignup` helper in `src/lib/validations.ts`
+- `getWaitlistSummary` query helper in `src/lib/supabase/queries.ts` using the public Supabase client (cookie-less, ISR-friendly)
+- "Complete profile" CTA in the post-signup state - links to `/login` so the visitor can authenticate and be routed into the existing onboarding wizard. Helper copy explains why (priority for limited spots, faster intro into the community)
+
+### Changed
+- The waitlist section uses a frosted-glass treatment (`bg-white/40` + `backdrop-blur-2xl` + `ring-1 ring-white/60` + warm gradient blobs underneath) to sit on top of the dark map background without feeling like a hard card. Inputs and sub-cards follow the same pattern
+
 ## [1.10.3] - 2026-04-24
 
 ### Fixed

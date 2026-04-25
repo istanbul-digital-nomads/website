@@ -228,3 +228,45 @@ export async function getBlogPostBySlug(slug: string) {
 
   return { data: data as BlogPostWithAuthor | null, error };
 }
+
+// --- Surprise event waitlist ---
+
+export interface WaitlistSummary {
+  count: number;
+  recent: { first_name: string; created_at: string }[];
+}
+
+export async function getWaitlistSummary(): Promise<{
+  data: WaitlistSummary | null;
+  error: { message: string } | null;
+}> {
+  const supabase = createPublicClient();
+
+  const { count, error: countError } = await (
+    supabase.from("surprise_event_waitlist") as any
+  )
+    .select("*", { count: "exact", head: true });
+
+  if (countError) {
+    return { data: null, error: countError };
+  }
+
+  const { data: rows, error: rowsError } = await (
+    supabase.from("surprise_event_waitlist") as any
+  )
+    .select("first_name, created_at")
+    .order("created_at", { ascending: false })
+    .limit(10);
+
+  if (rowsError) {
+    return { data: null, error: rowsError };
+  }
+
+  return {
+    data: {
+      count: count ?? 0,
+      recent: (rows ?? []) as { first_name: string; created_at: string }[],
+    },
+    error: null,
+  };
+}

@@ -244,8 +244,7 @@ export async function getWaitlistSummary(): Promise<{
 
   const { count, error: countError } = await (
     supabase.from("surprise_event_waitlist") as any
-  )
-    .select("*", { count: "exact", head: true });
+  ).select("*", { count: "exact", head: true });
 
   if (countError) {
     return { data: null, error: countError };

@@ -206,8 +206,7 @@ export function validateWaitlistSignup(
     return { error: "Invalid request body" };
   const b = body as Record<string, unknown>;
 
-  const email =
-    typeof b.email === "string" ? b.email.trim().toLowerCase() : "";
+  const email = typeof b.email === "string" ? b.email.trim().toLowerCase() : "";
   if (!email || !EMAIL_REGEX.test(email))
     return { error: "Please enter a valid email address." };
 

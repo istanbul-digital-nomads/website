@@ -79,6 +79,7 @@ A detailed, implementation-ready plan for building istanbulnomads.com from MVP t
 - [x] **Event filters** - Filter by type (meetup, coworking, workshop, social)
 - [ ] **Event detail page** (`/events/[id]`) - Full description, map embed, organizer info, RSVP button (Phase 2), related events
 - [x] **Empty state** - Friendly message when no upcoming events
+- [x] **Surprise event waitlist** - Public, email-only signup for an unannounced community event. Avatar stack of latest signups, "Complete profile" CTA after joining
 
 ### 1.8 Contact Page (`/contact`)
 

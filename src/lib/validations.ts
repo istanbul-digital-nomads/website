@@ -7,6 +7,11 @@ import type {
   GuideApplicationBody,
 } from "@/types/api";
 
+export interface WaitlistSignupBody {
+  email: string;
+  first_name: string;
+}
+
 type Result<T> = { data: T; error?: never } | { data?: never; error: string };
 
 const EVENT_TYPES = ["meetup", "coworking", "workshop", "social"] as const;
@@ -192,6 +197,24 @@ export function validateContactForm(body: unknown): Result<ContactFormBody> {
       message: b.message as string,
     },
   };
+}
+
+export function validateWaitlistSignup(
+  body: unknown,
+): Result<WaitlistSignupBody> {
+  if (!body || typeof body !== "object")
+    return { error: "Invalid request body" };
+  const b = body as Record<string, unknown>;
+
+  const email = typeof b.email === "string" ? b.email.trim().toLowerCase() : "";
+  if (!email || !EMAIL_REGEX.test(email))
+    return { error: "Please enter a valid email address." };
+
+  const firstName = typeof b.first_name === "string" ? b.first_name.trim() : "";
+  if (firstName.length < 1 || firstName.length > 60)
+    return { error: "Please enter your first name." };
+
+  return { data: { email, first_name: firstName } };
 }
 
 export function validateGuideApplication(

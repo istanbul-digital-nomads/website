@@ -1,11 +1,26 @@
 import { NextResponse } from "next/server";
+import { unstable_cache } from "next/cache";
 import { spaces, type NomadSpace } from "@/lib/spaces";
 import { guides } from "@/lib/data";
 import { getAllBlogPosts, getBlogPost } from "@/lib/blog";
 import { getEventsPublic } from "@/lib/supabase/queries";
 import { getMarkdownForPath } from "@/lib/markdown";
+import { rateLimit, getClientIp, rateLimitHeaders } from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
+
+const MCP_LIMIT = 60;
+const MCP_WINDOW_MS = 60_000;
+
+// Cache the Supabase events lookup at the edge for 60s. A burst of MCP
+// `list_events` tool calls should hit at most one Supabase query per minute
+// per unique (limit, type) combination.
+const getCachedEvents = unstable_cache(
+  async (limit: number, type: string | undefined) =>
+    getEventsPublic({ past: false, limit, type }),
+  ["mcp-list-events-v1"],
+  { revalidate: 60, tags: ["events"] },
+);
 
 const PROTOCOL_VERSION = "2024-11-05";
 
@@ -194,11 +209,7 @@ async function callTool(name: string, args: Record<string, unknown> = {}) {
     case "list_events": {
       const limit = typeof args.limit === "number" ? args.limit : 10;
       const type = typeof args.type === "string" ? args.type : undefined;
-      const { data, error } = await getEventsPublic({
-        past: false,
-        limit,
-        type,
-      });
+      const { data, error } = await getCachedEvents(limit, type);
       if (error) return textResult(`Error fetching events: ${error.message}`);
       return textResult(
         JSON.stringify(
@@ -275,6 +286,23 @@ async function handleRpc(rpc: JsonRpcRequest) {
 }
 
 export async function POST(request: Request) {
+  const ip = getClientIp(request);
+  const rl = await rateLimit(`mcp:${ip}`, MCP_LIMIT, MCP_WINDOW_MS);
+  const rlHeaders = rateLimitHeaders(rl, MCP_LIMIT);
+  if (!rl.allowed) {
+    return NextResponse.json(
+      {
+        jsonrpc: "2.0",
+        id: null,
+        error: {
+          code: -32000,
+          message: `Rate limit exceeded. Retry in ${rl.retryAfterSeconds}s.`,
+        },
+      },
+      { status: 429, headers: rlHeaders },
+    );
+  }
+
   let body: JsonRpcRequest | JsonRpcRequest[];
   try {
     body = await request.json();
@@ -285,18 +313,19 @@ export async function POST(request: Request) {
         id: null,
         error: { code: -32700, message: "Parse error" },
       },
-      { status: 400 },
+      { status: 400, headers: rlHeaders },
     );
   }
   if (Array.isArray(body)) {
     const responses = (await Promise.all(body.map(handleRpc))).filter(
       (r) => r !== null,
     );
-    return NextResponse.json(responses);
+    return NextResponse.json(responses, { headers: rlHeaders });
   }
   const resp = await handleRpc(body);
-  if (resp === null) return new NextResponse(null, { status: 204 });
-  return NextResponse.json(resp);
+  if (resp === null)
+    return new NextResponse(null, { status: 204, headers: rlHeaders });
+  return NextResponse.json(resp, { headers: rlHeaders });
 }
 
 export async function GET() {

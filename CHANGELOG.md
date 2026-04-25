@@ -4,6 +4,51 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.0] - 2026-04-25
+
+### Added
+- Surprise event waitlist on `/events`. Persistent section above the event cards for an unannounced community event - title and date stay hidden until the day, visitors join a waitlist with first name + email. Avatar stack of the latest 10 signups (gradient initials, no stock photos), real-only count - no fake padding ever, "Be the first to join" empty state until the first real signup
+- `surprise_event_waitlist` table (migration `009_surprise_event_waitlist.sql`) with public-insert RLS, no auth required. Email is unique-constrained for dedup
+- `POST /api/waitlist` (rate-limited 5/min per IP, dedup-safe with the same unified-success pattern as the newsletter route to avoid email enumeration) and `GET /api/waitlist` returning `{ count, recent }` - emails are never exposed, only first names of the latest 10 signups
+- `validateWaitlistSignup` helper in `src/lib/validations.ts`
+- `getWaitlistSummary` query helper in `src/lib/supabase/queries.ts` using the public Supabase client (cookie-less, ISR-friendly)
+- "Complete profile" CTA in the post-signup state - links to `/login` so the visitor can authenticate and be routed into the existing onboarding wizard. Helper copy explains why (priority for limited spots, faster intro into the community)
+
+### Changed
+- The waitlist section uses a frosted-glass treatment (`bg-white/40` + `backdrop-blur-2xl` + `ring-1 ring-white/60` + warm gradient blobs underneath) to sit on top of the dark map background without feeling like a hard card. Inputs and sub-cards follow the same pattern
+
+## [1.10.3] - 2026-04-24
+
+### Fixed
+- `src/lib/rate-limit.ts` now recognises the env var names Vercel's "KV by Upstash" Marketplace integration actually sets (`UPSTASH_REDIS_REST_KV_REST_API_URL` / `UPSTASH_REDIS_REST_KV_REST_API_TOKEN`), in addition to the plain Upstash names (`UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN`) and the legacy Vercel KV names (`KV_REST_API_URL` / `KV_REST_API_TOKEN`). Without this the code silently fell back to the in-memory limiter in production, because `Redis.fromEnv()` only reads the plain names. The integration dashboard for our store provisions the mangled names, so this was the actual production path and had to be fixed before #28 could deliver the distributed limiter it advertised
+
+### Changed
+- Replaced `Redis.fromEnv()` with explicit `new Redis({ url, token })` construction so the credential resolver is fully in our control. First matching pair wins, in order: plain Upstash → KV-by-Upstash → legacy Vercel KV
+
+## [1.10.2] - 2026-04-24
+
+### Added
+- Distributed rate-limit backend via `@upstash/ratelimit` + `@upstash/redis`. `src/lib/rate-limit.ts` now auto-selects Upstash when `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` are set, and falls back to the existing in-memory sliding-window limiter otherwise. Upstash path uses one `Ratelimit` instance per `(limit, windowMs)` tuple, reused across callers that share a budget. Emits `X-RateLimit-Backend: upstash|memory` header so we can see which path is live in production
+- Graceful degradation on Upstash errors: any thrown error from the SDK (network failure, Redis unreachable) falls through to the in-memory limiter rather than blocking the request. Logs a `console.warn` for observability
+- Per-user rate limit on `POST /api/events` (5 drafts per hour, keyed by `user.id`). Applied after the Supabase auth check so the limiter key is always a real user UUID, never an IP
+- Per-user rate limit on `POST /api/rsvps` (30 RSVPs per hour, keyed by `user.id`). RSVPs are idempotent via upsert, but the 30/hour cap still meaningfully limits sustained abuse
+
+### Changed
+- `rateLimit()` is now async. All call sites in `/api/mcp`, `/api/newsletter`, `/api/contact` updated to `await`
+
+## [1.10.1] - 2026-04-23
+
+### Added
+- `src/lib/rate-limit.ts` - in-memory sliding-window rate limiter shared across API routes. Returns `{ allowed, remaining, retryAfterSeconds, resetAt }` and emits `X-RateLimit-Limit` / `X-RateLimit-Remaining` / `X-RateLimit-Reset` / `Retry-After` headers. Documented in-file as a per-instance limiter (Vercel scales horizontally, so it stops casual abuse but isn't a security boundary; follow-up would be Upstash or Vercel KV)
+- Rate limiting on `/api/mcp` (60 req/min per IP), `/api/newsletter` (5 req/min per IP), `/api/contact` (3 req/min per IP). All three now return 429 with `Retry-After` when the window is exceeded
+- `unstable_cache` wrapper around the `list_events` MCP tool's Supabase call. Tag `events`, 60s revalidation. Caps Supabase events queries at one per minute per (limit, type) combination even if an agent loops `tools/call list_events` hot
+
+### Changed
+- `/api/newsletter` now returns a unified success message whether the email is new or already subscribed. Removes the previous "You're already subscribed!" branch, which was an email enumeration oracle (agents could probe for specific addresses). Real validation failures (malformed email) still return 400 because those reflect user typos
+
+### Security
+- After publishing OAuth/OIDC discovery in 1.10.0, the authentication path to protected write endpoints became structurally discoverable. This release is the defensive follow-up: rate-limit the endpoints most exposed to automated abuse (unauthenticated email sends + the public MCP server)
+
 ## [1.10.0] - 2026-04-23
 
 ### Added

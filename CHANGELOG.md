@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - `.env.example` documents the three new server-side env vars (`SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPIC_API_KEY`, `VOYAGE_API_KEY`)
 - `src/types/database.ts` extended with the two new tables and the `match_corpus_chunks` function signature so query call sites get correct types
 - `.claude/launch.json` dev port bumped from 3000 to 3030 to avoid colliding with another local Nuxt dev server
+- Voyage embedding client throttles to free-tier limits by default (16 inputs/batch + 21s gap = under 3 RPM and 10K TPM). Set `VOYAGE_PAID=1` in env once a payment method is added on the Voyage dashboard to switch back to 64 inputs/batch with no delay. Documented in `.env.example`
 
 ## [1.11.0] - 2026-04-25
 

@@ -6,15 +6,19 @@
 // supabase/migrations/010_relocation_agent.sql is sized for 1024.
 // If you change the model, update both the index and the inserts.
 //
-// Batching: Voyage caps a single call at 128 inputs and ~120k tokens.
-// We chunk well below that (max 64 inputs per call), retry once on 429s,
-// and surface any other error to the caller
+// Batching: Voyage caps a single call at 128 inputs and ~120k tokens, but
+// the free tier rate-limits at 3 RPM / 10k TPM. Default to a free-tier-safe
+// batch (16 inputs, well below 10k TPM) with a 21s delay between calls so
+// we stay under 3 RPM. Set VOYAGE_PAID=1 in env to switch to bigger batches
+// with no delay (use after adding a payment method on the Voyage dashboard)
 
 const VOYAGE_URL = "https://api.voyageai.com/v1/embeddings";
 export const VOYAGE_MODEL = "voyage-3";
 export const VOYAGE_DIMENSIONS = 1024;
 
-const MAX_BATCH = 64;
+const PAID_TIER = process.env.VOYAGE_PAID === "1";
+const MAX_BATCH = PAID_TIER ? 64 : 16;
+const BATCH_DELAY_MS = PAID_TIER ? 0 : 21_000;
 
 interface VoyageResponse {
   object: "list";
@@ -86,7 +90,14 @@ async function embedOnce(
 
 export async function embedDocuments(texts: string[]): Promise<number[][]> {
   const out: number[][] = [];
+  let firstBatch = true;
   for (let i = 0; i < texts.length; i += MAX_BATCH) {
+    if (!firstBatch && BATCH_DELAY_MS > 0) {
+      // Free-tier rate limit: 3 RPM = 1 call every 20s. Sleep before
+      // sending the next batch
+      await new Promise((r) => setTimeout(r, BATCH_DELAY_MS));
+    }
+    firstBatch = false;
     const batch = texts.slice(i, i + MAX_BATCH);
     const vectors = await embedOnce(batch, "document");
     out.push(...vectors);

@@ -97,10 +97,7 @@ function HelperText({
   id?: string;
 }) {
   return (
-    <p
-      id={id}
-      className="mt-1.5 text-sm text-neutral-500 dark:text-[#85929e]"
-    >
+    <p id={id} className="mt-1.5 text-sm text-neutral-500 dark:text-[#85929e]">
       {children}
     </p>
   );
@@ -352,10 +349,7 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
         }
         setErrors(serverErrors);
         focusFirstError(serverErrors);
-        showToast.error(
-          "Couldn't build your plan",
-          "Some fields need fixing.",
-        );
+        showToast.error("Couldn't build your plan", "Some fields need fixing.");
         return;
       }
 
@@ -506,7 +500,8 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
           />
         </div>
         <HelperText id="originCountry-helper">
-          We&apos;ll fold a country-specific playbook into the plan when we have one.
+          We&apos;ll fold a country-specific playbook into the plan when we have
+          one.
         </HelperText>
       </div>
 

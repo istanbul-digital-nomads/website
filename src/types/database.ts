@@ -309,9 +309,117 @@ export interface Database {
           updated_at?: string;
         };
       };
+      corpus_chunks: {
+        Row: {
+          id: string;
+          source_type:
+            | "guide"
+            | "blog"
+            | "path"
+            | "neighborhood"
+            | "space"
+            | "cost-tier"
+            | "setup-step";
+          source_slug: string;
+          section_heading: string | null;
+          chunk_index: number;
+          content: string;
+          metadata: Json;
+          embedding: number[] | null;
+          token_count: number | null;
+          last_ingested_at: string;
+        };
+        Insert: {
+          id?: string;
+          source_type:
+            | "guide"
+            | "blog"
+            | "path"
+            | "neighborhood"
+            | "space"
+            | "cost-tier"
+            | "setup-step";
+          source_slug: string;
+          section_heading?: string | null;
+          chunk_index: number;
+          content: string;
+          metadata?: Json;
+          embedding?: number[] | null;
+          token_count?: number | null;
+          last_ingested_at?: string;
+        };
+        Update: {
+          id?: string;
+          source_type?:
+            | "guide"
+            | "blog"
+            | "path"
+            | "neighborhood"
+            | "space"
+            | "cost-tier"
+            | "setup-step";
+          source_slug?: string;
+          section_heading?: string | null;
+          chunk_index?: number;
+          content?: string;
+          metadata?: Json;
+          embedding?: number[] | null;
+          token_count?: number | null;
+          last_ingested_at?: string;
+        };
+      };
+      relocation_plans: {
+        Row: {
+          id: string;
+          member_id: string | null;
+          intake: Json;
+          plan: Json;
+          plan_text: string;
+          model: string;
+          retrieved_chunk_count: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          member_id?: string | null;
+          intake: Json;
+          plan: Json;
+          plan_text: string;
+          model: string;
+          retrieved_chunk_count: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          member_id?: string | null;
+          intake?: Json;
+          plan?: Json;
+          plan_text?: string;
+          model?: string;
+          retrieved_chunk_count?: number;
+          created_at?: string;
+        };
+      };
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      match_corpus_chunks: {
+        Args: {
+          query_embedding: number[];
+          match_count?: number;
+          source_filter?: string[] | null;
+        };
+        Returns: Array<{
+          id: string;
+          source_type: string;
+          source_slug: string;
+          section_heading: string | null;
+          content: string;
+          metadata: Json;
+          similarity: number;
+        }>;
+      };
+    };
     Enums: {
       event_type: "meetup" | "coworking" | "workshop" | "social";
       rsvp_status: "going" | "maybe" | "not_going";

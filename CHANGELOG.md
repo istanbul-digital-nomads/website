@@ -4,6 +4,23 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.0] - 2026-04-25
+
+### Added
+- Relocation decision agent at `/relocation-agent`. Visitors fill a small intake (budget, duration, lifestyle, work mode, optional origin country, must-haves, free-text notes) and get back a structured plan: primary neighbourhood + alternates, cost breakdown in USD and TL with line items pulled from our verified cost-of-living tiers, a 4-week first-month setup checklist sourced from existing guides, strategy and tips sections, and citations back to the chunks the agent actually used
+- `POST /api/relocation-agent` route. Anonymous: 5 plans per hour per IP. Authenticated: 20 per hour per user. Rate-limit headers and `Retry-After` returned on every response. `request_id` echoed in JSON, header, and logs for tracing. `maxDuration: 60` so Vercel doesn't cut the LLM call mid-stream. Authenticated calls best-effort persist to `relocation_plans` (failures logged, never block the response)
+- Migration `010_relocation_agent.sql`. Two new tables (`corpus_chunks` with a `vector(1024)` column and an ivfflat cosine index, `relocation_plans` with member-scoped RLS) plus a `match_corpus_chunks` SQL function for cosine similarity retrieval. `pgvector` extension enabled for the project
+- RAG corpus ingestion at `scripts/ingest-corpus.ts`. Chunks the 11 guides, 11 blog posts, 5 path-to-istanbul playbooks, 5 neighborhoods, every space with `status === "open"` (with `unverified_fields` stripped), the 3 cost tiers, and the 12 setup steps. Splits on H2 boundaries, windows long sections with overlap, and deletes-then-inserts per source so reruns are idempotent. Embeds with Voyage AI (`voyage-3`, 1024 dims) and writes to Supabase via the service role
+- Agent runtime modules in `src/lib/agent/`: typed contracts (`types.ts`, with `relocationIntakeSchema` and `relocationPlanSchema` Zod schemas), structured cost tiers (`cost-tiers.ts`), first-month setup steps (`setup-steps.ts`), markdown chunker (`chunker.ts`), Voyage embeddings client (`embeddings.ts`), retrieval (`retrieve.ts` - hybrid structured-always-on + vector top-K with graceful degradation when Voyage or Supabase fails), prompts (`prompts.ts` - frozen system prompt with brand-voice rules), generator (`relocation-agent.ts` - one `generateObject` call against `claude-sonnet-4-6` plus a `generateText` follow-up for the narrative summary)
+- New skill `build-relocation-plan` registered in `src/lib/agent-skills.ts`. External agents can discover the endpoint via `/.well-known/agent-skills/build-relocation-plan/SKILL.md` with the same digest pattern as the existing skills
+- Vitest coverage for the new modules: chunker (heading splits, MDX leaks, windowing), retrieval (always-on structured block, mocked Voyage/Supabase failure paths, RPC mapping, origin-country playbook attachment), prompts (system prompt snapshot, prompt-template content invariants)
+
+### Changed
+- `.env.example` documents the three new server-side env vars (`SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPIC_API_KEY`, `VOYAGE_API_KEY`)
+- `src/types/database.ts` extended with the two new tables and the `match_corpus_chunks` function signature so query call sites get correct types
+- `.claude/launch.json` dev port bumped from 3000 to 3030 to avoid colliding with another local Nuxt dev server
+- Voyage embedding client throttles to free-tier limits by default (16 inputs/batch + 21s gap = under 3 RPM and 10K TPM). Set `VOYAGE_PAID=1` in env once a payment method is added on the Voyage dashboard to switch back to 64 inputs/batch with no delay. Documented in `.env.example`
+
 ## [1.11.0] - 2026-04-25
 
 ### Added

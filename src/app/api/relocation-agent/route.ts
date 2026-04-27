@@ -3,16 +3,18 @@ import { randomUUID, createHash } from "crypto";
 import { rateLimit, getClientIp, rateLimitHeaders } from "@/lib/rate-limit";
 import { createClient } from "@/lib/supabase/server";
 import { relocationIntakeSchema } from "@/lib/agent/types";
-import { retrieveContext } from "@/lib/agent/retrieve";
-import { generatePlan } from "@/lib/agent/relocation-agent";
+import { buildPlan, synthesizeNarrative } from "@/lib/agent/plan-builder";
 
-// LLM calls take time. Allow up to 60s before Vercel cuts the function
-export const maxDuration = 60;
+// Plan generation is now fully deterministic - sub-millisecond response.
+// 10s is plenty for the rate-limit + Supabase persistence round-trip
+export const maxDuration = 10;
 
-const ANON_LIMIT = 5;
-const ANON_WINDOW_MS = 60 * 60 * 1000; // 5 plans per hour per IP
-const USER_LIMIT = 20;
-const USER_WINDOW_MS = 60 * 60 * 1000; // 20 plans per hour per user
+const ANON_LIMIT = 30;
+const ANON_WINDOW_MS = 60 * 60 * 1000; // 30 plans per hour per IP
+const USER_LIMIT = 60;
+const USER_WINDOW_MS = 60 * 60 * 1000; // 60 plans per hour per user
+
+const PLAN_VERSION = "deterministic-v1";
 
 function hashIntake(intake: unknown): string {
   return createHash("sha256")
@@ -74,8 +76,8 @@ export async function POST(request: Request) {
   const intake = parsed.data;
 
   try {
-    const context = await retrieveContext(intake);
-    const { plan, planText, model } = await generatePlan(intake, context);
+    const { plan } = buildPlan(intake);
+    const planText = synthesizeNarrative(plan);
 
     // Best-effort persistence for authenticated members. Failures are
     // logged but don't fail the response - the plan is already in hand
@@ -88,8 +90,8 @@ export async function POST(request: Request) {
           intake,
           plan,
           plan_text: planText,
-          model,
-          retrieved_chunk_count: context.retrieved.length,
+          model: PLAN_VERSION,
+          retrieved_chunk_count: 0,
         });
         if (insertError) {
           console.warn(
@@ -103,7 +105,7 @@ export async function POST(request: Request) {
 
     const durationMs = Date.now() - startedAt;
     console.info(
-      `[relocation-agent ${requestId}] ok model=${model} retrieved=${context.retrieved.length} duration=${durationMs}ms intake=${hashIntake(intake)} user=${user ? "yes" : "no"}`,
+      `[relocation-agent ${requestId}] ok version=${PLAN_VERSION} duration=${durationMs}ms intake=${hashIntake(intake)} user=${user ? "yes" : "no"} primary=${plan.neighborhood_match.primary}`,
     );
 
     return NextResponse.json(
@@ -111,8 +113,8 @@ export async function POST(request: Request) {
         data: {
           plan_text: planText,
           plan_json: plan,
-          model,
-          retrieved_chunk_count: context.retrieved.length,
+          model: PLAN_VERSION,
+          retrieved_chunk_count: 0,
           request_id: requestId,
         },
       },
@@ -126,11 +128,10 @@ export async function POST(request: Request) {
     );
     return NextResponse.json(
       {
-        error:
-          "Couldn't build your plan. Try again in a minute - the agent's busy.",
+        error: "Couldn't build your plan. Try again in a minute.",
         request_id: requestId,
       },
-      { status: 502, headers: rlHeaders },
+      { status: 500, headers: rlHeaders },
     );
   }
 }

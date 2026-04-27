@@ -3,18 +3,31 @@
 import { useState } from "react";
 import { RelocationAgentForm } from "./relocation-agent-form";
 import { RelocationAgentResult } from "./relocation-agent-result";
-import type { RelocationPlanResponse } from "@/lib/agent/types";
+import type {
+  RelocationIntake,
+  RelocationPlanResponse,
+} from "@/lib/agent/types";
+
+interface SubmitState {
+  intake: RelocationIntake;
+  response: RelocationPlanResponse;
+}
 
 export function RelocationAgentShell() {
-  const [response, setResponse] = useState<RelocationPlanResponse | null>(null);
+  const [state, setState] = useState<SubmitState | null>(null);
 
-  if (response) {
+  if (state) {
     return (
       <RelocationAgentResult
-        response={response}
-        onReset={() => setResponse(null)}
+        intake={state.intake}
+        response={state.response}
+        onReset={() => setState(null)}
       />
     );
   }
-  return <RelocationAgentForm onResult={setResponse} />;
+  return (
+    <RelocationAgentForm
+      onResult={(intake, response) => setState({ intake, response })}
+    />
+  );
 }

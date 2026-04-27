@@ -4,6 +4,11 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.1] - 2026-04-27
+
+### Fixed
+- `/api/relocation-agent` was hitting Vercel's 60s function cap on production after `claude-sonnet-4-6` did the structured plan AND the narrative summary. Split the two LLM calls so Sonnet still picks the neighborhood and builds the cost breakdown, but `claude-haiku-4-5` does the narrative rewrite (3-5x faster, plenty for rephrasing JSON the agent already produced). Trims end-to-end latency from ~60s to ~30-40s with comfortable margin under the function cap. Locally cached previews pass; production smoke test now returns 200 on the same intake that was 504'ing
+
 ## [1.12.0] - 2026-04-25
 
 ### Added

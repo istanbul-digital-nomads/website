@@ -1,5 +1,6 @@
-// Relocation agent's plan generator. One typed call to Claude via the
-// Vercel AI SDK, plus a follow-up generateText for the narrative summary
+// Relocation agent's plan generator. One typed call to Sonnet for the
+// structured plan, plus a faster Haiku call for the narrative summary so we
+// stay comfortably under Vercel's 60s function cap on the Hobby plan
 //
 // Reference:
 //   - https://ai-sdk.dev/docs/ai-sdk-core/generating-structured-data
@@ -20,7 +21,11 @@ import type {
   RetrievedContext,
 } from "./types";
 
-export const DEFAULT_MODEL = "claude-sonnet-4-6";
+// Sonnet for the structured plan (high stakes, picks the neighborhood and
+// builds the cost breakdown), Haiku for the narrative rewrite (cheap and
+// fast - it's just rephrasing the JSON the agent already produced)
+export const PLAN_MODEL = "claude-sonnet-4-6";
+export const NARRATIVE_MODEL = "claude-haiku-4-5";
 
 export interface GeneratePlanResult {
   plan: RelocationPlan;
@@ -31,10 +36,11 @@ export interface GeneratePlanResult {
 export async function generatePlan(
   intake: RelocationIntake,
   context: RetrievedContext,
-  model: string = DEFAULT_MODEL,
+  planModel: string = PLAN_MODEL,
+  narrativeModel: string = NARRATIVE_MODEL,
 ): Promise<GeneratePlanResult> {
   const planResult = await generateObject({
-    model: anthropic(model),
+    model: anthropic(planModel),
     schema: relocationPlanSchema,
     system: SYSTEM_PROMPT,
     prompt: buildPlanPrompt(intake, context),
@@ -46,7 +52,7 @@ export async function generatePlan(
   const plan = relocationPlanSchema.parse(planResult.object);
 
   const narrativeResult = await generateText({
-    model: anthropic(model),
+    model: anthropic(narrativeModel),
     system: NARRATIVE_SYSTEM_PROMPT,
     prompt: buildNarrativePrompt(intake, plan),
     maxRetries: 1,
@@ -55,6 +61,6 @@ export async function generatePlan(
   return {
     plan,
     planText: narrativeResult.text.trim(),
-    model,
+    model: planModel,
   };
 }

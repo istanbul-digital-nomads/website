@@ -35,7 +35,14 @@ export const relocationIntakeSchema = z.object({
 export type RelocationIntake = z.infer<typeof relocationIntakeSchema>;
 
 // Plan output. The shape the LLM is forced into via generateObject. Every
-// field is required so we can render cards without conditional logic
+// field is required so we can render cards without conditional logic.
+//
+// IMPORTANT: do NOT call .min()/.max() on z.array() in this schema. The AI
+// SDK serialises those to JSON Schema's minItems/maxItems, which Anthropic's
+// structured-output endpoint rejects with "property 'maxItems' is not
+// supported". String .min()/.max() (minLength/maxLength) is fine, only
+// array length constraints break. The prompt itself caps the counts the
+// agent should produce ("up to two alternates", "weeks 1 through 4", etc).
 export const planCitationSchema = z.object({
   source: z.string().min(1),
   source_type: z.enum([
@@ -65,24 +72,24 @@ export const planSetupItemSchema = z.object({
 
 export const planSetupWeekSchema = z.object({
   week: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]),
-  items: z.array(planSetupItemSchema).min(1).max(8),
+  items: z.array(planSetupItemSchema),
 });
 
 export const relocationPlanSchema = z.object({
   neighborhood_match: z.object({
     primary: z.string().min(1),
-    alternates: z.array(z.string().min(1)).max(2),
+    alternates: z.array(z.string().min(1)),
     reasoning: z.string().min(20).max(900),
   }),
   cost_breakdown: z.object({
     tier: z.enum(["low", "medium", "high"]),
     monthly_total_usd: z.number().int().nonnegative(),
-    lines: z.array(planCostLineSchema).min(3).max(10),
+    lines: z.array(planCostLineSchema),
   }),
-  setup_plan: z.array(planSetupWeekSchema).min(1).max(4),
-  strategy: z.array(z.string().min(1).max(600)).min(2).max(8),
-  tips: z.array(z.string().min(1).max(300)).min(2).max(8),
-  citations: z.array(planCitationSchema).min(1).max(20),
+  setup_plan: z.array(planSetupWeekSchema),
+  strategy: z.array(z.string().min(1).max(600)),
+  tips: z.array(z.string().min(1).max(300)),
+  citations: z.array(planCitationSchema),
 });
 
 export type RelocationPlan = z.infer<typeof relocationPlanSchema>;

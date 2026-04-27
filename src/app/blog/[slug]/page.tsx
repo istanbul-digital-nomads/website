@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock, User, ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
@@ -26,6 +27,22 @@ export async function generateMetadata({
   return {
     title: post.meta.title,
     description: post.meta.description,
+    openGraph: post.meta.coverImage
+      ? {
+          images: [
+            {
+              url: post.meta.coverImage.src,
+              alt: post.meta.coverImage.alt,
+            },
+          ],
+        }
+      : undefined,
+    twitter: post.meta.coverImage
+      ? {
+          card: "summary_large_image",
+          images: [post.meta.coverImage.src],
+        }
+      : undefined,
   };
 }
 
@@ -95,6 +112,33 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                 </Link>
               ))}
             </div>
+
+            {post.meta.coverImage ? (
+              <figure className="mt-10 overflow-hidden rounded-xl border border-black/10 bg-white/60 dark:border-white/10 dark:bg-white/5">
+                <div className="relative aspect-[16/9]">
+                  <Image
+                    src={post.meta.coverImage.src}
+                    alt={post.meta.coverImage.alt}
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, 768px"
+                    className="object-cover"
+                  />
+                </div>
+                <figcaption className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
+                  <span>{post.meta.coverImage.alt}</span>
+                  <a
+                    href={post.meta.coverImage.credit.sourceHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium underline decoration-dotted underline-offset-2 hover:text-primary-600 dark:hover:text-primary-300"
+                  >
+                    {post.meta.coverImage.credit.author} /{" "}
+                    {post.meta.coverImage.credit.source}
+                  </a>
+                </figcaption>
+              </figure>
+            ) : null}
 
             {/* Content */}
             <article className="mt-10">

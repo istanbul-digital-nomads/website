@@ -1,10 +1,10 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search, Calendar, Clock, User } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/utils";
 import type { BlogPostMeta } from "@/lib/blog";
@@ -95,41 +95,55 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((post) => (
-            <Link key={post.slug} href={`/blog/${post.slug}`}>
-              <Card hoverable className="h-full">
-                <CardContent>
-                  <div className="flex flex-wrap gap-1.5">
-                    {post.tags.slice(0, 3).map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-primary-100/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary-700 dark:bg-primary-900/20 dark:text-primary-300"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <h2 className="mt-3 text-lg font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                    {post.title}
-                  </h2>
-                  <p className="mt-2 line-clamp-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
-                    {post.description}
-                  </p>
-                  <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
-                    <span className="flex items-center gap-1">
-                      <User className="h-3 w-3" />
-                      {post.author}
+            <Link
+              key={post.slug}
+              href={`/blog/${post.slug}`}
+              className="group block overflow-hidden rounded-md border border-black/10 bg-white transition-[border-color,background-color,transform] hover:-translate-y-0.5 hover:border-primary-300/70 hover:bg-white/95 dark:border-white/10 dark:bg-[#1a1612] dark:hover:border-primary-500/35 dark:hover:bg-[rgba(60,40,30,0.35)]"
+            >
+              {post.coverImage ? (
+                <div className="relative aspect-[16/10] overflow-hidden bg-[#1a1612]">
+                  <Image
+                    src={post.coverImage.src}
+                    alt={post.coverImage.alt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-transparent" />
+                </div>
+              ) : null}
+              <div className="p-5">
+                <div className="flex flex-wrap gap-1.5">
+                  {post.tags.slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full bg-primary-100/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary-700 dark:bg-primary-900/20 dark:text-primary-300"
+                    >
+                      {tag}
                     </span>
-                    <span className="flex items-center gap-1">
-                      <Calendar className="h-3 w-3" />
-                      {formatDate(post.date)}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
-                      {post.readingTime}
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
+                  ))}
+                </div>
+                <h2 className="mt-3 text-lg font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
+                  {post.title}
+                </h2>
+                <p className="mt-2 line-clamp-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
+                  {post.description}
+                </p>
+                <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
+                  <span className="flex items-center gap-1">
+                    <User className="h-3 w-3" />
+                    {post.author}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Calendar className="h-3 w-3" />
+                    {formatDate(post.date)}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Clock className="h-3 w-3" />
+                    {post.readingTime}
+                  </span>
+                </div>
+              </div>
             </Link>
           ))}
         </div>

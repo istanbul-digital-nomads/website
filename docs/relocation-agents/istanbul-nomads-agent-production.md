@@ -1,4 +1,4 @@
-# Istanbul Nomads Agent — Production-Ready Blueprint
+# Istanbul Nomads Agent - Production-Ready Blueprint
 
 ## 🎯 Goal
 Build a high-quality Relocation Decision Agent with:

@@ -151,15 +151,15 @@ Field rules:
 
 ## Response
 
-200 with a JSON envelope:
+200 with a JSON envelope. Sub-50ms - this is a deterministic scoring + composition pipeline over our typed content, NOT an LLM call:
 
 \`\`\`json
 {
   "data": {
-    "plan_text": "6-8 sentence narrative...",
+    "plan_text": "Synthesised narrative summary...",
     "plan_json": { "neighborhood_match": "...", "cost_breakdown": "...", "setup_plan": "...", "strategy": "...", "tips": "...", "citations": "..." },
-    "model": "claude-sonnet-4-6",
-    "retrieved_chunk_count": 8,
+    "model": "deterministic-v1",
+    "retrieved_chunk_count": 0,
     "request_id": "..."
   }
 }
@@ -167,17 +167,21 @@ Field rules:
 
 ## Limits
 
-Anonymous: 5 plans per hour per IP. Authenticated: 20 plans per hour per user. Rate-limit headers (\`X-RateLimit-*\`, \`Retry-After\`) are returned on every response.
+Anonymous: 30 plans per hour per IP. Authenticated: 60 plans per hour per user. Rate-limit headers (\`X-RateLimit-*\`, \`Retry-After\`) are returned on every response.
 
 ## Failure modes
 
 - 400 with \`issues\` if the body fails Zod validation.
 - 429 if the rate limit is exceeded; honour the \`Retry-After\` header.
-- 502 if the agent or retrieval pipeline fails; safe to retry once.
+- 500 if the plan builder throws unexpectedly; safe to retry once.
+
+## Determinism
+
+Same intake = same plan, byte for byte. No randomness, no LLM, no time-of-day variance. Cache responses client-side if you want.
 
 ## Caveats
 
-The plan is grounded in our verified content but reflects a snapshot in time. Visa rules, residence permit timelines, and prices change. Always cross-link the relevant guide via the \`citations\` array.
+The plan is built from our verified content but reflects a snapshot in time. Visa rules, residence permit timelines, and prices change. Always cross-link the relevant guide via the \`citations\` array.
 `,
   },
 ];

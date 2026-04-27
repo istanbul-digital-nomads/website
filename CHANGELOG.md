@@ -4,6 +4,37 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.13.0] - 2026-04-27
+
+### Changed
+- **Relocation agent is now fully deterministic. No LLM, no Voyage embeddings, no RAG.** Pulled the entire AI pipeline out and replaced it with `src/lib/agent/plan-builder.ts` - a typed scoring function over our existing structured content (5 neighborhoods, 3 cost tiers, 12 setup steps). For 5 neighborhoods and 3 cost tiers, the LLM was rephrasing the same data we already had. End-to-end response is now sub-50ms instead of 30-60s, costs $0/request instead of ~$0.03-0.06, and is fully predictable (same intake = same plan)
+- Neighborhood pick is now scored across five axes: budget fit (30%), lifestyle (25%), must-haves (20%), work mode (15%), and duration (10%). Each neighborhood has a hand-tuned profile (social, quiet, ferryAccess, socialScene, nearCoworking, budgetFriendly, central) derived from its prose vibe and bestFor tags
+- Cost breakdown picks the matching tier from `cost-tiers.ts` and swaps the rent line for the chosen neighborhood's actual rent range
+- Strategy is now rule-based and conditional on intake (residence-permit advice for 6+ month stays, KOSGEB note for founders, Wise tip at every tier, etc)
+- Tips are pulled from a curated pool with weights and per-intake conditions (mustHaves, duration, lifestyle, side affinity), then returned top-8
+- 21 new vitest cases for `plan-builder.ts` covering scoring sensitivity, cost-tier picks, setup-plan filtering, strategy rules, tip filtering, and citations
+
+### Added
+- Result page got a real polish pass:
+  - **Intake recap** at the top of the result, echoing the visitor's budget/duration/lifestyle/work/origin so they remember what they asked
+  - **Neighborhood Match card** now shows the neighborhood's hero photo on a side-by-side layout with the facts grid, a "Best for" tag row, the reasoning, and a CTA to read the full neighborhood guide
+  - **At-a-glance stat strip**: monthly total, tier label, week count, tip count, four equally-weighted tiles
+  - **Cost breakdown** is grouped by category (Housing / Food & drink / Transport / Connectivity / Lifestyle), each with its own subtotal, sorted by spend descending. Replaces the previous flat dl
+  - **Setup plan** is now a vertical timeline with week markers, connecting line, and check-circle icons for each item, replacing the four-column grid
+  - **Sources footer** redesigned: each citation is a clickable pill linking back to the source guide / blog / playbook / neighborhood / spaces page
+- Alternate neighborhoods are linked with their rent range visible inline on the chips
+
+### Removed
+- `ANTHROPIC_API_KEY` and `VOYAGE_API_KEY` env vars are no longer used. Safe to remove from Vercel and `.env.local`. Documented removal in `.env.example`
+- `ai`, `@ai-sdk/anthropic`, and `dotenv` removed from dependencies
+- Deleted: `src/lib/agent/relocation-agent.ts`, `prompts.ts`, `prompts.test.ts`, `embeddings.ts`, `retrieve.ts`, `retrieve.test.ts`, `chunker.ts`, `chunker.test.ts`, `scripts/ingest-corpus.ts`. The `corpus_chunks` table in Supabase is no longer read; can be dropped via a future migration
+- Removed the rotating-message `LoadingState` panel from the form. With sub-50ms responses there's no need - the button's own spinner is sufficient
+
+### Migration notes
+- No database migration required. The `corpus_chunks` table from `010_relocation_agent.sql` is now unused but harmless; clean up later if desired
+- Vercel function `maxDuration` for `/api/relocation-agent` reduced from 60s to 10s to match the new latency profile
+- Anonymous rate limit raised from 5/hour to 30/hour and authenticated from 20/hour to 60/hour, since requests are no longer expensive
+
 ## [1.12.3] - 2026-04-27
 
 ### Changed

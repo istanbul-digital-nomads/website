@@ -3,8 +3,15 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { Textarea } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { showToast } from "@/lib/toast";
-import { ChevronDown } from "lucide-react";
+import {
+  ChevronDown,
+  Loader2,
+  MapPin,
+  Banknote,
+  ListChecks,
+} from "lucide-react";
 import { COUNTRIES } from "@/lib/path-to-istanbul";
 import {
   relocationIntakeSchema,
@@ -402,6 +409,13 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
   const submitDisabled = loading || (attempted && hasErrors);
   const submitLabel = loading ? "Pulling things together..." : "Build my plan";
 
+  // Render LoadingState while waiting for /api/relocation-agent. The form
+  // stays mounted but visually hidden so any failure path can re-display
+  // it with the user's intake values intact
+  if (loading) {
+    return <LoadingState />;
+  }
+
   return (
     <form onSubmit={handleSubmit} className="space-y-8" noValidate>
       {/* Budget + currency: composite field. Input and currency pills share
@@ -586,6 +600,93 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
         </Button>
       </div>
     </form>
+  );
+}
+
+// Loading messages roughly mirror the agent's actual mental model. They
+// rotate every ~5 seconds and stop on the last so the user never sees
+// "almost there" loop back to "looking at your budget"
+const LOADING_MESSAGES = [
+  "Looking at your budget...",
+  "Walking the five neighborhoods we cover...",
+  "Pulling fresh rents from our cost-of-living guide...",
+  "Cross-checking which coworking spaces actually have wifi...",
+  "Mapping out your first-month checklist...",
+  "Working out the monthly total in USD and TL...",
+  "Drafting the why behind each pick...",
+  "Almost there, just polishing this up...",
+] as const;
+
+const LOADING_MESSAGE_INTERVAL_MS = 5000;
+
+function LoadingState() {
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIdx((i) => Math.min(i + 1, LOADING_MESSAGES.length - 1));
+    }, LOADING_MESSAGE_INTERVAL_MS);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+      className="space-y-6"
+    >
+      {/* Top-of-panel status - replaces the form while we wait */}
+      <div className="rounded-lg border border-neutral-100 bg-white p-8 dark:border-[rgba(44,62,80,0.12)] dark:bg-[rgba(44,62,80,0.08)]">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <div className="relative flex h-12 w-12 items-center justify-center">
+            <div className="absolute inset-0 animate-ping rounded-full bg-primary-200/40 dark:bg-primary-500/20" />
+            <Loader2 className="h-7 w-7 animate-spin text-primary-600 dark:text-primary-400" />
+          </div>
+
+          <p
+            key={idx}
+            className="animate-error-fade-in text-base font-medium text-neutral-900 dark:text-[#f2f3f4]"
+          >
+            {LOADING_MESSAGES[idx]}
+          </p>
+
+          <p className="max-w-md text-sm text-neutral-500 dark:text-[#85929e]">
+            This usually takes 30 to 50 seconds. Don&apos;t close the tab -
+            we&apos;re running real retrieval against our content, not just
+            rephrasing your inputs.
+          </p>
+        </div>
+      </div>
+
+      {/* Skeleton preview of the result cards so the user sees what's coming */}
+      <div className="grid gap-4 sm:grid-cols-3">
+        <SkeletonCard icon={MapPin} label="Neighborhood" />
+        <SkeletonCard icon={Banknote} label="Cost breakdown" />
+        <SkeletonCard icon={ListChecks} label="First month" />
+      </div>
+      <Skeleton className="h-32 w-full rounded-md" />
+    </div>
+  );
+}
+
+function SkeletonCard({
+  icon: Icon,
+  label,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+}) {
+  return (
+    <div className="rounded-md border border-neutral-100 bg-white p-4 dark:border-[rgba(44,62,80,0.12)] dark:bg-[rgba(44,62,80,0.08)]">
+      <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-neutral-500 dark:text-[#85929e]">
+        <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+        {label}
+      </div>
+      <Skeleton className="mt-3 h-5 w-2/3" />
+      <Skeleton className="mt-2 h-3 w-full" />
+      <Skeleton className="mt-1.5 h-3 w-5/6" />
+    </div>
   );
 }
 

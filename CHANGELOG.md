@@ -4,6 +4,11 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.3] - 2026-04-27
+
+### Changed
+- `/relocation-agent` form now swaps to a `LoadingState` panel while the agent is running instead of just showing a spinner on the submit button. The panel shows a centred loader, a status message that rotates through eight steps every 5 seconds (mirroring the agent's actual mental model: "looking at your budget", "walking the five neighborhoods we cover", "pulling fresh rents from our cost-of-living guide", etc), a "30-50 second" reassurance line, and skeleton previews of the three result cards underneath. The form stays mounted (not unmounted) so a failure path re-displays it with the user's intake values intact
+
 ## [1.12.2] - 2026-04-27
 
 ### Fixed

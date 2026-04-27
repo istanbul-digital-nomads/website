@@ -4,6 +4,12 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.13.1] - 2026-04-27
+
+### Removed
+- Migration `011_drop_corpus_chunks.sql` drops `corpus_chunks` table and `match_corpus_chunks(vector,int,text[])` function from the production Supabase. They've been unused since 1.13.0 (deterministic agent). `pgvector` extension stays installed; `relocation_plans` table is kept (auth members still persist there)
+- `ANTHROPIC_API_KEY` and `VOYAGE_API_KEY` removed from Vercel project env vars (Production + Preview). The deterministic agent never reads them
+
 ## [1.13.0] - 2026-04-27
 
 ### Changed

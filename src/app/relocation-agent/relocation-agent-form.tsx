@@ -331,14 +331,28 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(intake),
       });
-      const json = await res.json();
 
-      if (res.status === 400 && Array.isArray(json?.issues)) {
+      // Read as text first - 504 (Vercel function timeout) and other gateway
+      // errors return plain text or HTML, not JSON. Parsing JSON.parse on those
+      // throws SyntaxError which crashes the form. Fall through to the toast
+      // path with the gateway status code if the body isn't JSON
+      const raw = await res.text();
+      let json: {
+        data?: RelocationPlanResponse;
+        error?: string;
+        issues?: Array<{ path?: (string | number)[]; message?: string }>;
+      } | null = null;
+      if (raw) {
+        try {
+          json = JSON.parse(raw);
+        } catch {
+          // Non-JSON body (likely Vercel 504 / 502 / HTML page). Leave json null
+        }
+      }
+
+      if (res.status === 400 && json?.issues && Array.isArray(json.issues)) {
         const serverErrors: Errors = {};
-        for (const issue of json.issues as Array<{
-          path?: (string | number)[];
-          message?: string;
-        }>) {
+        for (const issue of json.issues) {
           const key = String(issue.path?.[0] ?? "_form") as keyof Errors;
           if (!serverErrors[key]) {
             serverErrors[key] =
@@ -354,14 +368,25 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
       }
 
       if (!res.ok) {
+        // 504 from Vercel function timeout, 502 from agent failure, etc
         const detail =
           (typeof json?.error === "string" && json.error) ||
-          "Try again in a minute.";
+          (res.status === 504
+            ? "The agent took too long. Try again in a minute."
+            : "Try again in a minute.");
         showToast.error("Couldn't build your plan", detail);
         return;
       }
 
-      onResult(json.data as RelocationPlanResponse);
+      if (!json?.data) {
+        showToast.error(
+          "Couldn't build your plan",
+          "Got an unexpected response. Try again.",
+        );
+        return;
+      }
+
+      onResult(json.data);
     } catch (err) {
       console.error(err);
       showToast.error(

@@ -37,14 +37,18 @@ export type RelocationIntake = z.infer<typeof relocationIntakeSchema>;
 // Plan output. The shape the LLM is forced into via generateObject. Every
 // field is required so we can render cards without conditional logic.
 //
-// IMPORTANT: do NOT call .min()/.max() on z.array() in this schema. The AI
-// SDK serialises those to JSON Schema's minItems/maxItems, which Anthropic's
-// structured-output endpoint rejects with "property 'maxItems' is not
-// supported". String .min()/.max() (minLength/maxLength) is fine, only
-// array length constraints break. The prompt itself caps the counts the
-// agent should produce ("up to two alternates", "weeks 1 through 4", etc).
+// IMPORTANT: Anthropic's structured-output endpoint only accepts a narrow
+// JSON Schema subset. It rejects ALL numeric / size constraints:
+//   - minItems / maxItems on arrays
+//   - minimum / maximum on numbers and integers (also .nonnegative() etc)
+//   - minLength / maxLength on strings
+// So this schema uses ONLY type tags, enums, literals, and optional/required.
+// The prompt itself bounds counts and lengths ("up to two alternates",
+// "weeks 1 through 4", "6-8 sentence narrative"). If the model misbehaves we
+// can refine() post-parse, but we don't bake size limits into the schema sent
+// to Anthropic.
 export const planCitationSchema = z.object({
-  source: z.string().min(1),
+  source: z.string(),
   source_type: z.enum([
     "guide",
     "blog",
@@ -54,20 +58,20 @@ export const planCitationSchema = z.object({
     "cost-tier",
     "setup-step",
   ]),
-  source_slug: z.string().min(1),
+  source_slug: z.string(),
 });
 
 export const planCostLineSchema = z.object({
-  label: z.string().min(1),
-  usd: z.number().int().nonnegative(),
-  tl: z.number().int().nonnegative(),
-  note: z.string().max(200).optional(),
+  label: z.string(),
+  usd: z.number().int(),
+  tl: z.number().int(),
+  note: z.string().optional(),
 });
 
 export const planSetupItemSchema = z.object({
-  title: z.string().min(1).max(120),
-  why: z.string().min(1).max(400),
-  link: z.string().max(200).optional(),
+  title: z.string(),
+  why: z.string(),
+  link: z.string().optional(),
 });
 
 export const planSetupWeekSchema = z.object({
@@ -77,18 +81,18 @@ export const planSetupWeekSchema = z.object({
 
 export const relocationPlanSchema = z.object({
   neighborhood_match: z.object({
-    primary: z.string().min(1),
-    alternates: z.array(z.string().min(1)),
-    reasoning: z.string().min(20).max(900),
+    primary: z.string(),
+    alternates: z.array(z.string()),
+    reasoning: z.string(),
   }),
   cost_breakdown: z.object({
     tier: z.enum(["low", "medium", "high"]),
-    monthly_total_usd: z.number().int().nonnegative(),
+    monthly_total_usd: z.number().int(),
     lines: z.array(planCostLineSchema),
   }),
   setup_plan: z.array(planSetupWeekSchema),
-  strategy: z.array(z.string().min(1).max(600)),
-  tips: z.array(z.string().min(1).max(300)),
+  strategy: z.array(z.string()),
+  tips: z.array(z.string()),
   citations: z.array(planCitationSchema),
 });
 

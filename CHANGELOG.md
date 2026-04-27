@@ -4,6 +4,12 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.2] - 2026-04-27
+
+### Fixed
+- `/api/relocation-agent` was still hitting Vercel's 60s function cap on cold starts even after the 1.12.1 narrative-to-Haiku split. Two LLM calls back-to-back was the wrong shape. Dropped the narrative `generateText` entirely - the plan summary is now synthesised deterministically from the structured plan JSON via a new `synthesizeNarrative()` helper. Reuses the agent's own `reasoning`, week-1 setup item, and first tip, so the voice stays grounded without a second model round-trip. Cuts end-to-end latency to one Sonnet call (~25-40s) with real margin under the function cap
+- `/relocation-agent` form crashed with a JSON parse SyntaxError when the API returned a plain-text gateway error (504 timeout, 502 bad gateway). The submit handler now reads the body as text first, tries `JSON.parse`, and falls through to a friendly toast if the body isn't JSON. The 504 case now shows "The agent took too long. Try again in a minute." instead of throwing
+
 ## [1.12.1] - 2026-04-27
 
 ### Fixed

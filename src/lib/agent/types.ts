@@ -37,16 +37,19 @@ export type RelocationIntake = z.infer<typeof relocationIntakeSchema>;
 // Plan output. The shape the LLM is forced into via generateObject. Every
 // field is required so we can render cards without conditional logic.
 //
-// IMPORTANT: Anthropic's structured-output endpoint only accepts a narrow
-// JSON Schema subset. It rejects ALL numeric / size constraints:
+// IMPORTANT: Anthropic's structured-output endpoint accepts only a narrow
+// JSON Schema subset. Things it rejects:
 //   - minItems / maxItems on arrays
-//   - minimum / maximum on numbers and integers (also .nonnegative() etc)
-//   - minLength / maxLength on strings
-// So this schema uses ONLY type tags, enums, literals, and optional/required.
-// The prompt itself bounds counts and lengths ("up to two alternates",
-// "weeks 1 through 4", "6-8 sentence narrative"). If the model misbehaves we
-// can refine() post-parse, but we don't bake size limits into the schema sent
-// to Anthropic.
+//   - minimum / maximum on numbers and integers
+//   - multipleOf (which Zod's .int() can emit)
+//   - minLength / maxLength / pattern / format on strings
+//   - exclusiveMinimum / exclusiveMaximum
+//   - integer-literal unions that get serialised as integer + minimum/maximum
+//
+// So this schema uses ONLY: type tags (string / number / boolean / array /
+// object), enums, optional/required. No .int(), no .min()/.max(), no
+// .nonnegative(), no z.literal() unions over numbers. The prompt bounds
+// shape and counts in plain English; we refine() post-parse if needed.
 export const planCitationSchema = z.object({
   source: z.string(),
   source_type: z.enum([
@@ -63,8 +66,8 @@ export const planCitationSchema = z.object({
 
 export const planCostLineSchema = z.object({
   label: z.string(),
-  usd: z.number().int(),
-  tl: z.number().int(),
+  usd: z.number(),
+  tl: z.number(),
   note: z.string().optional(),
 });
 
@@ -75,7 +78,10 @@ export const planSetupItemSchema = z.object({
 });
 
 export const planSetupWeekSchema = z.object({
-  week: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]),
+  // Numeric 1-4. The prompt says "weeks 1 through 4" so the agent picks
+  // sensibly; we don't constrain in JSON Schema because Anthropic rejects
+  // both integer min/max and integer-literal unions
+  week: z.number(),
   items: z.array(planSetupItemSchema),
 });
 
@@ -87,7 +93,7 @@ export const relocationPlanSchema = z.object({
   }),
   cost_breakdown: z.object({
     tier: z.enum(["low", "medium", "high"]),
-    monthly_total_usd: z.number().int(),
+    monthly_total_usd: z.number(),
     lines: z.array(planCostLineSchema),
   }),
   setup_plan: z.array(planSetupWeekSchema),

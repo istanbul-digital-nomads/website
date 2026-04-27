@@ -90,6 +90,11 @@ export const footerNav = {
     { label: "Twitter", href: socialLinks.twitter, external: true },
     { label: "Email", href: `mailto:${socialLinks.email}`, external: true },
   ],
+  legal: [
+    { label: "Photo credits", href: "/credits" },
+    { label: "OpenAPI", href: "/openapi.json" },
+    { label: "LLMs.txt", href: "/llms.txt" },
+  ],
 } as const;
 
 export const guideSpecializations = [

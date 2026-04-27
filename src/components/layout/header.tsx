@@ -56,7 +56,7 @@ function NavDropdown({
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          "flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium transition-all hover:bg-black/5 hover:text-neutral-950 dark:hover:bg-white/10 dark:hover:text-[#f2f3f4]",
+          "flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium transition-all hover:bg-black/5 hover:text-neutral-950 dark:hover:bg-white/10 dark:hover:text-[#f2f3f4]",
           isChildActive
             ? "bg-black/5 text-neutral-950 dark:bg-white/10 dark:text-[#f2f3f4]"
             : "text-neutral-600 dark:text-[#85929e]",
@@ -72,7 +72,7 @@ function NavDropdown({
       </button>
 
       {open && (
-        <div className="absolute left-1/2 top-full z-50 mt-2 w-64 -translate-x-1/2 rounded-2xl border border-black/10 bg-white/95 p-2 shadow-[0_16px_48px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-white/10 dark:bg-[#1a1d27]/95 dark:shadow-[0_16px_48px_rgba(0,0,0,0.4)]">
+        <div className="absolute left-1/2 top-full z-50 mt-2 w-64 -translate-x-1/2 rounded-xl border border-black/10 bg-white/95 p-2 shadow-[0_16px_42px_rgba(20,17,15,0.1)] backdrop-blur-xl dark:border-white/10 dark:bg-[#1a1612]/95 dark:shadow-[0_16px_42px_rgba(0,0,0,0.35)]">
           {item.children.map((child) => (
             <Link
               key={child.href}
@@ -117,9 +117,9 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-black/5 bg-[rgba(250,250,250,0.88)] backdrop-blur-md transition-[background-color,border-color,box-shadow,transform] duration-300 dark:border-white/10 dark:bg-[rgba(26,29,39,0.88)]",
+        "sticky top-0 z-50 border-b border-black/5 bg-[rgba(250,250,250,0.9)] backdrop-blur-md transition-[background-color,border-color,box-shadow,transform] duration-300 dark:border-white/10 dark:bg-[rgba(20,17,15,0.9)]",
         scrolled &&
-          "border-black/10 bg-[rgba(250,250,250,0.95)] shadow-[0_10px_30px_rgba(15,23,42,0.08)] dark:border-white/15 dark:bg-[rgba(26,29,39,0.95)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.25)]",
+          "border-black/10 bg-[rgba(250,250,250,0.96)] shadow-[0_8px_24px_rgba(20,17,15,0.06)] dark:border-white/15 dark:bg-[rgba(20,17,15,0.96)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.24)]",
         hideOnMobile && "max-md:-translate-y-full",
       )}
     >
@@ -134,17 +134,19 @@ export function Header() {
             <Image
               src="/images/logo-light.png"
               alt="Istanbul Nomads"
-              width={34}
-              height={44}
-              className="block drop-shadow-[0_0_8px_rgba(192,57,43,0.3)] dark:hidden"
+              width={530}
+              height={680}
+              className="block dark:hidden"
+              style={{ width: 35, height: "auto" }}
               priority
             />
             <Image
               src="/images/logo-dark.png"
               alt="Istanbul Nomads"
-              width={34}
-              height={44}
-              className="hidden drop-shadow-[0_0_8px_rgba(192,57,43,0.4)] dark:block"
+              width={542}
+              height={693}
+              className="hidden dark:block"
+              style={{ width: 35, height: "auto" }}
               priority
             />
             <div>
@@ -167,7 +169,7 @@ export function Header() {
                   href={item.href}
                   prefetch
                   className={cn(
-                    "rounded-full px-4 py-2 text-sm font-medium transition-all hover:bg-black/5 hover:text-neutral-950 dark:hover:bg-white/10 dark:hover:text-[#f2f3f4]",
+                    "rounded-lg px-3 py-2 text-sm font-medium transition-all hover:bg-black/5 hover:text-neutral-950 dark:hover:bg-white/10 dark:hover:text-[#f2f3f4]",
                     pathname === item.href
                       ? "bg-black/5 text-neutral-950 dark:bg-white/10 dark:text-[#f2f3f4]"
                       : "text-neutral-600 dark:text-[#85929e]",
@@ -198,7 +200,7 @@ export function Header() {
             >
               <Button
                 size="sm"
-                className="rounded-full bg-primary-600 px-4 text-white hover:bg-primary-700 dark:bg-primary-500 dark:text-white dark:hover:bg-primary-400"
+                className="rounded-lg bg-primary-600 px-4 text-white hover:bg-primary-700 dark:bg-primary-500 dark:text-white dark:hover:bg-primary-400"
               >
                 Join on Telegram
               </Button>

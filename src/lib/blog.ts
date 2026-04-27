@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { getBlogCoverImage, type BlogCoverImage } from "@/lib/blog-covers";
 
 const BLOG_DIR = path.join(process.cwd(), "src/content/blog");
 
@@ -12,6 +13,7 @@ export interface BlogPostMeta {
   date: string;
   tags: string[];
   readingTime: string;
+  coverImage?: BlogCoverImage;
 }
 
 interface BlogFrontmatter {
@@ -47,6 +49,7 @@ export function getAllBlogPosts(): BlogPostMeta[] {
       date: fm.date || "2026-01-01",
       tags: fm.tags || [],
       readingTime: estimateReadingTime(content),
+      coverImage: getBlogCoverImage(slug),
     };
   });
 
@@ -73,6 +76,7 @@ export function getBlogPost(slug: string) {
       date: fm.date || "2026-01-01",
       tags: fm.tags || [],
       readingTime: estimateReadingTime(content),
+      coverImage: getBlogCoverImage(slug),
     } satisfies BlogPostMeta,
   };
 }

@@ -214,12 +214,14 @@ export default function NeighborhoodDetailPage({ params }: Props) {
       <section className="py-16">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
-            <div className="rounded-[2rem] border border-primary-500/20 bg-[linear-gradient(135deg,#c0392b_0%,#922b21_50%,#641e16_100%)] p-8 text-white dark:bg-[linear-gradient(135deg,#922b21_0%,#641e16_50%,#15212c_100%)]">
-              <p className="eyebrow text-white/70">Next step</p>
-              <h2 className="mt-3 max-w-md text-3xl font-semibold sm:text-4xl">
+            <div className="rounded-2xl border border-black/10 bg-[#f6f1ea] p-8 dark:border-white/10 dark:bg-[#1a1612]">
+              <p className="eyebrow text-primary-700 dark:text-primary-400">
+                Next step
+              </p>
+              <h2 className="mt-3 max-w-md text-3xl font-semibold text-neutral-950 dark:text-[#f2f3f4] sm:text-4xl">
                 Coming to {n.name}? Say hi before you land.
               </h2>
-              <p className="mt-4 max-w-md text-base leading-8 text-white/75">
+              <p className="mt-4 max-w-md text-base leading-8 text-[#5d6d7e] dark:text-[#99a3ad]">
                 Join the Telegram group and we&apos;ll point you to this
                 week&apos;s meetup, a reliable cafe, and anything else you need
                 to settle in.
@@ -228,7 +230,7 @@ export default function NeighborhoodDetailPage({ params }: Props) {
                 href={socialLinks.telegram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#1a1a2e] transition-colors hover:bg-primary-50"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-400"
               >
                 Join on Telegram
                 <ArrowRight className="h-4 w-4" />

@@ -62,7 +62,7 @@ export function NewsletterForm({
         placeholder="you@example.com"
         className={`min-w-0 flex-1 rounded-xl border px-3.5 py-2.5 text-sm outline-none transition-colors placeholder:text-neutral-400 focus:border-primary-400 focus:ring-1 focus:ring-primary-400 ${
           isFooter
-            ? "border-white/15 bg-white/10 text-white placeholder:text-white/40"
+            ? "border-black/10 bg-white/70 text-neutral-950 placeholder:text-neutral-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-[#f2f3f4] dark:placeholder:text-[#8f8378]"
             : "border-black/10 bg-white text-neutral-900 dark:border-white/10 dark:bg-white/5 dark:text-[#f2f3f4] dark:placeholder:text-[#5d6d7e]"
         }`}
       />
@@ -71,11 +71,14 @@ export function NewsletterForm({
         disabled={loading}
         className={`inline-flex shrink-0 items-center gap-1.5 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors disabled:opacity-50 ${
           isFooter
-            ? "bg-white text-[#1a1a2e] hover:bg-primary-50"
+            ? "border border-primary-600 bg-primary-600 text-white hover:border-primary-700 hover:bg-primary-700 dark:border-primary-500 dark:bg-primary-500 dark:hover:border-primary-400 dark:hover:bg-primary-400"
             : "bg-primary-600 text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600"
         }`}
+        aria-label={isFooter ? "Subscribe to the Sunday letter" : undefined}
       >
-        {loading ? "..." : "Subscribe"}
+        <span className={isFooter ? "sr-only sm:not-sr-only" : undefined}>
+          {loading ? "..." : "Subscribe"}
+        </span>
         {!loading && <ArrowRight className="h-3.5 w-3.5" />}
       </button>
     </form>

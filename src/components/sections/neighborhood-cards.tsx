@@ -11,21 +11,26 @@ import {
 
 export function NeighborhoodCardsSection() {
   return (
-    <section className="border-y border-black/5 py-20 lg:py-24 dark:border-white/10">
+    <section
+      id="neighborhoods"
+      className="scroll-mt-24 border-y border-black/10 py-16 lg:py-20 dark:border-white/10"
+    >
       <Container>
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
           <p className="eyebrow">Where people land</p>
-          <h2 className="mt-4 text-4xl font-semibold text-neutral-950 sm:text-5xl dark:text-[#f2f3f4]">
-            Five neighborhoods, one city.
-          </h2>
-          <p className="text-muted mt-5 text-lg leading-8">
-            Most nomads end up in one of these five. Each has a photo, verified
-            stats, and a detail page with the coworking and cafes we track
-            there.
-          </p>
+          <div>
+            <h2 className="font-display text-h1 text-neutral-950 dark:text-[#f2f3f4]">
+              Five neighborhoods, one city.
+            </h2>
+            <p className="text-muted mt-4 max-w-2xl text-body-lg">
+              Most nomads end up in one of these five. Each has a photo,
+              verified stats, and a detail page with the coworking and cafes we
+              track there.
+            </p>
+          </div>
         </div>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="-mx-4 mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3 [&::-webkit-scrollbar]:hidden">
           {neighborhoods.map((n, idx) => {
             const count = getSpacesInNeighborhood(n.slug).length;
             return (
@@ -36,7 +41,7 @@ export function NeighborhoodCardsSection() {
                 <Link
                   href={`/guides/neighborhoods/${n.slug}`}
                   prefetch
-                  className="group block overflow-hidden rounded-[2rem] border border-black/10 bg-white/55 transition-all hover:-translate-y-1 hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                  className="group block min-w-[82vw] snap-start overflow-hidden rounded-md border border-black/10 bg-white/50 transition-all hover:-translate-y-0.5 hover:border-primary-500/35 hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:border-primary-400/35 dark:hover:bg-white/10 sm:min-w-0"
                 >
                   <div className="relative aspect-[3/2] w-full overflow-hidden bg-primary-50/30 dark:bg-primary-950/20">
                     <Image
@@ -46,20 +51,20 @@ export function NeighborhoodCardsSection() {
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
                       className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                     />
-                    <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-white/85 px-3 py-1.5 text-xs font-medium text-[#1a1a2e] backdrop-blur dark:bg-[#1a1d27]/85 dark:text-[#f2f3f4]">
+                    <div className="absolute left-4 top-4 flex items-center gap-2 rounded-md bg-white/85 px-3 py-1.5 text-xs font-medium text-[#1a1a2e] backdrop-blur dark:bg-[#1a1612]/85 dark:text-[#f2f3f4]">
                       <MapPin className="h-3.5 w-3.5 text-primary-600 dark:text-primary-400" />
                       {n.side} side
                     </div>
-                    <div className="absolute bottom-4 right-4 rounded-full bg-[#1a1a2e]/85 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.24em] text-white backdrop-blur">
+                    <div className="absolute bottom-4 right-4 rounded-md bg-[#1a1a2e]/85 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.24em] text-white backdrop-blur">
                       {formatRentRange(n)}
                     </div>
                   </div>
 
                   <div className="p-6">
-                    <h3 className="text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
+                    <h3 className="font-display text-2xl font-extrabold text-[#1a1a2e] dark:text-[#f2f3f4]">
                       {n.name}
                     </h3>
-                    <p className="mt-3 text-sm leading-7 text-[#5d6d7e] dark:text-[#99a3ad]">
+                    <p className="mt-3 text-sm leading-7 text-[#5d6d7e] dark:text-[#b7aaa0]">
                       {n.oneLiner}
                     </p>
 

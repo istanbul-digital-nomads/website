@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { IBM_Plex_Mono, Inter } from "next/font/google";
+import { IBM_Plex_Mono, Inter, Manrope } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -42,6 +42,14 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",
+  preload: true,
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["600", "700", "800"],
+  variable: "--font-display",
   preload: true,
 });
 
@@ -112,7 +120,7 @@ export default function RootLayout({
         />
         <meta
           name="theme-color"
-          content="#0f1117"
+          content="#14110f"
           media="(prefers-color-scheme: dark)"
         />
         {/* Inline critical theme script to prevent FOUC */}
@@ -122,7 +130,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${ibmPlexMono.variable}`}>
+      <body
+        className={`${inter.variable} ${manrope.variable} ${ibmPlexMono.variable}`}
+      >
         <ThemeProvider>
           <NavigationProgress />
           <Header />

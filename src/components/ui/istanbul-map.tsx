@@ -51,7 +51,7 @@ const neighborhoods: Neighborhood[] = [
     side: "European",
     color: "#737373",
     bgClass:
-      "bg-neutral-200 text-neutral-800 dark:bg-[#2c2f3a] dark:text-[#d5dce3]",
+      "bg-neutral-200 text-neutral-800 dark:bg-[#3c2d24] dark:text-[#d5dce3]",
     labelSide: "left",
   },
   {
@@ -82,7 +82,7 @@ const neighborhoods: Neighborhood[] = [
     side: "Asian",
     color: "#737373",
     bgClass:
-      "bg-neutral-200 text-neutral-800 dark:bg-[#2c2f3a] dark:text-[#d5dce3]",
+      "bg-neutral-200 text-neutral-800 dark:bg-[#3c2d24] dark:text-[#d5dce3]",
     labelSide: "right",
   },
 ];
@@ -154,21 +154,13 @@ function AnimatedMarker({
         onMouseLeave={onLeave}
       >
         <span
-          className="absolute inset-0 animate-ping rounded-full opacity-40"
-          style={{
-            backgroundColor: neighborhood.color,
-            animationDuration: "2.5s",
-            animationDelay: `${delay}ms`,
-          }}
-        />
-        <span
-          className="relative block h-3.5 w-3.5 rounded-full shadow-lg ring-2 ring-white/90 dark:ring-[#1a1a2e]/80"
+          className="relative block h-3.5 w-3.5 rounded-full ring-2 ring-white/90 dark:ring-[#1a1612]/80"
           style={{ backgroundColor: neighborhood.color }}
         />
 
         <div
           className={cn(
-            "absolute top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.25em] shadow-md transition-all duration-200",
+            "absolute top-1/2 -translate-y-1/2 whitespace-nowrap rounded-md px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.25em] transition-all duration-200",
             neighborhood.bgClass,
             neighborhood.labelSide === "right" ? "left-5" : "right-5",
             isActive
@@ -182,7 +174,7 @@ function AnimatedMarker({
         {isActive && (
           <div
             className={cn(
-              "animate-slide-up-fade absolute bottom-full mb-2 w-48 rounded-xl border border-black/10 bg-white/95 p-3 shadow-lg backdrop-blur-sm dark:border-white/10 dark:bg-[#1a1a2e]/95",
+              "animate-slide-up-fade absolute bottom-full mb-2 w-48 rounded-md border border-black/10 bg-white/95 p-3 backdrop-blur-sm dark:border-white/10 dark:bg-[#1a1612]/95",
               neighborhood.labelSide === "right" ? "left-0" : "right-0",
             )}
           >
@@ -231,7 +223,7 @@ export function IstanbulMap() {
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden rounded-[2.3rem] border border-primary-200/60 bg-[#d5dce3] shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:border-primary-900/40 dark:bg-[#1a1d27] dark:shadow-[0_30px_90px_rgba(0,0,0,0.35)]">
+    <div className="absolute inset-0 overflow-hidden rounded-xl border border-black/10 bg-[#d5dce3] dark:border-white/10 dark:bg-[#1a1612]">
       <div
         className={cn(
           "absolute inset-0 transition-opacity duration-700",
@@ -307,10 +299,10 @@ export function IstanbulMap() {
         />
       </div>
 
-      <div className="pointer-events-none absolute inset-0 rounded-[2.3rem] ring-1 ring-inset ring-black/5 dark:ring-white/10" />
+      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-black/5 dark:ring-white/10" />
 
       <div className="absolute inset-x-4 bottom-4 sm:inset-x-6 sm:bottom-6">
-        <div className="rounded-2xl border border-black/8 bg-white/88 px-5 py-4 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-[#1a1a2e]/85">
+        <div className="rounded-md border border-black/10 bg-white/90 px-5 py-4 backdrop-blur-xl dark:border-white/10 dark:bg-[#1a1612]/88">
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="eyebrow">First-month map - Istanbul</p>
@@ -319,7 +311,7 @@ export function IstanbulMap() {
                 together. Hover neighborhoods to explore.
               </p>
             </div>
-            <div className="hidden rounded-full border border-black/10 bg-white/80 p-2.5 shadow-sm dark:border-white/10 dark:bg-white/10 sm:block">
+            <div className="hidden rounded-md border border-black/10 bg-white/80 p-2.5 dark:border-white/10 dark:bg-white/10 sm:block">
               <MapPin className="h-4 w-4 text-primary-600 dark:text-primary-400" />
             </div>
           </div>

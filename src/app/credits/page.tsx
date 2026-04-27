@@ -4,11 +4,12 @@ import path from "node:path";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
+import { blogCoverImages } from "@/lib/blog-covers";
 
 export const metadata: Metadata = {
   title: "Photo credits",
   description:
-    "Attribution and licensing for every photo on Istanbul Nomads - sourced from Wikimedia Commons and other free-license providers.",
+    "Attribution and licensing for every photo on Istanbul Nomads - sourced from Unsplash, Wikimedia Commons, and other free-license providers.",
 };
 
 interface AttributionEntry {
@@ -50,6 +51,7 @@ export default function CreditsPage() {
     },
     {},
   );
+  const blogCredits = Object.entries(blogCoverImages);
 
   return (
     <Section>
@@ -71,13 +73,56 @@ export default function CreditsPage() {
           Photo credits
         </h1>
         <p className="mt-4 text-base leading-8 text-[#5d6d7e] dark:text-[#99a3ad]">
-          Every photo on Istanbul Nomads is credited here. Neighborhood
-          photography is sourced from Wikimedia Commons under Creative Commons
-          licenses - each credit links back to the original file so you can
-          verify the license and see the photographer.
+          Every photo on Istanbul Nomads is credited here. Neighborhood and blog
+          photography is sourced from Unsplash and Wikimedia Commons. Each
+          credit links back to the original file so you can verify the license
+          and see the photographer.
         </p>
 
         <div className="mt-10 space-y-10">
+          {blogCredits.length > 0 ? (
+            <div>
+              <h2 className="text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
+                Blog covers
+              </h2>
+              <ul className="mt-4 space-y-3">
+                {blogCredits.map(([slug, image]) => (
+                  <li
+                    key={slug}
+                    className="flex flex-col gap-1 rounded-xl border border-black/10 bg-white/55 p-4 text-sm dark:border-white/10 dark:bg-white/5 sm:flex-row sm:items-center sm:justify-between"
+                  >
+                    <div>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#85929e]">
+                        {slug.replace(/-/g, " ")}
+                      </span>
+                      <p className="mt-1 text-[#1a1a2e] dark:text-[#f2f3f4]">
+                        {image.alt}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
+                      <a
+                        href={image.credit.sourceHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline decoration-dotted underline-offset-2 hover:text-primary-600 dark:hover:text-primary-300"
+                      >
+                        {image.credit.author} / {image.credit.source}
+                      </a>
+                      <a
+                        href={image.credit.licenseHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-full border border-primary-500/20 bg-primary-50/60 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-primary-700 dark:border-primary-500/30 dark:bg-primary-950/30 dark:text-primary-200"
+                      >
+                        {image.credit.license}
+                      </a>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
           {Object.keys(grouped).length === 0 ? (
             <Container>
               <p className="rounded-xl border border-dashed border-primary-200/50 bg-primary-50/30 p-8 text-center text-[#5d6d7e] dark:border-primary-900/30 dark:bg-primary-950/10 dark:text-[#99a3ad]">

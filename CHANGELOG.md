@@ -4,6 +4,51 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.14.0] - 2026-04-28
+
+Sitewide redesign pass. Plan + diagnosis lives in [`docs/redesign-2026-q2.md`](docs/redesign-2026-q2.md). The diff fans out across 21 files because design tokens propagate; functionally everything reads the same, just less SaaS-marketing and more editorial-warm.
+
+### Changed
+- **Footer rewritten.** The 2rem-rounded red gradient block is gone. Replaced with a quiet 4-band layout (newsletter band → 4-column nav grid → icon-only social row → mono-uppercase legal line) on a warm `#f6f1ea` light / `#14110f` dark background. Hairline borders, no shadows, single Telegram CTA in the social row only. Photographic accent at low opacity behind the bands picks up the brand doc's "warm documentary realism" cue
+- **Headlines now use Manrope** (display font, weights 600/700/800) via `next/font/google`. Wired to `--font-display` CSS variable and `font-display` Tailwind utility. Inter stays for body. Cost: ~15kb gzipped
+- **Type scale formalised in `tailwind.config.ts`.** New tokens: `display-sm/md/lg` (56/64/72px), `h1/h2/h3` (44/36/28px), `body/body-lg/body-xl` (16/17/18px), `eyebrow` (11px mono uppercase)
+- **Dark-mode warmed.** `--background` `#0f1117 → #14110f`, `--muted` `#99a3ad → #b7aaa0`, dark border `#2c2f3a → #3c2d24`, surface dark `#1a1d27 → #1a1612`. The brand doc forbade cold blue-gray; now it's warm charcoal site-wide
+- **Card primitive simplified.** `rounded-lg → rounded-md` (8px → 6px), `shadow-lg` removed, hover state now `translate-y` + warmer border tint. No more red-shadow glow on card hover
+- **Button primary** drops the heavy `shadow-[0_10px_25px]` to a lighter `0_8px_20px` (light) and `shadow-none` (dark). Secondary becomes outline-only with subtle hover bg
+- **"Coming to {neighborhood}? Say hi before you land" CTA** on every neighborhood detail page replaced with the same warm-panel + hairline border treatment as the footer; only the Telegram button keeps Turkey Red as a single accent
+- **Header touched up:** Telegram CTA more prominent, logo + nav rhythm tightened
+- **Newsletter form** cleaned up to match the new aesthetic (slimmer input, less shadow)
+
+### Added
+- **`src/lib/blog-covers.ts`** + 11+ image pairs in `public/images/blog/` (`*.jpg` + `.webp`). Every blog post now has a verified Wikimedia Commons / Unsplash cover image with proper credit metadata. Wired into `src/lib/blog.ts`
+- **`docs/redesign-2026-q2.md`** committed to the repo as the design rationale + phase plan
+
+### Files touched (21)
+
+```
+src/app/layout.tsx                                 — Manrope import + theme-color update
+src/app/page.tsx                                   — homepage redesign (482 lines)
+src/app/blog/[slug]/page.tsx                       — blog post template
+src/app/blog/blog-listing.tsx                      — blog listing
+src/app/credits/page.tsx                           — credits page polish
+src/app/guides/neighborhoods/[neighborhood]/page.tsx — neighborhood CTA block
+src/components/layout/footer.tsx                   — full rewrite
+src/components/layout/header.tsx                   — small refinements
+src/components/newsletter-form.tsx                 — visual cleanup
+src/components/sections/neighborhood-cards.tsx     — token-level updates
+src/components/sections/neighborhoods-map-section.tsx — same
+src/components/ui/button.tsx                       — variant tweaks
+src/components/ui/card.tsx                         — radius / shadow / hover
+src/components/ui/istanbul-map.tsx                 — token-level updates
+src/components/ui/reveal.tsx                       — token-level updates
+src/lib/blog.ts                                    — wires blog-covers
+src/lib/constants.ts                               — adds Legal nav group
+src/styles/globals.css                             — warm dark tokens, eyebrow uses new size
+tailwind.config.ts                                 — display font + type scale + warm surface
+docs/redesign-2026-q2.md                           — plan committed
+src/lib/blog-covers.ts                             — new
+```
+
 ## [1.13.1] - 2026-04-27
 
 ### Removed

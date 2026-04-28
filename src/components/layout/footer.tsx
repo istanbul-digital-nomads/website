@@ -15,7 +15,7 @@ const socialIcons = [
 export function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-black/10 bg-[#f6f1ea] text-neutral-950 dark:border-white/10 dark:bg-[#14110f] dark:text-[#f2f3f4]">
-      <div className="pointer-events-none absolute inset-0 bg-[url('/images/neighborhoods/kadikoy/hero.jpg')] bg-cover bg-center opacity-[0.08] dark:opacity-[0.1]" />
+      <div className="pointer-events-none absolute inset-0 bg-[url('/images/neighborhoods/kadikoy/hero-2026.jpg')] bg-cover bg-center opacity-[0.08] dark:opacity-[0.1]" />
       <div className="pointer-events-none absolute inset-0 bg-[#f6f1ea]/88 dark:bg-[#14110f]/88" />
 
       <Container className="relative">

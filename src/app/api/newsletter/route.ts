@@ -74,11 +74,11 @@ export async function POST(request: Request) {
   }
 
   try {
-    const html = await render(NewsletterWelcomeEmail());
+    const html = await render(NewsletterWelcomeEmail({ email }));
     const { error: emailError } = await getResend().emails.send({
       from: "Istanbul Nomads <noreply@istanbulnomads.com>",
       to: email,
-      subject: "Welcome to Istanbul Digital Nomads",
+      subject: "Your Istanbul work rhythm starts here",
       html,
     });
     if (emailError) {

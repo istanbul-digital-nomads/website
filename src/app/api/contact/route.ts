@@ -41,7 +41,7 @@ export async function POST(request: Request) {
       from: "Istanbul Nomads <noreply@istanbulnomads.com>",
       to: "hello@istanbulnomads.com",
       replyTo: email,
-      subject: `Contact form: ${name}`,
+      subject: `New Istanbul Nomads message from ${name}`,
       html,
     });
   } catch {

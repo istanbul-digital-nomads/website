@@ -4,6 +4,19 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.14.1] - 2026-04-29
+
+### Changed
+- Refreshed all five neighborhood hero photos with new Unsplash sources (Kadikoy, Moda, Cihangir, Besiktas, Galata). Each photo now has a named contributor in the credit metadata instead of "Unsplash contributor", a proper `unsplash.com/photos/{slug}/download` source URL, and matching alt text describing what's actually in the frame. Files are versioned with a `-2026.jpg` / `-2026.webp` suffix so old caches expire cleanly. Footer background image and the `neighborhoods.mdx` inline heroes both point at the new files
+- Added two new gallery entries (Kadikoy + Galata) backed by Unsplash photos with named photographers
+- New `unsplashDownload()` helper in `src/lib/neighborhoods.ts` builds the Unsplash hotlink-friendly download URL alongside the existing `unsplashCdn()` helper
+- Homepage hero route strip rewrites the three time-stamped steps to be specific places ("Kadikoy pier" / "Karakoy table" / "Galata evening") with more concrete supporting copy. Top mono-uppercase strip now reads "Kadikoy 09:10 / Karakoy 10:25 / Galata 18:30" + "GMT+3 / ferry-first / laptop-ready" and uses a 2-column grid instead of the previous flex+border row. New `heroDeskNotes` constant for the side desk-card under the hero
+- Email subjects rewritten for warmth: contact form "Contact form: {name}" -> "New Istanbul Nomads message from {name}"; newsletter welcome "Welcome to Istanbul Digital Nomads" -> "Your Istanbul work rhythm starts here"; local guide application "Guide application: {name}" -> "Local guide candidate: {name}"
+- `NewsletterWelcomeEmail` now takes an `email` prop so the template can personalise the unsubscribe footer. Local-guide application email payload now includes `sample_tip` so the moderator sees the candidate's example tip in the notification
+
+### Fixed
+- Replaced em dashes with regular hyphens across `CHANGELOG.md`, `src/lib/emails.tsx`, and miscellaneous content to match the new project writing-style rule (`CLAUDE.md`)
+
 ## [1.14.0] - 2026-04-28
 
 Sitewide redesign pass. Plan + diagnosis lives in [`docs/redesign-2026-q2.md`](docs/redesign-2026-q2.md). The diff fans out across 21 files because design tokens propagate; functionally everything reads the same, just less SaaS-marketing and more editorial-warm.
@@ -26,27 +39,27 @@ Sitewide redesign pass. Plan + diagnosis lives in [`docs/redesign-2026-q2.md`](d
 ### Files touched (21)
 
 ```
-src/app/layout.tsx                                 — Manrope import + theme-color update
-src/app/page.tsx                                   — homepage redesign (482 lines)
-src/app/blog/[slug]/page.tsx                       — blog post template
-src/app/blog/blog-listing.tsx                      — blog listing
-src/app/credits/page.tsx                           — credits page polish
-src/app/guides/neighborhoods/[neighborhood]/page.tsx — neighborhood CTA block
-src/components/layout/footer.tsx                   — full rewrite
-src/components/layout/header.tsx                   — small refinements
-src/components/newsletter-form.tsx                 — visual cleanup
-src/components/sections/neighborhood-cards.tsx     — token-level updates
-src/components/sections/neighborhoods-map-section.tsx — same
-src/components/ui/button.tsx                       — variant tweaks
-src/components/ui/card.tsx                         — radius / shadow / hover
-src/components/ui/istanbul-map.tsx                 — token-level updates
-src/components/ui/reveal.tsx                       — token-level updates
-src/lib/blog.ts                                    — wires blog-covers
-src/lib/constants.ts                               — adds Legal nav group
-src/styles/globals.css                             — warm dark tokens, eyebrow uses new size
-tailwind.config.ts                                 — display font + type scale + warm surface
-docs/redesign-2026-q2.md                           — plan committed
-src/lib/blog-covers.ts                             — new
+src/app/layout.tsx                                 - Manrope import + theme-color update
+src/app/page.tsx                                   - homepage redesign (482 lines)
+src/app/blog/[slug]/page.tsx                       - blog post template
+src/app/blog/blog-listing.tsx                      - blog listing
+src/app/credits/page.tsx                           - credits page polish
+src/app/guides/neighborhoods/[neighborhood]/page.tsx - neighborhood CTA block
+src/components/layout/footer.tsx                   - full rewrite
+src/components/layout/header.tsx                   - small refinements
+src/components/newsletter-form.tsx                 - visual cleanup
+src/components/sections/neighborhood-cards.tsx     - token-level updates
+src/components/sections/neighborhoods-map-section.tsx - same
+src/components/ui/button.tsx                       - variant tweaks
+src/components/ui/card.tsx                         - radius / shadow / hover
+src/components/ui/istanbul-map.tsx                 - token-level updates
+src/components/ui/reveal.tsx                       - token-level updates
+src/lib/blog.ts                                    - wires blog-covers
+src/lib/constants.ts                               - adds Legal nav group
+src/styles/globals.css                             - warm dark tokens, eyebrow uses new size
+tailwind.config.ts                                 - display font + type scale + warm surface
+docs/redesign-2026-q2.md                           - plan committed
+src/lib/blog-covers.ts                             - new
 ```
 
 ## [1.13.1] - 2026-04-27
@@ -624,6 +637,7 @@ src/lib/blog-covers.ts                             — new
 | 0.2.0 | 2026-03-30 | Full MVP - Supabase, auth, 11 guides, 9 blog posts, events, onboarding, interactive map |
 | 0.1.0 | 2026-03-29 | Project setup, config files, initial homepage, documentation |
 
+[1.14.1]: https://github.com/istanbul-digital-nomads/website/compare/v1.14.0...v1.14.1
 [1.1.0]: https://github.com/istanbul-digital-nomads/website/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/istanbul-digital-nomads/website/compare/v0.2.0...v1.0.0
 [0.2.0]: https://github.com/istanbul-digital-nomads/website/compare/v0.1.0...v0.2.0

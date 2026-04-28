@@ -62,13 +62,14 @@ export async function POST(request: Request) {
         years_in_istanbul: application.years_in_istanbul,
         bio: application.bio,
         motivation: application.motivation,
+        sample_tip: application.sample_tip,
       }),
     );
     await getResend().emails.send({
       from: "Istanbul Nomads <noreply@istanbulnomads.com>",
       to: "hello@istanbulnomads.com",
       replyTo: application.email,
-      subject: `Guide application: ${application.name}`,
+      subject: `Local guide candidate: ${application.name}`,
       html,
     });
   } catch {

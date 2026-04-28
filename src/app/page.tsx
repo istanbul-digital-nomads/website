@@ -69,22 +69,27 @@ const whatPeopleFind = [
 const heroRouteSteps = [
   {
     time: "09:10",
-    title: "Base",
-    detail: "Kadikoy, Moda, Galata, or wherever your week starts.",
+    title: "Kadikoy pier",
+    detail: "Pick a walkable base with breakfast, metro, and ferries nearby.",
     icon: MapPin,
   },
   {
-    time: "10:00",
-    title: "Deep work",
-    detail: "Wifi-tested tables, quiet corners, and coworking fallbacks.",
+    time: "10:25",
+    title: "Karakoy table",
+    detail: "Cross with one job to do and a saved list of laptop-safe seats.",
     icon: Wifi,
   },
   {
     time: "18:30",
-    title: "People",
-    detail: "A coworking thread, a meetup, or someone who knows the block.",
+    title: "Galata evening",
+    detail: "Meet the people who know where the city works after dark.",
     icon: Users,
   },
+] as const;
+const heroDeskNotes = [
+  ["Base", "Kadikoy or Moda"],
+  ["Crossing", "20 min ferry reset"],
+  ["Fallback", "Coworking if cafes fill"],
 ] as const;
 
 export default async function HomePage() {
@@ -110,65 +115,39 @@ export default async function HomePage() {
     <div className="overflow-hidden">
       <section className="relative isolate border-b border-black/10 bg-[#fbfaf8] dark:border-white/10 dark:bg-[#14110f]">
         <div className="bg-grid absolute inset-0 opacity-[0.32] dark:opacity-[0.14]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-primary-500/10 to-transparent dark:from-primary-950/20" />
 
-        <Container className="relative py-10 sm:py-14 lg:py-16">
-          <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-black/10 pb-4 dark:border-white/10">
-            <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-primary-700 dark:text-primary-300">
-              Istanbul Digital Nomads
+        <Container className="relative py-8 sm:py-12 lg:py-16">
+          <div className="mb-8 grid gap-3 border-y border-black/10 py-3 font-mono text-[10px] uppercase tracking-[0.22em] text-neutral-500 sm:grid-cols-[1fr_auto] sm:items-center dark:border-white/10 dark:text-[#94877d]">
+            <p className="text-primary-700 dark:text-primary-300">
+              Kadikoy 09:10 / Karakoy 10:25 / Galata 18:30
             </p>
-            <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-neutral-500 dark:text-[#94877d]">
-              GMT+3 - ferry-friendly - walkable workdays
-            </p>
+            <p>GMT+3 / ferry-first / laptop-ready</p>
           </div>
 
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(440px,0.82fr)] lg:items-stretch lg:gap-14">
             {/* Hero text - NO Reveal wrapper to ensure LCP element is immediately visible */}
-            <div className="flex flex-col justify-between gap-10 pt-2 lg:min-h-[560px] lg:pt-0">
+            <div className="flex flex-col justify-between gap-10 lg:min-h-[590px]">
               <div>
-                <div className="mb-6 grid max-w-xl grid-cols-3 border-y border-black/10 text-center font-mono text-[10px] uppercase tracking-[0.24em] text-[#6b6257] dark:border-white/10 dark:text-[#94877d]">
-                  <span className="border-r border-black/10 px-2 py-3 dark:border-white/10">
-                    Asia base
-                  </span>
-                  <span className="border-r border-black/10 px-2 py-3 dark:border-white/10">
-                    Ferry day
-                  </span>
-                  <span className="px-2 py-3">Work table</span>
-                </div>
-
-                <h1 className="max-w-[11ch] text-balance font-display text-[3.2rem] font-extrabold leading-[0.94] text-neutral-950 sm:text-[4.15rem] lg:text-[5.35rem] dark:text-[#f2f3f4]">
-                  Make Istanbul workable in a week.
-                </h1>
-                <p className="mt-6 max-w-2xl text-body-xl text-neutral-700 dark:text-[#b7aaa0]">
-                  Pick a base, cross the Bosphorus with purpose, find reliable
-                  places to work, and meet the people who make the city easier
-                  to read.
-                </p>
-
-                <div className="mt-7 overflow-hidden rounded-xl border border-white/10 bg-[#1a1612] lg:hidden">
-                  <div className="relative h-32">
-                    <Image
-                      src="/images/neighborhoods/moda/hero.jpg"
-                      alt="Golden-hour Bosphorus view from Moda"
-                      fill
-                      priority
-                      sizes="100vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#14110f] via-[#14110f]/20 to-transparent" />
-                    <div className="absolute bottom-3 left-3 right-3">
-                      <p className="font-mono text-[10px] uppercase tracking-[0.26em] text-white/70">
-                        Bosphorus work loop
-                      </p>
-                      <div className="mt-2 grid grid-cols-[1fr_auto_1fr] items-center gap-3 rounded-lg bg-white/90 px-3 py-2 text-[13px] font-semibold text-neutral-950 backdrop-blur-md">
-                        <span>Kadikoy</span>
-                        <span className="h-px w-12 bg-primary-500/60" />
-                        <span className="text-right">Galata</span>
-                      </div>
-                    </div>
+                <div className="mb-6 max-w-xl">
+                  <div className="grid grid-cols-[auto_1fr_auto_1fr_auto] items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[#6b6257] dark:text-[#94877d]">
+                    <span>Asia base</span>
+                    <span className="h-px bg-black/10 dark:bg-white/10" />
+                    <span>Ferry reset</span>
+                    <span className="h-px bg-black/10 dark:bg-white/10" />
+                    <span>Evening table</span>
                   </div>
                 </div>
 
-                <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <h1 className="max-w-[11.5ch] text-balance font-display text-[2.86rem] font-extrabold leading-[0.94] text-neutral-950 sm:text-[4.15rem] lg:text-[5.55rem] dark:text-[#f2f3f4]">
+                  Build your Istanbul work rhythm in 7 days.
+                </h1>
+                <p className="mt-5 max-w-2xl text-[1.0625rem] leading-8 text-neutral-700 sm:text-body-xl dark:text-[#b7aaa0]">
+                  Choose a base, learn the ferry loop, and save the laptop-safe
+                  tables locals trust after sunset.
+                </p>
+
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                   <a
                     href={socialLinks.telegram}
                     target="_blank"
@@ -193,11 +172,35 @@ export default async function HomePage() {
                   </Link>
                 </div>
 
-                <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 border-l border-primary-600/50 pl-4">
+                <div className="mt-7 overflow-hidden rounded-xl border border-white/10 bg-[#1a1612] lg:hidden">
+                  <div className="relative h-36">
+                    <Image
+                      src="/images/neighborhoods/moda/hero-2026.jpg"
+                      alt="People walking along an Istanbul waterfront with the skyline beyond"
+                      fill
+                      priority
+                      sizes="100vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#14110f] via-[#14110f]/20 to-transparent" />
+                    <div className="absolute bottom-3 left-3 right-3">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.26em] text-white/70">
+                        Ferry workday
+                      </p>
+                      <div className="mt-2 grid grid-cols-[1fr_auto_1fr] items-center gap-3 rounded-lg bg-white/90 px-3 py-2 text-[13px] font-semibold text-neutral-950 backdrop-blur-md">
+                        <span>Kadikoy</span>
+                        <span className="h-px w-12 bg-primary-500/60" />
+                        <span className="text-right">Galata</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 grid gap-2 border-l border-primary-600/50 pl-4 sm:grid-cols-3">
                   {heroTrustSignals.map((signal) => (
                     <p
                       key={signal}
-                      className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#6b6257] dark:text-[#94877d]"
+                      className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#6b6257] dark:text-[#94877d]"
                     >
                       {signal}
                     </p>
@@ -206,40 +209,38 @@ export default async function HomePage() {
               </div>
 
               <div className="grid gap-3 border-t border-black/10 pt-5 sm:grid-cols-3 dark:border-white/10">
-                {[
-                  ["Kadikoy", "walkable base"],
-                  ["Galata", "creative workday"],
-                  ["Moda ferry", "social reset"],
-                ].map(([place, role]) => (
-                  <p key={place}>
-                    <span className="block font-display text-lg font-extrabold text-neutral-950 dark:text-[#f2f3f4]">
-                      {place}
+                {heroDeskNotes.map(([label, value]) => (
+                  <p key={label}>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-neutral-500 dark:text-[#94877d]">
+                      {label}
                     </span>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#94877d]">
-                      {role}
+                    <span className="mt-1 block font-display text-lg font-extrabold text-neutral-950 dark:text-[#f2f3f4]">
+                      {value}
                     </span>
                   </p>
                 ))}
               </div>
             </div>
 
-            <div className="relative overflow-hidden rounded-xl border border-black/10 bg-[#f0e7dc] dark:border-white/10 dark:bg-[#1a1612]">
-              <div className="relative h-48 border-b border-black/10 sm:h-56 lg:h-64 dark:border-white/10">
+            <div className="relative hidden overflow-hidden rounded-xl border border-black/10 bg-[#efe6da] shadow-[0_24px_90px_rgba(20,17,15,0.12)] dark:border-white/10 dark:bg-[#1a1612] lg:block">
+              <div className="relative h-72 border-b border-black/10 dark:border-white/10">
                 <Image
-                  src="/images/neighborhoods/moda/hero.jpg"
-                  alt="Golden-hour Bosphorus view from Moda"
+                  src="/images/neighborhoods/moda/hero-2026.jpg"
+                  alt="People walking along an Istanbul waterfront with the skyline beyond"
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 520px"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a2e]/75 via-[#1a1a2e]/10 to-transparent" />
+                <div className="absolute left-4 top-4 rounded-md bg-[#14110f]/80 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.22em] text-white/75 backdrop-blur">
+                  Ferry board / first week
+                </div>
                 <div className="absolute bottom-4 left-4 right-4">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.26em] text-white/70">
-                    Bosphorus work loop
-                  </p>
-                  <div className="mt-2 flex items-center justify-between gap-3 rounded-lg bg-white/90 px-4 py-3 text-sm font-semibold text-neutral-950 backdrop-blur-md dark:bg-[#14110f]/90 dark:text-[#f2f3f4]">
+                  <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-3 rounded-lg bg-white/90 px-4 py-3 text-sm font-semibold text-neutral-950 backdrop-blur-md dark:bg-[#14110f]/90 dark:text-[#f2f3f4]">
                     <span>Kadikoy</span>
+                    <span className="h-px flex-1 bg-primary-500/45" />
+                    <span className="text-center">Karakoy</span>
                     <span className="h-px flex-1 bg-primary-500/45" />
                     <span>Galata</span>
                   </div>
@@ -250,10 +251,10 @@ export default async function HomePage() {
                 <div className="flex items-center justify-between gap-4 border-b border-black/10 pb-4 dark:border-white/10">
                   <div>
                     <p className="font-mono text-[10px] uppercase tracking-[0.26em] text-primary-700 dark:text-primary-300">
-                      Nomad field board
+                      Nomad field card
                     </p>
                     <h2 className="mt-2 font-display text-2xl font-extrabold text-neutral-950 dark:text-[#f2f3f4]">
-                      Your first seven days
+                      The ferry workday
                     </h2>
                   </div>
                   <div className="rounded-lg border border-black/10 px-3 py-2 text-right dark:border-white/10">
@@ -261,7 +262,7 @@ export default async function HomePage() {
                       GMT+3
                     </p>
                     <p className="text-sm font-semibold text-neutral-950 dark:text-[#f2f3f4]">
-                      ferry ready
+                      2 continents
                     </p>
                   </div>
                 </div>

@@ -69,11 +69,17 @@ const wikiCredit = (filename: string, author: string): PhotoCredit => ({
 const unsplashCdn = (photoId: string, width = 1920): string =>
   `https://images.unsplash.com/${photoId}?w=${width}&q=85&auto=format`;
 
+const unsplashDownload = (photoId: string, width = 2400): string =>
+  `https://unsplash.com/photos/${photoId}/download?force=true&w=${width}`;
+
 const unsplashPageUrl = (pageSlug: string): string =>
   `https://unsplash.com/photos/${pageSlug}`;
 
-const unsplashCredit = (pageSlug: string): PhotoCredit => ({
-  author: "Unsplash contributor",
+const unsplashCredit = (
+  pageSlug: string,
+  author = "Unsplash contributor",
+): PhotoCredit => ({
+  author,
   source: "Unsplash",
   sourceHref: unsplashPageUrl(pageSlug),
   license: "Unsplash",
@@ -102,19 +108,25 @@ export const neighborhoods: Neighborhood[] = [
     noise: "Medium",
     coords: [29.025, 40.99],
     hero: {
-      src: "/images/neighborhoods/kadikoy/hero.jpg",
-      alt: "Kadikoy ferry crossing the Bosphorus at sunset",
-      credit: unsplashCredit("white-ship-on-sea-during-sunset-TLN3Id1tuGU"),
-      sourceUrl: unsplashCdn("photo-1607153084771-2c9e1562f64c"),
-      sourceFilename: "unsplash-TLN3Id1tuGU.jpg",
+      src: "/images/neighborhoods/kadikoy/hero-2026.jpg",
+      alt: "A rainy Kadikoy pier with a ferry waiting across the water",
+      credit: unsplashCredit(
+        "person-walking-on-wet-pier-with-ferry-boat-in-background-87qW9Z9fzKs",
+        "Cansu Sarp",
+      ),
+      sourceUrl: unsplashDownload("87qW9Z9fzKs"),
+      sourceFilename: "unsplash-87qW9Z9fzKs.jpg",
     },
     gallery: [
       {
-        src: "/images/neighborhoods/kadikoy/gallery-01.jpg",
-        alt: "Istanbul street cat lounging on a car in Kadikoy",
-        credit: unsplashCredit("a-cat-sitting-on-top-of-a-car-yLLPlmcKRe0"),
-        sourceUrl: unsplashCdn("photo-1663874824464-92b274717d2b"),
-        sourceFilename: "unsplash-yLLPlmcKRe0.jpg",
+        src: "/images/neighborhoods/kadikoy/gallery-01-2026.jpg",
+        alt: "A small boat on the water off Kadikoy",
+        credit: unsplashCredit(
+          "a-person-in-a-boat-3fcG4KJkYQM",
+          "Serenay Gulsen",
+        ),
+        sourceUrl: unsplashDownload("3fcG4KJkYQM"),
+        sourceFilename: "unsplash-3fcG4KJkYQM.jpg",
       },
       {
         src: "/images/neighborhoods/kadikoy/gallery-02.jpg",
@@ -144,14 +156,14 @@ export const neighborhoods: Neighborhood[] = [
     noise: "Low",
     coords: [29.026, 40.978],
     hero: {
-      src: "/images/neighborhoods/moda/hero.jpg",
-      alt: "Moda seaside coast in Istanbul",
-      credit: wikiCredit(
-        "Moda sahili - panoramio.jpg",
-        "Panoramio contributor",
+      src: "/images/neighborhoods/moda/hero-2026.jpg",
+      alt: "People walking along an Istanbul waterfront with the skyline beyond",
+      credit: unsplashCredit(
+        "people-walking-along-a-waterfront-with-city-skyline-kZzVdYSBOEA",
+        "ru",
       ),
-      sourceUrl: wikiFilePathUrl("Moda sahili - panoramio.jpg"),
-      sourceFilename: "Moda sahili - panoramio.jpg",
+      sourceUrl: unsplashDownload("kZzVdYSBOEA"),
+      sourceFilename: "unsplash-kZzVdYSBOEA.jpg",
     },
     gallery: [
       {
@@ -201,13 +213,14 @@ export const neighborhoods: Neighborhood[] = [
     noise: "Medium",
     coords: [28.983, 41.032],
     hero: {
-      src: "/images/neighborhoods/cihangir/hero.jpg",
-      alt: "Steep narrow Cihangir street with an angled old building",
+      src: "/images/neighborhoods/cihangir/hero-2026.jpg",
+      alt: "A narrow Istanbul street with old buildings and a small cafe",
       credit: unsplashCredit(
-        "old-buildings-angled-corner-in-a-narrow-street-hw-6oSwz-Ic",
+        "narrow-street-with-old-buildings-and-a-cafe-4x0YwHnvedU",
+        "Andrey Strizhkov",
       ),
-      sourceUrl: unsplashCdn("photo-1751220593645-7644cd559b67"),
-      sourceFilename: "unsplash-hw-6oSwz-Ic.jpg",
+      sourceUrl: unsplashDownload("4x0YwHnvedU"),
+      sourceFilename: "unsplash-4x0YwHnvedU.jpg",
     },
     gallery: [
       {
@@ -257,26 +270,27 @@ export const neighborhoods: Neighborhood[] = [
     noise: "High",
     coords: [29.007, 41.043],
     hero: {
-      src: "/images/neighborhoods/besiktas/hero.jpg",
-      alt: "Besiktas Fish Market",
-      credit: wikiCredit(
-        "Fish Market Beşiktaş ISTANBUL (15651621734).jpg",
-        "Wikimedia contributor",
+      src: "/images/neighborhoods/besiktas/hero-2026.jpg",
+      alt: "A ferry crossing Istanbul's waterfront toward the city",
+      credit: unsplashCredit(
+        "a-ferry-travels-across-water-with-a-city-in-the-background-KBOGvFPzLtw",
+        "Anil Baki Durmus",
       ),
-      sourceUrl: wikiFilePathUrl(
-        "Fish Market Beşiktaş ISTANBUL (15651621734).jpg",
-      ),
-      sourceFilename: "Fish Market Beşiktaş ISTANBUL (15651621734).jpg",
+      sourceUrl: unsplashDownload("KBOGvFPzLtw"),
+      sourceFilename: "unsplash-KBOGvFPzLtw.jpg",
     },
     gallery: [
       {
-        src: "/images/neighborhoods/besiktas/gallery-01.jpg",
-        alt: "Orange street cat in Besiktas",
-        credit: unsplashCredit(
-          "an-orange-and-white-cat-sitting-on-top-of-a-table-PSVzt4pAOPs",
+        src: "/images/neighborhoods/besiktas/gallery-01-2026.jpg",
+        alt: "Fresh fish arranged at the Besiktas market",
+        credit: wikiCredit(
+          "Fish Market Beşiktaş ISTANBUL (15651621734).jpg",
+          "Wikimedia contributor",
         ),
-        sourceUrl: unsplashCdn("photo-1588933179927-bd91b38a6be1"),
-        sourceFilename: "unsplash-PSVzt4pAOPs.jpg",
+        sourceUrl: wikiFilePathUrl(
+          "Fish Market Beşiktaş ISTANBUL (15651621734).jpg",
+        ),
+        sourceFilename: "Fish Market Beşiktaş ISTANBUL (15651621734).jpg",
       },
       {
         src: "/images/neighborhoods/besiktas/gallery-02.jpg",
@@ -320,37 +334,45 @@ export const neighborhoods: Neighborhood[] = [
     noise: "High",
     coords: [28.977, 41.022],
     hero: {
-      src: "/images/neighborhoods/galata/hero.jpg",
-      alt: "Galata Tower standing tall in the Istanbul sky",
+      src: "/images/neighborhoods/galata/hero-2026.jpg",
+      alt: "Galata Tower viewed from a lively street below",
       credit: unsplashCredit(
-        "the-galata-tower-stands-tall-in-the-cloudy-sky-KB1tO3RPZN8",
+        "galata-tower-viewed-from-a-bustling-street-xVkkPO69vu0",
+        "Zahra Ahmadpari",
       ),
-      sourceUrl: unsplashCdn("photo-1746708221016-e36a3c8f7c03"),
-      sourceFilename: "unsplash-KB1tO3RPZN8.jpg",
+      sourceUrl: unsplashDownload("xVkkPO69vu0"),
+      sourceFilename: "unsplash-xVkkPO69vu0.jpg",
     },
     gallery: [
       {
-        src: "/images/neighborhoods/galata/gallery-01.jpg",
-        alt: "People walking on the Karakoy pier",
-        credit: unsplashCredit("people-walking-on-pier-IFFxkQFi0Qs"),
-        sourceUrl: unsplashCdn("photo-1551029814-dadbffdf7b2c"),
-        sourceFilename: "unsplash-IFFxkQFi0Qs.jpg",
-      },
-      {
-        src: "/images/neighborhoods/galata/gallery-02.jpg",
-        alt: "Street food cart in the Karakoy district",
-        credit: unsplashCredit("people-standing-beside-food-cart-jXJBEDuoEN8"),
-        sourceUrl: unsplashCdn("photo-1577900576414-f353b502c496"),
-        sourceFilename: "unsplash-jXJBEDuoEN8.jpg",
-      },
-      {
-        src: "/images/neighborhoods/galata/gallery-03.jpg",
-        alt: "Sunset over Istanbul viewed from the Galata district",
+        src: "/images/neighborhoods/galata/gallery-01-2026.jpg",
+        alt: "Galata Tower surrounded by colorful old buildings",
         credit: unsplashCredit(
-          "the-sun-is-setting-over-a-large-city-6gWV88dLj3Y",
+          "galata-tower-surrounded-by-colorful-buildings-kGvxFxWNSV4",
+          "Dan Cristian",
         ),
-        sourceUrl: unsplashCdn("photo-1727080440760-c70e153ef4e2"),
-        sourceFilename: "unsplash-6gWV88dLj3Y.jpg",
+        sourceUrl: unsplashDownload("kGvxFxWNSV4"),
+        sourceFilename: "unsplash-kGvxFxWNSV4.jpg",
+      },
+      {
+        src: "/images/neighborhoods/galata/gallery-02-2026.jpg",
+        alt: "Galata Tower and the Istanbul harbor with ferries below",
+        credit: unsplashCredit(
+          "galata-tower-overlooks-a-bustling-istanbul-harbor-with-ferry-FD54wInsHR8",
+          "Muhammed Zahid Akyol",
+        ),
+        sourceUrl: unsplashDownload("FD54wInsHR8"),
+        sourceFilename: "unsplash-FD54wInsHR8.jpg",
+      },
+      {
+        src: "/images/neighborhoods/galata/gallery-03-2026.jpg",
+        alt: "Galata Tower and Istanbul's waterfront under stormy light",
+        credit: unsplashCredit(
+          "galata-tower-towers-over-istanbuls-waterfront-IrklOUpVbE4",
+          "Alexandra",
+        ),
+        sourceUrl: unsplashDownload("IrklOUpVbE4"),
+        sourceFilename: "unsplash-IrklOUpVbE4.jpg",
       },
     ],
   },

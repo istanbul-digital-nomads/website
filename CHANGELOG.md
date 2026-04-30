@@ -4,6 +4,20 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.15.0] - 2026-04-30
+
+### Added
+
+Three blog posts from the 30-day content calendar (`docs/blog-content-calendar.md`) that were planned but not yet published. Each anchors a LinkedIn post in the Apr 27 - May 5 window.
+
+- **`src/content/blog/coworking-vs-cafe-istanbul.mdx`** (B1, planned for Apr 21). The decision-framing piece anchoring LinkedIn Post 7 (the coworking carousel on Apr 29). Cross-links into `/blog/top-coworking-spots`, `/blog/best-laptop-friendly-cafes-istanbul`, `/guides/coworking`, `/spaces`. ~900 words. Author Ali. Tagged coworking, cafes, productivity, remote-work
+- **`src/content/blog/iran-to-istanbul-playbook-companion.mdx`** (B3, planned for Apr 28). Narrative companion to `/path-to-istanbul/iran` - texture rather than facts, anonymized. Anchors LinkedIn Post 8 (May 1 Iran text). Cross-links into the playbook, `/blog/getting-residence-permit`, `/guides/visa`, `/blog/top-coworking-spots`. ~1100 words. Author "The Community". Tagged iran, path-to-istanbul, relocation, founders
+- **`src/content/blog/ikamet-mistakes-istanbul.mdx`** (B4, planned for Apr 30). Seven concrete mistakes (uncertified translations, wrong insurance, file-order bounces, Fatih cash window) from a year of helping community members through their applications. Anchors LinkedIn Post 9 (May 5 ikamet carousel). Cross-links into `/blog/getting-residence-permit`, `/guides/visa`, `/blog/turkey-digital-nomad-visa-guide`. ~950 words. Author Dina. Tagged visa, residency, ikamet, bureaucracy
+
+### Changed
+
+- Blog count goes from 11 to 14 posts. The Practical how-to and Path-to-Istanbul pillars now have current 2026 narrative coverage to match what the LinkedIn calendar promises
+
 ## [1.14.1] - 2026-04-29
 
 ### Changed
@@ -637,6 +651,7 @@ src/lib/blog-covers.ts                             - new
 | 0.2.0 | 2026-03-30 | Full MVP - Supabase, auth, 11 guides, 9 blog posts, events, onboarding, interactive map |
 | 0.1.0 | 2026-03-29 | Project setup, config files, initial homepage, documentation |
 
+[1.15.0]: https://github.com/istanbul-digital-nomads/website/compare/v1.14.1...v1.15.0
 [1.14.1]: https://github.com/istanbul-digital-nomads/website/compare/v1.14.0...v1.14.1
 [1.1.0]: https://github.com/istanbul-digital-nomads/website/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/istanbul-digital-nomads/website/compare/v0.2.0...v1.0.0

@@ -1,5 +1,5 @@
-export type BlogCoverSource = "Unsplash" | "Wikimedia Commons";
-export type BlogCoverLicense = "Unsplash" | "CC-BY-SA";
+export type BlogCoverSource = "Unsplash" | "Wikimedia Commons" | "OpenAI";
+export type BlogCoverLicense = "Unsplash" | "CC-BY-SA" | "Generated";
 
 export interface BlogCoverImage {
   src: string;
@@ -15,6 +15,8 @@ export interface BlogCoverImage {
 
 const unsplashLicense = "https://unsplash.com/license";
 const ccBySaLicense = "https://creativecommons.org/licenses/by-sa/4.0/";
+const openAiSource = "https://openai.com/";
+const generatedLicense = "https://openai.com/policies/service-terms/";
 
 export const blogCoverImages: Record<string, BlogCoverImage> = {
   "asian-vs-european-side": {
@@ -39,6 +41,17 @@ export const blogCoverImages: Record<string, BlogCoverImage> = {
         "https://unsplash.com/photos/a-laptop-and-a-cup-of-coffee-G3Hhl4UlVh0",
       license: "Unsplash",
       licenseHref: unsplashLicense,
+    },
+  },
+  "coworking-vs-cafe-istanbul": {
+    src: "/images/blog/coworking-vs-cafe-istanbul.jpg",
+    alt: "A laptop, coffee, and notebook on an Istanbul cafe table beside a coworking desk",
+    credit: {
+      author: "Istanbul Digital Nomads",
+      source: "OpenAI",
+      sourceHref: openAiSource,
+      license: "Generated",
+      licenseHref: generatedLicense,
     },
   },
   "espressolab-istanbul-remote-work": {
@@ -86,6 +99,28 @@ export const blogCoverImages: Record<string, BlogCoverImage> = {
       sourceHref: "https://unsplash.com/photos/passport-book-RiUZQOfQ8XE",
       license: "Unsplash",
       licenseHref: unsplashLicense,
+    },
+  },
+  "ikamet-mistakes-istanbul": {
+    src: "/images/blog/ikamet-mistakes-istanbul.jpg",
+    alt: "An organized ikamet document folder with numbered tabs, tea, photos, and a stamp",
+    credit: {
+      author: "Istanbul Digital Nomads",
+      source: "OpenAI",
+      sourceHref: openAiSource,
+      license: "Generated",
+      licenseHref: generatedLicense,
+    },
+  },
+  "iran-to-istanbul-playbook-companion": {
+    src: "/images/blog/iran-to-istanbul-playbook-companion.jpg",
+    alt: "A suitcase, laptop, notebook, and Turkish tea by an Istanbul ferry waterfront",
+    credit: {
+      author: "Istanbul Digital Nomads",
+      source: "OpenAI",
+      sourceHref: openAiSource,
+      license: "Generated",
+      licenseHref: generatedLicense,
     },
   },
   "istanbul-vs-lisbon-bali-bangkok": {

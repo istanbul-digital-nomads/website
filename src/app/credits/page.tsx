@@ -9,7 +9,7 @@ import { blogCoverImages } from "@/lib/blog-covers";
 export const metadata: Metadata = {
   title: "Photo credits",
   description:
-    "Attribution and licensing for every photo on Istanbul Nomads - sourced from Unsplash, Wikimedia Commons, and other free-license providers.",
+    "Attribution and licensing for every photo on Istanbul Nomads - sourced from Unsplash, Wikimedia Commons, generated originals, and other free-license providers.",
 };
 
 interface AttributionEntry {
@@ -74,9 +74,9 @@ export default function CreditsPage() {
         </h1>
         <p className="mt-4 text-base leading-8 text-[#5d6d7e] dark:text-[#99a3ad]">
           Every photo on Istanbul Nomads is credited here. Neighborhood and blog
-          photography is sourced from Unsplash and Wikimedia Commons. Each
-          credit links back to the original file so you can verify the license
-          and see the photographer.
+          photography is sourced from Unsplash, Wikimedia Commons, and generated
+          originals made for the site. Each credit links back to the source or
+          license information so you can verify usage.
         </p>
 
         <div className="mt-10 space-y-10">

@@ -1,5 +1,5 @@
-export type BlogCoverSource = "Unsplash" | "Wikimedia Commons" | "OpenAI";
-export type BlogCoverLicense = "Unsplash" | "CC-BY-SA" | "Generated";
+export type BlogCoverSource = "OpenAI";
+export type BlogCoverLicense = "Generated";
 
 export interface BlogCoverImage {
   src: string;
@@ -13,174 +13,84 @@ export interface BlogCoverImage {
   };
 }
 
-const unsplashLicense = "https://unsplash.com/license";
-const ccBySaLicense = "https://creativecommons.org/licenses/by-sa/4.0/";
-const openAiSource = "https://openai.com/";
-const generatedLicense = "https://openai.com/policies/service-terms/";
+const generatedCredit = {
+  author: "Istanbul Digital Nomads",
+  source: "OpenAI",
+  sourceHref: "https://openai.com/",
+  license: "Generated",
+  licenseHref: "https://openai.com/policies/service-terms/",
+} satisfies BlogCoverImage["credit"];
 
 export const blogCoverImages: Record<string, BlogCoverImage> = {
   "asian-vs-european-side": {
-    src: "/images/blog/asian-vs-european-side.jpg",
-    alt: "A ferry passenger looking across the Bosphorus toward the Istanbul skyline",
-    credit: {
-      author: "alicharmant",
-      source: "Unsplash",
-      sourceHref:
-        "https://unsplash.com/photos/person-on-a-ferry-looking-at-city-skyline-yQRgtOyccbo",
-      license: "Unsplash",
-      licenseHref: unsplashLicense,
-    },
+    src: "/images/blog/asian-vs-european-side-2026.jpg",
+    alt: "A ferry table with tea and a laptop bag looking across the Bosphorus between Istanbul's two sides",
+    credit: generatedCredit,
   },
   "best-laptop-friendly-cafes-istanbul": {
-    src: "/images/blog/best-laptop-friendly-cafes-istanbul.jpg",
-    alt: "A laptop, Turkish coffee, and water set on a quiet cafe table",
-    credit: {
-      author: "engin akyurt",
-      source: "Unsplash",
-      sourceHref:
-        "https://unsplash.com/photos/a-laptop-and-a-cup-of-coffee-G3Hhl4UlVh0",
-      license: "Unsplash",
-      licenseHref: unsplashLicense,
-    },
+    src: "/images/blog/best-laptop-friendly-cafes-istanbul-2026.jpg",
+    alt: "A laptop, notebook, coffee, and Turkish tea set on a quiet Istanbul cafe table",
+    credit: generatedCredit,
   },
   "coworking-vs-cafe-istanbul": {
-    src: "/images/blog/coworking-vs-cafe-istanbul.jpg",
+    src: "/images/blog/coworking-vs-cafe-istanbul-2026.jpg",
     alt: "A laptop, coffee, and notebook on an Istanbul cafe table beside a coworking desk",
-    credit: {
-      author: "Istanbul Digital Nomads",
-      source: "OpenAI",
-      sourceHref: openAiSource,
-      license: "Generated",
-      licenseHref: generatedLicense,
-    },
+    credit: generatedCredit,
   },
   "espressolab-istanbul-remote-work": {
-    src: "/images/blog/espressolab-istanbul-remote-work.jpg",
-    alt: "A remote worker seated with a laptop in a warm Istanbul cafe",
-    credit: {
-      author: "Unsplash contributor",
-      source: "Unsplash",
-      sourceHref:
-        "https://unsplash.com/photos/a-man-sitting-in-front-of-a-laptop-computer-exj6iT6MTE8",
-      license: "Unsplash",
-      licenseHref: unsplashLicense,
-    },
+    src: "/images/blog/espressolab-istanbul-remote-work-2026.jpg",
+    alt: "A spacious Istanbul roastery workspace with laptops, coffee, and long shared tables",
+    credit: generatedCredit,
   },
   "ferry-commute-guide": {
-    src: "/images/blog/ferry-commute-guide.jpg",
-    alt: "A ferry crossing the Bosphorus with Istanbul rising behind it",
-    credit: {
-      author: "Anil Baki Durmus",
-      source: "Unsplash",
-      sourceHref:
-        "https://unsplash.com/photos/a-ferry-travels-across-water-with-a-city-in-the-background-KBOGvFPzLtw",
-      license: "Unsplash",
-      licenseHref: unsplashLicense,
-    },
+    src: "/images/blog/ferry-commute-guide-2026.jpg",
+    alt: "A ferry tea glass and work bag on a Bosphorus ferry table with Istanbul beyond",
+    credit: generatedCredit,
   },
   "first-week-mistakes": {
-    src: "/images/blog/first-week-mistakes.jpg",
-    alt: "A pale Istanbul street corner in Kadikoy with tram wires overhead",
-    credit: {
-      author: "Unsplash contributor",
-      source: "Unsplash",
-      sourceHref:
-        "https://unsplash.com/photos/a-red-and-white-train-traveling-down-a-street-next-to-tall-buildings-Ge3CSfKrDV4",
-      license: "Unsplash",
-      licenseHref: unsplashLicense,
-    },
+    src: "/images/blog/first-week-mistakes-2026.jpg",
+    alt: "A first-week Istanbul setup table with tea, keys, a transit card, notebook, and map",
+    credit: generatedCredit,
   },
   "getting-residence-permit": {
-    src: "/images/blog/getting-residence-permit.jpg",
-    alt: "A passport placed alone on a dark green surface",
-    credit: {
-      author: "Kelly Sikkema",
-      source: "Unsplash",
-      sourceHref: "https://unsplash.com/photos/passport-book-RiUZQOfQ8XE",
-      license: "Unsplash",
-      licenseHref: unsplashLicense,
-    },
+    src: "/images/blog/getting-residence-permit-2026.jpg",
+    alt: "A residence permit preparation desk with a blue folder, photos, tea, and appointment papers",
+    credit: generatedCredit,
   },
   "ikamet-mistakes-istanbul": {
-    src: "/images/blog/ikamet-mistakes-istanbul.jpg",
+    src: "/images/blog/ikamet-mistakes-istanbul-2026.jpg",
     alt: "An organized ikamet document folder with numbered tabs, tea, photos, and a stamp",
-    credit: {
-      author: "Istanbul Digital Nomads",
-      source: "OpenAI",
-      sourceHref: openAiSource,
-      license: "Generated",
-      licenseHref: generatedLicense,
-    },
+    credit: generatedCredit,
   },
   "iran-to-istanbul-playbook-companion": {
-    src: "/images/blog/iran-to-istanbul-playbook-companion.jpg",
+    src: "/images/blog/iran-to-istanbul-playbook-companion-2026.jpg",
     alt: "A suitcase, laptop, notebook, and Turkish tea by an Istanbul ferry waterfront",
-    credit: {
-      author: "Istanbul Digital Nomads",
-      source: "OpenAI",
-      sourceHref: openAiSource,
-      license: "Generated",
-      licenseHref: generatedLicense,
-    },
+    credit: generatedCredit,
   },
   "istanbul-vs-lisbon-bali-bangkok": {
-    src: "/images/blog/istanbul-vs-lisbon-bali-bangkok.jpg",
-    alt: "Galata Tower silhouetted by a deep orange Istanbul sunset",
-    credit: {
-      author: "Unsplash contributor",
-      source: "Unsplash",
-      sourceHref:
-        "https://unsplash.com/photos/the-sun-is-setting-over-a-large-city-6gWV88dLj3Y",
-      license: "Unsplash",
-      licenseHref: unsplashLicense,
-    },
+    src: "/images/blog/istanbul-vs-lisbon-bali-bangkok-2026.jpg",
+    alt: "A travel comparison desk with four city tokens arranged around a notebook and tea",
+    credit: generatedCredit,
   },
   "real-cost-of-living-istanbul-2026": {
-    src: "/images/blog/real-cost-of-living-istanbul-2026.jpg",
-    alt: "Fresh fish arranged at the Besiktas market in Istanbul",
-    credit: {
-      author: "Wikimedia contributor",
-      source: "Wikimedia Commons",
-      sourceHref:
-        "https://commons.wikimedia.org/wiki/File:Fish_Market_Be%C5%9Fikta%C5%9F_ISTANBUL_(15651621734).jpg",
-      license: "CC-BY-SA",
-      licenseHref: ccBySaLicense,
-    },
+    src: "/images/blog/real-cost-of-living-istanbul-2026-2026.jpg",
+    alt: "A practical Istanbul monthly budget table with produce, coins, notebook, tea, and keys",
+    credit: generatedCredit,
   },
   "slowmad-guide-istanbul": {
-    src: "/images/blog/slowmad-guide-istanbul.jpg",
-    alt: "A glass of Turkish tea on a small table",
-    credit: {
-      author: "Mr. Pugo",
-      source: "Unsplash",
-      sourceHref:
-        "https://unsplash.com/photos/two-glasses-of-turkish-tea-are-on-a-table-l4UkUw35jns",
-      license: "Unsplash",
-      licenseHref: unsplashLicense,
-    },
+    src: "/images/blog/slowmad-guide-istanbul-2026.jpg",
+    alt: "A settled Istanbul apartment workspace with laptop, tea, houseplant, and Bosphorus view",
+    credit: generatedCredit,
   },
   "top-coworking-spots": {
-    src: "/images/blog/top-coworking-spots.jpg",
-    alt: "A focused remote worker seated at a laptop in a warm cafe interior",
-    credit: {
-      author: "Unsplash contributor",
-      source: "Unsplash",
-      sourceHref:
-        "https://unsplash.com/photos/a-man-sitting-in-front-of-a-laptop-computer-exj6iT6MTE8",
-      license: "Unsplash",
-      licenseHref: unsplashLicense,
-    },
+    src: "/images/blog/top-coworking-spots-2026.jpg",
+    alt: "A bright Istanbul coworking table with laptops, coffee, plants, and call booths behind it",
+    credit: generatedCredit,
   },
   "turkey-digital-nomad-visa-guide": {
-    src: "/images/blog/turkey-digital-nomad-visa-guide.jpg",
-    alt: "A passport placed alone on a dark green surface",
-    credit: {
-      author: "Kelly Sikkema",
-      source: "Unsplash",
-      sourceHref: "https://unsplash.com/photos/passport-book-RiUZQOfQ8XE",
-      license: "Unsplash",
-      licenseHref: unsplashLicense,
-    },
+    src: "/images/blog/turkey-digital-nomad-visa-guide-2026.jpg",
+    alt: "A digital nomad visa preparation desk with laptop, tea, passport-like booklet, and checklist",
+    credit: generatedCredit,
   },
 };
 

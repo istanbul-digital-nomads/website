@@ -12,12 +12,13 @@ export type PhotoLicense =
   | "CC-BY-SA"
   | "CC0"
   | "Public Domain"
-  | "Unsplash";
+  | "Unsplash"
+  | "Generated";
 
 export interface PhotoCredit {
   author: string;
   authorHref?: string;
-  source: "Wikimedia Commons" | "Unsplash";
+  source: "Wikimedia Commons" | "Unsplash" | "OpenAI";
   sourceHref: string;
   license: PhotoLicense;
   licenseHref?: string;
@@ -86,6 +87,14 @@ const unsplashCredit = (
   licenseHref: "https://unsplash.com/license",
 });
 
+const generatedCredit = (): PhotoCredit => ({
+  author: "Istanbul Digital Nomads",
+  source: "OpenAI",
+  sourceHref: "https://openai.com/",
+  license: "Generated",
+  licenseHref: "https://openai.com/policies/service-terms/",
+});
+
 // Stats below are lifted directly from src/content/guides/neighborhoods.mdx.
 // Nothing is invented - every number has a source. Photos are curated from
 // Wikimedia Commons (CC-BY-SA). See /credits for full attributions.
@@ -108,14 +117,11 @@ export const neighborhoods: Neighborhood[] = [
     noise: "Medium",
     coords: [29.025, 40.99],
     hero: {
-      src: "/images/neighborhoods/kadikoy/hero-2026.jpg",
-      alt: "A rainy Kadikoy pier with a ferry waiting across the water",
-      credit: unsplashCredit(
-        "person-walking-on-wet-pier-with-ferry-boat-in-background-87qW9Z9fzKs",
-        "Cansu Sarp",
-      ),
-      sourceUrl: unsplashDownload("87qW9Z9fzKs"),
-      sourceFilename: "unsplash-87qW9Z9fzKs.jpg",
+      src: "/images/neighborhoods/kadikoy/hero-premium-2026.jpg",
+      alt: "A rainy Kadikoy ferry pier with a cafe table and commuters by the water",
+      credit: generatedCredit(),
+      sourceUrl: "https://openai.com/",
+      sourceFilename: "generated-kadikoy-hero-premium-2026.jpg",
     },
     gallery: [
       {
@@ -156,14 +162,11 @@ export const neighborhoods: Neighborhood[] = [
     noise: "Low",
     coords: [29.026, 40.978],
     hero: {
-      src: "/images/neighborhoods/moda/hero-2026.jpg",
-      alt: "People walking along an Istanbul waterfront with the skyline beyond",
-      credit: unsplashCredit(
-        "people-walking-along-a-waterfront-with-city-skyline-kZzVdYSBOEA",
-        "ru",
-      ),
-      sourceUrl: unsplashDownload("kZzVdYSBOEA"),
-      sourceFilename: "unsplash-kZzVdYSBOEA.jpg",
+      src: "/images/neighborhoods/moda/hero-premium-2026.jpg",
+      alt: "A calm Moda waterfront table with tea, notebook, and the Istanbul skyline beyond",
+      credit: generatedCredit(),
+      sourceUrl: "https://openai.com/",
+      sourceFilename: "generated-moda-hero-premium-2026.jpg",
     },
     gallery: [
       {
@@ -213,14 +216,11 @@ export const neighborhoods: Neighborhood[] = [
     noise: "Medium",
     coords: [28.983, 41.032],
     hero: {
-      src: "/images/neighborhoods/cihangir/hero-2026.jpg",
-      alt: "A narrow Istanbul street with old buildings and a small cafe",
-      credit: unsplashCredit(
-        "narrow-street-with-old-buildings-and-a-cafe-4x0YwHnvedU",
-        "Andrey Strizhkov",
-      ),
-      sourceUrl: unsplashDownload("4x0YwHnvedU"),
-      sourceFilename: "unsplash-4x0YwHnvedU.jpg",
+      src: "/images/neighborhoods/cihangir/hero-premium-2026.jpg",
+      alt: "A hilly Cihangir cafe street with old buildings and the Bosphorus at the end",
+      credit: generatedCredit(),
+      sourceUrl: "https://openai.com/",
+      sourceFilename: "generated-cihangir-hero-premium-2026.jpg",
     },
     gallery: [
       {
@@ -270,14 +270,11 @@ export const neighborhoods: Neighborhood[] = [
     noise: "High",
     coords: [29.007, 41.043],
     hero: {
-      src: "/images/neighborhoods/besiktas/hero-2026.jpg",
-      alt: "A ferry crossing Istanbul's waterfront toward the city",
-      credit: unsplashCredit(
-        "a-ferry-travels-across-water-with-a-city-in-the-background-KBOGvFPzLtw",
-        "Anil Baki Durmus",
-      ),
-      sourceUrl: unsplashDownload("KBOGvFPzLtw"),
-      sourceFilename: "unsplash-KBOGvFPzLtw.jpg",
+      src: "/images/neighborhoods/besiktas/hero-premium-2026.jpg",
+      alt: "A Besiktas waterfront table with tea, simit, a ferry, and market energy",
+      credit: generatedCredit(),
+      sourceUrl: "https://openai.com/",
+      sourceFilename: "generated-besiktas-hero-premium-2026.jpg",
     },
     gallery: [
       {
@@ -334,14 +331,11 @@ export const neighborhoods: Neighborhood[] = [
     noise: "High",
     coords: [28.977, 41.022],
     hero: {
-      src: "/images/neighborhoods/galata/hero-2026.jpg",
-      alt: "Galata Tower viewed from a lively street below",
-      credit: unsplashCredit(
-        "galata-tower-viewed-from-a-bustling-street-xVkkPO69vu0",
-        "Zahra Ahmadpari",
-      ),
-      sourceUrl: unsplashDownload("xVkkPO69vu0"),
-      sourceFilename: "unsplash-xVkkPO69vu0.jpg",
+      src: "/images/neighborhoods/galata/hero-premium-2026.jpg",
+      alt: "A Karakoy cafe table looking up a lively street toward Galata Tower",
+      credit: generatedCredit(),
+      sourceUrl: "https://openai.com/",
+      sourceFilename: "generated-galata-hero-premium-2026.jpg",
     },
     gallery: [
       {

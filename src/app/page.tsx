@@ -175,8 +175,8 @@ export default async function HomePage() {
                 <div className="mt-7 overflow-hidden rounded-xl border border-white/10 bg-[#1a1612] lg:hidden">
                   <div className="relative h-36">
                     <Image
-                      src="/images/neighborhoods/moda/hero-2026.jpg"
-                      alt="People walking along an Istanbul waterfront with the skyline beyond"
+                      src="/images/neighborhoods/moda/hero-premium-2026.jpg"
+                      alt="A calm Moda waterfront table with tea, notebook, and the Istanbul skyline beyond"
                       fill
                       priority
                       sizes="100vw"
@@ -225,8 +225,8 @@ export default async function HomePage() {
             <div className="relative hidden overflow-hidden rounded-xl border border-black/10 bg-[#efe6da] shadow-[0_24px_90px_rgba(20,17,15,0.12)] dark:border-white/10 dark:bg-[#1a1612] lg:block">
               <div className="relative h-72 border-b border-black/10 dark:border-white/10">
                 <Image
-                  src="/images/neighborhoods/moda/hero-2026.jpg"
-                  alt="People walking along an Istanbul waterfront with the skyline beyond"
+                  src="/images/neighborhoods/moda/hero-premium-2026.jpg"
+                  alt="A calm Moda waterfront table with tea, notebook, and the Istanbul skyline beyond"
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 520px"

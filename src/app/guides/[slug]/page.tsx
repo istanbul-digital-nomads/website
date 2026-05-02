@@ -8,6 +8,7 @@ import { guides } from "@/lib/data";
 import { getGuideContent } from "@/lib/guides";
 import { mdxComponents } from "@/components/ui/mdx-components";
 import { formatDate } from "@/lib/utils";
+import { mdxOptions } from "@/lib/mdx-options";
 
 interface GuidePageProps {
   params: { slug: string };
@@ -76,6 +77,7 @@ export default function GuidePage({ params }: GuidePageProps) {
             <MDXRemote
               source={guideContent.content}
               components={mdxComponents}
+              options={mdxOptions}
             />
           </article>
         ) : (

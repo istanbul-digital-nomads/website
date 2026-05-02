@@ -20,12 +20,11 @@ export function NeighborhoodCardsSection() {
           <p className="eyebrow">Where people land</p>
           <div>
             <h2 className="font-display text-h1 text-neutral-950 dark:text-[#f2f3f4]">
-              Five neighborhoods, one city.
+              Ten neighborhoods, one city.
             </h2>
             <p className="text-muted mt-4 max-w-2xl text-body-lg">
-              Most nomads end up in one of these five. Each has a photo,
-              verified stats, and a detail page with the coworking and cafes we
-              track there.
+              Start with the ten full guides, then use the broader comparison to
+              sense-check the rest of the city before you book.
             </p>
           </div>
         </div>
@@ -91,7 +90,7 @@ export function NeighborhoodCardsSection() {
             href="/guides/neighborhoods"
             className="inline-flex items-center gap-2 text-sm font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-[#f2f3f4] dark:hover:text-primary-400"
           >
-            Compare all five in the full guide
+            Compare all ten in the full guide
             <ArrowRight className="h-4 w-4" />
           </Link>
         </Reveal>

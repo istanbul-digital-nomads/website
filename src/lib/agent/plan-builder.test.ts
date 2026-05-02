@@ -39,10 +39,10 @@ describe("scoreNeighborhoods", () => {
     }
   });
 
-  it("returns all 5 neighborhoods", () => {
+  it("returns all neighborhoods", () => {
     const scored = scoreNeighborhoods(baseIntake);
     const slugs = scored.map((s) => s.neighborhood.slug);
-    expect(new Set(slugs).size).toBe(5);
+    expect(new Set(slugs).size).toBe(10);
   });
 });
 
@@ -65,9 +65,17 @@ describe("neighborhood pick is sensitive to intake", () => {
     });
     // Quiet pulls toward Moda; founder pulls toward European side. Both
     // tensions are reasonable so accept either resolution
-    expect(["Moda", "Cihangir", "Galata", "Besiktas", "Kadikoy"]).toContain(
-      plan.neighborhood_match.primary,
-    );
+    expect([
+      "Moda",
+      "Cihangir",
+      "Galata",
+      "Besiktas",
+      "Kadikoy",
+      "Uskudar",
+      "Nisantasi",
+      "Levent",
+      "Atasehir",
+    ]).toContain(plan.neighborhood_match.primary);
     // Specifically Besiktas is too noisy for quiet → should NOT be primary
     expect(plan.neighborhood_match.primary).not.toBe("Besiktas");
   });

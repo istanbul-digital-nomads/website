@@ -265,7 +265,7 @@ export default function NeighborhoodDetailPage({ params }: Props) {
                 href="/guides/neighborhoods"
                 className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-neutral-950 hover:text-primary-600 dark:text-[#f2f3f4] dark:hover:text-primary-400"
               >
-                See all five
+                See all ten
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>

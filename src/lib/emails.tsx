@@ -425,7 +425,7 @@ export function NewsletterWelcomeEmail({ email = "" }: { email?: string }) {
       {[
         {
           title: "Neighborhoods guide",
-          desc: "Choose Kadikoy, Moda, Cihangir, Besiktas, or Galata with real tradeoffs.",
+          desc: "Compare ferry-side, central, business, and character-heavy neighborhoods with real tradeoffs.",
           href: "https://istanbulnomads.com/guides/neighborhoods",
         },
         {

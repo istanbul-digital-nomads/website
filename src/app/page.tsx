@@ -325,7 +325,7 @@ export default async function HomePage() {
                   icon: CalendarDays,
                 },
                 { value: "11", label: "local living guides", icon: Globe },
-                { value: "15+", label: "neighborhoods covered", icon: MapPin },
+                { value: "25+", label: "neighborhoods covered", icon: MapPin },
               ].map((item) => (
                 <div
                   key={item.label}

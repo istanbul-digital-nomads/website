@@ -226,5 +226,65 @@
     "sourceHref": "https://unsplash.com/photos/galata-tower-towers-over-istanbuls-waterfront-IrklOUpVbE4",
     "license": "Unsplash",
     "licenseHref": "https://unsplash.com/license"
+  },
+  {
+    "slug": "uskudar",
+    "neighborhood": "Uskudar",
+    "role": "hero",
+    "src": "/images/neighborhoods/uskudar/hero-2026.jpg",
+    "alt": "Maiden's Tower at sunset from the Uskudar waterfront",
+    "author": "Md Islam",
+    "source": "Unsplash",
+    "sourceHref": "https://unsplash.com/photos/maidens-tower-at-sunset-with-istanbul-skyline-9v4NTjDU6jc",
+    "license": "Unsplash",
+    "licenseHref": "https://unsplash.com/license"
+  },
+  {
+    "slug": "nisantasi",
+    "neighborhood": "Nisantasi",
+    "role": "hero",
+    "src": "/images/neighborhoods/nisantasi/hero-2026.jpg",
+    "alt": "An ornate stone doorway on a polished Nisantasi street",
+    "author": "Gokhan Aytac",
+    "source": "Unsplash",
+    "sourceHref": "https://unsplash.com/photos/a-wooden-door-with-ornate-stone-architecture-r0W3ens3vdI",
+    "license": "Unsplash",
+    "licenseHref": "https://unsplash.com/license"
+  },
+  {
+    "slug": "levent",
+    "neighborhood": "Levent",
+    "role": "hero",
+    "src": "/images/neighborhoods/levent/hero-2026.jpg",
+    "alt": "A modern Levent skyscraper at night with light trails and city energy",
+    "author": "Ahmet Olcum",
+    "source": "Unsplash",
+    "sourceHref": "https://unsplash.com/photos/nighttime-skyscraper-with-motion-blurred-city-lights-cz6IVpaqrUA",
+    "license": "Unsplash",
+    "licenseHref": "https://unsplash.com/license"
+  },
+  {
+    "slug": "balat",
+    "neighborhood": "Balat",
+    "role": "hero",
+    "src": "/images/neighborhoods/balat/hero-2026.jpg",
+    "alt": "Colorful Balat houses on a sloped Istanbul street",
+    "author": "Jillian Amatt",
+    "source": "Unsplash",
+    "sourceHref": "https://unsplash.com/photos/a-row-of-colorful-buildings-Uj24_8Bsfjo",
+    "license": "Unsplash",
+    "licenseHref": "https://unsplash.com/license"
+  },
+  {
+    "slug": "atasehir",
+    "neighborhood": "Atasehir",
+    "role": "hero",
+    "src": "/images/neighborhoods/atasehir/hero-2026.jpg",
+    "alt": "Modern Atasehir towers and blue sky on the Asian side of Istanbul",
+    "author": "Olga Bezagotiy",
+    "source": "Unsplash",
+    "sourceHref": "https://unsplash.com/photos/a-very-tall-building-next-to-a-very-tall-building-YNvKCuE4-1M",
+    "license": "Unsplash",
+    "licenseHref": "https://unsplash.com/license"
   }
 ]

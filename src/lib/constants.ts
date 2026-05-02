@@ -121,6 +121,9 @@ export const istanbulNeighborhoods = [
   { value: "karakoy", label: "Karakoy" },
   { value: "galata", label: "Galata" },
   { value: "sisli", label: "Sisli" },
+  { value: "levent", label: "Levent" },
+  { value: "balat", label: "Balat" },
+  { value: "atasehir", label: "Atasehir" },
 ] as const;
 
 export const commonLanguages = [

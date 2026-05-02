@@ -99,7 +99,7 @@ function neighborhoodMarkdown(slug: string): string | null {
 function neighborhoodsOverviewMarkdown(): string {
   const header = frontmatterHeader(
     "Where to live in Istanbul - Neighborhood Guide",
-    "The 5 neighborhoods where most digital nomads land: Kadikoy, Moda, Cihangir, Besiktas, Karakoy/Galata.",
+    "Ten full Istanbul neighborhood guides for digital nomads, plus broader notes on conditional areas and places we usually would not start from.",
     `${SITE}/guides/neighborhoods`,
   );
   const items = neighborhoods
@@ -157,7 +157,7 @@ Canonical URL: ${SITE}
 
 ## What you'll find here
 
-- **[Neighborhood guides](${SITE}/guides/neighborhoods.md)** - The 5 areas where most nomads land: Kadikoy, Moda, Cihangir, Besiktas, Karakoy/Galata
+- **[Neighborhood guides](${SITE}/guides/neighborhoods.md)** - Ten full guides plus broader coverage for conditional areas and places we usually would not start from
 - **[Coworking and cafes](${SITE}/spaces.md)** - ${spaces.length} verified spaces with wifi speeds, hours, and prices
 - **[Living-in-Istanbul guides](${SITE}/guides.md)** - Visa, housing, internet, cost of living, healthcare, transport, food, culture
 - **[Blog](${SITE}/blog.md)** - First-hand articles from nomads already here

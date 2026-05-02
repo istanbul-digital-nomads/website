@@ -4,6 +4,19 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.16.0] - 2026-05-03
+
+### Added
+
+- Expanded the neighborhood guide from five to ten Istanbul bases with Uskudar, Nisantasi, Levent, Balat, and Atasehir. Each new neighborhood has rent ranges, transport notes, nomad fit tags, map coordinates, detail pages, markdown endpoints, and relocation-agent scoring profiles
+- Added locally optimized, credited Unsplash hero images for the five new neighborhoods and regenerated the neighborhood photo attribution manifest
+- Added broader tiered coverage for Yeldegirmeni, Bomonti/Ferikoy, Sisli/Mecidiyekoy, Beyoglu, Etiler, Ortakoy, Arnavutkoy/Bebek, Kagithane, Maslak, Bakirkoy/Atakoy, Florya/Yesilkoy, Fener, Sariyer/Istinye, and lower-fit first-month areas like Sultanahmet, Fatih core, Esenyurt/Beylikduzu, Basaksehir, Bagcilar/Esenler, Pendik/Tuzla, Sile/Kilyos, and the Princes' Islands
+
+### Changed
+
+- Updated homepage neighborhood cards, the interactive map, guide copy, local-guide filters, email copy, and AI-readable markdown text so they describe the broader ten-neighborhood coverage
+- Bumped package version to `1.16.0`
+
 ## [1.15.2] - 2026-05-02
 
 ### Changed

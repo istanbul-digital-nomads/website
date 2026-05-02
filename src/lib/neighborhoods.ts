@@ -5,7 +5,12 @@ export type NeighborhoodSlug =
   | "moda"
   | "cihangir"
   | "besiktas"
-  | "galata";
+  | "galata"
+  | "uskudar"
+  | "nisantasi"
+  | "levent"
+  | "balat"
+  | "atasehir";
 
 export type PhotoLicense =
   | "CC-BY"
@@ -95,9 +100,9 @@ const generatedCredit = (): PhotoCredit => ({
   licenseHref: "https://openai.com/policies/service-terms/",
 });
 
-// Stats below are lifted directly from src/content/guides/neighborhoods.mdx.
-// Nothing is invented - every number has a source. Photos are curated from
-// Wikimedia Commons (CC-BY-SA). See /credits for full attributions.
+// Stats below are mirrored in src/content/guides/neighborhoods.mdx.
+// Photos are curated from generated originals, Unsplash, and Wikimedia Commons.
+// See /credits for full attributions.
 export const neighborhoods: Neighborhood[] = [
   {
     slug: "kadikoy",
@@ -369,6 +374,151 @@ export const neighborhoods: Neighborhood[] = [
         sourceFilename: "unsplash-IrklOUpVbE4.jpg",
       },
     ],
+  },
+  {
+    slug: "uskudar",
+    name: "Uskudar",
+    spaceMatchers: ["Uskudar", "Umraniye"],
+    side: "Asian",
+    oneLiner:
+      "Traditional Bosphorus base with ferry links, quiet streets, and sunset walks by Maiden's Tower.",
+    description:
+      "Uskudar is the calmer Asian-side answer to Karakoy: ferries, mosques, tea gardens, and long Bosphorus walks without the same tourist pressure. It works well if you want a real local base, quick access to Kadikoy and the European side, and quieter evenings than the nightlife districts.",
+    rentUsd: { low: 480, high: 880 },
+    rentTl: { low: 15000, high: 27500 },
+    transport:
+      "Ferries to Eminonu, Besiktas, and Kabatas, Marmaray, metro toward Umraniye",
+    bestFor: ["Quiet ferry life", "Local routines", "Bosphorus sunsets"],
+    vibe: "Traditional, waterfront, calmer. Strong ferry rhythm and everyday Istanbul texture.",
+    noise: "Low",
+    coords: [29.015, 41.023],
+    hero: {
+      src: "/images/neighborhoods/uskudar/hero-2026.jpg",
+      alt: "Maiden's Tower at sunset from the Uskudar waterfront",
+      credit: unsplashCredit(
+        "maidens-tower-at-sunset-with-istanbul-skyline-9v4NTjDU6jc",
+        "Md Islam",
+      ),
+      sourceUrl: unsplashDownload("9v4NTjDU6jc"),
+      sourceFilename: "unsplash-9v4NTjDU6jc.jpg",
+    },
+    gallery: [],
+  },
+  {
+    slug: "nisantasi",
+    name: "Nisantasi",
+    spaceMatchers: ["Nisantasi"],
+    side: "European",
+    oneLiner:
+      "Polished, central, and cafe-rich. Good for nomads who want comfort, boutiques, gyms, and easy access to Sisli.",
+    description:
+      "Nisantasi is one of Istanbul's most polished residential districts: leafy side streets, apartment blocks with doormen, boutiques, clinics, gyms, and some of the city's most reliable cafe work sessions. It is not the cheapest base, but it is practical if you want central European-side living without being directly inside the Taksim nightlife flow.",
+    rentUsd: { low: 800, high: 1600 },
+    rentTl: { low: 25000, high: 50000 },
+    transport:
+      "Walk to Osmanbey metro, quick taxi or metro access to Taksim, Sisli, and Levent",
+    bestFor: ["Comfortable budgets", "Cafe work", "Central errands"],
+    vibe: "Polished, residential, upscale. Boutique streets with strong everyday convenience.",
+    noise: "Medium",
+    coords: [28.988, 41.048],
+    hero: {
+      src: "/images/neighborhoods/nisantasi/hero-2026.jpg",
+      alt: "An ornate stone doorway on a polished Nisantasi street",
+      credit: unsplashCredit(
+        "a-wooden-door-with-ornate-stone-architecture-r0W3ens3vdI",
+        "Gokhan Aytac",
+      ),
+      sourceUrl: unsplashDownload("r0W3ens3vdI"),
+      sourceFilename: "unsplash-r0W3ens3vdI.jpg",
+    },
+    gallery: [],
+  },
+  {
+    slug: "levent",
+    name: "Levent",
+    spaceMatchers: ["Levent"],
+    side: "European",
+    oneLiner:
+      "Business-district base with metro access, malls, offices, and the most practical coworking density.",
+    description:
+      "Levent is not romantic Istanbul, and that is exactly the point. It is the business corridor: towers, malls, gyms, metro stops, and coworking spaces. Choose it if your Istanbul life is work-heavy, you want reliable infrastructure, or you need fast access to meetings around Maslak, Sisli, and the airport-side business spine.",
+    rentUsd: { low: 720, high: 1440 },
+    rentTl: { low: 22500, high: 45000 },
+    transport:
+      "M2 metro through Levent and 4. Levent, buses along Buyukdere Avenue, easy taxi access north/south",
+    bestFor: ["Full-time remote", "Business access", "Coworking density"],
+    vibe: "Corporate, practical, vertical. Less charm, more infrastructure.",
+    noise: "Medium",
+    coords: [29.011, 41.077],
+    hero: {
+      src: "/images/neighborhoods/levent/hero-2026.jpg",
+      alt: "A modern Levent skyscraper at night with light trails and city energy",
+      credit: unsplashCredit(
+        "nighttime-skyscraper-with-motion-blurred-city-lights-cz6IVpaqrUA",
+        "Ahmet Olcum",
+      ),
+      sourceUrl: unsplashDownload("cz6IVpaqrUA"),
+      sourceFilename: "unsplash-cz6IVpaqrUA.jpg",
+    },
+    gallery: [],
+  },
+  {
+    slug: "balat",
+    name: "Balat",
+    spaceMatchers: ["Balat"],
+    side: "European",
+    oneLiner:
+      "Colorful Golden Horn neighborhood with character, cheaper rents, hills, and slower cafe days.",
+    description:
+      "Balat is beautiful, uneven, and very specific. The colorful houses and antique streets are real, but it is not as frictionless as Kadikoy or Nisantasi: hills, older buildings, fewer polished work options, and more day-tripper foot traffic on famous streets. Pick it for character, budget, and a slower Golden Horn rhythm.",
+    rentUsd: { low: 400, high: 800 },
+    rentTl: { low: 12500, high: 25000 },
+    transport:
+      "Buses and tram connections via Fener/Eminonu, quick taxis to Karakoy and Cihangir",
+    bestFor: ["Character", "Lower rent", "Slow creative days"],
+    vibe: "Historic, colorful, rough-edged. Big personality with practical tradeoffs.",
+    noise: "Medium",
+    coords: [28.949, 41.029],
+    hero: {
+      src: "/images/neighborhoods/balat/hero-2026.jpg",
+      alt: "Colorful Balat houses on a sloped Istanbul street",
+      credit: unsplashCredit(
+        "a-row-of-colorful-buildings-Uj24_8Bsfjo",
+        "Jillian Amatt",
+      ),
+      sourceUrl: unsplashDownload("Uj24_8Bsfjo"),
+      sourceFilename: "unsplash-Uj24_8Bsfjo.jpg",
+    },
+    gallery: [],
+  },
+  {
+    slug: "atasehir",
+    name: "Atasehir",
+    spaceMatchers: ["Atasehir", "Umraniye"],
+    side: "Asian",
+    oneLiner:
+      "Modern Asian-side high-rise district for corporate work, newer apartments, malls, and quieter routines.",
+    description:
+      "Atasehir is for a different kind of nomad: less ferry romance, more new-build convenience. You get towers, malls, business traffic, modern apartments, and access to Asian-side offices around the finance district. It is useful for longer stays if you want space, elevators, parking, gyms, and a quieter apartment after work.",
+    rentUsd: { low: 560, high: 1120 },
+    rentTl: { low: 17500, high: 35000 },
+    transport:
+      "Metro and buses across the Asian side, taxi access to Kadikoy, Umraniye, and the finance district",
+    bestFor: ["Newer apartments", "Asian-side business", "Quiet nights"],
+    vibe: "Modern, spacious, corporate. Practical but less walkable than Kadikoy.",
+    noise: "Low",
+    coords: [29.124, 40.992],
+    hero: {
+      src: "/images/neighborhoods/atasehir/hero-2026.jpg",
+      alt: "Modern Atasehir towers and blue sky on the Asian side of Istanbul",
+      credit: unsplashCredit(
+        "a-very-tall-building-next-to-a-very-tall-building-YNvKCuE4-1M",
+        "Olga Bezagotiy",
+      ),
+      sourceUrl: unsplashDownload("YNvKCuE4-1M"),
+      sourceFilename: "unsplash-YNvKCuE4-1M.jpg",
+    },
+    gallery: [],
   },
 ];
 

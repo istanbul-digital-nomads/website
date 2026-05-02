@@ -10,6 +10,7 @@ import { guides } from "@/lib/data";
 import { getGuideContent } from "@/lib/guides";
 import { mdxComponents } from "@/components/ui/mdx-components";
 import { formatDate } from "@/lib/utils";
+import { mdxOptions } from "@/lib/mdx-options";
 import {
   neighborhoods,
   formatRentRange,
@@ -136,6 +137,7 @@ export default function NeighborhoodsOverviewPage() {
               <MDXRemote
                 source={guideContent.content}
                 components={mdxComponents}
+                options={mdxOptions}
               />
             </article>
           ) : null}

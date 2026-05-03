@@ -19,7 +19,7 @@ const MAP_STYLE_DARK =
   "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json";
 
 const ISTANBUL_CENTER = { longitude: 29.0, latitude: 41.015 } as const;
-const INITIAL_ZOOM = 12.2;
+const INITIAL_ZOOM = 11.35;
 
 interface Neighborhood {
   name: string;
@@ -84,6 +84,47 @@ const neighborhoods: Neighborhood[] = [
     bgClass:
       "bg-neutral-200 text-neutral-800 dark:bg-[#3c2d24] dark:text-[#d5dce3]",
     labelSide: "right",
+  },
+  {
+    name: "Nisantasi",
+    lng: 28.988,
+    lat: 41.048,
+    vibe: "Polished central living, boutiques, cafes, practical errands",
+    side: "European",
+    color: "#27ae60",
+    bgClass: "bg-accent-green text-white",
+    labelSide: "right",
+  },
+  {
+    name: "Levent",
+    lng: 29.011,
+    lat: 41.077,
+    vibe: "Business corridor, metro access, coworking density",
+    side: "European",
+    color: "#1a1a2e",
+    bgClass:
+      "bg-neutral-900 text-white dark:bg-neutral-200 dark:text-neutral-900",
+    labelSide: "left",
+  },
+  {
+    name: "Balat",
+    lng: 28.949,
+    lat: 41.029,
+    vibe: "Historic Golden Horn streets, color, character, lower rent",
+    side: "European",
+    color: "#c0392b",
+    bgClass: "bg-primary-500 text-white",
+    labelSide: "right",
+  },
+  {
+    name: "Atasehir",
+    lng: 29.124,
+    lat: 40.992,
+    vibe: "Modern Asian-side towers, newer apartments, quiet nights",
+    side: "Asian",
+    color: "#f39c12",
+    bgClass: "bg-accent-warm text-neutral-950",
+    labelSide: "left",
   },
 ];
 

@@ -6,6 +6,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { mdxComponents } from "@/components/ui/mdx-components";
+import { mdxOptions } from "@/lib/mdx-options";
 import {
   getSupportedCountries,
   getCountryBySlug,
@@ -122,7 +123,11 @@ export default function CountryPage({ params }: CountryPageProps) {
             />
 
             <article className="mt-8 max-w-3xl sm:mt-12">
-              <MDXRemote source={mdxSource} components={mdxComponents} />
+              <MDXRemote
+                source={mdxSource}
+                components={mdxComponents}
+                options={mdxOptions}
+              />
             </article>
 
             <div id="guides" className="mt-12 max-w-3xl scroll-mt-24 sm:mt-16">

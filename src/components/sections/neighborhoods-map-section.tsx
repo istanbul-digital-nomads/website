@@ -24,11 +24,12 @@ export function NeighborhoodsMapSection() {
           <div>
             <p className="eyebrow">Where they sit on the map</p>
             <h2 className="mt-4 max-w-md font-display text-h1 text-neutral-950 dark:text-[#f2f3f4]">
-              The five neighborhoods, mapped.
+              The neighborhoods, mapped.
             </h2>
             <p className="text-muted mt-5 max-w-md text-body-lg">
-              Two on the European side, two on the Asian, and one straddling the
-              Bosphorus. The ferry between them is part of the commute.
+              The strongest nomad bases cluster around ferries, metro lines,
+              coworking corridors, and walkable cafe streets. The commute is
+              part of the decision.
             </p>
           </div>
 

@@ -4,6 +4,33 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.0] - 2026-05-03
+
+### Added
+
+- Added an interactive neighborhood rhythm matcher to the homepage and neighborhoods guide so visitors can rank Istanbul bases by quiet routine, social energy, budget, ferry life, seaside access, business setup, nightlife, and character
+- Added an Istanbul Today widget with live weather, current Istanbul mood, and a generated photoreal Bosphorus rain scene with lightweight animated rain, sun, clouds, or wind for a sharper daily city signal
+- Added structured neighborhood badges across homepage cards, the neighborhoods guide, and each neighborhood detail hero so each area has a faster first-read identity
+- Added a designed decision-notes section for conditional Istanbul areas and places to avoid as a first base, replacing the raw guide tables with a more useful shortlist
+
+### Changed
+
+- Updated the neighborhoods guide to lead with a stronger decision layer before the long-form MDX content
+- Bumped package version to `1.17.0`
+
+## [1.16.0] - 2026-05-03
+
+### Added
+
+- Expanded the neighborhood guide from five to ten Istanbul bases with Uskudar, Nisantasi, Levent, Balat, and Atasehir. Each new neighborhood has rent ranges, transport notes, nomad fit tags, map coordinates, detail pages, markdown endpoints, and relocation-agent scoring profiles
+- Added locally optimized, credited Unsplash hero images for the five new neighborhoods and regenerated the neighborhood photo attribution manifest
+- Added broader tiered coverage for Yeldegirmeni, Bomonti/Ferikoy, Sisli/Mecidiyekoy, Beyoglu, Etiler, Ortakoy, Arnavutkoy/Bebek, Kagithane, Maslak, Bakirkoy/Atakoy, Florya/Yesilkoy, Fener, Sariyer/Istinye, and lower-fit first-month areas like Sultanahmet, Fatih core, Esenyurt/Beylikduzu, Basaksehir, Bagcilar/Esenler, Pendik/Tuzla, Sile/Kilyos, and the Princes' Islands
+
+### Changed
+
+- Updated homepage neighborhood cards, the interactive map, guide copy, local-guide filters, email copy, and AI-readable markdown text so they describe the broader ten-neighborhood coverage
+- Bumped package version to `1.16.0`
+
 ## [1.15.2] - 2026-05-02
 
 ### Changed

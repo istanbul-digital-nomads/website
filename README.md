@@ -17,67 +17,76 @@ The official website and community platform for Istanbul's digital nomad communi
 
 Istanbul Nomads is more than a landing page - it's a full community platform. Here's every service the domain will cover:
 
+### Current Release
+
+- **Version:** `1.17.0`
+- **Neighborhood coverage:** 10 full Istanbul neighborhood guides with photos, rent ranges, transport notes, coworking context, markdown endpoints, and relocation-agent scoring
+- **Neighborhood decision layer:** Interactive rhythm matcher, structured badges, and first-base guidance help visitors choose a neighborhood by actual daily routine instead of a generic top-ten list
+- **Istanbul Today:** Live weather widget with current Istanbul mood, nomad-specific day planning, and a generated photoreal Bosphorus rain scene
+- **Broader area coverage:** 25+ Istanbul areas covered through tiered guidance, including "worth considering" and "usually not a first base" sections
+- **Content rendering:** MDX guides and posts support GitHub-flavored markdown tables via `remark-gfm`, with responsive table styling for mobile
+
 ### Core Services
 
-| Service | Description | Route |
-|---------|-------------|-------|
-| **Homepage** | Hero, community stats, featured events, social proof, join CTA | `/` |
-| **About** | Our story, values, organizer team, community timeline | `/about` |
-| **City Guides** | 10 curated guides (neighborhoods, coworking, cafes, visa, housing, internet, transport, cost of living, healthcare, food) | `/guides`, `/guides/[slug]` |
-| **Path to Istanbul** | Country-specific relocation playbooks with interactive world map (Iran, India, Russia, Pakistan, Nigeria) | `/path-to-istanbul`, `/path-to-istanbul/[country]` |
-| **Nomad Spaces** | Wifi-tested cafes and coworking spots with scores, map, and filters | `/spaces` |
-| **Local Guides** | People who help newcomers settle in, filterable by specialization and neighborhood | `/local-guides`, `/local-guides/join` |
-| **Events** | Upcoming meetups, coworking sessions, workshops, past events archive | `/events`, `/events/[id]` |
-| **Blog** | Community stories, Istanbul tips, nomad interviews, remote work insights | `/blog`, `/blog/[slug]` |
-| **Contact** | Reach us form, Telegram link, email, social links | `/contact` |
+| Service              | Description                                                                                                    | Route                                                               |
+| -------------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| **Homepage**         | Hero, community stats, featured events, social proof, join CTA                                                 | `/`                                                                 |
+| **About**            | Our story, values, organizer team, community timeline                                                          | `/about`                                                            |
+| **City Guides**      | Practical guides, including the expanded Istanbul neighborhoods guide with 10 full pages and 25+ covered areas | `/guides`, `/guides/[slug]`, `/guides/neighborhoods/[neighborhood]` |
+| **Path to Istanbul** | Country-specific relocation playbooks with interactive world map (Iran, India, Russia, Pakistan, Nigeria)      | `/path-to-istanbul`, `/path-to-istanbul/[country]`                  |
+| **Nomad Spaces**     | Wifi-tested cafes and coworking spots with scores, map, and filters                                            | `/spaces`                                                           |
+| **Local Guides**     | People who help newcomers settle in, filterable by specialization and neighborhood                             | `/local-guides`, `/local-guides/join`                               |
+| **Events**           | Upcoming meetups, coworking sessions, workshops, past events archive                                           | `/events`, `/events/[id]`                                           |
+| **Blog**             | Community stories, Istanbul tips, nomad interviews, remote work insights                                       | `/blog`, `/blog/[slug]`                                             |
+| **Contact**          | Reach us form, Telegram link, email, social links                                                              | `/contact`                                                          |
 
 ### Member Platform (Authenticated)
 
-| Service | Description | Route |
-|---------|-------------|-------|
-| **Dashboard** | Personal hub - upcoming RSVPs, activity feed, quick actions | `/dashboard` |
-| **Member Directory** | Searchable, filterable list of community members (opt-in) | `/members` |
-| **Profiles** | Member profiles with bio, skills, neighborhood, links | `/members/[username]` |
-| **Event Management** | Create, edit, and manage community events | `/events/create`, `/events/[id]/manage` |
-| **Settings** | Account settings, notification preferences, privacy controls | `/settings` |
+| Service              | Description                                                  | Route                                   |
+| -------------------- | ------------------------------------------------------------ | --------------------------------------- |
+| **Dashboard**        | Personal hub - upcoming RSVPs, activity feed, quick actions  | `/dashboard`                            |
+| **Member Directory** | Searchable, filterable list of community members (opt-in)    | `/members`                              |
+| **Profiles**         | Member profiles with bio, skills, neighborhood, links        | `/members/[username]`                   |
+| **Event Management** | Create, edit, and manage community events                    | `/events/create`, `/events/[id]/manage` |
+| **Settings**         | Account settings, notification preferences, privacy controls | `/settings`                             |
 
 ### Interactive Tools
 
-| Tool | Description | Route |
-|------|-------------|-------|
-| **Neighborhood Quiz** | "Which Istanbul neighborhood is right for you?" personality-style quiz | `/tools/neighborhood-quiz` |
-| **Cost of Living Calculator** | Interactive lifestyle-based calculator with real Istanbul data | `/tools/cost-calculator` |
-| **Coworking Buddy Finder** | Match with nomads in the same neighborhood or shared interests | `/tools/buddy-finder` |
+| Tool                          | Description                                                            | Route                      |
+| ----------------------------- | ---------------------------------------------------------------------- | -------------------------- |
+| **Neighborhood Quiz**         | "Which Istanbul neighborhood is right for you?" personality-style quiz | `/tools/neighborhood-quiz` |
+| **Cost of Living Calculator** | Interactive lifestyle-based calculator with real Istanbul data         | `/tools/cost-calculator`   |
+| **Coworking Buddy Finder**    | Match with nomads in the same neighborhood or shared interests         | `/tools/buddy-finder`      |
 
 ### API & Integrations
 
-| Integration | Description |
-|-------------|-------------|
-| **Public API** | REST endpoints for community stats, events, and guides |
-| **Telegram Bot** | Event notifications, new member welcomes, weekly digest |
-| **Calendar Sync** | Google Calendar / Apple Calendar export for events |
-| **Newsletter** | Weekly email digest via Resend |
-| **RSS Feed** | Blog and events feeds for subscribers |
+| Integration       | Description                                             |
+| ----------------- | ------------------------------------------------------- |
+| **Public API**    | REST endpoints for community stats, events, and guides  |
+| **Telegram Bot**  | Event notifications, new member welcomes, weekly digest |
+| **Calendar Sync** | Google Calendar / Apple Calendar export for events      |
+| **Newsletter**    | Weekly email digest via Resend                          |
+| **RSS Feed**      | Blog and events feeds for subscribers                   |
 
 ## Tech Stack
 
-| Layer | Technology | Why |
-|-------|-----------|-----|
-| Framework | [Next.js 14](https://nextjs.org/) (App Router) | SSR, ISR, API routes, file routing |
-| Language | TypeScript (strict mode) | Type safety, better DX |
-| Styling | Tailwind CSS | Utility-first, custom design tokens |
-| UI Components | Headless UI + custom system | Accessible, unstyled primitives |
-| Icons | Lucide React | Consistent, lightweight |
-| Content | MDX | Blog posts and guides with React components |
-| Database | Supabase (PostgreSQL) | Generous free tier, RLS, real-time |
-| Auth | Supabase Auth | Magic link + Google + GitHub OAuth |
-| Storage | Supabase Storage | Avatars, event images |
-| Hosting | Vercel | Preview deploys, edge network |
-| Analytics | Plausible + Vercel Analytics | Privacy-friendly visitor tracking |
-| Performance | Vercel Speed Insights | Core Web Vitals monitoring |
-| Email | Resend | Transactional + newsletter |
-| Error Tracking | Sentry | Runtime error monitoring |
-| CI/CD | GitHub Actions | Lint, type check, build on every PR |
+| Layer          | Technology                                     | Why                                                                                |
+| -------------- | ---------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Framework      | [Next.js 14](https://nextjs.org/) (App Router) | SSR, ISR, API routes, file routing                                                 |
+| Language       | TypeScript (strict mode)                       | Type safety, better DX                                                             |
+| Styling        | Tailwind CSS                                   | Utility-first, custom design tokens                                                |
+| UI Components  | Headless UI + custom system                    | Accessible, unstyled primitives                                                    |
+| Icons          | Lucide React                                   | Consistent, lightweight                                                            |
+| Content        | MDX + remark-gfm                               | Blog posts and guides with React components, tables, and responsive content blocks |
+| Database       | Supabase (PostgreSQL)                          | Generous free tier, RLS, real-time                                                 |
+| Auth           | Supabase Auth                                  | Magic link + Google + GitHub OAuth                                                 |
+| Storage        | Supabase Storage                               | Avatars, event images                                                              |
+| Hosting        | Vercel                                         | Preview deploys, edge network                                                      |
+| Analytics      | Plausible + Vercel Analytics                   | Privacy-friendly visitor tracking                                                  |
+| Performance    | Vercel Speed Insights                          | Core Web Vitals monitoring                                                         |
+| Email          | Resend                                         | Transactional + newsletter                                                         |
+| Error Tracking | Sentry                                         | Runtime error monitoring                                                           |
+| CI/CD          | GitHub Actions                                 | Lint, type check, build on every PR                                                |
 
 ## Getting Started
 
@@ -213,27 +222,27 @@ website/
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start development server |
-| `pnpm build` | Build for production |
-| `pnpm start` | Start production server |
-| `pnpm lint` | Run ESLint |
-| `pnpm format` | Format code with Prettier |
+| Command           | Description                   |
+| ----------------- | ----------------------------- |
+| `pnpm dev`        | Start development server      |
+| `pnpm build`      | Build for production          |
+| `pnpm start`      | Start production server       |
+| `pnpm lint`       | Run ESLint                    |
+| `pnpm format`     | Format code with Prettier     |
 | `pnpm type-check` | Run TypeScript compiler check |
-| `pnpm test` | Run tests |
-| `pnpm db:migrate` | Run Supabase migrations |
-| `pnpm db:seed` | Seed development database |
-| `pnpm db:reset` | Reset and reseed database |
+| `pnpm test`       | Run tests                     |
+| `pnpm db:migrate` | Run Supabase migrations       |
+| `pnpm db:seed`    | Seed development database     |
+| `pnpm db:reset`   | Reset and reseed database     |
 
 ## Branch Strategy
 
-| Branch | Purpose |
-|--------|---------|
-| `main` | Production - auto-deploys to istanbulnomads.com |
-| `develop` | Integration branch - all feature PRs merge here first |
-| `feature/*` | Individual features (e.g., `feature/event-rsvp`) |
-| `fix/*` | Bug fixes (e.g., `fix/mobile-nav`) |
+| Branch      | Purpose                                               |
+| ----------- | ----------------------------------------------------- |
+| `main`      | Production - auto-deploys to istanbulnomads.com       |
+| `develop`   | Integration branch - all feature PRs merge here first |
+| `feature/*` | Individual features (e.g., `feature/event-rsvp`)      |
+| `fix/*`     | Bug fixes (e.g., `fix/mobile-nav`)                    |
 
 ### Development Workflow
 
@@ -255,12 +264,12 @@ This is a private repo for core contributors. To get involved:
 
 ## Related Repos
 
-| Repo | Description |
-|------|-------------|
+| Repo                                                              | Description                      |
+| ----------------------------------------------------------------- | -------------------------------- |
 | [community](https://github.com/istanbul-digital-nomads/community) | Guidelines, code of conduct, FAQ |
-| [events](https://github.com/istanbul-digital-nomads/events) | Event planning and templates |
-| [resources](https://github.com/istanbul-digital-nomads/resources) | Curated Istanbul guides |
-| [.github](https://github.com/istanbul-digital-nomads/.github) | Organization profile |
+| [events](https://github.com/istanbul-digital-nomads/events)       | Event planning and templates     |
+| [resources](https://github.com/istanbul-digital-nomads/resources) | Curated Istanbul guides          |
+| [.github](https://github.com/istanbul-digital-nomads/.github)     | Organization profile             |
 
 ## License
 

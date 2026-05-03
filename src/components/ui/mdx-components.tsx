@@ -96,28 +96,28 @@ export const mdxComponents = {
     </blockquote>
   ),
   table: ({ children, ...props }: Props<"table">) => (
-    <div className="my-6 overflow-x-auto rounded-xl border border-[#e5e8eb]/60 dark:border-[#2c2f3a]">
-      <table className="w-full text-left text-sm" {...props}>
+    <div className="my-6 overflow-x-auto rounded-md border border-black/10 bg-white/45 dark:border-white/10 dark:bg-white/5">
+      <table className="min-w-full text-left text-sm" {...props}>
         {children}
       </table>
     </div>
   ),
   thead: ({ children, ...props }: Props<"thead">) => (
     <thead
-      className="border-b border-[#e5e8eb]/60 bg-primary-50/60 text-xs uppercase tracking-wider text-primary-800 dark:border-[#2c2f3a] dark:bg-primary-950/20 dark:text-primary-200"
+      className="border-b border-black/10 bg-[#f6f1ea] text-xs uppercase text-neutral-700 dark:border-white/10 dark:bg-[#1a1612] dark:text-[#d5dce3]"
       {...props}
     >
       {children}
     </thead>
   ),
   th: ({ children, ...props }: Props<"th">) => (
-    <th className="px-4 py-3 font-semibold" {...props}>
+    <th className="whitespace-nowrap px-4 py-3 font-semibold" {...props}>
       {children}
     </th>
   ),
   td: ({ children, ...props }: Props<"td">) => (
     <td
-      className="border-b border-primary-100/30 px-4 py-3 text-[#526e89] dark:border-[rgba(44,62,80,0.06)] dark:text-[#99a3ad]"
+      className="border-b border-black/5 px-4 py-3 align-top text-[#526e89] last:border-b-0 dark:border-white/5 dark:text-[#99a3ad]"
       {...props}
     >
       {children}

@@ -704,3 +704,235 @@
     transform: translateY(0);
   }
 }
+
+.istanbul-rain {
+  animation: istanbul-rain-fall 0.9s linear infinite;
+}
+
+.istanbul-rain-splash {
+  animation: istanbul-rain-splash 1.1s ease-out infinite;
+}
+
+.istanbul-sun {
+  box-shadow:
+    0 0 0 24px rgba(255, 211, 122, 0.16),
+    0 0 80px rgba(255, 211, 122, 0.42);
+  animation: istanbul-sun-pulse 4.8s ease-in-out infinite;
+}
+
+.istanbul-spark {
+  animation: istanbul-sparkle 2.8s ease-in-out infinite;
+}
+
+.istanbul-cloud {
+  animation: istanbul-cloud-drift 16s ease-in-out infinite alternate;
+}
+
+.istanbul-cloud-slow {
+  animation: istanbul-cloud-drift 22s ease-in-out infinite alternate-reverse;
+}
+
+.istanbul-wind {
+  animation: istanbul-wind-pass 3.4s ease-in-out infinite;
+}
+
+.istanbul-water {
+  animation: istanbul-water-shimmer 5.6s ease-in-out infinite;
+}
+
+.istanbul-ferry {
+  animation: istanbul-ferry-cross 18s ease-in-out infinite;
+}
+
+.istanbul-ferry-local {
+  animation: istanbul-ferry-bob 3.8s ease-in-out infinite;
+}
+
+.istanbul-ferry-wake {
+  animation: istanbul-ferry-wake 1.8s ease-in-out infinite;
+}
+
+.istanbul-window-glow {
+  animation: istanbul-window-glow 7s ease-in-out infinite;
+}
+
+.istanbul-haze {
+  animation: istanbul-haze-breathe 9s ease-in-out infinite;
+}
+
+.istanbul-city-light {
+  animation: istanbul-city-light 3.8s ease-in-out infinite;
+}
+
+@keyframes istanbul-rain-fall {
+  from {
+    transform: translate3d(0, -32px, 0) rotate(12deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  to {
+    transform: translate3d(-34px, 330px, 0) rotate(12deg);
+    opacity: 0;
+  }
+}
+
+@keyframes istanbul-rain-splash {
+  0%,
+  100% {
+    transform: scaleX(0.4);
+    opacity: 0;
+  }
+  45% {
+    opacity: 0.55;
+  }
+  75% {
+    transform: scaleX(1.4);
+    opacity: 0;
+  }
+}
+
+@keyframes istanbul-sun-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.07);
+  }
+}
+
+@keyframes istanbul-sparkle {
+  0%,
+  100% {
+    opacity: 0.18;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 0.82;
+    transform: scale(1.25);
+  }
+}
+
+@keyframes istanbul-cloud-drift {
+  from {
+    transform: translateX(-18px);
+  }
+  to {
+    transform: translateX(28px);
+  }
+}
+
+@keyframes istanbul-water-shimmer {
+  0%,
+  100% {
+    transform: translateX(0) scaleX(0.7);
+    opacity: 0.12;
+  }
+  50% {
+    transform: translateX(48px) scaleX(1);
+    opacity: 0.38;
+  }
+}
+
+@keyframes istanbul-ferry-cross {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  48% {
+    transform: translate3d(92vw, -2px, 0);
+  }
+  100% {
+    transform: translate3d(92vw, -2px, 0);
+  }
+}
+
+@keyframes istanbul-ferry-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(1deg);
+  }
+}
+
+@keyframes istanbul-ferry-wake {
+  0%,
+  100% {
+    transform: scaleX(0.72);
+    opacity: 0.22;
+  }
+  50% {
+    transform: scaleX(1.16);
+    opacity: 0.62;
+  }
+}
+
+@keyframes istanbul-window-glow {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0.74;
+    transform: translateX(-18px);
+  }
+}
+
+@keyframes istanbul-haze-breathe {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0.38;
+  }
+  50% {
+    transform: scaleX(1.08);
+    opacity: 0.62;
+  }
+}
+
+@keyframes istanbul-city-light {
+  0%,
+  100% {
+    opacity: 0.18;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes istanbul-wind-pass {
+  from {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.75;
+  }
+  to {
+    transform: translateX(145%);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .istanbul-rain,
+  .istanbul-rain-splash,
+  .istanbul-sun,
+  .istanbul-spark,
+  .istanbul-cloud,
+  .istanbul-cloud-slow,
+  .istanbul-wind,
+  .istanbul-water,
+  .istanbul-ferry,
+  .istanbul-ferry-local,
+  .istanbul-ferry-wake,
+  .istanbul-window-glow,
+  .istanbul-haze,
+  .istanbul-city-light {
+    animation: none;
+  }
+}

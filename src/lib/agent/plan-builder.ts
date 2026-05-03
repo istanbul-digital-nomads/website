@@ -1,5 +1,5 @@
 // Deterministic plan builder. No LLM. Picks the best-fit neighborhood for
-// a given intake by scoring each of the five neighborhoods we cover, then
+// a given intake by scoring each neighborhood we cover, then
 // composes the rest of the plan from typed structured data:
 //
 //   - cost_breakdown: tier-based, with rent line swapped for the chosen
@@ -80,6 +80,51 @@ const PROFILES: Record<string, NeighborhoodProfile> = {
     nearCoworking: 75,
     budgetFriendly: 20,
     central: 100,
+  },
+  uskudar: {
+    social: 40,
+    quiet: 85,
+    ferryAccess: 95,
+    socialScene: 35,
+    nearCoworking: 45,
+    budgetFriendly: 85,
+    central: 65,
+  },
+  nisantasi: {
+    social: 70,
+    quiet: 55,
+    ferryAccess: 25,
+    socialScene: 70,
+    nearCoworking: 75,
+    budgetFriendly: 25,
+    central: 90,
+  },
+  levent: {
+    social: 45,
+    quiet: 50,
+    ferryAccess: 10,
+    socialScene: 45,
+    nearCoworking: 100,
+    budgetFriendly: 40,
+    central: 80,
+  },
+  balat: {
+    social: 55,
+    quiet: 45,
+    ferryAccess: 45,
+    socialScene: 60,
+    nearCoworking: 35,
+    budgetFriendly: 95,
+    central: 70,
+  },
+  atasehir: {
+    social: 35,
+    quiet: 80,
+    ferryAccess: 15,
+    socialScene: 35,
+    nearCoworking: 80,
+    budgetFriendly: 70,
+    central: 45,
   },
 };
 
@@ -272,7 +317,7 @@ function describeLifestyleMatch(
     return `It's one of the most socially alive spots we cover, with a ${neighborhood.noise.toLowerCase()}-noise rhythm to match.`;
   }
   if (lifestyle === "quiet" && profile.quiet >= 70) {
-    return `It's the quietest of the five neighborhoods we recommend - ${neighborhood.noise.toLowerCase()} noise level, a calmer pace, easy mornings.`;
+    return `It's one of the quietest neighborhoods we recommend - ${neighborhood.noise.toLowerCase()} noise level, a calmer pace, easy mornings.`;
   }
   if (lifestyle === "mixed") {
     return `The vibe lands in the middle: lively when you want it, calm when you don't.`;

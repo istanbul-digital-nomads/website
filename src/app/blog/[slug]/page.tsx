@@ -9,6 +9,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { mdxComponents } from "@/components/ui/mdx-components";
 import { getAllBlogPosts, getBlogPost } from "@/lib/blog";
 import { formatDate } from "@/lib/utils";
+import { mdxOptions } from "@/lib/mdx-options";
 
 interface BlogPostPageProps {
   params: { slug: string };
@@ -142,7 +143,11 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* Content */}
             <article className="mt-10">
-              <MDXRemote source={post.content} components={mdxComponents} />
+              <MDXRemote
+                source={post.content}
+                components={mdxComponents}
+                options={mdxOptions}
+              />
             </article>
 
             {/* Back to blog */}

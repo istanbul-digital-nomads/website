@@ -25,6 +25,18 @@ interface AttributionEntry {
   licenseHref?: string;
 }
 
+const siteVisualCredits = [
+  {
+    label: "Istanbul Today weather widget",
+    alt: "Rainy Bosphorus ferry scene used behind the live Istanbul Today weather widget",
+    author: "Istanbul Digital Nomads",
+    source: "OpenAI",
+    sourceHref: "https://openai.com/",
+    license: "Generated",
+    licenseHref: "https://openai.com/policies/service-terms/",
+  },
+];
+
 function loadAttributions(): AttributionEntry[] {
   const manifestPath = path.join(
     process.cwd(),
@@ -80,6 +92,47 @@ export default function CreditsPage() {
         </p>
 
         <div className="mt-10 space-y-10">
+          <div>
+            <h2 className="text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
+              Site visuals
+            </h2>
+            <ul className="mt-4 space-y-3">
+              {siteVisualCredits.map((image) => (
+                <li
+                  key={image.label}
+                  className="flex flex-col gap-1 rounded-xl border border-black/10 bg-white/55 p-4 text-sm dark:border-white/10 dark:bg-white/5 sm:flex-row sm:items-center sm:justify-between"
+                >
+                  <div>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#85929e]">
+                      {image.label}
+                    </span>
+                    <p className="mt-1 text-[#1a1a2e] dark:text-[#f2f3f4]">
+                      {image.alt}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
+                    <a
+                      href={image.sourceHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline decoration-dotted underline-offset-2 hover:text-primary-600 dark:hover:text-primary-300"
+                    >
+                      {image.author} / {image.source}
+                    </a>
+                    <a
+                      href={image.licenseHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-full border border-primary-500/20 bg-primary-50/60 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-primary-700 dark:border-primary-500/30 dark:bg-primary-950/30 dark:text-primary-200"
+                    >
+                      {image.license}
+                    </a>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {blogCredits.length > 0 ? (
             <div>
               <h2 className="text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">

@@ -92,6 +92,17 @@ export default function NeighborhoodDetailPage({ params }: Props) {
             {n.oneLiner}
           </p>
 
+          <div className="mt-6 flex max-w-2xl flex-wrap gap-2">
+            {n.badges.map((badge) => (
+              <span
+                key={badge}
+                className="rounded-md bg-white/15 px-3 py-1.5 text-xs font-medium text-white backdrop-blur"
+              >
+                {badge}
+              </span>
+            ))}
+          </div>
+
           <p className="mt-8 text-right font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">
             Photo:{" "}
             <a
@@ -265,7 +276,7 @@ export default function NeighborhoodDetailPage({ params }: Props) {
                 href="/guides/neighborhoods"
                 className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-neutral-950 hover:text-primary-600 dark:text-[#f2f3f4] dark:hover:text-primary-400"
               >
-                See all five
+                See all ten
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>

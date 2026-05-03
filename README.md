@@ -19,8 +19,10 @@ Istanbul Nomads is more than a landing page - it's a full community platform. He
 
 ### Current Release
 
-- **Version:** `1.16.0`
+- **Version:** `1.17.0`
 - **Neighborhood coverage:** 10 full Istanbul neighborhood guides with photos, rent ranges, transport notes, coworking context, markdown endpoints, and relocation-agent scoring
+- **Neighborhood decision layer:** Interactive rhythm matcher, structured badges, and first-base guidance help visitors choose a neighborhood by actual daily routine instead of a generic top-ten list
+- **Istanbul Today:** Live weather widget with current Istanbul mood, nomad-specific day planning, and a generated photoreal Bosphorus rain scene
 - **Broader area coverage:** 25+ Istanbul areas covered through tiered guidance, including "worth considering" and "usually not a first base" sections
 - **Content rendering:** MDX guides and posts support GitHub-flavored markdown tables via `remark-gfm`, with responsive table styling for mobile
 

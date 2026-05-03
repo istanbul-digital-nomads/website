@@ -48,6 +48,7 @@ export interface Neighborhood {
   rentTl: { low: number; high: number };
   transport: string;
   bestFor: string[];
+  badges: string[];
   vibe: string;
   noise: "Low" | "Medium" | "High";
   coords: [number, number];
@@ -118,6 +119,7 @@ export const neighborhoods: Neighborhood[] = [
     transport:
       "Ferry to Eminonu/Karakoy (20 min), metro to Taksim via Marmaray",
     bestFor: ["Steady work routine", "Local neighborhood feel", "Fair rent"],
+    badges: ["Best first month", "Best value", "Best ferry life"],
     vibe: "Local, independent, walkable. Feels like a small city within Istanbul.",
     noise: "Medium",
     coords: [29.025, 40.99],
@@ -163,6 +165,7 @@ export const neighborhoods: Neighborhood[] = [
     rentTl: { low: 18000, high: 30000 },
     transport: "Same as Kadikoy + nostalgic tram along the coast",
     bestFor: ["Quiet evenings", "Seaside walks", "Creative freelancers"],
+    badges: ["Quietest", "Seaside", "Creative"],
     vibe: "Seaside, quiet, creative. Lots of cats.",
     noise: "Low",
     coords: [29.026, 40.978],
@@ -217,6 +220,7 @@ export const neighborhoods: Neighborhood[] = [
     transport:
       "Walk to Taksim (10 min), Kabatas tram/funicular, ferries from Kabatas",
     bestFor: ["Social nomads", "Nightlife access", "Bosphorus views"],
+    badges: ["Most social", "Nightlife", "Bohemian"],
     vibe: "Bohemian, social, hilly. Great views, strong cafe culture.",
     noise: "Medium",
     coords: [28.983, 41.032],
@@ -271,6 +275,7 @@ export const neighborhoods: Neighborhood[] = [
     transport:
       "Ferries to Kadikoy and Uskudar, buses to Taksim, close to E-5 highway",
     bestFor: ["European-side energy", "Street food lovers", "Ferry commuters"],
+    badges: ["Local energy", "Street food", "Ferry life"],
     vibe: "Lively, local, energetic. Market streets and student crowds.",
     noise: "High",
     coords: [29.007, 41.043],
@@ -332,6 +337,7 @@ export const neighborhoods: Neighborhood[] = [
       "Central base",
       "Design and galleries",
     ],
+    badges: ["Best short stay", "Central", "Design district"],
     vibe: "Trendy, artsy, touristy. Beautiful architecture, lots of foot traffic.",
     noise: "High",
     coords: [28.977, 41.022],
@@ -389,6 +395,7 @@ export const neighborhoods: Neighborhood[] = [
     transport:
       "Ferries to Eminonu, Besiktas, and Kabatas, Marmaray, metro toward Umraniye",
     bestFor: ["Quiet ferry life", "Local routines", "Bosphorus sunsets"],
+    badges: ["Quiet ferry life", "Local", "Sunset walks"],
     vibe: "Traditional, waterfront, calmer. Strong ferry rhythm and everyday Istanbul texture.",
     noise: "Low",
     coords: [29.015, 41.023],
@@ -418,6 +425,7 @@ export const neighborhoods: Neighborhood[] = [
     transport:
       "Walk to Osmanbey metro, quick taxi or metro access to Taksim, Sisli, and Levent",
     bestFor: ["Comfortable budgets", "Cafe work", "Central errands"],
+    badges: ["Premium", "Cafe work", "Central comfort"],
     vibe: "Polished, residential, upscale. Boutique streets with strong everyday convenience.",
     noise: "Medium",
     coords: [28.988, 41.048],
@@ -447,6 +455,7 @@ export const neighborhoods: Neighborhood[] = [
     transport:
       "M2 metro through Levent and 4. Levent, buses along Buyukdere Avenue, easy taxi access north/south",
     bestFor: ["Full-time remote", "Business access", "Coworking density"],
+    badges: ["Business corridor", "Founder-friendly", "Coworking density"],
     vibe: "Corporate, practical, vertical. Less charm, more infrastructure.",
     noise: "Medium",
     coords: [29.011, 41.077],
@@ -476,6 +485,7 @@ export const neighborhoods: Neighborhood[] = [
     transport:
       "Buses and tram connections via Fener/Eminonu, quick taxis to Karakoy and Cihangir",
     bestFor: ["Character", "Lower rent", "Slow creative days"],
+    badges: ["Character-heavy", "Budget", "Historic"],
     vibe: "Historic, colorful, rough-edged. Big personality with practical tradeoffs.",
     noise: "Medium",
     coords: [28.949, 41.029],
@@ -505,6 +515,7 @@ export const neighborhoods: Neighborhood[] = [
     transport:
       "Metro and buses across the Asian side, taxi access to Kadikoy, Umraniye, and the finance district",
     bestFor: ["Newer apartments", "Asian-side business", "Quiet nights"],
+    badges: ["Newer apartments", "Quiet nights", "Business access"],
     vibe: "Modern, spacious, corporate. Practical but less walkable than Kadikoy.",
     noise: "Low",
     coords: [29.124, 40.992],

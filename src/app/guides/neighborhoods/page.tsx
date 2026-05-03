@@ -9,6 +9,9 @@ import { Section } from "@/components/ui/section";
 import { guides } from "@/lib/data";
 import { getGuideContent } from "@/lib/guides";
 import { mdxComponents } from "@/components/ui/mdx-components";
+import { IstanbulTodayWidget } from "@/components/sections/istanbul-today-widget";
+import { NeighborhoodDecisionNotes } from "@/components/sections/neighborhood-decision-notes";
+import { NeighborhoodRhythmMatcher } from "@/components/sections/neighborhood-rhythm-matcher";
 import { formatDate } from "@/lib/utils";
 import { mdxOptions } from "@/lib/mdx-options";
 import {
@@ -76,6 +79,10 @@ export default function NeighborhoodsOverviewPage() {
         </Container>
       </section>
 
+      <IstanbulTodayWidget compact />
+
+      <NeighborhoodRhythmMatcher compact />
+
       <section className="py-14">
         <Container>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -111,6 +118,16 @@ export default function NeighborhoodsOverviewPage() {
                     <p className="mt-3 text-sm leading-7 text-[#5d6d7e] dark:text-[#99a3ad]">
                       {n.oneLiner}
                     </p>
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {n.badges.slice(0, 3).map((badge) => (
+                        <span
+                          key={badge}
+                          className="rounded-md bg-primary-50 px-2 py-1 text-xs font-medium text-primary-800 dark:bg-primary-950/30 dark:text-primary-200"
+                        >
+                          {badge}
+                        </span>
+                      ))}
+                    </div>
                     <div className="mt-5 flex items-center justify-between border-t border-black/5 pt-4 dark:border-white/5">
                       <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#85929e]">
                         {count > 0
@@ -129,6 +146,8 @@ export default function NeighborhoodsOverviewPage() {
           </div>
         </Container>
       </section>
+
+      <NeighborhoodDecisionNotes />
 
       <Section>
         <div className="mx-auto max-w-3xl">

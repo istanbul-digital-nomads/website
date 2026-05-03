@@ -15,8 +15,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
+import { IstanbulTodayWidget } from "@/components/sections/istanbul-today-widget";
 import { NeighborhoodCardsSection } from "@/components/sections/neighborhood-cards";
 import { NeighborhoodsMapSection } from "@/components/sections/neighborhoods-map-section";
+import { NeighborhoodRhythmMatcher } from "@/components/sections/neighborhood-rhythm-matcher";
 import { guides } from "@/lib/data";
 import { socialLinks } from "@/lib/constants";
 import { formatEventDate } from "@/lib/utils";
@@ -309,6 +311,8 @@ export default async function HomePage() {
         </Container>
       </section>
 
+      <IstanbulTodayWidget />
+
       <section className="border-b border-black/10 py-9 dark:border-white/10">
         <Container>
           <div className="grid gap-8 lg:grid-cols-[0.9fr_2fr] lg:items-end">
@@ -346,6 +350,8 @@ export default async function HomePage() {
           </div>
         </Container>
       </section>
+
+      <NeighborhoodRhythmMatcher />
 
       <section className="py-16 lg:py-20">
         <Container>

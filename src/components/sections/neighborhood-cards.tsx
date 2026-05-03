@@ -67,6 +67,17 @@ export function NeighborhoodCardsSection() {
                       {n.oneLiner}
                     </p>
 
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {n.badges.slice(0, 3).map((badge) => (
+                        <span
+                          key={badge}
+                          className="rounded-md bg-primary-50 px-2 py-1 text-xs font-medium text-primary-800 dark:bg-primary-950/30 dark:text-primary-200"
+                        >
+                          {badge}
+                        </span>
+                      ))}
+                    </div>
+
                     <div className="mt-5 flex items-center justify-between border-t border-black/5 pt-4 dark:border-white/5">
                       <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#85929e]">
                         {count > 0

@@ -4,6 +4,20 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.18.0] - 2026-05-04
+
+### Added
+
+- Added the First Week Planner at `/tools/first-week-planner`, a deterministic seven-day Istanbul landing plan based on arrival profile, base neighborhood, work style, social appetite, and budget comfort
+- Added shareable planner query params, copy-link support, a scannable itinerary timeline, save-link strip, and week-one avoid notes
+- Added planner entry points from the homepage, Neighborhood Rhythm Matcher results, neighborhood detail pages, main navigation, footer navigation, and sitemap
+- Added `docs/product-features-2026-roadmap.md` with the UX standards and release sequence for the next product-layer features
+- Added Vitest coverage for planner determinism, query parsing, selected neighborhood behavior, paperwork guidance, and link coverage
+
+### Changed
+
+- Bumped package version to `1.18.0`
+
 ## [1.17.0] - 2026-05-03
 
 ### Added

@@ -313,6 +313,33 @@ export default async function HomePage() {
 
       <IstanbulTodayWidget />
 
+      <section className="border-b border-black/10 bg-[#fbfaf8] py-10 dark:border-white/10 dark:bg-[#14110f]">
+        <Container>
+          <div className="grid gap-6 lg:grid-cols-[0.88fr_1.12fr] lg:items-end">
+            <div>
+              <p className="eyebrow">New arrival tool</p>
+              <h2 className="mt-3 max-w-xl font-display text-h2 text-neutral-950 dark:text-[#f2f3f4]">
+                Turn your first week into a real Istanbul routine.
+              </h2>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-[1fr_auto] sm:items-end">
+              <p className="max-w-2xl text-sm leading-7 text-[#5d6d7e] dark:text-[#b7aaa0]">
+                Pick your base, work setup, social pace, and budget comfort. Get
+                a seven-day plan with ferry confidence, work blocks, admin
+                buffer, and the right links for week two.
+              </p>
+              <Link
+                href="/tools/first-week-planner"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-neutral-950 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-800 dark:bg-[#f2f3f4] dark:text-[#14110f] dark:hover:bg-[#d8d0c8]"
+              >
+                Plan my week
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       <section className="border-b border-black/10 py-9 dark:border-white/10">
         <Container>
           <div className="grid gap-8 lg:grid-cols-[0.9fr_2fr] lg:items-end">

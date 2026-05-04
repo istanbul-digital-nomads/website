@@ -237,15 +237,24 @@ export default function NeighborhoodDetailPage({ params }: Props) {
                 week&apos;s meetup, a reliable cafe, and anything else you need
                 to settle in.
               </p>
-              <a
-                href={socialLinks.telegram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-400"
-              >
-                Join on Telegram
-                <ArrowRight className="h-4 w-4" />
-              </a>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href={`/tools/first-week-planner?base=${n.slug}`}
+                  className="inline-flex items-center justify-center gap-2 rounded-md bg-neutral-950 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-800 dark:bg-[#f2f3f4] dark:text-[#14110f] dark:hover:bg-[#d8d0c8]"
+                >
+                  Plan week one here
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <a
+                  href={socialLinks.telegram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-black/15 px-5 py-3 text-sm font-semibold text-neutral-950 transition-colors hover:border-primary-500/40 hover:bg-white/60 dark:border-white/20 dark:text-[#f2f3f4] dark:hover:bg-white/10"
+                >
+                  Join on Telegram
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              </div>
             </div>
 
             <div>

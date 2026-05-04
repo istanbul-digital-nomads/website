@@ -174,6 +174,27 @@ export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
               </Link>
             ))}
           </div>
+
+          {matches[0] ? (
+            <div className="mt-4 flex flex-col gap-3 rounded-md border border-black/10 bg-[#f6f1ea] p-4 dark:border-white/10 dark:bg-white/[0.04] sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-700 dark:text-primary-300">
+                  Turn this into week one
+                </p>
+                <p className="mt-1 text-sm leading-6 text-[#5d6d7e] dark:text-[#b7aaa0]">
+                  Use {matches[0].neighborhood.name} as your base and build a
+                  seven-day arrival plan around it.
+                </p>
+              </div>
+              <Link
+                href={`/tools/first-week-planner?base=${matches[0].neighborhood.slug}`}
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-md bg-neutral-950 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-neutral-800 dark:bg-[#f2f3f4] dark:text-[#14110f] dark:hover:bg-[#d8d0c8]"
+              >
+                Plan from match
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

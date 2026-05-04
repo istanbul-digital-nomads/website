@@ -44,6 +44,11 @@ export const navItems: NavItem[] = [
         description: "Wifi-tested cafes and coworking spots",
       },
       {
+        label: "First Week Planner",
+        href: "/tools/first-week-planner",
+        description: "A seven-day landing plan for new arrivals",
+      },
+      {
         label: "Local Guides",
         href: "/local-guides",
         description: "People who help you settle in",
@@ -80,6 +85,7 @@ export const footerNav = {
     { label: "Nomad Spaces", href: "/spaces" },
     { label: "City Guides", href: "/guides" },
     { label: "Path to Istanbul", href: "/path-to-istanbul" },
+    { label: "First Week Planner", href: "/tools/first-week-planner" },
     { label: "Neighborhoods", href: "/guides/neighborhoods" },
     { label: "Cost of Living", href: "/guides/cost-of-living" },
     { label: "Photo credits", href: "/credits" },

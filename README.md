@@ -19,8 +19,9 @@ Istanbul Nomads is more than a landing page - it's a full community platform. He
 
 ### Current Release
 
-- **Version:** `1.17.0`
+- **Version:** `1.18.0`
 - **Neighborhood coverage:** 10 full Istanbul neighborhood guides with photos, rent ranges, transport notes, coworking context, markdown endpoints, and relocation-agent scoring
+- **First Week Planner:** Shareable seven-day landing plans turn arrival profile, base neighborhood, work rhythm, social appetite, and budget comfort into a practical Istanbul week-one itinerary
 - **Neighborhood decision layer:** Interactive rhythm matcher, structured badges, and first-base guidance help visitors choose a neighborhood by actual daily routine instead of a generic top-ten list
 - **Istanbul Today:** Live weather widget with current Istanbul mood, nomad-specific day planning, and a generated photoreal Bosphorus rain scene
 - **Broader area coverage:** 25+ Istanbul areas covered through tiered guidance, including "worth considering" and "usually not a first base" sections
@@ -28,17 +29,18 @@ Istanbul Nomads is more than a landing page - it's a full community platform. He
 
 ### Core Services
 
-| Service              | Description                                                                                                    | Route                                                               |
-| -------------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| **Homepage**         | Hero, community stats, featured events, social proof, join CTA                                                 | `/`                                                                 |
-| **About**            | Our story, values, organizer team, community timeline                                                          | `/about`                                                            |
-| **City Guides**      | Practical guides, including the expanded Istanbul neighborhoods guide with 10 full pages and 25+ covered areas | `/guides`, `/guides/[slug]`, `/guides/neighborhoods/[neighborhood]` |
-| **Path to Istanbul** | Country-specific relocation playbooks with interactive world map (Iran, India, Russia, Pakistan, Nigeria)      | `/path-to-istanbul`, `/path-to-istanbul/[country]`                  |
-| **Nomad Spaces**     | Wifi-tested cafes and coworking spots with scores, map, and filters                                            | `/spaces`                                                           |
-| **Local Guides**     | People who help newcomers settle in, filterable by specialization and neighborhood                             | `/local-guides`, `/local-guides/join`                               |
-| **Events**           | Upcoming meetups, coworking sessions, workshops, past events archive                                           | `/events`, `/events/[id]`                                           |
-| **Blog**             | Community stories, Istanbul tips, nomad interviews, remote work insights                                       | `/blog`, `/blog/[slug]`                                             |
-| **Contact**          | Reach us form, Telegram link, email, social links                                                              | `/contact`                                                          |
+| Service                | Description                                                                                                    | Route                                                               |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| **Homepage**           | Hero, community stats, featured events, social proof, join CTA                                                 | `/`                                                                 |
+| **About**              | Our story, values, organizer team, community timeline                                                          | `/about`                                                            |
+| **City Guides**        | Practical guides, including the expanded Istanbul neighborhoods guide with 10 full pages and 25+ covered areas | `/guides`, `/guides/[slug]`, `/guides/neighborhoods/[neighborhood]` |
+| **Path to Istanbul**   | Country-specific relocation playbooks with interactive world map (Iran, India, Russia, Pakistan, Nigeria)      | `/path-to-istanbul`, `/path-to-istanbul/[country]`                  |
+| **Nomad Spaces**       | Wifi-tested cafes and coworking spots with scores, map, and filters                                            | `/spaces`                                                           |
+| **First Week Planner** | Seven-day Istanbul landing plans based on neighborhood, work setup, social pace, and budget comfort            | `/tools/first-week-planner`                                         |
+| **Local Guides**       | People who help newcomers settle in, filterable by specialization and neighborhood                             | `/local-guides`, `/local-guides/join`                               |
+| **Events**             | Upcoming meetups, coworking sessions, workshops, past events archive                                           | `/events`, `/events/[id]`                                           |
+| **Blog**               | Community stories, Istanbul tips, nomad interviews, remote work insights                                       | `/blog`, `/blog/[slug]`                                             |
+| **Contact**            | Reach us form, Telegram link, email, social links                                                              | `/contact`                                                          |
 
 ### Member Platform (Authenticated)
 
@@ -52,11 +54,12 @@ Istanbul Nomads is more than a landing page - it's a full community platform. He
 
 ### Interactive Tools
 
-| Tool                          | Description                                                            | Route                      |
-| ----------------------------- | ---------------------------------------------------------------------- | -------------------------- |
-| **Neighborhood Quiz**         | "Which Istanbul neighborhood is right for you?" personality-style quiz | `/tools/neighborhood-quiz` |
-| **Cost of Living Calculator** | Interactive lifestyle-based calculator with real Istanbul data         | `/tools/cost-calculator`   |
-| **Coworking Buddy Finder**    | Match with nomads in the same neighborhood or shared interests         | `/tools/buddy-finder`      |
+| Tool                          | Description                                                            | Route                       |
+| ----------------------------- | ---------------------------------------------------------------------- | --------------------------- |
+| **First Week Planner**        | Seven-day newcomer itinerary with shareable query params               | `/tools/first-week-planner` |
+| **Neighborhood Quiz**         | "Which Istanbul neighborhood is right for you?" personality-style quiz | `/tools/neighborhood-quiz`  |
+| **Cost of Living Calculator** | Interactive lifestyle-based calculator with real Istanbul data         | `/tools/cost-calculator`    |
+| **Coworking Buddy Finder**    | Match with nomads in the same neighborhood or shared interests         | `/tools/buddy-finder`       |
 
 ### API & Integrations
 

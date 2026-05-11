@@ -30,7 +30,11 @@ export async function getLocalizedMdx(
 
   try {
     const raw = await fs.readFile(localizedPath, "utf8");
-    return { raw, resolvedLocale: locale, translated: locale !== defaultLocale };
+    return {
+      raw,
+      resolvedLocale: locale,
+      translated: locale !== defaultLocale,
+    };
   } catch {
     try {
       const raw = await fs.readFile(fallbackPath, "utf8");

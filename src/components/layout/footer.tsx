@@ -3,11 +3,7 @@ import Link from "next/link";
 import { Github, Mail, Send, Twitter } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
-import {
-  footerNav,
-  socialLinks,
-  type FooterLinkKey,
-} from "@/lib/constants";
+import { footerNav, socialLinks, type FooterLinkKey } from "@/lib/constants";
 import { NewsletterForm } from "@/components/newsletter-form";
 
 const socialIcons = [
@@ -132,7 +128,11 @@ function FooterColumn({
   labelFor,
 }: {
   title: string;
-  links: ReadonlyArray<{ key: FooterLinkKey; href: string; external?: boolean }>;
+  links: ReadonlyArray<{
+    key: FooterLinkKey;
+    href: string;
+    external?: boolean;
+  }>;
   labelFor: (key: FooterLinkKey) => string;
 }) {
   return (

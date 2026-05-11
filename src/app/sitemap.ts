@@ -74,12 +74,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
 
   const blogEntries = blogPosts.flatMap((post) =>
-    withAlternates(
-      `/blog/${post.slug}`,
-      new Date(post.date),
-      "monthly",
-      0.6,
-    ),
+    withAlternates(`/blog/${post.slug}`, new Date(post.date), "monthly", 0.6),
   );
 
   const countryEntries = getSupportedCountries().flatMap((country) =>

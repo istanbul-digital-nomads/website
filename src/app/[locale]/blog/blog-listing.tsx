@@ -4,6 +4,7 @@ import { useCallback, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Search, Calendar, Clock, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/utils";
@@ -22,6 +23,7 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
   const [activeTag, setActiveTag] = useState<string | null>(
     tagFromUrl && allTags.includes(tagFromUrl) ? tagFromUrl : null,
   );
+  const t = useTranslations("blogIndexPage");
 
   const selectTag = useCallback(
     (tag: string | null) => {
@@ -49,7 +51,7 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
           <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#5d6d7e] dark:text-[#99a3ad]" />
           <input
             type="text"
-            placeholder="Search posts..."
+            placeholder={t("search.placeholder")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full rounded-xl border border-primary-200/40 bg-white/70 py-3 pl-11 pr-4 text-sm text-[#1a1a2e] placeholder:text-[#5d6d7e]/60 focus:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-500/20 dark:border-[rgba(44,62,80,0.12)] dark:bg-[#1a1a2e] dark:text-[#f2f3f4] dark:placeholder:text-[#99a3ad]/60"
@@ -66,7 +68,7 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
                 : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 hover:bg-primary-50 hover:text-primary-700 dark:bg-[#1a1a2e] dark:text-[#99a3ad] dark:ring-white/5 dark:hover:bg-primary-950/30",
             )}
           >
-            All posts
+            {t("search.allPosts")}
           </button>
           {allTags.map((tag) => (
             <button
@@ -89,7 +91,7 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
       {filtered.length === 0 ? (
         <div className="rounded-xl border border-dashed border-primary-200/50 bg-primary-50/30 p-12 text-center dark:border-primary-900/30 dark:bg-primary-950/10">
           <p className="text-[#5d6d7e] dark:text-[#99a3ad]">
-            No posts match your search. Try a different term or tag.
+            {t("search.noResults")}
           </p>
         </div>
       ) : (

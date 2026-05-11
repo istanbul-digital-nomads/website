@@ -1800,5 +1800,28 @@
     "loading": {
       "srLabel": "Sayfa içeriği yükleniyor"
     }
+  },
+  "blogIndexPage": {
+    "meta": {
+      "title": "Blog",
+      "description": "İstanbul'da yaşayan dijital göçebelerden topluluk hikayeleri, İstanbul ipuçları ve uzaktan çalışma içgörüleri."
+    },
+    "hero": {
+      "title": "Blog",
+      "intro": "İstanbul'da yaşayan uzaktan çalışanlardan hikayeler, ipuçları ve içgörüler."
+    },
+    "search": {
+      "placeholder": "Yazılarda ara...",
+      "allPosts": "Tüm yazılar",
+      "noResults": "Aramanla eşleşen yazı yok. Farklı bir terim veya etiket dene."
+    }
+  },
+  "blogPostPage": {
+    "breadcrumb": {
+      "home": "Ana sayfa",
+      "blog": "Blog"
+    },
+    "backToBlog": "Tüm yazılara dön",
+    "translationInProgress": "Bu yazı henüz {language} diline çevrilmedi. İngilizce orijinalini okuyorsun."
   }
 }

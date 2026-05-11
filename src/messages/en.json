@@ -1801,5 +1801,28 @@
     "loading": {
       "srLabel": "Loading page content"
     }
+  },
+  "blogIndexPage": {
+    "meta": {
+      "title": "Blog",
+      "description": "Community stories, Istanbul tips, and remote work insights from digital nomads living in Istanbul."
+    },
+    "hero": {
+      "title": "Blog",
+      "intro": "Stories, tips, and insights from remote workers living in Istanbul."
+    },
+    "search": {
+      "placeholder": "Search posts...",
+      "allPosts": "All posts",
+      "noResults": "No posts match your search. Try a different term or tag."
+    }
+  },
+  "blogPostPage": {
+    "breadcrumb": {
+      "home": "Home",
+      "blog": "Blog"
+    },
+    "backToBlog": "Back to all posts",
+    "translationInProgress": "This post hasn't been translated to {language} yet. You're reading the English original."
   }
 }

@@ -1,20 +1,27 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, Clock, User, ArrowLeft } from "lucide-react";
+import { Calendar, Clock, User, ArrowLeft, Languages } from "lucide-react";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { mdxComponents } from "@/components/ui/mdx-components";
 import { getAllBlogPosts, getBlogPost } from "@/lib/blog";
+import {
+  isValidLocale,
+  defaultLocale,
+  localeNames,
+  type Locale,
+} from "@/lib/i18n/config";
 import { formatDate } from "@/lib/utils";
 import { mdxOptions } from "@/lib/mdx-options";
 
 const SITE_URL = "https://istanbulnomads.com";
 
 interface BlogPostPageProps {
-  params: { slug: string };
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 function plainText(markdown: string): string {
@@ -56,7 +63,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
-  const post = getBlogPost(params.slug);
+  const { locale: localeParam, slug } = await params;
+  const locale = isValidLocale(localeParam) ? localeParam : defaultLocale;
+  const post = getBlogPost(slug, locale);
   if (!post) return {};
   return {
     title: post.meta.title,
@@ -91,10 +100,15 @@ export async function generateMetadata({
   };
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = getBlogPost(params.slug);
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { locale: localeParam, slug } = await params;
+  const locale: Locale = isValidLocale(localeParam)
+    ? localeParam
+    : defaultLocale;
+  const post = getBlogPost(slug, locale);
   if (!post) notFound();
 
+  const t = await getTranslations("blogPostPage");
   const canonicalUrl = `${SITE_URL}/blog/${post.meta.slug}`;
   const faqs = extractFaqs(post.content);
   const jsonLd = {
@@ -108,6 +122,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         url: canonicalUrl,
         datePublished: post.meta.date,
         dateModified: post.meta.date,
+        inLanguage: post.meta.translated ? locale : defaultLocale,
         author: {
           "@type": "Person",
           name: post.meta.author,
@@ -176,20 +191,19 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       <Container>
         <Reveal>
           <div className="mx-auto max-w-3xl">
-            {/* Breadcrumb */}
             <nav className="mb-6 flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
               <Link
                 href="/"
                 className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
               >
-                Home
+                {t("breadcrumb.home")}
               </Link>
               <span>/</span>
               <Link
                 href="/blog"
                 className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
               >
-                Blog
+                {t("breadcrumb.blog")}
               </Link>
               <span>/</span>
               <span className="truncate text-[#1a1a2e] dark:text-[#f2f3f4]">
@@ -197,7 +211,17 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               </span>
             </nav>
 
-            {/* Header */}
+            {!post.meta.translated && locale !== defaultLocale && (
+              <div className="mb-6 flex items-start gap-3 rounded-md border border-amber-200/60 bg-amber-50/60 p-4 text-sm text-amber-900 dark:border-amber-900/40 dark:bg-amber-950/30 dark:text-amber-100">
+                <Languages className="mt-0.5 h-4 w-4 shrink-0" />
+                <p>
+                  {t("translationInProgress", {
+                    language: localeNames[locale],
+                  })}
+                </p>
+              </div>
+            )}
+
             <h1 className="text-3xl font-bold tracking-tight text-[#1a1a2e] sm:text-4xl dark:text-[#f2f3f4]">
               {post.meta.title}
             </h1>
@@ -205,7 +229,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               {post.meta.description}
             </p>
 
-            {/* Meta */}
             <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
               <span className="flex items-center gap-1.5">
                 <User className="h-4 w-4" />
@@ -221,7 +244,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               </span>
             </div>
 
-            {/* Tags */}
             <div className="mt-4 flex flex-wrap gap-2">
               {post.meta.tags.map((tag) => (
                 <Link
@@ -261,7 +283,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               </figure>
             ) : null}
 
-            {/* Content */}
             <article className="mt-10">
               <MDXRemote
                 source={post.content}
@@ -270,14 +291,13 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               />
             </article>
 
-            {/* Back to blog */}
             <div className="mt-12 border-t border-primary-200/30 pt-8 dark:border-[rgba(44,62,80,0.1)]">
               <Link
                 href="/blog"
                 className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 transition-colors hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300"
               >
                 <ArrowLeft className="h-4 w-4" />
-                Back to all posts
+                {t("backToBlog")}
               </Link>
             </div>
           </div>

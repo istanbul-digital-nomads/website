@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { getEvents } from "@/lib/supabase/queries";
 import { EventsView } from "./events-view";
 
-export const metadata: Metadata = {
-  title: "Events",
-  description:
-    "Upcoming meetups, coworking sessions, workshops, and social events for digital nomads in Istanbul.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("eventsPage.meta");
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 export default async function EventsPage() {
   const [{ data: upcoming }, { data: past }] = await Promise.all([

@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { showToast } from "@/lib/toast";
 
 export function LoginForm() {
+  const t = useTranslations("loginPage");
   const [loading, setLoading] = useState(false);
 
   async function signInWithGoogle() {
@@ -20,7 +22,7 @@ export function LoginForm() {
     });
 
     if (error) {
-      showToast.error("Sign in failed", error.message);
+      showToast.error(t("errorTitle"), error.message);
       setLoading(false);
     }
   }
@@ -52,7 +54,7 @@ export function LoginForm() {
             fill="#EA4335"
           />
         </svg>
-        Continue with Google
+        {t("google")}
       </Button>
     </div>
   );

@@ -3,6 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { ArrowRight, Check, Sparkles, UserPlus } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/container";
 import { showToast } from "@/lib/toast";
 
@@ -49,6 +50,7 @@ function buildAvatars(summary: WaitlistSummary | null): AvatarEntry[] {
 }
 
 export function SurpriseEventWaitlist() {
+  const t = useTranslations("eventsPage.waitlist");
   const [summary, setSummary] = useState<WaitlistSummary | null>(null);
   const [loading, setLoading] = useState(false);
   const [joined, setJoined] = useState(false);
@@ -83,12 +85,12 @@ export function SurpriseEventWaitlist() {
       const json = await res.json();
 
       if (!res.ok) {
-        showToast.error("Could not join the waitlist", json.error);
+        showToast.error(t("errorTitle"), json.error);
         return;
       }
 
       setJoined(true);
-      showToast.success("You're on the list!", json.data.message);
+      showToast.success(t("successTitle"), json.data.message);
 
       // Optimistically add to the visible list
       setSummary((prev) => {
@@ -99,7 +101,7 @@ export function SurpriseEventWaitlist() {
         return { count: (prev?.count ?? 0) + 1, recent };
       });
     } catch {
-      showToast.error("Something went wrong", "Please try again later.");
+      showToast.error(t("errorFallbackTitle"), t("errorFallbackBody"));
     } finally {
       setLoading(false);
     }
@@ -125,37 +127,34 @@ export function SurpriseEventWaitlist() {
           <div>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-white/50 px-3 py-1 text-xs font-medium text-primary-700 ring-1 ring-white/60 backdrop-blur-md dark:bg-white/10 dark:text-primary-300 dark:ring-white/10">
               <Sparkles className="h-3.5 w-3.5" />
-              Surprise event
+              {t("badge")}
             </span>
             <h2 className="mt-4 text-2xl font-bold tracking-tight text-[#1a1a2e] sm:text-3xl dark:text-[#f2f3f4]">
-              Something&apos;s coming. Date drops on the day.
+              {t("title")}
             </h2>
             <p className="mt-3 max-w-lg text-sm text-[#5d6d7e] sm:text-base dark:text-[#99a3ad]">
-              We&apos;re cooking up a community-only event in Istanbul. The when
-              and where stay under wraps until that morning. Join the waitlist
-              and you&apos;ll be the first to know.
+              {t("body")}
             </p>
 
             {joined ? (
               <div className="mt-6 space-y-3">
                 <div className="inline-flex items-center gap-2 rounded-xl bg-white/50 px-4 py-3 text-sm font-medium text-primary-700 ring-1 ring-white/60 backdrop-blur-md dark:bg-white/10 dark:text-primary-300 dark:ring-white/10">
                   <Check className="h-4 w-4" />
-                  You&apos;re on the list. Watch your inbox.
+                  {t("joinedConfirm")}
                 </div>
                 <div className="rounded-2xl bg-white/40 p-4 ring-1 ring-white/60 backdrop-blur-md sm:p-5 dark:bg-white/5 dark:ring-white/10">
                   <p className="text-sm font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                    One more step: complete your profile.
+                    {t("joinedProfileTitle")}
                   </p>
                   <p className="mt-1 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
-                    Members with full profiles get priority when spots are
-                    limited and a faster intro into the community.
+                    {t("joinedProfileBody")}
                   </p>
                   <Link
                     href="/login"
                     className="mt-3 inline-flex items-center gap-1.5 rounded-xl bg-primary-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600"
                   >
                     <UserPlus className="h-3.5 w-3.5" />
-                    Complete profile
+                    {t("completeProfile")}
                     <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>
@@ -170,14 +169,14 @@ export function SurpriseEventWaitlist() {
                   name="first_name"
                   required
                   maxLength={60}
-                  placeholder="First name"
+                  placeholder={t("firstNamePlaceholder")}
                   className="min-w-0 flex-1 rounded-xl bg-white/60 px-3.5 py-2.5 text-sm text-neutral-900 outline-none ring-1 ring-white/70 backdrop-blur-md transition-colors placeholder:text-neutral-400 focus:ring-primary-400 dark:bg-white/5 dark:text-[#f2f3f4] dark:ring-white/10 dark:placeholder:text-[#5d6d7e]"
                 />
                 <input
                   type="email"
                   name="email"
                   required
-                  placeholder="you@example.com"
+                  placeholder={t("emailPlaceholder")}
                   className="min-w-0 flex-1 rounded-xl bg-white/60 px-3.5 py-2.5 text-sm text-neutral-900 outline-none ring-1 ring-white/70 backdrop-blur-md transition-colors placeholder:text-neutral-400 focus:ring-primary-400 dark:bg-white/5 dark:text-[#f2f3f4] dark:ring-white/10 dark:placeholder:text-[#5d6d7e]"
                 />
                 <button
@@ -185,7 +184,7 @@ export function SurpriseEventWaitlist() {
                   disabled={loading}
                   className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-xl bg-primary-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-primary-700 disabled:opacity-50 dark:bg-primary-500 dark:hover:bg-primary-600"
                 >
-                  {loading ? "Joining..." : "Join the waitlist"}
+                  {loading ? t("submitting") : t("submit")}
                   {!loading && <ArrowRight className="h-3.5 w-3.5" />}
                 </button>
               </form>
@@ -193,7 +192,7 @@ export function SurpriseEventWaitlist() {
 
             {!joined && (
               <p className="mt-3 text-xs text-[#7a8693] dark:text-[#5d6d7e]">
-                No spam. We email once when the date is announced.
+                {t("disclaimer")}
               </p>
             )}
           </div>
@@ -205,10 +204,10 @@ export function SurpriseEventWaitlist() {
                   <Sparkles className="h-4 w-4" />
                 </div>
                 <p className="mt-2 text-sm font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                  Be the first to join.
+                  {t("emptyBeFirst")}
                 </p>
                 <p className="text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
-                  We&apos;ll show who&apos;s in here as people sign up.
+                  {t("emptyDescription")}
                 </p>
               </div>
             ) : (
@@ -232,12 +231,14 @@ export function SurpriseEventWaitlist() {
 
                 <p className="mt-4 text-sm font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
                   {realCount === 1
-                    ? "1 nomad on the list"
-                    : `${realCount} nomads on the list`}
+                    ? t("countOne")
+                    : t("countMany", { count: realCount })}
                 </p>
                 <p className="mt-1 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
                   {previewNames}
-                  {remainingNamed > 0 ? ` and ${remainingNamed} more` : ""}
+                  {remainingNamed > 0
+                    ? t("andMore", { count: remainingNamed })
+                    : ""}
                 </p>
               </>
             )}

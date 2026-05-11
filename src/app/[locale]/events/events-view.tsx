@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import Link from "next/link";
 import { Calendar, MapPin, Send } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { EventsList } from "./events-list";
 import { SurpriseEventWaitlist } from "./surprise-event-waitlist";
 import { Container } from "@/components/ui/container";
@@ -25,6 +26,7 @@ interface EventsViewProps {
 }
 
 export function EventsView({ upcomingEvents, pastEvents }: EventsViewProps) {
+  const t = useTranslations("eventsPage");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
 
@@ -51,11 +53,11 @@ export function EventsView({ upcomingEvents, pastEvents }: EventsViewProps) {
               <Container>
                 <div className="pointer-events-auto">
                   <h1 className="text-3xl font-bold tracking-tight text-[#1a1a2e] sm:text-4xl dark:text-[#f2f3f4]">
-                    Events
+                    {t("hero.title")}
                   </h1>
                   <p className="mt-2 max-w-lg text-[#5d6d7e] dark:text-[#99a3ad]">
-                    Coworking, meetups, and workshops in Istanbul.
-                    {!hasEvents && " New events are posted weekly."}
+                    {t("hero.description")}
+                    {!hasEvents && t("hero.weekly")}
                   </p>
                 </div>
               </Container>
@@ -71,11 +73,10 @@ export function EventsView({ upcomingEvents, pastEvents }: EventsViewProps) {
                 <Calendar className="h-6 w-6 text-primary-600 dark:text-primary-400" />
               </div>
               <h3 className="mt-4 text-lg font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                No events scheduled yet
+                {t("empty.title")}
               </h3>
               <p className="mt-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
-                New events are posted weekly in the Telegram group. Join to get
-                notified.
+                {t("empty.body")}
               </p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
                 <a
@@ -85,7 +86,7 @@ export function EventsView({ upcomingEvents, pastEvents }: EventsViewProps) {
                 >
                   <Button size="sm" className="w-full rounded-xl sm:w-auto">
                     <Send className="h-4 w-4" />
-                    Join Telegram
+                    {t("empty.joinTelegram")}
                   </Button>
                 </a>
                 <Link href="/guides">
@@ -95,7 +96,7 @@ export function EventsView({ upcomingEvents, pastEvents }: EventsViewProps) {
                     className="w-full rounded-xl sm:w-auto"
                   >
                     <MapPin className="h-4 w-4" />
-                    Explore guides
+                    {t("empty.exploreGuides")}
                   </Button>
                 </Link>
               </div>

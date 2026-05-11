@@ -2,15 +2,18 @@ import type { Metadata } from "next";
 import fs from "node:fs";
 import path from "node:path";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { blogCoverImages } from "@/lib/blog-covers";
 
-export const metadata: Metadata = {
-  title: "Photo credits",
-  description:
-    "Attribution and licensing for every photo on Istanbul Nomads - sourced from Unsplash, Wikimedia Commons, generated originals, and other free-license providers.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("creditsPage.meta");
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 interface AttributionEntry {
   slug: string;
@@ -25,17 +28,16 @@ interface AttributionEntry {
   licenseHref?: string;
 }
 
-const siteVisualCredits = [
+const siteVisualKeys = [
   {
-    label: "Istanbul Today weather widget",
-    alt: "Rainy Bosphorus ferry scene used behind the live Istanbul Today weather widget",
+    key: "istanbulToday",
     author: "Istanbul Digital Nomads",
     source: "OpenAI",
     sourceHref: "https://openai.com/",
     license: "Generated",
     licenseHref: "https://openai.com/policies/service-terms/",
   },
-];
+] as const;
 
 function loadAttributions(): AttributionEntry[] {
   const manifestPath = path.join(
@@ -54,7 +56,9 @@ function loadAttributions(): AttributionEntry[] {
   }
 }
 
-export default function CreditsPage() {
+export default async function CreditsPage() {
+  const t = await getTranslations("creditsPage");
+  const tSiteVisuals = await getTranslations("creditsPage.siteVisualsItems");
   const entries = loadAttributions();
   const grouped = entries.reduce<Record<string, AttributionEntry[]>>(
     (acc, entry) => {
@@ -73,41 +77,38 @@ export default function CreditsPage() {
             href="/"
             className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
           >
-            Home
+            {t("breadcrumb.home")}
           </Link>
           <span>/</span>
           <span className="text-[#1a1a2e] dark:text-[#f2f3f4]">
-            Photo credits
+            {t("breadcrumb.current")}
           </span>
         </nav>
 
         <h1 className="text-4xl font-bold tracking-tight text-[#1a1a2e] dark:text-[#f2f3f4]">
-          Photo credits
+          {t("heading")}
         </h1>
         <p className="mt-4 text-base leading-8 text-[#5d6d7e] dark:text-[#99a3ad]">
-          Every photo on Istanbul Nomads is credited here. Neighborhood and blog
-          photography is sourced from Unsplash, Wikimedia Commons, and generated
-          originals made for the site. Each credit links back to the source or
-          license information so you can verify usage.
+          {t("intro")}
         </p>
 
         <div className="mt-10 space-y-10">
           <div>
             <h2 className="text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-              Site visuals
+              {t("sections.siteVisuals")}
             </h2>
             <ul className="mt-4 space-y-3">
-              {siteVisualCredits.map((image) => (
+              {siteVisualKeys.map((image) => (
                 <li
-                  key={image.label}
+                  key={image.key}
                   className="flex flex-col gap-1 rounded-xl border border-black/10 bg-white/55 p-4 text-sm dark:border-white/10 dark:bg-white/5 sm:flex-row sm:items-center sm:justify-between"
                 >
                   <div>
                     <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#85929e]">
-                      {image.label}
+                      {tSiteVisuals(`${image.key}.label`)}
                     </span>
                     <p className="mt-1 text-[#1a1a2e] dark:text-[#f2f3f4]">
-                      {image.alt}
+                      {tSiteVisuals(`${image.key}.alt`)}
                     </p>
                   </div>
                   <div className="flex items-center gap-3 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
@@ -136,7 +137,7 @@ export default function CreditsPage() {
           {blogCredits.length > 0 ? (
             <div>
               <h2 className="text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                Blog covers
+                {t("sections.blogCovers")}
               </h2>
               <ul className="mt-4 space-y-3">
                 {blogCredits.map(([slug, image]) => (
@@ -179,11 +180,11 @@ export default function CreditsPage() {
           {Object.keys(grouped).length === 0 ? (
             <Container>
               <p className="rounded-xl border border-dashed border-primary-200/50 bg-primary-50/30 p-8 text-center text-[#5d6d7e] dark:border-primary-900/30 dark:bg-primary-950/10 dark:text-[#99a3ad]">
-                Photo manifest not found. Run{" "}
+                {t("manifestMissing.before")}
                 <code className="rounded bg-primary-50 px-1.5 py-0.5 text-primary-800 dark:bg-primary-950/30 dark:text-primary-200">
                   pnpm tsx scripts/fetch-neighborhood-photos.ts
-                </code>{" "}
-                to generate it.
+                </code>
+                {t("manifestMissing.after")}
               </p>
             </Container>
           ) : (
@@ -239,17 +240,16 @@ export default function CreditsPage() {
         </div>
 
         <div className="mt-12 rounded-xl border border-primary-500/20 bg-primary-50/30 p-6 text-sm leading-7 text-[#5d6d7e] dark:border-primary-500/30 dark:bg-primary-950/20 dark:text-[#99a3ad]">
-          Got a photo to contribute? We&apos;re building out community photos
-          from people who actually live here. Reach out in the{" "}
+          {t("contribute.before")}
           <a
             href="https://t.me/istanbul_digital_nomads"
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary-600 underline dark:text-primary-400"
           >
-            Telegram group
+            {t("contribute.linkText")}
           </a>
-          .
+          {t("contribute.after")}
         </div>
       </div>
     </Section>

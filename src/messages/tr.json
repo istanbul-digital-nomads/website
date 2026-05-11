@@ -192,6 +192,11 @@
       "title": "Mahalleler, haritada.",
       "intro": "En güçlü göçebe üsleri vapurların, metro hatlarının, ortak çalışma koridorlarının ve yürünebilir kafe sokaklarının çevresinde toplanıyor. Yolculuk kararın bir parçası."
     },
+    "istanbulMap": {
+      "eyebrow": "İlk ay haritası - İstanbul",
+      "body": "Solda Avrupa yakası, sağda Anadolu yakası, vapurlar haftayı bağlıyor. Keşfetmek için mahallelerin üzerine gel.",
+      "ferryRoutes": "Vapur hatları"
+    },
     "neighborhoodCards": {
       "eyebrow": "Nereye yerleşiyorlar",
       "title": "On mahalle, tek şehir.",

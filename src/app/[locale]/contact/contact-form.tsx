@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 import { Input, Textarea } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { showToast } from "@/lib/toast";
 
 export function ContactForm() {
+  const t = useTranslations("contactPage.form");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -30,14 +32,14 @@ export function ContactForm() {
       const data = await res.json();
 
       if (!res.ok) {
-        showToast.error("Could not send message", data.error);
+        showToast.error(t("errorTitle"), data.error);
         return;
       }
 
       setSubmitted(true);
       showToast.contact();
     } catch {
-      showToast.error("Something went wrong", "Please try again later.");
+      showToast.error(t("errorFallbackTitle"), t("errorFallbackBody"));
     } finally {
       setLoading(false);
     }
@@ -47,10 +49,10 @@ export function ContactForm() {
     return (
       <div className="rounded-xl border border-primary-200 bg-primary-50/80 p-8 text-center dark:border-primary-900/40 dark:bg-primary-900/20">
         <p className="text-lg font-semibold text-primary-800 dark:text-primary-300">
-          Thanks for reaching out!
+          {t("successTitle")}
         </p>
         <p className="mt-2 text-sm text-primary-700 dark:text-primary-400">
-          We&apos;ll get back to you as soon as we can.
+          {t("successBody")}
         </p>
       </div>
     );
@@ -58,22 +60,27 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <Input label="Name" name="name" placeholder="Your name" required />
       <Input
-        label="Email"
+        label={t("nameLabel")}
+        name="name"
+        placeholder={t("namePlaceholder")}
+        required
+      />
+      <Input
+        label={t("emailLabel")}
         name="email"
         type="email"
-        placeholder="you@example.com"
+        placeholder={t("emailPlaceholder")}
         required
       />
       <Textarea
-        label="Message"
+        label={t("messageLabel")}
         name="message"
-        placeholder="How can we help?"
+        placeholder={t("messagePlaceholder")}
         required
       />
       <Button type="submit" loading={loading} className="w-full sm:w-auto">
-        Send Message
+        {t("submit")}
       </Button>
     </form>
   );

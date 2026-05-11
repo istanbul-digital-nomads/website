@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Send, Github, Mail, MessageCircle } from "lucide-react";
+import { Send, Github, Mail } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Section,
@@ -10,75 +11,44 @@ import {
 import { socialLinks } from "@/lib/constants";
 import { ContactForm } from "./contact-form";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Get in touch with Istanbul Digital Nomads. Reach us via Telegram, email, or the contact form.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("contactPage.meta");
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
-const quickLinks = [
-  {
-    title: "Telegram",
-    description: "The fastest way to reach us and the community.",
-    href: socialLinks.telegram,
-    icon: Send,
-  },
-  {
-    title: "GitHub",
-    description: "Report issues, contribute, or explore our repos.",
-    href: socialLinks.github,
-    icon: Github,
-  },
-  {
-    title: "Email",
-    description: "For partnerships, press, or private inquiries.",
-    href: `mailto:${socialLinks.email}`,
-    icon: Mail,
-  },
-];
+const quickLinkKeys = [
+  { key: "telegram", href: socialLinks.telegram, icon: Send },
+  { key: "github", href: socialLinks.github, icon: Github },
+  { key: "email", href: `mailto:${socialLinks.email}`, icon: Mail },
+] as const;
 
-const faqs = [
-  {
-    q: "Is the community free to join?",
-    a: "Yes, completely free. Just join our Telegram group and introduce yourself.",
-  },
-  {
-    q: "I'm visiting Istanbul for a week - can I still join events?",
-    a: "Absolutely. Short-term visitors are welcome at all our events.",
-  },
-  {
-    q: "Do I need to be a developer or work in tech?",
-    a: "Not at all. We've got designers, writers, marketers, founders, and more. Anyone who works remotely is welcome.",
-  },
-  {
-    q: "How do I find out about upcoming events?",
-    a: "Events are posted in the Telegram group and on our Events page. We also send a weekly digest.",
-  },
-  {
-    q: "Can I organize an event?",
-    a: "Yes! Reach out in the Telegram group or via this form. We love community-led events.",
-  },
-];
+const faqKeys = ["free", "shortTerm", "tech", "events", "organize"] as const;
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const tHero = await getTranslations("contactPage.hero");
+  const tQuick = await getTranslations("contactPage.quickLinks");
+  const tFaq = await getTranslations("contactPage.faq");
+  const tFaqItems = await getTranslations("contactPage.faq.items");
+
   return (
     <>
       <Section>
         <SectionHeader>
-          <SectionTitle>Contact Us</SectionTitle>
-          <SectionDescription>
-            Questions, ideas, or feedback - we&apos;d like to hear it.
-          </SectionDescription>
+          <SectionTitle>{tHero("title")}</SectionTitle>
+          <SectionDescription>{tHero("description")}</SectionDescription>
         </SectionHeader>
 
         <div className="grid gap-8 lg:grid-cols-2">
           <ContactForm />
 
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold">Quick Links</h3>
-            {quickLinks.map((link) => (
+            <h3 className="text-lg font-semibold">{tQuick("heading")}</h3>
+            {quickLinkKeys.map((link) => (
               <a
-                key={link.title}
+                key={link.key}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -89,9 +59,11 @@ export default function ContactPage() {
                       <link.icon className="h-5 w-5 text-primary-600 dark:text-primary-400" />
                     </div>
                     <div>
-                      <h4 className="font-medium">{link.title}</h4>
+                      <h4 className="font-medium">
+                        {tQuick(`${link.key}.title`)}
+                      </h4>
                       <p className="text-sm text-neutral-600 dark:text-[#85929e]">
-                        {link.description}
+                        {tQuick(`${link.key}.description`)}
                       </p>
                     </div>
                   </CardContent>
@@ -105,14 +77,14 @@ export default function ContactPage() {
       {/* FAQ */}
       <Section className="bg-neutral-50 dark:bg-[#1a1d27]/50">
         <SectionHeader>
-          <SectionTitle>Frequently Asked Questions</SectionTitle>
+          <SectionTitle>{tFaq("title")}</SectionTitle>
         </SectionHeader>
         <div className="mx-auto max-w-2xl space-y-6">
-          {faqs.map((faq) => (
-            <div key={faq.q}>
-              <h3 className="font-semibold">{faq.q}</h3>
+          {faqKeys.map((key) => (
+            <div key={key}>
+              <h3 className="font-semibold">{tFaqItems(`${key}.q`)}</h3>
               <p className="mt-1 text-neutral-600 dark:text-[#85929e]">
-                {faq.a}
+                {tFaqItems(`${key}.a`)}
               </p>
             </div>
           ))}

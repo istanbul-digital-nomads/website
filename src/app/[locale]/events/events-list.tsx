@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { Calendar, MapPin, Users } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { formatDate } from "@/lib/utils";
 import { eventTypes } from "@/lib/constants";
@@ -27,6 +27,7 @@ export function EventsList({
   selectedId,
   onSelect,
 }: EventsListProps) {
+  const t = useTranslations("eventsPage.list");
   const [tab, setTab] = useState<Tab>("upcoming");
   const [filterType, setFilterType] = useState<EventType | "all">("all");
 
@@ -38,17 +39,17 @@ export function EventsList({
     <Section>
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex gap-1 rounded-full border border-primary-100/80 bg-white/70 p-1 dark:border-white/10 dark:bg-white/5">
-          {tabs.map((t) => (
+          {tabs.map((tabKey) => (
             <button
-              key={t}
-              onClick={() => setTab(t)}
-              className={`rounded-full px-4 py-2 text-sm font-medium capitalize transition-colors ${
-                tab === t
+              key={tabKey}
+              onClick={() => setTab(tabKey)}
+              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                tab === tabKey
                   ? "bg-primary-600 text-white shadow-[0_10px_24px_rgba(192,57,43,0.18)] dark:bg-primary-500"
                   : "text-[#5d6d7e] hover:text-[#1a1a2e] dark:text-[#99a3ad]"
               }`}
             >
-              {t}
+              {t(`tabs.${tabKey}`)}
             </button>
           ))}
         </div>
@@ -62,19 +63,19 @@ export function EventsList({
                 : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 dark:bg-white/5 dark:text-[#99a3ad] dark:ring-white/10"
             }`}
           >
-            All
+            {t("filters.all")}
           </button>
           {(Object.keys(eventTypes) as EventType[]).map((type) => (
             <button
               key={type}
               onClick={() => setFilterType(type)}
-              className={`rounded-full px-3 py-1.5 text-xs font-medium capitalize transition-colors ${
+              className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
                 filterType === type
                   ? "bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300"
                   : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 dark:bg-white/5 dark:text-[#99a3ad] dark:ring-white/10"
               }`}
             >
-              {eventTypes[type].label}
+              {t(`types.${type}`)}
             </button>
           ))}
         </div>
@@ -83,9 +84,7 @@ export function EventsList({
       {filtered.length === 0 ? (
         <div className="rounded-xl border border-dashed border-primary-200/50 bg-primary-50/30 p-12 text-center dark:border-primary-900/30 dark:bg-primary-950/10">
           <p className="text-[#5d6d7e] dark:text-[#99a3ad]">
-            {tab === "upcoming"
-              ? "No events scheduled yet. New events are posted weekly in the Telegram group."
-              : "No past events matching your filter."}
+            {tab === "upcoming" ? t("emptyUpcoming") : t("emptyPast")}
           </p>
         </div>
       ) : (
@@ -105,11 +104,11 @@ export function EventsList({
             >
               <CardContent>
                 <div className="flex items-center justify-between">
-                  <Badge variant={event.type}>
-                    {eventTypes[event.type].label}
-                  </Badge>
+                  <Badge variant={event.type}>{t(`types.${event.type}`)}</Badge>
                   {tab === "past" && (
-                    <span className="text-xs text-[#99a3ad]">Past</span>
+                    <span className="text-xs text-[#99a3ad]">
+                      {t("pastBadge")}
+                    </span>
                   )}
                 </div>
                 <h3 className="mt-3 text-lg font-semibold">{event.title}</h3>
@@ -128,7 +127,7 @@ export function EventsList({
                   {event.capacity && (
                     <div className="flex items-center gap-2">
                       <Users className="h-4 w-4" />
-                      {event.capacity} spots
+                      {t("spots", { count: event.capacity })}
                     </div>
                   )}
                 </div>

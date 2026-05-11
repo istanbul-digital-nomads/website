@@ -542,6 +542,171 @@
       }
     }
   },
+  "contactPage": {
+    "meta": {
+      "title": "Contact",
+      "description": "Get in touch with Istanbul Digital Nomads. Reach us via Telegram, email, or the contact form."
+    },
+    "hero": {
+      "title": "Contact Us",
+      "description": "Questions, ideas, or feedback - we'd like to hear it."
+    },
+    "quickLinks": {
+      "heading": "Quick Links",
+      "telegram": {
+        "title": "Telegram",
+        "description": "The fastest way to reach us and the community."
+      },
+      "github": {
+        "title": "GitHub",
+        "description": "Report issues, contribute, or explore our repos."
+      },
+      "email": {
+        "title": "Email",
+        "description": "For partnerships, press, or private inquiries."
+      }
+    },
+    "form": {
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "messageLabel": "Message",
+      "messagePlaceholder": "How can we help?",
+      "submit": "Send Message",
+      "successTitle": "Thanks for reaching out!",
+      "successBody": "We'll get back to you as soon as we can.",
+      "errorTitle": "Could not send message",
+      "errorFallbackTitle": "Something went wrong",
+      "errorFallbackBody": "Please try again later."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "items": {
+        "free": {
+          "q": "Is the community free to join?",
+          "a": "Yes, completely free. Just join our Telegram group and introduce yourself."
+        },
+        "shortTerm": {
+          "q": "I'm visiting Istanbul for a week - can I still join events?",
+          "a": "Absolutely. Short-term visitors are welcome at all our events."
+        },
+        "tech": {
+          "q": "Do I need to be a developer or work in tech?",
+          "a": "Not at all. We've got designers, writers, marketers, founders, and more. Anyone who works remotely is welcome."
+        },
+        "events": {
+          "q": "How do I find out about upcoming events?",
+          "a": "Events are posted in the Telegram group and on our Events page. We also send a weekly digest."
+        },
+        "organize": {
+          "q": "Can I organize an event?",
+          "a": "Yes! Reach out in the Telegram group or via this form. We love community-led events."
+        }
+      }
+    }
+  },
+  "creditsPage": {
+    "meta": {
+      "title": "Photo credits",
+      "description": "Attribution and licensing for every photo on Istanbul Nomads - sourced from Unsplash, Wikimedia Commons, generated originals, and other free-license providers."
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "current": "Photo credits"
+    },
+    "heading": "Photo credits",
+    "intro": "Every photo on Istanbul Nomads is credited here. Neighborhood and blog photography is sourced from Unsplash, Wikimedia Commons, and generated originals made for the site. Each credit links back to the source or license information so you can verify usage.",
+    "sections": {
+      "siteVisuals": "Site visuals",
+      "blogCovers": "Blog covers"
+    },
+    "siteVisualsItems": {
+      "istanbulToday": {
+        "label": "Istanbul Today weather widget",
+        "alt": "Rainy Bosphorus ferry scene used behind the live Istanbul Today weather widget"
+      }
+    },
+    "manifestMissing": {
+      "before": "Photo manifest not found. Run ",
+      "after": " to generate it."
+    },
+    "contribute": {
+      "before": "Got a photo to contribute? We're building out community photos from people who actually live here. Reach out in the ",
+      "linkText": "Telegram group",
+      "after": "."
+    }
+  },
+  "loginPage": {
+    "meta": {
+      "title": "Sign In",
+      "description": "Sign in to Istanbul Digital Nomads with your Google account."
+    },
+    "heading": "Sign in",
+    "subheading": "Sign in to RSVP to events and manage your profile.",
+    "google": "Continue with Google",
+    "errorTitle": "Sign in failed",
+    "disclaimer": "By signing in, you agree to be a respectful member of the Istanbul Digital Nomads community."
+  },
+  "eventsPage": {
+    "meta": {
+      "title": "Events",
+      "description": "Upcoming meetups, coworking sessions, workshops, and social events for digital nomads in Istanbul."
+    },
+    "hero": {
+      "title": "Events",
+      "description": "Coworking, meetups, and workshops in Istanbul.",
+      "weekly": " New events are posted weekly."
+    },
+    "empty": {
+      "title": "No events scheduled yet",
+      "body": "New events are posted weekly in the Telegram group. Join to get notified.",
+      "joinTelegram": "Join Telegram",
+      "exploreGuides": "Explore guides"
+    },
+    "list": {
+      "tabs": {
+        "upcoming": "Upcoming",
+        "past": "Past"
+      },
+      "pastBadge": "Past",
+      "filters": {
+        "all": "All"
+      },
+      "types": {
+        "meetup": "Meetup",
+        "coworking": "Coworking",
+        "workshop": "Workshop",
+        "social": "Social"
+      },
+      "spots": "{count} spots",
+      "emptyUpcoming": "No events scheduled yet. New events are posted weekly in the Telegram group.",
+      "emptyPast": "No past events matching your filter."
+    },
+    "waitlist": {
+      "badge": "Surprise event",
+      "title": "Something's coming. Date drops on the day.",
+      "body": "We're cooking up a community-only event in Istanbul. The when and where stay under wraps until that morning. Join the waitlist and you'll be the first to know.",
+      "firstNamePlaceholder": "First name",
+      "emailPlaceholder": "you@example.com",
+      "submit": "Join the waitlist",
+      "submitting": "Joining...",
+      "disclaimer": "No spam. We email once when the date is announced.",
+      "joinedConfirm": "You're on the list. Watch your inbox.",
+      "joinedProfileTitle": "One more step: complete your profile.",
+      "joinedProfileBody": "Members with full profiles get priority when spots are limited and a faster intro into the community.",
+      "completeProfile": "Complete profile",
+      "emptyBeFirst": "Be the first to join.",
+      "emptyDescription": "We'll show who's in here as people sign up.",
+      "countOne": "1 nomad on the list",
+      "countMany": "{count} nomads on the list",
+      "andMore": " and {count} more",
+      "errorTitle": "Could not join the waitlist",
+      "successTitle": "You're on the list!",
+      "errorFallbackTitle": "Something went wrong",
+      "errorFallbackBody": "Please try again later."
+    }
+  },
   "ctaBanner": {
     "title": "Ready to join?",
     "body": "Connect with remote workers in Istanbul. Free, open, and welcoming.",

@@ -541,6 +541,171 @@
       }
     }
   },
+  "contactPage": {
+    "meta": {
+      "title": "İletişim",
+      "description": "Istanbul Digital Nomads ile iletişime geç. Telegram, e-posta veya iletişim formu üzerinden bize ulaş."
+    },
+    "hero": {
+      "title": "Bize Ulaş",
+      "description": "Soru, fikir ya da geri bildirim - hepsini duymak isteriz."
+    },
+    "quickLinks": {
+      "heading": "Hızlı Bağlantılar",
+      "telegram": {
+        "title": "Telegram",
+        "description": "Bize ve topluluğa ulaşmanın en hızlı yolu."
+      },
+      "github": {
+        "title": "GitHub",
+        "description": "Sorun bildir, katkı sun ya da depolarımıza göz at."
+      },
+      "email": {
+        "title": "E-posta",
+        "description": "İş birlikleri, basın veya özel sorular için."
+      }
+    },
+    "form": {
+      "nameLabel": "Ad",
+      "namePlaceholder": "Adın",
+      "emailLabel": "E-posta",
+      "emailPlaceholder": "sen@ornek.com",
+      "messageLabel": "Mesaj",
+      "messagePlaceholder": "Nasıl yardımcı olabiliriz?",
+      "submit": "Mesaj Gönder",
+      "successTitle": "Yazdığın için teşekkürler!",
+      "successBody": "En kısa sürede sana döneceğiz.",
+      "errorTitle": "Mesaj gönderilemedi",
+      "errorFallbackTitle": "Bir şeyler ters gitti",
+      "errorFallbackBody": "Lütfen daha sonra tekrar dene."
+    },
+    "faq": {
+      "title": "Sıkça Sorulan Sorular",
+      "items": {
+        "free": {
+          "q": "Topluluğa katılmak ücretsiz mi?",
+          "a": "Evet, tamamen ücretsiz. Telegram grubumuza katılıp kendini tanıtman yeterli."
+        },
+        "shortTerm": {
+          "q": "İstanbul'a bir haftalığına geliyorum - etkinliklere katılabilir miyim?",
+          "a": "Kesinlikle. Kısa süreli ziyaretçiler tüm etkinliklerimizde hoş geldin."
+        },
+        "tech": {
+          "q": "Yazılımcı ya da teknoloji sektöründen mi olmam gerek?",
+          "a": "Hiç değil. Tasarımcılar, yazarlar, pazarlamacılar, kurucular ve dahası var. Uzaktan çalışan herkes hoş geldin."
+        },
+        "events": {
+          "q": "Yaklaşan etkinlikleri nasıl öğrenirim?",
+          "a": "Etkinlikler Telegram grubunda ve Etkinlikler sayfamızda yayınlanır. Haftalık bir bülten de göndeririz."
+        },
+        "organize": {
+          "q": "Etkinlik düzenleyebilir miyim?",
+          "a": "Tabii! Telegram grubundan ya da bu formdan bize ulaş. Topluluk yönetimli etkinlikleri çok seviyoruz."
+        }
+      }
+    }
+  },
+  "creditsPage": {
+    "meta": {
+      "title": "Fotoğraf kredileri",
+      "description": "Istanbul Nomads'taki her fotoğrafın kaynağı ve lisansı - Unsplash, Wikimedia Commons, sitemiz için üretilmiş orijinaller ve diğer serbest lisanslı sağlayıcılardan."
+    },
+    "breadcrumb": {
+      "home": "Ana Sayfa",
+      "current": "Fotoğraf kredileri"
+    },
+    "heading": "Fotoğraf kredileri",
+    "intro": "Istanbul Nomads'taki her fotoğraf burada kredilendirilir. Mahalle ve blog fotoğrafları Unsplash, Wikimedia Commons ve site için üretilmiş orijinallerden gelir. Her kredi, kullanımı doğrulayabilmen için kaynağa veya lisans bilgisine bağlanır.",
+    "sections": {
+      "siteVisuals": "Site görselleri",
+      "blogCovers": "Blog kapakları"
+    },
+    "siteVisualsItems": {
+      "istanbulToday": {
+        "label": "Istanbul Today hava widget'ı",
+        "alt": "Canlı Istanbul Today hava widget'ının arkasında kullanılan yağmurlu Boğaz vapur sahnesi"
+      }
+    },
+    "manifestMissing": {
+      "before": "Fotoğraf manifestosu bulunamadı. Oluşturmak için ",
+      "after": " komutunu çalıştır."
+    },
+    "contribute": {
+      "before": "Katkı sağlayacak fotoğrafın mı var? Burada gerçekten yaşayan insanlardan topluluk fotoğrafları oluşturuyoruz. ",
+      "linkText": "Telegram grubundan",
+      "after": " bize ulaş."
+    }
+  },
+  "loginPage": {
+    "meta": {
+      "title": "Giriş Yap",
+      "description": "Google hesabınla Istanbul Digital Nomads'a giriş yap."
+    },
+    "heading": "Giriş yap",
+    "subheading": "Etkinliklere RSVP yapmak ve profilini yönetmek için giriş yap.",
+    "google": "Google ile devam et",
+    "errorTitle": "Giriş başarısız",
+    "disclaimer": "Giriş yaparak Istanbul Digital Nomads topluluğunun saygılı bir üyesi olmayı kabul edersin."
+  },
+  "eventsPage": {
+    "meta": {
+      "title": "Etkinlikler",
+      "description": "İstanbul'daki dijital göçebeler için yaklaşan buluşmalar, ortak çalışma seansları, atölyeler ve sosyal etkinlikler."
+    },
+    "hero": {
+      "title": "Etkinlikler",
+      "description": "İstanbul'da ortak çalışma, buluşma ve atölye etkinlikleri.",
+      "weekly": " Yeni etkinlikler haftalık olarak duyurulur."
+    },
+    "empty": {
+      "title": "Henüz planlanmış etkinlik yok",
+      "body": "Yeni etkinlikler Telegram grubunda haftalık olarak paylaşılır. Haberdar olmak için katıl.",
+      "joinTelegram": "Telegram'a Katıl",
+      "exploreGuides": "Rehberlere göz at"
+    },
+    "list": {
+      "tabs": {
+        "upcoming": "Yaklaşan",
+        "past": "Geçmiş"
+      },
+      "pastBadge": "Geçmiş",
+      "filters": {
+        "all": "Tümü"
+      },
+      "types": {
+        "meetup": "Buluşma",
+        "coworking": "Ortak çalışma",
+        "workshop": "Atölye",
+        "social": "Sosyal"
+      },
+      "spots": "{count} kişilik",
+      "emptyUpcoming": "Henüz planlanmış etkinlik yok. Yeni etkinlikler Telegram grubunda haftalık olarak paylaşılır.",
+      "emptyPast": "Filtrenle eşleşen geçmiş etkinlik yok."
+    },
+    "waitlist": {
+      "badge": "Sürpriz etkinlik",
+      "title": "Bir şeyler hazırlanıyor. Tarih, etkinlik gününde duyurulur.",
+      "body": "İstanbul'da yalnızca topluluğa özel bir etkinlik hazırlıyoruz. Ne zaman ve nerede sorularının yanıtı, o sabaha kadar sürpriz. Bekleme listesine katıl, ilk öğrenenlerden ol.",
+      "firstNamePlaceholder": "Ad",
+      "emailPlaceholder": "sen@ornek.com",
+      "submit": "Bekleme listesine katıl",
+      "submitting": "Kaydediliyor...",
+      "disclaimer": "Spam yok. Tarih duyurulduğunda yalnızca bir e-posta atarız.",
+      "joinedConfirm": "Listedesin. Gelen kutunu takip et.",
+      "joinedProfileTitle": "Bir adım daha: profilini tamamla.",
+      "joinedProfileBody": "Profilini tamamlayan üyeler, kontenjan sınırlı olduğunda öncelik kazanır ve topluluğa daha hızlı dahil olur.",
+      "completeProfile": "Profili tamamla",
+      "emptyBeFirst": "Listeye katılan ilk kişi ol.",
+      "emptyDescription": "İnsanlar kaydoldukça burada kimlerin olduğunu göstereceğiz.",
+      "countOne": "Listede 1 göçebe var",
+      "countMany": "Listede {count} göçebe var",
+      "andMore": " ve {count} kişi daha",
+      "errorTitle": "Bekleme listesine eklenemedi",
+      "successTitle": "Listedesin!",
+      "errorFallbackTitle": "Bir şeyler ters gitti",
+      "errorFallbackBody": "Lütfen daha sonra tekrar dene."
+    }
+  },
   "ctaBanner": {
     "title": "Katılmaya hazır mısın?",
     "body": "İstanbul'daki uzaktan çalışanlarla bağlan. Ücretsiz, açık ve sıcak.",

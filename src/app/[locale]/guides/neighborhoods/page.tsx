@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Calendar, MapPin } from "lucide-react";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { guides } from "@/lib/data";
@@ -31,7 +32,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function NeighborhoodsOverviewPage() {
+export default async function NeighborhoodsOverviewPage() {
+  const tList = await getTranslations("neighborhoodList");
   const guide = guides.find((g) => g.slug === SLUG);
   if (!guide) notFound();
 
@@ -113,18 +115,18 @@ export default function NeighborhoodsOverviewPage() {
                   </div>
                   <div className="p-6">
                     <h3 className="text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                      {n.name}
+                      {tList(`${n.slug}.name`)}
                     </h3>
                     <p className="mt-3 text-sm leading-7 text-[#5d6d7e] dark:text-[#99a3ad]">
-                      {n.oneLiner}
+                      {tList(`${n.slug}.oneLiner`)}
                     </p>
                     <div className="mt-4 flex flex-wrap gap-1.5">
-                      {n.badges.slice(0, 3).map((badge) => (
+                      {n.badges.slice(0, 3).map((badgeKey) => (
                         <span
-                          key={badge}
+                          key={badgeKey}
                           className="rounded-md bg-primary-50 px-2 py-1 text-xs font-medium text-primary-800 dark:bg-primary-950/30 dark:text-primary-200"
                         >
-                          {badge}
+                          {tList(`${n.slug}.badges.${badgeKey}`)}
                         </span>
                       ))}
                     </div>

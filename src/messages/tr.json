@@ -243,6 +243,98 @@
       "description": "Temel Türkçe, kültürel normlar ve uyum sağlama ipuçları."
     }
   },
+  "neighborhoodList": {
+    "kadikoy": {
+      "name": "Kadıköy",
+      "oneLiner": "Vapur erişimli, yürünebilir Anadolu yakası merkezi ve şehrin en iyi bağımsız kafelerinden bazılarını barındırıyor.",
+      "badges": {
+        "bestFirstMonth": "İlk ay için en iyi",
+        "bestValue": "En iyi değer",
+        "bestFerryLife": "En iyi vapur hayatı"
+      }
+    },
+    "moda": {
+      "name": "Moda",
+      "oneLiner": "Yaratıcı enerjisi, uzun akşam yürüyüşleri ve birçok kedisiyle sakin bir sahil yarımadası.",
+      "badges": {
+        "quietest": "En sakin",
+        "seaside": "Sahil",
+        "creative": "Yaratıcı"
+      }
+    },
+    "cihangir": {
+      "name": "Cihangir",
+      "oneLiner": "Boğaz manzaralı, güçlü kafe kültürlü ve sıkı bir yabancı topluluğu olan bohem yamacı.",
+      "badges": {
+        "mostSocial": "En sosyal",
+        "nightlife": "Gece hayatı",
+        "bohemian": "Bohem"
+      }
+    },
+    "besiktas": {
+      "name": "Beşiktaş",
+      "oneLiner": "Büyük pazarı, öğrenci enerjisi ve iki yakaya vapur erişimi olan canlı sahil semti.",
+      "badges": {
+        "localEnergy": "Yerel enerji",
+        "streetFood": "Sokak lezzetleri",
+        "ferryLife": "Vapur hayatı"
+      }
+    },
+    "galata": {
+      "name": "Karaköy / Galata",
+      "oneLiner": "Köprü ile kule arasındaki tasarım bölgesi. Özel kahve, galeriler ve merkezi erişim.",
+      "badges": {
+        "bestShortStay": "Kısa konaklama için en iyi",
+        "central": "Merkezi",
+        "designDistrict": "Tasarım bölgesi"
+      }
+    },
+    "uskudar": {
+      "name": "Üsküdar",
+      "oneLiner": "Vapur bağlantıları, sakin sokakları ve Kız Kulesi yakınında gün batımı yürüyüşleriyle geleneksel bir Boğaz üssü.",
+      "badges": {
+        "quietFerryLife": "Sakin vapur hayatı",
+        "local": "Yerel",
+        "sunsetWalks": "Gün batımı yürüyüşleri"
+      }
+    },
+    "nisantasi": {
+      "name": "Nişantaşı",
+      "oneLiner": "Cilalı, merkezi ve kafe açısından zengin. Konfor, butikler, spor salonları ve Şişli'ye kolay erişim isteyen göçebeler için.",
+      "badges": {
+        "premium": "Premium",
+        "cafeWork": "Kafe çalışması",
+        "centralComfort": "Merkezi konfor"
+      }
+    },
+    "levent": {
+      "name": "Levent",
+      "oneLiner": "Metro erişimi, AVM'leri, ofisleri ve en pratik ortak çalışma yoğunluğu olan iş bölgesi üssü.",
+      "badges": {
+        "businessCorridor": "İş koridoru",
+        "founderFriendly": "Kurucu dostu",
+        "coworkingDensity": "Ortak çalışma yoğunluğu"
+      }
+    },
+    "balat": {
+      "name": "Balat",
+      "oneLiner": "Karakter dolu, daha ucuz kiraları, yokuşları ve yavaş kafe günleri olan renkli Haliç mahallesi.",
+      "badges": {
+        "characterHeavy": "Karakter dolu",
+        "budget": "Bütçe",
+        "historic": "Tarihi"
+      }
+    },
+    "atasehir": {
+      "name": "Ataşehir",
+      "oneLiner": "Kurumsal iş, yeni daireler, AVM'ler ve daha sessiz rutinler için modern Anadolu yakası yüksek katlı bölgesi.",
+      "badges": {
+        "newerApartments": "Yeni daireler",
+        "quietNights": "Sessiz geceler",
+        "businessAccess": "İş erişimi"
+      }
+    }
+  },
   "faqItems": {
     "neighborhoods": {
       "question": "Hangi mahallede başlamalıyım?",

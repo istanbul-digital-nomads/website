@@ -13,6 +13,7 @@ import {
 export async function NeighborhoodCardsSection() {
   const t = await getTranslations("sections.neighborhoodCards");
   const tCommon = await getTranslations("common");
+  const tList = await getTranslations("neighborhoodList");
 
   return (
     <section
@@ -67,19 +68,19 @@ export async function NeighborhoodCardsSection() {
 
                   <div className="p-6">
                     <h3 className="font-display text-2xl font-extrabold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                      {n.name}
+                      {tList(`${n.slug}.name`)}
                     </h3>
                     <p className="mt-3 text-sm leading-7 text-[#5d6d7e] dark:text-[#b7aaa0]">
-                      {n.oneLiner}
+                      {tList(`${n.slug}.oneLiner`)}
                     </p>
 
                     <div className="mt-4 flex flex-wrap gap-1.5">
-                      {n.badges.slice(0, 3).map((badge) => (
+                      {n.badges.slice(0, 3).map((badgeKey) => (
                         <span
-                          key={badge}
+                          key={badgeKey}
                           className="rounded-md bg-primary-50 px-2 py-1 text-xs font-medium text-primary-800 dark:bg-primary-950/30 dark:text-primary-200"
                         >
-                          {badge}
+                          {tList(`${n.slug}.badges.${badgeKey}`)}
                         </span>
                       ))}
                     </div>

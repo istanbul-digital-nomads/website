@@ -23,6 +23,7 @@ export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
   const [selected, setSelected] = useState<RhythmKey[]>(defaultRhythms);
   const t = useTranslations("sections.rhythmMatcher");
   const tSignals = useTranslations("sections.rhythmSignals");
+  const tList = useTranslations("neighborhoodList");
 
   const matches = useMemo(
     () => matchNeighborhoods(selected).slice(0, 3),
@@ -140,7 +141,7 @@ export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <h3 className="font-display text-2xl font-extrabold text-neutral-950 dark:text-[#f2f3f4]">
-                        {match.neighborhood.name}
+                        {tList(`${match.neighborhood.slug}.name`)}
                       </h3>
                       <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 dark:text-[#94877d]">
                         {t("fit", {
@@ -162,12 +163,14 @@ export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
                       </span>
                     ))}
                     {match.matchingRhythms.length === 0 &&
-                      match.neighborhood.badges.slice(0, 2).map((badge) => (
+                      match.neighborhood.badges.slice(0, 2).map((badgeKey) => (
                         <span
-                          key={badge}
+                          key={badgeKey}
                           className="rounded-md bg-primary-50 px-2 py-1 text-xs font-medium text-primary-800 dark:bg-primary-950/30 dark:text-primary-200"
                         >
-                          {badge}
+                          {tList(
+                            `${match.neighborhood.slug}.badges.${badgeKey}`,
+                          )}
                         </span>
                       ))}
                   </div>
@@ -190,7 +193,7 @@ export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
                 </p>
                 <p className="mt-1 text-sm leading-6 text-[#5d6d7e] dark:text-[#b7aaa0]">
                   {t("useAsBase", {
-                    neighborhood: matches[0].neighborhood.name,
+                    neighborhood: tList(`${matches[0].neighborhood.slug}.name`),
                   })}
                 </p>
               </div>

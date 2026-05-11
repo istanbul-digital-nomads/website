@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, MapPin, MoveUpRight } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { NeighborhoodStatCard } from "@/components/ui/neighborhood-stat-card";
@@ -25,19 +26,23 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const n = getNeighborhoodBySlug(params.neighborhood);
   if (!n) return {};
-  const title = `${n.name} - Istanbul neighborhood guide`;
+  const tList = await getTranslations("neighborhoodList");
+  const name = tList(`${n.slug}.name`);
+  const oneLiner = tList(`${n.slug}.oneLiner`);
+  const title = `${name} - Istanbul neighborhood guide`;
   return {
     title,
-    description: n.oneLiner,
+    description: oneLiner,
     openGraph: {
       title,
-      description: n.oneLiner,
+      description: oneLiner,
       images: [{ url: n.hero.src, alt: n.hero.alt }],
     },
   };
 }
 
-export default function NeighborhoodDetailPage({ params }: Props) {
+export default async function NeighborhoodDetailPage({ params }: Props) {
+  const tList = await getTranslations("neighborhoodList");
   const n = getNeighborhoodBySlug(params.neighborhood);
   if (!n) notFound();
 
@@ -72,7 +77,7 @@ export default function NeighborhoodDetailPage({ params }: Props) {
               Neighborhoods
             </Link>
             <span>/</span>
-            <span className="text-white">{n.name}</span>
+            <span className="text-white">{tList(`${n.slug}.name`)}</span>
           </nav>
 
           <div className="flex items-center gap-2 text-xs">
@@ -86,19 +91,19 @@ export default function NeighborhoodDetailPage({ params }: Props) {
           </div>
 
           <h1 className="mt-5 max-w-3xl text-4xl font-semibold text-white sm:text-6xl">
-            {n.name}
+            {tList(`${n.slug}.name`)}
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80">
-            {n.oneLiner}
+            {tList(`${n.slug}.oneLiner`)}
           </p>
 
           <div className="mt-6 flex max-w-2xl flex-wrap gap-2">
-            {n.badges.map((badge) => (
+            {n.badges.map((badgeKey) => (
               <span
-                key={badge}
+                key={badgeKey}
                 className="rounded-md bg-white/15 px-3 py-1.5 text-xs font-medium text-white backdrop-blur"
               >
-                {badge}
+                {tList(`${n.slug}.badges.${badgeKey}`)}
               </span>
             ))}
           </div>
@@ -136,7 +141,7 @@ export default function NeighborhoodDetailPage({ params }: Props) {
       {n.gallery.length > 0 && (
         <section className="pb-16">
           <Container>
-            <p className="eyebrow mb-6">More of {n.name}</p>
+            <p className="eyebrow mb-6">More of {tList(`${n.slug}.name`)}</p>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {n.gallery.map((g) => (
                 <NeighborhoodPhotoImage
@@ -157,7 +162,7 @@ export default function NeighborhoodDetailPage({ params }: Props) {
               <div>
                 <p className="eyebrow">Work here</p>
                 <h2 className="mt-3 text-3xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                  Coworking and cafes in {n.name}
+                  Coworking and cafes in {tList(`${n.slug}.name`)}
                 </h2>
                 <p className="mt-3 max-w-xl text-sm leading-7 text-[#5d6d7e] dark:text-[#99a3ad]">
                   {spacesHere.length} spaces we track here, scored on wifi,
@@ -230,7 +235,7 @@ export default function NeighborhoodDetailPage({ params }: Props) {
                 Next step
               </p>
               <h2 className="mt-3 max-w-md text-3xl font-semibold text-neutral-950 dark:text-[#f2f3f4] sm:text-4xl">
-                Coming to {n.name}? Say hi before you land.
+                Coming to {tList(`${n.slug}.name`)}? Say hi before you land.
               </h2>
               <p className="mt-4 max-w-md text-base leading-8 text-[#5d6d7e] dark:text-[#99a3ad]">
                 Join the Telegram group and we&apos;ll point you to this

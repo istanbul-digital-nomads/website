@@ -243,6 +243,98 @@
       "description": "Basic Turkish, cultural norms, and tips for fitting in."
     }
   },
+  "neighborhoodList": {
+    "kadikoy": {
+      "name": "Kadikoy",
+      "oneLiner": "Walkable Asian-side hub with ferry access and some of the city's best independent cafes.",
+      "badges": {
+        "bestFirstMonth": "Best first month",
+        "bestValue": "Best value",
+        "bestFerryLife": "Best ferry life"
+      }
+    },
+    "moda": {
+      "name": "Moda",
+      "oneLiner": "Calm seaside peninsula with creative energy, long evening walks, and a lot of cats.",
+      "badges": {
+        "quietest": "Quietest",
+        "seaside": "Seaside",
+        "creative": "Creative"
+      }
+    },
+    "cihangir": {
+      "name": "Cihangir",
+      "oneLiner": "Bohemian hilltop with Bosphorus views, strong cafe culture, and a tight expat community.",
+      "badges": {
+        "mostSocial": "Most social",
+        "nightlife": "Nightlife",
+        "bohemian": "Bohemian"
+      }
+    },
+    "besiktas": {
+      "name": "Besiktas",
+      "oneLiner": "Lively waterfront district with a big market, student energy, and ferry access on both sides.",
+      "badges": {
+        "localEnergy": "Local energy",
+        "streetFood": "Street food",
+        "ferryLife": "Ferry life"
+      }
+    },
+    "galata": {
+      "name": "Karakoy / Galata",
+      "oneLiner": "Design district between the bridge and the tower. Specialty coffee, galleries, and central access.",
+      "badges": {
+        "bestShortStay": "Best short stay",
+        "central": "Central",
+        "designDistrict": "Design district"
+      }
+    },
+    "uskudar": {
+      "name": "Uskudar",
+      "oneLiner": "Traditional Bosphorus base with ferry links, quiet streets, and sunset walks by Maiden's Tower.",
+      "badges": {
+        "quietFerryLife": "Quiet ferry life",
+        "local": "Local",
+        "sunsetWalks": "Sunset walks"
+      }
+    },
+    "nisantasi": {
+      "name": "Nisantasi",
+      "oneLiner": "Polished, central, and cafe-rich. Good for nomads who want comfort, boutiques, gyms, and easy access to Sisli.",
+      "badges": {
+        "premium": "Premium",
+        "cafeWork": "Cafe work",
+        "centralComfort": "Central comfort"
+      }
+    },
+    "levent": {
+      "name": "Levent",
+      "oneLiner": "Business-district base with metro access, malls, offices, and the most practical coworking density.",
+      "badges": {
+        "businessCorridor": "Business corridor",
+        "founderFriendly": "Founder-friendly",
+        "coworkingDensity": "Coworking density"
+      }
+    },
+    "balat": {
+      "name": "Balat",
+      "oneLiner": "Colorful Golden Horn neighborhood with character, cheaper rents, hills, and slower cafe days.",
+      "badges": {
+        "characterHeavy": "Character-heavy",
+        "budget": "Budget",
+        "historic": "Historic"
+      }
+    },
+    "atasehir": {
+      "name": "Atasehir",
+      "oneLiner": "Modern Asian-side high-rise district for corporate work, newer apartments, malls, and quieter routines.",
+      "badges": {
+        "newerApartments": "Newer apartments",
+        "quietNights": "Quiet nights",
+        "businessAccess": "Business access"
+      }
+    }
+  },
   "faqItems": {
     "neighborhoods": {
       "question": "Which neighborhood should I start in?",

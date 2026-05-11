@@ -12,6 +12,7 @@ export interface BlogPostMeta {
   author: string;
   date: string;
   tags: string[];
+  keywords?: string[];
   readingTime: string;
   coverImage?: BlogCoverImage;
 }
@@ -22,6 +23,7 @@ interface BlogFrontmatter {
   author?: string;
   date?: string;
   tags?: string[];
+  keywords?: string[];
 }
 
 function estimateReadingTime(content: string): string {
@@ -48,6 +50,7 @@ export function getAllBlogPosts(): BlogPostMeta[] {
       author: fm.author || "Istanbul Digital Nomads",
       date: fm.date || "2026-01-01",
       tags: fm.tags || [],
+      keywords: fm.keywords,
       readingTime: estimateReadingTime(content),
       coverImage: getBlogCoverImage(slug),
     };
@@ -75,6 +78,7 @@ export function getBlogPost(slug: string) {
       author: fm.author || "Istanbul Digital Nomads",
       date: fm.date || "2026-01-01",
       tags: fm.tags || [],
+      keywords: fm.keywords,
       readingTime: estimateReadingTime(content),
       coverImage: getBlogCoverImage(slug),
     } satisfies BlogPostMeta,

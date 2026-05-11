@@ -62,6 +62,11 @@ export const blogCoverImages: Record<string, BlogCoverImage> = {
     alt: "An organized ikamet document folder with numbered tabs, tea, photos, and a stamp",
     credit: generatedCredit,
   },
+  "istanbul-remote-work-setup": {
+    src: "/images/blog/istanbul-remote-work-setup-2026.jpg",
+    alt: "A practical Istanbul apartment desk with a laptop, phone hotspot, router, power bank, plug adapter, tea, and a ferry view outside",
+    credit: generatedCredit,
+  },
   "iran-to-istanbul-playbook-companion": {
     src: "/images/blog/iran-to-istanbul-playbook-companion-2026.jpg",
     alt: "A suitcase, laptop, notebook, and Turkish tea by an Istanbul ferry waterfront",

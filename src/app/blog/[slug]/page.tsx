@@ -11,8 +11,41 @@ import { getAllBlogPosts, getBlogPost } from "@/lib/blog";
 import { formatDate } from "@/lib/utils";
 import { mdxOptions } from "@/lib/mdx-options";
 
+const SITE_URL = "https://istanbulnomads.com";
+
 interface BlogPostPageProps {
   params: { slug: string };
+}
+
+function plainText(markdown: string): string {
+  return markdown
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[*_`>#-]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function extractFaqs(
+  content: string,
+): Array<{ question: string; answer: string }> {
+  const faqStart = content.search(/^## FAQ\s*$/m);
+  if (faqStart === -1) return [];
+
+  const faqContent = content.slice(faqStart);
+  const sectionEnd = faqContent.slice(1).search(/^## (?!#)/m);
+  const section =
+    sectionEnd === -1 ? faqContent : faqContent.slice(0, sectionEnd + 1);
+  const entries = section.split(/^### /m).slice(1);
+
+  return entries
+    .map((entry) => {
+      const [question = "", ...answerLines] = entry.split("\n");
+      return {
+        question: plainText(question),
+        answer: plainText(answerLines.join("\n")),
+      };
+    })
+    .filter((item) => item.question && item.answer);
 }
 
 export async function generateStaticParams() {
@@ -28,8 +61,19 @@ export async function generateMetadata({
   return {
     title: post.meta.title,
     description: post.meta.description,
+    keywords: post.meta.keywords ?? post.meta.tags,
+    alternates: {
+      canonical: `/blog/${post.meta.slug}`,
+    },
     openGraph: post.meta.coverImage
       ? {
+          type: "article",
+          url: `${SITE_URL}/blog/${post.meta.slug}`,
+          title: post.meta.title,
+          description: post.meta.description,
+          publishedTime: post.meta.date,
+          authors: [post.meta.author],
+          tags: post.meta.tags,
           images: [
             {
               url: post.meta.coverImage.src,
@@ -51,8 +95,84 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   const post = getBlogPost(params.slug);
   if (!post) notFound();
 
+  const canonicalUrl = `${SITE_URL}/blog/${post.meta.slug}`;
+  const faqs = extractFaqs(post.content);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": `${canonicalUrl}#article`,
+        headline: post.meta.title,
+        description: post.meta.description,
+        url: canonicalUrl,
+        datePublished: post.meta.date,
+        dateModified: post.meta.date,
+        author: {
+          "@type": "Person",
+          name: post.meta.author,
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Istanbul Digital Nomads",
+          url: SITE_URL,
+        },
+        image: post.meta.coverImage
+          ? `${SITE_URL}${post.meta.coverImage.src}`
+          : undefined,
+        keywords: post.meta.keywords ?? post.meta.tags,
+        articleSection: post.meta.tags,
+        mainEntityOfPage: canonicalUrl,
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${canonicalUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: SITE_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Blog",
+            item: `${SITE_URL}/blog`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: post.meta.title,
+            item: canonicalUrl,
+          },
+        ],
+      },
+      ...(faqs.length
+        ? [
+            {
+              "@type": "FAQPage",
+              "@id": `${canonicalUrl}#faq`,
+              mainEntity: faqs.map((faq) => ({
+                "@type": "Question",
+                name: faq.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: faq.answer,
+                },
+              })),
+            },
+          ]
+        : []),
+    ],
+  };
+
   return (
     <section className="py-16 md:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Container>
         <Reveal>
           <div className="mx-auto max-w-3xl">

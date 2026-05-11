@@ -3,122 +3,94 @@ import { guides } from "@/lib/data";
 import { getAllBlogPosts } from "@/lib/blog";
 import { getSupportedCountries } from "@/lib/path-to-istanbul";
 import { neighborhoods } from "@/lib/neighborhoods";
+import { locales, defaultLocale, bcp47, type Locale } from "@/lib/i18n/config";
 
 const BASE_URL = "https://istanbulnomads.com";
 
+function localePath(locale: Locale, path: string) {
+  const clean = path.startsWith("/") ? path : `/${path}`;
+  return locale === defaultLocale
+    ? `${BASE_URL}${clean === "/" ? "" : clean}`
+    : `${BASE_URL}/${locale}${clean === "/" ? "" : clean}`;
+}
+
+function withAlternates(
+  path: string,
+  lastModified: Date,
+  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"],
+  priority: number,
+): MetadataRoute.Sitemap {
+  const languages = Object.fromEntries(
+    locales.map((l) => [bcp47[l], localePath(l, path)]),
+  );
+  languages["x-default"] = localePath(defaultLocale, path);
+
+  return locales.map((locale) => ({
+    url: localePath(locale, path),
+    lastModified,
+    changeFrequency,
+    priority,
+    alternates: { languages },
+  }));
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const blogPosts = getAllBlogPosts();
+  const now = new Date();
 
-  const staticPages: MetadataRoute.Sitemap = [
+  const staticPaths: Array<{
+    path: string;
+    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+    priority: number;
+  }> = [
+    { path: "/", changeFrequency: "weekly", priority: 1 },
+    { path: "/about", changeFrequency: "monthly", priority: 0.8 },
+    { path: "/guides", changeFrequency: "weekly", priority: 0.9 },
+    { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
+    { path: "/events", changeFrequency: "daily", priority: 0.8 },
+    { path: "/spaces", changeFrequency: "weekly", priority: 0.8 },
     {
-      url: BASE_URL,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${BASE_URL}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/guides`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/blog`,
-      lastModified: new Date(),
+      path: "/tools/first-week-planner",
       changeFrequency: "weekly",
       priority: 0.8,
     },
-    {
-      url: `${BASE_URL}/events`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/spaces`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/tools/first-week-planner`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/local-guides`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/path-to-istanbul`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/local-guides/join`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${BASE_URL}/credits`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.3,
-    },
+    { path: "/local-guides", changeFrequency: "weekly", priority: 0.8 },
+    { path: "/path-to-istanbul", changeFrequency: "weekly", priority: 0.9 },
+    { path: "/local-guides/join", changeFrequency: "monthly", priority: 0.6 },
+    { path: "/contact", changeFrequency: "monthly", priority: 0.5 },
+    { path: "/credits", changeFrequency: "monthly", priority: 0.3 },
   ];
 
-  const neighborhoodPages: MetadataRoute.Sitemap = neighborhoods.map((n) => ({
-    url: `${BASE_URL}/guides/neighborhoods/${n.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.75,
-  }));
+  const staticEntries = staticPaths.flatMap((p) =>
+    withAlternates(p.path, now, p.changeFrequency, p.priority),
+  );
 
-  const guidePages: MetadataRoute.Sitemap = guides.map((guide) => ({
-    url: `${BASE_URL}/guides/${guide.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
+  const neighborhoodEntries = neighborhoods.flatMap((n) =>
+    withAlternates(`/guides/neighborhoods/${n.slug}`, now, "monthly", 0.75),
+  );
 
-  const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
-    url: `${BASE_URL}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: "monthly",
-    priority: 0.6,
-  }));
+  const guideEntries = guides.flatMap((guide) =>
+    withAlternates(`/guides/${guide.slug}`, now, "monthly", 0.7),
+  );
 
-  const countryPages: MetadataRoute.Sitemap = getSupportedCountries().map(
-    (country) => ({
-      url: `${BASE_URL}/path-to-istanbul/${country.slug}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.75,
-    }),
+  const blogEntries = blogPosts.flatMap((post) =>
+    withAlternates(
+      `/blog/${post.slug}`,
+      new Date(post.date),
+      "monthly",
+      0.6,
+    ),
+  );
+
+  const countryEntries = getSupportedCountries().flatMap((country) =>
+    withAlternates(`/path-to-istanbul/${country.slug}`, now, "monthly", 0.75),
   );
 
   return [
-    ...staticPages,
-    ...guidePages,
-    ...neighborhoodPages,
-    ...blogPages,
-    ...countryPages,
+    ...staticEntries,
+    ...guideEntries,
+    ...neighborhoodEntries,
+    ...blogEntries,
+    ...countryEntries,
   ];
 }

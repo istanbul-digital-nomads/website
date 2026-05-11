@@ -4,11 +4,11 @@ import { useState, useRef, useEffect } from "react";
 import {
   ChevronDown,
   ChevronUp,
-  MapPin,
   Clock,
-  Wifi,
   Globe,
+  MapPin,
   ShieldCheck,
+  Wifi,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -16,13 +16,18 @@ import { cn } from "@/lib/utils";
 import { NomadScoreBadge } from "./nomad-score-badge";
 import { ScoreBreakdown } from "./score-breakdown";
 import type { NomadSpace } from "@/lib/spaces";
+import type { SpaceSignals } from "@/lib/spaces-finder";
 
 export function SpaceCard({
   space,
+  signals,
+  matchReasons,
   isSelected,
   onSelect,
 }: {
   space: NomadSpace;
+  signals: SpaceSignals;
+  matchReasons: string[];
   isSelected: boolean;
   onSelect: (id: string) => void;
 }) {
@@ -70,6 +75,23 @@ export function SpaceCard({
               <NomadScoreBadge scores={space.nomad_score} size="md" />
             </div>
 
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {signals.labels.slice(0, 4).map((label) => (
+                <span
+                  key={label}
+                  className={cn(
+                    "rounded-md px-2 py-1 text-xs font-medium",
+                    label === "Bring headphones" ||
+                      label === "Best before lunch"
+                      ? "bg-amber-50 text-amber-800 dark:bg-amber-950/30 dark:text-amber-100"
+                      : "bg-primary-50 text-primary-800 dark:bg-primary-950/30 dark:text-primary-200",
+                  )}
+                >
+                  {label}
+                </span>
+              ))}
+            </div>
+
             {/* Quick info */}
             <div className="mt-3 flex flex-wrap gap-3 text-xs text-neutral-600 dark:text-[#99a3ad]">
               {space.wifi_speed && (
@@ -89,6 +111,10 @@ export function SpaceCard({
               )}
             </div>
 
+            <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-neutral-500 dark:text-[#85929e]">
+              {matchReasons.join(" / ")}
+            </p>
+
             {/* Description */}
             <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-[#99a3ad]">
               {expanded
@@ -100,6 +126,12 @@ export function SpaceCard({
             {expanded && (
               <div className="mt-4 space-y-4 border-t border-black/5 pt-4 dark:border-white/10">
                 <ScoreBreakdown scores={space.nomad_score} />
+
+                {signals.caution ? (
+                  <div className="rounded-md border border-amber-500/20 bg-amber-50 p-3 text-xs leading-5 text-amber-900 dark:border-amber-300/20 dark:bg-amber-950/25 dark:text-amber-100">
+                    {signals.caution}
+                  </div>
+                ) : null}
 
                 {space.amenities && space.amenities.length > 0 && (
                   <div className="flex flex-wrap gap-1.5">

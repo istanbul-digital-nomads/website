@@ -1,0 +1,285 @@
+{
+  "site": {
+    "name": "Istanbul Digital Nomads",
+    "shortName": "Istanbul Digital Nomads",
+    "tagline": "Uzaktan yaşam, yerel ritim",
+    "description": "İstanbul'daki dijital göçebe topluluğu - haftalık ortak çalışma, yerel rehberler ve uzun süre kalanlar için yumuşak bir başlangıç."
+  },
+  "nav": {
+    "about": "Hakkımızda",
+    "explore": "Keşfet",
+    "community": "Topluluk",
+    "contact": "İletişim",
+    "joinTelegram": "Telegram'a katıl",
+    "theme": {
+      "ariaLabel": "Temayı değiştir (mevcut: {theme})"
+    },
+    "items": {
+      "cityGuides": {
+        "label": "Şehir Rehberleri",
+        "description": "Mahalleler, konut, vize ve daha fazlası"
+      },
+      "pathToIstanbul": {
+        "label": "İstanbul'a Yol",
+        "description": "Ülke ülke taşınma rehberleri"
+      },
+      "nomadSpaces": {
+        "label": "Göçebe Mekanları",
+        "description": "Wifi'si test edilmiş kafeler ve ortak çalışma alanları"
+      },
+      "firstWeekPlanner": {
+        "label": "İlk Hafta Planlayıcı",
+        "description": "Yeni gelenler için yedi günlük iniş planı"
+      },
+      "localGuides": {
+        "label": "Yerel Rehberler",
+        "description": "Yerleşmene yardım edecek insanlar"
+      },
+      "events": {
+        "label": "Etkinlikler",
+        "description": "Ortak çalışma seansları, buluşmalar ve atölyeler"
+      },
+      "blog": {
+        "label": "Blog",
+        "description": "Topluluktan hikayeler ve ipuçları"
+      }
+    }
+  },
+  "bottomNav": {
+    "home": "Ana sayfa",
+    "guides": "Rehberler",
+    "events": "Etkinlikler",
+    "community": "Topluluk",
+    "menu": "Menü",
+    "openMenu": "Menüyü aç",
+    "closeMenu": "Menüyü kapat"
+  },
+  "mobileMenu": {
+    "menu": "Menü",
+    "signIn": "Giriş yap",
+    "appearance": "Görünüm",
+    "connect": "Bağlan",
+    "themes": {
+      "light": "Açık",
+      "dark": "Koyu",
+      "system": "Otomatik"
+    },
+    "social": {
+      "telegram": "Telegram",
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "email": "E-posta"
+    }
+  },
+  "footer": {
+    "newsletterEyebrow": "Pazar mektubu",
+    "newsletterTitle": "Pazar mektubunu al",
+    "newsletterBody": "İstanbul'dan pratik şehir notları, yeni rehberler ve sessiz topluluk güncellemeleri.",
+    "tagline": "Yerel ritim, pratik rehberler ve uzun süre kalan dijital göçebeler için yumuşak bir başlangıç.",
+    "madeIn": "Kadıköy'de yapıldı",
+    "copyright": "© {year} {name}",
+    "columns": {
+      "community": "Topluluk",
+      "resources": "Kaynaklar",
+      "connect": "Bağlan",
+      "legal": "Yasal"
+    },
+    "links": {
+      "aboutUs": "Hakkımızda",
+      "localGuides": "Yerel Rehberler",
+      "events": "Etkinlikler",
+      "blog": "Blog",
+      "contact": "İletişim",
+      "nomadSpaces": "Göçebe Mekanları",
+      "cityGuides": "Şehir Rehberleri",
+      "pathToIstanbul": "İstanbul'a Yol",
+      "firstWeekPlanner": "İlk Hafta Planlayıcı",
+      "neighborhoods": "Mahalleler",
+      "costOfLiving": "Yaşam Maliyeti",
+      "photoCredits": "Fotoğraf kredileri",
+      "telegram": "Telegram",
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "email": "E-posta",
+      "openapi": "OpenAPI",
+      "llmsTxt": "LLMs.txt"
+    }
+  },
+  "languageSwitcher": {
+    "label": "Dil",
+    "current": "Mevcut dil: {language}",
+    "translationInProgress": "Orijinali İngilizce. Çeviri devam ediyor."
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "readMore": "Daha fazla oku",
+    "backToTop": "Yukarı dön",
+    "skipToContent": "İçeriğe atla"
+  },
+  "home": {
+    "meta": {
+      "tickerSchedule": "Kadıköy 09:10 / Karaköy 10:25 / Galata 18:30",
+      "tickerTimezone": "GMT+3 / önce vapur / laptop hazır",
+      "asiaBase": "Asya üssü",
+      "ferryReset": "Vapur molası",
+      "eveningTable": "Akşam masası"
+    },
+    "hero": {
+      "title": "İstanbul çalışma ritmini 7 günde kur.",
+      "subtitle": "Bir üs seç, vapur döngüsünü öğren ve yerlilerin gün batımından sonra güvendiği laptop dostu masaları kaydet.",
+      "joinWorkweek": "Çalışma haftasına katıl",
+      "chooseBase": "Üssünü seç",
+      "imageAlt": "Çay, defter ve uzaktaki İstanbul siluetiyle sakin bir Moda sahil masası",
+      "ferryWorkdayBadge": "Vapurlu iş günü",
+      "kadikoy": "Kadıköy",
+      "karakoy": "Karaköy",
+      "galata": "Galata",
+      "trustSignals": {
+        "nextCoworking": "Sıradaki ortak çalışma {date}",
+        "freeToJoin": "Katılım ücretsiz",
+        "allRemoteWorkers": "Tüm uzaktan çalışanlar hoş geldi",
+        "weeklyCoworking": "Haftalık ortak çalışma seansları"
+      },
+      "deskNotes": {
+        "baseLabel": "Üs",
+        "baseValue": "Kadıköy veya Moda",
+        "crossingLabel": "Geçiş",
+        "crossingValue": "20 dakikalık vapur molası",
+        "fallbackLabel": "Yedek",
+        "fallbackValue": "Kafeler dolarsa ortak çalışma"
+      },
+      "fieldCard": {
+        "eyebrow": "Göçebe saha kartı",
+        "title": "Vapurlu iş günü",
+        "boardEyebrow": "Vapur panosu / ilk hafta",
+        "tzLabel": "GMT+3",
+        "tzValue": "2 kıta",
+        "openGuide": "İlk ay rehberini aç"
+      },
+      "routeSteps": {
+        "kadikoyPier": {
+          "title": "Kadıköy iskelesi",
+          "detail": "Kahvaltısı, metrosu ve vapuru yakın olan yürünebilir bir üs seç."
+        },
+        "karakoyTable": {
+          "title": "Karaköy masası",
+          "detail": "Tek bir işle karşıya geç ve laptop dostu yerlerin kaydedilmiş listesini al."
+        },
+        "galataEvening": {
+          "title": "Galata akşamı",
+          "detail": "Şehrin akşam karanlığından sonra nerede işlediğini bilen insanlarla tanış."
+        }
+      }
+    },
+    "firstWeekTool": {
+      "eyebrow": "Yeni gelene araç",
+      "title": "İlk haftanı gerçek bir İstanbul rutinine çevir.",
+      "body": "Üssünü, çalışma düzenini, sosyal temponu ve bütçe rahatlığını seç. Vapur güveni, çalışma blokları, idari tampon ve ikinci hafta için doğru bağlantılarla yedi günlük bir plan al.",
+      "cta": "Haftamı planla"
+    },
+    "stats": {
+      "intro": "Hızla çalışılabilir hale gelen, sadece geçilen bir yer olmayan bir şehir isteyenler için.",
+      "growing": "Büyüyen",
+      "growingLabel": "topluluk",
+      "weekly": "Haftalık",
+      "weeklyLabel": "ortak çalışma ritmi",
+      "guides": "11",
+      "guidesLabel": "yerel yaşam rehberi",
+      "neighborhoods": "25+",
+      "neighborhoodsLabel": "kapsanan mahalle"
+    },
+    "events": {
+      "eyebrow": "Neler oluyor",
+      "title": "Bu haftanın etkinlikleri",
+      "intro": "Bu hafta İstanbul'da ortak çalışma seansları, buluşmalar ve atölyeler.",
+      "datesScheduledEyebrow": "Tarihler planlanıyor",
+      "datesScheduledTitle": "Sıradaki ortak çalışma tarihleri şekilleniyor.",
+      "datesScheduledBody": "Halka açık takvim güncellenirken mevcut gayri resmi ortak çalışma için Telegram grubuna katıl.",
+      "openSpots": "Açık",
+      "spots": "{capacity} kişilik",
+      "seeAll": "Tüm etkinlikleri gör",
+      "moments": {
+        "1": "Güvenilir wifi'si olan ve yeni gelenleri ağırlayan müdavimlerle sessiz bir çalışma seansı.",
+        "2": "İnsanlarla hızlıca tanışmak için en kolay etkinlik, özellikle yeni geldiysen ve sosyal ivme istiyorsan.",
+        "3": "Freelance, ikamet ve burada yaşarken uyumlu kalmaya dair gerçek sorularını getir."
+      }
+    },
+    "cityGuides": {
+      "eyebrow": "Şehir rehberleri",
+      "title": "İlk ayın için her şey.",
+      "intro": "Mahalleler, ortak çalışma, konut, internet, ulaşım, yaşam maliyeti ve daha fazlası - burada yaşayan insanlar tarafından yazıldı.",
+      "subIntro": "Onları statik bir kaynak arşivi olarak değil, ilk ayın için güven artırıcılar olarak düşün.",
+      "fastAnswersEyebrow": "Hızlı yanıtlar",
+      "fastAnswersBody": "Konut, internet, ulaşım, vize temelleri ve mahalle uyumu.",
+      "browseAll": "Tüm rehberlere göz at",
+      "orientation": {
+        "whereStay": "Nerede kalmalıyım?",
+        "bestCoworking": "Ortak çalışma için en iyi bölgeler",
+        "monthlyCost": "Bir ay ne kadar tutar?",
+        "fastInternet": "Hızlıca nasıl internete bağlanırım?"
+      }
+    },
+    "firstMonth": {
+      "eyebrow": "İlk ay temelleri",
+      "title": "Uzaktan yaşamı kolayca işletecek parçalarla başla.",
+      "body": "Yeni indiysen mahalleler, internet, ulaşım ve bu haftanın buluşmasıyla başla. Geliş modundan uygulanabilir yerel rutine en hızlı yol bu."
+    },
+    "phases": {
+      "weekOne": {
+        "phase": "İlk hafta",
+        "title": "Hızlıca uygulanabilir bir rutin",
+        "description": "Wifi'si test edilmiş kafeler, katılabileceğin bir ortak çalışma seansı ve temponuza uygun bir mahalle.",
+        "tag": "Geliş"
+      },
+      "monthOne": {
+        "phase": "İlk ay",
+        "title": "Tanıdık yerlerde tanıdık yüzler",
+        "description": "Haftalık ritim aynı insanlarla karşılaşmaya devam etmen anlamına geliyor - gerçek arkadaşlıklar böyle başlıyor.",
+        "tag": "Yön bulma"
+      },
+      "monthThree": {
+        "phase": "Üçüncü ay ve sonrası",
+        "title": "Sana ait gibi gelen bir şehir",
+        "description": "Bir vapur rotan, favori bir baklavacın ve güzel bir şey olunca sana yazan insanların var.",
+        "tag": "Bağlanma"
+      }
+    },
+    "whyStay": {
+      "eyebrow": "İnsanlar neden kalıyor",
+      "title": "Göçebeler neden kalışlarını uzatıyor.",
+      "body": "Katıldıktan sonra değişen şey basit: çalışma haftaların daha düzenli oluyor, şehir okunması kolaylaşıyor ve zaten sevdiğin yerlerde tanıdık yüzler belirmeye başlıyor.",
+      "items": {
+        "reliableWorkdays": {
+          "title": "Güvenilir iş günleri",
+          "description": "Ortak çalışma seansları, kafe seçimleri ve pratik kurulum tavsiyeleri."
+        },
+        "lowFriction": {
+          "title": "Düşük sürtünmeli başlangıç",
+          "description": "Beş ayrı grupta aramak zorunda kalmadan hızlı yararlı yanıtlar."
+        },
+        "localTexture": {
+          "title": "Daha iyi yerel doku",
+          "description": "Şehri tanıyan ve gelmenin nasıl bir his olduğunu hala hatırlayan insanlarla tanış."
+        }
+      },
+      "card": {
+        "eyebrow": "Hızla paylaşılan yerel bilgi",
+        "title": "Bir soru sor ve saatlerce tahmin etmekten kurtul.",
+        "body": "İlk ayında nereye yerleşmelisin? Hangi ortak çalışma alanlarının wifi'si stabil? Vapurlar yolculuğunu nasıl değiştirir? Topluluk bu yanıtları sosyal, güncel ve yerel yapıyor.",
+        "bullets": {
+          "tradeoffs": "Burada yaşayan insanlar tarafından açıklanan mahalle tercihleri",
+          "rituals": "İnsanlarla tanışmayı kolaylaştıran haftalık ritüeller",
+          "setup": "İş günleri, ulaşım ve konut için pratik kurulum yardımı",
+          "landing": "Birkaç haftadan fazla kalıyorsan daha yumuşak bir başlangıç"
+        }
+      }
+    },
+    "joinCta": {
+      "eyebrow": "Başla",
+      "title": "Telegram'da bize katıl.",
+      "body": "Kendini tanıt, biz de seni bu haftanın buluşmasına, iyi bir çalışma alanına veya başlaman için doğru mahalleye yönlendirelim.",
+      "joinTelegram": "Telegram'a katıl",
+      "aboutCommunity": "Topluluk hakkında"
+    }
+  }
+}

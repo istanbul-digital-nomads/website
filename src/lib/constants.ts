@@ -16,90 +16,92 @@ export const socialLinks = {
   email: "hello@istanbulnomads.com",
 } as const;
 
+export type NavItemKey = "about" | "explore" | "community" | "contact";
+export type NavChildKey =
+  | "cityGuides"
+  | "pathToIstanbul"
+  | "nomadSpaces"
+  | "firstWeekPlanner"
+  | "localGuides"
+  | "events"
+  | "blog";
+
 export type NavItem =
-  | { label: string; href: string }
-  | {
-      label: string;
-      children: { label: string; href: string; description: string }[];
-    };
+  | { key: NavItemKey; href: string }
+  | { key: NavItemKey; children: { key: NavChildKey; href: string }[] };
 
 export const navItems: NavItem[] = [
-  { label: "About", href: "/about" },
+  { key: "about", href: "/about" },
   {
-    label: "Explore",
+    key: "explore",
     children: [
-      {
-        label: "City Guides",
-        href: "/guides",
-        description: "Neighborhoods, housing, visa, and more",
-      },
-      {
-        label: "Path to Istanbul",
-        href: "/path-to-istanbul",
-        description: "Country-by-country relocation playbooks",
-      },
-      {
-        label: "Nomad Spaces",
-        href: "/spaces",
-        description: "Wifi-tested cafes and coworking spots",
-      },
-      {
-        label: "First Week Planner",
-        href: "/tools/first-week-planner",
-        description: "A seven-day landing plan for new arrivals",
-      },
-      {
-        label: "Local Guides",
-        href: "/local-guides",
-        description: "People who help you settle in",
-      },
+      { key: "cityGuides", href: "/guides" },
+      { key: "pathToIstanbul", href: "/path-to-istanbul" },
+      { key: "nomadSpaces", href: "/spaces" },
+      { key: "firstWeekPlanner", href: "/tools/first-week-planner" },
+      { key: "localGuides", href: "/local-guides" },
     ],
   },
   {
-    label: "Community",
+    key: "community",
     children: [
-      {
-        label: "Events",
-        href: "/events",
-        description: "Coworking sessions, meetups, and workshops",
-      },
-      {
-        label: "Blog",
-        href: "/blog",
-        description: "Stories and tips from the community",
-      },
+      { key: "events", href: "/events" },
+      { key: "blog", href: "/blog" },
     ],
   },
-  { label: "Contact", href: "/contact" },
+  { key: "contact", href: "/contact" },
 ];
 
-export const footerNav = {
+export type FooterLinkKey =
+  | "aboutUs"
+  | "localGuides"
+  | "events"
+  | "blog"
+  | "contact"
+  | "nomadSpaces"
+  | "cityGuides"
+  | "pathToIstanbul"
+  | "firstWeekPlanner"
+  | "neighborhoods"
+  | "costOfLiving"
+  | "photoCredits"
+  | "telegram"
+  | "github"
+  | "twitter"
+  | "email"
+  | "openapi"
+  | "llmsTxt";
+
+export const footerNav: Record<
+  "community" | "resources" | "connect" | "legal",
+  ReadonlyArray<{ key: FooterLinkKey; href: string; external?: boolean }>
+> = {
   community: [
-    { label: "About Us", href: "/about" },
-    { label: "Local Guides", href: "/local-guides" },
-    { label: "Events", href: "/events" },
-    { label: "Blog", href: "/blog" },
-    { label: "Contact", href: "/contact" },
+    { key: "aboutUs", href: "/about" },
+    { key: "localGuides", href: "/local-guides" },
+    { key: "events", href: "/events" },
+    { key: "blog", href: "/blog" },
+    { key: "contact", href: "/contact" },
   ],
   resources: [
-    { label: "Nomad Spaces", href: "/spaces" },
-    { label: "City Guides", href: "/guides" },
-    { label: "Path to Istanbul", href: "/path-to-istanbul" },
-    { label: "First Week Planner", href: "/tools/first-week-planner" },
-    { label: "Neighborhoods", href: "/guides/neighborhoods" },
-    { label: "Cost of Living", href: "/guides/cost-of-living" },
-    { label: "Photo credits", href: "/credits" },
+    { key: "nomadSpaces", href: "/spaces" },
+    { key: "cityGuides", href: "/guides" },
+    { key: "pathToIstanbul", href: "/path-to-istanbul" },
+    { key: "firstWeekPlanner", href: "/tools/first-week-planner" },
+    { key: "neighborhoods", href: "/guides/neighborhoods" },
+    { key: "costOfLiving", href: "/guides/cost-of-living" },
+    { key: "photoCredits", href: "/credits" },
   ],
   connect: [
-    { label: "Telegram", href: socialLinks.telegram, external: true },
-    { label: "GitHub", href: socialLinks.github, external: true },
-    { label: "Twitter", href: socialLinks.twitter, external: true },
-    { label: "Email", href: `mailto:${socialLinks.email}`, external: true },
+    { key: "telegram", href: socialLinks.telegram, external: true },
+    { key: "github", href: socialLinks.github, external: true },
+    { key: "twitter", href: socialLinks.twitter, external: true },
+    { key: "email", href: `mailto:${socialLinks.email}`, external: true },
   ],
   legal: [
-    { label: "Photo credits", href: "/credits" },
-    { label: "OpenAPI", href: "/openapi.json" },
-    { label: "LLMs.txt", href: "/llms.txt" },
+    { key: "photoCredits", href: "/credits" },
+    { key: "openapi", href: "/openapi.json" },
+    { key: "llmsTxt", href: "/llms.txt" },
   ],
 } as const;
 

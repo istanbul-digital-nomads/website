@@ -1,0 +1,285 @@
+{
+  "site": {
+    "name": "Istanbul Digital Nomads",
+    "shortName": "Istanbul Digital Nomads",
+    "tagline": "Удалённая жизнь, местный ритм",
+    "description": "Сообщество цифровых кочевников в Стамбуле - еженедельный коворкинг, локальные гайды и мягкое приземление для тех, кто остаётся надолго."
+  },
+  "nav": {
+    "about": "О нас",
+    "explore": "Исследовать",
+    "community": "Сообщество",
+    "contact": "Контакты",
+    "joinTelegram": "Вступить в Telegram",
+    "theme": {
+      "ariaLabel": "Сменить тему (текущая: {theme})"
+    },
+    "items": {
+      "cityGuides": {
+        "label": "Гайды по городу",
+        "description": "Районы, жильё, виза и многое другое"
+      },
+      "pathToIstanbul": {
+        "label": "Путь в Стамбул",
+        "description": "Гайды по переезду из разных стран"
+      },
+      "nomadSpaces": {
+        "label": "Места для кочевников",
+        "description": "Кафе и коворкинги с проверенным вай‑фаем"
+      },
+      "firstWeekPlanner": {
+        "label": "Планировщик первой недели",
+        "description": "Семидневный план приземления для новоприбывших"
+      },
+      "localGuides": {
+        "label": "Локальные проводники",
+        "description": "Люди, которые помогут устроиться"
+      },
+      "events": {
+        "label": "События",
+        "description": "Коворкинг‑сессии, встречи и воркшопы"
+      },
+      "blog": {
+        "label": "Блог",
+        "description": "Истории и советы от сообщества"
+      }
+    }
+  },
+  "bottomNav": {
+    "home": "Главная",
+    "guides": "Гайды",
+    "events": "События",
+    "community": "Сообщество",
+    "menu": "Меню",
+    "openMenu": "Открыть меню",
+    "closeMenu": "Закрыть меню"
+  },
+  "mobileMenu": {
+    "menu": "Меню",
+    "signIn": "Войти",
+    "appearance": "Оформление",
+    "connect": "Связь",
+    "themes": {
+      "light": "Светлая",
+      "dark": "Тёмная",
+      "system": "Авто"
+    },
+    "social": {
+      "telegram": "Telegram",
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "email": "Email"
+    }
+  },
+  "footer": {
+    "newsletterEyebrow": "Воскресная рассылка",
+    "newsletterTitle": "Получай воскресную рассылку",
+    "newsletterBody": "Практические заметки о городе, свежие гайды и тихие апдейты сообщества из Стамбула.",
+    "tagline": "Местный ритм, практические гайды и мягкое приземление для цифровых кочевников, остающихся в Стамбуле надолго.",
+    "madeIn": "Сделано в Кадыкёе",
+    "copyright": "© {year} {name}",
+    "columns": {
+      "community": "Сообщество",
+      "resources": "Ресурсы",
+      "connect": "Связь",
+      "legal": "Юридическое"
+    },
+    "links": {
+      "aboutUs": "О нас",
+      "localGuides": "Локальные проводники",
+      "events": "События",
+      "blog": "Блог",
+      "contact": "Контакты",
+      "nomadSpaces": "Места для кочевников",
+      "cityGuides": "Гайды по городу",
+      "pathToIstanbul": "Путь в Стамбул",
+      "firstWeekPlanner": "Планировщик первой недели",
+      "neighborhoods": "Районы",
+      "costOfLiving": "Стоимость жизни",
+      "photoCredits": "Авторы фото",
+      "telegram": "Telegram",
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "email": "Email",
+      "openapi": "OpenAPI",
+      "llmsTxt": "LLMs.txt"
+    }
+  },
+  "languageSwitcher": {
+    "label": "Язык",
+    "current": "Текущий язык: {language}",
+    "translationInProgress": "Оригинал на английском. Перевод в работе."
+  },
+  "common": {
+    "loading": "Загрузка...",
+    "readMore": "Читать далее",
+    "backToTop": "Наверх",
+    "skipToContent": "К содержимому"
+  },
+  "home": {
+    "meta": {
+      "tickerSchedule": "Kadikoy 09:10 / Karakoy 10:25 / Galata 18:30",
+      "tickerTimezone": "GMT+3 / ferry-first / laptop-ready",
+      "asiaBase": "Asia base",
+      "ferryReset": "Ferry reset",
+      "eveningTable": "Evening table"
+    },
+    "hero": {
+      "title": "Build your Istanbul work rhythm in 7 days.",
+      "subtitle": "Choose a base, learn the ferry loop, and save the laptop-safe tables locals trust after sunset.",
+      "joinWorkweek": "Join the workweek",
+      "chooseBase": "Choose a base",
+      "imageAlt": "A calm Moda waterfront table with tea, notebook, and the Istanbul skyline beyond",
+      "ferryWorkdayBadge": "Ferry workday",
+      "kadikoy": "Kadikoy",
+      "karakoy": "Karakoy",
+      "galata": "Galata",
+      "trustSignals": {
+        "nextCoworking": "Next coworking {date}",
+        "freeToJoin": "Free to join",
+        "allRemoteWorkers": "All remote workers welcome",
+        "weeklyCoworking": "Weekly coworking sessions"
+      },
+      "deskNotes": {
+        "baseLabel": "Base",
+        "baseValue": "Kadikoy or Moda",
+        "crossingLabel": "Crossing",
+        "crossingValue": "20 min ferry reset",
+        "fallbackLabel": "Fallback",
+        "fallbackValue": "Coworking if cafes fill"
+      },
+      "fieldCard": {
+        "eyebrow": "Nomad field card",
+        "title": "The ferry workday",
+        "boardEyebrow": "Ferry board / first week",
+        "tzLabel": "GMT+3",
+        "tzValue": "2 continents",
+        "openGuide": "Open the first-month guide"
+      },
+      "routeSteps": {
+        "kadikoyPier": {
+          "title": "Kadikoy pier",
+          "detail": "Pick a walkable base with breakfast, metro, and ferries nearby."
+        },
+        "karakoyTable": {
+          "title": "Karakoy table",
+          "detail": "Cross with one job to do and a saved list of laptop-safe seats."
+        },
+        "galataEvening": {
+          "title": "Galata evening",
+          "detail": "Meet the people who know where the city works after dark."
+        }
+      }
+    },
+    "firstWeekTool": {
+      "eyebrow": "New arrival tool",
+      "title": "Turn your first week into a real Istanbul routine.",
+      "body": "Pick your base, work setup, social pace, and budget comfort. Get a seven-day plan with ferry confidence, work blocks, admin buffer, and the right links for week two.",
+      "cta": "Plan my week"
+    },
+    "stats": {
+      "intro": "Built for people who want a city that becomes workable quickly, not just another place to pass through.",
+      "growing": "Growing",
+      "growingLabel": "community",
+      "weekly": "Weekly",
+      "weeklyLabel": "coworking rhythm",
+      "guides": "11",
+      "guidesLabel": "local living guides",
+      "neighborhoods": "25+",
+      "neighborhoodsLabel": "neighborhoods covered"
+    },
+    "events": {
+      "eyebrow": "What's happening",
+      "title": "This week's events",
+      "intro": "Coworking sessions, meetups, and workshops happening in Istanbul this week.",
+      "datesScheduledEyebrow": "Dates being scheduled",
+      "datesScheduledTitle": "The next coworking dates are coming together.",
+      "datesScheduledBody": "Join the Telegram group for the current informal coworking thread while the public calendar catches up.",
+      "openSpots": "Open",
+      "spots": "{capacity} spots",
+      "seeAll": "See all events",
+      "moments": {
+        "1": "Quiet work session with reliable wifi and plenty of regulars who welcome first-timers.",
+        "2": "The easiest event to meet people fast, especially if you just arrived and want social momentum.",
+        "3": "Bring real questions about freelancing, residency, and how to stay compliant while living here."
+      }
+    },
+    "cityGuides": {
+      "eyebrow": "City guides",
+      "title": "Everything you need for your first month.",
+      "intro": "Neighborhoods, coworking, housing, internet, transport, cost of living, and more - written by people living here.",
+      "subIntro": "Think of them as confidence builders for your first month, not a static resource archive.",
+      "fastAnswersEyebrow": "Fast answers",
+      "fastAnswersBody": "Housing, internet, transport, visa basics, and neighborhood fit.",
+      "browseAll": "Browse all guides",
+      "orientation": {
+        "whereStay": "Where should I stay?",
+        "bestCoworking": "Best areas for coworking",
+        "monthlyCost": "What does a month cost?",
+        "fastInternet": "How do I get online fast?"
+      }
+    },
+    "firstMonth": {
+      "eyebrow": "First month essentials",
+      "title": "Start with the pieces that make remote life easier to operate.",
+      "body": "If you just landed, begin with neighborhoods, internet, transit, and this week's meetup. It's the fastest path from arrival mode to a workable local routine."
+    },
+    "phases": {
+      "weekOne": {
+        "phase": "Week one",
+        "title": "A workable routine, fast",
+        "description": "Wifi-tested cafes, a coworking session to drop into, and a neighborhood that fits your pace.",
+        "tag": "Arrival"
+      },
+      "monthOne": {
+        "phase": "Month one",
+        "title": "Familiar faces in familiar places",
+        "description": "The weekly rhythm means you keep running into the same people - and that's how real friendships start.",
+        "tag": "Orientation"
+      },
+      "monthThree": {
+        "phase": "Month three+",
+        "title": "A city that feels like yours",
+        "description": "You've got a ferry route, a favorite baklava spot, and people who text you when something good is happening.",
+        "tag": "Attachment"
+      }
+    },
+    "whyStay": {
+      "eyebrow": "Why people stay",
+      "title": "Why nomads keep extending their stay.",
+      "body": "What changes after you join is simple: your workweeks get steadier, the city gets easier to read, and familiar faces start showing up in the places you already like to be.",
+      "items": {
+        "reliableWorkdays": {
+          "title": "Reliable workdays",
+          "description": "Coworking sessions, cafe picks, and practical setup advice."
+        },
+        "lowFriction": {
+          "title": "Low-friction onboarding",
+          "description": "Helpful answers fast, without having to search five groups."
+        },
+        "localTexture": {
+          "title": "Better local texture",
+          "description": "Meet people who know the city and still remember what it feels like to arrive."
+        }
+      },
+      "card": {
+        "eyebrow": "Local knowledge, shared quickly",
+        "title": "Ask one question and skip hours of guesswork.",
+        "body": "Where should you base yourself for your first month? Which coworking spots have stable wifi? How do ferries change your commute? The community makes those answers social, current, and local.",
+        "bullets": {
+          "tradeoffs": "Neighborhood tradeoffs explained by people living here",
+          "rituals": "Weekly rituals that make meeting people feel easier",
+          "setup": "Practical setup help for workdays, transit, and housing",
+          "landing": "A softer landing if you're staying more than a few weeks"
+        }
+      }
+    },
+    "joinCta": {
+      "eyebrow": "Get started",
+      "title": "Join us on Telegram.",
+      "body": "Introduce yourself and we'll point you to this week's meetup, a good workspace, or the right neighborhood to start from.",
+      "joinTelegram": "Join on Telegram",
+      "aboutCommunity": "About the community"
+    }
+  }
+}

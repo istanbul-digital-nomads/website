@@ -2,11 +2,17 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { IBM_Plex_Mono, Inter, Manrope } from "next/font/google";
 import Script from "next/script";
+import { notFound } from "next/navigation";
+import { NextIntlClientProvider } from "next-intl";
+import { setRequestLocale, getMessages } from "next-intl/server";
+import { isValidLocale } from "@/lib/i18n/config";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { routing } from "@/lib/i18n/routing";
+import { bcp47, isRtl, type Locale } from "@/lib/i18n/config";
 import "@/styles/globals.css";
 
 const BottomTabBar = dynamic(
@@ -61,6 +67,10 @@ const ibmPlexMono = IBM_Plex_Mono({
   preload: true,
 });
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export const metadata: Metadata = {
   title: {
     default: "Istanbul Digital Nomads",
@@ -99,13 +109,27 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function LocaleLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
+  if (!isValidLocale(locale)) {
+    notFound();
+  }
+  setRequestLocale(locale);
+  const messages = await getMessages();
+  const typedLocale = locale as Locale;
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang={bcp47[typedLocale]}
+      dir={isRtl(typedLocale) ? "rtl" : "ltr"}
+      suppressHydrationWarning
+    >
       <head>
         <link rel="preconnect" href="https://basemaps.cartocdn.com" />
         <link rel="dns-prefetch" href="https://basemaps.cartocdn.com" />
@@ -123,7 +147,6 @@ export default function RootLayout({
           content="#14110f"
           media="(prefers-color-scheme: dark)"
         />
-        {/* Inline critical theme script to prevent FOUC */}
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem("theme");var d=document.documentElement;if(t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme:dark)").matches))d.classList.add("dark")}catch(e){}})()`,
@@ -133,27 +156,29 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${manrope.variable} ${ibmPlexMono.variable}`}
       >
-        <ThemeProvider>
-          <NavigationProgress />
-          <Header />
-          <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">
-            {children}
-          </main>
-          <Footer />
-          <BottomTabBar />
-        </ThemeProvider>
-        <Toaster
-          position="top-center"
-          toastOptions={{
-            className: "toast-brand",
-            duration: 4000,
-          }}
-          gap={8}
-          visibleToasts={3}
-        />
-        <WebMcpRegister />
-        <Analytics />
-        <SpeedInsights />
+        <NextIntlClientProvider locale={typedLocale} messages={messages}>
+          <ThemeProvider>
+            <NavigationProgress />
+            <Header />
+            <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">
+              {children}
+            </main>
+            <Footer />
+            <BottomTabBar />
+          </ThemeProvider>
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              className: "toast-brand",
+              duration: 4000,
+            }}
+            gap={8}
+            visibleToasts={3}
+          />
+          <WebMcpRegister />
+          <Analytics />
+          <SpeedInsights />
+        </NextIntlClientProvider>
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
             <Script

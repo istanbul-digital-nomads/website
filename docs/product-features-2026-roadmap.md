@@ -2,7 +2,7 @@
 
 > Status: **Active roadmap**
 > Owner: aliwesome
-> Current release baseline: `v1.18.0`
+> Current release baseline: `v1.19.0`
 > Related docs: [`docs/redesign-2026-q2.md`](redesign-2026-q2.md), [`docs/visual-identity.md`](visual-identity.md)
 
 ## Why this exists
@@ -34,11 +34,17 @@ The goal is not to add gimmicks. The goal is to make the site feel alive, useful
 - **First Week Planner** - shareable seven-day arrival plans based on base neighborhood, work style, social appetite, budget comfort, and arrival profile.
 - **Planner entry points** - homepage, Neighborhood Rhythm Matcher, neighborhood detail pages, navigation, footer, and sitemap now point into the tool.
 
-These three roadmap items are now considered complete for phase one:
+### Shipped in `v1.19.0`
+
+- **Cafe and Coworking Finder Upgrade** - `/spaces` now works as a same-day work decision tool with modes, combined filters, ranked matches, labels, and caution notes.
+- **Optional map comparison** - the map remains available without dominating mobile scanning.
+
+These four roadmap items are now considered complete for phase one:
 
 1. Istanbul Today
 2. Neighborhood Rhythm Matcher
 3. First Week Planner
+4. Cafe and Coworking Finder Upgrade
 
 ---
 
@@ -61,8 +67,8 @@ These three roadmap items are now considered complete for phase one:
 | 1        | Istanbul Today                    | Shipped | `/`, `/guides/neighborhoods`  | `v1.17.0`      | Makes the site feel current and city-aware            |
 | 2        | Neighborhood Rhythm Matcher       | Shipped | `/`, `/guides/neighborhoods`  | `v1.17.0`      | Converts neighborhood content into a decision tool    |
 | 3        | First Week Planner                | Shipped | `/tools/first-week-planner`   | `v1.18.0`      | Helps new arrivals get unstuck fast                   |
-| 4        | Cost of Living Calculator         | Planned | `/tools/cost-calculator`      | `v1.19.0`      | High SEO value and high practical value               |
-| 5        | Cafe and Coworking Finder Upgrade | Planned | `/spaces`                     | `v1.20.0`      | Turns spaces into a daily-use tool                    |
+| 4        | Cost of Living Calculator         | Planned | `/tools/cost-calculator`      | `v1.20.0`      | High SEO value and high practical value               |
+| 5        | Cafe and Coworking Finder Upgrade | Shipped | `/spaces`                     | `v1.19.0`      | Turns spaces into a daily-use tool                    |
 | 6        | Event Discovery Upgrade           | Planned | `/events`                     | `v1.21.0`      | Converts visitors into community members              |
 | 7        | Local Guide Matching              | Planned | `/local-guides`               | `v1.22.0`      | Creates a real service layer                          |
 | 8        | Path to Istanbul Enhancements     | Planned | `/path-to-istanbul/[country]` | `v1.23.0`      | Makes relocation paths more actionable                |
@@ -80,12 +86,11 @@ The next release should deepen the practical newcomer journey before adding heav
 ### Suggested sequence
 
 1. **Cost of Living Calculator** - strong search demand, shareable, and useful for planning before arrival.
-2. **Cafe and Coworking Finder Upgrade** - makes the site useful multiple times per week.
-3. **Event Discovery Upgrade** - turns planning into community participation.
-4. **Local Guide Matching** - adds a service layer once the arrival path is clearer.
-5. **Path to Istanbul Enhancements** - deepen country-specific relocation confidence.
-6. **Nomad Buddy Finder** - useful once more member/profile infrastructure exists.
-7. **Personal Dashboard** - should come after saved tools and auth patterns are stable.
+2. **Event Discovery Upgrade** - turns planning into community participation.
+3. **Local Guide Matching** - adds a service layer once the arrival path is clearer.
+4. **Path to Istanbul Enhancements** - deepen country-specific relocation confidence.
+5. **Nomad Buddy Finder** - useful once more member/profile infrastructure exists.
+6. **Personal Dashboard** - should come after saved tools and auth patterns are stable.
 
 ---
 
@@ -320,6 +325,8 @@ Help users estimate a realistic monthly Istanbul budget based on lifestyle, neig
 ### Goal
 
 Make `/spaces` useful as a same-day work decision tool.
+
+Shipped in `v1.19.0`.
 
 ### New filters
 
@@ -780,7 +787,7 @@ Each feature release should include:
 
 ---
 
-## Suggested next release: `v1.19.0`
+## Suggested next release: `v1.20.0`
 
 ### Title
 
@@ -811,8 +818,7 @@ Budget confidence is one of the strongest pre-arrival questions. This also gives
 
 ## Open questions
 
-1. Should the First Week Planner live under `/tools/first-week-planner` or be a prominent `/first-week` route?
-2. Should planner outputs be generic enough for all arrivals or have country-specific variants for Iran, India, Russia, Pakistan, and Nigeria?
-3. Should the Cost of Living Calculator ship before or after the spaces upgrade?
-4. Should Local Guide Matching be public-only at first, or should it require lightweight lead capture?
-5. Which features should require login, and which should remain public?
+1. Should planner outputs add country-specific variants for Iran, India, Russia, Pakistan, and Nigeria?
+2. Should the Cost of Living Calculator use USD-first, TRY-first, or both currencies equally?
+3. Should Local Guide Matching be public-only at first, or should it require lightweight lead capture?
+4. Which features should require login, and which should remain public?

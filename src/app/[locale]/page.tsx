@@ -12,6 +12,7 @@ import {
   Users,
   Wifi,
 } from "lucide-react";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
@@ -37,64 +38,31 @@ const FAQSection = dynamic(
 );
 
 const featuredGuides = guides.slice(0, 4);
-const orientationLinks = [
-  { label: "Where should I stay?", href: "/guides/neighborhoods" },
-  { label: "Best areas for coworking", href: "/guides/coworking" },
-  { label: "What does a month cost?", href: "/guides/cost-of-living" },
-  { label: "How do I get online fast?", href: "/guides/internet" },
-];
-const eventMoments: Record<string, string> = {
-  "1": "Quiet work session with reliable wifi and plenty of regulars who welcome first-timers.",
-  "2": "The easiest event to meet people fast, especially if you just arrived and want social momentum.",
-  "3": "Bring real questions about freelancing, residency, and how to stay compliant while living here.",
-};
-const whatPeopleFind = [
-  {
-    phase: "Week one",
-    title: "A workable routine, fast",
-    description:
-      "Wifi-tested cafes, a coworking session to drop into, and a neighborhood that fits your pace.",
-  },
-  {
-    phase: "Month one",
-    title: "Familiar faces in familiar places",
-    description:
-      "The weekly rhythm means you keep running into the same people - and that's how real friendships start.",
-  },
-  {
-    phase: "Month three+",
-    title: "A city that feels like yours",
-    description:
-      "You've got a ferry route, a favorite baklava spot, and people who text you when something good is happening.",
-  },
-];
-const heroRouteSteps = [
-  {
-    time: "09:10",
-    title: "Kadikoy pier",
-    detail: "Pick a walkable base with breakfast, metro, and ferries nearby.",
-    icon: MapPin,
-  },
-  {
-    time: "10:25",
-    title: "Karakoy table",
-    detail: "Cross with one job to do and a saved list of laptop-safe seats.",
-    icon: Wifi,
-  },
-  {
-    time: "18:30",
-    title: "Galata evening",
-    detail: "Meet the people who know where the city works after dark.",
-    icon: Users,
-  },
-] as const;
-const heroDeskNotes = [
-  ["Base", "Kadikoy or Moda"],
-  ["Crossing", "20 min ferry reset"],
-  ["Fallback", "Coworking if cafes fill"],
+
+const orientationLinkKeys = [
+  { key: "whereStay", href: "/guides/neighborhoods" },
+  { key: "bestCoworking", href: "/guides/coworking" },
+  { key: "monthlyCost", href: "/guides/cost-of-living" },
+  { key: "fastInternet", href: "/guides/internet" },
 ] as const;
 
-export default async function HomePage() {
+const heroRouteSteps = [
+  { key: "kadikoyPier", time: "09:10", icon: MapPin },
+  { key: "karakoyTable", time: "10:25", icon: Wifi },
+  { key: "galataEvening", time: "18:30", icon: Users },
+] as const;
+
+const phaseKeys = ["weekOne", "monthOne", "monthThree"] as const;
+
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("home");
+
   const { data: upcomingEvents } = await getEventsPublic({
     past: false,
     limit: 3,
@@ -103,15 +71,45 @@ export default async function HomePage() {
   const nextEvent = liveEvents[0];
   const heroTrustSignals = nextEvent
     ? [
-        `Next coworking ${formatEventDate(nextEvent.date)}`,
-        "Free to join",
-        "All remote workers welcome",
+        t("hero.trustSignals.nextCoworking", {
+          date: formatEventDate(nextEvent.date),
+        }),
+        t("hero.trustSignals.freeToJoin"),
+        t("hero.trustSignals.allRemoteWorkers"),
       ]
     : [
-        "Free to join",
-        "All remote workers welcome",
-        "Weekly coworking sessions",
+        t("hero.trustSignals.freeToJoin"),
+        t("hero.trustSignals.allRemoteWorkers"),
+        t("hero.trustSignals.weeklyCoworking"),
       ];
+
+  const heroDeskNotes = [
+    [t("hero.deskNotes.baseLabel"), t("hero.deskNotes.baseValue")],
+    [t("hero.deskNotes.crossingLabel"), t("hero.deskNotes.crossingValue")],
+    [t("hero.deskNotes.fallbackLabel"), t("hero.deskNotes.fallbackValue")],
+  ];
+
+  const whyStayItems = [
+    {
+      icon: Wifi,
+      titleKey: "reliableWorkdays" as const,
+    },
+    {
+      icon: Clock3,
+      titleKey: "lowFriction" as const,
+    },
+    {
+      icon: Sparkles,
+      titleKey: "localTexture" as const,
+    },
+  ];
+
+  const whyStayBulletKeys = [
+    "tradeoffs",
+    "rituals",
+    "setup",
+    "landing",
+  ] as const;
 
   return (
     <div className="overflow-hidden">
@@ -122,31 +120,29 @@ export default async function HomePage() {
         <Container className="relative py-8 sm:py-12 lg:py-16">
           <div className="mb-8 grid gap-3 border-y border-black/10 py-3 font-mono text-[10px] uppercase tracking-[0.22em] text-neutral-500 sm:grid-cols-[1fr_auto] sm:items-center dark:border-white/10 dark:text-[#94877d]">
             <p className="text-primary-700 dark:text-primary-300">
-              Kadikoy 09:10 / Karakoy 10:25 / Galata 18:30
+              {t("meta.tickerSchedule")}
             </p>
-            <p>GMT+3 / ferry-first / laptop-ready</p>
+            <p>{t("meta.tickerTimezone")}</p>
           </div>
 
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(440px,0.82fr)] lg:items-stretch lg:gap-14">
-            {/* Hero text - NO Reveal wrapper to ensure LCP element is immediately visible */}
             <div className="flex flex-col justify-between gap-10 lg:min-h-[590px]">
               <div>
                 <div className="mb-6 max-w-xl">
                   <div className="grid grid-cols-[auto_1fr_auto_1fr_auto] items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[#6b6257] dark:text-[#94877d]">
-                    <span>Asia base</span>
+                    <span>{t("meta.asiaBase")}</span>
                     <span className="h-px bg-black/10 dark:bg-white/10" />
-                    <span>Ferry reset</span>
+                    <span>{t("meta.ferryReset")}</span>
                     <span className="h-px bg-black/10 dark:bg-white/10" />
-                    <span>Evening table</span>
+                    <span>{t("meta.eveningTable")}</span>
                   </div>
                 </div>
 
                 <h1 className="max-w-[11.5ch] text-balance font-display text-[2.86rem] font-extrabold leading-[0.94] text-neutral-950 sm:text-[4.15rem] lg:text-[5.55rem] dark:text-[#f2f3f4]">
-                  Build your Istanbul work rhythm in 7 days.
+                  {t("hero.title")}
                 </h1>
                 <p className="mt-5 max-w-2xl text-[1.0625rem] leading-8 text-neutral-700 sm:text-body-xl dark:text-[#b7aaa0]">
-                  Choose a base, learn the ferry loop, and save the laptop-safe
-                  tables locals trust after sunset.
+                  {t("hero.subtitle")}
                 </p>
 
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -159,7 +155,7 @@ export default async function HomePage() {
                       size="lg"
                       className="w-full rounded-lg bg-[#1a1a2e] px-6 text-white shadow-none hover:bg-[#2a2430] dark:bg-[#f2f3f4] dark:text-[#1a1a2e] dark:hover:bg-[#d8d0c8] sm:w-auto"
                     >
-                      Join the workweek
+                      {t("hero.joinWorkweek")}
                       <ArrowRight className="h-5 w-5" />
                     </Button>
                   </a>
@@ -169,7 +165,7 @@ export default async function HomePage() {
                       size="lg"
                       className="w-full rounded-lg border border-black/40 bg-transparent px-6 text-neutral-950 hover:bg-white/60 dark:border-white/30 dark:text-[#f2f3f4] dark:hover:bg-white/10 sm:w-auto"
                     >
-                      Choose a base
+                      {t("hero.chooseBase")}
                     </Button>
                   </Link>
                 </div>
@@ -178,7 +174,7 @@ export default async function HomePage() {
                   <div className="relative h-36">
                     <Image
                       src="/images/neighborhoods/moda/hero-premium-2026.jpg"
-                      alt="A calm Moda waterfront table with tea, notebook, and the Istanbul skyline beyond"
+                      alt={t("hero.imageAlt")}
                       fill
                       priority
                       sizes="100vw"
@@ -187,12 +183,12 @@ export default async function HomePage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#14110f] via-[#14110f]/20 to-transparent" />
                     <div className="absolute bottom-3 left-3 right-3">
                       <p className="font-mono text-[10px] uppercase tracking-[0.26em] text-white/70">
-                        Ferry workday
+                        {t("hero.ferryWorkdayBadge")}
                       </p>
                       <div className="mt-2 grid grid-cols-[1fr_auto_1fr] items-center gap-3 rounded-lg bg-white/90 px-3 py-2 text-[13px] font-semibold text-neutral-950 backdrop-blur-md">
-                        <span>Kadikoy</span>
+                        <span>{t("hero.kadikoy")}</span>
                         <span className="h-px w-12 bg-primary-500/60" />
-                        <span className="text-right">Galata</span>
+                        <span className="text-right">{t("hero.galata")}</span>
                       </div>
                     </div>
                   </div>
@@ -228,7 +224,7 @@ export default async function HomePage() {
               <div className="relative h-72 border-b border-black/10 dark:border-white/10">
                 <Image
                   src="/images/neighborhoods/moda/hero-premium-2026.jpg"
-                  alt="A calm Moda waterfront table with tea, notebook, and the Istanbul skyline beyond"
+                  alt={t("hero.imageAlt")}
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 520px"
@@ -236,15 +232,15 @@ export default async function HomePage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a2e]/75 via-[#1a1a2e]/10 to-transparent" />
                 <div className="absolute left-4 top-4 rounded-md bg-[#14110f]/80 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.22em] text-white/75 backdrop-blur">
-                  Ferry board / first week
+                  {t("hero.fieldCard.boardEyebrow")}
                 </div>
                 <div className="absolute bottom-4 left-4 right-4">
                   <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-3 rounded-lg bg-white/90 px-4 py-3 text-sm font-semibold text-neutral-950 backdrop-blur-md dark:bg-[#14110f]/90 dark:text-[#f2f3f4]">
-                    <span>Kadikoy</span>
+                    <span>{t("hero.kadikoy")}</span>
                     <span className="h-px flex-1 bg-primary-500/45" />
-                    <span className="text-center">Karakoy</span>
+                    <span className="text-center">{t("hero.karakoy")}</span>
                     <span className="h-px flex-1 bg-primary-500/45" />
-                    <span>Galata</span>
+                    <span>{t("hero.galata")}</span>
                   </div>
                 </div>
               </div>
@@ -253,18 +249,18 @@ export default async function HomePage() {
                 <div className="flex items-center justify-between gap-4 border-b border-black/10 pb-4 dark:border-white/10">
                   <div>
                     <p className="font-mono text-[10px] uppercase tracking-[0.26em] text-primary-700 dark:text-primary-300">
-                      Nomad field card
+                      {t("hero.fieldCard.eyebrow")}
                     </p>
                     <h2 className="mt-2 font-display text-2xl font-extrabold text-neutral-950 dark:text-[#f2f3f4]">
-                      The ferry workday
+                      {t("hero.fieldCard.title")}
                     </h2>
                   </div>
                   <div className="rounded-lg border border-black/10 px-3 py-2 text-right dark:border-white/10">
                     <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 dark:text-[#94877d]">
-                      GMT+3
+                      {t("hero.fieldCard.tzLabel")}
                     </p>
                     <p className="text-sm font-semibold text-neutral-950 dark:text-[#f2f3f4]">
-                      2 continents
+                      {t("hero.fieldCard.tzValue")}
                     </p>
                   </div>
                 </div>
@@ -272,7 +268,7 @@ export default async function HomePage() {
                 <div className="mt-5 space-y-4">
                   {heroRouteSteps.map((step, index) => (
                     <div
-                      key={step.title}
+                      key={step.key}
                       className="grid grid-cols-[3.75rem_1.5rem_1fr] gap-3"
                     >
                       <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-neutral-500 dark:text-[#94877d]">
@@ -288,10 +284,10 @@ export default async function HomePage() {
                       </div>
                       <div>
                         <h3 className="font-display text-lg font-extrabold text-neutral-950 dark:text-[#f2f3f4]">
-                          {step.title}
+                          {t(`hero.routeSteps.${step.key}.title`)}
                         </h3>
                         <p className="mt-1 text-sm leading-6 text-[#5d6d7e] dark:text-[#b7aaa0]">
-                          {step.detail}
+                          {t(`hero.routeSteps.${step.key}.detail`)}
                         </p>
                       </div>
                     </div>
@@ -302,7 +298,7 @@ export default async function HomePage() {
                   href="/guides"
                   className="mt-6 inline-flex items-center gap-2 border-t border-black/10 pt-4 text-sm font-semibold text-primary-700 transition-colors hover:text-primary-900 dark:border-white/10 dark:text-primary-300 dark:hover:text-primary-100"
                 >
-                  Open the first-month guide
+                  {t("hero.fieldCard.openGuide")}
                   <MoveUpRight className="h-4 w-4" />
                 </Link>
               </div>
@@ -317,22 +313,20 @@ export default async function HomePage() {
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.88fr_1.12fr] lg:items-end">
             <div>
-              <p className="eyebrow">New arrival tool</p>
+              <p className="eyebrow">{t("firstWeekTool.eyebrow")}</p>
               <h2 className="mt-3 max-w-xl font-display text-h2 text-neutral-950 dark:text-[#f2f3f4]">
-                Turn your first week into a real Istanbul routine.
+                {t("firstWeekTool.title")}
               </h2>
             </div>
             <div className="grid gap-5 sm:grid-cols-[1fr_auto] sm:items-end">
               <p className="max-w-2xl text-sm leading-7 text-[#5d6d7e] dark:text-[#b7aaa0]">
-                Pick your base, work setup, social pace, and budget comfort. Get
-                a seven-day plan with ferry confidence, work blocks, admin
-                buffer, and the right links for week two.
+                {t("firstWeekTool.body")}
               </p>
               <Link
                 href="/tools/first-week-planner"
                 className="inline-flex items-center justify-center gap-2 rounded-md bg-neutral-950 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-800 dark:bg-[#f2f3f4] dark:text-[#14110f] dark:hover:bg-[#d8d0c8]"
               >
-                Plan my week
+                {t("firstWeekTool.cta")}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -344,19 +338,30 @@ export default async function HomePage() {
         <Container>
           <div className="grid gap-8 lg:grid-cols-[0.9fr_2fr] lg:items-end">
             <p className="max-w-md text-sm leading-6 text-[#5d6d7e] dark:text-[#b7aaa0]">
-              Built for people who want a city that becomes workable quickly,
-              not just another place to pass through.
+              {t("stats.intro")}
             </p>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {[
-                { value: "Growing", label: "community", icon: Users },
                 {
-                  value: "Weekly",
-                  label: "coworking rhythm",
+                  value: t("stats.growing"),
+                  label: t("stats.growingLabel"),
+                  icon: Users,
+                },
+                {
+                  value: t("stats.weekly"),
+                  label: t("stats.weeklyLabel"),
                   icon: CalendarDays,
                 },
-                { value: "11", label: "local living guides", icon: Globe },
-                { value: "25+", label: "neighborhoods covered", icon: MapPin },
+                {
+                  value: t("stats.guides"),
+                  label: t("stats.guidesLabel"),
+                  icon: Globe,
+                },
+                {
+                  value: t("stats.neighborhoods"),
+                  label: t("stats.neighborhoodsLabel"),
+                  icon: MapPin,
+                },
               ].map((item) => (
                 <div
                   key={item.label}
@@ -384,13 +389,12 @@ export default async function HomePage() {
         <Container>
           <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr]">
             <Reveal className="lg:sticky lg:top-24 lg:self-start">
-              <p className="eyebrow">What&apos;s happening</p>
+              <p className="eyebrow">{t("events.eyebrow")}</p>
               <h2 className="mt-4 max-w-md font-display text-h1 text-neutral-950 dark:text-[#f2f3f4]">
-                This week&apos;s events
+                {t("events.title")}
               </h2>
               <p className="text-muted mt-5 max-w-md text-body-lg">
-                Coworking sessions, meetups, and workshops happening in Istanbul
-                this week.
+                {t("events.intro")}
               </p>
             </Reveal>
 
@@ -413,9 +417,13 @@ export default async function HomePage() {
                         <p className="mt-3 text-sm leading-7 text-[#5d6d7e] dark:text-[#b7aaa0]">
                           {event.description}
                         </p>
-                        <p className="mt-4 text-sm font-medium leading-6 text-neutral-950 dark:text-[#f2f3f4]">
-                          {eventMoments[event.id]}
-                        </p>
+                        {(event.id === "1" ||
+                          event.id === "2" ||
+                          event.id === "3") && (
+                          <p className="mt-4 text-sm font-medium leading-6 text-neutral-950 dark:text-[#f2f3f4]">
+                            {t(`events.moments.${event.id}`)}
+                          </p>
+                        )}
                       </div>
 
                       <div className="min-w-[220px] border-t border-black/10 pt-4 md:border-l md:border-t-0 md:pl-6 md:pt-0 dark:border-white/10">
@@ -429,7 +437,9 @@ export default async function HomePage() {
                         </div>
                         <div className="mt-3 flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#b7aaa0]">
                           <Users className="h-4 w-4" />
-                          {event.capacity ? `${event.capacity} spots` : "Open"}
+                          {event.capacity
+                            ? t("events.spots", { capacity: event.capacity })
+                            : t("events.openSpots")}
                         </div>
                       </div>
                     </div>
@@ -438,14 +448,13 @@ export default async function HomePage() {
               ) : (
                 <Reveal className="border-y border-black/10 py-6 dark:border-white/10">
                   <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-primary-600 dark:text-primary-400">
-                    Dates being scheduled
+                    {t("events.datesScheduledEyebrow")}
                   </p>
                   <h3 className="mt-3 font-display text-2xl font-extrabold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                    The next coworking dates are coming together.
+                    {t("events.datesScheduledTitle")}
                   </h3>
                   <p className="mt-3 max-w-xl text-sm leading-7 text-[#5d6d7e] dark:text-[#b7aaa0]">
-                    Join the Telegram group for the current informal coworking
-                    thread while the public calendar catches up.
+                    {t("events.datesScheduledBody")}
                   </p>
                 </Reveal>
               )}
@@ -455,7 +464,7 @@ export default async function HomePage() {
                   href="/events"
                   className="group inline-flex items-center gap-2 font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-[#f2f3f4] dark:hover:text-primary-400"
                 >
-                  See all events
+                  {t("events.seeAll")}
                   <MoveUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </Link>
               </Reveal>
@@ -472,29 +481,27 @@ export default async function HomePage() {
         <Container>
           <div className="grid gap-12 lg:grid-cols-[0.82fr_1.18fr]">
             <Reveal className="max-w-xl">
-              <p className="eyebrow">City guides</p>
+              <p className="eyebrow">{t("cityGuides.eyebrow")}</p>
               <h2 className="mt-4 max-w-lg font-display text-h1 text-neutral-950 dark:text-[#f2f3f4]">
-                Everything you need for your first month.
+                {t("cityGuides.title")}
               </h2>
               <p className="text-muted mt-5 max-w-md text-body-lg">
-                Neighborhoods, coworking, housing, internet, transport, cost of
-                living, and more - written by people living here.
+                {t("cityGuides.intro")}
               </p>
               <p className="mt-5 max-w-md text-sm leading-7 text-[#5d6d7e] dark:text-[#b7aaa0]">
-                Think of them as confidence builders for your first month, not a
-                static resource archive.
+                {t("cityGuides.subIntro")}
               </p>
             </Reveal>
 
             <div className="space-y-4">
               <Reveal delay={1} className="flex flex-wrap gap-3">
-                {orientationLinks.map((item) => (
+                {orientationLinkKeys.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     className="rounded-lg border border-black/10 bg-white/45 px-4 py-2 text-sm text-neutral-700 transition-colors hover:border-primary-500/40 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-[#b7aaa0] dark:hover:border-primary-400/40 dark:hover:bg-white/10"
                   >
-                    {item.label}
+                    {t(`cityGuides.orientation.${item.key}`)}
                   </Link>
                 ))}
               </Reveal>
@@ -530,17 +537,18 @@ export default async function HomePage() {
                 <div className="border-t border-black/10 pt-6 dark:border-white/10">
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                      <p className="eyebrow">Fast answers</p>
+                      <p className="eyebrow">
+                        {t("cityGuides.fastAnswersEyebrow")}
+                      </p>
                       <p className="mt-2 text-lg font-medium text-[#1a1a2e] dark:text-[#f2f3f4]">
-                        Housing, internet, transport, visa basics, and
-                        neighborhood fit.
+                        {t("cityGuides.fastAnswersBody")}
                       </p>
                     </div>
                     <Link
                       href="/guides"
                       className="inline-flex items-center gap-2 text-sm font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-[#f2f3f4] dark:hover:text-primary-400"
                     >
-                      Browse all guides
+                      {t("cityGuides.browseAll")}
                       <MoveUpRight className="h-4 w-4" />
                     </Link>
                   </div>
@@ -558,25 +566,25 @@ export default async function HomePage() {
           <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr]">
             <Reveal className="border-y border-black/10 py-8 dark:border-white/10">
               <p className="eyebrow text-primary-700 dark:text-primary-300">
-                First month essentials
+                {t("firstMonth.eyebrow")}
               </p>
               <h2 className="mt-4 max-w-md font-display text-h1 text-neutral-950 dark:text-[#f2f3f4]">
-                Start with the pieces that make remote life easier to operate.
+                {t("firstMonth.title")}
               </h2>
               <p className="mt-5 max-w-md text-base leading-8 text-[#5d6d7e] dark:text-[#b7aaa0]">
-                If you just landed, begin with neighborhoods, internet, transit,
-                and this week&apos;s meetup. It&apos;s the fastest path from
-                arrival mode to a workable local routine.
+                {t("firstMonth.body")}
               </p>
 
               <div className="mt-8 space-y-4">
-                {orientationLinks.map((item) => (
+                {orientationLinkKeys.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     className="flex items-center justify-between border-t border-black/10 pt-4 text-left text-neutral-950 transition-colors hover:text-primary-700 dark:border-white/10 dark:text-[#f2f3f4] dark:hover:text-primary-300"
                   >
-                    <span className="text-base font-medium">{item.label}</span>
+                    <span className="text-base font-medium">
+                      {t(`cityGuides.orientation.${item.key}`)}
+                    </span>
                     <MoveUpRight className="h-4 w-4 shrink-0" />
                   </Link>
                 ))}
@@ -584,25 +592,21 @@ export default async function HomePage() {
             </Reveal>
 
             <div className="grid gap-4 sm:grid-cols-3">
-              {whatPeopleFind.map((item, index) => (
-                <Reveal key={item.phase} delay={index as 0 | 1 | 2}>
+              {phaseKeys.map((key, index) => (
+                <Reveal key={key} delay={index as 0 | 1 | 2}>
                   <div className="surface-panel flex h-full flex-col justify-between rounded-md p-6 transition-transform duration-300 hover:-translate-y-0.5">
                     <div>
-                      <p className="eyebrow">{item.phase}</p>
+                      <p className="eyebrow">{t(`phases.${key}.phase`)}</p>
                       <h3 className="mt-4 font-display text-lg font-extrabold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                        {item.title}
+                        {t(`phases.${key}.title`)}
                       </h3>
                       <p className="mt-3 text-base leading-8 text-[#526e89] dark:text-[#b7aaa0]">
-                        {item.description}
+                        {t(`phases.${key}.description`)}
                       </p>
                     </div>
                     <footer className="mt-8 border-t border-black/10 pt-4 dark:border-white/10">
                       <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#85929e]">
-                        {index === 0
-                          ? "Arrival"
-                          : index === 1
-                            ? "Orientation"
-                            : "Attachment"}
+                        {t(`phases.${key}.tag`)}
                       </p>
                     </footer>
                   </div>
@@ -618,50 +622,29 @@ export default async function HomePage() {
           <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr]">
             <Reveal className="border-t border-black/10 pt-8 dark:border-white/10">
               <p className="eyebrow text-primary-700 dark:text-primary-300">
-                Why people stay
+                {t("whyStay.eyebrow")}
               </p>
               <h2 className="mt-4 max-w-md font-display text-h1 text-neutral-950 dark:text-[#f2f3f4]">
-                Why nomads keep extending their stay.
+                {t("whyStay.title")}
               </h2>
               <p className="mt-5 max-w-md text-base leading-8 text-[#5d6d7e] dark:text-[#b7aaa0]">
-                What changes after you join is simple: your workweeks get
-                steadier, the city gets easier to read, and familiar faces start
-                showing up in the places you already like to be.
+                {t("whyStay.body")}
               </p>
 
               <div className="mt-8 space-y-4">
-                {[
-                  {
-                    icon: Wifi,
-                    title: "Reliable workdays",
-                    description:
-                      "Coworking sessions, cafe picks, and practical setup advice.",
-                  },
-                  {
-                    icon: Clock3,
-                    title: "Low-friction onboarding",
-                    description:
-                      "Helpful answers fast, without having to search five groups.",
-                  },
-                  {
-                    icon: Sparkles,
-                    title: "Better local texture",
-                    description:
-                      "Meet people who know the city and still remember what it feels like to arrive.",
-                  },
-                ].map((item) => (
+                {whyStayItems.map((item) => (
                   <div
-                    key={item.title}
+                    key={item.titleKey}
                     className="border-t border-black/10 pt-4 dark:border-white/10"
                   >
                     <div className="flex items-center gap-3">
                       <item.icon className="h-5 w-5 text-primary-600 dark:text-primary-400" />
                       <h3 className="text-lg font-medium text-neutral-950 dark:text-[#f2f3f4]">
-                        {item.title}
+                        {t(`whyStay.items.${item.titleKey}.title`)}
                       </h3>
                     </div>
                     <p className="mt-2 text-sm leading-7 text-[#5d6d7e] dark:text-[#b7aaa0]">
-                      {item.description}
+                      {t(`whyStay.items.${item.titleKey}.description`)}
                     </p>
                   </div>
                 ))}
@@ -673,30 +656,22 @@ export default async function HomePage() {
               className="surface-panel flex flex-col justify-between rounded-md p-8"
             >
               <div>
-                <p className="eyebrow">Local knowledge, shared quickly</p>
+                <p className="eyebrow">{t("whyStay.card.eyebrow")}</p>
                 <h3 className="mt-4 max-w-lg font-display text-h2 text-primary-950 dark:text-primary-100">
-                  Ask one question and skip hours of guesswork.
+                  {t("whyStay.card.title")}
                 </h3>
                 <p className="mt-4 max-w-xl text-base leading-8 text-[#5d6d7e] dark:text-[#b7aaa0]">
-                  Where should you base yourself for your first month? Which
-                  coworking spots have stable wifi? How do ferries change your
-                  commute? The community makes those answers social, current,
-                  and local.
+                  {t("whyStay.card.body")}
                 </p>
               </div>
 
               <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                {[
-                  "Neighborhood tradeoffs explained by people living here",
-                  "Weekly rituals that make meeting people feel easier",
-                  "Practical setup help for workdays, transit, and housing",
-                  "A softer landing if you're staying more than a few weeks",
-                ].map((item) => (
+                {whyStayBulletKeys.map((key) => (
                   <div
-                    key={item}
+                    key={key}
                     className="surface-subtle rounded-md p-4 text-sm leading-7 text-[#5d6d7e] transition-transform duration-300 hover:-translate-y-0.5 dark:text-[#b7aaa0]"
                   >
-                    {item}
+                    {t(`whyStay.card.bullets.${key}`)}
                   </div>
                 ))}
               </div>
@@ -711,15 +686,13 @@ export default async function HomePage() {
             <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
               <div>
                 <p className="eyebrow text-primary-700 dark:text-primary-300">
-                  Get started
+                  {t("joinCta.eyebrow")}
                 </p>
                 <h2 className="mt-4 max-w-3xl font-display text-h1 text-neutral-950 dark:text-[#f2f3f4]">
-                  Join us on Telegram.
+                  {t("joinCta.title")}
                 </h2>
                 <p className="mt-5 max-w-xl text-body-lg text-[#5d6d7e] dark:text-[#b7aaa0]">
-                  Introduce yourself and we&apos;ll point you to this
-                  week&apos;s meetup, a good workspace, or the right
-                  neighborhood to start from.
+                  {t("joinCta.body")}
                 </p>
               </div>
 
@@ -734,7 +707,7 @@ export default async function HomePage() {
                     size="lg"
                     className="h-12 w-full rounded-lg px-7 text-base font-semibold sm:w-auto"
                   >
-                    Join on Telegram
+                    {t("joinCta.joinTelegram")}
                     <ArrowRight className="h-5 w-5" />
                   </Button>
                 </a>
@@ -744,7 +717,7 @@ export default async function HomePage() {
                     size="lg"
                     className="h-12 w-full rounded-lg px-7 text-base font-medium sm:w-auto"
                   >
-                    About the community
+                    {t("joinCta.aboutCommunity")}
                   </Button>
                 </Link>
               </div>

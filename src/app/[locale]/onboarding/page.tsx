@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { OnboardingWizard } from "./onboarding-wizard";
 
-export const metadata: Metadata = {
-  title: "Complete Your Profile",
-  description: "Fill out your member profile to join Istanbul Digital Nomads.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("onboardingPage.meta");
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 export default async function OnboardingPage() {
   const supabase = await createClient();

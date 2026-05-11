@@ -13,6 +13,7 @@ import {
   MapPin,
   Sparkles,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import {
   arrivalProfileOptions,
@@ -25,8 +26,11 @@ import {
   type BudgetComfort,
   type PlannerInput,
   type PlannerOption,
+  type WorkStyle,
+  type ArrivalProfile,
+  type SocialAppetite,
 } from "@/lib/first-week-planner";
-import { neighborhoods, type NeighborhoodSlug } from "@/lib/neighborhoods";
+import { neighborhoods } from "@/lib/neighborhoods";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -34,6 +38,9 @@ interface Props {
 }
 
 export function FirstWeekPlanner({ initialInput }: Props) {
+  const t = useTranslations("firstWeekPlanner");
+  const tWork = useTranslations("firstWeekPlanner.options.workStyle");
+  const tBudget = useTranslations("firstWeekPlanner.options.budgetComfort");
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [input, setInput] = useState(initialInput);
@@ -61,43 +68,57 @@ export function FirstWeekPlanner({ initialInput }: Props) {
     window.setTimeout(() => setCopied(false), 1800);
   }
 
+  const workLabel = (value: WorkStyle) =>
+    workStyleOptions.some((option) => option.value === value)
+      ? tWork(`${value}.label`)
+      : t("aside.fallbackWork");
+
+  const budgetLabel = (value: BudgetComfort) =>
+    budgetComfortOptions.some((option) => option.value === value)
+      ? tBudget(`${value}.label`)
+      : t("aside.fallbackBudget");
+
   return (
     <div className="overflow-hidden">
       <section className="border-b border-black/10 bg-[#fbfaf8] dark:border-white/10 dark:bg-[#14110f]">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8 lg:py-14">
           <div className="flex flex-col justify-between gap-8">
             <div>
-              <p className="eyebrow">First Week Planner</p>
+              <p className="eyebrow">{t("hero.eyebrow")}</p>
               <h1 className="mt-4 max-w-2xl font-display text-5xl font-extrabold leading-[0.98] text-neutral-950 sm:text-[4.5rem] dark:text-[#f2f3f4]">
-                Make Istanbul usable in seven days.
+                {t("hero.title")}
               </h1>
               <p className="mt-5 max-w-xl text-body-lg leading-8 text-[#5d6d7e] dark:text-[#b7aaa0]">
-                Pick your arrival shape, work rhythm, social appetite, and
-                budget comfort. The planner turns the city into a practical
-                first-week sequence with links you can actually use.
+                {t("hero.body")}
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <a
                   href="#planner-inputs"
                   className="inline-flex items-center gap-2 rounded-md bg-neutral-950 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-800 dark:bg-[#f2f3f4] dark:text-[#14110f] dark:hover:bg-[#d8d0c8]"
                 >
-                  Build my week
+                  {t("hero.buildWeek")}
                   <ArrowRight className="h-4 w-4" />
                 </a>
                 <Link
                   href="/guides/neighborhoods"
                   className="inline-flex items-center gap-2 rounded-md border border-black/15 px-5 py-3 text-sm font-semibold text-neutral-950 transition-colors hover:border-primary-500/40 hover:bg-white/60 dark:border-white/20 dark:text-[#f2f3f4] dark:hover:bg-white/10"
                 >
-                  Compare neighborhoods
+                  {t("hero.compareNeighborhoods")}
                 </Link>
               </div>
             </div>
 
             <div className="grid gap-3 border-y border-black/10 py-4 text-sm leading-6 text-[#5d6d7e] sm:grid-cols-3 dark:border-white/10 dark:text-[#b7aaa0]">
-              <MiniSignal label="Base" value={plan.baseNeighborhood.name} />
-              <MiniSignal label="Work" value={workLabel(input.workStyle)} />
               <MiniSignal
-                label="Budget"
+                label={t("hero.miniSignals.base")}
+                value={plan.baseNeighborhood.name}
+              />
+              <MiniSignal
+                label={t("hero.miniSignals.work")}
+                value={workLabel(input.workStyle)}
+              />
+              <MiniSignal
+                label={t("hero.miniSignals.budget")}
                 value={budgetLabel(input.budgetComfort)}
               />
             </div>
@@ -142,18 +163,19 @@ export function FirstWeekPlanner({ initialInput }: Props) {
               <div className="flex items-center justify-between gap-3 border-b border-black/10 pb-4 dark:border-white/10">
                 <div>
                   <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-300">
-                    Plan inputs
+                    {t("aside.eyebrow")}
                   </p>
                   <p className="mt-1 text-sm text-[#5d6d7e] dark:text-[#b7aaa0]">
-                    Changing any choice updates the week.
+                    {t("aside.subtitle")}
                   </p>
                 </div>
                 <CalendarDays className="h-5 w-5 text-primary-600 dark:text-primary-300" />
               </div>
 
               <div className="mt-5 space-y-6">
-                <OptionGroup
-                  label="Arrival profile"
+                <OptionGroup<ArrivalProfile>
+                  groupKey="arrivalProfile"
+                  label={t("aside.labels.arrivalProfile")}
                   value={input.arrivalProfile}
                   options={arrivalProfileOptions}
                   onChange={(arrivalProfile) => update({ arrivalProfile })}
@@ -164,22 +186,25 @@ export function FirstWeekPlanner({ initialInput }: Props) {
                   onChange={(neighborhood) => update({ neighborhood })}
                 />
 
-                <OptionGroup
-                  label="Work style"
+                <OptionGroup<WorkStyle>
+                  groupKey="workStyle"
+                  label={t("aside.labels.workStyle")}
                   value={input.workStyle}
                   options={workStyleOptions}
                   onChange={(workStyle) => update({ workStyle })}
                 />
 
-                <OptionGroup
-                  label="Social appetite"
+                <OptionGroup<SocialAppetite>
+                  groupKey="socialAppetite"
+                  label={t("aside.labels.socialAppetite")}
                   value={input.socialAppetite}
                   options={socialAppetiteOptions}
                   onChange={(socialAppetite) => update({ socialAppetite })}
                 />
 
-                <OptionGroup
-                  label="Budget comfort"
+                <OptionGroup<BudgetComfort>
+                  groupKey="budgetComfort"
+                  label={t("aside.labels.budgetComfort")}
                   value={input.budgetComfort}
                   options={budgetComfortOptions}
                   onChange={(budgetComfort) => update({ budgetComfort })}
@@ -193,11 +218,11 @@ export function FirstWeekPlanner({ initialInput }: Props) {
                   onClick={() => update(defaultPlannerInput)}
                   disabled={isPending}
                 >
-                  Reset
+                  {t("aside.reset")}
                 </Button>
                 <Button type="button" onClick={copyLink}>
                   <Link2 className="h-4 w-4" />
-                  {copied ? "Copied" : "Copy link"}
+                  {copied ? t("aside.copied") : t("aside.copyLink")}
                 </Button>
               </div>
             </div>
@@ -208,18 +233,19 @@ export function FirstWeekPlanner({ initialInput }: Props) {
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-300">
-                    Your seven-day plan
+                    {t("plan.eyebrow")}
                   </p>
                   <h2 className="mt-3 max-w-2xl font-display text-h1 text-neutral-950 dark:text-[#f2f3f4]">
-                    Start with {plan.baseNeighborhood.name}, then build a
-                    repeatable routine.
+                    {t("plan.title", {
+                      neighborhood: plan.baseNeighborhood.name,
+                    })}
                   </h2>
                 </div>
                 <Link
                   href={`/guides/neighborhoods/${plan.baseNeighborhood.slug}`}
                   className="inline-flex items-center gap-2 rounded-md border border-black/10 bg-white px-3 py-2 text-sm font-semibold text-neutral-950 transition-colors hover:border-primary-500/40 dark:border-white/10 dark:bg-white/10 dark:text-[#f2f3f4]"
                 >
-                  Base guide
+                  {t("plan.baseGuide")}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
@@ -233,7 +259,7 @@ export function FirstWeekPlanner({ initialInput }: Props) {
                 >
                   <div>
                     <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#94877d]">
-                      Day {day.day}
+                      {t("plan.dayLabel", { day: day.day })}
                     </p>
                     <p className="mt-2 font-display text-3xl font-extrabold text-primary-700 dark:text-primary-300">
                       {day.day}
@@ -258,9 +284,18 @@ export function FirstWeekPlanner({ initialInput }: Props) {
                     </div>
 
                     <div className="mt-5 grid gap-3 lg:grid-cols-3">
-                      <PlanMoment label="Morning" text={day.morning} />
-                      <PlanMoment label="Work block" text={day.workBlock} />
-                      <PlanMoment label="Evening" text={day.evening} />
+                      <PlanMoment
+                        label={t("plan.moments.morning")}
+                        text={day.morning}
+                      />
+                      <PlanMoment
+                        label={t("plan.moments.workBlock")}
+                        text={day.workBlock}
+                      />
+                      <PlanMoment
+                        label={t("plan.moments.evening")}
+                        text={day.evening}
+                      />
                     </div>
 
                     <div className="mt-4 flex items-start gap-2 rounded-md bg-primary-50/70 p-3 text-sm leading-6 text-primary-950 dark:bg-primary-950/20 dark:text-primary-100">
@@ -275,7 +310,7 @@ export function FirstWeekPlanner({ initialInput }: Props) {
             <div className="grid gap-5 lg:grid-cols-2">
               <div className="rounded-md border border-black/10 bg-white/70 p-5 dark:border-white/10 dark:bg-white/[0.04]">
                 <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-300">
-                  Save these links
+                  {t("plan.saveLinks")}
                 </p>
                 <div className="mt-4 grid gap-2">
                   {plan.saveLinks.map((link) => (
@@ -286,7 +321,7 @@ export function FirstWeekPlanner({ initialInput }: Props) {
 
               <div className="rounded-md border border-black/10 bg-[#1a1612] p-5 text-white dark:border-white/10">
                 <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-200">
-                  Avoid this week
+                  {t("plan.avoid")}
                 </p>
                 <ul className="mt-4 space-y-3 text-sm leading-6 text-white/76">
                   {plan.avoid.map((item) => (
@@ -319,16 +354,19 @@ function MiniSignal({ label, value }: { label: string; value: string }) {
 }
 
 function OptionGroup<T extends string>({
+  groupKey,
   label,
   value,
   options,
   onChange,
 }: {
+  groupKey: "arrivalProfile" | "workStyle" | "socialAppetite" | "budgetComfort";
   label: string;
   value: T;
   options: PlannerOption<T>[];
   onChange: (value: T) => void;
 }) {
+  const tGroup = useTranslations(`firstWeekPlanner.options.${groupKey}`);
   return (
     <div>
       <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#94877d]">
@@ -360,10 +398,10 @@ function OptionGroup<T extends string>({
             </span>
             <span>
               <span className="block text-sm font-semibold">
-                {option.label}
+                {tGroup(`${option.value}.label`)}
               </span>
               <span className="mt-0.5 block text-xs leading-5 opacity-80">
-                {option.description}
+                {tGroup(`${option.value}.description`)}
               </span>
             </span>
           </button>
@@ -380,16 +418,17 @@ function NeighborhoodPicker({
   value: PlannerInput["neighborhood"];
   onChange: (value: PlannerInput["neighborhood"]) => void;
 }) {
+  const t = useTranslations("firstWeekPlanner.aside");
   return (
     <div>
       <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#94877d]">
-        Base neighborhood
+        {t("labels.baseNeighborhood")}
       </p>
       <div className="mt-2 grid grid-cols-2 gap-2">
         <NeighborhoodButton
           active={value === "help"}
-          label="Help me choose"
-          side="Recommended"
+          label={t("helpChoose.label")}
+          side={t("helpChoose.recommended")}
           onClick={() => onChange("help")}
         />
         {neighborhoods.map((neighborhood) => (
@@ -397,7 +436,7 @@ function NeighborhoodPicker({
             key={neighborhood.slug}
             active={value === neighborhood.slug}
             label={neighborhood.name}
-            side={`${neighborhood.side} side`}
+            side={t("helpChoose.sideSuffix", { side: neighborhood.side })}
             onClick={() => onChange(neighborhood.slug)}
           />
         ))}
@@ -485,19 +524,5 @@ function PlannerLink({
       {link.label}
       {full ? <ArrowRight className="h-4 w-4" /> : null}
     </Link>
-  );
-}
-
-function workLabel(value: PlannerInput["workStyle"]) {
-  return (
-    workStyleOptions.find((option) => option.value === value)?.label ??
-    "Cafe worker"
-  );
-}
-
-function budgetLabel(value: BudgetComfort) {
-  return (
-    budgetComfortOptions.find((option) => option.value === value)?.label ??
-    "Balanced"
   );
 }

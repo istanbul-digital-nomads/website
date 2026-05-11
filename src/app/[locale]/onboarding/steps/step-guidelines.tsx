@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import type { OnboardingData, FieldErrors } from "../onboarding-wizard";
 
 interface StepProps {
@@ -8,40 +9,42 @@ interface StepProps {
   errors: FieldErrors;
 }
 
-const GUIDELINES = [
-  "Treat every member and host with kindness and respect.",
-  "Don't send unsolicited DMs - always ask before messaging someone privately.",
-  "RSVP honestly. If you can't make it, cancel in advance - no-shows without notice may lead to removal.",
-  "Each member pays their own way. Settle shared costs promptly.",
-  "This is a social community, not a dating app. Keep it respectful.",
-  "Don't use the group for selling, mass messaging, political debates, or harassment.",
-  "Admins can remove members who break these guidelines.",
-];
+const GUIDELINE_KEYS = [
+  "kindness",
+  "dms",
+  "rsvp",
+  "payment",
+  "notDating",
+  "noMisuse",
+  "admins",
+] as const;
 
 export function StepGuidelines({ data, updateField, errors }: StepProps) {
+  const t = useTranslations("onboardingPage.steps.guidelines");
+  const tRules = useTranslations("onboardingPage.steps.guidelines.rules");
+
   return (
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold text-[#1a1a2e] dark:text-[#f2f3f4]">
-          Community guidelines
+          {t("title")}
         </h2>
         <p className="mt-1 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
-          We keep things friendly and respectful. Here&apos;s what we ask from
-          every member.
+          {t("intro")}
         </p>
       </div>
 
       <div className="rounded-xl border border-primary-200/30 bg-primary-50/30 p-5 dark:border-[rgba(192,57,43,0.1)] dark:bg-[rgba(192,57,43,0.04)]">
         <ul className="space-y-3">
-          {GUIDELINES.map((rule, i) => (
+          {GUIDELINE_KEYS.map((key, i) => (
             <li
-              key={i}
+              key={key}
               className="flex gap-3 text-sm text-[#5d6d7e] dark:text-[#99a3ad]"
             >
               <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-semibold text-primary-700 dark:bg-primary-900/30 dark:text-primary-300">
                 {i + 1}
               </span>
-              <span>{rule}</span>
+              <span>{tRules(key)}</span>
             </li>
           ))}
         </ul>
@@ -56,7 +59,7 @@ export function StepGuidelines({ data, updateField, errors }: StepProps) {
             className="mt-0.5 h-4 w-4 rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
           />
           <span className="text-sm font-medium text-[#1a1a2e] dark:text-[#f2f3f4]">
-            I&apos;ve read and agree to these community guidelines
+            {t("agreeLabel")}
             <span className="ml-0.5 text-red-500" aria-hidden="true">
               *
             </span>

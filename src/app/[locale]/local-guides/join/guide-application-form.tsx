@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 import { Input, Textarea } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { MultiSelectToggle } from "@/components/ui/multi-select-toggle";
@@ -60,6 +61,7 @@ const initial: FormData = {
 };
 
 export function GuideApplicationForm() {
+  const t = useTranslations("localGuidesJoinPage");
   const [form, setForm] = useState<FormData>(initial);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -97,14 +99,17 @@ export function GuideApplicationForm() {
       const data = await res.json();
 
       if (!res.ok) {
-        showToast.error("Couldn't submit", data.error);
+        showToast.error(t("toast.errorTitle"), data.error);
         return;
       }
 
       setSubmitted(true);
-      showToast.guideApplication();
+      showToast.success(t("toast.successTitle"), t("toast.successBody"));
     } catch {
-      showToast.error("Something went wrong", "Please try again later.");
+      showToast.error(
+        t("toast.genericErrorTitle"),
+        t("toast.genericErrorBody"),
+      );
     } finally {
       setLoading(false);
     }
@@ -114,11 +119,10 @@ export function GuideApplicationForm() {
     return (
       <div className="rounded-xl border border-primary-200 bg-primary-50/80 p-8 text-center dark:border-primary-900/40 dark:bg-primary-900/20">
         <p className="text-lg font-semibold text-primary-800 dark:text-primary-300">
-          Thanks for applying!
+          {t("submitted.title")}
         </p>
         <p className="mt-2 text-sm text-primary-700 dark:text-primary-400">
-          We&apos;ll review your application and get back to you within a few
-          days. In the meantime, feel free to join our Telegram group.
+          {t("submitted.body")}
         </p>
       </div>
     );
@@ -130,33 +134,33 @@ export function GuideApplicationForm() {
       <div className="space-y-4">
         <div>
           <h2 className="text-lg font-semibold text-neutral-900 dark:text-[#f2f3f4]">
-            Your details
+            {t("sections.yourDetails.title")}
           </h2>
           <p className="mt-1 text-sm text-neutral-500 dark:text-[#85929e]">
-            Basic info so we know who you are.
+            {t("sections.yourDetails.subtitle")}
           </p>
         </div>
         <Input
-          label="Full name"
+          label={t("fields.name.label")}
           value={form.name}
           onChange={(e) => update("name", e.target.value)}
-          placeholder="Your name"
+          placeholder={t("fields.name.placeholder")}
           required
         />
         <Input
-          label="Email"
+          label={t("fields.email.label")}
           type="email"
           value={form.email}
           onChange={(e) => update("email", e.target.value)}
-          placeholder="you@example.com"
+          placeholder={t("fields.email.placeholder")}
           required
         />
         <Input
-          label="Phone / WhatsApp"
+          label={t("fields.phone.label")}
           value={form.phone_whatsapp}
           onChange={(e) => update("phone_whatsapp", e.target.value)}
-          placeholder="+90 ..."
-          helperText="Optional - makes it easier for us to reach you"
+          placeholder={t("fields.phone.placeholder")}
+          helperText={t("fields.phone.helper")}
         />
       </div>
 
@@ -164,44 +168,44 @@ export function GuideApplicationForm() {
       <div className="space-y-4">
         <div>
           <h2 className="text-lg font-semibold text-neutral-900 dark:text-[#f2f3f4]">
-            Your expertise
+            {t("sections.expertise.title")}
           </h2>
           <p className="mt-1 text-sm text-neutral-500 dark:text-[#85929e]">
-            What do you know best about Istanbul?
+            {t("sections.expertise.subtitle")}
           </p>
         </div>
         <MultiSelectToggle
-          label="Languages you speak"
+          label={t("fields.languages.label")}
           options={commonLanguages}
           value={form.languages}
           onChange={(v) => update("languages", v)}
           required
         />
         <MultiSelectToggle
-          label="Areas of expertise"
+          label={t("fields.specializations.label")}
           options={guideSpecializations}
           value={form.specializations}
           onChange={(v) => update("specializations", v)}
           required
         />
         <MultiSelectToggle
-          label="Neighborhoods you know well"
+          label={t("fields.neighborhoods.label")}
           options={istanbulNeighborhoods}
           value={form.neighborhoods}
           onChange={(v) => update("neighborhoods", v)}
           required
         />
         <Input
-          label="Years living in Istanbul"
+          label={t("fields.yearsInIstanbul.label")}
           type="number"
           min={0}
           value={form.years_in_istanbul}
           onChange={(e) => update("years_in_istanbul", e.target.value)}
-          placeholder="2"
+          placeholder={t("fields.yearsInIstanbul.placeholder")}
           required
         />
         <MultiSelectToggle
-          label="Where did you move from?"
+          label={t("fields.originCountries.label")}
           options={ORIGIN_COUNTRY_OPTIONS}
           value={form.origin_countries}
           onChange={(v) => update("origin_countries", v)}
@@ -212,33 +216,33 @@ export function GuideApplicationForm() {
       <div className="space-y-4">
         <div>
           <h2 className="text-lg font-semibold text-neutral-900 dark:text-[#f2f3f4]">
-            Tell us about yourself
+            {t("sections.aboutYou.title")}
           </h2>
           <p className="mt-1 text-sm text-neutral-500 dark:text-[#85929e]">
-            Help us understand what makes you a great guide.
+            {t("sections.aboutYou.subtitle")}
           </p>
         </div>
         <Textarea
-          label="Bio"
+          label={t("fields.bio.label")}
           value={form.bio}
           onChange={(e) => update("bio", e.target.value)}
-          placeholder="Tell us about yourself, your background, and your experience in Istanbul..."
-          helperText="At least 50 characters"
+          placeholder={t("fields.bio.placeholder")}
+          helperText={t("fields.bio.helper")}
           required
         />
         <Textarea
-          label="Your best local tip"
+          label={t("fields.sampleTip.label")}
           value={form.sample_tip}
           onChange={(e) => update("sample_tip", e.target.value)}
-          placeholder="Share a specific tip that shows what you know - a hidden cafe, a visa shortcut, a neighborhood secret..."
-          helperText="This helps us understand your style and depth of knowledge"
+          placeholder={t("fields.sampleTip.placeholder")}
+          helperText={t("fields.sampleTip.helper")}
           required
         />
         <Textarea
-          label="Why do you want to be a guide?"
+          label={t("fields.motivation.label")}
           value={form.motivation}
           onChange={(e) => update("motivation", e.target.value)}
-          placeholder="What motivates you to help newcomers in Istanbul?"
+          placeholder={t("fields.motivation.placeholder")}
           required
         />
       </div>
@@ -247,35 +251,35 @@ export function GuideApplicationForm() {
       <div className="space-y-4">
         <div>
           <h2 className="text-lg font-semibold text-neutral-900 dark:text-[#f2f3f4]">
-            Social profiles
+            {t("sections.social.title")}
           </h2>
           <p className="mt-1 text-sm text-neutral-500 dark:text-[#85929e]">
-            Optional - helps us verify who you are and lets people find you.
+            {t("sections.social.subtitle")}
           </p>
         </div>
         <Input
-          label="Instagram"
+          label={t("fields.instagram.label")}
           value={form.social_instagram}
           onChange={(e) => update("social_instagram", e.target.value)}
-          placeholder="https://instagram.com/yourhandle"
+          placeholder={t("fields.instagram.placeholder")}
         />
         <Input
-          label="LinkedIn"
+          label={t("fields.linkedin.label")}
           value={form.social_linkedin}
           onChange={(e) => update("social_linkedin", e.target.value)}
-          placeholder="https://linkedin.com/in/yourprofile"
+          placeholder={t("fields.linkedin.placeholder")}
         />
         <Input
-          label="Twitter / X"
+          label={t("fields.twitter.label")}
           value={form.social_twitter}
           onChange={(e) => update("social_twitter", e.target.value)}
-          placeholder="https://twitter.com/yourhandle"
+          placeholder={t("fields.twitter.placeholder")}
         />
         <Input
-          label="Personal website"
+          label={t("fields.website.label")}
           value={form.social_website}
           onChange={(e) => update("social_website", e.target.value)}
-          placeholder="https://yoursite.com"
+          placeholder={t("fields.website.placeholder")}
         />
       </div>
 
@@ -283,21 +287,21 @@ export function GuideApplicationForm() {
       <div className="space-y-4">
         <div>
           <h2 className="text-lg font-semibold text-neutral-900 dark:text-[#f2f3f4]">
-            Almost done
+            {t("sections.almostDone.title")}
           </h2>
         </div>
         <Input
-          label="Profile photo URL"
+          label={t("fields.photoUrl.label")}
           value={form.photo_url}
           onChange={(e) => update("photo_url", e.target.value)}
-          placeholder="https://..."
-          helperText="Link to a photo of yourself (LinkedIn, Instagram, or any public URL)"
+          placeholder={t("fields.photoUrl.placeholder")}
+          helperText={t("fields.photoUrl.helper")}
         />
         <Textarea
-          label="References"
+          label={t("fields.references.label")}
           value={form.references_text}
           onChange={(e) => update("references_text", e.target.value)}
-          placeholder="Anyone in the community who can vouch for you? (optional)"
+          placeholder={t("fields.references.placeholder")}
         />
         <div>
           <label className="flex items-start gap-3">
@@ -309,10 +313,7 @@ export function GuideApplicationForm() {
               required
             />
             <span className="text-sm text-neutral-600 dark:text-[#99a3ad]">
-              I agree to the community guidelines and understand that my
-              application will be reviewed by the team. I&apos;ll represent the
-              community with kindness and honesty.{" "}
-              <span className="text-red-500">*</span>
+              {t("fields.guidelines")} <span className="text-red-500">*</span>
             </span>
           </label>
         </div>
@@ -324,7 +325,7 @@ export function GuideApplicationForm() {
         size="lg"
         className="w-full rounded-full sm:w-auto"
       >
-        Submit application
+        {t("submit")}
       </Button>
     </form>
   );

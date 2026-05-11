@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import {
   Section,
   SectionHeader,
@@ -7,22 +8,21 @@ import {
 } from "@/components/ui/section";
 import { GuideApplicationForm } from "./guide-application-form";
 
-export const metadata: Metadata = {
-  title: "Become a Local Guide",
-  description:
-    "Apply to become a local guide for Istanbul Digital Nomads. Help newcomers navigate neighborhoods, housing, visa, and more.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("localGuidesJoinPage.meta");
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
-export default function JoinAsGuidePage() {
+export default async function JoinAsGuidePage() {
+  const t = await getTranslations("localGuidesJoinPage.hero");
   return (
     <Section>
       <SectionHeader>
-        <SectionTitle>Become a local guide</SectionTitle>
-        <SectionDescription>
-          Know Istanbul well enough to help someone skip their first-month
-          confusion? Tell us about yourself and what you can help with.
-          We&apos;ll review your application within a few days.
-        </SectionDescription>
+        <SectionTitle>{t("title")}</SectionTitle>
+        <SectionDescription>{t("description")}</SectionDescription>
       </SectionHeader>
 
       <div className="mx-auto max-w-2xl">

@@ -1,4 +1,5 @@
 import { Calendar } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { formatDate } from "@/lib/utils";
 import type { Country } from "@/lib/path-to-istanbul";
 import type { HeroStat } from "@/lib/path-to-istanbul-content";
@@ -10,12 +11,13 @@ interface CountryHeroProps {
   lastUpdated?: string;
 }
 
-export function CountryHero({
+export async function CountryHero({
   country,
   summary,
   stats,
   lastUpdated,
 }: CountryHeroProps) {
+  const t = await getTranslations("countryPage.hero");
   return (
     <div className="relative overflow-hidden rounded-2xl border border-primary-200/50 bg-gradient-to-br from-primary-50 via-white to-white p-5 dark:border-primary-900/30 dark:from-primary-950/40 dark:via-[#0f1117] dark:to-[#0f1117] sm:rounded-3xl sm:p-10 sm:py-14">
       <span
@@ -26,10 +28,10 @@ export function CountryHero({
       </span>
       <div className="mt-4 sm:mt-5">
         <p className="text-xs font-medium uppercase tracking-wider text-primary-600 dark:text-primary-400 sm:text-sm">
-          Path to Istanbul
+          {t("eyebrow")}
         </p>
         <h1 className="mt-1 text-2xl font-bold tracking-tight text-[#1a1a2e] dark:text-[#f2f3f4] sm:text-4xl">
-          Moving from {country.name}
+          {t("title", { country: country.name })}
         </h1>
       </div>
 
@@ -58,7 +60,7 @@ export function CountryHero({
       {lastUpdated && (
         <div className="mt-5 flex items-center gap-2 text-xs text-[#5d6d7e] dark:text-[#99a3ad] sm:mt-6">
           <Calendar className="h-3.5 w-3.5" />
-          Last updated {formatDate(lastUpdated)}
+          {t("lastUpdated", { date: formatDate(lastUpdated) })}
         </div>
       )}
     </div>

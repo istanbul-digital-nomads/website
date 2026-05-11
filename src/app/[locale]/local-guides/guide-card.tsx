@@ -13,6 +13,7 @@ import {
   Languages,
   Clock,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { FlagBadge } from "@/components/ui/flag-badge";
@@ -31,6 +32,7 @@ function getNeighborhoodLabel(value: string) {
 
 export function GuideCard({ guide }: { guide: LocalGuide }) {
   const [expanded, setExpanded] = useState(false);
+  const t = useTranslations("localGuidesPage.card");
 
   const hasSocials =
     guide.social_instagram ||
@@ -69,7 +71,10 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
               <div className="mt-1 flex items-center gap-1 text-xs text-neutral-500 dark:text-[#85929e]">
                 <Clock className="h-3 w-3" />
                 {guide.years_in_istanbul}{" "}
-                {guide.years_in_istanbul === 1 ? "year" : "years"} in Istanbul
+                {guide.years_in_istanbul === 1
+                  ? t("yearSingular")
+                  : t("yearPlural")}{" "}
+                {t("inIstanbul")}
               </div>
             </div>
           </div>
@@ -93,7 +98,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
           {guide.origin_countries && guide.origin_countries.length > 0 && (
             <div className="mt-3">
               <p className="mb-1.5 text-[10px] font-medium uppercase tracking-wider text-neutral-500 dark:text-[#85929e]">
-                Helps people from
+                {t("helpsPeopleFrom")}
               </p>
               <div className="flex flex-wrap gap-1.5">
                 {guide.origin_countries.map((code) => (
@@ -128,7 +133,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-lg border border-black/10 p-2 text-neutral-500 transition-colors hover:bg-primary-50 hover:text-primary-600 dark:border-white/10 dark:hover:bg-white/10 dark:hover:text-primary-400"
-                  aria-label="Instagram"
+                  aria-label={t("social.instagram")}
                 >
                   <Instagram className="h-4 w-4" />
                 </a>
@@ -139,7 +144,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-lg border border-black/10 p-2 text-neutral-500 transition-colors hover:bg-primary-50 hover:text-primary-600 dark:border-white/10 dark:hover:bg-white/10 dark:hover:text-primary-400"
-                  aria-label="LinkedIn"
+                  aria-label={t("social.linkedin")}
                 >
                   <Linkedin className="h-4 w-4" />
                 </a>
@@ -150,7 +155,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-lg border border-black/10 p-2 text-neutral-500 transition-colors hover:bg-primary-50 hover:text-primary-600 dark:border-white/10 dark:hover:bg-white/10 dark:hover:text-primary-400"
-                  aria-label="Twitter"
+                  aria-label={t("social.twitter")}
                 >
                   <Twitter className="h-4 w-4" />
                 </a>
@@ -161,7 +166,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-lg border border-black/10 p-2 text-neutral-500 transition-colors hover:bg-primary-50 hover:text-primary-600 dark:border-white/10 dark:hover:bg-white/10 dark:hover:text-primary-400"
-                  aria-label="Website"
+                  aria-label={t("social.website")}
                 >
                   <Globe className="h-4 w-4" />
                 </a>
@@ -177,11 +182,11 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
             >
               {expanded ? (
                 <>
-                  Show less <ChevronUp className="h-3 w-3" />
+                  {t("showLess")} <ChevronUp className="h-3 w-3" />
                 </>
               ) : (
                 <>
-                  Show more <ChevronDown className="h-3 w-3" />
+                  {t("showMore")} <ChevronDown className="h-3 w-3" />
                 </>
               )}
             </button>

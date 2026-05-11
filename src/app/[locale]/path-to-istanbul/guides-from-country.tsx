@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Clock, MapPin } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -16,6 +17,8 @@ function neighborhoodLabel(v: string) {
 }
 
 export async function GuidesFromCountry({ country }: { country: Country }) {
+  const t = await getTranslations("pathToIstanbulPage.guidesFromCountry");
+
   // Tier 1: guides with exact origin-country match
   const { data: originMatches } = await getLocalGuides({
     originCountry: country.code,
@@ -50,14 +53,14 @@ export async function GuidesFromCountry({ country }: { country: Country }) {
       <div className="flex items-start justify-between gap-4">
         <div>
           <h2 className="text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-            Guides from {country.name}
+            {t("title", { country: country.name })}
           </h2>
           <p className="mt-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
             {tier === "origin"
-              ? `People who made the same journey and can help you settle in.`
+              ? t("tierOrigin")
               : tier === "language"
-                ? `No ${country.name}-born guides yet, but these locals speak the language.`
-                : `We don't have a guide from ${country.name} yet. Want to be the first?`}
+                ? t("tierLanguage", { country: country.name })
+                : t("tierEmpty", { country: country.name })}
           </p>
         </div>
         <span aria-hidden="true" className="text-3xl">
@@ -68,13 +71,11 @@ export async function GuidesFromCountry({ country }: { country: Country }) {
       {tier === "empty" ? (
         <div className="mt-6 rounded-xl border border-dashed border-primary-300/40 bg-white/60 p-6 text-center dark:border-primary-800/40 dark:bg-[#1a1a2e]/40">
           <p className="text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
-            Local guides from {country.name} help newcomers skip the hardest
-            parts of moving. Be the person you wish you&apos;d met when you
-            arrived.
+            {t("emptyBody", { country: country.name })}
           </p>
           <Link href="/local-guides/join" className="mt-4 inline-block">
             <Button size="sm" className="rounded-full">
-              Apply to be a guide <ArrowRight className="h-4 w-4" />
+              {t("applyCta")} <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
         </div>
@@ -103,7 +104,8 @@ export async function GuidesFromCountry({ country }: { country: Country }) {
                     </h3>
                     <div className="mt-0.5 flex items-center gap-1 text-[11px] text-[#5d6d7e] dark:text-[#99a3ad]">
                       <Clock className="h-3 w-3" />
-                      {guide.years_in_istanbul}y in Istanbul
+                      {guide.years_in_istanbul}
+                      {t("yearsShort")}
                     </div>
                   </div>
                 </div>
@@ -143,7 +145,7 @@ export async function GuidesFromCountry({ country }: { country: Country }) {
             href="/local-guides"
             className="inline-flex items-center gap-1 text-sm font-medium text-primary-600 transition-colors hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
           >
-            Browse all local guides <ArrowRight className="h-4 w-4" />
+            {t("browseAll")} <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       )}

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import {
   Card,
   CardHeader,
@@ -30,16 +31,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const SOURCE_TYPE_LABELS: Record<string, string> = {
-  guide: "Guide",
-  blog: "Blog",
-  path: "Country playbook",
-  neighborhood: "Neighborhood",
-  space: "Space",
-  "cost-tier": "Cost tier",
-  "setup-step": "Setup step",
-};
-
 const SOURCE_BASE_PATH: Record<string, string> = {
   guide: "/guides",
   blog: "/blog",
@@ -61,6 +52,9 @@ export function RelocationAgentResult({
   response,
   onReset,
 }: ResultProps) {
+  const t = useTranslations("relocationAgentPage.result");
+  const tCost = useTranslations("relocationAgentPage.result.cost");
+
   const { plan_text, plan_json, retrieved_chunk_count } = response;
   const primary = neighborhoods.find(
     (n) =>
@@ -75,10 +69,10 @@ export function RelocationAgentResult({
 
   const tierLabel =
     plan_json.cost_breakdown.tier === "low"
-      ? "Budget"
+      ? tCost("tierLow")
       : plan_json.cost_breakdown.tier === "high"
-        ? "Comfortable"
-        : "Moderate";
+        ? tCost("tierHigh")
+        : tCost("tierMid");
 
   return (
     <div className="space-y-8">
@@ -123,21 +117,27 @@ export function RelocationAgentResult({
 // ----------------------------------------------------------------------------
 
 function IntakeRecap({ intake }: { intake: RelocationIntake }) {
+  const t = useTranslations("relocationAgentPage.result");
   const country = intake.originCountry
     ? COUNTRIES.find((c) => c.slug === intake.originCountry)
     : null;
   const items = [
-    `${intake.currency} ${intake.budget.toLocaleString()}/month`,
+    t("perMonth", {
+      currency: intake.currency,
+      budget: intake.budget.toLocaleString(),
+    }),
     intake.duration.replace(/-/g, " "),
-    `${intake.lifestyle} lifestyle`,
+    t("lifestyleSuffix", { lifestyle: intake.lifestyle }),
     intake.work.replace(/-/g, " "),
-    country ? `from ${country.flag} ${country.name}` : null,
+    country
+      ? t("fromCountry", { flag: country.flag, name: country.name })
+      : null,
   ].filter(Boolean) as string[];
 
   return (
     <div className="rounded-lg border border-neutral-100 bg-neutral-50 px-4 py-3 text-sm dark:border-[rgba(44,62,80,0.12)] dark:bg-[rgba(44,62,80,0.08)]">
       <p className="text-xs font-medium uppercase tracking-wider text-neutral-500 dark:text-[#85929e]">
-        Your plan, based on
+        {t("recapLabel")}
       </p>
       <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-neutral-700 dark:text-[#d5dbdb]">
         {items.map((item, i) => (
@@ -161,13 +161,14 @@ function IntakeRecap({ intake }: { intake: RelocationIntake }) {
 // ----------------------------------------------------------------------------
 
 function PlanSummaryCard({ text }: { text: string }) {
+  const t = useTranslations("relocationAgentPage.result.summary");
   return (
     <Card>
       <CardHeader>
         <CardDescription className="uppercase tracking-wider">
-          Your plan, in plain English
+          {t("eyebrow")}
         </CardDescription>
-        <CardTitle>The short version</CardTitle>
+        <CardTitle>{t("title")}</CardTitle>
       </CardHeader>
       <CardContent>
         <p className="whitespace-pre-line text-base leading-relaxed text-neutral-700 dark:text-[#d5dbdb]">
@@ -189,6 +190,7 @@ function NeighborhoodMatchCard({
   alternates: (typeof neighborhoods)[number][];
   reasoning: string;
 }) {
+  const t = useTranslations("relocationAgentPage.result.neighborhood");
   return (
     <Card className="overflow-hidden">
       <div className="grid md:grid-cols-[1.1fr_1fr]">
@@ -204,13 +206,13 @@ function NeighborhoodMatchCard({
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 md:bg-gradient-to-r md:from-black/0 md:to-black/0" />
           <div className="absolute bottom-3 left-4 flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-neutral-700 backdrop-blur dark:bg-[#1a1a2e]/90 dark:text-[#f2f3f4]">
             <MapPin className="h-3.5 w-3.5 text-primary-600 dark:text-primary-400" />
-            {primary.side} side
+            {t("sideSuffix", { side: primary.side })}
           </div>
         </div>
 
         <div className="p-6 md:p-8">
           <p className="text-xs font-medium uppercase tracking-wider text-primary-700 dark:text-primary-400">
-            Best fit
+            {t("bestFit")}
           </p>
           <h2 className="mt-1 text-2xl font-semibold text-neutral-900 dark:text-[#f2f3f4]">
             {primary.name}
@@ -222,7 +224,7 @@ function NeighborhoodMatchCard({
           <dl className="mt-5 grid grid-cols-2 gap-3 text-sm">
             <div>
               <dt className="text-xs font-medium uppercase tracking-wider text-neutral-500 dark:text-[#85929e]">
-                Rent (1BR)
+                {t("rent")}
               </dt>
               <dd className="mt-0.5 font-medium text-neutral-900 dark:text-[#f2f3f4]">
                 ${primary.rentUsd.low}-{primary.rentUsd.high}
@@ -230,7 +232,7 @@ function NeighborhoodMatchCard({
             </div>
             <div>
               <dt className="text-xs font-medium uppercase tracking-wider text-neutral-500 dark:text-[#85929e]">
-                Noise
+                {t("noise")}
               </dt>
               <dd className="mt-0.5 font-medium text-neutral-900 dark:text-[#f2f3f4]">
                 {primary.noise}
@@ -238,7 +240,7 @@ function NeighborhoodMatchCard({
             </div>
             <div className="col-span-2">
               <dt className="text-xs font-medium uppercase tracking-wider text-neutral-500 dark:text-[#85929e]">
-                Best for
+                {t("bestFor")}
               </dt>
               <dd className="mt-1 flex flex-wrap gap-1.5">
                 {primary.bestFor.map((tag) => (
@@ -262,7 +264,7 @@ function NeighborhoodMatchCard({
               href={`/guides/neighborhoods/${primary.slug}`}
               className="inline-flex items-center gap-1 font-medium text-primary-700 hover:text-primary-800 dark:text-primary-300 dark:hover:text-primary-200"
             >
-              Read the {primary.name} guide
+              {t("readGuide", { name: primary.name })}
               <ArrowRight className="h-3.5 w-3.5" />
             </a>
           </div>
@@ -270,7 +272,7 @@ function NeighborhoodMatchCard({
           {alternates.length > 0 && (
             <div className="mt-5 border-t border-neutral-100 pt-4 dark:border-[rgba(44,62,80,0.12)]">
               <p className="text-xs font-medium uppercase tracking-wider text-neutral-500 dark:text-[#85929e]">
-                Also worth a look
+                {t("alsoWorth")}
               </p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {alternates.map((alt) => (
@@ -307,14 +309,21 @@ function AtAGlanceStrip({
   weekCount: number;
   tipCount: number;
 }) {
+  const t = useTranslations("relocationAgentPage.result.atAGlance");
   const stats = [
-    { label: "Monthly total", value: `$${monthlyTotal.toLocaleString()}` },
-    { label: "Tier", value: tierLabel },
     {
-      label: "Week plan",
-      value: `${weekCount} ${weekCount === 1 ? "week" : "weeks"}`,
+      label: t("monthlyTotal"),
+      value: `$${monthlyTotal.toLocaleString()}`,
     },
-    { label: "Tips for you", value: tipCount },
+    { label: t("tier"), value: tierLabel },
+    {
+      label: t("weekPlanLabel"),
+      value:
+        weekCount === 1
+          ? t("week", { count: weekCount })
+          : t("weeks", { count: weekCount }),
+    },
+    { label: t("tipsLabel"), value: tipCount },
   ];
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -337,7 +346,9 @@ function AtAGlanceStrip({
 
 // ----------------------------------------------------------------------------
 
-const COST_GROUP_FOR_LABEL = (label: string): string => {
+// Maps each cost line label (server-provided, English) to a stable group key.
+// Group keys match keys in relocationAgentPage.result.costGroups so they translate.
+const COST_GROUP_KEY_FOR_LABEL = (label: string): string => {
   const l = label.toLowerCase();
   if (/rent/.test(l)) return "Housing";
   if (/grocer|eating out|cafe|bar|food/.test(l)) return "Food & drink";
@@ -367,6 +378,9 @@ function CostBreakdownCard({
 }: {
   breakdown: RelocationPlanResponse["plan_json"]["cost_breakdown"];
 }) {
+  const tCost = useTranslations("relocationAgentPage.result.cost");
+  const tGroups = useTranslations("relocationAgentPage.result.costGroups");
+
   const grouped = breakdown.lines.reduce<
     Record<
       string,
@@ -377,7 +391,7 @@ function CostBreakdownCard({
       }
     >
   >((acc, line) => {
-    const group = COST_GROUP_FOR_LABEL(line.label);
+    const group = COST_GROUP_KEY_FOR_LABEL(line.label);
     if (!acc[group]) acc[group] = { usd: 0, tl: 0, items: [] };
     acc[group].usd += line.usd;
     acc[group].tl += line.tl;
@@ -396,11 +410,13 @@ function CostBreakdownCard({
         <Banknote className="mt-1 h-5 w-5 text-primary-600 dark:text-primary-400" />
         <div className="flex-1">
           <CardDescription className="uppercase tracking-wider">
-            {breakdown.tier} tier - approximate
+            {tCost("tierEyebrow", { tier: breakdown.tier })}
           </CardDescription>
           <div className="flex items-end justify-between gap-3">
             <CardTitle>
-              ${breakdown.monthly_total_usd.toLocaleString()} / month
+              {tCost("monthlyTotalTitle", {
+                total: breakdown.monthly_total_usd.toLocaleString(),
+              })}
             </CardTitle>
             <span className="text-sm text-neutral-500 dark:text-[#85929e]">
               ≈ {breakdown.lines.reduce((s, l) => s + l.tl, 0).toLocaleString()}{" "}
@@ -419,7 +435,7 @@ function CostBreakdownCard({
                   <div className="flex items-center gap-2">
                     <Icon className="h-3.5 w-3.5 text-neutral-500 dark:text-[#85929e]" />
                     <p className="text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-[#d5dbdb]">
-                      {group}
+                      {tGroups(group)}
                     </p>
                   </div>
                   <p className="text-sm font-semibold tabular-nums text-neutral-900 dark:text-[#f2f3f4]">
@@ -465,6 +481,7 @@ function SetupPlanCard({
 }: {
   weeks: RelocationPlanResponse["plan_json"]["setup_plan"];
 }) {
+  const t = useTranslations("relocationAgentPage.result.setup");
   const sorted = [...weeks].sort((a, b) => a.week - b.week);
   return (
     <Card>
@@ -472,9 +489,9 @@ function SetupPlanCard({
         <ListChecks className="mt-1 h-5 w-5 text-primary-600 dark:text-primary-400" />
         <div>
           <CardDescription className="uppercase tracking-wider">
-            First month
+            {t("eyebrow")}
           </CardDescription>
-          <CardTitle>Setup plan</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
         </div>
       </CardHeader>
       <CardContent>
@@ -494,7 +511,7 @@ function SetupPlanCard({
               )}
 
               <p className="text-sm font-semibold uppercase tracking-wider text-primary-700 dark:text-primary-400">
-                Week {week.week}
+                {t("weekHeading", { number: week.week })}
               </p>
 
               <ul className="mt-2 space-y-3 text-sm">
@@ -535,15 +552,16 @@ function SetupPlanCard({
 // ----------------------------------------------------------------------------
 
 function StrategyCard({ items }: { items: string[] }) {
+  const t = useTranslations("relocationAgentPage.result.strategy");
   return (
     <Card>
       <CardHeader className="flex items-start gap-3">
         <Compass className="mt-1 h-5 w-5 text-primary-600 dark:text-primary-400" />
         <div>
           <CardDescription className="uppercase tracking-wider">
-            Strategy
+            {t("eyebrow")}
           </CardDescription>
-          <CardTitle>The bigger picture</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
         </div>
       </CardHeader>
       <CardContent>
@@ -568,15 +586,16 @@ function StrategyCard({ items }: { items: string[] }) {
 }
 
 function TipsCard({ items }: { items: string[] }) {
+  const t = useTranslations("relocationAgentPage.result.tips");
   return (
     <Card>
       <CardHeader className="flex items-start gap-3">
         <Sparkles className="mt-1 h-5 w-5 text-primary-600 dark:text-primary-400" />
         <div>
           <CardDescription className="uppercase tracking-wider">
-            Tips
+            {t("eyebrow")}
           </CardDescription>
-          <CardTitle>Things you&apos;ll thank us for</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
         </div>
       </CardHeader>
       <CardContent>
@@ -605,24 +624,40 @@ function SourcesFooter({
   citations: RelocationPlanResponse["plan_json"]["citations"];
   retrievedCount: number;
 }) {
+  const t = useTranslations("relocationAgentPage.result.sources");
+  const tTypes = useTranslations("relocationAgentPage.result.sources.types");
+
   if (citations.length === 0) return null;
+  const summaryBase =
+    citations.length === 1
+      ? t("summarySingle", { count: citations.length })
+      : t("summaryPlural", { count: citations.length });
+  const summary =
+    retrievedCount > 0
+      ? `${summaryBase}${t("retrievedSuffix", { count: retrievedCount })}`
+      : summaryBase;
   return (
     <div className="rounded-lg border border-neutral-100 bg-neutral-50 p-5 dark:border-[rgba(44,62,80,0.12)] dark:bg-[rgba(44,62,80,0.08)]">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <p className="text-xs font-medium uppercase tracking-wider text-neutral-500 dark:text-[#85929e]">
-          Why we picked this
+          {t("label")}
         </p>
         <p className="text-xs text-neutral-500 dark:text-[#85929e]">
-          Built deterministically from {citations.length} verified source
-          {citations.length === 1 ? "" : "s"}
-          {retrievedCount > 0 && ` + ${retrievedCount} retrieved chunks`}
+          {summary}
         </p>
       </div>
       <div className="mt-3 flex flex-wrap gap-2">
         {citations.map((c, i) => {
           const base = SOURCE_BASE_PATH[c.source_type];
           const href = base ? `${base}/${c.source_slug}` : null;
-          const label = `${SOURCE_TYPE_LABELS[c.source_type] ?? c.source_type}: ${c.source}`;
+          // Try the translated label for known types; fall back to raw type string
+          let typeLabel: string;
+          try {
+            typeLabel = tTypes(c.source_type);
+          } catch {
+            typeLabel = c.source_type;
+          }
+          const label = `${typeLabel}: ${c.source}`;
           return href ? (
             <a
               key={`${c.source_slug}-${i}`}
@@ -655,18 +690,19 @@ function ActionRow({
   onReset: () => void;
   planText: string;
 }) {
+  const t = useTranslations("relocationAgentPage.result.actions");
   function handleEmail() {
-    const subject = encodeURIComponent("My Istanbul relocation plan");
+    const subject = encodeURIComponent(t("emailSubject"));
     const body = encodeURIComponent(planText);
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
   }
   return (
     <div className="flex flex-col-reverse items-stretch gap-3 border-t border-neutral-100 pt-6 sm:flex-row sm:items-center sm:justify-between dark:border-[rgba(44,62,80,0.12)]">
       <Button type="button" variant="ghost" onClick={onReset}>
-        Start over
+        {t("reset")}
       </Button>
       <Button type="button" variant="secondary" onClick={handleEmail}>
-        Email this to me
+        {t("email")}
       </Button>
     </div>
   );

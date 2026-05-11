@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Clock } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getLocalGuides } from "@/lib/supabase/queries";
@@ -11,17 +12,18 @@ function specLabel(v: string) {
   return guideSpecializations.find((s) => s.value === v)?.label ?? v;
 }
 
-function PopularPaths() {
+async function PopularPaths() {
+  const t = await getTranslations("pathToIstanbulPage.popularPaths");
   const supported = COUNTRIES.filter((c) => c.supported);
   return (
     <div>
       <div className="mb-6 flex items-end justify-between">
         <div>
           <h2 className="text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4] sm:text-3xl">
-            Popular paths to Istanbul
+            {t("title")}
           </h2>
           <p className="mt-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
-            Country playbooks ready to read - pick yours and skip the guesswork.
+            {t("subtitle")}
           </p>
         </div>
       </div>
@@ -42,7 +44,7 @@ function PopularPaths() {
                     {c.name}
                   </div>
                   <div className="text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
-                    Visa, money, housing, community
+                    {t("summary")}
                   </div>
                 </div>
               </div>
@@ -60,22 +62,24 @@ export async function FeaturedGuides() {
   const guides = data ?? [];
   if (guides.length === 0) return <PopularPaths />;
 
+  const t = await getTranslations("pathToIstanbulPage.featuredGuides");
+
   return (
     <div>
       <div className="mb-6 flex items-end justify-between">
         <div>
           <h2 className="text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4] sm:text-3xl">
-            Meet guides who made the journey
+            {t("title")}
           </h2>
           <p className="mt-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
-            Locals and fellow nomads who can help you settle in faster.
+            {t("subtitle")}
           </p>
         </div>
         <Link
           href="/local-guides"
           className="hidden items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 sm:inline-flex"
         >
-          View all <ArrowRight className="h-4 w-4" />
+          {t("viewAll")} <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
 
@@ -103,7 +107,8 @@ export async function FeaturedGuides() {
                   </h3>
                   <div className="mt-0.5 flex items-center gap-1 text-[11px] text-[#5d6d7e] dark:text-[#99a3ad]">
                     <Clock className="h-3 w-3" />
-                    {guide.years_in_istanbul}y in Istanbul
+                    {guide.years_in_istanbul}
+                    {t("yearsShort")}
                   </div>
                 </div>
               </div>

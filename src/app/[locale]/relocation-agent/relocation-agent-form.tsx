@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 import { Textarea } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { showToast } from "@/lib/toast";
@@ -16,26 +17,25 @@ import { cn } from "@/lib/utils";
 const CURRENCIES = ["USD", "EUR", "TL"] as const;
 const MAX_NOTES = 800;
 
-const DURATION_OPTIONS = [
-  { value: "few-weeks", label: "A few weeks" },
-  { value: "1-3-months", label: "1-3 months" },
-  { value: "3-6-months", label: "3-6 months" },
-  { value: "6-plus-months", label: "6+ months" },
+const DURATION_VALUES = [
+  "few-weeks",
+  "1-3-months",
+  "3-6-months",
+  "6-plus-months",
 ] as const;
+type DurationValue = (typeof DURATION_VALUES)[number];
 
-const LIFESTYLE_OPTIONS = [
-  { value: "social", label: "Social" },
-  { value: "quiet", label: "Quiet" },
-  { value: "mixed", label: "Mix of both" },
-] as const;
+const LIFESTYLE_VALUES = ["social", "quiet", "mixed"] as const;
+type LifestyleValue = (typeof LIFESTYLE_VALUES)[number];
 
-const WORK_OPTIONS = [
-  { value: "remote-fulltime", label: "Remote full-time" },
-  { value: "remote-flex", label: "Remote, flexible hours" },
-  { value: "freelance", label: "Freelance" },
-  { value: "founder", label: "Founder / building" },
-  { value: "other", label: "Other" },
+const WORK_VALUES = [
+  "remote-fulltime",
+  "remote-flex",
+  "freelance",
+  "founder",
+  "other",
 ] as const;
+type WorkValue = (typeof WORK_VALUES)[number];
 
 const MUST_HAVE_OPTIONS = [
   "fast wifi",
@@ -47,26 +47,19 @@ const MUST_HAVE_OPTIONS = [
   "near coworking",
 ] as const;
 
-const ORIGIN_COUNTRY_OPTIONS = [
-  { value: "", label: "Skip / not sure" },
-  ...COUNTRIES.map((c) => ({
-    value: c.slug,
-    label: `${c.flag} ${c.name}`,
-  })),
-  { value: "other", label: "Other country" },
-];
-
 // One source of truth for label/optional/required styling so labels read
 // at the same rhythm across every field
 function FieldLabel({
   htmlFor,
   required,
   optional,
+  optionalLabel,
   children,
 }: {
   htmlFor?: string;
   required?: boolean;
   optional?: boolean;
+  optionalLabel?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -80,9 +73,9 @@ function FieldLabel({
           *
         </span>
       )}
-      {optional && (
+      {optional && optionalLabel && (
         <span className="ml-2 text-xs font-normal text-neutral-500 dark:text-[#85929e]">
-          (optional)
+          {optionalLabel}
         </span>
       )}
     </label>
@@ -124,6 +117,7 @@ interface RadioGroupProps<T extends string> {
   required?: boolean;
   error?: string;
   helperText?: string;
+  ariaLabel: string;
 }
 
 function RadioGroup<T extends string>({
@@ -135,6 +129,7 @@ function RadioGroup<T extends string>({
   required,
   error,
   helperText,
+  ariaLabel,
 }: RadioGroupProps<T>) {
   const errorId = `${name}-error`;
   const helperId = `${name}-helper`;
@@ -143,7 +138,7 @@ function RadioGroup<T extends string>({
       <FieldLabel required={required}>{label}</FieldLabel>
       <div
         role="radiogroup"
-        aria-label={label}
+        aria-label={ariaLabel}
         aria-invalid={!!error}
         aria-describedby={error ? errorId : helperText ? helperId : undefined}
         className="mt-2 flex flex-wrap gap-2"
@@ -181,9 +176,9 @@ function RadioGroup<T extends string>({
 interface FormState {
   budget: string;
   currency: (typeof CURRENCIES)[number];
-  duration: (typeof DURATION_OPTIONS)[number]["value"];
-  lifestyle: (typeof LIFESTYLE_OPTIONS)[number]["value"];
-  work: (typeof WORK_OPTIONS)[number]["value"];
+  duration: DurationValue;
+  lifestyle: LifestyleValue;
+  work: WorkValue;
   originCountry: string;
   mustHaves: string[];
   notes: string;
@@ -224,44 +219,50 @@ function buildIntake(form: FormState): RelocationIntake | null {
   };
 }
 
-// Friendlier-than-Zod messages where it matters. Other paths fall back
-// to the schema's own messages
-const FRIENDLY_OVERRIDES: Partial<Record<string, string>> = {
-  budget: "Budget seems off. Try a number between 200 and 20000.",
-  notes: `Notes are too long. Keep it under ${MAX_NOTES} characters.`,
-  mustHaves: "Pick at most 10 must-haves.",
-};
+function useGetErrors() {
+  const tErrors = useTranslations("relocationAgentPage.form.errors");
 
-function getErrors(form: FormState): Errors {
-  const errors: Errors = {};
+  return (form: FormState): Errors => {
+    const errors: Errors = {};
 
-  // Budget: handle empty + non-numeric before the schema sees NaN
-  const budgetStr = form.budget.trim();
-  if (!budgetStr) {
-    errors.budget = "Tell us a budget so we can match a tier.";
-  } else if (!/^\d+$/.test(budgetStr)) {
-    errors.budget = "Budget should be a whole number.";
-  }
+    // Budget: handle empty + non-numeric before the schema sees NaN
+    const budgetStr = form.budget.trim();
+    if (!budgetStr) {
+      errors.budget = tErrors("budgetEmpty");
+    } else if (!/^\d+$/.test(budgetStr)) {
+      errors.budget = tErrors("budgetInvalid");
+    }
 
-  // Notes: cheap length cap before sending
-  if (form.notes.length > MAX_NOTES) {
-    errors.notes = `Keep notes under ${MAX_NOTES} characters. Yours is ${form.notes.length}.`;
-  }
+    // Notes: cheap length cap before sending
+    if (form.notes.length > MAX_NOTES) {
+      errors.notes = tErrors("notesTooLong", {
+        max: MAX_NOTES,
+        count: form.notes.length,
+      });
+    }
 
-  // Schema check covers the rest
-  const intake = buildIntake(form);
-  if (intake) {
-    const result = relocationIntakeSchema.safeParse(intake);
-    if (!result.success) {
-      for (const issue of result.error.issues) {
-        const key = String(issue.path[0] ?? "_form") as keyof Errors;
-        if (errors[key]) continue;
-        errors[key] = FRIENDLY_OVERRIDES[String(key)] ?? issue.message;
+    // Friendlier-than-Zod overrides where they matter
+    const friendly: Partial<Record<string, string>> = {
+      budget: tErrors("budgetRange"),
+      notes: tErrors("notesOverride", { max: MAX_NOTES }),
+      mustHaves: tErrors("mustHavesOverride"),
+    };
+
+    // Schema check covers the rest
+    const intake = buildIntake(form);
+    if (intake) {
+      const result = relocationIntakeSchema.safeParse(intake);
+      if (!result.success) {
+        for (const issue of result.error.issues) {
+          const key = String(issue.path[0] ?? "_form") as keyof Errors;
+          if (errors[key]) continue;
+          errors[key] = friendly[String(key)] ?? issue.message;
+        }
       }
     }
-  }
 
-  return errors;
+    return errors;
+  };
 }
 
 interface RelocationAgentFormProps {
@@ -272,6 +273,56 @@ interface RelocationAgentFormProps {
 }
 
 export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
+  const t = useTranslations("relocationAgentPage.form");
+  const tDuration = useTranslations("relocationAgentPage.form.durationOptions");
+  const tLifestyle = useTranslations(
+    "relocationAgentPage.form.lifestyleOptions",
+  );
+  const tWork = useTranslations("relocationAgentPage.form.workOptions");
+  const tMustHaves = useTranslations(
+    "relocationAgentPage.form.mustHaveOptions",
+  );
+  const tErrors = useTranslations("relocationAgentPage.form.errors");
+
+  const DURATION_OPTIONS = useMemo(
+    () =>
+      DURATION_VALUES.map((value) => ({
+        value,
+        label: tDuration(value),
+      })),
+    [tDuration],
+  );
+
+  const LIFESTYLE_OPTIONS = useMemo(
+    () =>
+      LIFESTYLE_VALUES.map((value) => ({
+        value,
+        label: tLifestyle(value),
+      })),
+    [tLifestyle],
+  );
+
+  const WORK_OPTIONS = useMemo(
+    () =>
+      WORK_VALUES.map((value) => ({
+        value,
+        label: tWork(value),
+      })),
+    [tWork],
+  );
+
+  const ORIGIN_COUNTRY_OPTIONS = useMemo(
+    () => [
+      { value: "", label: t("originSkip") },
+      ...COUNTRIES.map((c) => ({
+        value: c.slug,
+        label: `${c.flag} ${c.name}`,
+      })),
+      { value: "other", label: t("originOther") },
+    ],
+    [t],
+  );
+
   const [form, setForm] = useState<FormState>(initialState);
   const [loading, setLoading] = useState(false);
   const [attempted, setAttempted] = useState(false);
@@ -280,11 +331,15 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
   const budgetRef = useRef<HTMLInputElement | null>(null);
   const notesRef = useRef<HTMLTextAreaElement | null>(null);
 
+  const getErrors = useGetErrors();
+
   // Live re-validation kicks in only after the first submit attempt so we
   // don't shout "Required" at someone who just opened the page
   useEffect(() => {
     if (!attempted) return;
     setErrors(getErrors(form));
+    // getErrors depends only on translations which are stable per render tree
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form, attempted]);
 
   const liveErrors: Errors = useMemo(
@@ -317,10 +372,7 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
 
     if (Object.keys(currentErrors).length > 0) {
       focusFirstError(currentErrors);
-      showToast.error(
-        "A few fields need attention",
-        "Check the highlighted ones and try again.",
-      );
+      showToast.error(tErrors("toastTitle"), tErrors("toastDetail"));
       return;
     }
 
@@ -353,20 +405,24 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
         }
       }
 
+      const friendly: Partial<Record<string, string>> = {
+        budget: tErrors("budgetRange"),
+        notes: tErrors("notesOverride", { max: MAX_NOTES }),
+        mustHaves: tErrors("mustHavesOverride"),
+      };
+
       if (res.status === 400 && json?.issues && Array.isArray(json.issues)) {
         const serverErrors: Errors = {};
         for (const issue of json.issues) {
           const key = String(issue.path?.[0] ?? "_form") as keyof Errors;
           if (!serverErrors[key]) {
             serverErrors[key] =
-              FRIENDLY_OVERRIDES[String(key)] ??
-              issue.message ??
-              "This field looks off.";
+              friendly[String(key)] ?? issue.message ?? tErrors("fieldGeneric");
           }
         }
         setErrors(serverErrors);
         focusFirstError(serverErrors);
-        showToast.error("Couldn't build your plan", "Some fields need fixing.");
+        showToast.error(tErrors("buildFailTitle"), tErrors("buildFailFix"));
         return;
       }
 
@@ -375,16 +431,16 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
         const detail =
           (typeof json?.error === "string" && json.error) ||
           (res.status === 504
-            ? "The agent took too long. Try again in a minute."
-            : "Try again in a minute.");
-        showToast.error("Couldn't build your plan", detail);
+            ? tErrors("buildFailTimeout")
+            : tErrors("buildFailRetry"));
+        showToast.error(tErrors("buildFailTitle"), detail);
         return;
       }
 
       if (!json?.data) {
         showToast.error(
-          "Couldn't build your plan",
-          "Got an unexpected response. Try again.",
+          tErrors("buildFailTitle"),
+          tErrors("buildFailUnexpected"),
         );
         return;
       }
@@ -392,10 +448,7 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
       onResult(intake, json.data);
     } catch (err) {
       console.error(err);
-      showToast.error(
-        "Couldn't build your plan",
-        "Network hiccup. Try again in a minute.",
-      );
+      showToast.error(tErrors("buildFailTitle"), tErrors("buildFailNetwork"));
     } finally {
       setLoading(false);
     }
@@ -403,10 +456,7 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
 
   // Disabled = blocked from submitting. Always visible
   const submitDisabled = loading || (attempted && hasErrors);
-  const submitLabel = loading ? "Building your plan..." : "Build my plan";
-
-  // The full-screen LoadingState we used during the LLM era is overkill now
-  // that buildPlan returns in <50ms. The button's own spinner is enough
+  const submitLabel = loading ? t("submitting") : t("submit");
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8" noValidate>
@@ -414,7 +464,7 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
           a row and share a label; helper / error spans below the whole field. */}
       <div>
         <FieldLabel htmlFor="budget" required>
-          Monthly budget
+          {t("budget")}
         </FieldLabel>
         <div className="mt-1.5 flex flex-col gap-2 sm:flex-row sm:items-stretch">
           <input
@@ -441,7 +491,7 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
           />
           <div
             role="radiogroup"
-            aria-label="Currency"
+            aria-label={t("currencyLabel")}
             className="flex h-11 items-center gap-0.5 rounded-md border border-neutral-300 bg-white p-1 dark:border-[rgba(44,62,80,0.15)] dark:bg-[#1a1a2e]"
           >
             {CURRENCIES.map((c) => {
@@ -469,15 +519,14 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
         {liveErrors.budget ? (
           <FieldError id="budget-error">{liveErrors.budget}</FieldError>
         ) : (
-          <HelperText id="budget-helper">
-            What you can comfortably spend per month.
-          </HelperText>
+          <HelperText id="budget-helper">{t("budgetHelper")}</HelperText>
         )}
       </div>
 
       <RadioGroup
         name="duration"
-        label="How long are you planning to stay?"
+        label={t("duration")}
+        ariaLabel={t("duration")}
         value={form.duration}
         onChange={(v) => update("duration", v)}
         options={DURATION_OPTIONS}
@@ -487,7 +536,8 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
 
       <RadioGroup
         name="lifestyle"
-        label="What kind of lifestyle do you want?"
+        label={t("lifestyle")}
+        ariaLabel={t("lifestyle")}
         value={form.lifestyle}
         onChange={(v) => update("lifestyle", v)}
         options={LIFESTYLE_OPTIONS}
@@ -497,7 +547,8 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
 
       <RadioGroup
         name="work"
-        label="How do you work?"
+        label={t("work")}
+        ariaLabel={t("work")}
         value={form.work}
         onChange={(v) => update("work", v)}
         options={WORK_OPTIONS}
@@ -508,8 +559,12 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
       {/* Custom-chevron select: appearance-none + a chevron icon positioned
           absolute, with pl-4 / pr-10 so the text never collides with the icon */}
       <div>
-        <FieldLabel htmlFor="originCountry" optional>
-          Where are you coming from?
+        <FieldLabel
+          htmlFor="originCountry"
+          optional
+          optionalLabel={t("optional")}
+        >
+          {t("origin")}
         </FieldLabel>
         <div className="relative mt-1.5">
           <select
@@ -530,36 +585,36 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
             className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500 dark:text-[#85929e]"
           />
         </div>
-        <HelperText id="originCountry-helper">
-          We&apos;ll fold a country-specific playbook into the plan when we have
-          one.
-        </HelperText>
+        <HelperText id="originCountry-helper">{t("originHelper")}</HelperText>
       </div>
 
       <div>
-        <FieldLabel optional>Must-haves</FieldLabel>
+        <FieldLabel optional optionalLabel={t("optional")}>
+          {t("mustHaves")}
+        </FieldLabel>
         <div className="mt-2">
           <MustHaveToggles
             options={MUST_HAVE_OPTIONS as unknown as readonly string[]}
             value={form.mustHaves}
             onChange={(v) => update("mustHaves", v)}
+            optionLabels={(opt) => tMustHaves(opt)}
           />
         </div>
         {liveErrors.mustHaves ? (
           <FieldError id="mustHaves-error">{liveErrors.mustHaves}</FieldError>
         ) : (
-          <HelperText>Tap any that apply. Skip if nothing fits.</HelperText>
+          <HelperText>{t("mustHavesHelper")}</HelperText>
         )}
       </div>
 
       <div>
-        <FieldLabel htmlFor="notes" optional>
-          Anything else we should know?
+        <FieldLabel htmlFor="notes" optional optionalLabel={t("optional")}>
+          {t("notes")}
         </FieldLabel>
         <Textarea
           ref={notesRef}
           id="notes"
-          placeholder="Coming with a partner? Pet? Special routine?"
+          placeholder={t("notesPlaceholder")}
           value={form.notes}
           onChange={(e) => update("notes", e.target.value)}
           aria-invalid={!!liveErrors.notes}
@@ -569,9 +624,9 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
         />
         {!liveErrors.notes && (
           <HelperText id="notes-helper">
-            We pass this to the agent verbatim.{" "}
+            {t("notesHelper")}{" "}
             <span className="tabular-nums">
-              {form.notes.length}/{MAX_NOTES}
+              {t("notesCounter", { count: form.notes.length, max: MAX_NOTES })}
             </span>
           </HelperText>
         )}
@@ -579,7 +634,7 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
 
       <div className="flex flex-col-reverse items-stretch gap-3 border-t border-neutral-100 pt-6 sm:flex-row sm:items-center sm:justify-between dark:border-[rgba(44,62,80,0.12)]">
         <p className="text-xs text-neutral-500 dark:text-[#85929e]">
-          We never store your intake unless you&apos;re signed in.
+          {t("privacy")}
         </p>
         <Button
           type="submit"
@@ -599,10 +654,12 @@ function MustHaveToggles({
   options,
   value,
   onChange,
+  optionLabels,
 }: {
   options: readonly string[];
   value: string[];
   onChange: (v: string[]) => void;
+  optionLabels: (opt: string) => string;
 }) {
   function toggle(optValue: string) {
     if (value.includes(optValue)) {
@@ -628,7 +685,7 @@ function MustHaveToggles({
                 : "bg-white/70 text-neutral-700 ring-1 ring-black/10 hover:bg-primary-50 hover:text-primary-700 dark:bg-white/5 dark:text-[#99a3ad] dark:ring-white/10 dark:hover:bg-white/10",
             )}
           >
-            {opt}
+            {optionLabels(opt)}
           </button>
         );
       })}

@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { Upload } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Textarea } from "@/components/ui/input";
 import { createClient } from "@/lib/supabase/client";
 import { showToast } from "@/lib/toast";
@@ -13,30 +14,32 @@ interface StepProps {
   errors: FieldErrors;
 }
 
-const ATMOSPHERE = [
-  "Friendly and social",
-  "Professional networking",
-  "Party-focused",
-  "Calm and activity-based",
+type AtmosphereOption = { key: string; value: string };
+const ATMOSPHERE: readonly AtmosphereOption[] = [
+  { key: "friendly", value: "friendly-and-social" },
+  { key: "professional", value: "professional-networking" },
+  { key: "party", value: "party-focused" },
+  { key: "calm", value: "calm-and-activity-based" },
 ];
 
 function CheckboxGroup({
   label,
   options,
+  optionLabels,
   value,
   onChange,
 }: {
   label: string;
-  options: string[];
+  options: readonly AtmosphereOption[];
+  optionLabels: (key: string) => string;
   value: string[];
   onChange: (val: string[]) => void;
 }) {
-  function toggle(opt: string) {
-    const key = opt.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-    if (value.includes(key)) {
-      onChange(value.filter((v) => v !== key));
+  function toggle(optValue: string) {
+    if (value.includes(optValue)) {
+      onChange(value.filter((v) => v !== optValue));
     } else {
-      onChange([...value, key]);
+      onChange([...value, optValue]);
     }
   }
   return (
@@ -45,29 +48,30 @@ function CheckboxGroup({
         {label}
       </label>
       <div className="mt-2 flex flex-wrap gap-2">
-        {options.map((opt) => {
-          const key = opt.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-          return (
-            <button
-              key={opt}
-              type="button"
-              onClick={() => toggle(opt)}
-              className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
-                value.includes(key)
-                  ? "bg-primary-600 text-white"
-                  : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 hover:bg-primary-50 dark:bg-[#1e2130] dark:text-[#99a3ad] dark:ring-white/5"
-              }`}
-            >
-              {opt}
-            </button>
-          );
-        })}
+        {options.map((opt) => (
+          <button
+            key={opt.key}
+            type="button"
+            onClick={() => toggle(opt.value)}
+            className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+              value.includes(opt.value)
+                ? "bg-primary-600 text-white"
+                : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 hover:bg-primary-50 dark:bg-[#1e2130] dark:text-[#99a3ad] dark:ring-white/5"
+            }`}
+          >
+            {optionLabels(opt.key)}
+          </button>
+        ))}
       </div>
     </div>
   );
 }
 
 export function StepFinal({ data, updateField, errors }: StepProps) {
+  const t = useTranslations("onboardingPage.steps.final");
+  const tAtmosphere = useTranslations(
+    "onboardingPage.steps.final.atmosphereOptions",
+  );
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function handlePhotoUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -75,7 +79,7 @@ export function StepFinal({ data, updateField, errors }: StepProps) {
     if (!file) return;
 
     if (file.size > 10 * 1024 * 1024) {
-      showToast.error("Photo too large", "Maximum 10 MB.");
+      showToast.error(t("photoTooLarge"), t("photoTooLargeDetail"));
       return;
     }
 
@@ -94,7 +98,7 @@ export function StepFinal({ data, updateField, errors }: StepProps) {
         .upload(path, file, { upsert: true });
 
       if (error) {
-        showToast.error("Upload failed", error.message);
+        showToast.error(t("uploadFailed"), error.message);
         return;
       }
 
@@ -103,9 +107,9 @@ export function StepFinal({ data, updateField, errors }: StepProps) {
       } = supabase.storage.from("avatars").getPublicUrl(path);
 
       updateField("photo_verification_url", publicUrl);
-      showToast.success("Photo uploaded!");
+      showToast.success(t("photoUploadSuccess"));
     } catch {
-      showToast.error("Upload failed. Please try again.");
+      showToast.error(t("uploadFailedRetry"));
     }
   }
 
@@ -113,18 +117,18 @@ export function StepFinal({ data, updateField, errors }: StepProps) {
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold text-[#1a1a2e] dark:text-[#f2f3f4]">
-          You&apos;re almost in!
+          {t("title")}
         </h2>
         <p className="mt-1 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
-          One last thing - tell us why you&apos;d like to join.
+          {t("intro")}
         </p>
       </div>
 
       <Textarea
-        label="Why do you want to join?"
+        label={t("whyJoin")}
         value={(data.why_join as string) || ""}
         onChange={(e) => updateField("why_join", e.target.value)}
-        placeholder="What brings you to Istanbul? What are you hoping to find in this community?"
+        placeholder={t("whyJoinPlaceholder")}
         required
         error={errors.why_join}
       />
@@ -132,11 +136,10 @@ export function StepFinal({ data, updateField, errors }: StepProps) {
       {/* Photo upload */}
       <div>
         <label className="block text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]">
-          Photo Verification
+          {t("photoLabel")}
         </label>
         <p className="mt-1 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
-          Upload a clear photo of yourself. This helps us maintain a safe
-          community. Max 10 MB.
+          {t("photoHelper")}
         </p>
         <input
           ref={fileInputRef}
@@ -151,20 +154,19 @@ export function StepFinal({ data, updateField, errors }: StepProps) {
           className="mt-2 flex items-center gap-2 rounded-xl border border-dashed border-primary-300 bg-primary-50/30 px-4 py-3 text-sm font-medium text-primary-700 transition-colors hover:bg-primary-50 dark:border-primary-800 dark:bg-primary-950/10 dark:text-primary-300"
         >
           <Upload className="h-4 w-4" />
-          {data.photo_verification_url
-            ? "Photo uploaded - change"
-            : "Upload photo"}
+          {data.photo_verification_url ? t("photoUploaded") : t("photoUpload")}
         </button>
         {Boolean(data.photo_verification_url) && (
           <p className="mt-1 text-xs text-primary-600 dark:text-primary-400">
-            Photo uploaded successfully.
+            {t("photoSuccess")}
           </p>
         )}
       </div>
 
       <CheckboxGroup
-        label="What kind of atmosphere are you looking for?"
+        label={t("atmosphere")}
         options={ATMOSPHERE}
+        optionLabels={(k) => tAtmosphere(k)}
         value={(data.atmosphere_preferences as string[]) || []}
         onChange={(v) => updateField("atmosphere_preferences", v)}
       />

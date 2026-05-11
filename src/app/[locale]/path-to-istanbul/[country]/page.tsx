@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { mdxComponents } from "@/components/ui/mdx-components";
@@ -32,10 +33,11 @@ export async function generateMetadata({
   const country = getCountryBySlug(params.country);
   if (!country) return {};
   const content = getPathContent(country.slug);
-  const title = `Moving to Istanbul from ${country.name}`;
+  const t = await getTranslations("countryPage.meta");
+  const title = t("titleTemplate", { country: country.name });
   const description =
     content?.frontmatter.summary ??
-    `Visa, flights, housing, and community for ${country.name}-born nomads moving to Istanbul.`;
+    t("fallbackDescription", { country: country.name });
   return {
     title,
     description,
@@ -43,12 +45,14 @@ export async function generateMetadata({
   };
 }
 
-export default function CountryPage({ params }: CountryPageProps) {
+export default async function CountryPage({ params }: CountryPageProps) {
   const country = getCountryBySlug(params.country);
   if (!country || !country.supported) notFound();
 
   const content = getPathContent(country.slug);
   if (!content) notFound();
+
+  const t = await getTranslations("countryPage");
 
   const { content: mdxSource, frontmatter } = content;
 
@@ -64,22 +68,22 @@ export default function CountryPage({ params }: CountryPageProps) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: `Moving to Istanbul from ${country.name}`,
+    name: t("meta.titleTemplate", { country: country.name }),
     description: frontmatter.summary,
     step: [
       {
         "@type": "HowToStep",
-        name: "Visa, residence & documents",
+        name: t("schema.visaStep"),
         url: `https://istanbulnomads.com/path-to-istanbul/${country.slug}#visa-residence-documents`,
       },
       {
         "@type": "HowToStep",
-        name: "Flights, arrival & money",
+        name: t("schema.flightsStep"),
         url: `https://istanbulnomads.com/path-to-istanbul/${country.slug}#flights-arrival-money`,
       },
       {
         "@type": "HowToStep",
-        name: "Housing, healthcare & community",
+        name: t("schema.housingStep"),
         url: `https://istanbulnomads.com/path-to-istanbul/${country.slug}#housing-healthcare-community`,
       },
     ],
@@ -98,14 +102,14 @@ export default function CountryPage({ params }: CountryPageProps) {
             href="/"
             className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
           >
-            Home
+            {t("breadcrumb.home")}
           </Link>
           <span>/</span>
           <Link
             href="/path-to-istanbul"
             className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
           >
-            Path to Istanbul
+            {t("breadcrumb.pathToIstanbul")}
           </Link>
           <span>/</span>
           <span className="text-[#1a1a2e] dark:text-[#f2f3f4]">
@@ -141,7 +145,7 @@ export default function CountryPage({ params }: CountryPageProps) {
                 className="mt-12 max-w-3xl scroll-mt-24 sm:mt-16"
               >
                 <h2 className="mb-6 text-2xl font-bold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                  Related reading
+                  {t("related.title")}
                 </h2>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {relatedGuideObjects.map((g) => (
@@ -151,7 +155,7 @@ export default function CountryPage({ params }: CountryPageProps) {
                       className="group rounded-xl border border-black/5 bg-white/70 p-4 transition-colors hover:border-primary-300 hover:bg-primary-50/50 dark:border-white/10 dark:bg-white/5 dark:hover:border-primary-700 dark:hover:bg-primary-950/20"
                     >
                       <p className="text-xs font-medium uppercase tracking-wider text-primary-600 dark:text-primary-400">
-                        City guide
+                        {t("related.cityGuideLabel")}
                       </p>
                       <p className="mt-1 font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
                         {g.title}
@@ -168,7 +172,7 @@ export default function CountryPage({ params }: CountryPageProps) {
                       className="group rounded-xl border border-black/5 bg-white/70 p-4 transition-colors hover:border-primary-300 hover:bg-primary-50/50 dark:border-white/10 dark:bg-white/5 dark:hover:border-primary-700 dark:hover:bg-primary-950/20"
                     >
                       <p className="text-xs font-medium uppercase tracking-wider text-primary-600 dark:text-primary-400">
-                        Blog
+                        {t("related.blogLabel")}
                       </p>
                       <p className="mt-1 font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
                         {p.title}
@@ -185,11 +189,10 @@ export default function CountryPage({ params }: CountryPageProps) {
             {/* CTA */}
             <div className="mt-12 max-w-3xl rounded-2xl border border-primary-500/20 bg-[linear-gradient(135deg,#8a2a1a_0%,#5c1a12_50%,#3d1410_100%)] p-6 text-center text-white dark:bg-[linear-gradient(135deg,#5c1a12_0%,#3d1410_50%,#1e2130_100%)] sm:mt-16 sm:p-8">
               <h2 className="text-xl font-semibold sm:text-2xl">
-                Join the community when you arrive
+                {t("cta.title")}
               </h2>
               <p className="mt-3 text-sm text-white/80 sm:text-base">
-                Weekly coworking, monthly meetups, and a friendly Telegram group
-                of people who actually live here.
+                {t("cta.body")}
               </p>
               <Link
                 href="https://t.me/istanbul_digital_nomads"
@@ -201,7 +204,7 @@ export default function CountryPage({ params }: CountryPageProps) {
                   size="lg"
                   className="rounded-full bg-white px-8 text-neutral-950 hover:bg-primary-50"
                 >
-                  Join the Telegram <ArrowRight className="h-5 w-5" />
+                  {t("cta.button")} <ArrowRight className="h-5 w-5" />
                 </Button>
               </Link>
             </div>

@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { Search } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { guideSpecializations, istanbulNeighborhoods } from "@/lib/constants";
 import { GuideCard } from "./guide-card";
@@ -10,6 +11,7 @@ import type { Database } from "@/types/database";
 type LocalGuide = Database["public"]["Tables"]["local_guides"]["Row"];
 
 export function LocalGuidesDirectory({ guides }: { guides: LocalGuide[] }) {
+  const t = useTranslations("localGuidesPage.directory");
   const [search, setSearch] = useState("");
   const [activeSpec, setActiveSpec] = useState<string | null>(null);
   const [activeNeighborhood, setActiveNeighborhood] = useState<string | null>(
@@ -41,7 +43,7 @@ export function LocalGuidesDirectory({ guides }: { guides: LocalGuide[] }) {
         <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
         <input
           type="text"
-          placeholder="Search guides by name or expertise..."
+          placeholder={t("searchPlaceholder")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="w-full rounded-xl border border-black/10 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition-colors placeholder:text-neutral-400 focus:border-primary-400 focus:ring-1 focus:ring-primary-400 dark:border-white/10 dark:bg-white/5 dark:text-[#f2f3f4] dark:placeholder:text-[#5d6d7e]"
@@ -59,7 +61,7 @@ export function LocalGuidesDirectory({ guides }: { guides: LocalGuide[] }) {
               : "bg-white/70 text-neutral-600 ring-1 ring-black/10 hover:bg-primary-50 dark:bg-white/5 dark:text-[#99a3ad] dark:ring-white/10",
           )}
         >
-          All expertise
+          {t("allExpertise")}
         </button>
         {guideSpecializations.map((spec) => (
           <button
@@ -90,7 +92,7 @@ export function LocalGuidesDirectory({ guides }: { guides: LocalGuide[] }) {
               : "bg-white/70 text-neutral-600 ring-1 ring-black/10 hover:bg-primary-50 dark:bg-white/5 dark:text-[#99a3ad] dark:ring-white/10",
           )}
         >
-          All areas
+          {t("allAreas")}
         </button>
         {istanbulNeighborhoods.map((n) => (
           <button
@@ -122,10 +124,10 @@ export function LocalGuidesDirectory({ guides }: { guides: LocalGuide[] }) {
       ) : (
         <div className="mt-12 text-center">
           <p className="text-lg font-medium text-neutral-900 dark:text-[#f2f3f4]">
-            No guides match your filters
+            {t("noResultsTitle")}
           </p>
           <p className="mt-2 text-sm text-neutral-500 dark:text-[#85929e]">
-            Try broadening your search or clearing some filters.
+            {t("noResultsBody")}
           </p>
         </div>
       )}

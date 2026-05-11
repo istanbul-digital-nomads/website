@@ -1,23 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
-interface TOCItem {
-  id: string;
-  label: string;
-}
+const ITEM_KEYS = ["visa", "flights", "housing", "guides", "related"] as const;
 
-const ITEMS: TOCItem[] = [
-  { id: "visa-residence-documents", label: "Visa & residence" },
-  { id: "flights-arrival-money", label: "Flights & money" },
-  { id: "housing-healthcare-community", label: "Housing & community" },
-  { id: "guides", label: "Guides from here" },
-  { id: "related", label: "Related reading" },
-];
+const ID_BY_KEY: Record<(typeof ITEM_KEYS)[number], string> = {
+  visa: "visa-residence-documents",
+  flights: "flights-arrival-money",
+  housing: "housing-healthcare-community",
+  guides: "guides",
+  related: "related",
+};
 
 export function CountryTOC() {
-  const [active, setActive] = useState<string>(ITEMS[0].id);
+  const t = useTranslations("countryPage.toc");
+  const [active, setActive] = useState<string>(ID_BY_KEY[ITEM_KEYS[0]]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -31,8 +30,8 @@ export function CountryTOC() {
       { rootMargin: "-30% 0px -65% 0px", threshold: 0 },
     );
 
-    for (const item of ITEMS) {
-      const el = document.getElementById(item.id);
+    for (const key of ITEM_KEYS) {
+      const el = document.getElementById(ID_BY_KEY[key]);
       if (el) observer.observe(el);
     }
 
@@ -41,28 +40,31 @@ export function CountryTOC() {
 
   return (
     <nav
-      aria-label="Page sections"
+      aria-label={t("ariaLabel")}
       className="sticky top-24 hidden max-h-[calc(100vh-8rem)] overflow-y-auto pl-4 lg:block"
     >
       <p className="text-xs font-semibold uppercase tracking-wider text-[#5d6d7e] dark:text-[#99a3ad]">
-        On this page
+        {t("title")}
       </p>
       <ul className="mt-3 space-y-2 border-l border-black/10 dark:border-white/10">
-        {ITEMS.map((item) => (
-          <li key={item.id}>
-            <a
-              href={`#${item.id}`}
-              className={cn(
-                "-ml-px block border-l-2 py-1 pl-4 text-sm transition-colors",
-                active === item.id
-                  ? "border-primary-500 font-medium text-primary-600 dark:text-primary-400"
-                  : "border-transparent text-[#5d6d7e] hover:text-[#1a1a2e] dark:text-[#99a3ad] dark:hover:text-[#f2f3f4]",
-              )}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))}
+        {ITEM_KEYS.map((key) => {
+          const id = ID_BY_KEY[key];
+          return (
+            <li key={key}>
+              <a
+                href={`#${id}`}
+                className={cn(
+                  "-ml-px block border-l-2 py-1 pl-4 text-sm transition-colors",
+                  active === id
+                    ? "border-primary-500 font-medium text-primary-600 dark:text-primary-400"
+                    : "border-transparent text-[#5d6d7e] hover:text-[#1a1a2e] dark:text-[#99a3ad] dark:hover:text-[#f2f3f4]",
+                )}
+              >
+                {t(`items.${key}`)}
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );

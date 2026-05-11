@@ -16,10 +16,10 @@ import {
   Music,
   Globe,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { guides, guideCategories, type GuideCategory } from "@/lib/data";
-import { hasGuideContent } from "@/lib/guides";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   MapPin,
@@ -35,21 +35,22 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Globe,
 };
 
-const categories = [
-  { value: "all" as const, label: "All guides" },
-  ...Object.entries(guideCategories).map(([value, { label }]) => ({
-    value: value as GuideCategory,
-    label,
-  })),
-];
-
 interface GuidesListingProps {
   guidesWithContent: string[];
 }
 
 export function GuidesListing({ guidesWithContent }: GuidesListingProps) {
+  const t = useTranslations("guidesIndexPage.listing");
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<"all" | GuideCategory>("all");
+
+  const categories = [
+    { value: "all" as const, label: t("allGuides") },
+    ...Object.entries(guideCategories).map(([value, { label }]) => ({
+      value: value as GuideCategory,
+      label,
+    })),
+  ];
 
   const filtered = guides.filter((guide) => {
     const matchesSearch =
@@ -68,7 +69,7 @@ export function GuidesListing({ guidesWithContent }: GuidesListingProps) {
           <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#5d6d7e] dark:text-[#99a3ad]" />
           <input
             type="text"
-            placeholder="Search guides..."
+            placeholder={t("searchPlaceholder")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full rounded-xl border border-primary-200/40 bg-white/70 py-3 pl-11 pr-4 text-sm text-[#1a1a2e] placeholder:text-[#5d6d7e]/60 focus:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-500/20 dark:border-[rgba(44,62,80,0.12)] dark:bg-[#1a1a2e] dark:text-[#f2f3f4] dark:placeholder:text-[#99a3ad]/60"
@@ -96,9 +97,7 @@ export function GuidesListing({ guidesWithContent }: GuidesListingProps) {
       {/* Results */}
       {filtered.length === 0 ? (
         <div className="rounded-xl border border-dashed border-primary-200/50 bg-primary-50/30 p-12 text-center dark:border-primary-900/30 dark:bg-primary-950/10">
-          <p className="text-[#5d6d7e] dark:text-[#99a3ad]">
-            No guides match your search. Try a different term or category.
-          </p>
+          <p className="text-[#5d6d7e] dark:text-[#99a3ad]">{t("empty")}</p>
         </div>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -113,7 +112,7 @@ export function GuidesListing({ guidesWithContent }: GuidesListingProps) {
                       <Icon className="h-8 w-8 text-primary-600 dark:text-primary-400" />
                       {hasContent && (
                         <span className="rounded-full bg-primary-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary-700 dark:bg-primary-900/30 dark:text-primary-300">
-                          Live
+                          {t("liveBadge")}
                         </span>
                       )}
                     </div>
@@ -124,7 +123,7 @@ export function GuidesListing({ guidesWithContent }: GuidesListingProps) {
                       {guide.description}
                     </p>
                     <span className="mt-4 inline-block text-sm font-medium text-primary-600 dark:text-primary-400">
-                      Read guide &rarr;
+                      {t("readGuide")} &rarr;
                     </span>
                   </CardContent>
                 </Card>

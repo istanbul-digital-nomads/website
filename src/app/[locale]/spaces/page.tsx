@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Clock3, Headphones, MapPin, PlugZap } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 import { spaces } from "@/lib/spaces";
 import { SpacesDirectory } from "./spaces-directory";
 
-export const metadata: Metadata = {
-  title: "Nomad Spaces",
-  description:
-    "Find the best cafes and coworking spaces in Istanbul for remote work. Each spot is rated with a Nomad Score based on wifi, power, comfort, noise, value, and vibe.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("spacesPage.meta");
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
-export default function SpacesPage() {
+export default async function SpacesPage() {
+  const t = await getTranslations("spacesPage");
   const openSpaces = spaces.filter((space) => space.status !== "closed");
   const neighborhoods = new Set(spaces.map((space) => space.neighborhood)).size;
 
@@ -21,28 +25,26 @@ export default function SpacesPage() {
         <Container>
           <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">
             <div>
-              <p className="eyebrow">Nomad Spaces</p>
+              <p className="eyebrow">{t("hero.eyebrow")}</p>
               <h1 className="mt-4 max-w-3xl font-display text-5xl font-extrabold leading-[0.98] text-neutral-950 sm:text-[4.5rem] dark:text-[#f2f3f4]">
-                Find the right table for today.
+                {t("hero.title")}
               </h1>
               <p className="mt-5 max-w-2xl text-body-lg leading-8 text-[#5d6d7e] dark:text-[#b7aaa0]">
-                Choose calls, quiet focus, rain-safe backup, late work, budget,
-                or first-visit mode. The finder ranks Istanbul cafes and
-                coworking spaces by what actually matters for remote work.
+                {t("hero.body")}
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                 <a
                   href="#space-finder"
                   className="inline-flex items-center justify-center gap-2 rounded-md bg-neutral-950 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-800 dark:bg-[#f2f3f4] dark:text-[#14110f] dark:hover:bg-[#d8d0c8]"
                 >
-                  Open finder
+                  {t("hero.openFinder")}
                   <ArrowRight className="h-4 w-4" />
                 </a>
                 <Link
                   href="/tools/first-week-planner"
                   className="inline-flex items-center justify-center gap-2 rounded-md border border-black/15 px-5 py-3 text-sm font-semibold text-neutral-950 transition-colors hover:border-primary-500/40 hover:bg-white/60 dark:border-white/20 dark:text-[#f2f3f4] dark:hover:bg-white/10"
                 >
-                  Plan week one
+                  {t("hero.planWeekOne")}
                 </Link>
               </div>
             </div>
@@ -50,27 +52,31 @@ export default function SpacesPage() {
             <div className="grid gap-3 sm:grid-cols-2">
               <HeroSignal
                 icon={PlugZap}
-                label="Work-ready"
-                value={`${openSpaces.length} spaces`}
-                detail="Cafes and coworking spots with laptop signals."
+                label={t("hero.signals.workReady.label")}
+                value={t("hero.signals.workReady.value", {
+                  count: openSpaces.length,
+                })}
+                detail={t("hero.signals.workReady.detail")}
               />
               <HeroSignal
                 icon={MapPin}
-                label="Coverage"
-                value={`${neighborhoods} areas`}
-                detail="Asian and European side options in one comparison."
+                label={t("hero.signals.coverage.label")}
+                value={t("hero.signals.coverage.value", {
+                  count: neighborhoods,
+                })}
+                detail={t("hero.signals.coverage.detail")}
               />
               <HeroSignal
                 icon={Headphones}
-                label="Decision labels"
-                value="Calls / quiet / rain"
-                detail="Same-day filters instead of generic listings."
+                label={t("hero.signals.decisionLabels.label")}
+                value={t("hero.signals.decisionLabels.value")}
+                detail={t("hero.signals.decisionLabels.detail")}
               />
               <HeroSignal
                 icon={Clock3}
-                label="Reality check"
-                value="Partial scores shown"
-                detail="Unverified fields stay honest and visible."
+                label={t("hero.signals.realityCheck.label")}
+                value={t("hero.signals.realityCheck.value")}
+                detail={t("hero.signals.realityCheck.detail")}
               />
             </div>
           </div>

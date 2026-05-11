@@ -10,6 +10,7 @@ import {
   ShieldCheck,
   Wifi,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -31,6 +32,7 @@ export function SpaceCard({
   isSelected: boolean;
   onSelect: (id: string) => void;
 }) {
+  const t = useTranslations("spacesPage.card");
   const [expanded, setExpanded] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -64,7 +66,7 @@ export function SpaceCard({
                       space.type === "coworking" ? "coworking" : "workshop"
                     }
                   >
-                    {space.type === "coworking" ? "Coworking" : "Cafe"}
+                    {space.type === "coworking" ? t("coworking") : t("cafe")}
                   </Badge>
                 </div>
                 <div className="mt-1 flex items-center gap-1 text-xs text-neutral-500 dark:text-[#85929e]">
@@ -155,7 +157,7 @@ export function SpaceCard({
                     onClick={(e) => e.stopPropagation()}
                   >
                     <Globe className="h-3.5 w-3.5" />
-                    Visit website
+                    {t("visitWebsite")}
                   </a>
                 )}
 
@@ -163,10 +165,10 @@ export function SpaceCard({
                   <div className="space-y-2 rounded-lg bg-black/[0.02] p-3 dark:bg-white/[0.03]">
                     <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-[#99a3ad]">
                       <ShieldCheck className="h-3.5 w-3.5 text-primary-500" />
-                      Sources
+                      {t("sources")}
                       {space.last_verified && (
                         <span className="ml-1 font-normal normal-case text-neutral-500 dark:text-[#85929e]">
-                          (verified {space.last_verified})
+                          {t("verified", { date: space.last_verified })}
                         </span>
                       )}
                     </div>
@@ -200,11 +202,11 @@ export function SpaceCard({
             >
               {expanded ? (
                 <>
-                  Show less <ChevronUp className="h-3 w-3" />
+                  {t("showLess")} <ChevronUp className="h-3 w-3" />
                 </>
               ) : (
                 <>
-                  Score breakdown <ChevronDown className="h-3 w-3" />
+                  {t("scoreBreakdown")} <ChevronDown className="h-3 w-3" />
                 </>
               )}
             </button>

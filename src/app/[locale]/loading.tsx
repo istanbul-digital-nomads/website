@@ -1,6 +1,8 @@
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 
-export default function Loading() {
+export default async function Loading() {
+  const t = await getTranslations("errorPages.loading");
   return (
     <div className="relative overflow-hidden py-10 sm:py-16">
       <Container className="relative">
@@ -36,7 +38,7 @@ export default function Loading() {
           <div className="h-32 rounded-2xl border border-neutral-200 bg-neutral-100/50 sm:h-36 dark:border-neutral-700 dark:bg-neutral-800/50" />
         </div>
 
-        <span className="sr-only">Loading page content</span>
+        <span className="sr-only">{t("srLabel")}</span>
       </Container>
     </div>
   );

@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
@@ -24,58 +25,62 @@ interface OnboardingWizardProps {
 }
 
 const STEPS = [
-  { label: "About You", component: StepAbout },
-  { label: "Contact & Work", component: StepContact },
-  { label: "Your Interests", component: StepInterests },
-  { label: "Community Guidelines", component: StepGuidelines },
-  { label: "Almost Done", component: StepFinal },
-];
+  { key: "about", component: StepAbout },
+  { key: "contact", component: StepContact },
+  { key: "interests", component: StepInterests },
+  { key: "guidelines", component: StepGuidelines },
+  { key: "final", component: StepFinal },
+] as const;
 
-function validateStep(step: number, data: OnboardingData): FieldErrors {
-  const errors: FieldErrors = {};
+function useValidator() {
+  const tValidation = useTranslations("onboardingPage.validation");
 
-  switch (step) {
-    case 0: {
-      const name = (data.display_name as string)?.trim();
-      if (!name) errors.display_name = "Your name is required.";
-      if (!data.age_range && !data.birthday) {
-        errors.age_or_birthday =
-          "Pick an age range or share your birthday - either works.";
+  return useCallback(
+    (step: number, data: OnboardingData): FieldErrors => {
+      const errors: FieldErrors = {};
+
+      switch (step) {
+        case 0: {
+          const name = (data.display_name as string)?.trim();
+          if (!name) errors.display_name = tValidation("displayName");
+          if (!data.age_range && !data.birthday) {
+            errors.age_or_birthday = tValidation("ageOrBirthday");
+          }
+          break;
+        }
+        case 1: {
+          const profession = (data.profession as string)?.trim();
+          if (!profession) errors.profession = tValidation("profession");
+          break;
+        }
+        case 2: {
+          if (!data.member_type) errors.member_type = tValidation("memberType");
+          break;
+        }
+        case 3: {
+          if (!data.agrees_guidelines)
+            errors.agrees_guidelines = tValidation("guidelines");
+          break;
+        }
+        case 4: {
+          const why = (data.why_join as string)?.trim();
+          if (!why || why.length < 10) errors.why_join = tValidation("whyJoin");
+          break;
+        }
       }
-      break;
-    }
-    case 1: {
-      const profession = (data.profession as string)?.trim();
-      if (!profession)
-        errors.profession =
-          "Let us know what you do - even something short like 'freelancer' works.";
-      break;
-    }
-    case 2: {
-      if (!data.member_type)
-        errors.member_type = "Pick the option that fits you best.";
-      break;
-    }
-    case 3: {
-      if (!data.agrees_guidelines)
-        errors.agrees_guidelines =
-          "Please read and agree to the guidelines to continue.";
-      break;
-    }
-    case 4: {
-      const why = (data.why_join as string)?.trim();
-      if (!why || why.length < 10)
-        errors.why_join =
-          "Tell us a bit about why you want to join (at least a sentence).";
-      break;
-    }
-  }
 
-  return errors;
+      return errors;
+    },
+    [tValidation],
+  );
 }
 
 export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
   const router = useRouter();
+  const t = useTranslations("onboardingPage.wizard");
+  const tSteps = useTranslations("onboardingPage.steps");
+  const validateStep = useValidator();
+
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<OnboardingData>({
     display_name: initialData.display_name,
@@ -132,9 +137,7 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
 
   function handleSkip() {
     router.push("/");
-    showToast.info(
-      "You can complete your profile later from your account menu.",
-    );
+    showToast.info(t("skipToast"));
   }
 
   async function handleSubmit() {
@@ -146,7 +149,7 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
       } = await supabase.auth.getUser();
 
       if (!user) {
-        showToast.error("Please sign in again");
+        showToast.error(t("signInAgain"));
         router.push("/login");
         return;
       }
@@ -183,15 +186,15 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
         .eq("id", user.id);
 
       if (error) {
-        showToast.error("Couldn't save your profile", error.message);
+        showToast.error(t("saveError"), error.message);
         return;
       }
 
-      showToast.success("Welcome to Istanbul Digital Nomads!");
+      showToast.success(t("welcome"));
       router.push("/");
       router.refresh();
     } catch {
-      showToast.error("Something went wrong. Please try again.");
+      showToast.error(t("submitError"));
     } finally {
       setSubmitting(false);
     }
@@ -205,19 +208,22 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
           <div className="mb-8">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-[#1a1a2e] dark:text-[#f2f3f4]">
-                Step {currentStep + 1} of {STEPS.length}
+                {t("stepIndicator", {
+                  current: currentStep + 1,
+                  total: STEPS.length,
+                })}
               </span>
               <button
                 onClick={handleSkip}
                 className="text-sm text-[#5d6d7e] transition-colors hover:text-primary-600 dark:text-[#99a3ad]"
               >
-                Skip for now
+                {t("skip")}
               </button>
             </div>
             <div className="mt-3 flex gap-1.5">
               {STEPS.map((step, i) => (
                 <div
-                  key={step.label}
+                  key={step.key}
                   className={`h-1.5 flex-1 rounded-full transition-colors ${
                     i <= currentStep
                       ? "bg-primary-500"
@@ -227,7 +233,7 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
               ))}
             </div>
             <p className="mt-2 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
-              {STEPS[currentStep].label}
+              {tSteps(`${STEPS[currentStep].key}.label`)}
             </p>
           </div>
 
@@ -249,7 +255,7 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
                   onClick={handleBack}
                   className="rounded-xl"
                 >
-                  Back
+                  {t("back")}
                 </Button>
               )}
             </div>
@@ -259,7 +265,7 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
               className={`rounded-xl px-8 ${shakeButton ? "animate-shake" : ""}`}
               size="lg"
             >
-              {isLastStep ? "Submit Application" : "Continue"}
+              {isLastStep ? t("submit") : t("continue")}
             </Button>
           </div>
         </div>

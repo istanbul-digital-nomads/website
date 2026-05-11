@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import type { OnboardingData, FieldErrors } from "../onboarding-wizard";
 
@@ -11,13 +12,16 @@ interface StepProps {
 }
 
 const AGE_RANGES = ["18-24", "25-29", "30-35", "36-40", "41-50", "50+"];
-const GENDERS = [
-  { value: "female", label: "Female" },
-  { value: "male", label: "Male" },
-  { value: "prefer-not-to-say", label: "Prefer not to say" },
-];
+const GENDER_KEYS = ["female", "male", "preferNotToSay"] as const;
+const GENDER_VALUES: Record<(typeof GENDER_KEYS)[number], string> = {
+  female: "female",
+  male: "male",
+  preferNotToSay: "prefer-not-to-say",
+};
 
 export function StepAbout({ data, updateField, errors }: StepProps) {
+  const t = useTranslations("onboardingPage.steps.about");
+  const tGenders = useTranslations("onboardingPage.steps.about.genders");
   const [preferAgeRange, setPreferAgeRange] = useState(!!data.age_range);
 
   function handleAgeRangeToggle() {
@@ -33,18 +37,18 @@ export function StepAbout({ data, updateField, errors }: StepProps) {
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold text-[#1a1a2e] dark:text-[#f2f3f4]">
-          About you
+          {t("title")}
         </h2>
         <p className="mt-1 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
-          Let&apos;s start with the basics so the community can get to know you.
+          {t("intro")}
         </p>
       </div>
 
       <Input
-        label="Full Name"
+        label={t("fullName")}
         value={(data.display_name as string) || ""}
         onChange={(e) => updateField("display_name", e.target.value)}
-        placeholder="Your full name"
+        placeholder={t("fullNamePlaceholder")}
         required
         error={errors.display_name}
       />
@@ -53,7 +57,7 @@ export function StepAbout({ data, updateField, errors }: StepProps) {
       <div data-field="age_or_birthday">
         <div className="flex items-center justify-between">
           <label className="block text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]">
-            {preferAgeRange ? "Age Range" : "Birthday"}
+            {preferAgeRange ? t("ageRange") : t("birthday")}
             <span className="ml-0.5 text-red-500" aria-hidden="true">
               *
             </span>
@@ -63,9 +67,7 @@ export function StepAbout({ data, updateField, errors }: StepProps) {
             onClick={handleAgeRangeToggle}
             className="text-xs text-primary-600 transition-colors hover:text-primary-800 dark:text-primary-400"
           >
-            {preferAgeRange
-              ? "I'll share my birthday instead"
-              : "I'd rather pick an age range"}
+            {preferAgeRange ? t("toggleToBirthday") : t("toggleToAgeRange")}
           </button>
         </div>
 
@@ -105,38 +107,41 @@ export function StepAbout({ data, updateField, errors }: StepProps) {
       {/* Gender */}
       <div>
         <label className="block text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]">
-          Gender
+          {t("gender")}
         </label>
         <div className="mt-2 flex flex-wrap gap-2">
-          {GENDERS.map((g) => (
-            <button
-              key={g.value}
-              type="button"
-              onClick={() => updateField("gender", g.value)}
-              className={`rounded-xl px-4 py-2 text-sm font-medium transition-colors ${
-                data.gender === g.value
-                  ? "bg-primary-600 text-white"
-                  : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 hover:bg-primary-50 dark:bg-[#1e2130] dark:text-[#99a3ad] dark:ring-white/5"
-              }`}
-            >
-              {g.label}
-            </button>
-          ))}
+          {GENDER_KEYS.map((g) => {
+            const value = GENDER_VALUES[g];
+            return (
+              <button
+                key={g}
+                type="button"
+                onClick={() => updateField("gender", value)}
+                className={`rounded-xl px-4 py-2 text-sm font-medium transition-colors ${
+                  data.gender === value
+                    ? "bg-primary-600 text-white"
+                    : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 hover:bg-primary-50 dark:bg-[#1e2130] dark:text-[#99a3ad] dark:ring-white/5"
+                }`}
+              >
+                {tGenders(g)}
+              </button>
+            );
+          })}
         </div>
       </div>
 
       <Input
-        label="Nationality"
+        label={t("nationality")}
         value={(data.nationality as string) || ""}
         onChange={(e) => updateField("nationality", e.target.value)}
-        placeholder="e.g., German, Brazilian, Turkish"
+        placeholder={t("nationalityPlaceholder")}
       />
 
       <Input
-        label="City / District you live in"
+        label={t("cityDistrict")}
         value={(data.city_district as string) || ""}
         onChange={(e) => updateField("city_district", e.target.value)}
-        placeholder="e.g., Kadikoy, Cihangir, Besiktas"
+        placeholder={t("cityDistrictPlaceholder")}
       />
     </div>
   );

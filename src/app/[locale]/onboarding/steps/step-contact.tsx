@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import type { OnboardingData, FieldErrors } from "../onboarding-wizard";
 
@@ -10,48 +11,49 @@ interface StepProps {
 }
 
 export function StepContact({ data, updateField, errors }: StepProps) {
+  const t = useTranslations("onboardingPage.steps.contact");
   return (
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold text-[#1a1a2e] dark:text-[#f2f3f4]">
-          Contact & Work
+          {t("title")}
         </h2>
         <p className="mt-1 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
-          How can the community reach you, and what do you do?
+          {t("intro")}
         </p>
       </div>
 
       <Input
-        label="Phone Number (WhatsApp)"
+        label={t("phone")}
         value={(data.phone_whatsapp as string) || ""}
         onChange={(e) => updateField("phone_whatsapp", e.target.value)}
-        placeholder="+90 5XX XXX XXXX"
+        placeholder={t("phonePlaceholder")}
         type="tel"
-        helperText="Include country code. This isn't shared publicly."
+        helperText={t("phoneHelper")}
       />
 
       <Input
-        label="Email Address"
+        label={t("email")}
         value={(data.email as string) || ""}
         disabled
-        helperText="From your Google account - can't be changed here."
+        helperText={t("emailHelper")}
       />
 
       <Input
-        label="Profession / Field of Work"
+        label={t("profession")}
         value={(data.profession as string) || ""}
         onChange={(e) => updateField("profession", e.target.value)}
-        placeholder="e.g., freelance developer, UX designer, English teacher"
+        placeholder={t("professionPlaceholder")}
         required
         error={errors.profession}
       />
 
       <Input
-        label="Instagram or LinkedIn profile"
+        label={t("social")}
         value={(data.social_profile as string) || ""}
         onChange={(e) => updateField("social_profile", e.target.value)}
-        placeholder="https://instagram.com/yourname or linkedin.com/in/yourname"
-        helperText="Helps us verify you're a real person."
+        placeholder={t("socialPlaceholder")}
+        helperText={t("socialHelper")}
       />
     </div>
   );

@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { FirstWeekPlanner } from "./first-week-planner";
 import { parsePlannerInput } from "@/lib/first-week-planner";
 
-export const metadata: Metadata = {
-  title: "First Week Planner - Istanbul Digital Nomads",
-  description:
-    "Build a practical seven-day Istanbul landing plan based on your arrival profile, base neighborhood, work rhythm, social appetite, and budget comfort.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("firstWeekPlanner.meta");
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 interface Props {
   searchParams?: Record<string, string | string[] | undefined>;

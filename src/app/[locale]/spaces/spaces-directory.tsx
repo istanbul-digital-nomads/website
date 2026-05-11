@@ -23,6 +23,7 @@ import {
   WalletCards,
   X,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import type { NomadSpace } from "@/lib/spaces";
 import {
@@ -56,52 +57,20 @@ const modeSuggestedNeeds: Record<FinderMode, SpaceNeed[]> = {
   "first-visit": ["firstVisit", "strongSockets"],
 };
 
-const modeVisuals: Record<
-  FinderMode,
-  {
-    Icon: typeof BriefcaseBusiness;
-    stage: string;
-    reward: string;
-  }
-> = {
-  best: {
-    Icon: Crosshair,
-    stage: "Main quest",
-    reward: "Balanced workday",
-  },
-  calls: {
-    Icon: PhoneCall,
-    stage: "Call shield",
-    reward: "Less meeting stress",
-  },
-  quiet: {
-    Icon: Focus,
-    stage: "Focus run",
-    reward: "Deeper work",
-  },
-  rain: {
-    Icon: CloudRain,
-    stage: "Rain route",
-    reward: "Dry laptop",
-  },
-  late: {
-    Icon: Moon,
-    stage: "Night shift",
-    reward: "After-hours backup",
-  },
-  budget: {
-    Icon: WalletCards,
-    stage: "Coin saver",
-    reward: "Lower spend",
-  },
-  "first-visit": {
-    Icon: Compass,
-    stage: "Starter route",
-    reward: "Easy first try",
-  },
+const modeIcons: Record<FinderMode, typeof BriefcaseBusiness> = {
+  best: Crosshair,
+  calls: PhoneCall,
+  quiet: Focus,
+  rain: CloudRain,
+  late: Moon,
+  budget: WalletCards,
+  "first-visit": Compass,
 };
 
 export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
+  const t = useTranslations("spacesPage.finder");
+  const tModes = useTranslations("spacesPage.finder.modes");
+  const tNeeds = useTranslations("spacesPage.finder.needs");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [filters, setFilters] = useState<SpaceFinderFilters>(defaultFilters);
   const [showMap, setShowMap] = useState(false);
@@ -124,6 +93,8 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
   const suggestedNeeds = modeSuggestedNeeds[filters.mode].filter(
     (need) => !selectedNeeds.has(need),
   );
+  const selectedModeLabel = tModes(`${selectedMode.value}.label`);
+  const selectedModeDescription = tModes(`${selectedMode.value}.description`);
 
   function updateFilters(next: Partial<SpaceFinderFilters>) {
     startTransition(() => {
@@ -146,20 +117,24 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
   return (
     <div className="space-y-8">
       <div className="grid gap-2 rounded-md border border-black/10 bg-white/70 p-2 dark:border-white/10 dark:bg-white/[0.04] sm:grid-cols-3">
-        <QuestStep active label="1. Pick mission" value={selectedMode.label} />
+        <QuestStep
+          active
+          label={t("quest.step1Label")}
+          value={selectedModeLabel}
+        />
         <QuestStep
           active={filters.needs.length > 0}
-          label="2. Add power-ups"
+          label={t("quest.step2Label")}
           value={
             filters.needs.length > 0
-              ? `${filters.needs.length} active`
-              : "Optional"
+              ? t("quest.activeCount", { count: filters.needs.length })
+              : t("quest.optional")
           }
         />
         <QuestStep
           active={rankedSpaces.length > 0}
-          label="3. Claim table"
-          value={topMatch ? topMatch.space.name : "No match yet"}
+          label={t("quest.step3Label")}
+          value={topMatch ? topMatch.space.name : t("quest.noMatchYet")}
         />
       </div>
 
@@ -168,14 +143,13 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-300">
-                Choose your work quest
+                {t("mission.eyebrow")}
               </p>
               <h2 className="mt-3 max-w-lg font-display text-h2 text-neutral-950 dark:text-[#f2f3f4]">
-                Pick the kind of day you are trying to win.
+                {t("mission.title")}
               </h2>
               <p className="mt-3 max-w-xl text-sm leading-7 text-[#5d6d7e] dark:text-[#b7aaa0]">
-                {selectedMode.description} Add one or two work signals only if
-                the day really needs them.
+                {selectedModeDescription} {t("mission.bodySuffix")}
               </p>
             </div>
             <BriefcaseBusiness className="mt-1 h-6 w-6 text-primary-600 dark:text-primary-300" />
@@ -185,7 +159,13 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
             {finderModes.map((mode) => (
               <MissionCard
                 key={mode.value}
-                mode={mode}
+                value={mode.value}
+                label={tModes(`${mode.value}.label`)}
+                description={tModes(`${mode.value}.description`)}
+                stage={tModes(`${mode.value}.stage`)}
+                reward={tModes(`${mode.value}.reward`)}
+                selectedLabel={t("mission.selected")}
+                rewardPrefix={t("mission.rewardPrefix")}
                 active={filters.mode === mode.value}
                 onClick={() => updateFilters({ mode: mode.value })}
               />
@@ -196,7 +176,7 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
             <div className="mt-5 rounded-md border border-black/10 bg-white/55 p-3 dark:border-white/10 dark:bg-white/[0.04]">
               <div className="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-neutral-500 dark:text-[#94877d]">
                 <Sparkles className="h-4 w-4 text-primary-600 dark:text-primary-300" />
-                Suggested power-ups
+                {t("suggested.title")}
               </div>
               <div className="flex flex-wrap gap-2">
                 {suggestedNeeds.slice(0, 3).map((need) => {
@@ -211,7 +191,9 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
                       onClick={() => toggleNeed(need)}
                       className="rounded-md border border-black/10 bg-white px-3 py-2 text-xs font-semibold text-neutral-700 transition-colors hover:border-primary-500/40 hover:bg-primary-50 dark:border-white/10 dark:bg-white/5 dark:text-[#d8d0c8] dark:hover:bg-white/10"
                     >
-                      Equip {option.label.toLowerCase()}
+                      {t("suggested.equip", {
+                        label: tNeeds(`${need}.label`).toLowerCase(),
+                      })}
                     </button>
                   );
                 })}
@@ -224,14 +206,14 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-4 dark:border-white/10">
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-200">
-                Go here first
+                {t("brief.eyebrow")}
               </p>
               <p className="mt-1 text-sm text-white/62">
-                Ranked by your current workday brief.
+                {t("brief.subtitle")}
               </p>
             </div>
             <p className="rounded-md bg-white/10 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/70">
-              {rankedSpaces.length} found
+              {t("brief.found", { count: rankedSpaces.length })}
             </p>
           </div>
 
@@ -254,32 +236,38 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
                   </span>
                   <span className="rounded-md bg-primary-300 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[#14110f]">
                     {topMatch.signals.score == null
-                      ? "Check live"
-                      : `${topMatch.signals.score.toFixed(1)} score`}
+                      ? t("brief.checkLive")
+                      : t("brief.scoreSuffix", {
+                          score: topMatch.signals.score.toFixed(1),
+                        })}
                   </span>
                 </span>
 
                 <span className="mt-4 grid gap-2 sm:grid-cols-3">
                   <BriefItem
                     icon={<PlugZap className="h-4 w-4" />}
-                    label="Power"
+                    label={t("brief.power")}
                     value={
                       topMatch.signals.strongSockets
-                        ? "Good bet"
-                        : "Check first"
+                        ? t("brief.powerGood")
+                        : t("brief.powerCheck")
                     }
                   />
                   <BriefItem
                     icon={<Coffee className="h-4 w-4" />}
-                    label="Type"
+                    label={t("brief.type")}
                     value={
-                      topMatch.space.type === "coworking" ? "Coworking" : "Cafe"
+                      topMatch.space.type === "coworking"
+                        ? t("brief.typeCoworking")
+                        : t("brief.typeCafe")
                     }
                   />
                   <BriefItem
                     icon={<Navigation className="h-4 w-4" />}
-                    label="Backup"
-                    value={backupMatch ? backupMatch.space.name : "Open map"}
+                    label={t("brief.backup")}
+                    value={
+                      backupMatch ? backupMatch.space.name : t("brief.openMap")
+                    }
                   />
                 </span>
 
@@ -318,8 +306,10 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
                       </span>
                       <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/48">
                         {signals.score == null
-                          ? "Unverified"
-                          : `${signals.score.toFixed(1)} score`}
+                          ? t("brief.unverified")
+                          : t("brief.scoreSuffix", {
+                              score: signals.score.toFixed(1),
+                            })}
                       </span>
                     </button>
                   ))}
@@ -328,10 +318,10 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
           ) : (
             <div className="mt-5 rounded-md border border-white/10 bg-white/[0.04] p-5">
               <p className="font-display text-2xl font-extrabold">
-                No clean pick for this exact brief.
+                {t("brief.noPickTitle")}
               </p>
               <p className="mt-2 text-sm leading-6 text-white/62">
-                Remove one work signal, then compare again.
+                {t("brief.noPickBody")}
               </p>
             </div>
           )}
@@ -344,7 +334,7 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
             <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
             <input
               type="search"
-              placeholder="Search by place, neighborhood, amenity, or signal..."
+              placeholder={t("search.placeholder")}
               value={filters.search}
               onChange={(event) =>
                 updateFilters({ search: event.target.value })
@@ -369,14 +359,14 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
               className="inline-flex h-11 items-center gap-2 rounded-md border border-black/10 px-3 text-sm font-semibold text-neutral-700 transition-colors hover:border-primary-500/40 hover:bg-primary-50/60 disabled:opacity-60 dark:border-white/10 dark:text-[#d8d0c8] dark:hover:bg-white/10"
             >
               <X className="h-4 w-4" />
-              Reset
+              {t("search.reset")}
             </button>
           </div>
         </div>
 
         <div className="mt-4 grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
           <FilterPanel
-            title="Neighborhood"
+            title={t("filters.neighborhood")}
             icon={<Map className="h-4 w-4" />}
             className="xl:col-span-1"
           >
@@ -384,7 +374,11 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
               {neighborhoods.map((neighborhood) => (
                 <FilterChip
                   key={neighborhood}
-                  label={neighborhood}
+                  label={
+                    neighborhood === "All neighborhoods"
+                      ? t("filters.allNeighborhoods")
+                      : neighborhood
+                  }
                   active={filters.neighborhood === neighborhood}
                   onClick={() => updateFilters({ neighborhood })}
                 />
@@ -393,14 +387,16 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
           </FilterPanel>
 
           <FilterPanel
-            title="Power-ups"
+            title={t("filters.powerUps")}
             icon={<SlidersHorizontal className="h-4 w-4" />}
           >
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
               {needOptions.map((need) => (
                 <NeedButton
                   key={need.value}
-                  need={need}
+                  value={need.value}
+                  label={tNeeds(`${need.value}.label`)}
+                  description={tNeeds(`${need.value}.description`)}
                   active={selectedNeeds.has(need.value)}
                   onClick={() => toggleNeed(need.value)}
                 />
@@ -418,12 +414,10 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
         >
           <span>
             <span className="block font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-300">
-              Map view
+              {t("map.label")}
             </span>
             <span className="mt-1 block text-sm text-[#5d6d7e] dark:text-[#b7aaa0]">
-              {showMap
-                ? "Map is open for the current filtered list."
-                : "Open the map when location matters more than comparison."}
+              {showMap ? t("map.open") : t("map.closed")}
             </span>
           </span>
           <ChevronDown
@@ -448,17 +442,16 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-300">
-              Compare spaces
+              {t("results.eyebrow")}
             </p>
             <h2 className="mt-2 font-display text-h2 text-neutral-950 dark:text-[#f2f3f4]">
-              {rankedSpaces.length}{" "}
-              {rankedSpaces.length === 1 ? "match" : "matches"}
+              {rankedSpaces.length === 1
+                ? t("results.matchOne", { count: rankedSpaces.length })
+                : t("results.matchOther", { count: rankedSpaces.length })}
             </h2>
           </div>
           <p className="max-w-md text-sm leading-6 text-[#5d6d7e] dark:text-[#b7aaa0]">
-            Scores are weighted for wifi, power, comfort, quiet, value, and
-            vibe. Partial scores stay visible so unverified places do not look
-            more certain than they are.
+            {t("results.body")}
           </p>
         </div>
 
@@ -467,28 +460,57 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
           equippedNeeds.length > 0 ||
           filters.search) && (
           <div className="mt-4 flex flex-wrap gap-2">
-            <LoadoutPill label="Mission" value={selectedMode.label} />
+            <LoadoutPill
+              label={t("results.loadout.mission")}
+              value={selectedModeLabel}
+              removeAriaLabel={t("results.loadout.removeLabel", {
+                value: selectedModeLabel,
+              })}
+            />
             {filters.neighborhood !== "All neighborhoods" ? (
-              <LoadoutPill label="Area" value={filters.neighborhood} />
+              <LoadoutPill
+                label={t("results.loadout.area")}
+                value={filters.neighborhood}
+                removeAriaLabel={t("results.loadout.removeLabel", {
+                  value: filters.neighborhood,
+                })}
+              />
             ) : null}
             {filters.type !== "all" ? (
               <LoadoutPill
-                label="Type"
-                value={filters.type === "cafe" ? "Cafes" : "Coworking"}
+                label={t("results.loadout.type")}
+                value={
+                  filters.type === "cafe" ? t("type.cafe") : t("type.coworking")
+                }
+                removeAriaLabel={t("results.loadout.removeLabel", {
+                  value:
+                    filters.type === "cafe"
+                      ? t("type.cafe")
+                      : t("type.coworking"),
+                })}
               />
             ) : null}
-            {equippedNeeds.map((need) => (
-              <LoadoutPill
-                key={need.value}
-                label="Power-up"
-                value={need.label}
-                onRemove={() => toggleNeed(need.value)}
-              />
-            ))}
+            {equippedNeeds.map((need) => {
+              const needLabel = tNeeds(`${need.value}.label`);
+              return (
+                <LoadoutPill
+                  key={need.value}
+                  label={t("results.loadout.powerUp")}
+                  value={needLabel}
+                  removeAriaLabel={t("results.loadout.removeLabel", {
+                    value: needLabel,
+                  })}
+                  onRemove={() => toggleNeed(need.value)}
+                />
+              );
+            })}
             {filters.search ? (
               <LoadoutPill
-                label="Search"
+                label={t("results.loadout.search")}
                 value={filters.search}
+                removeAriaLabel={t("results.loadout.removeLabel", {
+                  value: filters.search,
+                })}
                 onRemove={() => updateFilters({ search: "" })}
               />
             ) : null}
@@ -511,18 +533,17 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
         ) : (
           <div className="mt-8 rounded-md border border-black/10 bg-[#f6f1ea] p-8 text-center dark:border-white/10 dark:bg-[#1a1612]">
             <p className="font-display text-2xl font-extrabold text-neutral-950 dark:text-[#f2f3f4]">
-              No spaces match that exact workday.
+              {t("results.empty.title")}
             </p>
             <p className="mx-auto mt-3 max-w-lg text-sm leading-7 text-[#5d6d7e] dark:text-[#b7aaa0]">
-              Try removing one signal first. Calls-friendly plus quiet plus open
-              late can be a coworking-only day in Istanbul.
+              {t("results.empty.body")}
             </p>
             <button
               type="button"
               onClick={resetFilters}
               className="mt-5 inline-flex items-center gap-2 rounded-md bg-neutral-950 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-800 dark:bg-[#f2f3f4] dark:text-[#14110f] dark:hover:bg-[#d8d0c8]"
             >
-              Clear filters
+              {t("results.empty.cta")}
             </button>
           </div>
         )}
@@ -560,16 +581,27 @@ function QuestStep({
 }
 
 function MissionCard({
-  mode,
+  value,
+  label,
+  description,
+  stage,
+  reward,
+  selectedLabel,
+  rewardPrefix,
   active,
   onClick,
 }: {
-  mode: (typeof finderModes)[number];
+  value: FinderMode;
+  label: string;
+  description: string;
+  stage: string;
+  reward: string;
+  selectedLabel: string;
+  rewardPrefix: string;
   active: boolean;
   onClick: () => void;
 }) {
-  const visual = modeVisuals[mode.value];
-  const Icon = visual.Icon;
+  const Icon = modeIcons[value];
 
   return (
     <button
@@ -596,18 +628,18 @@ function MissionCard({
               : "border-black/10 bg-white/60 text-neutral-500 dark:border-white/10 dark:bg-white/5 dark:text-[#94877d]",
           )}
         >
-          {active ? "Selected" : visual.stage}
+          {active ? selectedLabel : stage}
         </span>
       </span>
       <span className="relative mt-4 block text-base font-extrabold">
-        {mode.label}
+        {label}
       </span>
       <span className="relative mt-1 block text-xs leading-5 opacity-80">
-        {mode.description}
+        {description}
       </span>
       <span className="relative mt-4 flex items-center gap-2 border-t border-black/10 pt-3 font-mono text-[9px] uppercase tracking-[0.18em] text-neutral-500 dark:border-white/10 dark:text-[#94877d]">
         <Sparkles className="h-3.5 w-3.5 text-primary-600 dark:text-primary-300" />
-        Reward: {visual.reward}
+        {rewardPrefix} {reward}
       </span>
     </button>
   );
@@ -638,10 +670,12 @@ function BriefItem({
 function LoadoutPill({
   label,
   value,
+  removeAriaLabel,
   onRemove,
 }: {
   label: string;
   value: string;
+  removeAriaLabel?: string;
   onRemove?: () => void;
 }) {
   return (
@@ -655,7 +689,7 @@ function LoadoutPill({
           type="button"
           onClick={onRemove}
           className="rounded-full p-0.5 text-neutral-400 transition-colors hover:bg-black/5 hover:text-neutral-900 dark:hover:bg-white/10 dark:hover:text-white"
-          aria-label={`Remove ${value}`}
+          aria-label={removeAriaLabel ?? value}
         >
           <X className="h-3.5 w-3.5" />
         </button>
@@ -671,6 +705,7 @@ function TypeFilter({
   value: SpaceTypeFilter;
   onChange: (value: SpaceTypeFilter) => void;
 }) {
+  const t = useTranslations("spacesPage.finder.type");
   return (
     <div className="inline-flex h-11 overflow-hidden rounded-md border border-black/10 bg-white dark:border-white/10 dark:bg-[#14110f]">
       {(["all", "cafe", "coworking"] as const).map((type) => (
@@ -685,7 +720,7 @@ function TypeFilter({
               : "text-neutral-600 hover:bg-primary-50 dark:text-[#b7aaa0] dark:hover:bg-white/10",
           )}
         >
-          {type === "all" ? "All" : type === "cafe" ? "Cafes" : "Coworking"}
+          {t(type)}
         </button>
       ))}
     </div>
@@ -699,15 +734,16 @@ function SortFilter({
   value: SpaceSort;
   onChange: (value: SpaceSort) => void;
 }) {
+  const t = useTranslations("spacesPage.finder.sort");
   return (
     <select
       value={value}
       onChange={(event) => onChange(event.target.value as SpaceSort)}
       className="h-11 rounded-md border border-black/10 bg-white px-3 text-sm font-semibold text-neutral-700 outline-none dark:border-white/10 dark:bg-[#14110f] dark:text-[#d8d0c8]"
     >
-      <option value="recommended">Recommended</option>
-      <option value="score">Nomad Score</option>
-      <option value="name">Name</option>
+      <option value="recommended">{t("recommended")}</option>
+      <option value="score">{t("score")}</option>
+      <option value="name">{t("name")}</option>
     </select>
   );
 }
@@ -766,11 +802,15 @@ function FilterChip({
 }
 
 function NeedButton({
-  need,
+  value,
+  label,
+  description,
   active,
   onClick,
 }: {
-  need: (typeof needOptions)[number];
+  value: SpaceNeed;
+  label: string;
+  description: string;
   active: boolean;
   onClick: () => void;
 }) {
@@ -779,6 +819,7 @@ function NeedButton({
       type="button"
       onClick={onClick}
       aria-pressed={active}
+      data-need={value}
       className={cn(
         "flex min-h-16 items-start gap-2 rounded-md border px-3 py-2 text-left transition-colors",
         active
@@ -797,9 +838,9 @@ function NeedButton({
         <Check className="h-3 w-3" />
       </span>
       <span>
-        <span className="block text-sm font-semibold">{need.label}</span>
+        <span className="block text-sm font-semibold">{label}</span>
         <span className="mt-0.5 block text-xs leading-5 opacity-80">
-          {need.description}
+          {description}
         </span>
       </span>
     </button>

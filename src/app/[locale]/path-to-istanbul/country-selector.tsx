@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Search, ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { COUNTRIES, type Country } from "@/lib/path-to-istanbul";
 import { cn } from "@/lib/utils";
 
@@ -17,6 +18,7 @@ const WorldMap = dynamic(() => import("./world-map").then((m) => m.WorldMap), {
 
 export function CountrySelector() {
   const router = useRouter();
+  const t = useTranslations("pathToIstanbulPage.selector");
   const [search, setSearch] = useState("");
 
   const filtered = useMemo(() => {
@@ -46,7 +48,7 @@ export function CountrySelector() {
         <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#5d6d7e] dark:text-[#99a3ad]" />
         <input
           type="text"
-          placeholder="Search your country..."
+          placeholder={t("searchPlaceholder")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="w-full rounded-xl border border-primary-200/40 bg-white/70 py-3 pl-11 pr-4 text-sm text-[#1a1a2e] placeholder:text-[#5d6d7e]/60 focus:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-500/20 dark:border-[rgba(44,62,80,0.12)] dark:bg-[#1a1a2e] dark:text-[#f2f3f4] dark:placeholder:text-[#99a3ad]/60"
@@ -78,7 +80,7 @@ export function CountrySelector() {
                     <ArrowRight className="h-4 w-4 text-primary-600 dark:text-primary-400" />
                   ) : (
                     <span className="text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
-                      Coming soon
+                      {t("comingSoon")}
                     </span>
                   )}
                 </button>
@@ -91,7 +93,7 @@ export function CountrySelector() {
       {/* Supported grid (SEO-crawlable) */}
       <div>
         <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[#5d6d7e] dark:text-[#99a3ad]">
-          Available guides
+          {t("availableGuides")}
         </h2>
         <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-5">
           {supported.map((c) => (
@@ -108,7 +110,7 @@ export function CountrySelector() {
                   {c.name}
                 </p>
                 <p className="flex items-center gap-1 text-xs text-primary-600 dark:text-primary-400">
-                  See the path <ArrowRight className="h-3 w-3" />
+                  {t("seeThePath")} <ArrowRight className="h-3 w-3" />
                 </p>
               </div>
             </Link>

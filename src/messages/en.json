@@ -105,6 +105,25 @@
       "llmsTxt": "LLMs.txt"
     }
   },
+  "auth": {
+    "signIn": "Sign In",
+    "signOut": "Sign out",
+    "signedOut": "Signed out",
+    "completeProfile": "Complete profile",
+    "memberFallback": "Member"
+  },
+  "newsletter": {
+    "placeholder": "you@example.com",
+    "subscribe": "Subscribe",
+    "subscribed": "You're subscribed!",
+    "ariaSubscribe": "Subscribe to the Sunday letter",
+    "toast": {
+      "errorTitle": "Could not subscribe",
+      "successTitle": "You're in!",
+      "failedTitle": "Something went wrong",
+      "failedBody": "Please try again later."
+    }
+  },
   "languageSwitcher": {
     "label": "Language",
     "current": "Current language: {language}",

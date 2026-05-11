@@ -105,6 +105,25 @@
       "llmsTxt": "LLMs.txt"
     }
   },
+  "auth": {
+    "signIn": "تسجيل الدخول",
+    "signOut": "تسجيل الخروج",
+    "signedOut": "تمّ تسجيل الخروج",
+    "completeProfile": "أكمل الملف الشخصي",
+    "memberFallback": "عضو"
+  },
+  "newsletter": {
+    "placeholder": "you@example.com",
+    "subscribe": "اشترك",
+    "subscribed": "اشتركت بنجاح!",
+    "ariaSubscribe": "اشترك في رسالة الأحد",
+    "toast": {
+      "errorTitle": "تعذّر الاشتراك",
+      "successTitle": "أهلاً بك!",
+      "failedTitle": "حدث خطأ ما",
+      "failedBody": "يرجى المحاولة لاحقاً."
+    }
+  },
   "languageSwitcher": {
     "label": "اللغة",
     "current": "اللغة الحالية: {language}",

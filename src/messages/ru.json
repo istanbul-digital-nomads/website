@@ -105,6 +105,25 @@
       "llmsTxt": "LLMs.txt"
     }
   },
+  "auth": {
+    "signIn": "Войти",
+    "signOut": "Выйти",
+    "signedOut": "Вы вышли",
+    "completeProfile": "Заполни профиль",
+    "memberFallback": "Участник"
+  },
+  "newsletter": {
+    "placeholder": "you@example.com",
+    "subscribe": "Подписаться",
+    "subscribed": "Подписка оформлена!",
+    "ariaSubscribe": "Подписаться на воскресную рассылку",
+    "toast": {
+      "errorTitle": "Не удалось подписаться",
+      "successTitle": "Готово!",
+      "failedTitle": "Что-то пошло не так",
+      "failedBody": "Попробуй позже."
+    }
+  },
   "languageSwitcher": {
     "label": "Язык",
     "current": "Текущий язык: {language}",

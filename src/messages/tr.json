@@ -105,6 +105,25 @@
       "llmsTxt": "LLMs.txt"
     }
   },
+  "auth": {
+    "signIn": "Giriş yap",
+    "signOut": "Çıkış yap",
+    "signedOut": "Çıkış yapıldı",
+    "completeProfile": "Profili tamamla",
+    "memberFallback": "Üye"
+  },
+  "newsletter": {
+    "placeholder": "siz@ornek.com",
+    "subscribe": "Abone ol",
+    "subscribed": "Abone oldun!",
+    "ariaSubscribe": "Pazar mektubuna abone ol",
+    "toast": {
+      "errorTitle": "Abone olunamadı",
+      "successTitle": "İçeridesin!",
+      "failedTitle": "Bir şeyler ters gitti",
+      "failedBody": "Lütfen daha sonra tekrar dene."
+    }
+  },
   "languageSwitcher": {
     "label": "Dil",
     "current": "Mevcut dil: {language}",

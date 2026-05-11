@@ -105,6 +105,25 @@
       "llmsTxt": "LLMs.txt"
     }
   },
+  "auth": {
+    "signIn": "ورود",
+    "signOut": "خروج",
+    "signedOut": "خارج شدی",
+    "completeProfile": "تکمیل پروفایل",
+    "memberFallback": "عضو"
+  },
+  "newsletter": {
+    "placeholder": "you@example.com",
+    "subscribe": "عضو شو",
+    "subscribed": "عضو شدی!",
+    "ariaSubscribe": "عضویت در نامهٔ یکشنبه",
+    "toast": {
+      "errorTitle": "عضویت ممکن نشد",
+      "successTitle": "خوش آمدی!",
+      "failedTitle": "چیزی اشتباه پیش رفت",
+      "failedBody": "لطفاً دوباره امتحان کن."
+    }
+  },
   "languageSwitcher": {
     "label": "زبان",
     "current": "زبان فعلی: {language}",

@@ -92,6 +92,32 @@
     font-family: var(--font-ar), var(--font-mono), ui-monospace, monospace;
   }
 
+  /* Mirror directional Lucide icons in RTL contexts so "next/forward"
+     arrows visually point toward the reading direction. The `rtl-keep`
+     class opts out for icons that should not be mirrored (e.g. play
+     buttons, brand glyphs, semantic markers). */
+  html[dir="rtl"] svg.lucide-arrow-right,
+  html[dir="rtl"] svg.lucide-arrow-left,
+  html[dir="rtl"] svg.lucide-chevron-right,
+  html[dir="rtl"] svg.lucide-chevron-left,
+  html[dir="rtl"] svg.lucide-move-up-right,
+  html[dir="rtl"] svg.lucide-move-down-right,
+  html[dir="rtl"] svg.lucide-corner-down-right,
+  html[dir="rtl"] svg.lucide-corner-up-right,
+  html[dir="rtl"] svg.lucide-arrow-up-right,
+  html[dir="rtl"] svg.lucide-arrow-down-right,
+  html[dir="rtl"] svg.lucide-circle-arrow-right,
+  html[dir="rtl"] svg.lucide-circle-chevron-right,
+  html[dir="rtl"] svg.lucide-square-arrow-right,
+  html[dir="rtl"] svg.lucide-square-chevron-right {
+    transform: scaleX(-1);
+  }
+
+  /* Escape hatch: explicit `rtl-keep` class disables the mirror. */
+  html[dir="rtl"] svg.rtl-keep {
+    transform: none;
+  }
+
   /* Decorative body gradients - deferred to avoid blocking first paint */
   body::before {
     content: "";

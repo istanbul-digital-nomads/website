@@ -62,6 +62,7 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("home");
+  const tGuides = await getTranslations("guides");
 
   const { data: upcomingEvents } = await getEventsPublic({
     past: false,
@@ -521,10 +522,10 @@ export default async function HomePage({
                       </div>
                       <div>
                         <h3 className="font-display text-2xl font-extrabold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                          {guide.title}
+                          {tGuides(`${guide.slug}.title`)}
                         </h3>
                         <p className="mt-2 max-w-xl text-sm leading-7 text-[#5d6d7e] dark:text-[#b7aaa0]">
-                          {guide.description}
+                          {tGuides(`${guide.slug}.description`)}
                         </p>
                       </div>
                     </div>

@@ -114,7 +114,176 @@
     "loading": "Yükleniyor...",
     "readMore": "Daha fazla oku",
     "backToTop": "Yukarı dön",
-    "skipToContent": "İçeriğe atla"
+    "skipToContent": "İçeriğe atla",
+    "explore": "Keşfet",
+    "side": {
+      "european": "Avrupa yakası",
+      "asian": "Anadolu yakası"
+    }
+  },
+  "sections": {
+    "rhythmMatcher": {
+      "eyebrow": "İstanbul ritmini seç",
+      "title": "İstediğin günü seç, sonra şehir kendi kendini daraltsın.",
+      "intro": "En fazla dört sinyal seç. Eşleştirici tüm mahalleleri tempoya, bütçeye, vapur erişimine, çalışma düzenine ve sosyal enerjiye göre sıralar.",
+      "liveMatch": "Canlı eşleşme",
+      "signals": "{count} sinyal",
+      "fit": "%{score} uyum / {rent}",
+      "turnIntoWeekOne": "Bunu ilk haftaya dönüştür",
+      "useAsBase": "{neighborhood}'i üs olarak kullan ve etrafında yedi günlük geliş planı kur.",
+      "planFromMatch": "Eşleşmeden plan yap"
+    },
+    "rhythmSignals": {
+      "quiet": {
+        "label": "Sakin rutin",
+        "short": "Sakin",
+        "description": "Sessiz sokaklar, sakin akşamlar, daha kolay odak."
+      },
+      "social": {
+        "label": "Sosyal ivme",
+        "short": "Sosyal",
+        "description": "Kolay ilk arkadaşlıklar, etkinlikler, kafeler ve iş sonrası planlar."
+      },
+      "budget": {
+        "label": "Bütçe odaklı",
+        "short": "Bütçe",
+        "description": "Günlük rahatlığı kaybetmeden daha iyi kira değeri."
+      },
+      "ferry": {
+        "label": "Önce vapur",
+        "short": "Vapur",
+        "description": "İşkenceye değil, molaya benzeyen bir gidiş geliş."
+      },
+      "seaside": {
+        "label": "Deniz kenarı yürüyüşleri",
+        "short": "Sahil",
+        "description": "Su, gün batımı rotaları ve daha rahat bir sinir sistemi."
+      },
+      "business": {
+        "label": "İş modu",
+        "short": "İş",
+        "description": "Ortak çalışma yoğunluğu, toplantı erişimi, spor salonları ve altyapı."
+      },
+      "nightlife": {
+        "label": "Yakın gece hayatı",
+        "short": "Gece hayatı",
+        "description": "Barlar, akşam yemekleri, galeriler ve doğaçlama akşamlar."
+      },
+      "character": {
+        "label": "Karakter yüklü",
+        "short": "Karakter",
+        "description": "Tarihi sokaklar, kusurlu çekicilik ve unutulmaz doku."
+      }
+    },
+    "neighborhoodsMap": {
+      "eyebrow": "Haritadaki yerleri",
+      "title": "Mahalleler, haritada.",
+      "intro": "En güçlü göçebe üsleri vapurların, metro hatlarının, ortak çalışma koridorlarının ve yürünebilir kafe sokaklarının çevresinde toplanıyor. Yolculuk kararın bir parçası."
+    },
+    "neighborhoodCards": {
+      "eyebrow": "Nereye yerleşiyorlar",
+      "title": "On mahalle, tek şehir.",
+      "intro": "On tam rehberle başla, sonra rezerve etmeden önce şehrin geri kalanını doğrulamak için geniş karşılaştırmayı kullan.",
+      "sideLabel": "{side}",
+      "spacesTracked": "{count} mekan takip ediliyor",
+      "coworkingNearby": "Yakında ortak çalışma alanı",
+      "explore": "Keşfet",
+      "compareAll": "Tam rehberde on mahalleyi karşılaştır"
+    },
+    "faq": {
+      "eyebrow": "Sık sorulanlar",
+      "title": "Göçebelerin gelmeden önce sorduğu sorular.",
+      "intro": "Şehir rehberlerimizden hızlı yanıtlar. Daha fazla ayrıntı için herhangi bir soruya tıkla.",
+      "readGuide": "{guide} rehberini oku"
+    }
+  },
+  "guides": {
+    "neighborhoods": {
+      "title": "Mahalleler",
+      "description": "İstanbul'un göçebeler için en iyi bölgelerinin dökümü - hava, fiyatlandırma ve ulaşım."
+    },
+    "coworking": {
+      "title": "Ortak Çalışma Alanları",
+      "description": "Hızlı wifi'li ortak çalışma alanları ve kafeler için en iyi seçimlerimiz."
+    },
+    "housing": {
+      "title": "Konut",
+      "description": "Daire nasıl bulunur, ne beklenir ve adil kira fiyatları."
+    },
+    "cost-of-living": {
+      "title": "Yaşam Maliyeti",
+      "description": "Ekonomik, orta ve rahat yaşam tarzları için aylık bütçeler."
+    },
+    "visa": {
+      "title": "Vize ve İkamet",
+      "description": "Turist vize kuralları, ikamet izni süreci ve yasal ipuçları."
+    },
+    "internet": {
+      "title": "İnternet ve SIM Kartlar",
+      "description": "En iyi mobil paketler, ev interneti seçenekleri ve yedek çözümler."
+    },
+    "transport": {
+      "title": "Ulaşım",
+      "description": "İstanbulkart, vapurlar, metro, otobüsler, taksiler ve dolmuş açıklaması."
+    },
+    "food": {
+      "title": "Yemek ve Lokantalar",
+      "description": "Nerede yenir, ne denenir ve bütçeyle nasıl iyi yenir."
+    },
+    "healthcare": {
+      "title": "Sağlık",
+      "description": "Hastaneler, eczaneler, sigorta seçenekleri ve bilinmesi gerekenler."
+    },
+    "entertainment": {
+      "title": "Eğlence ve Boş Vakit",
+      "description": "Gece hayatı, canlı müzik, spor, günübirlik geziler ve dizüstünden öteye İstanbul keyfi."
+    },
+    "culture": {
+      "title": "Kültür ve Dil",
+      "description": "Temel Türkçe, kültürel normlar ve uyum sağlama ipuçları."
+    }
+  },
+  "faqItems": {
+    "neighborhoods": {
+      "question": "Hangi mahallede başlamalıyım?",
+      "answer": "Anadolu yakasındaki Kadıköy göçebeler arasında en popüleri - yürünebilir, ekonomik ve kafelerle dolu. Avrupa yakasında ise Cihangir, Boğaz manzaralı sosyal ve bohem bir hava için en gözde bölge."
+    },
+    "cost-of-living": {
+      "question": "İstanbul'da bir ay ne kadar tutar?",
+      "answer": "Rahat bir göçebe yaşam ayda 1.200-1.500 dolar civarında: Kadıköy'de mobilyalı bir daire, haftada birkaç kez dışarıda yemek, ortak çalışma ve ulaşım dahil. Bütçeye dikkat eden göçebeler 750-1.000 dolarla idare edebilir."
+    },
+    "visa": {
+      "question": "Uzaktan çalışmak için vize gerekli mi?",
+      "answer": "90 günden kısa kalışlar için anında çevrimiçi alınan turist e-vizesi (50-60 dolar) yeterli. Daha uzun kalışlar için Türkiye'nin 12 aylık dijital göçebe vizesi (aylık 3.000 dolar gelir şartıyla) veya standart ikamet izni var."
+    },
+    "internet": {
+      "question": "SIM kartı nasıl alırım?",
+      "answer": "Herhangi bir Turkcell şirket mağazasından yaklaşık 250 TL'ye (~8 dolar) 20 GB veriyle turist SIM kartı al. Pasaportunu yanına al. Şehir mağazaları havalimanından daha ucuz."
+    },
+    "coworking": {
+      "question": "Nerede iyi wifi'yle çalışabilirim?",
+      "answer": "Kolektif House'un 100+ Mbps wifi'si var ve ayda 490 TL (~16 dolar). Kafeler için Kadıköy ve Cihangir, güvenilir bağlantılı dizüstü dostu mekanların en yoğun olduğu yerler."
+    },
+    "housing": {
+      "question": "Nasıl daire bulurum?",
+      "answer": "Keşif yaparken ilk ay için Airbnb veya Flatio ile başla. Daha uzun kalışlar için sahibinden.com en iyi yerel fiyatlara sahip. Ödeme yapmadan önce her zaman yerinde gör."
+    },
+    "safety": {
+      "question": "İstanbul güvenli mi?",
+      "answer": "Evet. İstanbul büyüklüğüne göre çok güvenli. Göçebelerin tercih ettiği mahalleler (Kadıköy, Cihangir, Beşiktaş, Karaköy) gece gündüz güvenli. Taksi için BiTaksi'yi kullan ve standart büyük şehir önlemlerini al."
+    },
+    "transport": {
+      "question": "Havalimanından nasıl gelirim?",
+      "answer": "Havaist otobüsü en iyi değer (150 TL, Taksim ve Kadıköy'e gidiyor). Taksi 600-800 TL tutar. Yeni M11 metro hattı da havalimanını şehre bağlıyor."
+    },
+    "culture": {
+      "question": "Türkçe konuşmam gerekli mi?",
+      "answer": "Göçebe dostu bölgelerde gerekli değil - kafelerde, ortak çalışma alanlarında ve turistik yerlerde İngilizce yaygın olarak anlaşılıyor. Ama 20 temel ifade öğrenmek yerlilerin sana yaklaşımını dönüştürür."
+    },
+    "healthcare": {
+      "question": "Doktora nasıl giderim?",
+      "answer": "Özel hastanelerde (Acıbadem, Memorial) İngilizce konuşan personel var ve uluslararası sigorta kabul ediliyor. Sigortasız doktor muayenesi 500-1.500 TL (~16-48 dolar) - Batılı ülkelerden çok daha ucuz."
+    }
   },
   "home": {
     "meta": {

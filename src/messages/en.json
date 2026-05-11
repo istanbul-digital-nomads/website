@@ -114,7 +114,177 @@
     "loading": "Loading...",
     "readMore": "Read more",
     "backToTop": "Back to top",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "explore": "Explore",
+    "side": {
+      "european": "European side",
+      "asian": "Asian side"
+    }
+  },
+  "sections": {
+    "rhythmMatcher": {
+      "eyebrow": "Choose your Istanbul rhythm",
+      "title": "Pick the day you want, then let the city narrow itself.",
+      "intro": "Choose up to four signals. The matcher ranks the full neighborhood set by pace, budget, ferry access, work setup, and social energy.",
+      "liveMatch": "Live match",
+      "signals": "{count, plural, =1 {1 signal} other {# signals}}",
+      "fit": "{score}% fit / {rent}",
+      "turnIntoWeekOne": "Turn this into week one",
+      "useAsBase": "Use {neighborhood} as your base and build a seven-day arrival plan around it.",
+      "planFromMatch": "Plan from match"
+    },
+    "rhythmSignals": {
+      "quiet": {
+        "label": "Quiet routine",
+        "short": "Quiet",
+        "description": "Low-noise streets, calmer evenings, easier focus."
+      },
+      "social": {
+        "label": "Social momentum",
+        "short": "Social",
+        "description": "Easy first friends, events, cafes, and after-work plans."
+      },
+      "budget": {
+        "label": "Budget aware",
+        "short": "Budget",
+        "description": "Better rent value without losing daily convenience."
+      },
+      "ferry": {
+        "label": "Ferry-first",
+        "short": "Ferry",
+        "description": "A commute that feels like a reset instead of a chore."
+      },
+      "seaside": {
+        "label": "Seaside walks",
+        "short": "Seaside",
+        "description": "Water, sunset routes, and an easier nervous system."
+      },
+      "business": {
+        "label": "Business mode",
+        "short": "Business",
+        "description": "Coworking density, meeting access, gyms, and infrastructure."
+      },
+      "nightlife": {
+        "label": "Nightlife nearby",
+        "short": "Nightlife",
+        "description": "Bars, dinners, galleries, and spontaneous evenings."
+      },
+      "character": {
+        "label": "Character-heavy",
+        "short": "Character",
+        "description": "Historic streets, imperfect charm, and memorable texture."
+      }
+    },
+    "neighborhoodsMap": {
+      "eyebrow": "Where they sit on the map",
+      "title": "The neighborhoods, mapped.",
+      "intro": "The strongest nomad bases cluster around ferries, metro lines, coworking corridors, and walkable cafe streets. The commute is part of the decision."
+    },
+    "neighborhoodCards": {
+      "eyebrow": "Where people land",
+      "title": "Ten neighborhoods, one city.",
+      "intro": "Start with the ten full guides, then use the broader comparison to sense-check the rest of the city before you book.",
+      "sideLabel": "{side} side",
+      "spacesTracked": "{count, plural, =1 {1 space tracked} other {# spaces tracked}}",
+      "coworkingNearby": "Coworking nearby",
+      "explore": "Explore",
+      "compareAll": "Compare all ten in the full guide"
+    },
+    "faq": {
+      "eyebrow": "Common questions",
+      "title": "What nomads ask before arriving.",
+      "intro": "Quick answers from our city guides. Click any question for more detail.",
+      "readGuide": "Read the {guide} guide"
+    }
+  },
+  "guides": {
+    "neighborhoods": {
+      "title": "Neighborhoods",
+      "description": "A breakdown of Istanbul's best areas for nomads - vibe, pricing, and transport."
+    },
+    "coworking": {
+      "title": "Coworking Spaces",
+      "description": "Our top picks for coworking spaces and cafes with fast wifi."
+    },
+    "housing": {
+      "title": "Housing",
+      "description": "How to find an apartment, what to expect, and fair rent prices."
+    },
+    "cost-of-living": {
+      "title": "Cost of Living",
+      "description": "Monthly budgets for budget, moderate, and comfortable lifestyles."
+    },
+    "visa": {
+      "title": "Visa & Residency",
+      "description": "Tourist visa rules, residence permit process, and legal tips."
+    },
+    "internet": {
+      "title": "Internet & SIM Cards",
+      "description": "Best mobile plans, home internet options, and backup solutions."
+    },
+    "transport": {
+      "title": "Getting Around",
+      "description": "Istanbulkart, ferries, metro, buses, taxis, and dolmus explained."
+    },
+    "food": {
+      "title": "Food & Dining",
+      "description": "Where to eat, what to try, and how to eat well on a budget."
+    },
+    "healthcare": {
+      "title": "Healthcare",
+      "description": "Hospitals, pharmacies, insurance options, and what to know."
+    },
+    "entertainment": {
+      "title": "Entertainment & Leisure",
+      "description": "Nightlife, live music, sports, day trips, and how to enjoy Istanbul beyond your laptop."
+    },
+    "culture": {
+      "title": "Culture & Language",
+      "description": "Basic Turkish, cultural norms, and tips for fitting in."
+    }
+  },
+  "faqItems": {
+    "neighborhoods": {
+      "question": "Which neighborhood should I start in?",
+      "answer": "Kadikoy on the Asian side is the most popular with nomads - walkable, affordable, and packed with cafes. Cihangir on the European side is the go-to for a social, bohemian vibe with Bosphorus views."
+    },
+    "cost-of-living": {
+      "question": "How much does a month in Istanbul cost?",
+      "answer": "A comfortable nomad lifestyle runs $1,200-$1,500/month including a furnished apartment in Kadikoy, eating out a few times a week, coworking, and transport. Budget-conscious nomads can manage on $750-$1,000."
+    },
+    "visa": {
+      "question": "Do I need a visa to work remotely?",
+      "answer": "For stays under 90 days, a tourist e-visa ($50-60, instant online) is all you need. For longer stays, Turkey has a digital nomad visa (12 months, requires $3,000/month income) or a standard residence permit."
+    },
+    "internet": {
+      "question": "How do I get a SIM card?",
+      "answer": "Buy a Turkcell tourist SIM at any company-owned store for about 250 TL (~$8) with 20 GB data. Bring your passport. City stores are cheaper than airport counters."
+    },
+    "coworking": {
+      "question": "Where can I work with good wifi?",
+      "answer": "Kolektif House has 100+ Mbps wifi and costs 490 TL/month (~$16). For cafes, Kadikoy and Cihangir have the highest density of laptop-friendly spots with reliable connections."
+    },
+    "housing": {
+      "question": "How do I find an apartment?",
+      "answer": "Start with Airbnb or Flatio for your first month while you explore. For longer stays, Sahibinden.com has the best local prices. Always visit in person before paying."
+    },
+    "safety": {
+      "question": "Is Istanbul safe?",
+      "answer": "Yes. Istanbul is very safe for its size. The nomad-popular neighborhoods (Kadikoy, Cihangir, Besiktas, Karakoy) are all safe day and night. Use BiTaksi for taxis and standard big-city precautions.",
+      "guideSlug": "neighborhoods"
+    },
+    "transport": {
+      "question": "How do I get from the airport?",
+      "answer": "The Havaist bus is the best value (150 TL, runs to Taksim and Kadikoy). A taxi costs 600-800 TL. The new M11 metro line also connects the airport to the city."
+    },
+    "culture": {
+      "question": "Do I need to speak Turkish?",
+      "answer": "Not in nomad-friendly areas - English is widely understood in cafes, coworking spaces, and tourist areas. But learning 20 basic phrases will transform how locals treat you."
+    },
+    "healthcare": {
+      "question": "How do I see a doctor?",
+      "answer": "Private hospitals (Acibadem, Memorial) have English-speaking staff and accept international insurance. A doctor visit costs 500-1,500 TL (~$16-48) without insurance - much cheaper than Western countries."
+    }
   },
   "home": {
     "meta": {

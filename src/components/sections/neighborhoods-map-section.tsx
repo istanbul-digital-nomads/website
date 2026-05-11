@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/container";
 
 const IstanbulMap = dynamic(
@@ -17,19 +18,19 @@ const IstanbulMap = dynamic(
 );
 
 export function NeighborhoodsMapSection() {
+  const t = useTranslations("sections.neighborhoodsMap");
+
   return (
     <section className="border-b border-black/10 py-16 lg:py-20 dark:border-white/10">
       <Container>
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
           <div>
-            <p className="eyebrow">Where they sit on the map</p>
+            <p className="eyebrow">{t("eyebrow")}</p>
             <h2 className="mt-4 max-w-md font-display text-h1 text-neutral-950 dark:text-[#f2f3f4]">
-              The neighborhoods, mapped.
+              {t("title")}
             </h2>
             <p className="text-muted mt-5 max-w-md text-body-lg">
-              The strongest nomad bases cluster around ferries, metro lines,
-              coworking corridors, and walkable cafe streets. The commute is
-              part of the decision.
+              {t("intro")}
             </p>
           </div>
 

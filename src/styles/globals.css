@@ -43,6 +43,29 @@
     @apply antialiased;
   }
 
+  /* Locale-aware Arabic-script fonts. The `--font-fa` / `--font-ar` CSS
+     variables are only present in the DOM when the corresponding locale
+     is active, so font files for these locales are not downloaded for
+     other locales. */
+  html[lang^="fa"] body,
+  html[lang^="fa"] .font-display {
+    font-family:
+      var(--font-fa), var(--font-sans), "Segoe UI", Tahoma, sans-serif;
+  }
+
+  html[lang^="ar"] body,
+  html[lang^="ar"] .font-display {
+    font-family:
+      var(--font-ar), var(--font-sans), "Segoe UI", Tahoma, sans-serif;
+  }
+
+  /* Tighten font-mono fallback for Arabic-script locales since IBM Plex Mono
+     has no Arabic glyphs. */
+  html[lang^="fa"] .font-mono,
+  html[lang^="ar"] .font-mono {
+    font-family: var(--font-mono), ui-monospace, monospace;
+  }
+
   /* Decorative body gradients - deferred to avoid blocking first paint */
   body::before {
     content: "";

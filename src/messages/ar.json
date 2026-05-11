@@ -118,168 +118,168 @@
   },
   "home": {
     "meta": {
-      "tickerSchedule": "Kadikoy 09:10 / Karakoy 10:25 / Galata 18:30",
-      "tickerTimezone": "GMT+3 / ferry-first / laptop-ready",
-      "asiaBase": "Asia base",
-      "ferryReset": "Ferry reset",
-      "eveningTable": "Evening table"
+      "tickerSchedule": "كاديكوي 09:10 / كاراكوي 10:25 / غلطة 18:30",
+      "tickerTimezone": "GMT+3 / العبّارة أولاً / جاهز للّابتوب",
+      "asiaBase": "قاعدة الجانب الآسيوي",
+      "ferryReset": "استراحة العبّارة",
+      "eveningTable": "طاولة المساء"
     },
     "hero": {
-      "title": "Build your Istanbul work rhythm in 7 days.",
-      "subtitle": "Choose a base, learn the ferry loop, and save the laptop-safe tables locals trust after sunset.",
-      "joinWorkweek": "Join the workweek",
-      "chooseBase": "Choose a base",
-      "imageAlt": "A calm Moda waterfront table with tea, notebook, and the Istanbul skyline beyond",
-      "ferryWorkdayBadge": "Ferry workday",
-      "kadikoy": "Kadikoy",
-      "karakoy": "Karakoy",
-      "galata": "Galata",
+      "title": "ابنِ إيقاع عملك في إسطنبول خلال 7 أيام.",
+      "subtitle": "اختر قاعدةً، تعلّم خط العبّارة، واحفظ الطاولات الآمنة للّابتوب التي يثق بها أهل المدينة بعد الغروب.",
+      "joinWorkweek": "انضم إلى أسبوع العمل",
+      "chooseBase": "اختر قاعدتك",
+      "imageAlt": "طاولة هادئة على واجهة مودا البحرية مع شاي ودفتر، وأفق إسطنبول في الخلفية",
+      "ferryWorkdayBadge": "يوم عمل بالعبّارة",
+      "kadikoy": "كاديكوي",
+      "karakoy": "كاراكوي",
+      "galata": "غلطة",
       "trustSignals": {
-        "nextCoworking": "Next coworking {date}",
-        "freeToJoin": "Free to join",
-        "allRemoteWorkers": "All remote workers welcome",
-        "weeklyCoworking": "Weekly coworking sessions"
+        "nextCoworking": "العمل المشترك القادم {date}",
+        "freeToJoin": "الانضمام مجاني",
+        "allRemoteWorkers": "كل الرحّالة الرقميين مرحّب بهم",
+        "weeklyCoworking": "جلسات عمل مشترك أسبوعية"
       },
       "deskNotes": {
-        "baseLabel": "Base",
-        "baseValue": "Kadikoy or Moda",
-        "crossingLabel": "Crossing",
-        "crossingValue": "20 min ferry reset",
-        "fallbackLabel": "Fallback",
-        "fallbackValue": "Coworking if cafes fill"
+        "baseLabel": "القاعدة",
+        "baseValue": "كاديكوي أو مودا",
+        "crossingLabel": "العبور",
+        "crossingValue": "استراحة عبّارة 20 دقيقة",
+        "fallbackLabel": "خطة بديلة",
+        "fallbackValue": "العمل المشترك إذا امتلأت المقاهي"
       },
       "fieldCard": {
-        "eyebrow": "Nomad field card",
-        "title": "The ferry workday",
-        "boardEyebrow": "Ferry board / first week",
+        "eyebrow": "بطاقة الرحّالة الميدانية",
+        "title": "يوم عمل بالعبّارة",
+        "boardEyebrow": "لوحة العبّارة / الأسبوع الأول",
         "tzLabel": "GMT+3",
-        "tzValue": "2 continents",
-        "openGuide": "Open the first-month guide"
+        "tzValue": "قارّتان",
+        "openGuide": "افتح دليل الشهر الأول"
       },
       "routeSteps": {
         "kadikoyPier": {
-          "title": "Kadikoy pier",
-          "detail": "Pick a walkable base with breakfast, metro, and ferries nearby."
+          "title": "ميناء كاديكوي",
+          "detail": "اختر قاعدةً يمكن المشي فيها مع فطور ومترو وعبّارات قريبة."
         },
         "karakoyTable": {
-          "title": "Karakoy table",
-          "detail": "Cross with one job to do and a saved list of laptop-safe seats."
+          "title": "طاولة كاراكوي",
+          "detail": "اعبر بمهمّة واحدة وقائمة محفوظة من المقاعد الآمنة للّابتوب."
         },
         "galataEvening": {
-          "title": "Galata evening",
-          "detail": "Meet the people who know where the city works after dark."
+          "title": "مساء غلطة",
+          "detail": "تعرّف على من يعرف أين تعمل المدينة بعد حلول الظلام."
         }
       }
     },
     "firstWeekTool": {
-      "eyebrow": "New arrival tool",
-      "title": "Turn your first week into a real Istanbul routine.",
-      "body": "Pick your base, work setup, social pace, and budget comfort. Get a seven-day plan with ferry confidence, work blocks, admin buffer, and the right links for week two.",
-      "cta": "Plan my week"
+      "eyebrow": "أداة الوافدين الجدد",
+      "title": "حوّل أسبوعك الأول إلى روتين إسطنبولي حقيقي.",
+      "body": "اختر قاعدتك وإعداد العمل والإيقاع الاجتماعي وراحة الميزانية. احصل على خطة سبعة أيام مع ثقة العبّارة وكتل العمل ومساحة للأعمال الإدارية والروابط المناسبة للأسبوع الثاني.",
+      "cta": "خطّط أسبوعي"
     },
     "stats": {
-      "intro": "Built for people who want a city that becomes workable quickly, not just another place to pass through.",
-      "growing": "Growing",
-      "growingLabel": "community",
-      "weekly": "Weekly",
-      "weeklyLabel": "coworking rhythm",
+      "intro": "مصمَّم لمن يريد مدينةً تصبح صالحة للعمل بسرعة، لا مجرد مكان للمرور.",
+      "growing": "ينمو",
+      "growingLabel": "مجتمع",
+      "weekly": "أسبوعياً",
+      "weeklyLabel": "إيقاع العمل المشترك",
       "guides": "11",
-      "guidesLabel": "local living guides",
-      "neighborhoods": "25+",
-      "neighborhoodsLabel": "neighborhoods covered"
+      "guidesLabel": "أدلة حياة محلية",
+      "neighborhoods": "+25",
+      "neighborhoodsLabel": "حياً مُغطّى"
     },
     "events": {
-      "eyebrow": "What's happening",
-      "title": "This week's events",
-      "intro": "Coworking sessions, meetups, and workshops happening in Istanbul this week.",
-      "datesScheduledEyebrow": "Dates being scheduled",
-      "datesScheduledTitle": "The next coworking dates are coming together.",
-      "datesScheduledBody": "Join the Telegram group for the current informal coworking thread while the public calendar catches up.",
-      "openSpots": "Open",
-      "spots": "{capacity} spots",
-      "seeAll": "See all events",
+      "eyebrow": "ما يحدث الآن",
+      "title": "فعاليات هذا الأسبوع",
+      "intro": "جلسات عمل مشترك ولقاءات وورش تُقام هذا الأسبوع في إسطنبول.",
+      "datesScheduledEyebrow": "تواريخ قيد الجدولة",
+      "datesScheduledTitle": "تواريخ العمل المشترك القادمة تتشكّل.",
+      "datesScheduledBody": "انضم إلى مجموعة تيليغرام لمتابعة سلسلة العمل المشترك غير الرسمية حتى يلحق التقويم العام.",
+      "openSpots": "متاح",
+      "spots": "{capacity} مقعد",
+      "seeAll": "شاهد كل الفعاليات",
       "moments": {
-        "1": "Quiet work session with reliable wifi and plenty of regulars who welcome first-timers.",
-        "2": "The easiest event to meet people fast, especially if you just arrived and want social momentum.",
-        "3": "Bring real questions about freelancing, residency, and how to stay compliant while living here."
+        "1": "جلسة عمل هادئة مع واي‌فاي موثوق وروّاد دائمون يرحّبون بالقادمين الجدد.",
+        "2": "أسهل فعالية للتعرّف على الناس بسرعة، خاصة إذا وصلت حديثاً وتبحث عن زخم اجتماعي.",
+        "3": "أحضر أسئلتك الحقيقية عن العمل الحر والإقامة والامتثال للقوانين أثناء العيش هنا."
       }
     },
     "cityGuides": {
-      "eyebrow": "City guides",
-      "title": "Everything you need for your first month.",
-      "intro": "Neighborhoods, coworking, housing, internet, transport, cost of living, and more - written by people living here.",
-      "subIntro": "Think of them as confidence builders for your first month, not a static resource archive.",
-      "fastAnswersEyebrow": "Fast answers",
-      "fastAnswersBody": "Housing, internet, transport, visa basics, and neighborhood fit.",
-      "browseAll": "Browse all guides",
+      "eyebrow": "أدلة المدينة",
+      "title": "كل ما تحتاجه لشهرك الأول.",
+      "intro": "الأحياء والعمل المشترك والسكن والإنترنت والمواصلات وتكلفة المعيشة وأكثر - بأقلام من يعيشون هنا.",
+      "subIntro": "اعتبرها أدوات لبناء الثقة في شهرك الأول، لا أرشيف موارد جامد.",
+      "fastAnswersEyebrow": "إجابات سريعة",
+      "fastAnswersBody": "السكن والإنترنت والمواصلات وأساسيات التأشيرة وملاءمة الحي.",
+      "browseAll": "تصفّح كل الأدلة",
       "orientation": {
-        "whereStay": "Where should I stay?",
-        "bestCoworking": "Best areas for coworking",
-        "monthlyCost": "What does a month cost?",
-        "fastInternet": "How do I get online fast?"
+        "whereStay": "أين أقيم؟",
+        "bestCoworking": "أفضل المناطق للعمل المشترك",
+        "monthlyCost": "كم تكلفة شهر واحد؟",
+        "fastInternet": "كيف أتصل بالإنترنت بسرعة؟"
       }
     },
     "firstMonth": {
-      "eyebrow": "First month essentials",
-      "title": "Start with the pieces that make remote life easier to operate.",
-      "body": "If you just landed, begin with neighborhoods, internet, transit, and this week's meetup. It's the fastest path from arrival mode to a workable local routine."
+      "eyebrow": "أساسيات الشهر الأول",
+      "title": "ابدأ بالقطع التي تجعل العمل عن بُعد أسهل.",
+      "body": "إذا وصلت حديثاً، فابدأ بالأحياء والإنترنت والمواصلات ولقاء هذا الأسبوع. هذا أسرع طريق من وضع الوصول إلى روتين محلي قابل للتطبيق."
     },
     "phases": {
       "weekOne": {
-        "phase": "Week one",
-        "title": "A workable routine, fast",
-        "description": "Wifi-tested cafes, a coworking session to drop into, and a neighborhood that fits your pace.",
-        "tag": "Arrival"
+        "phase": "الأسبوع الأول",
+        "title": "روتين عملي وسريع",
+        "description": "مقاهٍ بواي‌فاي مختبر، جلسة عمل مشترك يمكنك حضورها، وحي يناسب إيقاعك.",
+        "tag": "الوصول"
       },
       "monthOne": {
-        "phase": "Month one",
-        "title": "Familiar faces in familiar places",
-        "description": "The weekly rhythm means you keep running into the same people - and that's how real friendships start.",
-        "tag": "Orientation"
+        "phase": "الشهر الأول",
+        "title": "وجوه مألوفة في أماكن مألوفة",
+        "description": "الإيقاع الأسبوعي يعني أنّك ستلتقي بالأشخاص أنفسهم مراراً - هكذا تبدأ الصداقات الحقيقية.",
+        "tag": "التوجّه"
       },
       "monthThree": {
-        "phase": "Month three+",
-        "title": "A city that feels like yours",
-        "description": "You've got a ferry route, a favorite baklava spot, and people who text you when something good is happening.",
-        "tag": "Attachment"
+        "phase": "الشهر الثالث وما بعد",
+        "title": "مدينة تشعر أنّها لك",
+        "description": "صار لديك خط عبّارة، ومحل بقلاوة مفضّل، وأشخاص يراسلونك حين يحدث شيء جميل.",
+        "tag": "الارتباط"
       }
     },
     "whyStay": {
-      "eyebrow": "Why people stay",
-      "title": "Why nomads keep extending their stay.",
-      "body": "What changes after you join is simple: your workweeks get steadier, the city gets easier to read, and familiar faces start showing up in the places you already like to be.",
+      "eyebrow": "لماذا يبقَون",
+      "title": "لماذا يمدّد الرحّالة إقامتهم.",
+      "body": "ما يتغيّر بعد أن تنضم بسيط: أسابيع عملك تصبح أكثر استقراراً، وتصبح قراءة المدينة أسهل، وتبدأ الوجوه المألوفة بالظهور في الأماكن التي تحبّها أصلاً.",
       "items": {
         "reliableWorkdays": {
-          "title": "Reliable workdays",
-          "description": "Coworking sessions, cafe picks, and practical setup advice."
+          "title": "أيام عمل موثوقة",
+          "description": "جلسات عمل مشترك، اختيارات للمقاهي، ونصائح عملية للإعداد."
         },
         "lowFriction": {
-          "title": "Low-friction onboarding",
-          "description": "Helpful answers fast, without having to search five groups."
+          "title": "انطلاق بأقل احتكاك",
+          "description": "إجابات مفيدة بسرعة، دون الحاجة للبحث في خمس مجموعات."
         },
         "localTexture": {
-          "title": "Better local texture",
-          "description": "Meet people who know the city and still remember what it feels like to arrive."
+          "title": "نسيج محلي أفضل",
+          "description": "تعرّف على من يعرف المدينة، ولا يزال يتذكّر شعور الوصول إليها."
         }
       },
       "card": {
-        "eyebrow": "Local knowledge, shared quickly",
-        "title": "Ask one question and skip hours of guesswork.",
-        "body": "Where should you base yourself for your first month? Which coworking spots have stable wifi? How do ferries change your commute? The community makes those answers social, current, and local.",
+        "eyebrow": "معرفة محلية تُشارَك بسرعة",
+        "title": "اسأل سؤالاً واحداً ووفّر ساعات من التخمين.",
+        "body": "أين تستقرّ في شهرك الأول؟ أيّ فضاءات عمل مشترك تملك واي‌فاي ثابتاً؟ كيف تغيّر العبّارات تنقّلك؟ المجتمع يجعل تلك الإجابات اجتماعيةً وحديثةً ومحلية.",
         "bullets": {
-          "tradeoffs": "Neighborhood tradeoffs explained by people living here",
-          "rituals": "Weekly rituals that make meeting people feel easier",
-          "setup": "Practical setup help for workdays, transit, and housing",
-          "landing": "A softer landing if you're staying more than a few weeks"
+          "tradeoffs": "مقارنات الأحياء بأقلام من يعيشون هنا",
+          "rituals": "طقوس أسبوعية تجعل التعرّف على الناس أسهل",
+          "setup": "مساعدة عملية لأيام العمل والتنقّل والسكن",
+          "landing": "هبوط أنعم إذا كنت ستبقى أكثر من أسبوعين"
         }
       }
     },
     "joinCta": {
-      "eyebrow": "Get started",
-      "title": "Join us on Telegram.",
-      "body": "Introduce yourself and we'll point you to this week's meetup, a good workspace, or the right neighborhood to start from.",
-      "joinTelegram": "Join on Telegram",
-      "aboutCommunity": "About the community"
+      "eyebrow": "ابدأ الآن",
+      "title": "انضم إلينا على تيليغرام.",
+      "body": "عرّف عن نفسك وسنرشدك إلى لقاء هذا الأسبوع أو فضاء عمل جيّد أو الحي المناسب للانطلاق.",
+      "joinTelegram": "انضم على تيليغرام",
+      "aboutCommunity": "عن المجتمع"
     }
   }
 }

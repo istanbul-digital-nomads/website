@@ -118,168 +118,168 @@
   },
   "home": {
     "meta": {
-      "tickerSchedule": "Kadikoy 09:10 / Karakoy 10:25 / Galata 18:30",
-      "tickerTimezone": "GMT+3 / ferry-first / laptop-ready",
-      "asiaBase": "Asia base",
-      "ferryReset": "Ferry reset",
-      "eveningTable": "Evening table"
+      "tickerSchedule": "Кадыкёй 09:10 / Каракёй 10:25 / Галата 18:30",
+      "tickerTimezone": "GMT+3 / сначала паром / готов к ноутбуку",
+      "asiaBase": "База на азиатской стороне",
+      "ferryReset": "Перезагрузка на пароме",
+      "eveningTable": "Вечерний столик"
     },
     "hero": {
-      "title": "Build your Istanbul work rhythm in 7 days.",
-      "subtitle": "Choose a base, learn the ferry loop, and save the laptop-safe tables locals trust after sunset.",
-      "joinWorkweek": "Join the workweek",
-      "chooseBase": "Choose a base",
-      "imageAlt": "A calm Moda waterfront table with tea, notebook, and the Istanbul skyline beyond",
-      "ferryWorkdayBadge": "Ferry workday",
-      "kadikoy": "Kadikoy",
-      "karakoy": "Karakoy",
-      "galata": "Galata",
+      "title": "Собери свой стамбульский рабочий ритм за 7 дней.",
+      "subtitle": "Выбери базу, освой паромный маршрут и сохрани столики с надёжным вай-фаем, которым местные доверяют после заката.",
+      "joinWorkweek": "Присоединиться к рабочей неделе",
+      "chooseBase": "Выбрать базу",
+      "imageAlt": "Спокойный столик на набережной Моды с чаем, блокнотом и силуэтом Стамбула вдалеке",
+      "ferryWorkdayBadge": "Рабочий день с паромом",
+      "kadikoy": "Кадыкёй",
+      "karakoy": "Каракёй",
+      "galata": "Галата",
       "trustSignals": {
-        "nextCoworking": "Next coworking {date}",
-        "freeToJoin": "Free to join",
-        "allRemoteWorkers": "All remote workers welcome",
-        "weeklyCoworking": "Weekly coworking sessions"
+        "nextCoworking": "Следующий коворкинг {date}",
+        "freeToJoin": "Бесплатное участие",
+        "allRemoteWorkers": "Рады всем удалёнщикам",
+        "weeklyCoworking": "Еженедельные коворкинг-сессии"
       },
       "deskNotes": {
-        "baseLabel": "Base",
-        "baseValue": "Kadikoy or Moda",
-        "crossingLabel": "Crossing",
-        "crossingValue": "20 min ferry reset",
-        "fallbackLabel": "Fallback",
-        "fallbackValue": "Coworking if cafes fill"
+        "baseLabel": "База",
+        "baseValue": "Кадыкёй или Мода",
+        "crossingLabel": "Переправа",
+        "crossingValue": "20 минут парома",
+        "fallbackLabel": "Запасной вариант",
+        "fallbackValue": "Коворкинг, если кафе забиты"
       },
       "fieldCard": {
-        "eyebrow": "Nomad field card",
-        "title": "The ferry workday",
-        "boardEyebrow": "Ferry board / first week",
+        "eyebrow": "Полевая карточка номада",
+        "title": "Рабочий день с паромом",
+        "boardEyebrow": "Паромное табло / первая неделя",
         "tzLabel": "GMT+3",
-        "tzValue": "2 continents",
-        "openGuide": "Open the first-month guide"
+        "tzValue": "2 континента",
+        "openGuide": "Открыть гайд по первому месяцу"
       },
       "routeSteps": {
         "kadikoyPier": {
-          "title": "Kadikoy pier",
-          "detail": "Pick a walkable base with breakfast, metro, and ferries nearby."
+          "title": "Пирс Кадыкёя",
+          "detail": "Выбери базу в пешей доступности с завтраком, метро и паромами под рукой."
         },
         "karakoyTable": {
-          "title": "Karakoy table",
-          "detail": "Cross with one job to do and a saved list of laptop-safe seats."
+          "title": "Столик в Каракёе",
+          "detail": "Переплывай с одной чёткой задачей и заранее сохранённым списком столиков с розетками."
         },
         "galataEvening": {
-          "title": "Galata evening",
-          "detail": "Meet the people who know where the city works after dark."
+          "title": "Вечер в Галате",
+          "detail": "Знакомься с теми, кто знает, где город работает после захода солнца."
         }
       }
     },
     "firstWeekTool": {
-      "eyebrow": "New arrival tool",
-      "title": "Turn your first week into a real Istanbul routine.",
-      "body": "Pick your base, work setup, social pace, and budget comfort. Get a seven-day plan with ferry confidence, work blocks, admin buffer, and the right links for week two.",
-      "cta": "Plan my week"
+      "eyebrow": "Инструмент для новичков",
+      "title": "Преврати первую неделю в настоящий стамбульский ритм.",
+      "body": "Выбери базу, рабочую обстановку, социальный темп и бюджетный комфорт. Получи семидневный план: уверенность в паромах, рабочие блоки, время на бюрократию и нужные ссылки на вторую неделю.",
+      "cta": "Спланировать неделю"
     },
     "stats": {
-      "intro": "Built for people who want a city that becomes workable quickly, not just another place to pass through.",
-      "growing": "Growing",
-      "growingLabel": "community",
-      "weekly": "Weekly",
-      "weeklyLabel": "coworking rhythm",
+      "intro": "Сделано для тех, кому нужен город, который быстро становится рабочим, а не очередная транзитная точка.",
+      "growing": "Растущее",
+      "growingLabel": "сообщество",
+      "weekly": "Еженедельный",
+      "weeklyLabel": "ритм коворкинга",
       "guides": "11",
-      "guidesLabel": "local living guides",
+      "guidesLabel": "локальных гайдов",
       "neighborhoods": "25+",
-      "neighborhoodsLabel": "neighborhoods covered"
+      "neighborhoodsLabel": "районов в покрытии"
     },
     "events": {
-      "eyebrow": "What's happening",
-      "title": "This week's events",
-      "intro": "Coworking sessions, meetups, and workshops happening in Istanbul this week.",
-      "datesScheduledEyebrow": "Dates being scheduled",
-      "datesScheduledTitle": "The next coworking dates are coming together.",
-      "datesScheduledBody": "Join the Telegram group for the current informal coworking thread while the public calendar catches up.",
-      "openSpots": "Open",
-      "spots": "{capacity} spots",
-      "seeAll": "See all events",
+      "eyebrow": "Что происходит",
+      "title": "События этой недели",
+      "intro": "Коворкинг-сессии, встречи и воркшопы, которые проходят в Стамбуле на этой неделе.",
+      "datesScheduledEyebrow": "Даты согласовываются",
+      "datesScheduledTitle": "Ближайшие даты коворкингов складываются.",
+      "datesScheduledBody": "Пока публичный календарь догоняет, заходи в Telegram-группу за актуальной неформальной веткой коворкингов.",
+      "openSpots": "Открыто",
+      "spots": "{capacity} мест",
+      "seeAll": "Все события",
       "moments": {
-        "1": "Quiet work session with reliable wifi and plenty of regulars who welcome first-timers.",
-        "2": "The easiest event to meet people fast, especially if you just arrived and want social momentum.",
-        "3": "Bring real questions about freelancing, residency, and how to stay compliant while living here."
+        "1": "Тихая рабочая сессия со стабильным вай-фаем и постоянными гостями, которые приветливы к новичкам.",
+        "2": "Самое простое событие, чтобы быстро познакомиться - особенно если только приехал и нужен социальный разгон.",
+        "3": "Приноси настоящие вопросы про фриланс, ВНЖ и то, как жить здесь по правилам."
       }
     },
     "cityGuides": {
-      "eyebrow": "City guides",
-      "title": "Everything you need for your first month.",
-      "intro": "Neighborhoods, coworking, housing, internet, transport, cost of living, and more - written by people living here.",
-      "subIntro": "Think of them as confidence builders for your first month, not a static resource archive.",
-      "fastAnswersEyebrow": "Fast answers",
-      "fastAnswersBody": "Housing, internet, transport, visa basics, and neighborhood fit.",
-      "browseAll": "Browse all guides",
+      "eyebrow": "Гайды по городу",
+      "title": "Всё, что нужно в первый месяц.",
+      "intro": "Районы, коворкинги, жильё, интернет, транспорт, стоимость жизни и не только - написано теми, кто живёт здесь.",
+      "subIntro": "Воспринимай их как опоры уверенности на первый месяц, а не как статический архив ссылок.",
+      "fastAnswersEyebrow": "Быстрые ответы",
+      "fastAnswersBody": "Жильё, интернет, транспорт, основы виз и подбор района.",
+      "browseAll": "Все гайды",
       "orientation": {
-        "whereStay": "Where should I stay?",
-        "bestCoworking": "Best areas for coworking",
-        "monthlyCost": "What does a month cost?",
-        "fastInternet": "How do I get online fast?"
+        "whereStay": "Где остановиться?",
+        "bestCoworking": "Лучшие районы для коворкинга",
+        "monthlyCost": "Сколько стоит месяц?",
+        "fastInternet": "Как быстро подключиться к интернету?"
       }
     },
     "firstMonth": {
-      "eyebrow": "First month essentials",
-      "title": "Start with the pieces that make remote life easier to operate.",
-      "body": "If you just landed, begin with neighborhoods, internet, transit, and this week's meetup. It's the fastest path from arrival mode to a workable local routine."
+      "eyebrow": "Главное на первый месяц",
+      "title": "Начни с того, что упрощает удалённую жизнь.",
+      "body": "Если только приехал, начни с районов, интернета, транспорта и встречи этой недели. Это самый быстрый путь из режима «только что приехал» к рабочему локальному ритму."
     },
     "phases": {
       "weekOne": {
-        "phase": "Week one",
-        "title": "A workable routine, fast",
-        "description": "Wifi-tested cafes, a coworking session to drop into, and a neighborhood that fits your pace.",
-        "tag": "Arrival"
+        "phase": "Первая неделя",
+        "title": "Рабочий ритм - быстро",
+        "description": "Кафе с проверенным вай-фаем, коворкинг-сессия, к которой можно присоединиться, и район под твой темп.",
+        "tag": "Прибытие"
       },
       "monthOne": {
-        "phase": "Month one",
-        "title": "Familiar faces in familiar places",
-        "description": "The weekly rhythm means you keep running into the same people - and that's how real friendships start.",
-        "tag": "Orientation"
+        "phase": "Первый месяц",
+        "title": "Знакомые лица в знакомых местах",
+        "description": "Недельный ритм означает, что ты снова и снова встречаешь одних и тех же людей - так и начинаются настоящие дружбы.",
+        "tag": "Ориентация"
       },
       "monthThree": {
-        "phase": "Month three+",
-        "title": "A city that feels like yours",
-        "description": "You've got a ferry route, a favorite baklava spot, and people who text you when something good is happening.",
-        "tag": "Attachment"
+        "phase": "Третий месяц и дальше",
+        "title": "Город, который чувствуешь своим",
+        "description": "У тебя есть паромный маршрут, любимая пахлавная и люди, которые пишут, когда происходит что-то хорошее.",
+        "tag": "Привязанность"
       }
     },
     "whyStay": {
-      "eyebrow": "Why people stay",
-      "title": "Why nomads keep extending their stay.",
-      "body": "What changes after you join is simple: your workweeks get steadier, the city gets easier to read, and familiar faces start showing up in the places you already like to be.",
+      "eyebrow": "Почему остаются",
+      "title": "Почему номады продлевают пребывание.",
+      "body": "После того как ты присоединишься, меняется простое: рабочие недели становятся стабильнее, город - понятнее, и знакомые лица начинают появляться в местах, которые ты уже любишь.",
       "items": {
         "reliableWorkdays": {
-          "title": "Reliable workdays",
-          "description": "Coworking sessions, cafe picks, and practical setup advice."
+          "title": "Надёжные рабочие дни",
+          "description": "Коворкинг-сессии, подобранные кафе и практичные советы по setup."
         },
         "lowFriction": {
-          "title": "Low-friction onboarding",
-          "description": "Helpful answers fast, without having to search five groups."
+          "title": "Лёгкое включение",
+          "description": "Полезные ответы быстро, без перерытия пяти чатов."
         },
         "localTexture": {
-          "title": "Better local texture",
-          "description": "Meet people who know the city and still remember what it feels like to arrive."
+          "title": "Живой локальный контекст",
+          "description": "Познакомься с теми, кто знает город и всё ещё помнит, каково это - приехать."
         }
       },
       "card": {
-        "eyebrow": "Local knowledge, shared quickly",
-        "title": "Ask one question and skip hours of guesswork.",
-        "body": "Where should you base yourself for your first month? Which coworking spots have stable wifi? How do ferries change your commute? The community makes those answers social, current, and local.",
+        "eyebrow": "Локальное знание, переданное быстро",
+        "title": "Задай один вопрос и сэкономь часы догадок.",
+        "body": "Где базироваться в первый месяц? У каких коворкингов стабильный вай-фай? Как паромы меняют маршрут? Сообщество делает эти ответы социальными, актуальными и локальными.",
         "bullets": {
-          "tradeoffs": "Neighborhood tradeoffs explained by people living here",
-          "rituals": "Weekly rituals that make meeting people feel easier",
-          "setup": "Practical setup help for workdays, transit, and housing",
-          "landing": "A softer landing if you're staying more than a few weeks"
+          "tradeoffs": "Компромиссы районов от тех, кто живёт здесь",
+          "rituals": "Еженедельные ритуалы, которые упрощают знакомства",
+          "setup": "Практичная помощь по рабочему дню, транспорту и жилью",
+          "landing": "Мягкое приземление, если остаёшься больше пары недель"
         }
       }
     },
     "joinCta": {
-      "eyebrow": "Get started",
-      "title": "Join us on Telegram.",
-      "body": "Introduce yourself and we'll point you to this week's meetup, a good workspace, or the right neighborhood to start from.",
-      "joinTelegram": "Join on Telegram",
-      "aboutCommunity": "About the community"
+      "eyebrow": "Начни здесь",
+      "title": "Присоединяйся к нам в Telegram.",
+      "body": "Представься, и мы подскажем встречу этой недели, хороший воркспейс или подходящий район для старта.",
+      "joinTelegram": "Вступить в Telegram",
+      "aboutCommunity": "О сообществе"
     }
   }
 }

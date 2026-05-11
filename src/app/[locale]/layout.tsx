@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { IBM_Plex_Mono, Inter, Manrope } from "next/font/google";
+import {
+  IBM_Plex_Mono,
+  Inter,
+  Manrope,
+  Noto_Sans_Arabic,
+  Vazirmatn,
+} from "next/font/google";
 import Script from "next/script";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
@@ -65,6 +71,27 @@ const ibmPlexMono = IBM_Plex_Mono({
   weight: ["400", "500"],
   variable: "--font-mono",
   preload: true,
+});
+
+// Persian-optimized font (Iranian Yekan / Vazirmatn family). Subset is
+// `arabic` because Persian shares the Arabic script. Only attached to the
+// <body> when locale === "fa", so the font file is not downloaded for other
+// locales.
+const vazirmatn = Vazirmatn({
+  subsets: ["arabic"],
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-fa",
+  preload: false,
+});
+
+// MSA Arabic font. Same conditional-attach approach as Vazirmatn.
+const notoSansArabic = Noto_Sans_Arabic({
+  subsets: ["arabic"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ar",
+  preload: false,
 });
 
 export function generateStaticParams() {
@@ -154,7 +181,15 @@ export default async function LocaleLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${manrope.variable} ${ibmPlexMono.variable}`}
+        className={[
+          inter.variable,
+          manrope.variable,
+          ibmPlexMono.variable,
+          typedLocale === "fa" ? vazirmatn.variable : "",
+          typedLocale === "ar" ? notoSansArabic.variable : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
       >
         <NextIntlClientProvider locale={typedLocale} messages={messages}>
           <ThemeProvider>

@@ -176,8 +176,12 @@ export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
                   </div>
 
                   <ul className="mt-3 space-y-1 text-sm leading-6 text-[#5d6d7e] dark:text-[#b7aaa0]">
-                    {match.reasons.slice(0, 2).map((reason) => (
-                      <li key={reason}>{reason}</li>
+                    {match.reasons.slice(0, 2).map((reasonCode) => (
+                      <li key={reasonCode}>
+                        {reasonCode === "oneLiner"
+                          ? tList(`${match.neighborhood.slug}.oneLiner`)
+                          : t(`reasons.${reasonCode}`)}
+                      </li>
                     ))}
                   </ul>
                 </div>

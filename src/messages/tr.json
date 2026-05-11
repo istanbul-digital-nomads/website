@@ -131,7 +131,19 @@
       "fit": "%{score} uyum / {rent}",
       "turnIntoWeekOne": "Bunu ilk haftaya dönüştür",
       "useAsBase": "{neighborhood}'i üs olarak kullan ve etrafında yedi günlük geliş planı kur.",
-      "planFromMatch": "Eşleşmeden plan yap"
+      "planFromMatch": "Eşleşmeden plan yap",
+      "reasons": {
+        "quiet": "Günlük tempo daha sakin kalıyor.",
+        "social": "İlk ay için yeterli sosyal çekim var.",
+        "budget": "Premium merkeze göre kira daha esnek.",
+        "ferry": "Vapurlar rutinin parçası olabilir.",
+        "seaside": "Sahil yürüyüşleri yerel ritmin bir parçası.",
+        "business": "İş altyapısına ulaşmak kolay.",
+        "nightlife": "Akşamlar fazla planlamadan yakın.",
+        "character": "Sokakların güçlü bir yer hissi var.",
+        "lowNoise": "Düşük gürültü profili.",
+        "streetEnergy": "İnsanlarla doğal olarak tanışmaya yetecek sokak enerjisi."
+      }
     },
     "rhythmSignals": {
       "quiet": {

@@ -177,10 +177,26 @@ const rhythmScores: Record<NeighborhoodSlug, RhythmScoreMap> = {
   },
 };
 
+// Reason codes resolved to localized strings on the client via the
+// `sections.rhythmMatcher.reasons.*` namespace, with a special "oneLiner"
+// code that the consumer maps to the neighborhood's localized one-liner.
+export type ReasonCode =
+  | "quiet"
+  | "social"
+  | "budget"
+  | "ferry"
+  | "seaside"
+  | "business"
+  | "nightlife"
+  | "character"
+  | "lowNoise"
+  | "streetEnergy"
+  | "oneLiner";
+
 export interface NeighborhoodMatch {
   neighborhood: Neighborhood;
   score: number;
-  reasons: string[];
+  reasons: ReasonCode[];
   matchingRhythms: RhythmOption[];
 }
 
@@ -211,32 +227,19 @@ function buildReasons(
   neighborhood: Neighborhood,
   selected: RhythmKey[],
   matchingRhythms: RhythmOption[],
-): string[] {
-  const reasons: string[] = matchingRhythms.slice(0, 2).map((option) => {
-    if (option.key === "quiet") return "The day-to-day pace stays calmer.";
-    if (option.key === "social")
-      return "It has enough social gravity for a first month.";
-    if (option.key === "budget")
-      return "Rent stays more forgiving than the premium core.";
-    if (option.key === "ferry")
-      return "Ferries can become part of the routine.";
-    if (option.key === "seaside")
-      return "Waterfront walks are part of the local rhythm.";
-    if (option.key === "business")
-      return "Work infrastructure is easy to reach.";
-    if (option.key === "nightlife")
-      return "Evenings are close without over-planning.";
-    return "The streets have a stronger sense of place.";
-  });
+): ReasonCode[] {
+  const reasons: ReasonCode[] = matchingRhythms
+    .slice(0, 2)
+    .map((option) => option.key as ReasonCode);
 
   if (reasons.length === 0) {
-    reasons.push(neighborhood.oneLiner.replace(/\.$/, "."));
+    reasons.push("oneLiner");
   }
 
   if (selected.includes("quiet") && neighborhood.noise === "Low") {
-    reasons.push("Low-noise profile.");
+    reasons.push("lowNoise");
   } else if (selected.includes("social") && neighborhood.noise !== "Low") {
-    reasons.push("Enough street energy to meet people naturally.");
+    reasons.push("streetEnergy");
   }
 
   return reasons.slice(0, 3);

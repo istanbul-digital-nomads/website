@@ -131,7 +131,19 @@
       "fit": "{score}% fit / {rent}",
       "turnIntoWeekOne": "Turn this into week one",
       "useAsBase": "Use {neighborhood} as your base and build a seven-day arrival plan around it.",
-      "planFromMatch": "Plan from match"
+      "planFromMatch": "Plan from match",
+      "reasons": {
+        "quiet": "The day-to-day pace stays calmer.",
+        "social": "It has enough social gravity for a first month.",
+        "budget": "Rent stays more forgiving than the premium core.",
+        "ferry": "Ferries can become part of the routine.",
+        "seaside": "Waterfront walks are part of the local rhythm.",
+        "business": "Work infrastructure is easy to reach.",
+        "nightlife": "Evenings are close without over-planning.",
+        "character": "The streets have a stronger sense of place.",
+        "lowNoise": "Low-noise profile.",
+        "streetEnergy": "Enough street energy to meet people naturally."
+      }
     },
     "rhythmSignals": {
       "quiet": {

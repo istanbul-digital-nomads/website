@@ -46,24 +46,50 @@
   /* Locale-aware Arabic-script fonts. The `--font-fa` / `--font-ar` CSS
      variables are only present in the DOM when the corresponding locale
      is active, so font files for these locales are not downloaded for
-     other locales. */
+     other locales.
+
+     The Farsi font (Bon Pro) and the Arabic font (Noto Sans Arabic) are
+     applied to body and ALL inheriting elements (h1-h6, .font-display,
+     .font-mono, code, pre, .eyebrow) so the entire Persian/Arabic surface
+     uses the same family. The default Latin fonts (Manrope display, IBM
+     Plex Mono) remain in the fallback chain for code blocks and brand-name
+     Latin runs that the Arabic-script font may not cover. */
   html[lang^="fa"] body,
+  html[lang^="fa"] h1,
+  html[lang^="fa"] h2,
+  html[lang^="fa"] h3,
+  html[lang^="fa"] h4,
+  html[lang^="fa"] h5,
+  html[lang^="fa"] h6,
   html[lang^="fa"] .font-display {
     font-family:
       var(--font-fa), var(--font-sans), "Segoe UI", Tahoma, sans-serif;
   }
 
+  html[lang^="fa"] code,
+  html[lang^="fa"] pre,
+  html[lang^="fa"] .font-mono,
+  html[lang^="fa"] .eyebrow {
+    font-family: var(--font-fa), var(--font-mono), ui-monospace, monospace;
+  }
+
   html[lang^="ar"] body,
+  html[lang^="ar"] h1,
+  html[lang^="ar"] h2,
+  html[lang^="ar"] h3,
+  html[lang^="ar"] h4,
+  html[lang^="ar"] h5,
+  html[lang^="ar"] h6,
   html[lang^="ar"] .font-display {
     font-family:
       var(--font-ar), var(--font-sans), "Segoe UI", Tahoma, sans-serif;
   }
 
-  /* Tighten font-mono fallback for Arabic-script locales since IBM Plex Mono
-     has no Arabic glyphs. */
-  html[lang^="fa"] .font-mono,
-  html[lang^="ar"] .font-mono {
-    font-family: var(--font-mono), ui-monospace, monospace;
+  html[lang^="ar"] code,
+  html[lang^="ar"] pre,
+  html[lang^="ar"] .font-mono,
+  html[lang^="ar"] .eyebrow {
+    font-family: var(--font-ar), var(--font-mono), ui-monospace, monospace;
   }
 
   /* Decorative body gradients - deferred to avoid blocking first paint */

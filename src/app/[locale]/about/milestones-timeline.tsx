@@ -1,51 +1,29 @@
+"use client";
+
 import { MapPin, Lightbulb, Globe, Users, type LucideIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 
-interface Milestone {
-  date: string;
-  title: string;
-  description: string;
+interface MilestoneMeta {
+  id: "decided" | "idea" | "launched" | "firstMeetup";
   icon: LucideIcon;
   upcoming?: boolean;
 }
 
-const milestones: Milestone[] = [
-  {
-    date: "Feb 2026",
-    title: "Decided to move to Turkey",
-    description:
-      "The choice was made. Tickets booked, leases ended, bags packed.",
-    icon: MapPin,
-  },
-  {
-    date: "Mar 2026",
-    title: "Started the Istanbul Digital Nomads idea",
-    description:
-      "Sketched the first version of what this community could be for the next person arriving.",
-    icon: Lightbulb,
-  },
-  {
-    date: "Apr 2026",
-    title: "Website launched",
-    description:
-      "Country guides, city playbooks, and a place for the community to land.",
-    icon: Globe,
-  },
-  {
-    date: "Q2 2026",
-    title: "First community meetup",
-    description:
-      "A small in-person gathering. The real start of the community.",
-    icon: Users,
-    upcoming: true,
-  },
+const milestones: MilestoneMeta[] = [
+  { id: "decided", icon: MapPin },
+  { id: "idea", icon: Lightbulb },
+  { id: "launched", icon: Globe },
+  { id: "firstMeetup", icon: Users, upcoming: true },
 ];
 
 export function MilestonesTimeline() {
+  const t = useTranslations("about.milestones");
+  const tItems = useTranslations("about.milestones.items");
+
   return (
     <div className="relative mx-auto max-w-2xl">
-      {/* Vertical track behind the icons. Solid for done, dashed for upcoming. */}
       <div
         aria-hidden="true"
         className="absolute left-[27px] top-4 bottom-4 w-px bg-gradient-to-b from-primary-500 via-primary-500/60 to-primary-500/10 sm:left-8"
@@ -56,10 +34,9 @@ export function MilestonesTimeline() {
           const Icon = m.icon;
           const delay = Math.min(idx, 4) as 0 | 1 | 2 | 3 | 4;
           return (
-            <li key={m.title}>
+            <li key={m.id}>
               <Reveal delay={delay}>
                 <div className="flex gap-5 sm:gap-6">
-                  {/* Icon node */}
                   <div className="relative flex-shrink-0">
                     <div
                       className={cn(
@@ -83,7 +60,6 @@ export function MilestonesTimeline() {
                     </div>
                   </div>
 
-                  {/* Card */}
                   <div
                     className={cn(
                       "min-w-0 flex-1 rounded-2xl border p-5 transition-colors sm:p-6",
@@ -94,19 +70,19 @@ export function MilestonesTimeline() {
                   >
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="inline-flex items-center rounded-full bg-primary-500/10 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider text-primary-700 dark:bg-primary-400/10 dark:text-primary-300">
-                        {m.date}
+                        {tItems(`${m.id}.date`)}
                       </span>
                       {m.upcoming && (
                         <span className="inline-flex items-center rounded-full border border-primary-300/40 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary-600 dark:border-primary-700/40 dark:text-primary-400">
-                          Coming up
+                          {t("comingUp")}
                         </span>
                       )}
                     </div>
                     <h3 className="mt-2 text-lg font-semibold text-[#1a1a2e] dark:text-[#f2f3f4] sm:text-xl">
-                      {m.title}
+                      {tItems(`${m.id}.title`)}
                     </h3>
                     <p className="mt-1.5 text-sm leading-6 text-[#5d6d7e] dark:text-[#99a3ad]">
-                      {m.description}
+                      {tItems(`${m.id}.description`)}
                     </p>
                   </div>
                 </div>

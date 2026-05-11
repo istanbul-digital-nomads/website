@@ -462,6 +462,90 @@
       "answer": "Özel hastanelerde (Acıbadem, Memorial) İngilizce konuşan personel var ve uluslararası sigorta kabul ediliyor. Sigortasız doktor muayenesi 500-1.500 TL (~16-48 dolar) - Batılı ülkelerden çok daha ucuz."
     }
   },
+  "about": {
+    "meta": {
+      "title": "Hakkımızda",
+      "description": "Istanbul Digital Nomads'ın hikayesi - nasıl başladık, neye inanıyoruz ve onu mümkün kılan insanlar."
+    },
+    "story": {
+      "title": "Hikayemiz",
+      "p1": "Istanbul Digital Nomads, 2026 yılında İstanbul'a taşımaya karar veren ve sonradan gelenler için henüz var olmayan şeyi inşa etmek isteyen bir kişi tarafından başlatılan yepyeni bir topluluk.",
+      "p2": "Karar Şubat 2026'da geldi. Fikir Mart'ta şekillendi. Web sitesi Nisan'da yayına girdi. İlk buluşma ikinci çeyrek için planlanıyor. Hikayenin tamamı bu - geri kalanını kim gelirse onunla birlikte yazıyoruz.",
+      "p3": "İstanbul, uzaktan çalışmak için dünyanın en iyi şehirlerinden biri - uygun fiyatlı, kültürel olarak zengin, çok iyi bağlantılı ve enerji dolu. Misyonumuz, buraya gelen her göçebe için geçişi kolaylaştırmak ve deneyimi zenginleştirmek."
+    },
+    "values": {
+      "title": "Neye İnanıyoruz",
+      "description": "Topluluğumuza yön veren ilkeler.",
+      "items": {
+        "inclusive": {
+          "title": "Kapsayıcı",
+          "description": "Geçmişi, beceri seviyesi veya ne kadar kalacağı fark etmez, herkes hoş geldi."
+        },
+        "helpful": {
+          "title": "Yardımsever",
+          "description": "Vize ipuçlarından en iyi kafelere kadar bilgiyi cömertçe paylaşıyoruz. Hiçbir soru fazla basit değil."
+        },
+        "authentic": {
+          "title": "Samimi",
+          "description": "Network kurmaktan çok gerçek bağlantılar. Gerçek ilişkileri ve dürüst tavsiyeleri önemsiyoruz."
+        },
+        "fun": {
+          "title": "Eğlenceli",
+          "description": "Göçebe yaşam keyifli olmalı. Üretkenliği keşif ve sosyal etkinliklerle dengeliyoruz."
+        }
+      }
+    },
+    "team": {
+      "title": "Ekip",
+      "description": "Topluluğu yürüten insanlar.",
+      "members": {
+        "ali": {
+          "role": "Kurucu",
+          "bio": "2026 başında İstanbul'a taşınan, sonraki gelenlerin inişini kolaylaştırmak için bu topluluğu başlatan full-stack geliştirici."
+        },
+        "dina": {
+          "role": "Etkinlik Sorumlusu",
+          "bio": "Haftalık ortak çalışma seansları ve aylık sosyal etkinlikler düzenleyen ürün tasarımcısı."
+        },
+        "kerem": {
+          "role": "Yerel Rehber",
+          "bio": "İstanbullu ve serbest çevirmen. Göçebelerle yerel kültür arasında köprü kuruyor."
+        }
+      }
+    },
+    "milestones": {
+      "title": "Dönüm Noktaları",
+      "description": "Şimdiye kadar kısa bir yolculuk - geri kalanı seninle yazılıyor.",
+      "comingUp": "Yaklaşıyor",
+      "items": {
+        "decided": {
+          "date": "Şubat 2026",
+          "title": "Türkiye'ye taşınmaya karar verildi",
+          "description": "Karar verildi. Biletler alındı, kira sözleşmeleri sonlandırıldı, valizler hazırlandı."
+        },
+        "idea": {
+          "date": "Mart 2026",
+          "title": "Istanbul Digital Nomads fikri başladı",
+          "description": "Sıradaki gelen için bu topluluğun ne olabileceğine dair ilk versiyon çizildi."
+        },
+        "launched": {
+          "date": "Nisan 2026",
+          "title": "Web sitesi yayınlandı",
+          "description": "Ülke rehberleri, şehir oyun kitapları ve topluluğun inebileceği bir yer."
+        },
+        "firstMeetup": {
+          "date": "2. Çeyrek 2026",
+          "title": "İlk topluluk buluşması",
+          "description": "Küçük yüz yüze bir toplantı. Topluluğun gerçek başlangıcı."
+        }
+      }
+    }
+  },
+  "ctaBanner": {
+    "title": "Katılmaya hazır mısın?",
+    "body": "İstanbul'daki uzaktan çalışanlarla bağlan. Ücretsiz, açık ve sıcak.",
+    "cta": "Telegram'a katıl"
+  },
   "home": {
     "meta": {
       "tickerSchedule": "Kadıköy 09:10 / Karaköy 10:25 / Galata 18:30",

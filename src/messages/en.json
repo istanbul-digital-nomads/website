@@ -463,6 +463,90 @@
       "answer": "Private hospitals (Acibadem, Memorial) have English-speaking staff and accept international insurance. A doctor visit costs 500-1,500 TL (~$16-48) without insurance - much cheaper than Western countries."
     }
   },
+  "about": {
+    "meta": {
+      "title": "About",
+      "description": "The story behind Istanbul Digital Nomads - how we started, what we believe in, and the people who make it happen."
+    },
+    "story": {
+      "title": "Our Story",
+      "p1": "Istanbul Digital Nomads is a brand-new community, started in 2026 by one person who decided to make the move and wanted to build the thing that didn't exist yet for the next people coming.",
+      "p2": "The decision came in February 2026. The idea took shape in March. The website went live in April. The first meetup is planned for Q2. That's the whole story so far - we're writing the rest with whoever shows up.",
+      "p3": "Istanbul is one of the best cities in the world for remote work - affordable, culturally rich, extremely well-connected, and full of energy. Our mission is to make the transition easier and the experience richer for every nomad who comes here."
+    },
+    "values": {
+      "title": "What We Believe In",
+      "description": "The principles that guide our community.",
+      "items": {
+        "inclusive": {
+          "title": "Inclusive",
+          "description": "Everyone is welcome regardless of background, skill level, or how long they plan to stay."
+        },
+        "helpful": {
+          "title": "Helpful",
+          "description": "We share knowledge freely - from visa tips to the best cafes. No question is too basic."
+        },
+        "authentic": {
+          "title": "Authentic",
+          "description": "Real connections over networking. We value genuine relationships and honest recommendations."
+        },
+        "fun": {
+          "title": "Fun",
+          "description": "Life as a nomad should be enjoyable. We balance productivity with exploration and social events."
+        }
+      }
+    },
+    "team": {
+      "title": "The Team",
+      "description": "The people who keep the community running.",
+      "members": {
+        "ali": {
+          "role": "Founder",
+          "bio": "Full-stack developer who moved to Istanbul in early 2026 and started this community to help the next person land easier."
+        },
+        "dina": {
+          "role": "Events Organizer",
+          "bio": "Product designer who organizes weekly coworking sessions and monthly socials."
+        },
+        "kerem": {
+          "role": "Local Guide",
+          "bio": "Istanbul native and freelance translator. Bridges the gap between nomads and local culture."
+        }
+      }
+    },
+    "milestones": {
+      "title": "Milestones",
+      "description": "A short journey so far - the rest gets written with you.",
+      "comingUp": "Coming up",
+      "items": {
+        "decided": {
+          "date": "Feb 2026",
+          "title": "Decided to move to Turkey",
+          "description": "The choice was made. Tickets booked, leases ended, bags packed."
+        },
+        "idea": {
+          "date": "Mar 2026",
+          "title": "Started the Istanbul Digital Nomads idea",
+          "description": "Sketched the first version of what this community could be for the next person arriving."
+        },
+        "launched": {
+          "date": "Apr 2026",
+          "title": "Website launched",
+          "description": "Country guides, city playbooks, and a place for the community to land."
+        },
+        "firstMeetup": {
+          "date": "Q2 2026",
+          "title": "First community meetup",
+          "description": "A small in-person gathering. The real start of the community."
+        }
+      }
+    }
+  },
+  "ctaBanner": {
+    "title": "Ready to join?",
+    "body": "Connect with remote workers in Istanbul. Free, open, and welcoming.",
+    "cta": "Join on Telegram"
+  },
   "home": {
     "meta": {
       "tickerSchedule": "Kadikoy 09:10 / Karakoy 10:25 / Galata 18:30",

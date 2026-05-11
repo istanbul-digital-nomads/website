@@ -243,6 +243,55 @@
       "description": "Basic Turkish, cultural norms, and tips for fitting in."
     }
   },
+  "istanbulToday": {
+    "eyebrow": "Istanbul today",
+    "stats": {
+      "temp": "Temp",
+      "rain": "Rain",
+      "wind": "Wind"
+    },
+    "updated": "Updated {time}",
+    "fallbackSuffix": " with fallback mood",
+    "liveSky": "Live sky",
+    "bestMove": "Best move",
+    "nomadHint": "Nomad hint",
+    "hints": {
+      "backupCafe": "Save one backup cafe",
+      "ferry": "Leave room for a ferry"
+    },
+    "moods": {
+      "stormy": {
+        "label": "Storm watch",
+        "verb": "Bring the serious umbrella.",
+        "note": "Great cafe day. Pick somewhere with backup seating and stay close to metro.",
+        "cta": "Cafe-first plan"
+      },
+      "rainy": {
+        "label": "Rainy Istanbul",
+        "verb": "The city is in ferry-window mode.",
+        "note": "Kadikoy, Karakoy, and Galata still work. Just choose shorter walks and covered tables.",
+        "cta": "Rain-safe route"
+      },
+      "windy": {
+        "label": "Bosphorus wind",
+        "verb": "Ferry views, jacket required.",
+        "note": "Good day for a shorter crossing, then a stable indoor work block.",
+        "cta": "Wind-aware plan"
+      },
+      "cloudy": {
+        "label": "Soft gray city",
+        "verb": "Long walks, low glare, good focus.",
+        "note": "A strong day for neighborhood scouting before the evening tables fill up.",
+        "cta": "Scout a base"
+      },
+      "sunny": {
+        "label": "Bright Bosphorus",
+        "verb": "Do the outside part first.",
+        "note": "Walk the water, take the ferry, then cool down at a laptop-friendly cafe.",
+        "cta": "Sunny day loop"
+      }
+    }
+  },
   "neighborhoodList": {
     "kadikoy": {
       "name": "Kadikoy",

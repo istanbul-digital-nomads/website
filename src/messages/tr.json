@@ -243,6 +243,55 @@
       "description": "Temel Türkçe, kültürel normlar ve uyum sağlama ipuçları."
     }
   },
+  "istanbulToday": {
+    "eyebrow": "İstanbul bugün",
+    "stats": {
+      "temp": "Sıcaklık",
+      "rain": "Yağmur",
+      "wind": "Rüzgar"
+    },
+    "updated": "Güncellendi {time}",
+    "fallbackSuffix": " (yedek mod)",
+    "liveSky": "Canlı gökyüzü",
+    "bestMove": "En iyi hareket",
+    "nomadHint": "Göçebe ipucu",
+    "hints": {
+      "backupCafe": "Yedek bir kafe seç",
+      "ferry": "Vapur için yer bırak"
+    },
+    "moods": {
+      "stormy": {
+        "label": "Fırtına alarmı",
+        "verb": "Ciddi şemsiyeyi yanına al.",
+        "note": "Harika bir kafe günü. Yedek koltuk seçenekleri olan ve metroya yakın bir yer seç.",
+        "cta": "Önce kafe planı"
+      },
+      "rainy": {
+        "label": "Yağmurlu İstanbul",
+        "verb": "Şehir vapur penceresi modunda.",
+        "note": "Kadıköy, Karaköy ve Galata yine de çalışıyor. Kısa yürüyüşler ve kapalı masalar seç.",
+        "cta": "Yağmura uygun rota"
+      },
+      "windy": {
+        "label": "Boğaz rüzgarı",
+        "verb": "Vapur manzarası, mont şart.",
+        "note": "Kısa bir geçiş, ardından kararlı bir kapalı çalışma bloğu için iyi gün.",
+        "cta": "Rüzgar farkındalıklı plan"
+      },
+      "cloudy": {
+        "label": "Yumuşak gri şehir",
+        "verb": "Uzun yürüyüşler, az parlama, iyi odak.",
+        "note": "Akşam masaları dolmadan önce mahalle keşfi için güçlü bir gün.",
+        "cta": "Bir üs keşfet"
+      },
+      "sunny": {
+        "label": "Parlak Boğaz",
+        "verb": "Önce dışarısı.",
+        "note": "Sahili yürü, vapura bin, sonra dizüstü dostu bir kafede serinle.",
+        "cta": "Güneşli gün döngüsü"
+      }
+    }
+  },
   "neighborhoodList": {
     "kadikoy": {
       "name": "Kadıköy",

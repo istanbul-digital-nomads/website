@@ -24,6 +24,8 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
     tagFromUrl && allTags.includes(tagFromUrl) ? tagFromUrl : null,
   );
   const t = useTranslations("blogIndexPage");
+  const tTags = useTranslations("blogTags");
+  const labelForTag = (slug: string) => (tTags.has(slug) ? tTags(slug) : slug);
 
   const selectTag = useCallback(
     (tag: string | null) => {
@@ -75,13 +77,13 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
               key={tag}
               onClick={() => selectTag(activeTag === tag ? null : tag)}
               className={cn(
-                "rounded-full px-4 py-2 text-sm font-medium capitalize transition-colors",
+                "rounded-full px-4 py-2 text-sm font-medium transition-colors",
                 activeTag === tag
                   ? "bg-primary-600 text-white shadow-[0_6px_20px_rgba(192,57,43,0.15)] dark:bg-primary-500"
                   : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 hover:bg-primary-50 hover:text-primary-700 dark:bg-[#1a1a2e] dark:text-[#99a3ad] dark:ring-white/5 dark:hover:bg-primary-950/30",
               )}
             >
-              {tag}
+              {labelForTag(tag)}
             </button>
           ))}
         </div>
@@ -121,7 +123,7 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
                       key={tag}
                       className="rounded-full bg-primary-100/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary-700 dark:bg-primary-900/20 dark:text-primary-300"
                     >
-                      {tag}
+                      {labelForTag(tag)}
                     </span>
                   ))}
                 </div>

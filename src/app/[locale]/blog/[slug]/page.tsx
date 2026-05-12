@@ -109,6 +109,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) notFound();
 
   const t = await getTranslations("blogPostPage");
+  const tTags = await getTranslations("blogTags");
+  const tagLabel = (slug: string) => (tTags.has(slug) ? tTags(slug) : slug);
   const canonicalUrl = `${SITE_URL}/blog/${post.meta.slug}`;
   const faqs = extractFaqs(post.content);
   const jsonLd = {
@@ -249,9 +251,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <Link
                   key={tag}
                   href={`/blog?tag=${tag}`}
-                  className="rounded-full bg-primary-100/60 px-3 py-1 text-xs font-medium capitalize text-primary-700 transition-colors hover:bg-primary-200/60 dark:bg-primary-900/20 dark:text-primary-300 dark:hover:bg-primary-900/40"
+                  className="rounded-full bg-primary-100/60 px-3 py-1 text-xs font-medium text-primary-700 transition-colors hover:bg-primary-200/60 dark:bg-primary-900/20 dark:text-primary-300 dark:hover:bg-primary-900/40"
                 >
-                  {tag}
+                  {tagLabel(tag)}
                 </Link>
               ))}
             </div>

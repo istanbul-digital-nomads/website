@@ -92,6 +92,27 @@
     font-family: var(--font-ar), var(--font-mono), ui-monospace, monospace;
   }
 
+  /* Arabic-script fonts (Bon Pro for Farsi, Noto Sans Arabic for Arabic)
+     have a larger x-height than the Latin sans used elsewhere, so any
+     heading sized with the Latin scale renders ~20% taller visually and
+     breaks hero layouts (lines wrap, glyphs collide with siblings).
+     `font-size-adjust` tells the browser to scale the rendered glyphs
+     so their x-height matches the given ratio - 0.52 is the typical
+     Latin sans ratio, which gives Persian/Arabic text the same optical
+     weight as the equivalent English page. */
+  html[lang^="fa"] body,
+  html[lang^="ar"] body {
+    font-size-adjust: 0.52;
+  }
+  /* Tighten line-height for Arabic-script headings - the script doesn't
+     need the airy line-height the Latin display scale uses. */
+  html[lang^="fa"] h1,
+  html[lang^="ar"] h1,
+  html[lang^="fa"] h2,
+  html[lang^="ar"] h2 {
+    line-height: 1.25;
+  }
+
   /* Mirror directional Lucide icons in RTL contexts so "next/forward"
      arrows visually point toward the reading direction. The `rtl-keep`
      class opts out for icons that should not be mirrored (e.g. play

@@ -199,9 +199,11 @@ export default async function LocaleLayout({
     <html
       lang={bcp47[typedLocale]}
       dir={isRtl(typedLocale) ? "rtl" : "ltr"}
+      translate="no"
       suppressHydrationWarning
     >
       <head>
+        <meta name="google" content="notranslate" />
         <link rel="preconnect" href="https://basemaps.cartocdn.com" />
         <link rel="dns-prefetch" href="https://basemaps.cartocdn.com" />
         <link

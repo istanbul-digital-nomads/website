@@ -93,24 +93,32 @@
   }
 
   /* Arabic-script fonts (Bon Pro for Farsi, Noto Sans Arabic for Arabic)
-     have a larger x-height than the Latin sans used elsewhere, so any
-     heading sized with the Latin scale renders ~20% taller visually and
-     breaks hero layouts (lines wrap, glyphs collide with siblings).
-     `font-size-adjust` tells the browser to scale the rendered glyphs
-     so their x-height matches the given ratio - 0.52 is the typical
-     Latin sans ratio, which gives Persian/Arabic text the same optical
-     weight as the equivalent English page. */
-  html[lang^="fa"] body,
-  html[lang^="ar"] body {
-    font-size-adjust: 0.52;
+     render visually ~20% larger than the Latin sans at the same px size
+     because their cap-height and ascender extents are taller. Heroes
+     sized with the Latin scale wrap to four lines and overflow.
+     Scaling the root font-size shrinks every rem-based value uniformly
+     (text, headings, spacing) so the optical rhythm matches the English
+     layout - Bon Pro/Noto at 82% of nominal still reads as full-size
+     because of the script's larger optical weight. */
+  html[lang^="fa"],
+  html[lang^="ar"] {
+    font-size: 82%;
   }
-  /* Tighten line-height for Arabic-script headings - the script doesn't
-     need the airy line-height the Latin display scale uses. */
+  /* The hero h1 carries `max-w-[11.5ch]` to control English line breaks.
+     A "ch" unit in Bon Pro / Noto Sans Arabic is wider than in the Latin
+     sans, so the cap squeezes the headline harder and forces extra
+     wraps. Remove the cap for Arabic-script locales. */
+  html[lang^="fa"] h1.max-w-\[11\.5ch\],
+  html[lang^="ar"] h1.max-w-\[11\.5ch\] {
+    max-width: none;
+  }
+  /* Tighten heading line-height; Arabic-script text needs less leading
+     than the airy Latin display scale. */
   html[lang^="fa"] h1,
   html[lang^="ar"] h1,
   html[lang^="fa"] h2,
   html[lang^="ar"] h2 {
-    line-height: 1.25;
+    line-height: 1.2;
   }
 
   /* Mirror directional Lucide icons in RTL contexts so "next/forward"

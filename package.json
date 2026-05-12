@@ -12,7 +12,9 @@
     "type-check": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "check-links": "tsx scripts/check-external-links.ts"
+    "check-links": "tsx scripts/check-external-links.ts",
+    "i18n:status": "tsx scripts/i18n-content.ts status",
+    "i18n:stub": "tsx scripts/i18n-content.ts stub"
   },
   "dependencies": {
     "@headlessui/react": "^2.1.0",

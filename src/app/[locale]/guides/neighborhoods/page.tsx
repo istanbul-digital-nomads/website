@@ -8,6 +8,7 @@ import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { guides } from "@/lib/data";
+import { isValidLocale, defaultLocale } from "@/lib/i18n/config";
 import { getGuideContent } from "@/lib/guides";
 import { mdxComponents } from "@/components/ui/mdx-components";
 import { IstanbulTodayWidget } from "@/components/sections/istanbul-today-widget";
@@ -32,12 +33,17 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function NeighborhoodsOverviewPage() {
+export default async function NeighborhoodsOverviewPage({
+  params,
+}: {
+  params: { locale: string };
+}) {
   const tList = await getTranslations("neighborhoodList");
   const guide = guides.find((g) => g.slug === SLUG);
   if (!guide) notFound();
 
-  const guideContent = getGuideContent(SLUG);
+  const locale = isValidLocale(params.locale) ? params.locale : defaultLocale;
+  const guideContent = getGuideContent(SLUG, locale);
 
   return (
     <>

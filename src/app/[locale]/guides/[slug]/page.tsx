@@ -6,12 +6,13 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { Section } from "@/components/ui/section";
 import { guides } from "@/lib/data";
 import { getGuideContent } from "@/lib/guides";
+import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { mdxComponents } from "@/components/ui/mdx-components";
 import { formatDate } from "@/lib/utils";
 import { mdxOptions } from "@/lib/mdx-options";
 
 interface GuidePageProps {
-  params: { slug: string };
+  params: { locale: string; slug: string };
 }
 
 export async function generateStaticParams() {
@@ -33,7 +34,10 @@ export default function GuidePage({ params }: GuidePageProps) {
   const guide = guides.find((g) => g.slug === params.slug);
   if (!guide) notFound();
 
-  const guideContent = getGuideContent(params.slug);
+  const locale: Locale = isValidLocale(params.locale)
+    ? params.locale
+    : defaultLocale;
+  const guideContent = getGuideContent(params.slug, locale);
 
   return (
     <Section>

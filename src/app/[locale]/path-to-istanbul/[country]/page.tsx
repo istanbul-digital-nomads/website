@@ -13,6 +13,7 @@ import {
   getCountryBySlug,
 } from "@/lib/path-to-istanbul";
 import { getPathContent } from "@/lib/path-to-istanbul-content";
+import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { guides as cityGuides } from "@/lib/data";
 import { getAllBlogPosts } from "@/lib/blog";
 import { CountryHero } from "./country-hero";
@@ -20,7 +21,7 @@ import { CountryTOC } from "./country-toc";
 import { GuidesFromCountry } from "../guides-from-country";
 
 interface CountryPageProps {
-  params: { country: string };
+  params: { locale: string; country: string };
 }
 
 export async function generateStaticParams() {
@@ -32,7 +33,8 @@ export async function generateMetadata({
 }: CountryPageProps): Promise<Metadata> {
   const country = getCountryBySlug(params.country);
   if (!country) return {};
-  const content = getPathContent(country.slug);
+  const locale = isValidLocale(params.locale) ? params.locale : defaultLocale;
+  const content = getPathContent(country.slug, locale);
   const t = await getTranslations("countryPage.meta");
   const title = t("titleTemplate", { country: country.name });
   const description =
@@ -49,7 +51,10 @@ export default async function CountryPage({ params }: CountryPageProps) {
   const country = getCountryBySlug(params.country);
   if (!country || !country.supported) notFound();
 
-  const content = getPathContent(country.slug);
+  const locale: Locale = isValidLocale(params.locale)
+    ? params.locale
+    : defaultLocale;
+  const content = getPathContent(country.slug, locale);
   if (!content) notFound();
 
   const t = await getTranslations("countryPage");

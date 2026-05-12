@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Input, Textarea } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { MultiSelectToggle } from "@/components/ui/multi-select-toggle";
@@ -62,6 +62,7 @@ const initial: FormData = {
 
 export function GuideApplicationForm() {
   const t = useTranslations("localGuidesJoinPage");
+  const locale = useLocale();
   const [form, setForm] = useState<FormData>(initial);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -87,6 +88,7 @@ export function GuideApplicationForm() {
       origin_countries: form.origin_countries.length
         ? form.origin_countries
         : undefined,
+      locale,
     };
 
     try {

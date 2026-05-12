@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { render } from "@react-email/render";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { validateGuideApplication } from "@/lib/validations";
 import { GuideApplicationEmail } from "@/lib/emails";
+import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/config";
 
 function getResend() {
   return new Resend(process.env.RESEND_API_KEY);
@@ -18,6 +20,9 @@ export async function POST(request: Request) {
   }
 
   const application = result.data!;
+  const rawLocale =
+    typeof body?.locale === "string" ? body.locale : defaultLocale;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
   const supabase = await createClient();
 
   const { error: dbError } = await (
@@ -52,8 +57,13 @@ export async function POST(request: Request) {
 
   // Send notification email (non-fatal - application is already saved)
   try {
+    const tSubject = await getTranslations({
+      locale,
+      namespace: "emails.guideApplication",
+    });
+    const subject = tSubject("subjectTemplate", { name: application.name });
     const html = await render(
-      GuideApplicationEmail({
+      await GuideApplicationEmail({
         name: application.name,
         email: application.email,
         specializations: application.specializations,
@@ -63,13 +73,14 @@ export async function POST(request: Request) {
         bio: application.bio,
         motivation: application.motivation,
         sample_tip: application.sample_tip,
+        locale,
       }),
     );
     await getResend().emails.send({
       from: "Istanbul Nomads <noreply@istanbulnomads.com>",
       to: "hello@istanbulnomads.com",
       replyTo: application.email,
-      subject: `Local guide candidate: ${application.name}`,
+      subject,
       html,
     });
   } catch {

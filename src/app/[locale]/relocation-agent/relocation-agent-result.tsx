@@ -227,7 +227,9 @@ function NeighborhoodMatchCard({
                 {t("rent")}
               </dt>
               <dd className="mt-0.5 font-medium text-neutral-900 dark:text-[#f2f3f4]">
-                ${primary.rentUsd.low}-{primary.rentUsd.high}
+                <bdi dir="ltr">
+                  ${primary.rentUsd.low}-{primary.rentUsd.high}
+                </bdi>
               </dd>
             </div>
             <div>
@@ -283,7 +285,9 @@ function NeighborhoodMatchCard({
                   >
                     {alt.name}
                     <span className="ml-1 text-neutral-400 group-hover:text-primary-600 dark:text-[#85929e]">
-                      ${alt.rentUsd.low}-{alt.rentUsd.high}
+                      <bdi dir="ltr">
+                        ${alt.rentUsd.low}-{alt.rentUsd.high}
+                      </bdi>
                     </span>
                   </a>
                 ))}

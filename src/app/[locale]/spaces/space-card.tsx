@@ -101,22 +101,25 @@ export function SpaceCard({
               ))}
             </div>
 
-            {/* Quick info */}
+            {/* Quick info - LTR-isolated to keep numbers, times, and price
+                ranges readable inside RTL locales. */}
             <div className="mt-3 flex flex-wrap gap-3 text-xs text-neutral-600 dark:text-[#99a3ad]">
               {space.wifi_speed && (
                 <span className="flex items-center gap-1">
                   <Wifi className="h-3 w-3" />
-                  {space.wifi_speed}
+                  <bdi>{space.wifi_speed}</bdi>
                 </span>
               )}
               {space.hours && (
                 <span className="flex items-center gap-1">
                   <Clock className="h-3 w-3" />
-                  {space.hours}
+                  <bdi>{space.hours}</bdi>
                 </span>
               )}
               {space.price_range && (
-                <span className="font-medium">{space.price_range}</span>
+                <span className="font-medium">
+                  <bdi>{space.price_range}</bdi>
+                </span>
               )}
             </div>
 

@@ -146,7 +146,10 @@ export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
                       <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 dark:text-[#94877d]">
                         {t("fit", {
                           score: match.score,
-                          rent: formatRentRange(match.neighborhood),
+                          // Wrap the LTR rent run in Unicode LRI/PDI so the
+                          // bidi algorithm renders it left-to-right even inside
+                          // RTL (fa/ar) message templates.
+                          rent: `⁦${formatRentRange(match.neighborhood)}⁩`,
                         })}
                       </p>
                     </div>

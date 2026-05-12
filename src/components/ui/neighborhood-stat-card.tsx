@@ -89,7 +89,7 @@ export function NeighborhoodStatCard({ neighborhood }: Props) {
                 {label}
               </dt>
               <dd className="mt-1 text-sm leading-6 text-[#1a1a2e] dark:text-[#f2f3f4]">
-                {value}
+                <bdi>{value}</bdi>
               </dd>
             </div>
           </div>

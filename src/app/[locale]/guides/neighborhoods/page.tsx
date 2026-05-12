@@ -133,7 +133,7 @@ export default async function NeighborhoodsOverviewPage({
                       {sideLabel}
                     </div>
                     <div className="absolute bottom-4 right-4 rounded-full bg-[#1a1a2e]/85 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.24em] text-white backdrop-blur">
-                      {formatRentRange(n)}
+                      <bdi dir="ltr">{formatRentRange(n)}</bdi>
                     </div>
                   </div>
                   <div className="p-6">

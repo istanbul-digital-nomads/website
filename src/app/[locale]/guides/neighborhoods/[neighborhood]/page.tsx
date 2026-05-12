@@ -65,17 +65,13 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
 
   // Per-neighborhood prose now lives in i18n; fall back to the English copy
   // on the data object when a translation key is missing.
-  const vibe = tList.has(`${n.slug}.vibe`)
-    ? tList(`${n.slug}.vibe`)
-    : n.vibe;
+  const vibe = tList.has(`${n.slug}.vibe`) ? tList(`${n.slug}.vibe`) : n.vibe;
   const description = tList.has(`${n.slug}.description`)
     ? tList(`${n.slug}.description`)
     : n.description;
 
   const describeSpace = (id: string, fallback: string) =>
-    tSpaces.has(`${id}.description`)
-      ? tSpaces(`${id}.description`)
-      : fallback;
+    tSpaces.has(`${id}.description`) ? tSpaces(`${id}.description`) : fallback;
 
   return (
     <>

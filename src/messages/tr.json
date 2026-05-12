@@ -1,0 +1,1828 @@
+{
+  "site": {
+    "name": "Istanbul Digital Nomads",
+    "shortName": "Istanbul Digital Nomads",
+    "tagline": "Uzaktan yaşam, yerel ritim",
+    "description": "İstanbul'daki dijital göçebe topluluğu - haftalık ortak çalışma, yerel rehberler ve uzun süre kalanlar için yumuşak bir başlangıç."
+  },
+  "nav": {
+    "about": "Hakkımızda",
+    "explore": "Keşfet",
+    "community": "Topluluk",
+    "contact": "İletişim",
+    "joinTelegram": "Telegram'a katıl",
+    "theme": {
+      "ariaLabel": "Temayı değiştir (mevcut: {theme})"
+    },
+    "items": {
+      "cityGuides": {
+        "label": "Şehir Rehberleri",
+        "description": "Mahalleler, konut, vize ve daha fazlası"
+      },
+      "pathToIstanbul": {
+        "label": "İstanbul'a Yol",
+        "description": "Ülke ülke taşınma rehberleri"
+      },
+      "nomadSpaces": {
+        "label": "Göçebe Mekanları",
+        "description": "Wifi'si test edilmiş kafeler ve ortak çalışma alanları"
+      },
+      "firstWeekPlanner": {
+        "label": "İlk Hafta Planlayıcı",
+        "description": "Yeni gelenler için yedi günlük iniş planı"
+      },
+      "localGuides": {
+        "label": "Yerel Rehberler",
+        "description": "Yerleşmene yardım edecek insanlar"
+      },
+      "events": {
+        "label": "Etkinlikler",
+        "description": "Ortak çalışma seansları, buluşmalar ve atölyeler"
+      },
+      "blog": {
+        "label": "Blog",
+        "description": "Topluluktan hikayeler ve ipuçları"
+      }
+    }
+  },
+  "bottomNav": {
+    "home": "Ana sayfa",
+    "guides": "Rehberler",
+    "events": "Etkinlikler",
+    "community": "Topluluk",
+    "menu": "Menü",
+    "openMenu": "Menüyü aç",
+    "closeMenu": "Menüyü kapat"
+  },
+  "mobileMenu": {
+    "menu": "Menü",
+    "signIn": "Giriş yap",
+    "appearance": "Görünüm",
+    "connect": "Bağlan",
+    "themes": {
+      "light": "Açık",
+      "dark": "Koyu",
+      "system": "Otomatik"
+    },
+    "social": {
+      "telegram": "Telegram",
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "email": "E-posta"
+    }
+  },
+  "footer": {
+    "newsletterEyebrow": "Pazar mektubu",
+    "newsletterTitle": "Pazar mektubunu al",
+    "newsletterBody": "İstanbul'dan pratik şehir notları, yeni rehberler ve sessiz topluluk güncellemeleri.",
+    "tagline": "Yerel ritim, pratik rehberler ve uzun süre kalan dijital göçebeler için yumuşak bir başlangıç.",
+    "madeIn": "Kadıköy'de yapıldı",
+    "copyright": "© {year} {name}",
+    "columns": {
+      "community": "Topluluk",
+      "resources": "Kaynaklar",
+      "connect": "Bağlan",
+      "legal": "Yasal"
+    },
+    "links": {
+      "aboutUs": "Hakkımızda",
+      "localGuides": "Yerel Rehberler",
+      "events": "Etkinlikler",
+      "blog": "Blog",
+      "contact": "İletişim",
+      "nomadSpaces": "Göçebe Mekanları",
+      "cityGuides": "Şehir Rehberleri",
+      "pathToIstanbul": "İstanbul'a Yol",
+      "firstWeekPlanner": "İlk Hafta Planlayıcı",
+      "neighborhoods": "Mahalleler",
+      "costOfLiving": "Yaşam Maliyeti",
+      "photoCredits": "Fotoğraf kredileri",
+      "telegram": "Telegram",
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "email": "E-posta",
+      "openapi": "OpenAPI",
+      "llmsTxt": "LLMs.txt"
+    }
+  },
+  "auth": {
+    "signIn": "Giriş yap",
+    "signOut": "Çıkış yap",
+    "signedOut": "Çıkış yapıldı",
+    "completeProfile": "Profili tamamla",
+    "memberFallback": "Üye"
+  },
+  "newsletter": {
+    "placeholder": "siz@ornek.com",
+    "subscribe": "Abone ol",
+    "subscribed": "Abone oldun!",
+    "ariaSubscribe": "Pazar mektubuna abone ol",
+    "toast": {
+      "errorTitle": "Abone olunamadı",
+      "successTitle": "İçeridesin!",
+      "failedTitle": "Bir şeyler ters gitti",
+      "failedBody": "Lütfen daha sonra tekrar dene."
+    }
+  },
+  "languageSwitcher": {
+    "label": "Dil",
+    "current": "Mevcut dil: {language}",
+    "translationInProgress": "Orijinali İngilizce. Çeviri devam ediyor."
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "readMore": "Daha fazla oku",
+    "backToTop": "Yukarı dön",
+    "skipToContent": "İçeriğe atla",
+    "explore": "Keşfet",
+    "side": {
+      "european": "Avrupa yakası",
+      "asian": "Anadolu yakası"
+    }
+  },
+  "sections": {
+    "rhythmMatcher": {
+      "eyebrow": "İstanbul ritmini seç",
+      "title": "İstediğin günü seç, sonra şehir kendi kendini daraltsın.",
+      "intro": "En fazla dört sinyal seç. Eşleştirici tüm mahalleleri tempoya, bütçeye, vapur erişimine, çalışma düzenine ve sosyal enerjiye göre sıralar.",
+      "liveMatch": "Canlı eşleşme",
+      "signals": "{count} sinyal",
+      "fit": "%{score} uyum / {rent}",
+      "turnIntoWeekOne": "Bunu ilk haftaya dönüştür",
+      "useAsBase": "{neighborhood}'i üs olarak kullan ve etrafında yedi günlük geliş planı kur.",
+      "planFromMatch": "Eşleşmeden plan yap",
+      "reasons": {
+        "quiet": "Günlük tempo daha sakin kalıyor.",
+        "social": "İlk ay için yeterli sosyal çekim var.",
+        "budget": "Premium merkeze göre kira daha esnek.",
+        "ferry": "Vapurlar rutinin parçası olabilir.",
+        "seaside": "Sahil yürüyüşleri yerel ritmin bir parçası.",
+        "business": "İş altyapısına ulaşmak kolay.",
+        "nightlife": "Akşamlar fazla planlamadan yakın.",
+        "character": "Sokakların güçlü bir yer hissi var.",
+        "lowNoise": "Düşük gürültü profili.",
+        "streetEnergy": "İnsanlarla doğal olarak tanışmaya yetecek sokak enerjisi."
+      }
+    },
+    "rhythmSignals": {
+      "quiet": {
+        "label": "Sakin rutin",
+        "short": "Sakin",
+        "description": "Sessiz sokaklar, sakin akşamlar, daha kolay odak."
+      },
+      "social": {
+        "label": "Sosyal ivme",
+        "short": "Sosyal",
+        "description": "Kolay ilk arkadaşlıklar, etkinlikler, kafeler ve iş sonrası planlar."
+      },
+      "budget": {
+        "label": "Bütçe odaklı",
+        "short": "Bütçe",
+        "description": "Günlük rahatlığı kaybetmeden daha iyi kira değeri."
+      },
+      "ferry": {
+        "label": "Önce vapur",
+        "short": "Vapur",
+        "description": "İşkenceye değil, molaya benzeyen bir gidiş geliş."
+      },
+      "seaside": {
+        "label": "Deniz kenarı yürüyüşleri",
+        "short": "Sahil",
+        "description": "Su, gün batımı rotaları ve daha rahat bir sinir sistemi."
+      },
+      "business": {
+        "label": "İş modu",
+        "short": "İş",
+        "description": "Ortak çalışma yoğunluğu, toplantı erişimi, spor salonları ve altyapı."
+      },
+      "nightlife": {
+        "label": "Yakın gece hayatı",
+        "short": "Gece hayatı",
+        "description": "Barlar, akşam yemekleri, galeriler ve doğaçlama akşamlar."
+      },
+      "character": {
+        "label": "Karakter yüklü",
+        "short": "Karakter",
+        "description": "Tarihi sokaklar, kusurlu çekicilik ve unutulmaz doku."
+      }
+    },
+    "neighborhoodsMap": {
+      "eyebrow": "Haritadaki yerleri",
+      "title": "Mahalleler, haritada.",
+      "intro": "En güçlü göçebe üsleri vapurların, metro hatlarının, ortak çalışma koridorlarının ve yürünebilir kafe sokaklarının çevresinde toplanıyor. Yolculuk kararın bir parçası."
+    },
+    "istanbulMap": {
+      "eyebrow": "İlk ay haritası - İstanbul",
+      "body": "Solda Avrupa yakası, sağda Anadolu yakası, vapurlar haftayı bağlıyor. Keşfetmek için mahallelerin üzerine gel.",
+      "ferryRoutes": "Vapur hatları"
+    },
+    "neighborhoodCards": {
+      "eyebrow": "Nereye yerleşiyorlar",
+      "title": "On mahalle, tek şehir.",
+      "intro": "On tam rehberle başla, sonra rezerve etmeden önce şehrin geri kalanını doğrulamak için geniş karşılaştırmayı kullan.",
+      "sideLabel": "{side}",
+      "spacesTracked": "{count} mekan takip ediliyor",
+      "coworkingNearby": "Yakında ortak çalışma alanı",
+      "explore": "Keşfet",
+      "compareAll": "Tam rehberde on mahalleyi karşılaştır"
+    },
+    "faq": {
+      "eyebrow": "Sık sorulanlar",
+      "title": "Göçebelerin gelmeden önce sorduğu sorular.",
+      "intro": "Şehir rehberlerimizden hızlı yanıtlar. Daha fazla ayrıntı için herhangi bir soruya tıkla.",
+      "readGuide": "{guide} rehberini oku"
+    }
+  },
+  "guides": {
+    "neighborhoods": {
+      "title": "Mahalleler",
+      "description": "İstanbul'un göçebeler için en iyi bölgelerinin dökümü - hava, fiyatlandırma ve ulaşım."
+    },
+    "coworking": {
+      "title": "Ortak Çalışma Alanları",
+      "description": "Hızlı wifi'li ortak çalışma alanları ve kafeler için en iyi seçimlerimiz."
+    },
+    "housing": {
+      "title": "Konut",
+      "description": "Daire nasıl bulunur, ne beklenir ve adil kira fiyatları."
+    },
+    "cost-of-living": {
+      "title": "Yaşam Maliyeti",
+      "description": "Ekonomik, orta ve rahat yaşam tarzları için aylık bütçeler."
+    },
+    "visa": {
+      "title": "Vize ve İkamet",
+      "description": "Turist vize kuralları, ikamet izni süreci ve yasal ipuçları."
+    },
+    "internet": {
+      "title": "İnternet ve SIM Kartlar",
+      "description": "En iyi mobil paketler, ev interneti seçenekleri ve yedek çözümler."
+    },
+    "transport": {
+      "title": "Ulaşım",
+      "description": "İstanbulkart, vapurlar, metro, otobüsler, taksiler ve dolmuş açıklaması."
+    },
+    "food": {
+      "title": "Yemek ve Lokantalar",
+      "description": "Nerede yenir, ne denenir ve bütçeyle nasıl iyi yenir."
+    },
+    "healthcare": {
+      "title": "Sağlık",
+      "description": "Hastaneler, eczaneler, sigorta seçenekleri ve bilinmesi gerekenler."
+    },
+    "entertainment": {
+      "title": "Eğlence ve Boş Vakit",
+      "description": "Gece hayatı, canlı müzik, spor, günübirlik geziler ve dizüstünden öteye İstanbul keyfi."
+    },
+    "culture": {
+      "title": "Kültür ve Dil",
+      "description": "Temel Türkçe, kültürel normlar ve uyum sağlama ipuçları."
+    }
+  },
+  "istanbulToday": {
+    "eyebrow": "İstanbul bugün",
+    "stats": {
+      "temp": "Sıcaklık",
+      "rain": "Yağmur",
+      "wind": "Rüzgar"
+    },
+    "updated": "Güncellendi {time}",
+    "fallbackSuffix": " (yedek mod)",
+    "liveSky": "Canlı gökyüzü",
+    "bestMove": "En iyi hareket",
+    "nomadHint": "Göçebe ipucu",
+    "hints": {
+      "backupCafe": "Yedek bir kafe seç",
+      "ferry": "Vapur için yer bırak"
+    },
+    "moods": {
+      "stormy": {
+        "label": "Fırtına alarmı",
+        "verb": "Ciddi şemsiyeyi yanına al.",
+        "note": "Harika bir kafe günü. Yedek koltuk seçenekleri olan ve metroya yakın bir yer seç.",
+        "cta": "Önce kafe planı"
+      },
+      "rainy": {
+        "label": "Yağmurlu İstanbul",
+        "verb": "Şehir vapur penceresi modunda.",
+        "note": "Kadıköy, Karaköy ve Galata yine de çalışıyor. Kısa yürüyüşler ve kapalı masalar seç.",
+        "cta": "Yağmura uygun rota"
+      },
+      "windy": {
+        "label": "Boğaz rüzgarı",
+        "verb": "Vapur manzarası, mont şart.",
+        "note": "Kısa bir geçiş, ardından kararlı bir kapalı çalışma bloğu için iyi gün.",
+        "cta": "Rüzgar farkındalıklı plan"
+      },
+      "cloudy": {
+        "label": "Yumuşak gri şehir",
+        "verb": "Uzun yürüyüşler, az parlama, iyi odak.",
+        "note": "Akşam masaları dolmadan önce mahalle keşfi için güçlü bir gün.",
+        "cta": "Bir üs keşfet"
+      },
+      "sunny": {
+        "label": "Parlak Boğaz",
+        "verb": "Önce dışarısı.",
+        "note": "Sahili yürü, vapura bin, sonra dizüstü dostu bir kafede serinle.",
+        "cta": "Güneşli gün döngüsü"
+      }
+    }
+  },
+  "neighborhoodList": {
+    "kadikoy": {
+      "name": "Kadıköy",
+      "oneLiner": "Vapur erişimli, yürünebilir Anadolu yakası merkezi ve şehrin en iyi bağımsız kafelerinden bazılarını barındırıyor.",
+      "badges": {
+        "bestFirstMonth": "İlk ay için en iyi",
+        "bestValue": "En iyi değer",
+        "bestFerryLife": "En iyi vapur hayatı"
+      }
+    },
+    "moda": {
+      "name": "Moda",
+      "oneLiner": "Yaratıcı enerjisi, uzun akşam yürüyüşleri ve birçok kedisiyle sakin bir sahil yarımadası.",
+      "badges": {
+        "quietest": "En sakin",
+        "seaside": "Sahil",
+        "creative": "Yaratıcı"
+      }
+    },
+    "cihangir": {
+      "name": "Cihangir",
+      "oneLiner": "Boğaz manzaralı, güçlü kafe kültürlü ve sıkı bir yabancı topluluğu olan bohem yamacı.",
+      "badges": {
+        "mostSocial": "En sosyal",
+        "nightlife": "Gece hayatı",
+        "bohemian": "Bohem"
+      }
+    },
+    "besiktas": {
+      "name": "Beşiktaş",
+      "oneLiner": "Büyük pazarı, öğrenci enerjisi ve iki yakaya vapur erişimi olan canlı sahil semti.",
+      "badges": {
+        "localEnergy": "Yerel enerji",
+        "streetFood": "Sokak lezzetleri",
+        "ferryLife": "Vapur hayatı"
+      }
+    },
+    "galata": {
+      "name": "Karaköy / Galata",
+      "oneLiner": "Köprü ile kule arasındaki tasarım bölgesi. Özel kahve, galeriler ve merkezi erişim.",
+      "badges": {
+        "bestShortStay": "Kısa konaklama için en iyi",
+        "central": "Merkezi",
+        "designDistrict": "Tasarım bölgesi"
+      }
+    },
+    "uskudar": {
+      "name": "Üsküdar",
+      "oneLiner": "Vapur bağlantıları, sakin sokakları ve Kız Kulesi yakınında gün batımı yürüyüşleriyle geleneksel bir Boğaz üssü.",
+      "badges": {
+        "quietFerryLife": "Sakin vapur hayatı",
+        "local": "Yerel",
+        "sunsetWalks": "Gün batımı yürüyüşleri"
+      }
+    },
+    "nisantasi": {
+      "name": "Nişantaşı",
+      "oneLiner": "Cilalı, merkezi ve kafe açısından zengin. Konfor, butikler, spor salonları ve Şişli'ye kolay erişim isteyen göçebeler için.",
+      "badges": {
+        "premium": "Premium",
+        "cafeWork": "Kafe çalışması",
+        "centralComfort": "Merkezi konfor"
+      }
+    },
+    "levent": {
+      "name": "Levent",
+      "oneLiner": "Metro erişimi, AVM'leri, ofisleri ve en pratik ortak çalışma yoğunluğu olan iş bölgesi üssü.",
+      "badges": {
+        "businessCorridor": "İş koridoru",
+        "founderFriendly": "Kurucu dostu",
+        "coworkingDensity": "Ortak çalışma yoğunluğu"
+      }
+    },
+    "balat": {
+      "name": "Balat",
+      "oneLiner": "Karakter dolu, daha ucuz kiraları, yokuşları ve yavaş kafe günleri olan renkli Haliç mahallesi.",
+      "badges": {
+        "characterHeavy": "Karakter dolu",
+        "budget": "Bütçe",
+        "historic": "Tarihi"
+      }
+    },
+    "atasehir": {
+      "name": "Ataşehir",
+      "oneLiner": "Kurumsal iş, yeni daireler, AVM'ler ve daha sessiz rutinler için modern Anadolu yakası yüksek katlı bölgesi.",
+      "badges": {
+        "newerApartments": "Yeni daireler",
+        "quietNights": "Sessiz geceler",
+        "businessAccess": "İş erişimi"
+      }
+    }
+  },
+  "faqItems": {
+    "neighborhoods": {
+      "question": "Hangi mahallede başlamalıyım?",
+      "answer": "Anadolu yakasındaki Kadıköy göçebeler arasında en popüleri - yürünebilir, ekonomik ve kafelerle dolu. Avrupa yakasında ise Cihangir, Boğaz manzaralı sosyal ve bohem bir hava için en gözde bölge."
+    },
+    "cost-of-living": {
+      "question": "İstanbul'da bir ay ne kadar tutar?",
+      "answer": "Rahat bir göçebe yaşam ayda 1.200-1.500 dolar civarında: Kadıköy'de mobilyalı bir daire, haftada birkaç kez dışarıda yemek, ortak çalışma ve ulaşım dahil. Bütçeye dikkat eden göçebeler 750-1.000 dolarla idare edebilir."
+    },
+    "visa": {
+      "question": "Uzaktan çalışmak için vize gerekli mi?",
+      "answer": "90 günden kısa kalışlar için anında çevrimiçi alınan turist e-vizesi (50-60 dolar) yeterli. Daha uzun kalışlar için Türkiye'nin 12 aylık dijital göçebe vizesi (aylık 3.000 dolar gelir şartıyla) veya standart ikamet izni var."
+    },
+    "internet": {
+      "question": "SIM kartı nasıl alırım?",
+      "answer": "Herhangi bir Turkcell şirket mağazasından yaklaşık 250 TL'ye (~8 dolar) 20 GB veriyle turist SIM kartı al. Pasaportunu yanına al. Şehir mağazaları havalimanından daha ucuz."
+    },
+    "coworking": {
+      "question": "Nerede iyi wifi'yle çalışabilirim?",
+      "answer": "Kolektif House'un 100+ Mbps wifi'si var ve ayda 490 TL (~16 dolar). Kafeler için Kadıköy ve Cihangir, güvenilir bağlantılı dizüstü dostu mekanların en yoğun olduğu yerler."
+    },
+    "housing": {
+      "question": "Nasıl daire bulurum?",
+      "answer": "Keşif yaparken ilk ay için Airbnb veya Flatio ile başla. Daha uzun kalışlar için sahibinden.com en iyi yerel fiyatlara sahip. Ödeme yapmadan önce her zaman yerinde gör."
+    },
+    "safety": {
+      "question": "İstanbul güvenli mi?",
+      "answer": "Evet. İstanbul büyüklüğüne göre çok güvenli. Göçebelerin tercih ettiği mahalleler (Kadıköy, Cihangir, Beşiktaş, Karaköy) gece gündüz güvenli. Taksi için BiTaksi'yi kullan ve standart büyük şehir önlemlerini al.",
+      "guideSlug": "neighborhoods"
+    },
+    "transport": {
+      "question": "Havalimanından nasıl gelirim?",
+      "answer": "Havaist otobüsü en iyi değer (150 TL, Taksim ve Kadıköy'e gidiyor). Taksi 600-800 TL tutar. Yeni M11 metro hattı da havalimanını şehre bağlıyor."
+    },
+    "culture": {
+      "question": "Türkçe konuşmam gerekli mi?",
+      "answer": "Göçebe dostu bölgelerde gerekli değil - kafelerde, ortak çalışma alanlarında ve turistik yerlerde İngilizce yaygın olarak anlaşılıyor. Ama 20 temel ifade öğrenmek yerlilerin sana yaklaşımını dönüştürür."
+    },
+    "healthcare": {
+      "question": "Doktora nasıl giderim?",
+      "answer": "Özel hastanelerde (Acıbadem, Memorial) İngilizce konuşan personel var ve uluslararası sigorta kabul ediliyor. Sigortasız doktor muayenesi 500-1.500 TL (~16-48 dolar) - Batılı ülkelerden çok daha ucuz."
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Hakkımızda",
+      "description": "Istanbul Digital Nomads'ın hikayesi - nasıl başladık, neye inanıyoruz ve onu mümkün kılan insanlar."
+    },
+    "story": {
+      "title": "Hikayemiz",
+      "p1": "Istanbul Digital Nomads, 2026 yılında İstanbul'a taşımaya karar veren ve sonradan gelenler için henüz var olmayan şeyi inşa etmek isteyen bir kişi tarafından başlatılan yepyeni bir topluluk.",
+      "p2": "Karar Şubat 2026'da geldi. Fikir Mart'ta şekillendi. Web sitesi Nisan'da yayına girdi. İlk buluşma ikinci çeyrek için planlanıyor. Hikayenin tamamı bu - geri kalanını kim gelirse onunla birlikte yazıyoruz.",
+      "p3": "İstanbul, uzaktan çalışmak için dünyanın en iyi şehirlerinden biri - uygun fiyatlı, kültürel olarak zengin, çok iyi bağlantılı ve enerji dolu. Misyonumuz, buraya gelen her göçebe için geçişi kolaylaştırmak ve deneyimi zenginleştirmek."
+    },
+    "values": {
+      "title": "Neye İnanıyoruz",
+      "description": "Topluluğumuza yön veren ilkeler.",
+      "items": {
+        "inclusive": {
+          "title": "Kapsayıcı",
+          "description": "Geçmişi, beceri seviyesi veya ne kadar kalacağı fark etmez, herkes hoş geldi."
+        },
+        "helpful": {
+          "title": "Yardımsever",
+          "description": "Vize ipuçlarından en iyi kafelere kadar bilgiyi cömertçe paylaşıyoruz. Hiçbir soru fazla basit değil."
+        },
+        "authentic": {
+          "title": "Samimi",
+          "description": "Network kurmaktan çok gerçek bağlantılar. Gerçek ilişkileri ve dürüst tavsiyeleri önemsiyoruz."
+        },
+        "fun": {
+          "title": "Eğlenceli",
+          "description": "Göçebe yaşam keyifli olmalı. Üretkenliği keşif ve sosyal etkinliklerle dengeliyoruz."
+        }
+      }
+    },
+    "team": {
+      "title": "Ekip",
+      "description": "Topluluğu yürüten insanlar.",
+      "members": {
+        "ali": {
+          "role": "Kurucu",
+          "bio": "2026 başında İstanbul'a taşınan, sonraki gelenlerin inişini kolaylaştırmak için bu topluluğu başlatan full-stack geliştirici."
+        },
+        "dina": {
+          "role": "Etkinlik Sorumlusu",
+          "bio": "Haftalık ortak çalışma seansları ve aylık sosyal etkinlikler düzenleyen ürün tasarımcısı."
+        },
+        "kerem": {
+          "role": "Yerel Rehber",
+          "bio": "İstanbullu ve serbest çevirmen. Göçebelerle yerel kültür arasında köprü kuruyor."
+        }
+      }
+    },
+    "milestones": {
+      "title": "Dönüm Noktaları",
+      "description": "Şimdiye kadar kısa bir yolculuk - geri kalanı seninle yazılıyor.",
+      "comingUp": "Yaklaşıyor",
+      "items": {
+        "decided": {
+          "date": "Şubat 2026",
+          "title": "Türkiye'ye taşınmaya karar verildi",
+          "description": "Karar verildi. Biletler alındı, kira sözleşmeleri sonlandırıldı, valizler hazırlandı."
+        },
+        "idea": {
+          "date": "Mart 2026",
+          "title": "Istanbul Digital Nomads fikri başladı",
+          "description": "Sıradaki gelen için bu topluluğun ne olabileceğine dair ilk versiyon çizildi."
+        },
+        "launched": {
+          "date": "Nisan 2026",
+          "title": "Web sitesi yayınlandı",
+          "description": "Ülke rehberleri, şehir oyun kitapları ve topluluğun inebileceği bir yer."
+        },
+        "firstMeetup": {
+          "date": "2. Çeyrek 2026",
+          "title": "İlk topluluk buluşması",
+          "description": "Küçük yüz yüze bir toplantı. Topluluğun gerçek başlangıcı."
+        }
+      }
+    }
+  },
+  "contactPage": {
+    "meta": {
+      "title": "İletişim",
+      "description": "Istanbul Digital Nomads ile iletişime geç. Telegram, e-posta veya iletişim formu üzerinden bize ulaş."
+    },
+    "hero": {
+      "title": "Bize Ulaş",
+      "description": "Soru, fikir ya da geri bildirim - hepsini duymak isteriz."
+    },
+    "quickLinks": {
+      "heading": "Hızlı Bağlantılar",
+      "telegram": {
+        "title": "Telegram",
+        "description": "Bize ve topluluğa ulaşmanın en hızlı yolu."
+      },
+      "github": {
+        "title": "GitHub",
+        "description": "Sorun bildir, katkı sun ya da depolarımıza göz at."
+      },
+      "email": {
+        "title": "E-posta",
+        "description": "İş birlikleri, basın veya özel sorular için."
+      }
+    },
+    "form": {
+      "nameLabel": "Ad",
+      "namePlaceholder": "Adın",
+      "emailLabel": "E-posta",
+      "emailPlaceholder": "sen@ornek.com",
+      "messageLabel": "Mesaj",
+      "messagePlaceholder": "Nasıl yardımcı olabiliriz?",
+      "submit": "Mesaj Gönder",
+      "successTitle": "Yazdığın için teşekkürler!",
+      "successBody": "En kısa sürede sana döneceğiz.",
+      "errorTitle": "Mesaj gönderilemedi",
+      "errorFallbackTitle": "Bir şeyler ters gitti",
+      "errorFallbackBody": "Lütfen daha sonra tekrar dene."
+    },
+    "faq": {
+      "title": "Sıkça Sorulan Sorular",
+      "items": {
+        "free": {
+          "q": "Topluluğa katılmak ücretsiz mi?",
+          "a": "Evet, tamamen ücretsiz. Telegram grubumuza katılıp kendini tanıtman yeterli."
+        },
+        "shortTerm": {
+          "q": "İstanbul'a bir haftalığına geliyorum - etkinliklere katılabilir miyim?",
+          "a": "Kesinlikle. Kısa süreli ziyaretçiler tüm etkinliklerimizde hoş geldin."
+        },
+        "tech": {
+          "q": "Yazılımcı ya da teknoloji sektöründen mi olmam gerek?",
+          "a": "Hiç değil. Tasarımcılar, yazarlar, pazarlamacılar, kurucular ve dahası var. Uzaktan çalışan herkes hoş geldin."
+        },
+        "events": {
+          "q": "Yaklaşan etkinlikleri nasıl öğrenirim?",
+          "a": "Etkinlikler Telegram grubunda ve Etkinlikler sayfamızda yayınlanır. Haftalık bir bülten de göndeririz."
+        },
+        "organize": {
+          "q": "Etkinlik düzenleyebilir miyim?",
+          "a": "Tabii! Telegram grubundan ya da bu formdan bize ulaş. Topluluk yönetimli etkinlikleri çok seviyoruz."
+        }
+      }
+    }
+  },
+  "creditsPage": {
+    "meta": {
+      "title": "Fotoğraf kredileri",
+      "description": "Istanbul Nomads'taki her fotoğrafın kaynağı ve lisansı - Unsplash, Wikimedia Commons, sitemiz için üretilmiş orijinaller ve diğer serbest lisanslı sağlayıcılardan."
+    },
+    "breadcrumb": {
+      "home": "Ana Sayfa",
+      "current": "Fotoğraf kredileri"
+    },
+    "heading": "Fotoğraf kredileri",
+    "intro": "Istanbul Nomads'taki her fotoğraf burada kredilendirilir. Mahalle ve blog fotoğrafları Unsplash, Wikimedia Commons ve site için üretilmiş orijinallerden gelir. Her kredi, kullanımı doğrulayabilmen için kaynağa veya lisans bilgisine bağlanır.",
+    "sections": {
+      "siteVisuals": "Site görselleri",
+      "blogCovers": "Blog kapakları"
+    },
+    "siteVisualsItems": {
+      "istanbulToday": {
+        "label": "Istanbul Today hava widget'ı",
+        "alt": "Canlı Istanbul Today hava widget'ının arkasında kullanılan yağmurlu Boğaz vapur sahnesi"
+      }
+    },
+    "manifestMissing": {
+      "before": "Fotoğraf manifestosu bulunamadı. Oluşturmak için ",
+      "after": " komutunu çalıştır."
+    },
+    "contribute": {
+      "before": "Katkı sağlayacak fotoğrafın mı var? Burada gerçekten yaşayan insanlardan topluluk fotoğrafları oluşturuyoruz. ",
+      "linkText": "Telegram grubundan",
+      "after": " bize ulaş."
+    }
+  },
+  "loginPage": {
+    "meta": {
+      "title": "Giriş Yap",
+      "description": "Google hesabınla Istanbul Digital Nomads'a giriş yap."
+    },
+    "heading": "Giriş yap",
+    "subheading": "Etkinliklere RSVP yapmak ve profilini yönetmek için giriş yap.",
+    "google": "Google ile devam et",
+    "errorTitle": "Giriş başarısız",
+    "disclaimer": "Giriş yaparak Istanbul Digital Nomads topluluğunun saygılı bir üyesi olmayı kabul edersin."
+  },
+  "eventsPage": {
+    "meta": {
+      "title": "Etkinlikler",
+      "description": "İstanbul'daki dijital göçebeler için yaklaşan buluşmalar, ortak çalışma seansları, atölyeler ve sosyal etkinlikler."
+    },
+    "hero": {
+      "title": "Etkinlikler",
+      "description": "İstanbul'da ortak çalışma, buluşma ve atölye etkinlikleri.",
+      "weekly": " Yeni etkinlikler haftalık olarak duyurulur."
+    },
+    "empty": {
+      "title": "Henüz planlanmış etkinlik yok",
+      "body": "Yeni etkinlikler Telegram grubunda haftalık olarak paylaşılır. Haberdar olmak için katıl.",
+      "joinTelegram": "Telegram'a Katıl",
+      "exploreGuides": "Rehberlere göz at"
+    },
+    "list": {
+      "tabs": {
+        "upcoming": "Yaklaşan",
+        "past": "Geçmiş"
+      },
+      "pastBadge": "Geçmiş",
+      "filters": {
+        "all": "Tümü"
+      },
+      "types": {
+        "meetup": "Buluşma",
+        "coworking": "Ortak çalışma",
+        "workshop": "Atölye",
+        "social": "Sosyal"
+      },
+      "spots": "{count} kişilik",
+      "emptyUpcoming": "Henüz planlanmış etkinlik yok. Yeni etkinlikler Telegram grubunda haftalık olarak paylaşılır.",
+      "emptyPast": "Filtrenle eşleşen geçmiş etkinlik yok."
+    },
+    "waitlist": {
+      "badge": "Sürpriz etkinlik",
+      "title": "Bir şeyler hazırlanıyor. Tarih, etkinlik gününde duyurulur.",
+      "body": "İstanbul'da yalnızca topluluğa özel bir etkinlik hazırlıyoruz. Ne zaman ve nerede sorularının yanıtı, o sabaha kadar sürpriz. Bekleme listesine katıl, ilk öğrenenlerden ol.",
+      "firstNamePlaceholder": "Ad",
+      "emailPlaceholder": "sen@ornek.com",
+      "submit": "Bekleme listesine katıl",
+      "submitting": "Kaydediliyor...",
+      "disclaimer": "Spam yok. Tarih duyurulduğunda yalnızca bir e-posta atarız.",
+      "joinedConfirm": "Listedesin. Gelen kutunu takip et.",
+      "joinedProfileTitle": "Bir adım daha: profilini tamamla.",
+      "joinedProfileBody": "Profilini tamamlayan üyeler, kontenjan sınırlı olduğunda öncelik kazanır ve topluluğa daha hızlı dahil olur.",
+      "completeProfile": "Profili tamamla",
+      "emptyBeFirst": "Listeye katılan ilk kişi ol.",
+      "emptyDescription": "İnsanlar kaydoldukça burada kimlerin olduğunu göstereceğiz.",
+      "countOne": "Listede 1 göçebe var",
+      "countMany": "Listede {count} göçebe var",
+      "andMore": " ve {count} kişi daha",
+      "errorTitle": "Bekleme listesine eklenemedi",
+      "successTitle": "Listedesin!",
+      "errorFallbackTitle": "Bir şeyler ters gitti",
+      "errorFallbackBody": "Lütfen daha sonra tekrar dene."
+    }
+  },
+  "ctaBanner": {
+    "title": "Katılmaya hazır mısın?",
+    "body": "İstanbul'daki uzaktan çalışanlarla bağlan. Ücretsiz, açık ve sıcak.",
+    "cta": "Telegram'a katıl"
+  },
+  "home": {
+    "meta": {
+      "tickerSchedule": "Kadıköy 09:10 / Karaköy 10:25 / Galata 18:30",
+      "tickerTimezone": "GMT+3 / önce vapur / laptop hazır",
+      "asiaBase": "Asya üssü",
+      "ferryReset": "Vapur molası",
+      "eveningTable": "Akşam masası"
+    },
+    "hero": {
+      "title": "İstanbul çalışma ritmini 7 günde kur.",
+      "subtitle": "Bir üs seç, vapur döngüsünü öğren ve yerlilerin gün batımından sonra güvendiği laptop dostu masaları kaydet.",
+      "joinWorkweek": "Çalışma haftasına katıl",
+      "chooseBase": "Üssünü seç",
+      "imageAlt": "Çay, defter ve uzaktaki İstanbul siluetiyle sakin bir Moda sahil masası",
+      "ferryWorkdayBadge": "Vapurlu iş günü",
+      "kadikoy": "Kadıköy",
+      "karakoy": "Karaköy",
+      "galata": "Galata",
+      "trustSignals": {
+        "nextCoworking": "Sıradaki ortak çalışma {date}",
+        "freeToJoin": "Katılım ücretsiz",
+        "allRemoteWorkers": "Tüm uzaktan çalışanlar hoş geldi",
+        "weeklyCoworking": "Haftalık ortak çalışma seansları"
+      },
+      "deskNotes": {
+        "baseLabel": "Üs",
+        "baseValue": "Kadıköy veya Moda",
+        "crossingLabel": "Geçiş",
+        "crossingValue": "20 dakikalık vapur molası",
+        "fallbackLabel": "Yedek",
+        "fallbackValue": "Kafeler dolarsa ortak çalışma"
+      },
+      "fieldCard": {
+        "eyebrow": "Göçebe saha kartı",
+        "title": "Vapurlu iş günü",
+        "boardEyebrow": "Vapur panosu / ilk hafta",
+        "tzLabel": "GMT+3",
+        "tzValue": "2 kıta",
+        "openGuide": "İlk ay rehberini aç"
+      },
+      "routeSteps": {
+        "kadikoyPier": {
+          "title": "Kadıköy iskelesi",
+          "detail": "Kahvaltısı, metrosu ve vapuru yakın olan yürünebilir bir üs seç."
+        },
+        "karakoyTable": {
+          "title": "Karaköy masası",
+          "detail": "Tek bir işle karşıya geç ve laptop dostu yerlerin kaydedilmiş listesini al."
+        },
+        "galataEvening": {
+          "title": "Galata akşamı",
+          "detail": "Şehrin akşam karanlığından sonra nerede işlediğini bilen insanlarla tanış."
+        }
+      }
+    },
+    "firstWeekTool": {
+      "eyebrow": "Yeni gelene araç",
+      "title": "İlk haftanı gerçek bir İstanbul rutinine çevir.",
+      "body": "Üssünü, çalışma düzenini, sosyal temponu ve bütçe rahatlığını seç. Vapur güveni, çalışma blokları, idari tampon ve ikinci hafta için doğru bağlantılarla yedi günlük bir plan al.",
+      "cta": "Haftamı planla"
+    },
+    "stats": {
+      "intro": "Hızla çalışılabilir hale gelen, sadece geçilen bir yer olmayan bir şehir isteyenler için.",
+      "growing": "Büyüyen",
+      "growingLabel": "topluluk",
+      "weekly": "Haftalık",
+      "weeklyLabel": "ortak çalışma ritmi",
+      "guides": "11",
+      "guidesLabel": "yerel yaşam rehberi",
+      "neighborhoods": "25+",
+      "neighborhoodsLabel": "kapsanan mahalle"
+    },
+    "events": {
+      "eyebrow": "Neler oluyor",
+      "title": "Bu haftanın etkinlikleri",
+      "intro": "Bu hafta İstanbul'da ortak çalışma seansları, buluşmalar ve atölyeler.",
+      "datesScheduledEyebrow": "Tarihler planlanıyor",
+      "datesScheduledTitle": "Sıradaki ortak çalışma tarihleri şekilleniyor.",
+      "datesScheduledBody": "Halka açık takvim güncellenirken mevcut gayri resmi ortak çalışma için Telegram grubuna katıl.",
+      "openSpots": "Açık",
+      "spots": "{capacity} kişilik",
+      "seeAll": "Tüm etkinlikleri gör",
+      "moments": {
+        "1": "Güvenilir wifi'si olan ve yeni gelenleri ağırlayan müdavimlerle sessiz bir çalışma seansı.",
+        "2": "İnsanlarla hızlıca tanışmak için en kolay etkinlik, özellikle yeni geldiysen ve sosyal ivme istiyorsan.",
+        "3": "Freelance, ikamet ve burada yaşarken uyumlu kalmaya dair gerçek sorularını getir."
+      }
+    },
+    "cityGuides": {
+      "eyebrow": "Şehir rehberleri",
+      "title": "İlk ayın için her şey.",
+      "intro": "Mahalleler, ortak çalışma, konut, internet, ulaşım, yaşam maliyeti ve daha fazlası - burada yaşayan insanlar tarafından yazıldı.",
+      "subIntro": "Onları statik bir kaynak arşivi olarak değil, ilk ayın için güven artırıcılar olarak düşün.",
+      "fastAnswersEyebrow": "Hızlı yanıtlar",
+      "fastAnswersBody": "Konut, internet, ulaşım, vize temelleri ve mahalle uyumu.",
+      "browseAll": "Tüm rehberlere göz at",
+      "orientation": {
+        "whereStay": "Nerede kalmalıyım?",
+        "bestCoworking": "Ortak çalışma için en iyi bölgeler",
+        "monthlyCost": "Bir ay ne kadar tutar?",
+        "fastInternet": "Hızlıca nasıl internete bağlanırım?"
+      }
+    },
+    "firstMonth": {
+      "eyebrow": "İlk ay temelleri",
+      "title": "Uzaktan yaşamı kolayca işletecek parçalarla başla.",
+      "body": "Yeni indiysen mahalleler, internet, ulaşım ve bu haftanın buluşmasıyla başla. Geliş modundan uygulanabilir yerel rutine en hızlı yol bu."
+    },
+    "phases": {
+      "weekOne": {
+        "phase": "İlk hafta",
+        "title": "Hızlıca uygulanabilir bir rutin",
+        "description": "Wifi'si test edilmiş kafeler, katılabileceğin bir ortak çalışma seansı ve temponuza uygun bir mahalle.",
+        "tag": "Geliş"
+      },
+      "monthOne": {
+        "phase": "İlk ay",
+        "title": "Tanıdık yerlerde tanıdık yüzler",
+        "description": "Haftalık ritim aynı insanlarla karşılaşmaya devam etmen anlamına geliyor - gerçek arkadaşlıklar böyle başlıyor.",
+        "tag": "Yön bulma"
+      },
+      "monthThree": {
+        "phase": "Üçüncü ay ve sonrası",
+        "title": "Sana ait gibi gelen bir şehir",
+        "description": "Bir vapur rotan, favori bir baklavacın ve güzel bir şey olunca sana yazan insanların var.",
+        "tag": "Bağlanma"
+      }
+    },
+    "whyStay": {
+      "eyebrow": "İnsanlar neden kalıyor",
+      "title": "Göçebeler neden kalışlarını uzatıyor.",
+      "body": "Katıldıktan sonra değişen şey basit: çalışma haftaların daha düzenli oluyor, şehir okunması kolaylaşıyor ve zaten sevdiğin yerlerde tanıdık yüzler belirmeye başlıyor.",
+      "items": {
+        "reliableWorkdays": {
+          "title": "Güvenilir iş günleri",
+          "description": "Ortak çalışma seansları, kafe seçimleri ve pratik kurulum tavsiyeleri."
+        },
+        "lowFriction": {
+          "title": "Düşük sürtünmeli başlangıç",
+          "description": "Beş ayrı grupta aramak zorunda kalmadan hızlı yararlı yanıtlar."
+        },
+        "localTexture": {
+          "title": "Daha iyi yerel doku",
+          "description": "Şehri tanıyan ve gelmenin nasıl bir his olduğunu hala hatırlayan insanlarla tanış."
+        }
+      },
+      "card": {
+        "eyebrow": "Hızla paylaşılan yerel bilgi",
+        "title": "Bir soru sor ve saatlerce tahmin etmekten kurtul.",
+        "body": "İlk ayında nereye yerleşmelisin? Hangi ortak çalışma alanlarının wifi'si stabil? Vapurlar yolculuğunu nasıl değiştirir? Topluluk bu yanıtları sosyal, güncel ve yerel yapıyor.",
+        "bullets": {
+          "tradeoffs": "Burada yaşayan insanlar tarafından açıklanan mahalle tercihleri",
+          "rituals": "İnsanlarla tanışmayı kolaylaştıran haftalık ritüeller",
+          "setup": "İş günleri, ulaşım ve konut için pratik kurulum yardımı",
+          "landing": "Birkaç haftadan fazla kalıyorsan daha yumuşak bir başlangıç"
+        }
+      }
+    },
+    "joinCta": {
+      "eyebrow": "Başla",
+      "title": "Telegram'da bize katıl.",
+      "body": "Kendini tanıt, biz de seni bu haftanın buluşmasına, iyi bir çalışma alanına veya başlaman için doğru mahalleye yönlendirelim.",
+      "joinTelegram": "Telegram'a katıl",
+      "aboutCommunity": "Topluluk hakkında"
+    }
+  },
+  "spacesPage": {
+    "meta": {
+      "title": "Nomad Mekanları",
+      "description": "İstanbul'da uzaktan çalışmak için en iyi kafeleri ve coworking mekanlarını bul. Her mekan wifi, priz, konfor, gürültü, fiyat ve atmosfere göre Nomad Skoru ile puanlanır."
+    },
+    "hero": {
+      "eyebrow": "Nomad Mekanları",
+      "title": "Bugün için doğru masayı bul.",
+      "body": "Toplantı, sessiz odak, yağmurda güvenli, geç çalışma, bütçe ya da ilk ziyaret modunu seç. Bulucu, İstanbul kafe ve coworking mekanlarını uzaktan çalışmada gerçekten önemli olana göre sıralar.",
+      "openFinder": "Bulucuyu aç",
+      "planWeekOne": "İlk haftayı planla",
+      "signals": {
+        "workReady": {
+          "label": "Çalışmaya hazır",
+          "value": "{count} mekan",
+          "detail": "Laptop sinyalleri olan kafeler ve coworking mekanları."
+        },
+        "coverage": {
+          "label": "Kapsam",
+          "value": "{count} bölge",
+          "detail": "Anadolu ve Avrupa yakası seçenekleri tek karşılaştırmada."
+        },
+        "decisionLabels": {
+          "label": "Karar etiketleri",
+          "value": "Toplantı / sessiz / yağmur",
+          "detail": "Genel listeler yerine aynı günkü filtreler."
+        },
+        "realityCheck": {
+          "label": "Gerçeklik kontrolü",
+          "value": "Kısmi skorlar görünür",
+          "detail": "Doğrulanmamış alanlar açıkça belirtilir."
+        }
+      }
+    },
+    "finder": {
+      "quest": {
+        "step1Label": "1. Görevi seç",
+        "step2Label": "2. Güçlendirici ekle",
+        "step3Label": "3. Masayı sahiplen",
+        "optional": "İsteğe bağlı",
+        "activeCount": "{count} aktif",
+        "noMatchYet": "Henüz eşleşme yok"
+      },
+      "mission": {
+        "eyebrow": "Çalışma görevini seç",
+        "title": "Kazanmaya çalıştığın günün türünü seç.",
+        "bodySuffix": "Sadece günün gerçekten ihtiyacı varsa bir ya da iki iş sinyali ekle.",
+        "selected": "Seçildi",
+        "rewardPrefix": "Ödül:"
+      },
+      "suggested": {
+        "title": "Önerilen güçlendiriciler",
+        "equip": "{label} ekle"
+      },
+      "brief": {
+        "eyebrow": "Önce buraya git",
+        "subtitle": "Bugünkü iş günü brifingine göre sıralandı.",
+        "found": "{count} bulundu",
+        "checkLive": "Canlı kontrol et",
+        "scoreSuffix": "{score} puan",
+        "unverified": "Doğrulanmamış",
+        "power": "Priz",
+        "powerGood": "İyi seçim",
+        "powerCheck": "Önce kontrol et",
+        "type": "Tür",
+        "typeCoworking": "Coworking",
+        "typeCafe": "Kafe",
+        "backup": "Yedek",
+        "openMap": "Haritayı aç",
+        "noPickTitle": "Bu brifing için temiz bir seçim yok.",
+        "noPickBody": "Bir iş sinyalini kaldır, sonra tekrar karşılaştır."
+      },
+      "search": {
+        "placeholder": "Mekan, mahalle, olanak ya da sinyale göre ara...",
+        "reset": "Sıfırla"
+      },
+      "type": {
+        "all": "Tümü",
+        "cafe": "Kafeler",
+        "coworking": "Coworking"
+      },
+      "sort": {
+        "recommended": "Önerilen",
+        "score": "Nomad Skoru",
+        "name": "İsim"
+      },
+      "filters": {
+        "neighborhood": "Mahalle",
+        "powerUps": "Güçlendiriciler",
+        "allNeighborhoods": "Tüm mahalleler"
+      },
+      "map": {
+        "label": "Harita görünümü",
+        "open": "Harita filtrelenmiş liste için açık.",
+        "closed": "Konum karşılaştırmadan önemliyse haritayı aç."
+      },
+      "results": {
+        "eyebrow": "Mekanları karşılaştır",
+        "matchOne": "{count} eşleşme",
+        "matchOther": "{count} eşleşme",
+        "body": "Skorlar wifi, priz, konfor, sessizlik, fiyat ve atmosfer için ağırlıklandırılır. Kısmi skorlar görünür kalır, böylece doğrulanmamış yerler olduğundan kesinmiş gibi görünmez.",
+        "loadout": {
+          "mission": "Görev",
+          "area": "Bölge",
+          "type": "Tür",
+          "powerUp": "Güçlendirici",
+          "search": "Arama",
+          "removeLabel": "{value} kaldır"
+        },
+        "empty": {
+          "title": "Tam olarak bu iş gününe uyan mekan yok.",
+          "body": "Önce bir sinyali kaldır. İstanbul'da toplantı uygun, sessiz ve geç açık bir araya geldiğinde sadece coworking günü olabilir.",
+          "cta": "Filtreleri temizle"
+        }
+      },
+      "modes": {
+        "best": {
+          "label": "Bugün en iyisi",
+          "description": "Gerçek iş çıkarmak için dengeli seçimler.",
+          "stage": "Ana görev",
+          "reward": "Dengeli iş günü"
+        },
+        "calls": {
+          "label": "Toplantılar",
+          "description": "Toplantılar, kabinler ya da daha sessiz köşeler için güvenli.",
+          "stage": "Toplantı kalkanı",
+          "reward": "Daha az toplantı stresi"
+        },
+        "quiet": {
+          "label": "Sessiz odak",
+          "description": "Daha az gürültü ve yoğun saat sürprizi.",
+          "stage": "Odak koşusu",
+          "reward": "Derin çalışma"
+        },
+        "rain": {
+          "label": "Yağmura dayanıklı",
+          "description": "Kapalı, güvenilir ve kalmaya değer.",
+          "stage": "Yağmur rotası",
+          "reward": "Kuru laptop"
+        },
+        "late": {
+          "label": "Geç açık",
+          "description": "Normal kafe saatlerinden sonra için daha iyi seçimler.",
+          "stage": "Gece vardiyası",
+          "reward": "Mesai sonrası yedek"
+        },
+        "budget": {
+          "label": "Bütçe",
+          "description": "Daha uygun fiyat ya da daha güçlü değer sinyalleri.",
+          "stage": "Bütçe dostu",
+          "reward": "Daha az harcama"
+        },
+        "first-visit": {
+          "label": "İlk ziyaret",
+          "description": "Rutin oluşturmadan önce denenebilecek kolay yerler.",
+          "stage": "Başlangıç rotası",
+          "reward": "Kolay ilk deneme"
+        }
+      },
+      "needs": {
+        "callsFriendly": {
+          "label": "Toplantı uygun",
+          "description": "Toplantı odaları, kabinler, coworking ya da daha sessiz düzen."
+        },
+        "quiet": {
+          "label": "Sessiz",
+          "description": "İyi gürültü skoru ya da sakin çalışma profili."
+        },
+        "strongSockets": {
+          "label": "Güçlü prizler",
+          "description": "Priz skoru, şarj prizleri ya da masa düzeni."
+        },
+        "rainSafe": {
+          "label": "Yağmura dayanıklı",
+          "description": "Kapalı, sağlam ve sadece sokak kahvecisi değil."
+        },
+        "firstVisit": {
+          "label": "İlk ziyaret",
+          "description": "Açık, laptop dostu ve hızlıca anlaşılması kolay."
+        },
+        "openLate": {
+          "label": "Geç açık",
+          "description": "Geç saatler ya da kafe gününün ötesinde üye erişimi."
+        },
+        "budget": {
+          "label": "Bütçe",
+          "description": "Daha düşük fiyat aralığı ya da değer skoru."
+        }
+      }
+    },
+    "card": {
+      "cafe": "Kafe",
+      "coworking": "Coworking",
+      "visitWebsite": "Web sitesini ziyaret et",
+      "sources": "Kaynaklar",
+      "verified": "({date} doğrulandı)",
+      "showLess": "Daha az göster",
+      "scoreBreakdown": "Skor detayı"
+    }
+  },
+  "firstWeekPlanner": {
+    "meta": {
+      "title": "İlk Hafta Planlayıcı - İstanbul Digital Nomads",
+      "description": "Geliş profilin, ana mahallen, çalışma ritmin, sosyal iştahın ve bütçe konforun üzerinden yedi günlük pratik bir İstanbul iniş planı oluştur."
+    },
+    "hero": {
+      "eyebrow": "İlk Hafta Planlayıcı",
+      "title": "İstanbul'u yedi günde kullanılabilir hale getir.",
+      "body": "Geliş şeklini, çalışma ritmini, sosyal iştahını ve bütçe konforunu seç. Planlayıcı, şehri gerçekten kullanabileceğin linklerle pratik bir ilk hafta dizisine dönüştürür.",
+      "buildWeek": "Haftamı oluştur",
+      "compareNeighborhoods": "Mahalleleri karşılaştır",
+      "miniSignals": {
+        "base": "Üs",
+        "work": "İş",
+        "budget": "Bütçe"
+      }
+    },
+    "aside": {
+      "eyebrow": "Plan girdileri",
+      "subtitle": "Her seçim değişikliği haftayı günceller.",
+      "labels": {
+        "arrivalProfile": "Geliş profili",
+        "workStyle": "Çalışma tarzı",
+        "socialAppetite": "Sosyal iştah",
+        "budgetComfort": "Bütçe konforu",
+        "baseNeighborhood": "Ana mahalle"
+      },
+      "helpChoose": {
+        "label": "Seçmeme yardım et",
+        "recommended": "Önerilen",
+        "sideSuffix": "{side} yaka"
+      },
+      "reset": "Sıfırla",
+      "copyLink": "Linki kopyala",
+      "copied": "Kopyalandı",
+      "fallbackWork": "Kafe çalışanı",
+      "fallbackBudget": "Dengeli"
+    },
+    "plan": {
+      "eyebrow": "Yedi günlük planın",
+      "title": "{neighborhood} ile başla, sonra tekrarlanabilir bir rutin kur.",
+      "baseGuide": "Ana rehber",
+      "dayLabel": "{day}. Gün",
+      "moments": {
+        "morning": "Sabah",
+        "workBlock": "İş bloğu",
+        "evening": "Akşam"
+      },
+      "saveLinks": "Bu linkleri kaydet",
+      "avoid": "Bu hafta kaçın"
+    },
+    "options": {
+      "arrivalProfile": {
+        "first-time": {
+          "label": "İlk kez",
+          "description": "Şehrin hızlıca kullanılabilir hale gelmesi gerekiyor."
+        },
+        "returning": {
+          "label": "Dönen",
+          "description": "Temelleri biliyorsun ve daha temiz bir rutin istiyorsun."
+        },
+        "turkey-transfer": {
+          "label": "Zaten Türkiye'de",
+          "description": "Çoğunlukla yerel İstanbul sıfırlamasına ihtiyacın var."
+        },
+        "paperwork": {
+          "label": "Evrak odağı",
+          "description": "İdari işler, belgeler ve sakin yedek zaman en önemlisi."
+        }
+      },
+      "workStyle": {
+        "cafe": {
+          "label": "Kafe çalışanı",
+          "description": "Laptop dostu masalar ve mahalle ritmi istiyorsun."
+        },
+        "coworking": {
+          "label": "Coworking",
+          "description": "Sabit masaları, toplantıları ve yakındaki diğer çalışanları tercih ediyorsun."
+        },
+        "home": {
+          "label": "Önce ev",
+          "description": "Daha az hareket ve daha sessiz bir kurulum haftası istiyorsun."
+        },
+        "calls": {
+          "label": "Toplantı ağırlıklı",
+          "description": "Yedek WiFi, toplantı odaları ve düşük riskli iş bloklarına ihtiyacın var."
+        }
+      },
+      "socialAppetite": {
+        "quiet": {
+          "label": "Sessiz ilk hafta",
+          "description": "Sakin bir plan, daha az sosyal baskı."
+        },
+        "fast": {
+          "label": "Hızlıca insan tanı",
+          "description": "Etkinlikleri ve coworking'i kullanarak ivme kazan."
+        },
+        "one-event": {
+          "label": "Bir etkinlik yeter",
+          "description": "Aşırı yoğunluk olmadan düşük baskılı bir temas noktası."
+        }
+      },
+      "budgetComfort": {
+        "lean": {
+          "label": "Tutumlu kal",
+          "description": "Yanlış tasarruflardan kaçınarak para biriktir."
+        },
+        "balanced": {
+          "label": "Dengeli",
+          "description": "Konforun kaosu önlediği yerlere harca."
+        },
+        "comfort": {
+          "label": "Konfor öncelikli",
+          "description": "Daha az sürtünme ve daha güçlü yedek planlar için öde."
+        }
+      }
+    }
+  },
+  "localGuidesPage": {
+    "meta": {
+      "title": "Yerel Rehberler",
+      "description": "İstanbul'u içten dışa bilen deneyimli yerelleri ve göçebeleri tanı. Mahalle, ev, vize, ortak çalışma alanı ve daha fazlası için yardım al."
+    },
+    "hero": {
+      "title": "Yerel Rehberler",
+      "description": "Bu arkadaşlar İstanbul'u içten dışa biliyor ve öğrenme eğrini kısaltmak için buradalar. Mahalle tavsiyesi, vize yardımı ya da iyi bir kafe önerisi istiyorsan - hallederler."
+    },
+    "empty": {
+      "title": "Rehber ağımızı kuruyoruz",
+      "body": "İstanbul'u yeni gelenlere ayak uydurmalarına yardım edecek kadar iyi tanıyor musun? Seni ilk yerel rehberlerimizden biri olarak görmek isteriz.",
+      "cta": "Rehber olmak için başvur"
+    },
+    "becomeGuide": {
+      "title": "Yerel rehber olmak ister misin?",
+      "body": "İstanbul'u iyi tanıyor ve yeni gelenlerin daha hızlı yerleşmesine yardım etmek istiyorsan, seni dinlemek isteriz.",
+      "cta": "Şimdi başvur"
+    },
+    "card": {
+      "yearSingular": "yıl",
+      "yearPlural": "yıl",
+      "inIstanbul": "İstanbul'da",
+      "helpsPeopleFrom": "Şu ülkelerden gelenlere yardım ediyor",
+      "showLess": "Daha az göster",
+      "showMore": "Daha fazla göster",
+      "social": {
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn",
+        "twitter": "Twitter",
+        "website": "Web sitesi"
+      }
+    },
+    "directory": {
+      "searchPlaceholder": "Rehberleri isim veya uzmanlık alanına göre ara...",
+      "allExpertise": "Tüm uzmanlıklar",
+      "allAreas": "Tüm bölgeler",
+      "noResultsTitle": "Filtrelerinle eşleşen rehber yok",
+      "noResultsBody": "Aramanı genişletmeyi ya da bazı filtreleri kaldırmayı dene."
+    }
+  },
+  "localGuidesJoinPage": {
+    "meta": {
+      "title": "Yerel Rehber Ol",
+      "description": "Istanbul Digital Nomads için yerel rehber olmaya başvur. Yeni gelenlerin mahalleleri, ev, vize ve daha fazlasını çözmesine yardım et."
+    },
+    "hero": {
+      "title": "Yerel rehber ol",
+      "description": "İstanbul'u, birinin ilk ay kafa karışıklığını atlamasına yardım edecek kadar iyi tanıyor musun? Kendinden ve neyle yardımcı olabileceğinden bahset. Başvurunu birkaç gün içinde inceleyeceğiz."
+    },
+    "submitted": {
+      "title": "Başvurun için teşekkürler!",
+      "body": "Başvurunu inceleyip birkaç gün içinde sana döneceğiz. Bu arada Telegram grubumuza katılmaktan çekinme."
+    },
+    "sections": {
+      "yourDetails": {
+        "title": "Bilgilerin",
+        "subtitle": "Kim olduğunu bilmemiz için temel bilgiler."
+      },
+      "expertise": {
+        "title": "Uzmanlığın",
+        "subtitle": "İstanbul'da en iyi neyi biliyorsun?"
+      },
+      "aboutYou": {
+        "title": "Kendinden bahset",
+        "subtitle": "Seni harika bir rehber yapan şeyi anlamamıza yardım et."
+      },
+      "social": {
+        "title": "Sosyal profiller",
+        "subtitle": "Opsiyonel - kim olduğunu doğrulamamıza ve insanların seni bulmasına yardım eder."
+      },
+      "almostDone": {
+        "title": "Neredeyse bitti"
+      }
+    },
+    "fields": {
+      "name": {
+        "label": "Ad soyad",
+        "placeholder": "Adın"
+      },
+      "email": {
+        "label": "E-posta",
+        "placeholder": "sen@ornek.com"
+      },
+      "phone": {
+        "label": "Telefon / WhatsApp",
+        "placeholder": "+90 ...",
+        "helper": "Opsiyonel - sana ulaşmamızı kolaylaştırır"
+      },
+      "languages": {
+        "label": "Konuştuğun diller"
+      },
+      "specializations": {
+        "label": "Uzmanlık alanların"
+      },
+      "neighborhoods": {
+        "label": "İyi bildiğin mahalleler"
+      },
+      "yearsInIstanbul": {
+        "label": "İstanbul'da yaşadığın yıl sayısı",
+        "placeholder": "2"
+      },
+      "originCountries": {
+        "label": "Nereden taşındın?"
+      },
+      "bio": {
+        "label": "Biyografi",
+        "placeholder": "Kendinden, geçmişinden ve İstanbul deneyiminden bahset...",
+        "helper": "En az 50 karakter"
+      },
+      "sampleTip": {
+        "label": "En iyi yerel ipucun",
+        "placeholder": "Bildiğini gösteren spesifik bir ipucu paylaş - gizli bir kafe, vize kestirmesi, mahalle sırrı...",
+        "helper": "Bu, tarzını ve bilgi derinliğini anlamamıza yardım eder"
+      },
+      "motivation": {
+        "label": "Neden rehber olmak istiyorsun?",
+        "placeholder": "İstanbul'daki yeni gelenlere yardım etmek seni neden motive ediyor?"
+      },
+      "instagram": {
+        "label": "Instagram",
+        "placeholder": "https://instagram.com/kullaniciadin"
+      },
+      "linkedin": {
+        "label": "LinkedIn",
+        "placeholder": "https://linkedin.com/in/profilin"
+      },
+      "twitter": {
+        "label": "Twitter / X",
+        "placeholder": "https://twitter.com/kullaniciadin"
+      },
+      "website": {
+        "label": "Kişisel web sitesi",
+        "placeholder": "https://siten.com"
+      },
+      "photoUrl": {
+        "label": "Profil fotoğrafı URL'si",
+        "placeholder": "https://...",
+        "helper": "Bir fotoğrafına link (LinkedIn, Instagram ya da herhangi bir genel URL)"
+      },
+      "references": {
+        "label": "Referanslar",
+        "placeholder": "Toplulukta kefil olabilecek biri var mı? (opsiyonel)"
+      },
+      "guidelines": "Topluluk kurallarını kabul ediyorum ve başvurumun ekip tarafından inceleneceğini anlıyorum. Topluluğu nezaket ve dürüstlükle temsil edeceğim."
+    },
+    "submit": "Başvuruyu gönder",
+    "toast": {
+      "errorTitle": "Gönderilemedi",
+      "genericErrorTitle": "Bir şeyler ters gitti",
+      "genericErrorBody": "Lütfen daha sonra tekrar dene.",
+      "successTitle": "Başvuru gönderildi!",
+      "successBody": "İnceleyip kısa zamanda sana döneceğiz."
+    }
+  },
+  "pathToIstanbulPage": {
+    "meta": {
+      "title": "İstanbul'a Giden Yol - Ülkeye Göre Yerleşim Rehberleri",
+      "description": "İstanbul'a taşınmak için ülkeye özel yerleşim rehberleri. Vize, uçuş, ev, banka ve topluluk - sağlam başlamak için gereken her şey.",
+      "ogTitle": "İstanbul'a Giden Yol - Ülkeye Göre Yerleşim Rehberleri",
+      "ogDescription": "Ülkeni seç ve İstanbul'a taşınma için baştan sona bir oyun planı al: vize, uçuş, ev, banka ve seni bekleyen topluluk."
+    },
+    "hero": {
+      "eyebrow": "İstanbul'a Giden Yol",
+      "title": "İstanbul'a giden yolunu bul",
+      "description": "Baştan sona bir yerleşim oyun planı için başlangıç ülkeni seç - vize, uçuş, ev, banka ve seni burada bekleyen topluluk."
+    },
+    "why": {
+      "title": "Neden ülkeye özel bir rehber önemli",
+      "p1": "Genel \"İstanbul'a taşın\" yazıları, taşınmana karar verdiren detayları kaçırıyor. İranlı bir pasaport sahibi 90 gün vizesiz girer ama oturma izni olmadan çoğu Türk banka hesabını açamaz. Hint başvuranlar uçmadan önce apostilli belgelere ihtiyaç duyar. Rus gelenler için ucuz direkt uçuşlar var ama kart ödemeleri daha sıkıntılı. Başlangıç ülken her adımı şekillendirir.",
+      "p2": "Bu yüzden her yol, ülkenle başlıyor ve indiğinde önemli olan üç şey üzerinden ilerliyor: evraklar, para ve topluluk. Boş laf yok, SEO söz salatası yok - sadece bir arkadaşımıza vereceğimiz iş sırası."
+    },
+    "what": {
+      "title": "Her ülke sayfasında bulacakların",
+      "items": {
+        "visa": {
+          "label": "Vize, oturma ve belgeler",
+          "body": "giriş kuralları, oturma izni (ikamet) yolu, hangi belgelerin uçmadan önce apostil veya yeminli tercüme gerektirdiği."
+        },
+        "flights": {
+          "label": "Uçuşlar, varış ve para",
+          "body": "direkt rotalar, tipik fiyatlar, ülkenden ilk gün gerçekten işe yarayan nakit, kart ve havale yöntemleri."
+        },
+        "housing": {
+          "label": "Ev, sağlık ve topluluk",
+          "body": "bütçene uyan mahalleler, kazıksız kira tutmanın yolu, SGK mı yoksa özel sigorta mı ve ülkenden burada olan insanlar."
+        }
+      }
+    },
+    "who": {
+      "title": "Bu rehberler kimin için",
+      "body": "Gerçek bir taşınma planlayan dijital göçebeler, uzaktan çalışanlar, öğrenciler ve aileler - iki haftalık tatil değil. İstanbul'u Lizbon veya Dubai ile karşılaştırıyorsan, taşınmanın bulunduğun yerden nasıl göründüğünü görmek için ülke sayfanla başla."
+    },
+    "missingCountry": {
+      "title": "Ülkeni göremiyor musun?",
+      "body": "Daha çok yol ekliyoruz. Bu taşınmayı sen yaptıysan, yerel rehber olmaya başvur ve ülkenden gelen bir sonraki kişinin sağlam başlamasına yardım et.",
+      "cta": "Rehber olmak için başvur"
+    },
+    "selector": {
+      "searchPlaceholder": "Ülkeni ara...",
+      "comingSoon": "Yakında",
+      "availableGuides": "Mevcut rehberler",
+      "seeThePath": "Yolu gör"
+    },
+    "popularPaths": {
+      "title": "İstanbul'a popüler yollar",
+      "subtitle": "Okumaya hazır ülke oyun planları - seninkini seç ve tahmin yürütmekten kurtul.",
+      "summary": "Vize, para, ev, topluluk"
+    },
+    "featuredGuides": {
+      "title": "Yolu yapmış rehberlerle tanış",
+      "subtitle": "Daha hızlı yerleşmene yardım edebilecek yereller ve göçebeler.",
+      "viewAll": "Hepsini gör",
+      "yearsShort": " yıl İstanbul'da"
+    },
+    "guidesFromCountry": {
+      "title": "{country} kökenli rehberler",
+      "tierOrigin": "Aynı yolu yapmış ve yerleşmene yardım edebilecek insanlar.",
+      "tierLanguage": "Henüz {country} doğumlu rehberimiz yok ama bu yereller dilini konuşuyor.",
+      "tierEmpty": "Henüz {country} kökenli bir rehberimiz yok. İlk olmak ister misin?",
+      "emptyBody": "{country} kökenli yerel rehberler, yeni gelenlerin taşınmanın en zor kısımlarını atlamasına yardım eder. Geldiğinde keşke tanışsaydım dediğin kişi ol.",
+      "applyCta": "Rehber olmak için başvur",
+      "browseAll": "Tüm yerel rehberlere göz at",
+      "yearsShort": " yıl İstanbul'da"
+    }
+  },
+  "countryPage": {
+    "meta": {
+      "titleTemplate": "{country}'dan İstanbul'a taşınmak",
+      "fallbackDescription": "{country} kökenli göçebeler için İstanbul'a vize, uçuş, ev ve topluluk bilgileri."
+    },
+    "breadcrumb": {
+      "home": "Ana sayfa",
+      "pathToIstanbul": "İstanbul'a Giden Yol"
+    },
+    "hero": {
+      "eyebrow": "İstanbul'a Giden Yol",
+      "title": "{country}'dan taşınmak",
+      "lastUpdated": "Son güncelleme {date}"
+    },
+    "schema": {
+      "visaStep": "Vize, oturma ve belgeler",
+      "flightsStep": "Uçuşlar, varış ve para",
+      "housingStep": "Ev, sağlık ve topluluk"
+    },
+    "related": {
+      "title": "İlgili okumalar",
+      "cityGuideLabel": "Şehir rehberi",
+      "blogLabel": "Blog"
+    },
+    "cta": {
+      "title": "Geldiğinde topluluğa katıl",
+      "body": "Haftalık ortak çalışma, aylık buluşmalar ve gerçekten burada yaşayan insanlardan oluşan sıcak bir Telegram grubu.",
+      "button": "Telegram'a katıl"
+    },
+    "toc": {
+      "title": "Bu sayfada",
+      "ariaLabel": "Sayfa bölümleri",
+      "items": {
+        "visa": "Vize ve oturma",
+        "flights": "Uçuş ve para",
+        "housing": "Ev ve topluluk",
+        "guides": "Buradan rehberler",
+        "related": "İlgili okumalar"
+      }
+    }
+  },
+  "guidesIndexPage": {
+    "meta": {
+      "title": "Şehir Rehberleri",
+      "description": "Dijital göçebe olarak İstanbul'da yaşamak ve çalışmak için pratik rehberler."
+    },
+    "hero": {
+      "title": "Şehir Rehberleri",
+      "description": "İstanbul'da yaşamak ve çalışmak için pratik rehberler. Topluluk tarafından yazılır ve güncel tutulur."
+    },
+    "listing": {
+      "searchPlaceholder": "Rehberleri ara...",
+      "allGuides": "Tüm rehberler",
+      "empty": "Aramanla eşleşen rehber yok. Farklı bir terim veya kategori dene.",
+      "liveBadge": "Yayında",
+      "readGuide": "Rehberi oku"
+    }
+  },
+  "onboardingPage": {
+    "meta": {
+      "title": "Profilini Tamamla",
+      "description": "Istanbul Digital Nomads'a katılmak için üye profilini doldur."
+    },
+    "wizard": {
+      "stepIndicator": "Adım {current} / {total}",
+      "skip": "Şimdilik geç",
+      "skipToast": "Profilini hesap menünden daha sonra tamamlayabilirsin.",
+      "back": "Geri",
+      "continue": "Devam",
+      "submit": "Başvuruyu Gönder",
+      "submitError": "Bir şeyler ters gitti. Lütfen tekrar dene.",
+      "saveError": "Profilin kaydedilemedi",
+      "signInAgain": "Lütfen tekrar giriş yap",
+      "welcome": "Istanbul Digital Nomads'a hoş geldin!"
+    },
+    "validation": {
+      "displayName": "İsmini girmen gerekiyor.",
+      "ageOrBirthday": "Bir yaş aralığı seç ya da doğum gününü paylaş - ikisi de işe yarar.",
+      "profession": "Ne yaptığını söyle - 'freelancer' gibi kısa bir şey bile yeterli.",
+      "memberType": "Sana en uygun seçeneği seç.",
+      "guidelines": "Devam etmek için lütfen kuralları okuyup kabul et.",
+      "whyJoin": "Neden katılmak istediğini biraz anlat (en az bir cümle)."
+    },
+    "steps": {
+      "about": {
+        "label": "Hakkında",
+        "title": "Hakkında",
+        "intro": "Topluluk seni tanıyabilsin diye temellerle başlayalım.",
+        "fullName": "Tam İsim",
+        "fullNamePlaceholder": "Tam ismin",
+        "ageRange": "Yaş Aralığı",
+        "birthday": "Doğum Günü",
+        "toggleToBirthday": "Bunun yerine doğum günümü paylaşırım",
+        "toggleToAgeRange": "Yaş aralığı seçmeyi tercih ederim",
+        "gender": "Cinsiyet",
+        "genders": {
+          "female": "Kadın",
+          "male": "Erkek",
+          "preferNotToSay": "Söylemek istemiyorum"
+        },
+        "nationality": "Uyruk",
+        "nationalityPlaceholder": "örn. Alman, Brezilyalı, Türk",
+        "cityDistrict": "Yaşadığın Şehir / İlçe",
+        "cityDistrictPlaceholder": "örn. Kadıköy, Cihangir, Beşiktaş"
+      },
+      "contact": {
+        "label": "İletişim ve İş",
+        "title": "İletişim ve İş",
+        "intro": "Topluluk sana nasıl ulaşabilir ve ne iş yapıyorsun?",
+        "phone": "Telefon Numarası (WhatsApp)",
+        "phonePlaceholder": "+90 5XX XXX XXXX",
+        "phoneHelper": "Ülke kodunu ekle. Bu bilgi herkesle paylaşılmaz.",
+        "email": "E-posta Adresi",
+        "emailHelper": "Google hesabından alındı - burada değiştirilemez.",
+        "profession": "Meslek / Çalışma Alanı",
+        "professionPlaceholder": "örn. serbest yazılımcı, UX tasarımcı, İngilizce öğretmeni",
+        "social": "Instagram veya LinkedIn profili",
+        "socialPlaceholder": "https://instagram.com/kullaniciadi veya linkedin.com/in/kullaniciadi",
+        "socialHelper": "Gerçek bir kişi olduğunu doğrulamamıza yardımcı olur."
+      },
+      "interests": {
+        "label": "İlgi Alanların",
+        "title": "İlgi alanların",
+        "intro": "Seni doğru etkinlikler ve insanlarla eşleştirmemize yardım et.",
+        "heardFrom": "Bizi nereden duydun?",
+        "heardFromOptions": {
+          "instagram": "Instagram",
+          "friend": "Arkadaş tavsiyesi",
+          "event": "Etkinlik daveti",
+          "website": "Web sitesi",
+          "other": "Diğer"
+        },
+        "memberType": "Seni en iyi ne tanımlıyor?",
+        "memberTypeOptions": {
+          "expat": "Expat",
+          "nomad": "Dijital göçebe",
+          "traveler": "Gezgin",
+          "local": "Yerel (uluslararası bakışlı)",
+          "student": "Öğrenci",
+          "other": "Diğer"
+        },
+        "activities": "Hangi aktiviteler ilgini çekiyor?",
+        "activityOptions": {
+          "language": "Dil değişimi",
+          "social": "Sosyal geceler",
+          "coworking": "Coworking günleri",
+          "hiking": "Doğa yürüyüşü",
+          "dining": "Yemek etkinlikleri",
+          "sports": "Spor",
+          "workshops": "Atölyeler",
+          "cultural": "Kültürel geziler",
+          "networking": "Networking etkinlikleri",
+          "other": "Diğer"
+        },
+        "lookingFor": "Asıl olarak ne arıyorsun?",
+        "lookingForOptions": {
+          "friends": "Yeni arkadaşlar edinmek",
+          "social": "Sosyal hayat",
+          "networking": "Profesyonel networking",
+          "language": "Dil pratiği",
+          "activities": "Aktiviteler ve hobiler",
+          "exploring": "İstanbul'u keşfetmek",
+          "other": "Diğer"
+        }
+      },
+      "guidelines": {
+        "label": "Topluluk Kuralları",
+        "title": "Topluluk kuralları",
+        "intro": "Burayı arkadaşça ve saygılı tutuyoruz. Her üyeden beklediklerimiz:",
+        "rules": {
+          "kindness": "Her üyeye ve ev sahibine nezaket ve saygıyla yaklaş.",
+          "dms": "İzinsiz DM atma - özelden mesaj atmadan önce mutlaka sor.",
+          "rsvp": "RSVP'ye dürüst yaklaş. Gelemiyorsan önceden iptal et - haber vermeden gelmemek topluluktan çıkarılmaya yol açabilir.",
+          "payment": "Herkes kendi hesabını öder. Ortak masrafları gecikmeden hallet.",
+          "notDating": "Burası sosyal bir topluluk, flört uygulaması değil. Saygılı ol.",
+          "noMisuse": "Grubu satış, toplu mesaj, siyasi tartışma veya taciz için kullanma.",
+          "admins": "Yöneticiler kuralları çiğneyen üyeleri çıkarabilir."
+        },
+        "agreeLabel": "Bu topluluk kurallarını okudum ve kabul ediyorum"
+      },
+      "final": {
+        "label": "Az Kaldı",
+        "title": "Neredeyse içerdesin!",
+        "intro": "Son bir şey - neden katılmak istediğini anlat.",
+        "whyJoin": "Neden katılmak istiyorsun?",
+        "whyJoinPlaceholder": "Seni İstanbul'a getiren ne? Bu toplulukta ne bulmayı umuyorsun?",
+        "photoLabel": "Fotoğraf Doğrulaması",
+        "photoHelper": "Net bir fotoğrafını yükle. Güvenli bir topluluk için bu önemli. En fazla 10 MB.",
+        "photoUploaded": "Fotoğraf yüklendi - değiştir",
+        "photoUpload": "Fotoğraf yükle",
+        "photoSuccess": "Fotoğraf başarıyla yüklendi.",
+        "photoTooLarge": "Fotoğraf çok büyük",
+        "photoTooLargeDetail": "En fazla 10 MB.",
+        "photoUploadSuccess": "Fotoğraf yüklendi!",
+        "uploadFailed": "Yükleme başarısız",
+        "uploadFailedRetry": "Yükleme başarısız. Lütfen tekrar dene.",
+        "atmosphere": "Nasıl bir atmosfer arıyorsun?",
+        "atmosphereOptions": {
+          "friendly": "Arkadaşça ve sosyal",
+          "professional": "Profesyonel networking",
+          "party": "Parti odaklı",
+          "calm": "Sakin ve aktivite tabanlı"
+        }
+      }
+    }
+  },
+  "relocationAgentPage": {
+    "meta": {
+      "title": "İstanbul taşınma planını oluştur",
+      "description": "Nasıl yaşadığını anlat, sana mahalleyi, bütçeyi ve ilk ayı planlayalım - sadece sahada doğruladığımız bilgilerle.",
+      "ogDescription": "İstanbul'a taşınan dijital göçebeler için kişisel mahalle önerisi, aylık bütçe ve ilk ay yapılacaklar listesi."
+    },
+    "intro": {
+      "title": "İstanbul taşınma planını oluştur",
+      "description": "Nasıl yaşadığını anlat, sana mahalleyi, bütçeyi ve ilk ayı planlayalım - sadece sahada doğruladığımız bilgilerle."
+    },
+    "form": {
+      "budget": "Aylık bütçe",
+      "budgetHelper": "Rahatça aylık harcayabileceğin miktar.",
+      "currencyLabel": "Para birimi",
+      "duration": "Ne kadar kalmayı planlıyorsun?",
+      "durationOptions": {
+        "few-weeks": "Birkaç hafta",
+        "1-3-months": "1-3 ay",
+        "3-6-months": "3-6 ay",
+        "6-plus-months": "6+ ay"
+      },
+      "lifestyle": "Nasıl bir yaşam tarzı istiyorsun?",
+      "lifestyleOptions": {
+        "social": "Sosyal",
+        "quiet": "Sakin",
+        "mixed": "Karışık"
+      },
+      "work": "Nasıl çalışıyorsun?",
+      "workOptions": {
+        "remote-fulltime": "Tam zamanlı uzaktan",
+        "remote-flex": "Uzaktan, esnek saatler",
+        "freelance": "Freelance",
+        "founder": "Kurucu / proje geliştiren",
+        "other": "Diğer"
+      },
+      "origin": "Nereden geliyorsun?",
+      "originSkip": "Geç / emin değilim",
+      "originOther": "Diğer ülke",
+      "originHelper": "Ülkene özel bir rehberimiz varsa onu da plana ekleriz.",
+      "mustHaves": "Olmazsa olmazlar",
+      "mustHaveOptions": {
+        "fast wifi": "Hızlı wifi",
+        "ferry commute": "Vapurla ulaşım",
+        "quiet street": "Sakin sokak",
+        "social scene": "Sosyal ortam",
+        "gym nearby": "Yakında spor salonu",
+        "vegetarian-friendly": "Vejetaryen dostu",
+        "near coworking": "Coworking yakını"
+      },
+      "mustHavesHelper": "Uyanlara dokun. Hiçbir şey uymuyorsa geç.",
+      "notes": "Bilmemiz gereken başka bir şey var mı?",
+      "notesPlaceholder": "Partnerinle mi geliyorsun? Evcil hayvanın var mı? Özel bir rutinin?",
+      "notesHelper": "Bunu ajana olduğu gibi iletiyoruz.",
+      "notesCounter": "{count}/{max}",
+      "optional": "(opsiyonel)",
+      "privacy": "Giriş yapmadığın sürece verilerin saklanmaz.",
+      "submit": "Planımı oluştur",
+      "submitting": "Planın hazırlanıyor...",
+      "errors": {
+        "budgetEmpty": "Bir tier eşleştirebilmemiz için bir bütçe söyle.",
+        "budgetInvalid": "Bütçe tam sayı olmalı.",
+        "budgetRange": "Bütçe garip görünüyor. 200 ile 20000 arasında bir sayı dene.",
+        "notesTooLong": "Notları {max} karakterin altında tut. Şu an {count}.",
+        "notesOverride": "Notlar çok uzun. {max} karakterin altında tut.",
+        "mustHavesOverride": "En fazla 10 olmazsa olmaz seç.",
+        "fieldGeneric": "Bu alan garip görünüyor.",
+        "toastTitle": "Birkaç alana bakman gerek",
+        "toastDetail": "İşaretli olanları kontrol edip tekrar dene.",
+        "buildFailTitle": "Planın oluşturulamadı",
+        "buildFailFix": "Bazı alanların düzeltilmesi gerek.",
+        "buildFailTimeout": "Ajan çok uzun sürdü. Bir dakika sonra tekrar dene.",
+        "buildFailRetry": "Bir dakika sonra tekrar dene.",
+        "buildFailUnexpected": "Beklenmedik bir yanıt geldi. Tekrar dene.",
+        "buildFailNetwork": "Ağ takıldı. Bir dakika sonra tekrar dene."
+      }
+    },
+    "result": {
+      "recapLabel": "Planın şuna göre",
+      "perMonth": "{currency} {budget}/ay",
+      "lifestyleSuffix": "{lifestyle} yaşam",
+      "fromCountry": "{flag} {name} ülkesinden",
+      "summary": {
+        "eyebrow": "Planın, sade dille",
+        "title": "Kısa versiyonu"
+      },
+      "neighborhood": {
+        "sideSuffix": "{side} yaka",
+        "bestFit": "En iyi uyum",
+        "rent": "Kira (1+1)",
+        "noise": "Gürültü",
+        "bestFor": "Şuna uygun",
+        "readGuide": "{name} rehberini oku",
+        "alsoWorth": "Şuna da bak"
+      },
+      "atAGlance": {
+        "monthlyTotal": "Aylık toplam",
+        "tier": "Seviye",
+        "weekPlanLabel": "Hafta planı",
+        "weeks": "{count} hafta",
+        "week": "{count} hafta",
+        "tipsLabel": "Sana özel ipuçları"
+      },
+      "costGroups": {
+        "Housing": "Konut",
+        "Food & drink": "Yiyecek ve içecek",
+        "Transport": "Ulaşım",
+        "Connectivity": "Bağlantı",
+        "Work": "Çalışma",
+        "Lifestyle": "Yaşam tarzı",
+        "Other": "Diğer"
+      },
+      "cost": {
+        "tierLow": "Ekonomik",
+        "tierMid": "Orta",
+        "tierHigh": "Rahat",
+        "tierEyebrow": "{tier} seviye - yaklaşık",
+        "monthlyTotalTitle": "${total} / ay"
+      },
+      "setup": {
+        "eyebrow": "İlk ay",
+        "title": "Kurulum planı",
+        "weekHeading": "Hafta {number}"
+      },
+      "strategy": {
+        "eyebrow": "Strateji",
+        "title": "Daha geniş bakış"
+      },
+      "tips": {
+        "eyebrow": "İpuçları",
+        "title": "Bize teşekkür edeceğin şeyler"
+      },
+      "sources": {
+        "label": "Bunu neden seçtik",
+        "summarySingle": "{count} doğrulanmış kaynaktan deterministik olarak oluşturuldu",
+        "summaryPlural": "{count} doğrulanmış kaynaktan deterministik olarak oluşturuldu",
+        "retrievedSuffix": " + {count} alınan parça",
+        "types": {
+          "guide": "Rehber",
+          "blog": "Blog",
+          "path": "Ülke rehberi",
+          "neighborhood": "Mahalle",
+          "space": "Mekan",
+          "cost-tier": "Maliyet seviyesi",
+          "setup-step": "Kurulum adımı"
+        }
+      },
+      "actions": {
+        "reset": "Baştan başla",
+        "email": "Bana e-postayla gönder",
+        "emailSubject": "İstanbul taşınma planım"
+      }
+    }
+  },
+  "errorPages": {
+    "error": {
+      "eyebrow": "Hop",
+      "title": "Bir şeyler ters gitti",
+      "description": "Endişelenme, sen değilsin. Yenilemeyi dene ya da anasayfaya dön.",
+      "tryAgain": "Tekrar dene",
+      "goHome": "Anasayfa"
+    },
+    "notFound": {
+      "code": "404",
+      "title": "Sayfa bulunamadı",
+      "description": "Bu sayfa yok ya da taşınmış. Şu yerlere göz atabilirsin:",
+      "goHome": "Anasayfa",
+      "browseGuides": "Rehberlere göz at",
+      "viewEvents": "Etkinlikleri gör",
+      "askTelegram": "Ya da Telegram grubunda sor"
+    },
+    "loading": {
+      "srLabel": "Sayfa içeriği yükleniyor"
+    }
+  },
+  "blogIndexPage": {
+    "meta": {
+      "title": "Blog",
+      "description": "İstanbul'da yaşayan dijital göçebelerden topluluk hikayeleri, İstanbul ipuçları ve uzaktan çalışma içgörüleri."
+    },
+    "hero": {
+      "title": "Blog",
+      "intro": "İstanbul'da yaşayan uzaktan çalışanlardan hikayeler, ipuçları ve içgörüler."
+    },
+    "search": {
+      "placeholder": "Yazılarda ara...",
+      "allPosts": "Tüm yazılar",
+      "noResults": "Aramanla eşleşen yazı yok. Farklı bir terim veya etiket dene."
+    }
+  },
+  "blogPostPage": {
+    "breadcrumb": {
+      "home": "Ana sayfa",
+      "blog": "Blog"
+    },
+    "backToBlog": "Tüm yazılara dön",
+    "translationInProgress": "Bu yazı henüz {language} diline çevrilmedi. İngilizce orijinalini okuyorsun."
+  }
+}

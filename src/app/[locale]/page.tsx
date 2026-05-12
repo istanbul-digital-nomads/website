@@ -466,7 +466,7 @@ export default async function HomePage({
                   className="group inline-flex items-center gap-2 font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-[#f2f3f4] dark:hover:text-primary-400"
                 >
                   {t("events.seeAll")}
-                  <MoveUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  <MoveUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
                 </Link>
               </Reveal>
             </div>
@@ -529,7 +529,7 @@ export default async function HomePage({
                         </p>
                       </div>
                     </div>
-                    <ArrowRight className="mt-1 h-5 w-5 shrink-0 text-neutral-400 transition-transform group-hover:translate-x-1 group-hover:text-primary-600 dark:group-hover:text-primary-400" />
+                    <ArrowRight className="mt-1 h-5 w-5 shrink-0 text-neutral-400 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 group-hover:text-primary-600 dark:group-hover:text-primary-400" />
                   </Link>
                 </Reveal>
               ))}

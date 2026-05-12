@@ -153,7 +153,7 @@ export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
                         })}
                       </p>
                     </div>
-                    <ArrowRight className="mt-1 h-5 w-5 shrink-0 text-neutral-400 transition-transform group-hover:translate-x-1 group-hover:text-primary-600 dark:group-hover:text-primary-300" />
+                    <ArrowRight className="mt-1 h-5 w-5 shrink-0 text-neutral-400 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 group-hover:text-primary-600 dark:group-hover:text-primary-300" />
                   </div>
 
                   <div className="mt-3 flex flex-wrap gap-1.5">

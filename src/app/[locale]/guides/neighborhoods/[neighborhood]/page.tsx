@@ -302,7 +302,7 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
                         {tList(`${o.slug}.oneLiner`)}
                       </p>
                     </div>
-                    <ArrowRight className="h-5 w-5 shrink-0 text-neutral-400 transition-transform group-hover:translate-x-1 group-hover:text-primary-600 dark:group-hover:text-primary-400" />
+                    <ArrowRight className="h-5 w-5 shrink-0 text-neutral-400 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 group-hover:text-primary-600 dark:group-hover:text-primary-400" />
                   </Link>
                 ))}
               </div>

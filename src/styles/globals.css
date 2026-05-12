@@ -139,12 +139,21 @@
   html[dir="rtl"] svg.lucide-circle-chevron-right,
   html[dir="rtl"] svg.lucide-square-arrow-right,
   html[dir="rtl"] svg.lucide-square-chevron-right {
-    transform: scaleX(-1);
+    /* Set the Tailwind --tw-scale-x variable so the mirror composes with
+       any hover translate utilities applied via `group-hover:translate-x-*`.
+       Using `transform: scaleX(-1)` directly here would be overridden by
+       Tailwind's hover rules (which have higher specificity), losing the
+       mirror on hover. */
+    --tw-scale-x: -1;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+      rotate(var(--tw-rotate)) skewX(var(--tw-skew-x))
+      skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x))
+      scaleY(var(--tw-scale-y));
   }
 
   /* Escape hatch: explicit `rtl-keep` class disables the mirror. */
   html[dir="rtl"] svg.rtl-keep {
-    transform: none;
+    --tw-scale-x: 1;
   }
 
   /* Decorative body gradients - deferred to avoid blocking first paint */

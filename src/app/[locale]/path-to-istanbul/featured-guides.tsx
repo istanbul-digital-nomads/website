@@ -48,7 +48,7 @@ async function PopularPaths() {
                   </div>
                 </div>
               </div>
-              <ArrowRight className="h-4 w-4 text-primary-600 transition-transform group-hover:translate-x-0.5 dark:text-primary-400" />
+              <ArrowRight className="h-4 w-4 text-primary-600 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 dark:text-primary-400" />
             </div>
           </Link>
         ))}

@@ -77,6 +77,55 @@ Maintained by `nomad-fa-editor`. Track high-intent Persian search terms for Iran
 | اقامت ترکیه ایرانی‌ها | high | /fa/blog/iran-to-istanbul-playbook-companion |
 | زندگی ایرانی در استانبول | high | /fa/blog/iran-to-istanbul-playbook-companion |
 | تهران به استانبول | high | /fa/blog/iran-to-istanbul-playbook-companion |
+| ویزا و اقامت ترکیه | high | /fa/guides/visa |
+| ای‌ویزای ترکیه | high | /fa/guides/visa |
+| اجازهٔ اقامت کوتاه‌مدت | high | /fa/guides/visa |
+| ikamet ترکیه | medium | /fa/guides/visa |
+| هزینهٔ زندگی ۲۰۲۶ استانبول | high | /fa/guides/cost-of-living |
+| بودجهٔ ماهانه استانبول | high | /fa/guides/cost-of-living |
+| اجارهٔ کادیکوی | medium | /fa/guides/cost-of-living, /fa/guides/housing |
+| فضای کار اشتراکی استانبول | high | /fa/guides/coworking |
+| کوورکینگ کادیکوی | medium | /fa/guides/coworking |
+| Kolektif House استانبول | medium | /fa/guides/coworking |
+| فرهنگ ترکیه برای خارجی‌ها | medium | /fa/guides/culture |
+| یادگیری ترکی | high | /fa/guides/culture |
+| عبارت‌های پایهٔ ترکی | medium | /fa/guides/culture |
+| زندگی شبانهٔ استانبول | high | /fa/guides/entertainment |
+| میخانهٔ استانبول | medium | /fa/guides/entertainment |
+| حمام ترکی استانبول | medium | /fa/guides/entertainment |
+| جزایر شاهزادگان | medium | /fa/guides/entertainment |
+| غذای استانبول | high | /fa/guides/food |
+| لوکانتای استانبول | medium | /fa/guides/food |
+| صبحانهٔ ترکی | high | /fa/guides/food |
+| بیمارستان خصوصی استانبول | high | /fa/guides/healthcare |
+| بیمهٔ سلامت ترکیه | high | /fa/guides/healthcare |
+| توریسم دندان‌پزشکی استانبول | medium | /fa/guides/healthcare |
+| اجارهٔ آپارتمان استانبول | high | /fa/guides/housing |
+| Sahibinden به فارسی | medium | /fa/guides/housing |
+| Flatio استانبول | medium | /fa/guides/housing |
+| سیم‌کارت Turkcell | high | /fa/guides/internet |
+| ای‌سیم ترکیه | medium | /fa/guides/internet |
+| اینترنت فیبر استانبول | medium | /fa/guides/internet |
+| ثبت IMEI ترکیه | medium | /fa/guides/internet |
+| محلهٔ کادیکوی | high | /fa/guides/neighborhoods |
+| محلهٔ چیهانگیر | high | /fa/guides/neighborhoods |
+| محلهٔ نیشانتاشی | medium | /fa/guides/neighborhoods |
+| Istanbulkart | high | /fa/guides/transport |
+| مترو استانبول | high | /fa/guides/transport |
+| کشتی استانبول | high | /fa/guides/transport |
+| انتقال فرودگاه استانبول | high | /fa/guides/transport |
+| بانک ترکیه برای ایرانی | high | /fa/path-to-istanbul/iran |
+| Ziraat برای ایرانی‌ها | medium | /fa/path-to-istanbul/iran |
+| شیشلی برای ایرانی‌ها | medium | /fa/path-to-istanbul/iran |
+| اسن‌یورت ایرانی‌ها | medium | /fa/path-to-istanbul/iran |
+| پرواز تهران استانبول | high | /fa/path-to-istanbul/iran |
+| Vakıfbank برای خارجی‌ها | medium | /fa/path-to-istanbul/iran, /fa/path-to-istanbul/russia |
+| مهاجرت هندی به استانبول | medium | /fa/path-to-istanbul/india |
+| مهاجرت پاکستانی به استانبول | medium | /fa/path-to-istanbul/pakistan |
+| مهاجرت نیجریه‌ای به استانبول | low | /fa/path-to-istanbul/nigeria |
+| مهاجرت روسی به استانبول | high | /fa/path-to-istanbul/russia |
+| تحریم بانکی روسی ترکیه | medium | /fa/path-to-istanbul/russia |
+| MIR در ترکیه | medium | /fa/path-to-istanbul/russia |
 
 ## Place-name spellings (canonical)
 
@@ -90,6 +139,30 @@ Maintained by `nomad-fa-editor`. Track high-intent Persian search terms for Iran
 - کاراکوی
 - گالاتا
 - بالات
+- مودا
+- نیشانتاشی
+- لِوِنت
+- ساری‌یر
+- آتاشهیر
+- اسن‌یورت
+- بیلیک‌دوزو
+- زیتین‌بورنو
+- فاتح
+- آک‌سرای
+- لاله‌لی
+- کومکاپی
+- باشاک‌شهیر
+- مجیدیه‌کوی
+- کاغذخانه
+- ماسلاک
+- توپ‌هانه
+- سلطان‌احمد
+- گایرت‌تپه
+- چاناک‌قلعه
+- کاپادوکیه
+- بورسا
+- ازمیر
+- آنکارا
 
 ## Notes
 

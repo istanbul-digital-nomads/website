@@ -14,62 +14,22 @@ export type RhythmKey =
   | "nightlife"
   | "character";
 
+// Prose for each rhythm option (label/shortLabel/description) lives in the
+// `sections.rhythmSignals` namespace and is read in the consumer via
+// `useTranslations`. The data layer only owns the stable ordering and keys.
 export interface RhythmOption {
   key: RhythmKey;
-  label: string;
-  shortLabel: string;
-  description: string;
 }
 
 export const rhythmOptions: RhythmOption[] = [
-  {
-    key: "quiet",
-    label: "Quiet routine",
-    shortLabel: "Quiet",
-    description: "Low-noise streets, calmer evenings, easier focus.",
-  },
-  {
-    key: "social",
-    label: "Social momentum",
-    shortLabel: "Social",
-    description: "Easy first friends, events, cafes, and after-work plans.",
-  },
-  {
-    key: "budget",
-    label: "Budget aware",
-    shortLabel: "Budget",
-    description: "Better rent value without losing daily convenience.",
-  },
-  {
-    key: "ferry",
-    label: "Ferry-first",
-    shortLabel: "Ferry",
-    description: "A commute that feels like a reset instead of a chore.",
-  },
-  {
-    key: "seaside",
-    label: "Seaside walks",
-    shortLabel: "Seaside",
-    description: "Water, sunset routes, and an easier nervous system.",
-  },
-  {
-    key: "business",
-    label: "Business mode",
-    shortLabel: "Business",
-    description: "Coworking density, meeting access, gyms, and infrastructure.",
-  },
-  {
-    key: "nightlife",
-    label: "Nightlife nearby",
-    shortLabel: "Nightlife",
-    description: "Bars, dinners, galleries, and spontaneous evenings.",
-  },
-  {
-    key: "character",
-    label: "Character-heavy",
-    shortLabel: "Character",
-    description: "Historic streets, imperfect charm, and memorable texture.",
-  },
+  { key: "quiet" },
+  { key: "social" },
+  { key: "budget" },
+  { key: "ferry" },
+  { key: "seaside" },
+  { key: "business" },
+  { key: "nightlife" },
+  { key: "character" },
 ];
 
 type RhythmScoreMap = Record<RhythmKey, number>;
@@ -245,68 +205,32 @@ function buildReasons(
   return reasons.slice(0, 3);
 }
 
-export const conditionalNeighborhoodAreas = [
-  {
-    area: "Yeldegirmeni",
-    bestFor: "Cheaper Kadikoy-adjacent living, artists",
-    tradeoff: "Older buildings, uneven apartment quality",
-    verdict: "Yes, if Kadikoy is pricey",
-  },
-  {
-    area: "Bomonti / Ferikoy",
-    bestFor: "New builds, Bomontiada, central access",
-    tradeoff: "Less village feeling, more taxi/metro planning",
-    verdict: "Good for mid-stays",
-  },
-  {
-    area: "Sisli / Mecidiyekoy",
-    bestFor: "Metro access, errands, lower central rent",
-    tradeoff: "Dense, busy, less charming",
-    verdict: "Practical, not romantic",
-  },
-  {
-    area: "Etiler",
-    bestFor: "High budget, gyms, restaurants, comfort",
-    tradeoff: "Expensive, less walkable for daily nomad community",
-    verdict: "Yes, with a high budget",
-  },
-  {
-    area: "Kagithane",
-    bestFor: "Newer apartments, value near Levent",
-    tradeoff: "Car-heavy pockets, less neighborhood texture",
-    verdict: "Good if work is nearby",
-  },
+// The prose for each entry lives in the
+// `neighborhoodGuidePage.conditionalAreas.<id>` namespace; the data layer
+// owns only the stable id and ordering.
+export interface ConditionalAreaRef {
+  id: string;
+}
+
+export const conditionalNeighborhoodAreas: ConditionalAreaRef[] = [
+  { id: "yeldegirmeni" },
+  { id: "bomontiFerikoy" },
+  { id: "sisliMecidiyekoy" },
+  { id: "etiler" },
+  { id: "kagithane" },
 ];
 
-export const avoidFirstBaseAreas = [
-  {
-    area: "Sultanahmet",
-    why: "Beautiful for sightseeing, but tourist-heavy and weak for daily work life.",
-    exception: "Two or three nights before moving to a real base.",
-  },
-  {
-    area: "Fatih core",
-    why: "Central and cheaper, but harder for first-time apartment hunting.",
-    exception: "You have local help and know the exact street.",
-  },
-  {
-    area: "Esenyurt / Beylikduzu",
-    why: "Cheaper rents, but far from the community and central work/social life.",
-    exception: "Family reasons or a very specific west-side commitment.",
-  },
-  {
-    area: "Basaksehir",
-    why: "Newer housing, but car-dependent and disconnected from nomad routines.",
-    exception: "You need that district for family, work, or school.",
-  },
-  {
-    area: "Pendik / Tuzla",
-    why: "Useful for specific Asian-side work, otherwise too far east.",
-    exception: "Your office or partner is already there.",
-  },
-  {
-    area: "Princes' Islands",
-    why: "Beautiful and quiet, but ferry-dependent and awkward for regular meetups.",
-    exception: "A deliberate writing retreat or weekend reset.",
-  },
+// The prose for each entry lives in the
+// `neighborhoodGuidePage.avoidAreas.<id>` namespace.
+export interface AvoidAreaRef {
+  id: string;
+}
+
+export const avoidFirstBaseAreas: AvoidAreaRef[] = [
+  { id: "sultanahmet" },
+  { id: "fatihCore" },
+  { id: "esenyurtBeylikduzu" },
+  { id: "basaksehir" },
+  { id: "pendikTuzla" },
+  { id: "princesIslands" },
 ];

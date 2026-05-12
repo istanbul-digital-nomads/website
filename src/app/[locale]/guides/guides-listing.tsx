@@ -19,7 +19,7 @@ import {
 import { useTranslations } from "next-intl";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { guides, guideCategories, type GuideCategory } from "@/lib/data";
+import { guides, type GuideCategory } from "@/lib/data";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   MapPin,
@@ -41,18 +41,31 @@ interface GuidesListingProps {
 
 export function GuidesListing({ guidesWithContent }: GuidesListingProps) {
   const t = useTranslations("guidesIndexPage.listing");
+  const tGuides = useTranslations("guides");
+  const tCategories = useTranslations("guideCategories");
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<"all" | GuideCategory>("all");
 
+  const categoryKeys: GuideCategory[] = [
+    "getting-started",
+    "daily-life",
+    "living-here",
+  ];
   const categories = [
     { value: "all" as const, label: t("allGuides") },
-    ...Object.entries(guideCategories).map(([value, { label }]) => ({
-      value: value as GuideCategory,
-      label,
+    ...categoryKeys.map((value) => ({
+      value,
+      label: tCategories(`${value}.label`),
     })),
   ];
 
-  const filtered = guides.filter((guide) => {
+  const localized = guides.map((guide) => ({
+    ...guide,
+    title: tGuides(`${guide.slug}.title`),
+    description: tGuides(`${guide.slug}.description`),
+  }));
+
+  const filtered = localized.filter((guide) => {
     const matchesSearch =
       search === "" ||
       guide.title.toLowerCase().includes(search.toLowerCase()) ||

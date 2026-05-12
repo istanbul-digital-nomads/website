@@ -24,12 +24,18 @@ import {
 
 const SLUG = "neighborhoods";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
   const guide = guides.find((g) => g.slug === SLUG);
   if (!guide) return {};
+  const locale = isValidLocale(params.locale) ? params.locale : defaultLocale;
+  const t = await getTranslations({ locale, namespace: "guides" });
   return {
-    title: guide.title,
-    description: guide.description,
+    title: t(`${SLUG}.title`),
+    description: t(`${SLUG}.description`),
   };
 }
 
@@ -39,11 +45,15 @@ export default async function NeighborhoodsOverviewPage({
   params: { locale: string };
 }) {
   const tList = await getTranslations("neighborhoodList");
+  const tGuides = await getTranslations("guides");
+  const tPage = await getTranslations("guideDetailPage");
   const guide = guides.find((g) => g.slug === SLUG);
   if (!guide) notFound();
 
   const locale = isValidLocale(params.locale) ? params.locale : defaultLocale;
   const guideContent = getGuideContent(SLUG, locale);
+  const localizedTitle = tGuides(`${SLUG}.title`);
+  const localizedDescription = tGuides(`${SLUG}.description`);
 
   return (
     <>
@@ -55,32 +65,34 @@ export default async function NeighborhoodsOverviewPage({
                 href="/"
                 className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
               >
-                Home
+                {tPage("breadcrumb.home")}
               </Link>
               <span>/</span>
               <Link
                 href="/guides"
                 className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
               >
-                Guides
+                {tPage("breadcrumb.guides")}
               </Link>
               <span>/</span>
               <span className="text-[#1a1a2e] dark:text-[#f2f3f4]">
-                {guide.title}
+                {localizedTitle}
               </span>
             </nav>
 
             <h1 className="text-4xl font-bold tracking-tight text-[#1a1a2e] dark:text-[#f2f3f4] sm:text-5xl">
-              {guide.title}
+              {localizedTitle}
             </h1>
             <p className="mt-4 text-lg text-[#5d6d7e] dark:text-[#99a3ad]">
-              {guideContent?.frontmatter.description || guide.description}
+              {guideContent?.frontmatter.description || localizedDescription}
             </p>
 
             {guideContent?.frontmatter.lastUpdated && (
               <div className="mt-4 flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
                 <Calendar className="h-4 w-4" />
-                Last updated {formatDate(guideContent.frontmatter.lastUpdated)}
+                {tPage("lastUpdatedTemplate", {
+                  date: formatDate(guideContent.frontmatter.lastUpdated),
+                })}
               </div>
             )}
           </div>

@@ -20,13 +20,15 @@ export default async function Image({ params }: Props) {
   const guide = guides.find((g) => g.slug === params.slug);
   const guideContent = guide ? getGuideContent(params.slug, locale) : null;
   const t = await getTranslations({ locale, namespace: "og" });
+  const tGuides = await getTranslations({ locale, namespace: "guides" });
   return renderOgImage({
     category: t("guideDetail.category"),
     title:
       guideContent?.frontmatter.title ??
-      guide?.title ??
-      t("guideDetail.fallbackTitle"),
-    description: guideContent?.frontmatter.description ?? guide?.description,
+      (guide ? tGuides(`${guide.slug}.title`) : t("guideDetail.fallbackTitle")),
+    description:
+      guideContent?.frontmatter.description ??
+      (guide ? tGuides(`${guide.slug}.description`) : undefined),
     tagline: t("tagline"),
   });
 }

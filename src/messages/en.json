@@ -2052,5 +2052,29 @@
       "title": "Coworking spaces, rated by nomads",
       "description": "Wifi, noise, coffee, and vibe - scored by people who actually worked there."
     }
+  },
+  "guideCategories": {
+    "getting-started": {
+      "label": "Getting Started",
+      "description": "The essentials for your first month"
+    },
+    "daily-life": {
+      "label": "Daily Life",
+      "description": "Staying connected and productive"
+    },
+    "living-here": {
+      "label": "Living Here",
+      "description": "Health, culture, and language"
+    }
+  },
+  "guideDetailPage": {
+    "breadcrumb": {
+      "home": "Home",
+      "guides": "Guides"
+    },
+    "lastUpdatedTemplate": "Last updated {date}",
+    "comingSoon": "We're writing this guide with input from the community. Check back soon.",
+    "contributeIntro": "Know something useful? Share it in the",
+    "telegramLinkText": "Telegram group"
   }
 }

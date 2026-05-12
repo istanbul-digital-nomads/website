@@ -63,6 +63,7 @@ export default async function CountryPage({ params }: CountryPageProps) {
   if (!content) notFound();
 
   const t = await getTranslations("countryPage");
+  const tGuides = await getTranslations({ locale, namespace: "guides" });
 
   const { content: mdxSource, frontmatter } = content;
 
@@ -169,10 +170,10 @@ export default async function CountryPage({ params }: CountryPageProps) {
                         {t("related.cityGuideLabel")}
                       </p>
                       <p className="mt-1 font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                        {g.title}
+                        {tGuides(`${g.slug}.title`)}
                       </p>
                       <p className="mt-1 line-clamp-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
-                        {g.description}
+                        {tGuides(`${g.slug}.description`)}
                       </p>
                     </Link>
                   ))}

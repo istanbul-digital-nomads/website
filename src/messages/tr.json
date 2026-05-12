@@ -2052,5 +2052,29 @@
       "title": "Göçebelerin puanladığı coworking alanları",
       "description": "Wifi, gürültü, kahve ve hava - orada gerçekten çalışmış kişiler tarafından puanlanır."
     }
+  },
+  "guideCategories": {
+    "getting-started": {
+      "label": "Başlangıç",
+      "description": "İlk ayın temel bilgileri"
+    },
+    "daily-life": {
+      "label": "Günlük Yaşam",
+      "description": "Bağlı ve üretken kalmak"
+    },
+    "living-here": {
+      "label": "Burada Yaşamak",
+      "description": "Sağlık, kültür ve dil"
+    }
+  },
+  "guideDetailPage": {
+    "breadcrumb": {
+      "home": "Ana sayfa",
+      "guides": "Rehberler"
+    },
+    "lastUpdatedTemplate": "Son güncelleme: {date}",
+    "comingSoon": "Bu rehberi topluluğun katkılarıyla yazıyoruz. Yakında tekrar uğra.",
+    "contributeIntro": "Faydalı bir şey biliyor musun? Şurada paylaş",
+    "telegramLinkText": "Telegram grubu"
   }
 }

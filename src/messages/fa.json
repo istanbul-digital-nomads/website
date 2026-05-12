@@ -2052,5 +2052,29 @@
       "title": "فضاهای کار اشتراکی، با امتیاز دیجیتال نومدها",
       "description": "وای‌فای، صدا، قهوه و فضا - با امتیاز کسانی که واقعاً آنجا کار کرده‌اند."
     }
+  },
+  "guideCategories": {
+    "getting-started": {
+      "label": "شروع کار",
+      "description": "ضروری‌های ماه اول تو"
+    },
+    "daily-life": {
+      "label": "زندگی روزمره",
+      "description": "متصل و بهره‌ور ماندن"
+    },
+    "living-here": {
+      "label": "زندگی این‌جا",
+      "description": "سلامت، فرهنگ و زبان"
+    }
+  },
+  "guideDetailPage": {
+    "breadcrumb": {
+      "home": "خانه",
+      "guides": "راهنماها"
+    },
+    "lastUpdatedTemplate": "آخرین به‌روزرسانی: {date}",
+    "comingSoon": "این راهنما را با کمک جامعه می‌نویسیم. به‌زودی برگرد.",
+    "contributeIntro": "چیز مفیدی می‌دانی؟ آن را اینجا به اشتراک بگذار",
+    "telegramLinkText": "گروه تلگرام"
   }
 }

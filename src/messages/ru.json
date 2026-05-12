@@ -2052,5 +2052,29 @@
       "title": "Коворкинги, оценённые кочевниками",
       "description": "Wifi, шум, кофе и атмосфера - оценки от людей, которые там реально работали."
     }
+  },
+  "guideCategories": {
+    "getting-started": {
+      "label": "Начало пути",
+      "description": "Главное для первого месяца"
+    },
+    "daily-life": {
+      "label": "Повседневная жизнь",
+      "description": "Оставаться на связи и в потоке"
+    },
+    "living-here": {
+      "label": "Жизнь здесь",
+      "description": "Здоровье, культура и язык"
+    }
+  },
+  "guideDetailPage": {
+    "breadcrumb": {
+      "home": "Главная",
+      "guides": "Гиды"
+    },
+    "lastUpdatedTemplate": "Последнее обновление: {date}",
+    "comingSoon": "Пишем этот гид с участием сообщества. Загляни позже.",
+    "contributeIntro": "Знаешь что-то полезное? Поделись в",
+    "telegramLinkText": "Telegram-канале"
   }
 }

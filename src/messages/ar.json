@@ -2052,5 +2052,29 @@
       "title": "فضاءات عمل مشترك، مقيّمة من الرحّالة",
       "description": "وايفاي، ضجيج، قهوة، وأجواء - تقييم من أناس عملوا فيها فعلاً."
     }
+  },
+  "guideCategories": {
+    "getting-started": {
+      "label": "البداية",
+      "description": "الأساسيات لشهرك الأول"
+    },
+    "daily-life": {
+      "label": "الحياة اليومية",
+      "description": "البقاء متصلاً ومنتجاً"
+    },
+    "living-here": {
+      "label": "العيش هنا",
+      "description": "الصحة والثقافة واللغة"
+    }
+  },
+  "guideDetailPage": {
+    "breadcrumb": {
+      "home": "الرئيسية",
+      "guides": "الأدلّة"
+    },
+    "lastUpdatedTemplate": "آخر تحديث: {date}",
+    "comingSoon": "نكتب هذا الدليل بمساهمات المجتمع. عُد قريباً.",
+    "contributeIntro": "تعرف شيئاً مفيداً؟ شاركه في",
+    "telegramLinkText": "مجموعة تلغرام"
   }
 }

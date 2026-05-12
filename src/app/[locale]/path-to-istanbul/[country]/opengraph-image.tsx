@@ -1,6 +1,7 @@
-import { renderOgImage, ogSize, ogContentType } from "@/lib/og-image";
+import { renderOgImage, ogLocale, ogSize, ogContentType } from "@/lib/og-image";
 import { getCountryBySlug } from "@/lib/path-to-istanbul";
 import { getPathContent } from "@/lib/path-to-istanbul-content";
+import { getTranslations } from "next-intl/server";
 import { isValidLocale, defaultLocale } from "@/lib/i18n/config";
 
 export const runtime = "nodejs";
@@ -12,22 +13,30 @@ interface Props {
   params: { locale: string; country: string };
 }
 
-export default function Image({ params }: Props) {
-  const locale = isValidLocale(params.locale) ? params.locale : defaultLocale;
+export default async function Image({ params }: Props) {
+  const locale = ogLocale(
+    isValidLocale(params.locale) ? params.locale : defaultLocale,
+  );
   const country = getCountryBySlug(params.country);
   const content = country ? getPathContent(country.slug, locale) : null;
+  const t = await getTranslations({ locale, namespace: "og" });
+
+  const categoryBase = t("pathToIstanbulCountry.category");
   const title = country
-    ? `Moving to Istanbul from ${country.name}`
-    : "Path to Istanbul";
+    ? t("pathToIstanbulCountry.titleTemplate", { country: country.name })
+    : t("pathToIstanbulCountry.fallbackTitle");
   const description =
     content?.frontmatter.summary ??
     (country
-      ? `Visa, flights, housing, and community for ${country.name}-born nomads moving to Istanbul.`
+      ? t("pathToIstanbulCountry.fallbackDescriptionTemplate", {
+          country: country.name,
+        })
       : undefined);
 
   return renderOgImage({
-    category: `${country?.flag ?? ""} Path to Istanbul`.trim(),
+    category: `${country?.flag ?? ""} ${categoryBase}`.trim(),
     title,
     description,
+    tagline: t("tagline"),
   });
 }

@@ -1,15 +1,25 @@
-import { renderOgImage, ogSize, ogContentType } from "@/lib/og-image";
+import { renderOgImage, ogLocale, ogSize, ogContentType } from "@/lib/og-image";
+import { getTranslations } from "next-intl/server";
+import { isValidLocale, defaultLocale } from "@/lib/i18n/config";
 
 export const runtime = "edge";
 export const size = ogSize;
 export const contentType = ogContentType;
 export const alt = "Istanbul Local Guides";
 
-export default function Image() {
+interface Props {
+  params: { locale: string };
+}
+
+export default async function Image({ params }: Props) {
+  const locale = ogLocale(
+    isValidLocale(params.locale) ? params.locale : defaultLocale,
+  );
+  const t = await getTranslations({ locale, namespace: "og" });
   return renderOgImage({
-    category: "Local Guides",
-    title: "Meet people who made the move",
-    description:
-      "Locals and fellow nomads who can help you settle in faster - paperwork, neighborhoods, and community.",
+    category: t("localGuides.category"),
+    title: t("localGuides.title"),
+    description: t("localGuides.description"),
+    tagline: t("tagline"),
   });
 }

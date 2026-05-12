@@ -13,7 +13,12 @@ import {
   getCountryBySlug,
 } from "@/lib/path-to-istanbul";
 import { getPathContent } from "@/lib/path-to-istanbul-content";
-import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
+import {
+  isValidLocale,
+  defaultLocale,
+  bcp47,
+  type Locale,
+} from "@/lib/i18n/config";
 import { guides as cityGuides } from "@/lib/data";
 import { getAllBlogPosts } from "@/lib/blog";
 import { CountryHero } from "./country-hero";
@@ -75,6 +80,7 @@ export default async function CountryPage({ params }: CountryPageProps) {
     "@type": "HowTo",
     name: t("meta.titleTemplate", { country: country.name }),
     description: frontmatter.summary,
+    inLanguage: content.translated ? bcp47[locale] : bcp47[defaultLocale],
     step: [
       {
         "@type": "HowToStep",

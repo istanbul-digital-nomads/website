@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import Map, {
   type MapRef,
   Marker,
@@ -113,6 +114,7 @@ function CountryMarker({
 export function WorldMap() {
   const router = useRouter();
   const { theme } = useTheme();
+  const t = useTranslations("pathToIstanbulPage.map");
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MapRef | null>(null);
   const [mounted, setMounted] = useState(false);
@@ -270,7 +272,7 @@ export function WorldMap() {
         {/* Turkey destination label (always visible HTML marker, independent of map layers) */}
         <Marker longitude={35.2433} latitude={39.1} anchor="center">
           <div
-            aria-label="Turkey - your destination country"
+            aria-label={t("turkeyLabel")}
             className="pointer-events-none flex items-center gap-1.5 rounded-full bg-primary-500 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg ring-2 ring-white/80 dark:ring-[#1a1a2e]/80"
           >
             <span aria-hidden="true">🇹🇷</span>
@@ -281,7 +283,7 @@ export function WorldMap() {
         {/* Istanbul pin */}
         <Marker longitude={ISTANBUL[0]} latitude={ISTANBUL[1]} anchor="bottom">
           <div
-            aria-label="Istanbul - your destination"
+            aria-label={t("istanbulLabel")}
             className="pointer-events-none flex flex-col items-center"
           >
             <span className="mb-1 rounded-full bg-[#1a1a2e] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-lg ring-2 ring-primary-500">

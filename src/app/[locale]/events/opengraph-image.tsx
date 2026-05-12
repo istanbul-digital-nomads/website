@@ -1,15 +1,25 @@
-import { renderOgImage, ogSize, ogContentType } from "@/lib/og-image";
+import { renderOgImage, ogLocale, ogSize, ogContentType } from "@/lib/og-image";
+import { getTranslations } from "next-intl/server";
+import { isValidLocale, defaultLocale } from "@/lib/i18n/config";
 
 export const runtime = "edge";
 export const size = ogSize;
 export const contentType = ogContentType;
 export const alt = "Istanbul Nomad Events";
 
-export default function Image() {
+interface Props {
+  params: { locale: string };
+}
+
+export default async function Image({ params }: Props) {
+  const locale = ogLocale(
+    isValidLocale(params.locale) ? params.locale : defaultLocale,
+  );
+  const t = await getTranslations({ locale, namespace: "og" });
   return renderOgImage({
-    category: "Events",
-    title: "Weekly coworking and monthly meetups",
-    description:
-      "Real people, real places. Join a session this week and meet the community.",
+    category: t("events.category"),
+    title: t("events.title"),
+    description: t("events.description"),
+    tagline: t("tagline"),
   });
 }

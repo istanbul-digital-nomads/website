@@ -1,5 +1,8 @@
-import { renderOgImage, ogSize, ogContentType } from "@/lib/og-image";
+import { renderOgImage, ogLocale, ogSize, ogContentType } from "@/lib/og-image";
 import { guides } from "@/lib/data";
+import { getGuideContent } from "@/lib/guides";
+import { getTranslations } from "next-intl/server";
+import { isValidLocale, defaultLocale } from "@/lib/i18n/config";
 
 export const runtime = "nodejs";
 export const size = ogSize;
@@ -7,14 +10,23 @@ export const contentType = ogContentType;
 export const alt = "Istanbul City Guide";
 
 interface Props {
-  params: { slug: string };
+  params: { locale: string; slug: string };
 }
 
-export default function Image({ params }: Props) {
+export default async function Image({ params }: Props) {
+  const locale = ogLocale(
+    isValidLocale(params.locale) ? params.locale : defaultLocale,
+  );
   const guide = guides.find((g) => g.slug === params.slug);
+  const guideContent = guide ? getGuideContent(params.slug, locale) : null;
+  const t = await getTranslations({ locale, namespace: "og" });
   return renderOgImage({
-    category: "City Guide",
-    title: guide?.title ?? "Istanbul City Guide",
-    description: guide?.description,
+    category: t("guideDetail.category"),
+    title:
+      guideContent?.frontmatter.title ??
+      guide?.title ??
+      t("guideDetail.fallbackTitle"),
+    description: guideContent?.frontmatter.description ?? guide?.description,
+    tagline: t("tagline"),
   });
 }

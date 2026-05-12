@@ -1420,6 +1420,10 @@
       "applyCta": "Apply to be a guide",
       "browseAll": "Browse all local guides",
       "yearsShort": "y in Istanbul"
+    },
+    "map": {
+      "turkeyLabel": "Turkey - your destination country",
+      "istanbulLabel": "Istanbul - your destination"
     }
   },
   "countryPage": {
@@ -1824,5 +1828,85 @@
     },
     "backToBlog": "Back to all posts",
     "translationInProgress": "This post hasn't been translated to {language} yet. You're reading the English original."
+  },
+  "og": {
+    "tagline": "Remote life, local rhythm",
+    "altText": {
+      "home": "Istanbul Digital Nomads",
+      "about": "About Istanbul Digital Nomads",
+      "blog": "Istanbul Digital Nomads Blog",
+      "contact": "Contact Istanbul Digital Nomads",
+      "events": "Istanbul Nomad Events",
+      "guides": "Istanbul City Guides",
+      "guideDetail": "Istanbul City Guide",
+      "localGuides": "Istanbul Local Guides",
+      "localGuidesJoin": "Become a Local Guide",
+      "pathToIstanbul": "Path to Istanbul - Relocation Guides by Country",
+      "pathToIstanbulCountry": "Moving to Istanbul",
+      "spaces": "Istanbul Coworking Spaces"
+    },
+    "home": {
+      "category": "Remote life, local rhythm",
+      "title": "Find your rhythm in Istanbul",
+      "description": "Weekly coworking, practical city guides, and a community of remote workers who help each other settle in."
+    },
+    "about": {
+      "category": "About",
+      "title": "The Istanbul Digital Nomads story",
+      "description": "Why we built this community and how we help newcomers land well in Istanbul."
+    },
+    "blog": {
+      "category": "Blog",
+      "title": "Field notes from Istanbul",
+      "description": "Practical stories from nomads and locals - neighborhoods, cafes, visas, and the small things that make life here click."
+    },
+    "blogDetail": {
+      "category": "Blog"
+    },
+    "contact": {
+      "category": "Contact",
+      "title": "Get in touch",
+      "description": "Questions, partnerships, or press? Reach out and we'll get back to you."
+    },
+    "events": {
+      "category": "Events",
+      "title": "Weekly coworking and monthly meetups",
+      "description": "Real people, real places. Join a session this week and meet the community."
+    },
+    "guides": {
+      "category": "City Guides",
+      "title": "Istanbul, without the guesswork",
+      "description": "Visa, housing, transport, cost of living - the answers we'd give a friend moving here."
+    },
+    "guideDetail": {
+      "category": "City Guide",
+      "fallbackTitle": "Istanbul City Guide"
+    },
+    "localGuides": {
+      "category": "Local Guides",
+      "title": "Meet people who made the move",
+      "description": "Locals and fellow nomads who can help you settle in faster - paperwork, neighborhoods, and community."
+    },
+    "localGuidesJoin": {
+      "category": "Local Guides",
+      "title": "Become a local guide",
+      "description": "Help the next person from your country land well. Apply to join the guide network."
+    },
+    "pathToIstanbul": {
+      "category": "Path to Istanbul",
+      "title": "Find your path to Istanbul",
+      "description": "Country-specific playbooks for visa, flights, housing, banking, and community - everything you need to land well."
+    },
+    "pathToIstanbulCountry": {
+      "category": "Path to Istanbul",
+      "titleTemplate": "Moving to Istanbul from {country}",
+      "fallbackTitle": "Path to Istanbul",
+      "fallbackDescriptionTemplate": "Visa, flights, housing, and community for {country}-born nomads moving to Istanbul."
+    },
+    "spaces": {
+      "category": "Spaces",
+      "title": "Coworking spaces, rated by nomads",
+      "description": "Wifi, noise, coffee, and vibe - scored by people who actually worked there."
+    }
   }
 }

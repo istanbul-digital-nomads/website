@@ -1,15 +1,25 @@
-import { renderOgImage, ogSize, ogContentType } from "@/lib/og-image";
+import { renderOgImage, ogLocale, ogSize, ogContentType } from "@/lib/og-image";
+import { getTranslations } from "next-intl/server";
+import { isValidLocale, defaultLocale } from "@/lib/i18n/config";
 
 export const runtime = "edge";
 export const size = ogSize;
 export const contentType = ogContentType;
 export const alt = "Istanbul Coworking Spaces";
 
-export default function Image() {
+interface Props {
+  params: { locale: string };
+}
+
+export default async function Image({ params }: Props) {
+  const locale = ogLocale(
+    isValidLocale(params.locale) ? params.locale : defaultLocale,
+  );
+  const t = await getTranslations({ locale, namespace: "og" });
   return renderOgImage({
-    category: "Spaces",
-    title: "Coworking spaces, rated by nomads",
-    description:
-      "Wifi, noise, coffee, and vibe - scored by people who actually worked there.",
+    category: t("spaces.category"),
+    title: t("spaces.title"),
+    description: t("spaces.description"),
+    tagline: t("tagline"),
   });
 }

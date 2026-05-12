@@ -1,18 +1,34 @@
 import { ImageResponse } from "next/og";
+import type { Locale } from "@/lib/i18n/config";
 
 // Shared size/contentType for every route's opengraph-image.tsx.
 export const ogSize = { width: 1200, height: 630 } as const;
 export const ogContentType = "image/png" as const;
 
+// `@vercel/og` (the satori-based renderer behind ImageResponse) crashes on
+// Arabic-script glyphs with "lookupType: 5 - substFormat: 3 is not yet
+// supported" because the default Inter font's Arabic table isn't compatible.
+// Until we register a proper Arabic-script OG font, fall back to the English
+// copy for those locales so the route returns a valid PNG instead of a 500.
+export function ogLocale(locale: Locale): Locale {
+  return locale === "fa" || locale === "ar" ? "en" : locale;
+}
+
 interface OgImageProps {
   category: string; // small uppercase label, e.g. "Blog", "Path to Istanbul"
   title: string; // large headline
   description?: string; // truncated subtitle (optional)
+  tagline?: string; // localized footer tagline, defaults to English brand line
 }
 
 // Renders a branded OpenGraph card inspired by the Claude Code Docs style:
 // dark canvas, brand wordmark top-left, category label, large title, muted description.
-export function renderOgImage({ category, title, description }: OgImageProps) {
+export function renderOgImage({
+  category,
+  title,
+  description,
+  tagline = "Remote life, local rhythm",
+}: OgImageProps) {
   const BRAND = "#c0392b";
   const BG = "#0f1117";
   const FG = "#f2f3f4";
@@ -126,9 +142,7 @@ export function renderOgImage({ category, title, description }: OgImageProps) {
         }}
       >
         <div>istanbulnomads.com</div>
-        <div style={{ color: BRAND, fontWeight: 600 }}>
-          Remote life, local rhythm
-        </div>
+        <div style={{ color: BRAND, fontWeight: 600 }}>{tagline}</div>
       </div>
     </div>,
     { ...ogSize },

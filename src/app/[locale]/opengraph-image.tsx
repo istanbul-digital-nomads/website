@@ -1,15 +1,25 @@
-import { renderOgImage, ogSize, ogContentType } from "@/lib/og-image";
+import { renderOgImage, ogLocale, ogSize, ogContentType } from "@/lib/og-image";
+import { getTranslations } from "next-intl/server";
+import { isValidLocale, defaultLocale } from "@/lib/i18n/config";
 
 export const runtime = "edge";
 export const size = ogSize;
 export const contentType = ogContentType;
 export const alt = "Istanbul Digital Nomads";
 
-export default function Image() {
+interface Props {
+  params: { locale: string };
+}
+
+export default async function Image({ params }: Props) {
+  const locale = ogLocale(
+    isValidLocale(params.locale) ? params.locale : defaultLocale,
+  );
+  const t = await getTranslations({ locale, namespace: "og" });
   return renderOgImage({
-    category: "Remote life, local rhythm",
-    title: "Find your rhythm in Istanbul",
-    description:
-      "Weekly coworking, practical city guides, and a community of remote workers who help each other settle in.",
+    category: t("home.category"),
+    title: t("home.title"),
+    description: t("home.description"),
+    tagline: t("tagline"),
   });
 }

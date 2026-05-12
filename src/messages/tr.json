@@ -1420,6 +1420,10 @@
       "applyCta": "Rehber olmak için başvur",
       "browseAll": "Tüm yerel rehberlere göz at",
       "yearsShort": " yıl İstanbul'da"
+    },
+    "map": {
+      "turkeyLabel": "Türkiye - varış ülken",
+      "istanbulLabel": "İstanbul - varış noktan"
     }
   },
   "countryPage": {
@@ -1824,5 +1828,85 @@
     },
     "backToBlog": "Tüm yazılara dön",
     "translationInProgress": "Bu yazı henüz {language} diline çevrilmedi. İngilizce orijinalini okuyorsun."
+  },
+  "og": {
+    "tagline": "Uzaktan yaşam, yerel ritim",
+    "altText": {
+      "home": "Istanbul Digital Nomads",
+      "about": "Istanbul Digital Nomads Hakkında",
+      "blog": "Istanbul Digital Nomads Blog",
+      "contact": "Istanbul Digital Nomads İletişim",
+      "events": "İstanbul Nomad Etkinlikleri",
+      "guides": "İstanbul Şehir Rehberleri",
+      "guideDetail": "İstanbul Şehir Rehberi",
+      "localGuides": "İstanbul Yerel Rehberleri",
+      "localGuidesJoin": "Yerel Rehber Ol",
+      "pathToIstanbul": "İstanbul'a Yol - Ülkelere Göre Taşınma Rehberleri",
+      "pathToIstanbulCountry": "İstanbul'a Taşınmak",
+      "spaces": "İstanbul Coworking Alanları"
+    },
+    "home": {
+      "category": "Uzaktan yaşam, yerel ritim",
+      "title": "İstanbul'da ritmini bul",
+      "description": "Haftalık coworking, kullanışlı şehir rehberleri ve birbirine yerleşmesinde yardım eden uzaktan çalışanlar topluluğu."
+    },
+    "about": {
+      "category": "Hakkımızda",
+      "title": "Istanbul Digital Nomads'ın hikayesi",
+      "description": "Bu topluluğu neden kurduk ve yeni gelenlere İstanbul'a iyi inmelerinde nasıl yardım ediyoruz."
+    },
+    "blog": {
+      "category": "Blog",
+      "title": "İstanbul'dan saha notları",
+      "description": "Göçebelerden ve yerlilerden kullanışlı hikayeler - mahalleler, kafeler, vizeler ve burada hayatı oturtan küçük detaylar."
+    },
+    "blogDetail": {
+      "category": "Blog"
+    },
+    "contact": {
+      "category": "İletişim",
+      "title": "İletişime geç",
+      "description": "Soru, işbirliği ya da basın? Yaz, geri dönüş yaparız."
+    },
+    "events": {
+      "category": "Etkinlikler",
+      "title": "Haftalık coworking ve aylık buluşmalar",
+      "description": "Gerçek insanlar, gerçek mekanlar. Bu hafta bir oturuma katıl ve toplulukla tanış."
+    },
+    "guides": {
+      "category": "Şehir Rehberleri",
+      "title": "İstanbul, tahminde bulunmadan",
+      "description": "Vize, konut, ulaşım, yaşam maliyeti - buraya taşınan bir arkadaşa vereceğimiz cevaplar."
+    },
+    "guideDetail": {
+      "category": "Şehir Rehberi",
+      "fallbackTitle": "İstanbul Şehir Rehberi"
+    },
+    "localGuides": {
+      "category": "Yerel Rehberler",
+      "title": "Taşınmayı yapanlarla tanış",
+      "description": "Daha hızlı yerleşmene yardımcı olabilecek yerli ve göçebe rehberler - evraklar, mahalleler ve topluluk."
+    },
+    "localGuidesJoin": {
+      "category": "Yerel Rehberler",
+      "title": "Yerel rehber ol",
+      "description": "Senin ülkenden gelen bir sonraki kişinin iyi inmesine yardım et. Rehber ağına katılmak için başvur."
+    },
+    "pathToIstanbul": {
+      "category": "İstanbul'a Yol",
+      "title": "İstanbul'a yolunu bul",
+      "description": "Vize, uçuş, konut, bankacılık ve topluluk için ülkeye özel oyun kitapları - iyi inmek için ihtiyacın olan her şey."
+    },
+    "pathToIstanbulCountry": {
+      "category": "İstanbul'a Yol",
+      "titleTemplate": "{country} ülkesinden İstanbul'a taşınmak",
+      "fallbackTitle": "İstanbul'a Yol",
+      "fallbackDescriptionTemplate": "{country} doğumlu göçebelerin İstanbul'a taşınması için vize, uçuş, konut ve topluluk."
+    },
+    "spaces": {
+      "category": "Alanlar",
+      "title": "Göçebelerin puanladığı coworking alanları",
+      "description": "Wifi, gürültü, kahve ve hava - orada gerçekten çalışmış kişiler tarafından puanlanır."
+    }
   }
 }

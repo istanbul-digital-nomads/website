@@ -37,7 +37,7 @@ export function ContactForm() {
       }
 
       setSubmitted(true);
-      showToast.contact();
+      showToast.success(t("successTitle"), t("successBody"));
     } catch {
       showToast.error(t("errorFallbackTitle"), t("errorFallbackBody"));
     } finally {

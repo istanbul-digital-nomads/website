@@ -3,13 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Home, BookOpen, Calendar, Send, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { socialLinks } from "@/lib/constants";
 import { MobileMenuOverlay } from "./mobile-menu-overlay";
 
 interface Tab {
-  label: string;
+  key: "home" | "guides" | "events" | "community" | "menu";
   icon: typeof Home;
   href?: string;
   external?: boolean;
@@ -17,21 +18,22 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
-  { label: "Home", icon: Home, href: "/" },
-  { label: "Guides", icon: BookOpen, href: "/guides" },
-  { label: "Events", icon: Calendar, href: "/events" },
+  { key: "home", icon: Home, href: "/" },
+  { key: "guides", icon: BookOpen, href: "/guides" },
+  { key: "events", icon: Calendar, href: "/events" },
   {
-    label: "Community",
+    key: "community",
     icon: Send,
     href: socialLinks.telegram,
     external: true,
   },
-  { label: "Menu", icon: Menu, action: "menu" },
+  { key: "menu", icon: Menu, action: "menu" },
 ];
 
 export function BottomTabBar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const t = useTranslations("bottomNav");
 
   const isActive = (tab: Tab) => {
     if (tab.action === "menu") return menuOpen;
@@ -50,6 +52,7 @@ export function BottomTabBar() {
           {tabs.map((tab) => {
             const active = isActive(tab);
             const Icon = tab.action === "menu" && menuOpen ? X : tab.icon;
+            const label = t(tab.key);
 
             const content = (
               <div className="tap-highlight flex flex-1 flex-col items-center justify-center gap-0.5">
@@ -72,7 +75,7 @@ export function BottomTabBar() {
                       : "text-neutral-500 dark:text-[#85929e]",
                   )}
                 >
-                  {tab.label}
+                  {label}
                 </span>
               </div>
             );
@@ -80,10 +83,10 @@ export function BottomTabBar() {
             if (tab.action === "menu") {
               return (
                 <button
-                  key={tab.label}
+                  key={tab.key}
                   onClick={() => setMenuOpen(!menuOpen)}
                   className="relative flex flex-1"
-                  aria-label={menuOpen ? "Close menu" : "Open menu"}
+                  aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
                 >
                   {content}
                 </button>
@@ -93,7 +96,7 @@ export function BottomTabBar() {
             if (tab.external) {
               return (
                 <a
-                  key={tab.label}
+                  key={tab.key}
                   href={tab.href}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -106,7 +109,7 @@ export function BottomTabBar() {
 
             return (
               <Link
-                key={tab.label}
+                key={tab.key}
                 href={tab.href!}
                 prefetch
                 className="relative flex flex-1"

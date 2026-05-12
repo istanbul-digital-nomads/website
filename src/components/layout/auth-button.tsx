@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { User } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,7 @@ export function AuthButton() {
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [onboardingComplete, setOnboardingComplete] = useState(true);
+  const t = useTranslations("auth");
 
   useEffect(() => {
     let cleanupRef: (() => void) | null = null;
@@ -52,9 +54,9 @@ export function AuthButton() {
     const supabase = createClient();
     await supabase.auth.signOut();
     setUser(null);
-    showToast.success("Signed out");
+    showToast.success(t("signedOut"));
     window.location.href = "/";
-  }, []);
+  }, [t]);
 
   if (loading) {
     return (
@@ -64,7 +66,9 @@ export function AuthButton() {
 
   if (user) {
     const name =
-      user.user_metadata?.full_name || user.email?.split("@")[0] || "Member";
+      user.user_metadata?.full_name ||
+      user.email?.split("@")[0] ||
+      t("memberFallback");
     const avatar = user.user_metadata?.avatar_url;
 
     return (
@@ -72,7 +76,7 @@ export function AuthButton() {
         <button
           onClick={handleSignOut}
           className="hidden items-center gap-2 rounded-full border border-black/5 px-3 py-1.5 text-sm font-medium text-[#5d6d7e] transition-colors hover:bg-black/5 md:flex dark:border-white/10 dark:text-[#99a3ad] dark:hover:bg-white/10"
-          title="Sign out"
+          title={t("signOut")}
         >
           {avatar ? (
             <Image
@@ -95,7 +99,7 @@ export function AuthButton() {
             className="hidden items-center gap-1.5 rounded-full bg-primary-50 px-3 py-1.5 text-xs font-medium text-primary-700 transition-colors hover:bg-primary-100 md:flex dark:bg-primary-900/20 dark:text-primary-300"
           >
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary-500" />
-            Complete profile
+            {t("completeProfile")}
           </Link>
         )}
 
@@ -130,7 +134,7 @@ export function AuthButton() {
     <Link href="/login" className="hidden md:block">
       <Button size="sm" variant="ghost" className="rounded-full">
         <User className="h-4 w-4" />
-        Sign In
+        {t("signIn")}
       </Button>
     </Link>
   );

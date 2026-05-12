@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check, SlidersHorizontal, Sparkles } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   matchNeighborhoods,
   rhythmOptions,
@@ -20,6 +21,10 @@ const defaultRhythms: RhythmKey[] = ["ferry", "budget"];
 
 export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
   const [selected, setSelected] = useState<RhythmKey[]>(defaultRhythms);
+  const t = useTranslations("sections.rhythmMatcher");
+  const tSignals = useTranslations("sections.rhythmSignals");
+  const tList = useTranslations("neighborhoodList");
+
   const matches = useMemo(
     () => matchNeighborhoods(selected).slice(0, 3),
     [selected],
@@ -50,13 +55,12 @@ export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
         )}
       >
         <div>
-          <p className="eyebrow">Choose your Istanbul rhythm</p>
+          <p className="eyebrow">{t("eyebrow")}</p>
           <h2 className="mt-4 max-w-xl font-display text-h1 text-neutral-950 dark:text-[#f2f3f4]">
-            Pick the day you want, then let the city narrow itself.
+            {t("title")}
           </h2>
           <p className="mt-5 max-w-xl text-body-lg leading-8 text-[#5d6d7e] dark:text-[#b7aaa0]">
-            Choose up to four signals. The matcher ranks the full neighborhood
-            set by pace, budget, ferry access, work setup, and social energy.
+            {t("intro")}
           </p>
 
           <div className="mt-7 grid gap-2 sm:grid-cols-2">
@@ -87,10 +91,10 @@ export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
                   </span>
                   <span>
                     <span className="block text-sm font-semibold">
-                      {option.label}
+                      {tSignals(`${option.key}.label`)}
                     </span>
                     <span className="mt-1 block text-xs leading-5 opacity-80">
-                      {option.description}
+                      {tSignals(`${option.key}.description`)}
                     </span>
                   </span>
                 </button>
@@ -103,11 +107,13 @@ export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/10 px-2 pb-3 dark:border-white/10">
             <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-primary-700 dark:text-primary-300">
               <SlidersHorizontal className="h-4 w-4" />
-              Live match
+              {t("liveMatch")}
             </div>
             <div className="inline-flex items-center gap-2 rounded-md bg-[#f6f1ea] px-3 py-1.5 text-xs text-neutral-700 dark:bg-white/10 dark:text-[#d5dce3]">
               <Sparkles className="h-3.5 w-3.5 text-primary-600 dark:text-primary-300" />
-              {selected.length || defaultRhythms.length} signals
+              {t("signals", {
+                count: selected.length || defaultRhythms.length,
+              })}
             </div>
           </div>
 
@@ -135,11 +141,13 @@ export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <h3 className="font-display text-2xl font-extrabold text-neutral-950 dark:text-[#f2f3f4]">
-                        {match.neighborhood.name}
+                        {tList(`${match.neighborhood.slug}.name`)}
                       </h3>
                       <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 dark:text-[#94877d]">
-                        {match.score}% fit /{" "}
-                        {formatRentRange(match.neighborhood)}
+                        {t("fit", {
+                          score: match.score,
+                          rent: formatRentRange(match.neighborhood),
+                        })}
                       </p>
                     </div>
                     <ArrowRight className="mt-1 h-5 w-5 shrink-0 text-neutral-400 transition-transform group-hover:translate-x-1 group-hover:text-primary-600 dark:group-hover:text-primary-300" />
@@ -151,23 +159,29 @@ export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
                         key={rhythm.key}
                         className="rounded-md bg-primary-50 px-2 py-1 text-xs font-medium text-primary-800 dark:bg-primary-950/30 dark:text-primary-200"
                       >
-                        {rhythm.shortLabel}
+                        {tSignals(`${rhythm.key}.short`)}
                       </span>
                     ))}
                     {match.matchingRhythms.length === 0 &&
-                      match.neighborhood.badges.slice(0, 2).map((badge) => (
+                      match.neighborhood.badges.slice(0, 2).map((badgeKey) => (
                         <span
-                          key={badge}
+                          key={badgeKey}
                           className="rounded-md bg-primary-50 px-2 py-1 text-xs font-medium text-primary-800 dark:bg-primary-950/30 dark:text-primary-200"
                         >
-                          {badge}
+                          {tList(
+                            `${match.neighborhood.slug}.badges.${badgeKey}`,
+                          )}
                         </span>
                       ))}
                   </div>
 
                   <ul className="mt-3 space-y-1 text-sm leading-6 text-[#5d6d7e] dark:text-[#b7aaa0]">
-                    {match.reasons.slice(0, 2).map((reason) => (
-                      <li key={reason}>{reason}</li>
+                    {match.reasons.slice(0, 2).map((reasonCode) => (
+                      <li key={reasonCode}>
+                        {reasonCode === "oneLiner"
+                          ? tList(`${match.neighborhood.slug}.oneLiner`)
+                          : t(`reasons.${reasonCode}`)}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -179,18 +193,19 @@ export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
             <div className="mt-4 flex flex-col gap-3 rounded-md border border-black/10 bg-[#f6f1ea] p-4 dark:border-white/10 dark:bg-white/[0.04] sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-700 dark:text-primary-300">
-                  Turn this into week one
+                  {t("turnIntoWeekOne")}
                 </p>
                 <p className="mt-1 text-sm leading-6 text-[#5d6d7e] dark:text-[#b7aaa0]">
-                  Use {matches[0].neighborhood.name} as your base and build a
-                  seven-day arrival plan around it.
+                  {t("useAsBase", {
+                    neighborhood: tList(`${matches[0].neighborhood.slug}.name`),
+                  })}
                 </p>
               </div>
               <Link
                 href={`/tools/first-week-planner?base=${matches[0].neighborhood.slug}`}
                 className="inline-flex shrink-0 items-center justify-center gap-2 rounded-md bg-neutral-950 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-neutral-800 dark:bg-[#f2f3f4] dark:text-[#14110f] dark:hover:bg-[#d8d0c8]"
               >
-                Plan from match
+                {t("planFromMatch")}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>

@@ -14,6 +14,19 @@ Maintained by `nomad-fa-editor`. Track high-intent Persian search terms for Iran
 | هزینهٔ زندگی استانبول | high | /fa/guides/cost-of-living |
 | کافه استانبول وای‌فای | medium | /fa/spaces |
 | مهاجرت به ترکیه | high | /fa/path-to-istanbul/iran |
+| ویزای دیجیتال نومد ترکیه | high | /fa/blog/turkey-digital-nomad-visa-guide |
+| ویزای کار از راه دور ترکیه | medium | /fa/blog/turkey-digital-nomad-visa-guide |
+| اقامت ترکیه برای دورکار | medium | /fa/blog/turkey-digital-nomad-visa-guide |
+| دیجیتال نومد ایرانی | medium | /fa/blog, /fa/path-to-istanbul/iran |
+| اجاره خانه در استانبول | high | /fa/blog/real-cost-of-living-istanbul-2026, /fa/guides/housing |
+| هزینهٔ زندگی کادیکوی | medium | /fa/blog/real-cost-of-living-istanbul-2026 |
+| بودجهٔ ماهانه استانبول | medium | /fa/blog/real-cost-of-living-istanbul-2026 |
+| زندگی در استانبول ۲۰۲۶ | medium | /fa/blog/real-cost-of-living-istanbul-2026 |
+| هفتهٔ اول استانبول | medium | /fa/blog/first-week-mistakes |
+| اشتباه‌های نومد در استانبول | low | /fa/blog/first-week-mistakes |
+| راهنمای تازه‌وارد استانبول | medium | /fa/blog/first-week-mistakes |
+| نکات سفر استانبول | medium | /fa/blog/first-week-mistakes |
+| نقل‌مکان به استانبول | medium | /fa/blog/first-week-mistakes |
 
 ## Place-name spellings (canonical)
 

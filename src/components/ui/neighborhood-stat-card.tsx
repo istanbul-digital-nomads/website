@@ -6,6 +6,7 @@ import {
   Coffee,
   Building2,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import {
   formatRentRange,
   getSpacesInNeighborhood,
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export function NeighborhoodStatCard({ neighborhood }: Props) {
+  const tList = useTranslations("neighborhoodList");
   const spacesInNeighborhood = getSpacesInNeighborhood(neighborhood.slug);
   const cafeCount = spacesInNeighborhood.filter(
     (s) => s.type === "cafe",
@@ -24,6 +26,16 @@ export function NeighborhoodStatCard({ neighborhood }: Props) {
   const coworkingCount = spacesInNeighborhood.filter(
     (s) => s.type === "coworking",
   ).length;
+
+  // Localized prose with English fallback when a translation key is missing.
+  const transportValue = tList.has(`${neighborhood.slug}.transport`)
+    ? tList(`${neighborhood.slug}.transport`)
+    : neighborhood.transport;
+
+  const bestForTags: string[] = tList.has(`${neighborhood.slug}.bestFor`)
+    ? // next-intl returns the raw array via `raw()` for non-string values.
+      (tList.raw(`${neighborhood.slug}.bestFor`) as string[])
+    : neighborhood.bestFor;
 
   const rows: Array<{ icon: React.ElementType; label: string; value: string }> =
     [
@@ -45,7 +57,7 @@ export function NeighborhoodStatCard({ neighborhood }: Props) {
       {
         icon: Train,
         label: "Transport",
-        value: neighborhood.transport,
+        value: transportValue,
       },
     ];
 
@@ -93,7 +105,7 @@ export function NeighborhoodStatCard({ neighborhood }: Props) {
           Best for
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
-          {neighborhood.bestFor.map((tag) => (
+          {bestForTags.map((tag) => (
             <span
               key={tag}
               className="rounded-full border border-primary-500/20 bg-primary-50/60 px-3 py-1 text-xs text-primary-800 dark:border-primary-500/30 dark:bg-primary-950/30 dark:text-primary-200"

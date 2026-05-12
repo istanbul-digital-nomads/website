@@ -33,8 +33,15 @@ export function SpaceCard({
   onSelect: (id: string) => void;
 }) {
   const t = useTranslations("spacesPage.card");
+  const tSpaces = useTranslations("spacesList");
   const [expanded, setExpanded] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+
+  // Prefer the localized description; fall back to the English prose in the
+  // data file if a translation key is missing so the UI degrades gracefully.
+  const description = tSpaces.has(`${space.id}.description`)
+    ? tSpaces(`${space.id}.description`)
+    : space.description;
 
   useEffect(() => {
     if (isSelected && ref.current) {
@@ -119,9 +126,7 @@ export function SpaceCard({
 
             {/* Description */}
             <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-[#99a3ad]">
-              {expanded
-                ? space.description
-                : space.description.slice(0, 100) + "..."}
+              {expanded ? description : description.slice(0, 100) + "..."}
             </p>
 
             {/* Expanded content */}

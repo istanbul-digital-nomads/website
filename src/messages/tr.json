@@ -336,7 +336,15 @@
         "bestFirstMonth": "İlk ay için en iyi",
         "bestValue": "En iyi değer",
         "bestFerryLife": "En iyi vapur hayatı"
-      }
+      },
+      "description": "Dijital göçebelerin en sevdiği mahalle. Kadıköy'ün yürünebilir merkezi bağımsız kafeler, günlük balık pazarı, kitapçılar ve sokak yemekleriyle dolu. Avrupa yakasına vapur 20 dakika sürüyor ve dünyanın en güzel işe gidiş rotalarından biri.",
+      "vibe": "Yerel, bağımsız, yürünebilir. İstanbul içinde küçük bir şehir gibi.",
+      "transport": "Eminönü/Karaköy'e vapur (20 dk), Marmaray ile Taksim'e metro bağlantısı",
+      "bestFor": [
+        "İstikrarlı çalışma rutini",
+        "Yerel mahalle hissi",
+        "Adil kira"
+      ]
     },
     "moda": {
       "name": "Moda",
@@ -345,7 +353,15 @@
         "quietest": "En sakin",
         "seaside": "Sahil",
         "creative": "Yaratıcı"
-      }
+      },
+      "description": "Moda, Kadıköy'ün daha sakin bir uzantısı. Sahil yürüyüş yolu olan bir yarımadada konumlanıyor. Daha çok yerleşim alanı, daha az turist, akşam yürüyüşleri için ideal. Kadıköy merkezine yürüyerek 15 dakika ama bambaşka bir sakinlik hissi var.",
+      "vibe": "Sahil kenarı, sakin, yaratıcı. Bir sürü kedi.",
+      "transport": "Kadıköy ile aynı + sahil boyunca nostaljik tramvay",
+      "bestFor": [
+        "Sessiz akşamlar",
+        "Sahil yürüyüşleri",
+        "Yaratıcı freelance'ler"
+      ]
     },
     "cihangir": {
       "name": "Cihangir",
@@ -354,7 +370,15 @@
         "mostSocial": "En sosyal",
         "nightlife": "Gece hayatı",
         "bohemian": "Bohem"
-      }
+      },
+      "description": "İstanbul'un bohem kalbi. Cihangir, dik sokakları, her kafeden Boğaz manzarası ve güçlü topluluk hissi olan küçük bir yamaç mahallesi. Sanatçılar, freelance çalışanlar ve yabancılar arasında popüler. Anadolu yakasından daha yüksek kiralar var ama atmosferi rakipsiz.",
+      "vibe": "Bohem, sosyal, yokuşlu. Harika manzaralar, güçlü kafe kültürü.",
+      "transport": "Taksim'e yürüyerek (10 dk), Kabataş tramvayı/füniküler, Kabataş'tan vapurlar",
+      "bestFor": [
+        "Sosyal göçebeler",
+        "Gece hayatına erişim",
+        "Boğaz manzaraları"
+      ]
     },
     "besiktas": {
       "name": "Beşiktaş",
@@ -363,7 +387,15 @@
         "localEnergy": "Yerel enerji",
         "streetFood": "Sokak lezzetleri",
         "ferryLife": "Vapur hayatı"
-      }
+      },
+      "description": "Taksim ile Boğaz Köprüsü arasında, hareketli bir sahil semti. Beşiktaş'ın büyük bir pazarı, üniversite enerjisi (Boğaziçi Üniversitesi yakında) ve şehrin en iyi sokak lezzetlerinden bazıları var. Cihangir'den daha yerel ve daha pürüzlü.",
+      "vibe": "Canlı, yerel, enerjik. Pazar sokakları ve öğrenci kalabalıkları.",
+      "transport": "Kadıköy ve Üsküdar'a vapurlar, Taksim'e otobüsler, E-5 karayoluna yakın",
+      "bestFor": [
+        "Avrupa yakası enerjisi",
+        "Sokak yemeği severler",
+        "Vapurla işe gidenler"
+      ]
     },
     "galata": {
       "name": "Karaköy / Galata",
@@ -372,7 +404,15 @@
         "bestShortStay": "Kısa konaklama için en iyi",
         "central": "Merkezi",
         "designDistrict": "Tasarım bölgesi"
-      }
+      },
+      "description": "Galata Köprüsü ile Galata Kulesi arasındaki tasarım ve galeri bölgesi. Karaköy son on yılda soylulaştırıldı ve özel kahve, konsept mağazalar ve butik otellerin merkezi hâline geldi. Kısa konaklamalar için harika, uzun konaklamalar için pahalı.",
+      "vibe": "Trend, sanatsal, turistik. Güzel mimari, yoğun yaya trafiği.",
+      "transport": "Sultanahmet ve Kabataş'a tramvay, Beyoğlu'na yürüyüş, Anadolu yakasına vapurlar",
+      "bestFor": [
+        "Kısa konaklamalar (1-2 hafta)",
+        "Merkezi üs",
+        "Tasarım ve galeriler"
+      ]
     },
     "uskudar": {
       "name": "Üsküdar",
@@ -381,7 +421,15 @@
         "quietFerryLife": "Sakin vapur hayatı",
         "local": "Yerel",
         "sunsetWalks": "Gün batımı yürüyüşleri"
-      }
+      },
+      "description": "Üsküdar, Karaköy'ün Anadolu yakasındaki daha sakin karşılığı: vapurlar, camiler, çay bahçeleri ve aynı turist baskısı olmadan uzun Boğaz yürüyüşleri. Gerçek bir yerel üs, Kadıköy ve Avrupa yakasına hızlı erişim ve gece hayatı bölgelerinden daha sessiz akşamlar istiyorsan iyi gelir.",
+      "vibe": "Geleneksel, sahil kenarı, daha sakin. Güçlü vapur ritmi ve günlük İstanbul dokusu.",
+      "transport": "Eminönü, Beşiktaş ve Kabataş'a vapurlar, Marmaray, Ümraniye yönüne metro",
+      "bestFor": [
+        "Sessiz vapur hayatı",
+        "Yerel rutinler",
+        "Boğaz gün batımları"
+      ]
     },
     "nisantasi": {
       "name": "Nişantaşı",
@@ -390,7 +438,15 @@
         "premium": "Premium",
         "cafeWork": "Kafe çalışması",
         "centralComfort": "Merkezi konfor"
-      }
+      },
+      "description": "Nişantaşı, İstanbul'un en cilalı yerleşim bölgelerinden biri: ağaçlı yan sokaklar, kapıcılı apartmanlar, butikler, klinikler, spor salonları ve şehrin en güvenilir kafe çalışma seanslarından bazıları. En ucuz üs değil ama Taksim gece hayatının tam içinde olmadan merkezi Avrupa yakası yaşamı istiyorsan pratik.",
+      "vibe": "Cilalı, yerleşim odaklı, lüks. Butik sokaklar ve güçlü günlük kolaylık.",
+      "transport": "Osmanbey metrosuna yürüyüş, Taksim, Şişli ve Levent'e hızlı taksi veya metro erişimi",
+      "bestFor": [
+        "Rahat bütçeler",
+        "Kafe çalışması",
+        "Merkezi günlük işler"
+      ]
     },
     "levent": {
       "name": "Levent",
@@ -399,7 +455,15 @@
         "businessCorridor": "İş koridoru",
         "founderFriendly": "Kurucu dostu",
         "coworkingDensity": "Ortak çalışma yoğunluğu"
-      }
+      },
+      "description": "Levent romantik İstanbul değil ve mesele zaten bu. İş koridoru: gökdelenler, AVM'ler, spor salonları, metro durakları ve ortak çalışma alanları. İstanbul hayatın iş ağırlıklıysa, güvenilir altyapı istiyorsan ya da Maslak, Şişli ve havalimanı tarafındaki iş omurgasındaki toplantılara hızlı erişim gerekiyorsa Levent'i seç.",
+      "vibe": "Kurumsal, pratik, dikey. Daha az karizma, daha çok altyapı.",
+      "transport": "Levent ve 4. Levent'ten geçen M2 metro hattı, Büyükdere Caddesi'nde otobüsler, kuzey/güney yönlerine kolay taksi erişimi",
+      "bestFor": [
+        "Tam zamanlı uzaktan çalışma",
+        "İş erişimi",
+        "Ortak çalışma yoğunluğu"
+      ]
     },
     "balat": {
       "name": "Balat",
@@ -408,7 +472,15 @@
         "characterHeavy": "Karakter dolu",
         "budget": "Bütçe",
         "historic": "Tarihi"
-      }
+      },
+      "description": "Balat güzel, engebeli ve çok özgün. Renkli evler ve antika sokaklar gerçek ama Kadıköy ya da Nişantaşı kadar pürüzsüz değil: yokuşlar, eski binalar, daha az cilalı çalışma seçenekleri ve ünlü sokaklarda daha fazla günübirlikçi yaya trafiği. Karakter, bütçe ve daha yavaş bir Haliç ritmi için seç.",
+      "vibe": "Tarihi, renkli, pürüzlü. Pratik tavizlerle birlikte büyük bir kişilik.",
+      "transport": "Fener/Eminönü üzerinden otobüs ve tramvay bağlantıları, Karaköy ve Cihangir'e hızlı taksiler",
+      "bestFor": [
+        "Karakter",
+        "Daha düşük kira",
+        "Yavaş yaratıcı günler"
+      ]
     },
     "atasehir": {
       "name": "Ataşehir",
@@ -417,7 +489,71 @@
         "newerApartments": "Yeni daireler",
         "quietNights": "Sessiz geceler",
         "businessAccess": "İş erişimi"
-      }
+      },
+      "description": "Ataşehir farklı bir göçebe türü için: daha az vapur romantizmi, daha çok yeni yapı konforu. Gökdelenler, AVM'ler, iş trafiği, modern daireler ve finans bölgesi çevresindeki Anadolu yakası ofislerine erişim seni bekliyor. Alan, asansör, otopark, spor salonu ve işten sonra daha sessiz bir daire istiyorsan uzun konaklamalar için işine yarar.",
+      "vibe": "Modern, ferah, kurumsal. Pratik ama Kadıköy kadar yürünebilir değil.",
+      "transport": "Anadolu yakası boyunca metro ve otobüsler, Kadıköy, Ümraniye ve finans bölgesine taksiyle erişim",
+      "bestFor": [
+        "Yeni daireler",
+        "Anadolu yakası iş",
+        "Sessiz geceler"
+      ]
+    }
+  },
+  "spacesList": {
+    "kolektif-house": {
+      "description": "İstanbul'un büyük ortak çalışma zincirlerinden biri, birden çok lokasyonu var. Üyelere 7/24 erişim, ücretsiz kahve ve çay, meditasyon odası, kütüphane ve teras etkinlik alanları. Eski bir nakış fabrikasından dönüştürülmüş tasarım."
+    },
+    "workinton": {
+      "description": "Türkiye'de 20'den fazla lokasyonu olan profesyonel odaklı ortak çalışma zinciri. Ergonomik masalar, telefon kabinleri, toplantı odaları, dolaplar ve baskı hizmeti. Üyelik tüm şubelerde geçerli."
+    },
+    "impact-hub": {
+      "description": "Küresel Impact Hub ağının (60+ ülke) parçası. Sosyal etki odaklı kurucu topluluğu, hemen oturup çalışılabilen mikro ofisler, okuma köşeleri, iki toplantı odası ve bir gökyüzü terası. 4. Levent metrosuna yakın."
+    },
+    "justwork": {
+      "description": "Silikon Vadisi kampüsleri esin alınarak yapılmış 10.000 m² ofis kampüsü. Uyku kabinleri, spor salonu, duşlar, müzik stüdyosu, oyun odası, yayın stüdyosu, açık hava bahçe çalışma alanı ve 20'ye kadar temalı toplantı odası. Üyelere 7/24 erişim."
+    },
+    "petra-roasting": {
+      "description": "İstanbul merkezli üçüncü dalga kahve kavurucusu. Kadıköy şubesi laptop kafe listelerinde sık geçiyor, personel uzun oturuşlara genelde anlayışlı. Yorumlara göre yoğun saatlerde gürültülü olabiliyor."
+    },
+    "coffee-manifesto": {
+      "description": "Kadıköy'de tanınmış bir özel kahve dükkânı. Barista Koray Erdoğdu kadroda. Yorumcular masa başlarındaki şarj prizlerini ve mekânın laptopla çalışmaya uygunluğunu öne çıkarıyor. Yeldeğirmeni'nde de bir şubesi var."
+    },
+    "walters-coffee": {
+      "description": "Moda'da 2015'ten beri açık olan Breaking Bad temalı kafe ve kendi kavurucusu. Ciddi bir çalışma noktasından çok atmosfer için gidilen bir yer ama en az bir yorumcu uzaktan çalışmaya uygun bulduğunu söylüyor. Temalı dekor, sergilenen koruyucu kıyafetler."
+    },
+    "montag-coffee": {
+      "description": "Berlin tarzı bir özel kahve kavurucusu, Kadıköy/Moda'da birkaç şubesi var. Sakin atmosfer, balkon oturma alanı, güleryüzlü baristalar. Çok büyük bir mekân değil, yoğun saatlerde yer bulmak zor olabilir."
+    },
+    "federal-coffee": {
+      "description": "Türkiye'de özel kahvenin öncülerinden biri, İstanbul'da birden fazla şubesi var. Galata şubesi Avrupa yakasının en iyi göçebe kafelerinden biri olarak sıkça gösteriliyor - bol oturma alanı ve üçüncü taraf yorumlarına göre çok sayıda priz. Wifi ücretsiz, hız değişken."
+    },
+    "coffee-sapiens": {
+      "description": "2014'ten beri faaliyetteki bağımsız bir özel kahve kavurucusu, Ruanda filtre kahveleri ve flat white ile tanınıyor. Birden çok demleme yöntemi (Aeropress, Chemex, cold brew, sifon). Karaköy şubesi sarmaşık gölgeli bir kafe sokağında."
+    },
+    "norm-coffee": {
+      "description": "Cihangir'de çok kavurucu sunan bir özel kahve kafesi: Probador Colectiva, Petra, Kronotrop ve Four Letter Word çekirdekleri kullanıyor. Özel yapım Slayer espresso makinesi (İstanbul'daki tek örnek), V60 ve filtre. Minimalist iç mekân, ev yapımı Bask cheesecake ve tartinler."
+    },
+    "espressolab": {
+      "description": "Türk özel kahve zincirinin iki katlı şubesi, sokağa bakan bir balkonu var. Ücretsiz wifi 2 saatle sınırlı (ziyaretçi rehberlerinde belirtiliyor), tüm gün oturmak için ideal değil. Geniş menü, zincir genelinde tutarlı."
+    },
+    "karabatak": {
+      "description": "2011'de terk edilmiş bir metal atölyesinden dönüştürüldü. Sessiz, grup ve standart bölümlere ayrılan iki katlı bir kafe, ayrıca 40 kişilik açık alanı var. Galata Köprüsü yakınında, arka sokak Karaköy havası. Atmosferi harika ama tüm gün çalışmak için belirgin bir tercih değil."
+    },
+    "kronotrop": {
+      "description": "Türkiye'nin ilk üçüncü dalga özel kahve dükkânı olarak biliniyor (2012'de açıldı). Çekirdekler kendi mekânında Loring S15 üzerinde kavruluyor. La Marzocco Strada EP, Hario V60, Aeropress. Küçük, iyi tasarlanmış bir mekân, alçak kanepelerle - tüm gün kampı yerine 2-3 saatlik odaklı bir oturuş için daha uygun."
+    },
+    "moc-nisantasi": {
+      "description": "Sam Çevikoz tarafından kurulan Avustralya tarzı özel bir kavurucu. 12 farklı menşeden çekirdeği kendi yerinde kavuruyor. Menüde kahvaltılar ve hafif yemekler (Vegemite tostu dâhil) var. 24-28 saatlik soğuk demlemesiyle tanınıyor. Nişantaşı'nın arka sokaklarından birinde gizli."
+    },
+    "coffeetopia": {
+      "description": "Şerif Başaran (Dünya Barista Şampiyonası jürisi, AST eğitmeni) tarafından kurulan özel kahve zinciri. Beşiktaş şubesi şehirdeki birçok lokasyondan biri. Not: 'vapur iskelesine yakın' iddiası Eminönü şubesine uyuyor, Beşiktaş için değil - adresin yerinde doğrulanması gerek."
+    },
+    "coffee-department": {
+      "description": "Üçüncü dalga özel bir kahve dükkânı, kendi Probat Probatino kavurucusu var. Aydınlık, minimalist iç mekân ve büyük pencereler. Personel tat notlarını ve çiftlik menşeini anlatan çekirdek kartları dağıtıyor. Genellikle dünyanın dört bir yanından 5 farklı filtre seçeneği var."
+    },
+    "cafe-fes": {
+      "description": "Kapalıçarşı yakınında uzun süredir açık olan bir kafe; sandviç, salata, taze limonata ve ev yapımı tatlılar sunuyor. Tripadvisor puanı 4.4/5. Not: önceki 'Cihangir'den Boğaz manzarası' tanımı Fes Cafe'nin gerçek lokasyonlarının hiçbirine uymuyordu."
     }
   },
   "faqItems": {

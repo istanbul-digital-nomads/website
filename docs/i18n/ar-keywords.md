@@ -76,6 +76,76 @@ Maintained by `nomad-ar-editor`. Track pan-Arab high-intent search terms.
 | إقامت إيرانيّون | medium | /ar/blog/iran-to-istanbul-playbook-companion |
 | مؤسّسون إيرانيّون إسطنبول | low | /ar/blog/iran-to-istanbul-playbook-companion |
 
+## Guides & path-to-istanbul keywords (batch 2026-05)
+
+Added during the 11-guide + 5-country playbook translation batch.
+
+| Arabic term | Volume signal | Pages it should appear on |
+|---|---|---|
+| تكلفة المعيشة في إسطنبول 2026 | high | /ar/guides/cost-of-living |
+| ميزانية شهرية للرحّالة الرقميين في إسطنبول | medium | /ar/guides/cost-of-living |
+| إيجار شقّة مفروشة إسطنبول | high | /ar/guides/cost-of-living, /ar/guides/housing |
+| أسعار الطعام في إسطنبول | medium | /ar/guides/cost-of-living, /ar/guides/food |
+| فضاءات العمل المشترك في إسطنبول | medium | /ar/guides/coworking |
+| Kolektif House إسطنبول | low | /ar/guides/coworking |
+| Workinton إسطنبول | low | /ar/guides/coworking |
+| MOB كاديكوي عمل مشترك | low | /ar/guides/coworking |
+| مقاهي صديقة للحواسيب إسطنبول | medium | /ar/guides/coworking |
+| اللغة التركية للمسافرين | medium | /ar/guides/culture |
+| العادات الثقافية في تركيا | medium | /ar/guides/culture |
+| رمضان في إسطنبول | medium | /ar/guides/culture |
+| الحياة الليلية في إسطنبول | high | /ar/guides/entertainment |
+| الحمّامات التركية في إسطنبول | high | /ar/guides/entertainment |
+| الميخانة إسطنبول | low | /ar/guides/entertainment |
+| رحلات يومية من إسطنبول | medium | /ar/guides/entertainment |
+| مهرجانات إسطنبول | medium | /ar/guides/entertainment |
+| المطبخ التركي في إسطنبول | high | /ar/guides/food |
+| اللوكانتا في إسطنبول | low | /ar/guides/food |
+| الفطور التركي إسطنبول | medium | /ar/guides/food |
+| أسواق إسطنبول الأسبوعية | medium | /ar/guides/food |
+| المستشفيات الخاصّة في إسطنبول | high | /ar/guides/healthcare |
+| التأمين الصحّي في تركيا للأجانب | high | /ar/guides/healthcare |
+| سياحة الأسنان في إسطنبول | high | /ar/guides/healthcare |
+| Acibadem إسطنبول | medium | /ar/guides/healthcare |
+| العثور على شقّة في إسطنبول | high | /ar/guides/housing |
+| Sahibinden إسطنبول | medium | /ar/guides/housing |
+| عقد إيجار تركيا | medium | /ar/guides/housing |
+| حقوق المستأجر في تركيا | medium | /ar/guides/housing |
+| شريحة SIM في إسطنبول | high | /ar/guides/internet |
+| Turkcell tourist | medium | /ar/guides/internet |
+| تسجيل IMEI في تركيا | high | /ar/guides/internet |
+| eSIM تركيا للأجانب | medium | /ar/guides/internet |
+| إنترنت الفايبر في إسطنبول | medium | /ar/guides/internet |
+| أحياء إسطنبول للرحّالة | high | /ar/guides/neighborhoods |
+| كاديكوي للرحّالة الرقميين | high | /ar/guides/neighborhoods |
+| جيهانغير للرحّالة | medium | /ar/guides/neighborhoods |
+| مودا إسطنبول | medium | /ar/guides/neighborhoods |
+| Nisantasi إسطنبول | medium | /ar/guides/neighborhoods |
+| ليفنت إسطنبول | medium | /ar/guides/neighborhoods |
+| بلاط إسطنبول | low | /ar/guides/neighborhoods |
+| إسطنبولكارت | high | /ar/guides/transport |
+| النقل العامّ في إسطنبول | high | /ar/guides/transport |
+| BiTaksi إسطنبول | medium | /ar/guides/transport |
+| المترو في إسطنبول | high | /ar/guides/transport |
+| العبّارات في البوسفور | medium | /ar/guides/transport |
+| التأشيرة الإلكترونية تركيا | high | /ar/guides/visa |
+| تأشيرة الرحّالة الرقميين تركيا 2026 | high | /ar/guides/visa |
+| إذن الإقامة قصير الأمد تركيا | high | /ar/guides/visa |
+| ikamet إسطنبول | medium | /ar/guides/visa |
+| الانتقال من الهند إلى تركيا | medium | /ar/path-to-istanbul/india |
+| الجالية الهندية في إسطنبول | low | /ar/path-to-istanbul/india |
+| التأشيرة الإلكترونية للهنود إلى تركيا | medium | /ar/path-to-istanbul/india |
+| الانتقال من نيجيريا إلى تركيا | medium | /ar/path-to-istanbul/nigeria |
+| الجالية النيجيرية في إسطنبول | low | /ar/path-to-istanbul/nigeria |
+| تأشيرة تركيا من لاغوس | medium | /ar/path-to-istanbul/nigeria |
+| الانتقال من باكستان إلى تركيا | medium | /ar/path-to-istanbul/pakistan |
+| الجالية الباكستانية في إسطنبول | low | /ar/path-to-istanbul/pakistan |
+| التأشيرة الإلكترونية للباكستانيّين تركيا | medium | /ar/path-to-istanbul/pakistan |
+| الانتقال من روسيا إلى تركيا | high | /ar/path-to-istanbul/russia |
+| الجالية الروسية في إسطنبول | high | /ar/path-to-istanbul/russia |
+| الإقامة في تركيا للروس | high | /ar/path-to-istanbul/russia |
+| MIR في تركيا | medium | /ar/path-to-istanbul/russia |
+
 ## Place-name spellings (canonical)
 
 - إسطنبول (preferred over اسطنبول)

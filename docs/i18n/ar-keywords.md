@@ -24,6 +24,57 @@ Maintained by `nomad-ar-editor`. Track pan-Arab high-intent search terms.
 | كيف تستقر في إسطنبول | medium | /ar/blog/first-week-mistakes |
 | فضاءات العمل المشترك إسطنبول | low | /ar/spaces |
 | الانتقال إلى تركيا | high | /ar/path-to-istanbul/* |
+| عبّارة إسطنبول | medium | /ar/blog/ferry-commute-guide |
+| كاديكوي أمين أونو | medium | /ar/blog/ferry-commute-guide |
+| التنقّل في إسطنبول | medium | /ar/blog/ferry-commute-guide |
+| البوسفور | high | /ar/blog/ferry-commute-guide, /ar/blog/asian-vs-european-side |
+| كوركينغ كاديكوي | low | /ar/blog/top-coworking-spots |
+| أفضل فضاءات عمل في إسطنبول | medium | /ar/blog/top-coworking-spots |
+| MOB كاديكوي | low | /ar/blog/top-coworking-spots |
+| مقاهي العمل في إسطنبول | medium | /ar/blog/best-laptop-friendly-cafes-istanbul |
+| أفضل مقاهي العمل عن بُعد إسطنبول | medium | /ar/blog/best-laptop-friendly-cafes-istanbul |
+| مقاهي كاديكوي | low | /ar/blog/best-laptop-friendly-cafes-istanbul |
+| مقاهي جيهانغير | low | /ar/blog/best-laptop-friendly-cafes-istanbul |
+| العمل من المقهى إسطنبول | medium | /ar/blog/best-laptop-friendly-cafes-istanbul |
+| العمل المشترك أم المقهى | medium | /ar/blog/coworking-vs-cafe-istanbul |
+| أفضل أماكن العمل في إسطنبول | medium | /ar/blog/coworking-vs-cafe-istanbul |
+| EspressoLab إسطنبول | low | /ar/blog/espressolab-istanbul-remote-work |
+| قهوة مختصّة إسطنبول | low | /ar/blog/espressolab-istanbul-remote-work |
+| مقاهي صديقة الحاسوب | low | /ar/blog/espressolab-istanbul-remote-work |
+| الجانب الآسيوي إسطنبول | high | /ar/blog/asian-vs-european-side |
+| الجانب الأوروبي إسطنبول | high | /ar/blog/asian-vs-european-side |
+| كاديكوي أم جيهانغير | medium | /ar/blog/asian-vs-european-side, /ar/blog/first-month-neighborhood-pick |
+| أين تسكن في إسطنبول | high | /ar/blog/asian-vs-european-side, /ar/blog/first-month-neighborhood-pick |
+| أحياء إسطنبول | high | /ar/blog/asian-vs-european-side |
+| أحياء إسطنبول للرحّالة الرقميين | medium | /ar/blog/first-month-neighborhood-pick |
+| حي العمل عن بُعد إسطنبول | medium | /ar/blog/first-month-neighborhood-pick |
+| إيجار شقة إسطنبول | high | /ar/blog/first-month-neighborhood-pick |
+| الترحال البطيء إسطنبول | medium | /ar/blog/slowmad-guide-istanbul |
+| إقامة طويلة إسطنبول | medium | /ar/blog/slowmad-guide-istanbul |
+| الرحّالة الرقميون إسطنبول | high | /ar/blog/slowmad-guide-istanbul, /ar/blog/istanbul-remote-work-setup |
+| العيش الطويل في إسطنبول | medium | /ar/blog/slowmad-guide-istanbul |
+| إسطنبول 3 أشهر | low | /ar/blog/slowmad-guide-istanbul |
+| إسطنبول أم لشبونة | medium | /ar/blog/istanbul-vs-lisbon-bali-bangkok |
+| إسطنبول أم بالي | medium | /ar/blog/istanbul-vs-lisbon-bali-bangkok |
+| أفضل مدن الرحّالة الرقميين | high | /ar/blog/istanbul-vs-lisbon-bali-bangkok |
+| مقارنة مدن العمل عن بُعد | medium | /ar/blog/istanbul-vs-lisbon-bali-bangkok |
+| تكلفة المعيشة إسطنبول لشبونة | medium | /ar/blog/istanbul-vs-lisbon-bali-bangkok |
+| إنترنت إسطنبول | medium | /ar/blog/istanbul-remote-work-setup |
+| شريحة جوال إسطنبول | medium | /ar/blog/istanbul-remote-work-setup |
+| eSIM تركيا | medium | /ar/blog/istanbul-remote-work-setup |
+| واي فاي إسطنبول | medium | /ar/blog/istanbul-remote-work-setup |
+| إنترنت البيت إسطنبول | medium | /ar/blog/istanbul-remote-work-setup |
+| محوّلات الكهرباء تركيا | low | /ar/blog/istanbul-remote-work-setup |
+| كيف تحصل على إقامت | high | /ar/blog/getting-residence-permit |
+| الإقامة في إسطنبول | high | /ar/blog/getting-residence-permit, /ar/guides/visa |
+| أوراق الإقامة تركيا | high | /ar/blog/getting-residence-permit, /ar/blog/ikamet-mistakes-istanbul |
+| أخطاء إقامت | medium | /ar/blog/ikamet-mistakes-istanbul |
+| موعد الهجرة إسطنبول | medium | /ar/blog/ikamet-mistakes-istanbul |
+| الإيرانيّون في إسطنبول | medium | /ar/blog/iran-to-istanbul-playbook-companion, /ar/path-to-istanbul/iran |
+| الانتقال من إيران إلى تركيا | medium | /ar/blog/iran-to-istanbul-playbook-companion |
+| بنوك تركيا للإيرانيّين | medium | /ar/blog/iran-to-istanbul-playbook-companion |
+| إقامت إيرانيّون | medium | /ar/blog/iran-to-istanbul-playbook-companion |
+| مؤسّسون إيرانيّون إسطنبول | low | /ar/blog/iran-to-istanbul-playbook-companion |
 
 ## Place-name spellings (canonical)
 

@@ -114,7 +114,8 @@ The four native-fluent editors under `.claude/agents/` (`nomad-tr-editor`, `noma
 4. Remove the `<!-- TODO {LOCALE}: ... -->` marker once the translation is complete.
 5. Update `docs/i18n/{locale}-keywords.md` with any new keywords used.
 6. Run `pnpm type-check` and `pnpm build` to confirm the page still compiles.
-7. Commit with a focused message: "Translate {category}/{slug} to {locale}".
+7. **Run `pnpm format` before committing.** The repo's CI Lint job runs `prettier --check` and will fail the PR if any modified `.ts`, `.tsx`, `.css`, or `.json` file doesn't match Prettier's formatting. Bulk edits via scripts (especially JSON edits) and hand-edited React/TS files routinely produce output that needs a `pnpm format` pass. Skipping this step means an extra commit cycle.
+8. Commit with a focused message: "Translate {category}/{slug} to {locale}".
 
 ## Parallel work and merging
 

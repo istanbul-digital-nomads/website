@@ -60,7 +60,7 @@ export const mdxComponents = {
   ),
   ul: ({ children, ...props }: Props<"ul">) => (
     <ul
-      className="mb-4 ml-6 list-disc space-y-2 text-[#526e89] marker:text-primary-400 dark:text-[#99a3ad]"
+      className="mb-4 ms-6 list-disc space-y-2 text-[#526e89] marker:text-primary-400 dark:text-[#99a3ad]"
       {...props}
     >
       {children}
@@ -68,7 +68,7 @@ export const mdxComponents = {
   ),
   ol: ({ children, ...props }: Props<"ol">) => (
     <ol
-      className="mb-4 ml-6 list-decimal space-y-2 text-[#526e89] marker:text-primary-400 dark:text-[#99a3ad]"
+      className="mb-4 ms-6 list-decimal space-y-2 text-[#526e89] marker:text-primary-400 dark:text-[#99a3ad]"
       {...props}
     >
       {children}
@@ -89,7 +89,7 @@ export const mdxComponents = {
   ),
   blockquote: ({ children, ...props }: Props<"blockquote">) => (
     <blockquote
-      className="my-6 rounded-xl border-l-4 border-primary-400 bg-primary-50/50 py-4 pl-6 pr-4 dark:border-primary-700 dark:bg-primary-950/20"
+      className="my-6 rounded-xl border-s-4 border-primary-400 bg-primary-50/50 py-4 pe-4 ps-6 dark:border-primary-700 dark:bg-primary-950/20"
       {...props}
     >
       {children}
@@ -97,7 +97,7 @@ export const mdxComponents = {
   ),
   table: ({ children, ...props }: Props<"table">) => (
     <div className="my-6 overflow-x-auto rounded-md border border-black/10 bg-white/45 dark:border-white/10 dark:bg-white/5">
-      <table className="min-w-full text-left text-sm" {...props}>
+      <table className="min-w-full text-start text-sm" {...props}>
         {children}
       </table>
     </div>
@@ -111,7 +111,10 @@ export const mdxComponents = {
     </thead>
   ),
   th: ({ children, ...props }: Props<"th">) => (
-    <th className="whitespace-nowrap px-4 py-3 font-semibold" {...props}>
+    <th
+      className="whitespace-nowrap px-4 py-3 text-start font-semibold"
+      {...props}
+    >
       {children}
     </th>
   ),

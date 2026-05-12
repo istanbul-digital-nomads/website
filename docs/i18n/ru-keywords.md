@@ -77,6 +77,66 @@ Maintained by `nomad-ru-editor`. Track high-intent Russian search terms (Yandex 
 | банки Стамбул иранцы | low | /ru/blog/iran-to-istanbul-playbook-companion |
 | Шишли иранская диаспора | low | /ru/blog/iran-to-istanbul-playbook-companion |
 | Босфор | medium | /ru/blog/ferry-commute-guide |
+| стоимость жизни Стамбул | high | /ru/guides/cost-of-living |
+| бюджет Стамбул удалёнка | medium | /ru/guides/cost-of-living |
+| цены в Стамбуле 2026 | medium | /ru/guides/cost-of-living |
+| коворкинг Стамбул | medium | /ru/guides/coworking |
+| коворкинг Кадыкёй | medium | /ru/guides/coworking |
+| кафе для работы Стамбул | high | /ru/guides/coworking |
+| турецкий язык фразы | medium | /ru/guides/culture |
+| культура Стамбул | medium | /ru/guides/culture |
+| обычаи Турция | medium | /ru/guides/culture |
+| базовый турецкий | medium | /ru/guides/culture |
+| развлечения Стамбул | medium | /ru/guides/entertainment |
+| ночная жизнь Стамбул | high | /ru/guides/entertainment |
+| концерты Стамбул | medium | /ru/guides/entertainment |
+| поездки выходного дня Стамбул | medium | /ru/guides/entertainment |
+| хамам Стамбул | high | /ru/guides/entertainment |
+| где поесть Стамбул | high | /ru/guides/food |
+| турецкая кухня | high | /ru/guides/food |
+| локанта Стамбул | medium | /ru/guides/food |
+| уличная еда Стамбул | medium | /ru/guides/food |
+| кахвалты Стамбул | medium | /ru/guides/food |
+| медицина Стамбул | high | /ru/guides/healthcare |
+| больница Стамбул | high | /ru/guides/healthcare |
+| страховка Турция | high | /ru/guides/healthcare |
+| аптека Стамбул | medium | /ru/guides/healthcare |
+| стоматология Стамбул | high | /ru/guides/healthcare |
+| аренда квартиры Стамбул | high | /ru/guides/housing |
+| снять квартиру в Стамбуле | high | /ru/guides/housing |
+| sahibinden | high | /ru/guides/housing |
+| Flatio Стамбул | medium | /ru/guides/housing |
+| договор аренды Турция | medium | /ru/guides/housing |
+| SIM-карта Стамбул | high | /ru/guides/internet |
+| Turkcell тариф | medium | /ru/guides/internet |
+| eSIM Турция | medium | /ru/guides/internet |
+| домашний интернет Стамбул | medium | /ru/guides/internet |
+| интернет Турция | medium | /ru/guides/internet |
+| районы Стамбула | high | /ru/guides/neighborhoods |
+| где жить в Стамбуле | high | /ru/guides/neighborhoods |
+| Кадыкёй | high | /ru/guides/neighborhoods |
+| Джихангир | medium | /ru/guides/neighborhoods |
+| лучший район Стамбул удалёнка | medium | /ru/guides/neighborhoods |
+| Istanbulkart | high | /ru/guides/transport |
+| транспорт Стамбул | high | /ru/guides/transport |
+| метро Стамбул | medium | /ru/guides/transport |
+| паром Стамбул | medium | /ru/guides/transport |
+| BiTaksi такси Стамбул | medium | /ru/guides/transport |
+| виза Турция | high | /ru/guides/visa |
+| ВНЖ Турция | high | /ru/guides/visa |
+| виза цифрового кочевника Турция | medium | /ru/guides/visa |
+| ikamet Стамбул | high | /ru/guides/visa |
+| вид на жительство Турция | high | /ru/guides/visa |
+| переезд из России в Стамбул | high | /ru/path-to-istanbul/russia |
+| ВНЖ Турция россиянам | high | /ru/path-to-istanbul/russia |
+| Стамбул для россиян | high | /ru/path-to-istanbul/russia |
+| банкинг Турция санкции | medium | /ru/path-to-istanbul/russia |
+| Сарыер | medium | /ru/path-to-istanbul/russia |
+| русский Стамбул | high | /ru/path-to-istanbul/russia |
+| Эсенюрт иранцы | low | /ru/path-to-istanbul/iran |
+| индийцы в Стамбуле | low | /ru/path-to-istanbul/india |
+| пакистанцы в Стамбуле | low | /ru/path-to-istanbul/pakistan |
+| нигерийцы в Стамбуле | low | /ru/path-to-istanbul/nigeria |
 
 ## Place-name spellings (canonical)
 
@@ -104,6 +164,27 @@ Maintained by `nomad-ru-editor`. Track high-intent Russian search terms (Yandex 
 - Султанахмет
 - Фатих
 - Бакыркёй
+- Сарыер
+- Тарабья
+- Истинье
+- Этилер
+- Башакшехир
+- Бейликдюзю
+- Кумкапы
+- Лалели
+- Аксарай
+- Тарлабаши
+- Куртулуш
+- Тофане
+- Кагитхане
+- Эюп
+- Османбей
+- Маслак
+- Тешвикие
+- Босфор
+- Босфорский мост
+- Принцевы острова
+- Бюйюкада
 
 ## Notes
 

@@ -1076,6 +1076,14 @@
       "verified": "(تأیید شده {date})",
       "showLess": "نمایش کمتر",
       "scoreBreakdown": "جزئیات امتیاز"
+    },
+    "scoreLabels": {
+      "wifi": "وای‌فای",
+      "power": "پریز",
+      "comfort": "راحتی",
+      "noise": "سکوت",
+      "value": "ارزش",
+      "vibe": "حس"
     }
   },
   "firstWeekPlanner": {

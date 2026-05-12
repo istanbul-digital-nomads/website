@@ -1,12 +1,14 @@
+import { useTranslations } from "next-intl";
 import { SCORE_LABELS, type NomadScores } from "@/lib/spaces";
 
 export function ScoreBreakdown({ scores }: { scores: NomadScores }) {
+  const t = useTranslations("spacesPage.scoreLabels");
   return (
     <div className="space-y-2">
       {(Object.keys(SCORE_LABELS) as (keyof NomadScores)[]).map((key) => (
         <div key={key} className="flex items-center gap-2">
           <span className="w-14 shrink-0 text-xs text-neutral-500 dark:text-[#85929e]">
-            {SCORE_LABELS[key]}
+            {t(key)}
           </span>
           <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-black/5 dark:bg-white/10">
             {scores[key] != null && (

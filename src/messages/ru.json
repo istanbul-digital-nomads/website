@@ -1076,6 +1076,14 @@
       "verified": "(проверено {date})",
       "showLess": "Свернуть",
       "scoreBreakdown": "Разбор оценки"
+    },
+    "scoreLabels": {
+      "wifi": "Wifi",
+      "power": "Розетки",
+      "comfort": "Комфорт",
+      "noise": "Тишина",
+      "value": "Цена/качество",
+      "vibe": "Атмосфера"
     }
   },
   "firstWeekPlanner": {

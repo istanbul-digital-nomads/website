@@ -1076,6 +1076,14 @@
       "verified": "(تم التحقق {date})",
       "showLess": "عرض أقل",
       "scoreBreakdown": "تفصيل الدرجات"
+    },
+    "scoreLabels": {
+      "wifi": "واي فاي",
+      "power": "كهرباء",
+      "comfort": "راحة",
+      "noise": "هدوء",
+      "value": "قيمة",
+      "vibe": "أجواء"
     }
   },
   "firstWeekPlanner": {

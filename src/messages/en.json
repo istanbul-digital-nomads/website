@@ -1076,6 +1076,14 @@
       "verified": "(verified {date})",
       "showLess": "Show less",
       "scoreBreakdown": "Score breakdown"
+    },
+    "scoreLabels": {
+      "wifi": "Wifi",
+      "power": "Power",
+      "comfort": "Comfort",
+      "noise": "Quiet",
+      "value": "Value",
+      "vibe": "Vibe"
     }
   },
   "firstWeekPlanner": {

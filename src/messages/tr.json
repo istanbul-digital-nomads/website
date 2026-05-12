@@ -1076,6 +1076,14 @@
       "verified": "({date} doğrulandı)",
       "showLess": "Daha az göster",
       "scoreBreakdown": "Skor detayı"
+    },
+    "scoreLabels": {
+      "wifi": "Wifi",
+      "power": "Priz",
+      "comfort": "Konfor",
+      "noise": "Sessizlik",
+      "value": "Değer",
+      "vibe": "Atmosfer"
     }
   },
   "firstWeekPlanner": {

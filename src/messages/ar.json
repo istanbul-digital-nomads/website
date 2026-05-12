@@ -2215,5 +2215,63 @@
     "turkey": "تركيا",
     "visa": "تأشيرة",
     "workspace": "مساحة عمل"
+  },
+  "emails": {
+    "shared": {
+      "brandName": "Istanbul Digital Nomads",
+      "ferryTicker": "كاديكوي 09:10 / كاراكوي 10:25 / غلطة 18:30",
+      "footerTagline": "Istanbul Digital Nomads - ملاحظات إسطنبول بنكهة العبّارة للعاملين عن بُعد",
+      "footerSiteUrl": "istanbulnomads.com"
+    },
+    "contactForm": {
+      "subjectTemplate": "رسالة جديدة من {name} عبر Istanbul Nomads",
+      "previewTextTemplate": "رسالة جديدة من {name}",
+      "kicker": "ملاحظة من البريد",
+      "headingTemplate": "أرسل {name} رسالة",
+      "intro": "وصلت رسالة جديدة عبر نموذج التواصل في الموقع. يمكنك الرد مباشرةً لمواصلة الحوار من صندوق الوارد لديك.",
+      "fromLabel": "المُرسِل",
+      "emailLabel": "البريد الإلكتروني",
+      "messageLabel": "الرسالة",
+      "replyCtaTemplate": "الرد على {name}"
+    },
+    "newsletterWelcome": {
+      "subject": "إيقاع عملك في إسطنبول يبدأ من هنا",
+      "previewText": "خريطة البداية في إسطنبول بنكهة العبّارة في انتظارك",
+      "kicker": "أهلًا بك معنا",
+      "heading": "اجعل إسطنبول مدينة قابلة للعمل، طريقًا تلو الآخر.",
+      "body": "أنت ضمن قائمتنا. نرسل ملاحظات عملية عن المدينة للعاملين عن بُعد: أين تستقر، أي الطاولات مناسبة للابتوب، كم تكلفة الشهر فعلًا، ومتى يلتقي المجتمع لاحقًا.",
+      "firstWeekLabel": "مسار أسبوعك الأول",
+      "firstWeekValue": "قاعدة كاديكوي / استراحة العبّارة / مساء غلطة",
+      "firstStepLabel": "ما الذي تفعله أولًا",
+      "firstStepValue": "اختر الحي قبل أن تختار إيجارًا شهريًا",
+      "startHereKicker": "ابدأ من هنا",
+      "links": {
+        "neighborhoodsTitle": "دليل الأحياء",
+        "neighborhoodsDesc": "قارن بين أحياء جانب العبّارات والوسط ومناطق الأعمال والأحياء ذات الطابع الخاص بإيجابيات وسلبيات حقيقية.",
+        "costTitle": "تفصيل تكلفة المعيشة",
+        "costDesc": "اطّلع على الميزانيات الشهرية قبل أن تبدأ إسطنبول بالمساومة مع محفظتك.",
+        "coworkingTitle": "أماكن العمل المشترك ومقاهي اللابتوب",
+        "coworkingDesc": "اعثر على طاولات موثوقة للمكالمات وأيام التركيز والخطط البديلة."
+      },
+      "ctaJoin": "انضم إلى أسبوع العمل",
+      "unsubscribeNote": "بلا ضوضاء. فقط ملاحظات إسطنبول المفيدة.",
+      "unsubscribeLink": "إلغاء الاشتراك"
+    },
+    "guideApplication": {
+      "subjectTemplate": "مرشح دليل محلي: {name}",
+      "previewTextTemplate": "طلب دليل جديد من {name}",
+      "kicker": "مرشح دليل محلي",
+      "headingTemplate": "يرغب {name} في إرشاد الرحّالة في إسطنبول",
+      "intro": "راجِع الأحياء التي يعرفها واللغات التي يتقنها ونصيحته النموذجية ودوافعه. إذا بدا التوافق قويًا، يمكنك الرد مباشرةً من هذا البريد.",
+      "experienceLabel": "الخبرة",
+      "experienceValueTemplate": "{years} سنوات في إسطنبول",
+      "specializationsLabel": "التخصصات",
+      "neighborhoodsLabel": "الأحياء",
+      "languagesLabel": "اللغات",
+      "bioLabel": "نبذة شخصية",
+      "sampleTipLabel": "نصيحة نموذجية",
+      "motivationLabel": "الدافع",
+      "replyCtaTemplate": "الرد على {name}"
+    }
   }
 }

@@ -57,6 +57,72 @@ Maintained by `nomad-tr-editor`. Add discovered high-value Turkish search terms 
 | İran İstanbul göç | medium | /tr/blog/iran-to-istanbul-playbook-companion |
 | İranlı girişimci İstanbul | low | /tr/blog/iran-to-istanbul-playbook-companion |
 | Sisli İranlı topluluk | low | /tr/blog/iran-to-istanbul-playbook-companion |
+| İstanbul ortak çalışma alanı | medium | /tr/guides/coworking |
+| Kolektif House | medium | /tr/guides/coworking |
+| MOB Kadıköy | medium | /tr/guides/coworking |
+| İstanbul coworking | high | /tr/guides/coworking |
+| İstanbul laptop kafe | medium | /tr/guides/coworking |
+| İstanbul yemek | high | /tr/guides/food |
+| İstanbul lokanta | medium | /tr/guides/food |
+| İstanbul sokak yemeği | medium | /tr/guides/food |
+| Türk kahvaltısı | high | /tr/guides/food |
+| Kadıköy yemek | medium | /tr/guides/food |
+| İstanbul restoran | high | /tr/guides/food |
+| İstanbul sağlık | medium | /tr/guides/healthcare |
+| İstanbul özel hastane | high | /tr/guides/healthcare |
+| İstanbul eczane | medium | /tr/guides/healthcare |
+| Türkiye sağlık sigortası | high | /tr/guides/healthcare |
+| Acıbadem | medium | /tr/guides/healthcare |
+| İstanbul diş tedavisi | high | /tr/guides/healthcare |
+| İstanbul daire kiralama | high | /tr/guides/housing |
+| İstanbul sahibinden | high | /tr/guides/housing |
+| İstanbul eşyalı daire | high | /tr/guides/housing |
+| İstanbul kira sözleşmesi | medium | /tr/guides/housing |
+| İstanbul aidat | medium | /tr/guides/housing |
+| İstanbul depozito | medium | /tr/guides/housing |
+| Türkiye SIM kart | high | /tr/guides/internet |
+| Turkcell turist paketi | high | /tr/guides/internet |
+| IMEI kayıt | high | /tr/guides/internet |
+| İstanbul gece hayatı | high | /tr/guides/entertainment |
+| Kadife Sokak | medium | /tr/guides/entertainment |
+| Kadıköy Barlar Sokağı | medium | /tr/guides/entertainment |
+| İstanbul canlı müzik | medium | /tr/guides/entertainment |
+| İstanbul hamam | high | /tr/guides/entertainment |
+| İstanbul günübirlik | medium | /tr/guides/entertainment |
+| İstanbul kültürü | medium | /tr/guides/culture |
+| Türkçe öğrenme | high | /tr/guides/culture |
+| İstanbul yabancı yaşamı | medium | /tr/guides/culture |
+| temel Türkçe ifadeler | medium | /tr/guides/culture |
+| İstanbul kültürel ipuçları | low | /tr/guides/culture |
+| İstanbul mahalleler | high | /tr/guides/neighborhoods |
+| Cihangir | high | /tr/guides/neighborhoods |
+| Beşiktaş | high | /tr/guides/neighborhoods |
+| Üsküdar | medium | /tr/guides/neighborhoods |
+| Moda | medium | /tr/guides/neighborhoods |
+| Karaköy | medium | /tr/guides/neighborhoods |
+| Balat | medium | /tr/guides/neighborhoods |
+| Ataşehir | medium | /tr/guides/neighborhoods |
+| Nişantaşı | medium | /tr/guides/neighborhoods |
+| Levent | medium | /tr/guides/neighborhoods |
+| dijital göçebe İstanbul mahalle | medium | /tr/guides/neighborhoods |
+| İstanbul gıda fiyatları | medium | /tr/guides/cost-of-living |
+| dijital göçebe İstanbul bütçe | medium | /tr/guides/cost-of-living |
+| İstanbul metro | high | /tr/guides/transport |
+| İstanbul vapur | high | /tr/guides/transport |
+| İstanbul taksi | medium | /tr/guides/transport |
+| BiTaksi | medium | /tr/guides/transport |
+| Havaist | medium | /tr/guides/transport |
+| İstanbul Marmaray | medium | /tr/guides/transport |
+| Türkiye vize | high | /tr/guides/visa |
+| Türkiye e-vize | high | /tr/guides/visa |
+| kısa dönem ikamet izni | high | /tr/guides/visa |
+| Türkiye uzaktan çalışma vizesi | medium | /tr/guides/visa |
+| Hindistan İstanbul göç | low | /tr/path-to-istanbul/india |
+| Pakistan İstanbul göç | low | /tr/path-to-istanbul/pakistan |
+| Nijerya İstanbul göç | low | /tr/path-to-istanbul/nigeria |
+| Rus İstanbul göç | medium | /tr/path-to-istanbul/russia |
+| Sarıyer Rus topluluk | low | /tr/path-to-istanbul/russia |
+| kapalı mahalle | medium | /tr/path-to-istanbul/russia, /tr/guides/visa |
 
 ## Place-name spellings (canonical)
 

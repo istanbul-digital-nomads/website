@@ -2207,5 +2207,63 @@
     "turkey": "Turkey",
     "visa": "Visa",
     "workspace": "Workspace"
+  },
+  "emails": {
+    "shared": {
+      "brandName": "Istanbul Digital Nomads",
+      "ferryTicker": "Kadikoy 09:10 / Karakoy 10:25 / Galata 18:30",
+      "footerTagline": "Istanbul Digital Nomads - ferry-first city notes for remote workers",
+      "footerSiteUrl": "istanbulnomads.com"
+    },
+    "contactForm": {
+      "subjectTemplate": "New Istanbul Nomads message from {name}",
+      "previewTextTemplate": "New message from {name}",
+      "kicker": "Inbox note",
+      "headingTemplate": "{name} sent a message",
+      "intro": "A new contact form message came in from the website. Reply directly to continue the thread from your inbox.",
+      "fromLabel": "From",
+      "emailLabel": "Email",
+      "messageLabel": "Message",
+      "replyCtaTemplate": "Reply to {name}"
+    },
+    "newsletterWelcome": {
+      "subject": "Your Istanbul work rhythm starts here",
+      "previewText": "Your ferry-first Istanbul starter map is here",
+      "kicker": "Welcome aboard",
+      "heading": "Make Istanbul workable, one good route at a time.",
+      "body": "You're on the list. We send practical city notes for remote workers: where to base yourself, which tables are laptop-safe, what a month really costs, and when the community is meeting next.",
+      "firstWeekLabel": "Your first-week loop",
+      "firstWeekValue": "Kadikoy base / ferry reset / Galata evening",
+      "firstStepLabel": "What to do first",
+      "firstStepValue": "Pick a neighborhood before picking a monthly rental",
+      "startHereKicker": "Start here",
+      "links": {
+        "neighborhoodsTitle": "Neighborhoods guide",
+        "neighborhoodsDesc": "Compare ferry-side, central, business, and character-heavy neighborhoods with real tradeoffs.",
+        "costTitle": "Cost of living breakdown",
+        "costDesc": "See monthly budgets before Istanbul starts negotiating with your wallet.",
+        "coworkingTitle": "Coworking and laptop cafes",
+        "coworkingDesc": "Find reliable tables for calls, focus days, and backup plans."
+      },
+      "ctaJoin": "Join the workweek",
+      "unsubscribeNote": "No noise. Just useful Istanbul notes.",
+      "unsubscribeLink": "Unsubscribe"
+    },
+    "guideApplication": {
+      "subjectTemplate": "Local guide candidate: {name}",
+      "previewTextTemplate": "New guide application from {name}",
+      "kicker": "Local guide candidate",
+      "headingTemplate": "{name} wants to guide nomads in Istanbul",
+      "intro": "Review their neighborhoods, languages, sample tip, and motivation. If the fit looks strong, reply directly from this email.",
+      "experienceLabel": "Experience",
+      "experienceValueTemplate": "{years} years in Istanbul",
+      "specializationsLabel": "Specializations",
+      "neighborhoodsLabel": "Neighborhoods",
+      "languagesLabel": "Languages",
+      "bioLabel": "Bio",
+      "sampleTipLabel": "Sample tip",
+      "motivationLabel": "Motivation",
+      "replyCtaTemplate": "Reply to {name}"
+    }
   }
 }

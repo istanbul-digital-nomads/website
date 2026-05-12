@@ -43,6 +43,110 @@
     @apply antialiased;
   }
 
+  /* Locale-aware Arabic-script fonts. The `--font-fa` / `--font-ar` CSS
+     variables are only present in the DOM when the corresponding locale
+     is active, so font files for these locales are not downloaded for
+     other locales.
+
+     The Farsi font (Bon Pro) and the Arabic font (Noto Sans Arabic) are
+     applied to body and ALL inheriting elements (h1-h6, .font-display,
+     .font-mono, code, pre, .eyebrow) so the entire Persian/Arabic surface
+     uses the same family. The default Latin fonts (Manrope display, IBM
+     Plex Mono) remain in the fallback chain for code blocks and brand-name
+     Latin runs that the Arabic-script font may not cover. */
+  html[lang^="fa"] body,
+  html[lang^="fa"] h1,
+  html[lang^="fa"] h2,
+  html[lang^="fa"] h3,
+  html[lang^="fa"] h4,
+  html[lang^="fa"] h5,
+  html[lang^="fa"] h6,
+  html[lang^="fa"] .font-display {
+    font-family:
+      var(--font-fa), var(--font-sans), "Segoe UI", Tahoma, sans-serif;
+  }
+
+  html[lang^="fa"] code,
+  html[lang^="fa"] pre,
+  html[lang^="fa"] .font-mono,
+  html[lang^="fa"] .eyebrow {
+    font-family: var(--font-fa), var(--font-mono), ui-monospace, monospace;
+  }
+
+  html[lang^="ar"] body,
+  html[lang^="ar"] h1,
+  html[lang^="ar"] h2,
+  html[lang^="ar"] h3,
+  html[lang^="ar"] h4,
+  html[lang^="ar"] h5,
+  html[lang^="ar"] h6,
+  html[lang^="ar"] .font-display {
+    font-family:
+      var(--font-ar), var(--font-sans), "Segoe UI", Tahoma, sans-serif;
+  }
+
+  html[lang^="ar"] code,
+  html[lang^="ar"] pre,
+  html[lang^="ar"] .font-mono,
+  html[lang^="ar"] .eyebrow {
+    font-family: var(--font-ar), var(--font-mono), ui-monospace, monospace;
+  }
+
+  /* Arabic-script fonts (Bon Pro for Farsi, Noto Sans Arabic for Arabic)
+     render visually ~20% larger than the Latin sans at the same px size
+     because their cap-height and ascender extents are taller. Heroes
+     sized with the Latin scale wrap to four lines and overflow.
+     Scaling the root font-size shrinks every rem-based value uniformly
+     (text, headings, spacing) so the optical rhythm matches the English
+     layout - Bon Pro/Noto at 82% of nominal still reads as full-size
+     because of the script's larger optical weight. */
+  html[lang^="fa"],
+  html[lang^="ar"] {
+    font-size: 82%;
+  }
+  /* The hero h1 carries `max-w-[11.5ch]` to control English line breaks.
+     A "ch" unit in Bon Pro / Noto Sans Arabic is wider than in the Latin
+     sans, so the cap squeezes the headline harder and forces extra
+     wraps. Remove the cap for Arabic-script locales. */
+  html[lang^="fa"] h1.max-w-\[11\.5ch\],
+  html[lang^="ar"] h1.max-w-\[11\.5ch\] {
+    max-width: none;
+  }
+  /* Tighten heading line-height; Arabic-script text needs less leading
+     than the airy Latin display scale. */
+  html[lang^="fa"] h1,
+  html[lang^="ar"] h1,
+  html[lang^="fa"] h2,
+  html[lang^="ar"] h2 {
+    line-height: 1.2;
+  }
+
+  /* Mirror directional Lucide icons in RTL contexts so "next/forward"
+     arrows visually point toward the reading direction. The `rtl-keep`
+     class opts out for icons that should not be mirrored (e.g. play
+     buttons, brand glyphs, semantic markers). */
+  html[dir="rtl"] svg.lucide-arrow-right,
+  html[dir="rtl"] svg.lucide-arrow-left,
+  html[dir="rtl"] svg.lucide-chevron-right,
+  html[dir="rtl"] svg.lucide-chevron-left,
+  html[dir="rtl"] svg.lucide-move-up-right,
+  html[dir="rtl"] svg.lucide-move-down-right,
+  html[dir="rtl"] svg.lucide-corner-down-right,
+  html[dir="rtl"] svg.lucide-corner-up-right,
+  html[dir="rtl"] svg.lucide-arrow-up-right,
+  html[dir="rtl"] svg.lucide-arrow-down-right,
+  html[dir="rtl"] svg.lucide-circle-arrow-right,
+  html[dir="rtl"] svg.lucide-circle-chevron-right,
+  html[dir="rtl"] svg.lucide-square-arrow-right,
+  html[dir="rtl"] svg.lucide-square-chevron-right {
+    transform: scaleX(-1);
+  }
+
+  /* Escape hatch: explicit `rtl-keep` class disables the mirror. */
+  html[dir="rtl"] svg.rtl-keep {
+    transform: none;
+  }
+
   /* Decorative body gradients - deferred to avoid blocking first paint */
   body::before {
     content: "";

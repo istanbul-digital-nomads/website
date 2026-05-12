@@ -1,0 +1,1828 @@
+{
+  "site": {
+    "name": "Istanbul Digital Nomads",
+    "shortName": "Istanbul Digital Nomads",
+    "tagline": "Remote life, local rhythm",
+    "description": "Digital nomad community in Istanbul with weekly coworking, local guides, and a softer landing for people staying longer."
+  },
+  "nav": {
+    "about": "About",
+    "explore": "Explore",
+    "community": "Community",
+    "contact": "Contact",
+    "joinTelegram": "Join on Telegram",
+    "theme": {
+      "ariaLabel": "Switch theme (current: {theme})"
+    },
+    "items": {
+      "cityGuides": {
+        "label": "City Guides",
+        "description": "Neighborhoods, housing, visa, and more"
+      },
+      "pathToIstanbul": {
+        "label": "Path to Istanbul",
+        "description": "Country-by-country relocation playbooks"
+      },
+      "nomadSpaces": {
+        "label": "Nomad Spaces",
+        "description": "Wifi-tested cafes and coworking spots"
+      },
+      "firstWeekPlanner": {
+        "label": "First Week Planner",
+        "description": "A seven-day landing plan for new arrivals"
+      },
+      "localGuides": {
+        "label": "Local Guides",
+        "description": "People who help you settle in"
+      },
+      "events": {
+        "label": "Events",
+        "description": "Coworking sessions, meetups, and workshops"
+      },
+      "blog": {
+        "label": "Blog",
+        "description": "Stories and tips from the community"
+      }
+    }
+  },
+  "bottomNav": {
+    "home": "Home",
+    "guides": "Guides",
+    "events": "Events",
+    "community": "Community",
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "mobileMenu": {
+    "menu": "Menu",
+    "signIn": "Sign In",
+    "appearance": "Appearance",
+    "connect": "Connect",
+    "themes": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "Auto"
+    },
+    "social": {
+      "telegram": "Telegram",
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "email": "Email"
+    }
+  },
+  "footer": {
+    "newsletterEyebrow": "Sunday letter",
+    "newsletterTitle": "Get the Sunday letter",
+    "newsletterBody": "Practical city notes, fresh guides, and low-noise community updates from Istanbul.",
+    "tagline": "Local rhythm, practical guides, and a softer landing for digital nomads staying longer in Istanbul.",
+    "madeIn": "Made in Kadikoy",
+    "copyright": "© {year} {name}",
+    "columns": {
+      "community": "Community",
+      "resources": "Resources",
+      "connect": "Connect",
+      "legal": "Legal"
+    },
+    "links": {
+      "aboutUs": "About Us",
+      "localGuides": "Local Guides",
+      "events": "Events",
+      "blog": "Blog",
+      "contact": "Contact",
+      "nomadSpaces": "Nomad Spaces",
+      "cityGuides": "City Guides",
+      "pathToIstanbul": "Path to Istanbul",
+      "firstWeekPlanner": "First Week Planner",
+      "neighborhoods": "Neighborhoods",
+      "costOfLiving": "Cost of Living",
+      "photoCredits": "Photo credits",
+      "telegram": "Telegram",
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "email": "Email",
+      "openapi": "OpenAPI",
+      "llmsTxt": "LLMs.txt"
+    }
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signOut": "Sign out",
+    "signedOut": "Signed out",
+    "completeProfile": "Complete profile",
+    "memberFallback": "Member"
+  },
+  "newsletter": {
+    "placeholder": "you@example.com",
+    "subscribe": "Subscribe",
+    "subscribed": "You're subscribed!",
+    "ariaSubscribe": "Subscribe to the Sunday letter",
+    "toast": {
+      "errorTitle": "Could not subscribe",
+      "successTitle": "You're in!",
+      "failedTitle": "Something went wrong",
+      "failedBody": "Please try again later."
+    }
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "current": "Current language: {language}",
+    "translationInProgress": "Original in English. Translation in progress."
+  },
+  "common": {
+    "loading": "Loading...",
+    "readMore": "Read more",
+    "backToTop": "Back to top",
+    "skipToContent": "Skip to content",
+    "explore": "Explore",
+    "side": {
+      "european": "European side",
+      "asian": "Asian side"
+    }
+  },
+  "sections": {
+    "rhythmMatcher": {
+      "eyebrow": "Choose your Istanbul rhythm",
+      "title": "Pick the day you want, then let the city narrow itself.",
+      "intro": "Choose up to four signals. The matcher ranks the full neighborhood set by pace, budget, ferry access, work setup, and social energy.",
+      "liveMatch": "Live match",
+      "signals": "{count, plural, =1 {1 signal} other {# signals}}",
+      "fit": "{score}% fit / {rent}",
+      "turnIntoWeekOne": "Turn this into week one",
+      "useAsBase": "Use {neighborhood} as your base and build a seven-day arrival plan around it.",
+      "planFromMatch": "Plan from match",
+      "reasons": {
+        "quiet": "The day-to-day pace stays calmer.",
+        "social": "It has enough social gravity for a first month.",
+        "budget": "Rent stays more forgiving than the premium core.",
+        "ferry": "Ferries can become part of the routine.",
+        "seaside": "Waterfront walks are part of the local rhythm.",
+        "business": "Work infrastructure is easy to reach.",
+        "nightlife": "Evenings are close without over-planning.",
+        "character": "The streets have a stronger sense of place.",
+        "lowNoise": "Low-noise profile.",
+        "streetEnergy": "Enough street energy to meet people naturally."
+      }
+    },
+    "rhythmSignals": {
+      "quiet": {
+        "label": "Quiet routine",
+        "short": "Quiet",
+        "description": "Low-noise streets, calmer evenings, easier focus."
+      },
+      "social": {
+        "label": "Social momentum",
+        "short": "Social",
+        "description": "Easy first friends, events, cafes, and after-work plans."
+      },
+      "budget": {
+        "label": "Budget aware",
+        "short": "Budget",
+        "description": "Better rent value without losing daily convenience."
+      },
+      "ferry": {
+        "label": "Ferry-first",
+        "short": "Ferry",
+        "description": "A commute that feels like a reset instead of a chore."
+      },
+      "seaside": {
+        "label": "Seaside walks",
+        "short": "Seaside",
+        "description": "Water, sunset routes, and an easier nervous system."
+      },
+      "business": {
+        "label": "Business mode",
+        "short": "Business",
+        "description": "Coworking density, meeting access, gyms, and infrastructure."
+      },
+      "nightlife": {
+        "label": "Nightlife nearby",
+        "short": "Nightlife",
+        "description": "Bars, dinners, galleries, and spontaneous evenings."
+      },
+      "character": {
+        "label": "Character-heavy",
+        "short": "Character",
+        "description": "Historic streets, imperfect charm, and memorable texture."
+      }
+    },
+    "neighborhoodsMap": {
+      "eyebrow": "Where they sit on the map",
+      "title": "The neighborhoods, mapped.",
+      "intro": "The strongest nomad bases cluster around ferries, metro lines, coworking corridors, and walkable cafe streets. The commute is part of the decision."
+    },
+    "istanbulMap": {
+      "eyebrow": "First-month map - Istanbul",
+      "body": "European side left, Asian side right, ferries tying the week together. Hover neighborhoods to explore.",
+      "ferryRoutes": "Ferry routes"
+    },
+    "neighborhoodCards": {
+      "eyebrow": "Where people land",
+      "title": "Ten neighborhoods, one city.",
+      "intro": "Start with the ten full guides, then use the broader comparison to sense-check the rest of the city before you book.",
+      "sideLabel": "{side} side",
+      "spacesTracked": "{count, plural, =1 {1 space tracked} other {# spaces tracked}}",
+      "coworkingNearby": "Coworking nearby",
+      "explore": "Explore",
+      "compareAll": "Compare all ten in the full guide"
+    },
+    "faq": {
+      "eyebrow": "Common questions",
+      "title": "What nomads ask before arriving.",
+      "intro": "Quick answers from our city guides. Click any question for more detail.",
+      "readGuide": "Read the {guide} guide"
+    }
+  },
+  "guides": {
+    "neighborhoods": {
+      "title": "Neighborhoods",
+      "description": "A breakdown of Istanbul's best areas for nomads - vibe, pricing, and transport."
+    },
+    "coworking": {
+      "title": "Coworking Spaces",
+      "description": "Our top picks for coworking spaces and cafes with fast wifi."
+    },
+    "housing": {
+      "title": "Housing",
+      "description": "How to find an apartment, what to expect, and fair rent prices."
+    },
+    "cost-of-living": {
+      "title": "Cost of Living",
+      "description": "Monthly budgets for budget, moderate, and comfortable lifestyles."
+    },
+    "visa": {
+      "title": "Visa & Residency",
+      "description": "Tourist visa rules, residence permit process, and legal tips."
+    },
+    "internet": {
+      "title": "Internet & SIM Cards",
+      "description": "Best mobile plans, home internet options, and backup solutions."
+    },
+    "transport": {
+      "title": "Getting Around",
+      "description": "Istanbulkart, ferries, metro, buses, taxis, and dolmus explained."
+    },
+    "food": {
+      "title": "Food & Dining",
+      "description": "Where to eat, what to try, and how to eat well on a budget."
+    },
+    "healthcare": {
+      "title": "Healthcare",
+      "description": "Hospitals, pharmacies, insurance options, and what to know."
+    },
+    "entertainment": {
+      "title": "Entertainment & Leisure",
+      "description": "Nightlife, live music, sports, day trips, and how to enjoy Istanbul beyond your laptop."
+    },
+    "culture": {
+      "title": "Culture & Language",
+      "description": "Basic Turkish, cultural norms, and tips for fitting in."
+    }
+  },
+  "istanbulToday": {
+    "eyebrow": "Istanbul today",
+    "stats": {
+      "temp": "Temp",
+      "rain": "Rain",
+      "wind": "Wind"
+    },
+    "updated": "Updated {time}",
+    "fallbackSuffix": " with fallback mood",
+    "liveSky": "Live sky",
+    "bestMove": "Best move",
+    "nomadHint": "Nomad hint",
+    "hints": {
+      "backupCafe": "Save one backup cafe",
+      "ferry": "Leave room for a ferry"
+    },
+    "moods": {
+      "stormy": {
+        "label": "Storm watch",
+        "verb": "Bring the serious umbrella.",
+        "note": "Great cafe day. Pick somewhere with backup seating and stay close to metro.",
+        "cta": "Cafe-first plan"
+      },
+      "rainy": {
+        "label": "Rainy Istanbul",
+        "verb": "The city is in ferry-window mode.",
+        "note": "Kadikoy, Karakoy, and Galata still work. Just choose shorter walks and covered tables.",
+        "cta": "Rain-safe route"
+      },
+      "windy": {
+        "label": "Bosphorus wind",
+        "verb": "Ferry views, jacket required.",
+        "note": "Good day for a shorter crossing, then a stable indoor work block.",
+        "cta": "Wind-aware plan"
+      },
+      "cloudy": {
+        "label": "Soft gray city",
+        "verb": "Long walks, low glare, good focus.",
+        "note": "A strong day for neighborhood scouting before the evening tables fill up.",
+        "cta": "Scout a base"
+      },
+      "sunny": {
+        "label": "Bright Bosphorus",
+        "verb": "Do the outside part first.",
+        "note": "Walk the water, take the ferry, then cool down at a laptop-friendly cafe.",
+        "cta": "Sunny day loop"
+      }
+    }
+  },
+  "neighborhoodList": {
+    "kadikoy": {
+      "name": "Kadikoy",
+      "oneLiner": "Walkable Asian-side hub with ferry access and some of the city's best independent cafes.",
+      "badges": {
+        "bestFirstMonth": "Best first month",
+        "bestValue": "Best value",
+        "bestFerryLife": "Best ferry life"
+      }
+    },
+    "moda": {
+      "name": "Moda",
+      "oneLiner": "Calm seaside peninsula with creative energy, long evening walks, and a lot of cats.",
+      "badges": {
+        "quietest": "Quietest",
+        "seaside": "Seaside",
+        "creative": "Creative"
+      }
+    },
+    "cihangir": {
+      "name": "Cihangir",
+      "oneLiner": "Bohemian hilltop with Bosphorus views, strong cafe culture, and a tight expat community.",
+      "badges": {
+        "mostSocial": "Most social",
+        "nightlife": "Nightlife",
+        "bohemian": "Bohemian"
+      }
+    },
+    "besiktas": {
+      "name": "Besiktas",
+      "oneLiner": "Lively waterfront district with a big market, student energy, and ferry access on both sides.",
+      "badges": {
+        "localEnergy": "Local energy",
+        "streetFood": "Street food",
+        "ferryLife": "Ferry life"
+      }
+    },
+    "galata": {
+      "name": "Karakoy / Galata",
+      "oneLiner": "Design district between the bridge and the tower. Specialty coffee, galleries, and central access.",
+      "badges": {
+        "bestShortStay": "Best short stay",
+        "central": "Central",
+        "designDistrict": "Design district"
+      }
+    },
+    "uskudar": {
+      "name": "Uskudar",
+      "oneLiner": "Traditional Bosphorus base with ferry links, quiet streets, and sunset walks by Maiden's Tower.",
+      "badges": {
+        "quietFerryLife": "Quiet ferry life",
+        "local": "Local",
+        "sunsetWalks": "Sunset walks"
+      }
+    },
+    "nisantasi": {
+      "name": "Nisantasi",
+      "oneLiner": "Polished, central, and cafe-rich. Good for nomads who want comfort, boutiques, gyms, and easy access to Sisli.",
+      "badges": {
+        "premium": "Premium",
+        "cafeWork": "Cafe work",
+        "centralComfort": "Central comfort"
+      }
+    },
+    "levent": {
+      "name": "Levent",
+      "oneLiner": "Business-district base with metro access, malls, offices, and the most practical coworking density.",
+      "badges": {
+        "businessCorridor": "Business corridor",
+        "founderFriendly": "Founder-friendly",
+        "coworkingDensity": "Coworking density"
+      }
+    },
+    "balat": {
+      "name": "Balat",
+      "oneLiner": "Colorful Golden Horn neighborhood with character, cheaper rents, hills, and slower cafe days.",
+      "badges": {
+        "characterHeavy": "Character-heavy",
+        "budget": "Budget",
+        "historic": "Historic"
+      }
+    },
+    "atasehir": {
+      "name": "Atasehir",
+      "oneLiner": "Modern Asian-side high-rise district for corporate work, newer apartments, malls, and quieter routines.",
+      "badges": {
+        "newerApartments": "Newer apartments",
+        "quietNights": "Quiet nights",
+        "businessAccess": "Business access"
+      }
+    }
+  },
+  "faqItems": {
+    "neighborhoods": {
+      "question": "Which neighborhood should I start in?",
+      "answer": "Kadikoy on the Asian side is the most popular with nomads - walkable, affordable, and packed with cafes. Cihangir on the European side is the go-to for a social, bohemian vibe with Bosphorus views."
+    },
+    "cost-of-living": {
+      "question": "How much does a month in Istanbul cost?",
+      "answer": "A comfortable nomad lifestyle runs $1,200-$1,500/month including a furnished apartment in Kadikoy, eating out a few times a week, coworking, and transport. Budget-conscious nomads can manage on $750-$1,000."
+    },
+    "visa": {
+      "question": "Do I need a visa to work remotely?",
+      "answer": "For stays under 90 days, a tourist e-visa ($50-60, instant online) is all you need. For longer stays, Turkey has a digital nomad visa (12 months, requires $3,000/month income) or a standard residence permit."
+    },
+    "internet": {
+      "question": "How do I get a SIM card?",
+      "answer": "Buy a Turkcell tourist SIM at any company-owned store for about 250 TL (~$8) with 20 GB data. Bring your passport. City stores are cheaper than airport counters."
+    },
+    "coworking": {
+      "question": "Where can I work with good wifi?",
+      "answer": "Kolektif House has 100+ Mbps wifi and costs 490 TL/month (~$16). For cafes, Kadikoy and Cihangir have the highest density of laptop-friendly spots with reliable connections."
+    },
+    "housing": {
+      "question": "How do I find an apartment?",
+      "answer": "Start with Airbnb or Flatio for your first month while you explore. For longer stays, Sahibinden.com has the best local prices. Always visit in person before paying."
+    },
+    "safety": {
+      "question": "Is Istanbul safe?",
+      "answer": "Yes. Istanbul is very safe for its size. The nomad-popular neighborhoods (Kadikoy, Cihangir, Besiktas, Karakoy) are all safe day and night. Use BiTaksi for taxis and standard big-city precautions.",
+      "guideSlug": "neighborhoods"
+    },
+    "transport": {
+      "question": "How do I get from the airport?",
+      "answer": "The Havaist bus is the best value (150 TL, runs to Taksim and Kadikoy). A taxi costs 600-800 TL. The new M11 metro line also connects the airport to the city."
+    },
+    "culture": {
+      "question": "Do I need to speak Turkish?",
+      "answer": "Not in nomad-friendly areas - English is widely understood in cafes, coworking spaces, and tourist areas. But learning 20 basic phrases will transform how locals treat you."
+    },
+    "healthcare": {
+      "question": "How do I see a doctor?",
+      "answer": "Private hospitals (Acibadem, Memorial) have English-speaking staff and accept international insurance. A doctor visit costs 500-1,500 TL (~$16-48) without insurance - much cheaper than Western countries."
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "About",
+      "description": "The story behind Istanbul Digital Nomads - how we started, what we believe in, and the people who make it happen."
+    },
+    "story": {
+      "title": "Our Story",
+      "p1": "Istanbul Digital Nomads is a brand-new community, started in 2026 by one person who decided to make the move and wanted to build the thing that didn't exist yet for the next people coming.",
+      "p2": "The decision came in February 2026. The idea took shape in March. The website went live in April. The first meetup is planned for Q2. That's the whole story so far - we're writing the rest with whoever shows up.",
+      "p3": "Istanbul is one of the best cities in the world for remote work - affordable, culturally rich, extremely well-connected, and full of energy. Our mission is to make the transition easier and the experience richer for every nomad who comes here."
+    },
+    "values": {
+      "title": "What We Believe In",
+      "description": "The principles that guide our community.",
+      "items": {
+        "inclusive": {
+          "title": "Inclusive",
+          "description": "Everyone is welcome regardless of background, skill level, or how long they plan to stay."
+        },
+        "helpful": {
+          "title": "Helpful",
+          "description": "We share knowledge freely - from visa tips to the best cafes. No question is too basic."
+        },
+        "authentic": {
+          "title": "Authentic",
+          "description": "Real connections over networking. We value genuine relationships and honest recommendations."
+        },
+        "fun": {
+          "title": "Fun",
+          "description": "Life as a nomad should be enjoyable. We balance productivity with exploration and social events."
+        }
+      }
+    },
+    "team": {
+      "title": "The Team",
+      "description": "The people who keep the community running.",
+      "members": {
+        "ali": {
+          "role": "Founder",
+          "bio": "Full-stack developer who moved to Istanbul in early 2026 and started this community to help the next person land easier."
+        },
+        "dina": {
+          "role": "Events Organizer",
+          "bio": "Product designer who organizes weekly coworking sessions and monthly socials."
+        },
+        "kerem": {
+          "role": "Local Guide",
+          "bio": "Istanbul native and freelance translator. Bridges the gap between nomads and local culture."
+        }
+      }
+    },
+    "milestones": {
+      "title": "Milestones",
+      "description": "A short journey so far - the rest gets written with you.",
+      "comingUp": "Coming up",
+      "items": {
+        "decided": {
+          "date": "Feb 2026",
+          "title": "Decided to move to Turkey",
+          "description": "The choice was made. Tickets booked, leases ended, bags packed."
+        },
+        "idea": {
+          "date": "Mar 2026",
+          "title": "Started the Istanbul Digital Nomads idea",
+          "description": "Sketched the first version of what this community could be for the next person arriving."
+        },
+        "launched": {
+          "date": "Apr 2026",
+          "title": "Website launched",
+          "description": "Country guides, city playbooks, and a place for the community to land."
+        },
+        "firstMeetup": {
+          "date": "Q2 2026",
+          "title": "First community meetup",
+          "description": "A small in-person gathering. The real start of the community."
+        }
+      }
+    }
+  },
+  "contactPage": {
+    "meta": {
+      "title": "Contact",
+      "description": "Get in touch with Istanbul Digital Nomads. Reach us via Telegram, email, or the contact form."
+    },
+    "hero": {
+      "title": "Contact Us",
+      "description": "Questions, ideas, or feedback - we'd like to hear it."
+    },
+    "quickLinks": {
+      "heading": "Quick Links",
+      "telegram": {
+        "title": "Telegram",
+        "description": "The fastest way to reach us and the community."
+      },
+      "github": {
+        "title": "GitHub",
+        "description": "Report issues, contribute, or explore our repos."
+      },
+      "email": {
+        "title": "Email",
+        "description": "For partnerships, press, or private inquiries."
+      }
+    },
+    "form": {
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "messageLabel": "Message",
+      "messagePlaceholder": "How can we help?",
+      "submit": "Send Message",
+      "successTitle": "Thanks for reaching out!",
+      "successBody": "We'll get back to you as soon as we can.",
+      "errorTitle": "Could not send message",
+      "errorFallbackTitle": "Something went wrong",
+      "errorFallbackBody": "Please try again later."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "items": {
+        "free": {
+          "q": "Is the community free to join?",
+          "a": "Yes, completely free. Just join our Telegram group and introduce yourself."
+        },
+        "shortTerm": {
+          "q": "I'm visiting Istanbul for a week - can I still join events?",
+          "a": "Absolutely. Short-term visitors are welcome at all our events."
+        },
+        "tech": {
+          "q": "Do I need to be a developer or work in tech?",
+          "a": "Not at all. We've got designers, writers, marketers, founders, and more. Anyone who works remotely is welcome."
+        },
+        "events": {
+          "q": "How do I find out about upcoming events?",
+          "a": "Events are posted in the Telegram group and on our Events page. We also send a weekly digest."
+        },
+        "organize": {
+          "q": "Can I organize an event?",
+          "a": "Yes! Reach out in the Telegram group or via this form. We love community-led events."
+        }
+      }
+    }
+  },
+  "creditsPage": {
+    "meta": {
+      "title": "Photo credits",
+      "description": "Attribution and licensing for every photo on Istanbul Nomads - sourced from Unsplash, Wikimedia Commons, generated originals, and other free-license providers."
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "current": "Photo credits"
+    },
+    "heading": "Photo credits",
+    "intro": "Every photo on Istanbul Nomads is credited here. Neighborhood and blog photography is sourced from Unsplash, Wikimedia Commons, and generated originals made for the site. Each credit links back to the source or license information so you can verify usage.",
+    "sections": {
+      "siteVisuals": "Site visuals",
+      "blogCovers": "Blog covers"
+    },
+    "siteVisualsItems": {
+      "istanbulToday": {
+        "label": "Istanbul Today weather widget",
+        "alt": "Rainy Bosphorus ferry scene used behind the live Istanbul Today weather widget"
+      }
+    },
+    "manifestMissing": {
+      "before": "Photo manifest not found. Run ",
+      "after": " to generate it."
+    },
+    "contribute": {
+      "before": "Got a photo to contribute? We're building out community photos from people who actually live here. Reach out in the ",
+      "linkText": "Telegram group",
+      "after": "."
+    }
+  },
+  "loginPage": {
+    "meta": {
+      "title": "Sign In",
+      "description": "Sign in to Istanbul Digital Nomads with your Google account."
+    },
+    "heading": "Sign in",
+    "subheading": "Sign in to RSVP to events and manage your profile.",
+    "google": "Continue with Google",
+    "errorTitle": "Sign in failed",
+    "disclaimer": "By signing in, you agree to be a respectful member of the Istanbul Digital Nomads community."
+  },
+  "eventsPage": {
+    "meta": {
+      "title": "Events",
+      "description": "Upcoming meetups, coworking sessions, workshops, and social events for digital nomads in Istanbul."
+    },
+    "hero": {
+      "title": "Events",
+      "description": "Coworking, meetups, and workshops in Istanbul.",
+      "weekly": " New events are posted weekly."
+    },
+    "empty": {
+      "title": "No events scheduled yet",
+      "body": "New events are posted weekly in the Telegram group. Join to get notified.",
+      "joinTelegram": "Join Telegram",
+      "exploreGuides": "Explore guides"
+    },
+    "list": {
+      "tabs": {
+        "upcoming": "Upcoming",
+        "past": "Past"
+      },
+      "pastBadge": "Past",
+      "filters": {
+        "all": "All"
+      },
+      "types": {
+        "meetup": "Meetup",
+        "coworking": "Coworking",
+        "workshop": "Workshop",
+        "social": "Social"
+      },
+      "spots": "{count} spots",
+      "emptyUpcoming": "No events scheduled yet. New events are posted weekly in the Telegram group.",
+      "emptyPast": "No past events matching your filter."
+    },
+    "waitlist": {
+      "badge": "Surprise event",
+      "title": "Something's coming. Date drops on the day.",
+      "body": "We're cooking up a community-only event in Istanbul. The when and where stay under wraps until that morning. Join the waitlist and you'll be the first to know.",
+      "firstNamePlaceholder": "First name",
+      "emailPlaceholder": "you@example.com",
+      "submit": "Join the waitlist",
+      "submitting": "Joining...",
+      "disclaimer": "No spam. We email once when the date is announced.",
+      "joinedConfirm": "You're on the list. Watch your inbox.",
+      "joinedProfileTitle": "One more step: complete your profile.",
+      "joinedProfileBody": "Members with full profiles get priority when spots are limited and a faster intro into the community.",
+      "completeProfile": "Complete profile",
+      "emptyBeFirst": "Be the first to join.",
+      "emptyDescription": "We'll show who's in here as people sign up.",
+      "countOne": "1 nomad on the list",
+      "countMany": "{count} nomads on the list",
+      "andMore": " and {count} more",
+      "errorTitle": "Could not join the waitlist",
+      "successTitle": "You're on the list!",
+      "errorFallbackTitle": "Something went wrong",
+      "errorFallbackBody": "Please try again later."
+    }
+  },
+  "ctaBanner": {
+    "title": "Ready to join?",
+    "body": "Connect with remote workers in Istanbul. Free, open, and welcoming.",
+    "cta": "Join on Telegram"
+  },
+  "home": {
+    "meta": {
+      "tickerSchedule": "Kadikoy 09:10 / Karakoy 10:25 / Galata 18:30",
+      "tickerTimezone": "GMT+3 / ferry-first / laptop-ready",
+      "asiaBase": "Asia base",
+      "ferryReset": "Ferry reset",
+      "eveningTable": "Evening table"
+    },
+    "hero": {
+      "title": "Build your Istanbul work rhythm in 7 days.",
+      "subtitle": "Choose a base, learn the ferry loop, and save the laptop-safe tables locals trust after sunset.",
+      "joinWorkweek": "Join the workweek",
+      "chooseBase": "Choose a base",
+      "imageAlt": "A calm Moda waterfront table with tea, notebook, and the Istanbul skyline beyond",
+      "ferryWorkdayBadge": "Ferry workday",
+      "kadikoy": "Kadikoy",
+      "karakoy": "Karakoy",
+      "galata": "Galata",
+      "trustSignals": {
+        "nextCoworking": "Next coworking {date}",
+        "freeToJoin": "Free to join",
+        "allRemoteWorkers": "All remote workers welcome",
+        "weeklyCoworking": "Weekly coworking sessions"
+      },
+      "deskNotes": {
+        "baseLabel": "Base",
+        "baseValue": "Kadikoy or Moda",
+        "crossingLabel": "Crossing",
+        "crossingValue": "20 min ferry reset",
+        "fallbackLabel": "Fallback",
+        "fallbackValue": "Coworking if cafes fill"
+      },
+      "fieldCard": {
+        "eyebrow": "Nomad field card",
+        "title": "The ferry workday",
+        "boardEyebrow": "Ferry board / first week",
+        "tzLabel": "GMT+3",
+        "tzValue": "2 continents",
+        "openGuide": "Open the first-month guide"
+      },
+      "routeSteps": {
+        "kadikoyPier": {
+          "title": "Kadikoy pier",
+          "detail": "Pick a walkable base with breakfast, metro, and ferries nearby."
+        },
+        "karakoyTable": {
+          "title": "Karakoy table",
+          "detail": "Cross with one job to do and a saved list of laptop-safe seats."
+        },
+        "galataEvening": {
+          "title": "Galata evening",
+          "detail": "Meet the people who know where the city works after dark."
+        }
+      }
+    },
+    "firstWeekTool": {
+      "eyebrow": "New arrival tool",
+      "title": "Turn your first week into a real Istanbul routine.",
+      "body": "Pick your base, work setup, social pace, and budget comfort. Get a seven-day plan with ferry confidence, work blocks, admin buffer, and the right links for week two.",
+      "cta": "Plan my week"
+    },
+    "stats": {
+      "intro": "Built for people who want a city that becomes workable quickly, not just another place to pass through.",
+      "growing": "Growing",
+      "growingLabel": "community",
+      "weekly": "Weekly",
+      "weeklyLabel": "coworking rhythm",
+      "guides": "11",
+      "guidesLabel": "local living guides",
+      "neighborhoods": "25+",
+      "neighborhoodsLabel": "neighborhoods covered"
+    },
+    "events": {
+      "eyebrow": "What's happening",
+      "title": "This week's events",
+      "intro": "Coworking sessions, meetups, and workshops happening in Istanbul this week.",
+      "datesScheduledEyebrow": "Dates being scheduled",
+      "datesScheduledTitle": "The next coworking dates are coming together.",
+      "datesScheduledBody": "Join the Telegram group for the current informal coworking thread while the public calendar catches up.",
+      "openSpots": "Open",
+      "spots": "{capacity} spots",
+      "seeAll": "See all events",
+      "moments": {
+        "1": "Quiet work session with reliable wifi and plenty of regulars who welcome first-timers.",
+        "2": "The easiest event to meet people fast, especially if you just arrived and want social momentum.",
+        "3": "Bring real questions about freelancing, residency, and how to stay compliant while living here."
+      }
+    },
+    "cityGuides": {
+      "eyebrow": "City guides",
+      "title": "Everything you need for your first month.",
+      "intro": "Neighborhoods, coworking, housing, internet, transport, cost of living, and more - written by people living here.",
+      "subIntro": "Think of them as confidence builders for your first month, not a static resource archive.",
+      "fastAnswersEyebrow": "Fast answers",
+      "fastAnswersBody": "Housing, internet, transport, visa basics, and neighborhood fit.",
+      "browseAll": "Browse all guides",
+      "orientation": {
+        "whereStay": "Where should I stay?",
+        "bestCoworking": "Best areas for coworking",
+        "monthlyCost": "What does a month cost?",
+        "fastInternet": "How do I get online fast?"
+      }
+    },
+    "firstMonth": {
+      "eyebrow": "First month essentials",
+      "title": "Start with the pieces that make remote life easier to operate.",
+      "body": "If you just landed, begin with neighborhoods, internet, transit, and this week's meetup. It's the fastest path from arrival mode to a workable local routine."
+    },
+    "phases": {
+      "weekOne": {
+        "phase": "Week one",
+        "title": "A workable routine, fast",
+        "description": "Wifi-tested cafes, a coworking session to drop into, and a neighborhood that fits your pace.",
+        "tag": "Arrival"
+      },
+      "monthOne": {
+        "phase": "Month one",
+        "title": "Familiar faces in familiar places",
+        "description": "The weekly rhythm means you keep running into the same people - and that's how real friendships start.",
+        "tag": "Orientation"
+      },
+      "monthThree": {
+        "phase": "Month three+",
+        "title": "A city that feels like yours",
+        "description": "You've got a ferry route, a favorite baklava spot, and people who text you when something good is happening.",
+        "tag": "Attachment"
+      }
+    },
+    "whyStay": {
+      "eyebrow": "Why people stay",
+      "title": "Why nomads keep extending their stay.",
+      "body": "What changes after you join is simple: your workweeks get steadier, the city gets easier to read, and familiar faces start showing up in the places you already like to be.",
+      "items": {
+        "reliableWorkdays": {
+          "title": "Reliable workdays",
+          "description": "Coworking sessions, cafe picks, and practical setup advice."
+        },
+        "lowFriction": {
+          "title": "Low-friction onboarding",
+          "description": "Helpful answers fast, without having to search five groups."
+        },
+        "localTexture": {
+          "title": "Better local texture",
+          "description": "Meet people who know the city and still remember what it feels like to arrive."
+        }
+      },
+      "card": {
+        "eyebrow": "Local knowledge, shared quickly",
+        "title": "Ask one question and skip hours of guesswork.",
+        "body": "Where should you base yourself for your first month? Which coworking spots have stable wifi? How do ferries change your commute? The community makes those answers social, current, and local.",
+        "bullets": {
+          "tradeoffs": "Neighborhood tradeoffs explained by people living here",
+          "rituals": "Weekly rituals that make meeting people feel easier",
+          "setup": "Practical setup help for workdays, transit, and housing",
+          "landing": "A softer landing if you're staying more than a few weeks"
+        }
+      }
+    },
+    "joinCta": {
+      "eyebrow": "Get started",
+      "title": "Join us on Telegram.",
+      "body": "Introduce yourself and we'll point you to this week's meetup, a good workspace, or the right neighborhood to start from.",
+      "joinTelegram": "Join on Telegram",
+      "aboutCommunity": "About the community"
+    }
+  },
+  "spacesPage": {
+    "meta": {
+      "title": "Nomad Spaces",
+      "description": "Find the best cafes and coworking spaces in Istanbul for remote work. Each spot is rated with a Nomad Score based on wifi, power, comfort, noise, value, and vibe."
+    },
+    "hero": {
+      "eyebrow": "Nomad Spaces",
+      "title": "Find the right table for today.",
+      "body": "Choose calls, quiet focus, rain-safe backup, late work, budget, or first-visit mode. The finder ranks Istanbul cafes and coworking spaces by what actually matters for remote work.",
+      "openFinder": "Open finder",
+      "planWeekOne": "Plan week one",
+      "signals": {
+        "workReady": {
+          "label": "Work-ready",
+          "value": "{count} spaces",
+          "detail": "Cafes and coworking spots with laptop signals."
+        },
+        "coverage": {
+          "label": "Coverage",
+          "value": "{count} areas",
+          "detail": "Asian and European side options in one comparison."
+        },
+        "decisionLabels": {
+          "label": "Decision labels",
+          "value": "Calls / quiet / rain",
+          "detail": "Same-day filters instead of generic listings."
+        },
+        "realityCheck": {
+          "label": "Reality check",
+          "value": "Partial scores shown",
+          "detail": "Unverified fields stay honest and visible."
+        }
+      }
+    },
+    "finder": {
+      "quest": {
+        "step1Label": "1. Pick mission",
+        "step2Label": "2. Add power-ups",
+        "step3Label": "3. Claim table",
+        "optional": "Optional",
+        "activeCount": "{count} active",
+        "noMatchYet": "No match yet"
+      },
+      "mission": {
+        "eyebrow": "Choose your work quest",
+        "title": "Pick the kind of day you are trying to win.",
+        "bodySuffix": "Add one or two work signals only if the day really needs them.",
+        "selected": "Selected",
+        "rewardPrefix": "Reward:"
+      },
+      "suggested": {
+        "title": "Suggested power-ups",
+        "equip": "Equip {label}"
+      },
+      "brief": {
+        "eyebrow": "Go here first",
+        "subtitle": "Ranked by your current workday brief.",
+        "found": "{count} found",
+        "checkLive": "Check live",
+        "scoreSuffix": "{score} score",
+        "unverified": "Unverified",
+        "power": "Power",
+        "powerGood": "Good bet",
+        "powerCheck": "Check first",
+        "type": "Type",
+        "typeCoworking": "Coworking",
+        "typeCafe": "Cafe",
+        "backup": "Backup",
+        "openMap": "Open map",
+        "noPickTitle": "No clean pick for this exact brief.",
+        "noPickBody": "Remove one work signal, then compare again."
+      },
+      "search": {
+        "placeholder": "Search by place, neighborhood, amenity, or signal...",
+        "reset": "Reset"
+      },
+      "type": {
+        "all": "All",
+        "cafe": "Cafes",
+        "coworking": "Coworking"
+      },
+      "sort": {
+        "recommended": "Recommended",
+        "score": "Nomad Score",
+        "name": "Name"
+      },
+      "filters": {
+        "neighborhood": "Neighborhood",
+        "powerUps": "Power-ups",
+        "allNeighborhoods": "All neighborhoods"
+      },
+      "map": {
+        "label": "Map view",
+        "open": "Map is open for the current filtered list.",
+        "closed": "Open the map when location matters more than comparison."
+      },
+      "results": {
+        "eyebrow": "Compare spaces",
+        "matchOne": "{count} match",
+        "matchOther": "{count} matches",
+        "body": "Scores are weighted for wifi, power, comfort, quiet, value, and vibe. Partial scores stay visible so unverified places don't look more certain than they are.",
+        "loadout": {
+          "mission": "Mission",
+          "area": "Area",
+          "type": "Type",
+          "powerUp": "Power-up",
+          "search": "Search",
+          "removeLabel": "Remove {value}"
+        },
+        "empty": {
+          "title": "No spaces match that exact workday.",
+          "body": "Try removing one signal first. Calls-friendly plus quiet plus open late can be a coworking-only day in Istanbul.",
+          "cta": "Clear filters"
+        }
+      },
+      "modes": {
+        "best": {
+          "label": "Best today",
+          "description": "Balanced picks for getting real work done.",
+          "stage": "Main quest",
+          "reward": "Balanced workday"
+        },
+        "calls": {
+          "label": "Calls",
+          "description": "Safer for meetings, booths, or quieter corners.",
+          "stage": "Call shield",
+          "reward": "Less meeting stress"
+        },
+        "quiet": {
+          "label": "Quiet focus",
+          "description": "Lower noise and fewer peak-hour surprises.",
+          "stage": "Focus run",
+          "reward": "Deeper work"
+        },
+        "rain": {
+          "label": "Rain-safe",
+          "description": "Indoor, reliable, and worth staying put.",
+          "stage": "Rain route",
+          "reward": "Dry laptop"
+        },
+        "late": {
+          "label": "Open late",
+          "description": "Better bets after normal cafe hours.",
+          "stage": "Night shift",
+          "reward": "After-hours backup"
+        },
+        "budget": {
+          "label": "Budget",
+          "description": "Lower-cost or stronger value signals.",
+          "stage": "Coin saver",
+          "reward": "Lower spend"
+        },
+        "first-visit": {
+          "label": "First visit",
+          "description": "Easy places to try before building a routine.",
+          "stage": "Starter route",
+          "reward": "Easy first try"
+        }
+      },
+      "needs": {
+        "callsFriendly": {
+          "label": "Calls-friendly",
+          "description": "Meeting rooms, booths, coworking, or quieter setup."
+        },
+        "quiet": {
+          "label": "Quiet",
+          "description": "Good noise score or calm work profile."
+        },
+        "strongSockets": {
+          "label": "Strong sockets",
+          "description": "Power score, charging sockets, or desk setup."
+        },
+        "rainSafe": {
+          "label": "Rain-safe",
+          "description": "Indoor, stable, and not just a street-side coffee stop."
+        },
+        "firstVisit": {
+          "label": "First visit",
+          "description": "Open, laptop-safe, and easier to understand quickly."
+        },
+        "openLate": {
+          "label": "Open late",
+          "description": "Late hours or member access beyond the cafe day."
+        },
+        "budget": {
+          "label": "Budget",
+          "description": "Lower price range or value score."
+        }
+      }
+    },
+    "card": {
+      "cafe": "Cafe",
+      "coworking": "Coworking",
+      "visitWebsite": "Visit website",
+      "sources": "Sources",
+      "verified": "(verified {date})",
+      "showLess": "Show less",
+      "scoreBreakdown": "Score breakdown"
+    }
+  },
+  "firstWeekPlanner": {
+    "meta": {
+      "title": "First Week Planner - Istanbul Digital Nomads",
+      "description": "Build a practical seven-day Istanbul landing plan based on your arrival profile, base neighborhood, work rhythm, social appetite, and budget comfort."
+    },
+    "hero": {
+      "eyebrow": "First Week Planner",
+      "title": "Make Istanbul usable in seven days.",
+      "body": "Pick your arrival shape, work rhythm, social appetite, and budget comfort. The planner turns the city into a practical first-week sequence with links you can actually use.",
+      "buildWeek": "Build my week",
+      "compareNeighborhoods": "Compare neighborhoods",
+      "miniSignals": {
+        "base": "Base",
+        "work": "Work",
+        "budget": "Budget"
+      }
+    },
+    "aside": {
+      "eyebrow": "Plan inputs",
+      "subtitle": "Changing any choice updates the week.",
+      "labels": {
+        "arrivalProfile": "Arrival profile",
+        "workStyle": "Work style",
+        "socialAppetite": "Social appetite",
+        "budgetComfort": "Budget comfort",
+        "baseNeighborhood": "Base neighborhood"
+      },
+      "helpChoose": {
+        "label": "Help me choose",
+        "recommended": "Recommended",
+        "sideSuffix": "{side} side"
+      },
+      "reset": "Reset",
+      "copyLink": "Copy link",
+      "copied": "Copied",
+      "fallbackWork": "Cafe worker",
+      "fallbackBudget": "Balanced"
+    },
+    "plan": {
+      "eyebrow": "Your seven-day plan",
+      "title": "Start with {neighborhood}, then build a repeatable routine.",
+      "baseGuide": "Base guide",
+      "dayLabel": "Day {day}",
+      "moments": {
+        "morning": "Morning",
+        "workBlock": "Work block",
+        "evening": "Evening"
+      },
+      "saveLinks": "Save these links",
+      "avoid": "Avoid this week"
+    },
+    "options": {
+      "arrivalProfile": {
+        "first-time": {
+          "label": "First time",
+          "description": "You need the city to become usable quickly."
+        },
+        "returning": {
+          "label": "Returning",
+          "description": "You know the basics and want a cleaner routine."
+        },
+        "turkey-transfer": {
+          "label": "Already in Turkey",
+          "description": "You mostly need a local Istanbul reset."
+        },
+        "paperwork": {
+          "label": "Paperwork focus",
+          "description": "Admin, documents, and calm backup time matter most."
+        }
+      },
+      "workStyle": {
+        "cafe": {
+          "label": "Cafe worker",
+          "description": "You want laptop-safe tables and neighborhood rhythm."
+        },
+        "coworking": {
+          "label": "Coworking",
+          "description": "You prefer stable desks, calls, and other workers nearby."
+        },
+        "home": {
+          "label": "Home first",
+          "description": "You want fewer moves and a quieter setup week."
+        },
+        "calls": {
+          "label": "Calls-heavy",
+          "description": "You need backup WiFi, call rooms, and low-risk work blocks."
+        }
+      },
+      "socialAppetite": {
+        "quiet": {
+          "label": "Quiet first week",
+          "description": "One calm plan, less social pressure."
+        },
+        "fast": {
+          "label": "Meet people fast",
+          "description": "Use events and coworking to build momentum."
+        },
+        "one-event": {
+          "label": "One event is enough",
+          "description": "A low-pressure touchpoint without overbooking."
+        }
+      },
+      "budgetComfort": {
+        "lean": {
+          "label": "Keep it lean",
+          "description": "Save money while avoiding false economies."
+        },
+        "balanced": {
+          "label": "Balanced",
+          "description": "Spend where comfort prevents chaos."
+        },
+        "comfort": {
+          "label": "Comfort-first",
+          "description": "Pay for fewer frictions and stronger backup plans."
+        }
+      }
+    }
+  },
+  "localGuidesPage": {
+    "meta": {
+      "title": "Local Guides",
+      "description": "Meet experienced locals and nomads who know Istanbul inside out. Get help with neighborhoods, housing, visa, coworking, and more."
+    },
+    "hero": {
+      "title": "Local Guides",
+      "description": "These folks know Istanbul inside out and they're here to help you skip the learning curve. Whether you need neighborhood advice, visa help, or just a good cafe recommendation - they've got you."
+    },
+    "empty": {
+      "title": "We're building our guide network",
+      "body": "Know Istanbul well enough to help newcomers find their feet? We'd love to have you as one of our first local guides.",
+      "cta": "Apply to be a guide"
+    },
+    "becomeGuide": {
+      "title": "Want to become a local guide?",
+      "body": "If you know Istanbul well and want to help newcomers settle in faster, we'd love to hear from you.",
+      "cta": "Apply now"
+    },
+    "card": {
+      "yearSingular": "year",
+      "yearPlural": "years",
+      "inIstanbul": "in Istanbul",
+      "helpsPeopleFrom": "Helps people from",
+      "showLess": "Show less",
+      "showMore": "Show more",
+      "social": {
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn",
+        "twitter": "Twitter",
+        "website": "Website"
+      }
+    },
+    "directory": {
+      "searchPlaceholder": "Search guides by name or expertise...",
+      "allExpertise": "All expertise",
+      "allAreas": "All areas",
+      "noResultsTitle": "No guides match your filters",
+      "noResultsBody": "Try broadening your search or clearing some filters."
+    }
+  },
+  "localGuidesJoinPage": {
+    "meta": {
+      "title": "Become a Local Guide",
+      "description": "Apply to become a local guide for Istanbul Digital Nomads. Help newcomers navigate neighborhoods, housing, visa, and more."
+    },
+    "hero": {
+      "title": "Become a local guide",
+      "description": "Know Istanbul well enough to help someone skip their first-month confusion? Tell us about yourself and what you can help with. We'll review your application within a few days."
+    },
+    "submitted": {
+      "title": "Thanks for applying!",
+      "body": "We'll review your application and get back to you within a few days. In the meantime, feel free to join our Telegram group."
+    },
+    "sections": {
+      "yourDetails": {
+        "title": "Your details",
+        "subtitle": "Basic info so we know who you are."
+      },
+      "expertise": {
+        "title": "Your expertise",
+        "subtitle": "What do you know best about Istanbul?"
+      },
+      "aboutYou": {
+        "title": "Tell us about yourself",
+        "subtitle": "Help us understand what makes you a great guide."
+      },
+      "social": {
+        "title": "Social profiles",
+        "subtitle": "Optional - helps us verify who you are and lets people find you."
+      },
+      "almostDone": {
+        "title": "Almost done"
+      }
+    },
+    "fields": {
+      "name": {
+        "label": "Full name",
+        "placeholder": "Your name"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "you@example.com"
+      },
+      "phone": {
+        "label": "Phone / WhatsApp",
+        "placeholder": "+90 ...",
+        "helper": "Optional - makes it easier for us to reach you"
+      },
+      "languages": {
+        "label": "Languages you speak"
+      },
+      "specializations": {
+        "label": "Areas of expertise"
+      },
+      "neighborhoods": {
+        "label": "Neighborhoods you know well"
+      },
+      "yearsInIstanbul": {
+        "label": "Years living in Istanbul",
+        "placeholder": "2"
+      },
+      "originCountries": {
+        "label": "Where did you move from?"
+      },
+      "bio": {
+        "label": "Bio",
+        "placeholder": "Tell us about yourself, your background, and your experience in Istanbul...",
+        "helper": "At least 50 characters"
+      },
+      "sampleTip": {
+        "label": "Your best local tip",
+        "placeholder": "Share a specific tip that shows what you know - a hidden cafe, a visa shortcut, a neighborhood secret...",
+        "helper": "This helps us understand your style and depth of knowledge"
+      },
+      "motivation": {
+        "label": "Why do you want to be a guide?",
+        "placeholder": "What motivates you to help newcomers in Istanbul?"
+      },
+      "instagram": {
+        "label": "Instagram",
+        "placeholder": "https://instagram.com/yourhandle"
+      },
+      "linkedin": {
+        "label": "LinkedIn",
+        "placeholder": "https://linkedin.com/in/yourprofile"
+      },
+      "twitter": {
+        "label": "Twitter / X",
+        "placeholder": "https://twitter.com/yourhandle"
+      },
+      "website": {
+        "label": "Personal website",
+        "placeholder": "https://yoursite.com"
+      },
+      "photoUrl": {
+        "label": "Profile photo URL",
+        "placeholder": "https://...",
+        "helper": "Link to a photo of yourself (LinkedIn, Instagram, or any public URL)"
+      },
+      "references": {
+        "label": "References",
+        "placeholder": "Anyone in the community who can vouch for you? (optional)"
+      },
+      "guidelines": "I agree to the community guidelines and understand that my application will be reviewed by the team. I'll represent the community with kindness and honesty."
+    },
+    "submit": "Submit application",
+    "toast": {
+      "errorTitle": "Couldn't submit",
+      "genericErrorTitle": "Something went wrong",
+      "genericErrorBody": "Please try again later.",
+      "successTitle": "Application submitted!",
+      "successBody": "We'll review it and get back to you soon."
+    }
+  },
+  "pathToIstanbulPage": {
+    "meta": {
+      "title": "Path to Istanbul - Relocation Guides by Country",
+      "description": "Country-specific relocation guides for moving to Istanbul. Visa, flights, housing, banking, and community - everything you need to land well.",
+      "ogTitle": "Path to Istanbul - Relocation Guides by Country",
+      "ogDescription": "Pick your country and get an end-to-end playbook for moving to Istanbul: visa, flights, housing, banking, and the community already here."
+    },
+    "hero": {
+      "eyebrow": "Path to Istanbul",
+      "title": "Find your path to Istanbul",
+      "description": "Pick your starting country for an end-to-end relocation playbook - visa, flights, housing, banking, and the community waiting here."
+    },
+    "why": {
+      "title": "Why a country-specific guide matters",
+      "p1": "Generic \"move to Istanbul\" articles miss the details that actually decide your move. An Iranian passport holder gets 90 days visa-free but can't open most Turkish bank accounts without a residence permit. An Indian applicant needs apostilled documents before flying. A Russian arrival has cheap direct flights but trickier card payments. Your starting country shapes every step.",
+      "p2": "That's why each path starts with your country and walks through the three things that matter when you land: paperwork, money, and community. No filler, no SEO word salad - just the order of operations we'd give a friend."
+    },
+    "what": {
+      "title": "What you'll find in every country page",
+      "items": {
+        "visa": {
+          "label": "Visa, residence & documents",
+          "body": "entry rules, residence permit (ikamet) path, which documents need apostille or sworn translation before you fly."
+        },
+        "flights": {
+          "label": "Flights, arrival & money",
+          "body": "direct routes, typical fares, what actually works on day one for cash, cards, and transfers from your country."
+        },
+        "housing": {
+          "label": "Housing, healthcare & community",
+          "body": "neighborhoods that fit your budget, how to rent without getting burned, SGK vs private insurance, and the people from your country already here."
+        }
+      }
+    },
+    "who": {
+      "title": "Who these guides are for",
+      "body": "Digital nomads, remote workers, students, and families planning a real move - not a two-week holiday. If you're weighing Istanbul against Lisbon or Dubai, start with your country page to see what the move actually looks like from where you are."
+    },
+    "missingCountry": {
+      "title": "Don't see your country?",
+      "body": "We're adding more paths. If you've made this move yourself, apply to be a local guide and help the next person from your country land well.",
+      "cta": "Apply to be a guide"
+    },
+    "selector": {
+      "searchPlaceholder": "Search your country...",
+      "comingSoon": "Coming soon",
+      "availableGuides": "Available guides",
+      "seeThePath": "See the path"
+    },
+    "popularPaths": {
+      "title": "Popular paths to Istanbul",
+      "subtitle": "Country playbooks ready to read - pick yours and skip the guesswork.",
+      "summary": "Visa, money, housing, community"
+    },
+    "featuredGuides": {
+      "title": "Meet guides who made the journey",
+      "subtitle": "Locals and fellow nomads who can help you settle in faster.",
+      "viewAll": "View all",
+      "yearsShort": "y in Istanbul"
+    },
+    "guidesFromCountry": {
+      "title": "Guides from {country}",
+      "tierOrigin": "People who made the same journey and can help you settle in.",
+      "tierLanguage": "No {country}-born guides yet, but these locals speak the language.",
+      "tierEmpty": "We don't have a guide from {country} yet. Want to be the first?",
+      "emptyBody": "Local guides from {country} help newcomers skip the hardest parts of moving. Be the person you wish you'd met when you arrived.",
+      "applyCta": "Apply to be a guide",
+      "browseAll": "Browse all local guides",
+      "yearsShort": "y in Istanbul"
+    }
+  },
+  "countryPage": {
+    "meta": {
+      "titleTemplate": "Moving to Istanbul from {country}",
+      "fallbackDescription": "Visa, flights, housing, and community for {country}-born nomads moving to Istanbul."
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "pathToIstanbul": "Path to Istanbul"
+    },
+    "hero": {
+      "eyebrow": "Path to Istanbul",
+      "title": "Moving from {country}",
+      "lastUpdated": "Last updated {date}"
+    },
+    "schema": {
+      "visaStep": "Visa, residence & documents",
+      "flightsStep": "Flights, arrival & money",
+      "housingStep": "Housing, healthcare & community"
+    },
+    "related": {
+      "title": "Related reading",
+      "cityGuideLabel": "City guide",
+      "blogLabel": "Blog"
+    },
+    "cta": {
+      "title": "Join the community when you arrive",
+      "body": "Weekly coworking, monthly meetups, and a friendly Telegram group of people who actually live here.",
+      "button": "Join the Telegram"
+    },
+    "toc": {
+      "title": "On this page",
+      "ariaLabel": "Page sections",
+      "items": {
+        "visa": "Visa & residence",
+        "flights": "Flights & money",
+        "housing": "Housing & community",
+        "guides": "Guides from here",
+        "related": "Related reading"
+      }
+    }
+  },
+  "guidesIndexPage": {
+    "meta": {
+      "title": "City Guides",
+      "description": "Practical guides for living and working in Istanbul as a digital nomad."
+    },
+    "hero": {
+      "title": "City Guides",
+      "description": "Practical guides for living and working in Istanbul. Written and maintained by the community."
+    },
+    "listing": {
+      "searchPlaceholder": "Search guides...",
+      "allGuides": "All guides",
+      "empty": "No guides match your search. Try a different term or category.",
+      "liveBadge": "Live",
+      "readGuide": "Read guide"
+    }
+  },
+  "onboardingPage": {
+    "meta": {
+      "title": "Complete Your Profile",
+      "description": "Fill out your member profile to join Istanbul Digital Nomads."
+    },
+    "wizard": {
+      "stepIndicator": "Step {current} of {total}",
+      "skip": "Skip for now",
+      "skipToast": "You can complete your profile later from your account menu.",
+      "back": "Back",
+      "continue": "Continue",
+      "submit": "Submit Application",
+      "submitError": "Something went wrong. Please try again.",
+      "saveError": "Couldn't save your profile",
+      "signInAgain": "Please sign in again",
+      "welcome": "Welcome to Istanbul Digital Nomads!"
+    },
+    "validation": {
+      "displayName": "Your name is required.",
+      "ageOrBirthday": "Pick an age range or share your birthday - either works.",
+      "profession": "Let us know what you do - even something short like 'freelancer' works.",
+      "memberType": "Pick the option that fits you best.",
+      "guidelines": "Please read and agree to the guidelines to continue.",
+      "whyJoin": "Tell us a bit about why you want to join (at least a sentence)."
+    },
+    "steps": {
+      "about": {
+        "label": "About You",
+        "title": "About you",
+        "intro": "Let's start with the basics so the community can get to know you.",
+        "fullName": "Full Name",
+        "fullNamePlaceholder": "Your full name",
+        "ageRange": "Age Range",
+        "birthday": "Birthday",
+        "toggleToBirthday": "I'll share my birthday instead",
+        "toggleToAgeRange": "I'd rather pick an age range",
+        "gender": "Gender",
+        "genders": {
+          "female": "Female",
+          "male": "Male",
+          "preferNotToSay": "Prefer not to say"
+        },
+        "nationality": "Nationality",
+        "nationalityPlaceholder": "e.g., German, Brazilian, Turkish",
+        "cityDistrict": "City / District you live in",
+        "cityDistrictPlaceholder": "e.g., Kadikoy, Cihangir, Besiktas"
+      },
+      "contact": {
+        "label": "Contact & Work",
+        "title": "Contact & Work",
+        "intro": "How can the community reach you, and what do you do?",
+        "phone": "Phone Number (WhatsApp)",
+        "phonePlaceholder": "+90 5XX XXX XXXX",
+        "phoneHelper": "Include country code. This isn't shared publicly.",
+        "email": "Email Address",
+        "emailHelper": "From your Google account - can't be changed here.",
+        "profession": "Profession / Field of Work",
+        "professionPlaceholder": "e.g., freelance developer, UX designer, English teacher",
+        "social": "Instagram or LinkedIn profile",
+        "socialPlaceholder": "https://instagram.com/yourname or linkedin.com/in/yourname",
+        "socialHelper": "Helps us verify you're a real person."
+      },
+      "interests": {
+        "label": "Your Interests",
+        "title": "Your interests",
+        "intro": "Help us match you with the right events and people.",
+        "heardFrom": "How did you hear about us?",
+        "heardFromOptions": {
+          "instagram": "Instagram",
+          "friend": "Friend recommendation",
+          "event": "Event invitation",
+          "website": "Website",
+          "other": "Other"
+        },
+        "memberType": "What best describes you?",
+        "memberTypeOptions": {
+          "expat": "Expat",
+          "nomad": "Digital nomad",
+          "traveler": "Traveler",
+          "local": "Local (internationally minded)",
+          "student": "Student",
+          "other": "Other"
+        },
+        "activities": "Which activities interest you?",
+        "activityOptions": {
+          "language": "Language exchange",
+          "social": "Social nights",
+          "coworking": "Coworking days",
+          "hiking": "Hiking",
+          "dining": "Dining events",
+          "sports": "Sports",
+          "workshops": "Workshops",
+          "cultural": "Cultural trips",
+          "networking": "Networking events",
+          "other": "Other"
+        },
+        "lookingFor": "What are you mainly looking for?",
+        "lookingForOptions": {
+          "friends": "Making new friends",
+          "social": "Social life",
+          "networking": "Professional networking",
+          "language": "Language practice",
+          "activities": "Activities & hobbies",
+          "exploring": "Exploring Istanbul",
+          "other": "Other"
+        }
+      },
+      "guidelines": {
+        "label": "Community Guidelines",
+        "title": "Community guidelines",
+        "intro": "We keep things friendly and respectful. Here's what we ask from every member.",
+        "rules": {
+          "kindness": "Treat every member and host with kindness and respect.",
+          "dms": "Don't send unsolicited DMs - always ask before messaging someone privately.",
+          "rsvp": "RSVP honestly. If you can't make it, cancel in advance - no-shows without notice may lead to removal.",
+          "payment": "Each member pays their own way. Settle shared costs promptly.",
+          "notDating": "This is a social community, not a dating app. Keep it respectful.",
+          "noMisuse": "Don't use the group for selling, mass messaging, political debates, or harassment.",
+          "admins": "Admins can remove members who break these guidelines."
+        },
+        "agreeLabel": "I've read and agree to these community guidelines"
+      },
+      "final": {
+        "label": "Almost Done",
+        "title": "You're almost in!",
+        "intro": "One last thing - tell us why you'd like to join.",
+        "whyJoin": "Why do you want to join?",
+        "whyJoinPlaceholder": "What brings you to Istanbul? What are you hoping to find in this community?",
+        "photoLabel": "Photo Verification",
+        "photoHelper": "Upload a clear photo of yourself. This helps us maintain a safe community. Max 10 MB.",
+        "photoUploaded": "Photo uploaded - change",
+        "photoUpload": "Upload photo",
+        "photoSuccess": "Photo uploaded successfully.",
+        "photoTooLarge": "Photo too large",
+        "photoTooLargeDetail": "Maximum 10 MB.",
+        "photoUploadSuccess": "Photo uploaded!",
+        "uploadFailed": "Upload failed",
+        "uploadFailedRetry": "Upload failed. Please try again.",
+        "atmosphere": "What kind of atmosphere are you looking for?",
+        "atmosphereOptions": {
+          "friendly": "Friendly and social",
+          "professional": "Professional networking",
+          "party": "Party-focused",
+          "calm": "Calm and activity-based"
+        }
+      }
+    }
+  },
+  "relocationAgentPage": {
+    "meta": {
+      "title": "Plan your move to Istanbul",
+      "description": "Tell us how you live and we'll lay out the neighbourhood, the budget, and the first month - using only what we've actually verified on the ground.",
+      "ogDescription": "Personalised neighbourhood pick, monthly budget, and first-month checklist for digital nomads moving to Istanbul."
+    },
+    "intro": {
+      "title": "Plan your move to Istanbul",
+      "description": "Tell us how you live and we'll lay out the neighbourhood, the budget, and the first month - using only what we've actually verified on the ground."
+    },
+    "form": {
+      "budget": "Monthly budget",
+      "budgetHelper": "What you can comfortably spend per month.",
+      "currencyLabel": "Currency",
+      "duration": "How long are you planning to stay?",
+      "durationOptions": {
+        "few-weeks": "A few weeks",
+        "1-3-months": "1-3 months",
+        "3-6-months": "3-6 months",
+        "6-plus-months": "6+ months"
+      },
+      "lifestyle": "What kind of lifestyle do you want?",
+      "lifestyleOptions": {
+        "social": "Social",
+        "quiet": "Quiet",
+        "mixed": "Mix of both"
+      },
+      "work": "How do you work?",
+      "workOptions": {
+        "remote-fulltime": "Remote full-time",
+        "remote-flex": "Remote, flexible hours",
+        "freelance": "Freelance",
+        "founder": "Founder / building",
+        "other": "Other"
+      },
+      "origin": "Where are you coming from?",
+      "originSkip": "Skip / not sure",
+      "originOther": "Other country",
+      "originHelper": "We'll fold a country-specific playbook into the plan when we have one.",
+      "mustHaves": "Must-haves",
+      "mustHaveOptions": {
+        "fast wifi": "Fast wifi",
+        "ferry commute": "Ferry commute",
+        "quiet street": "Quiet street",
+        "social scene": "Social scene",
+        "gym nearby": "Gym nearby",
+        "vegetarian-friendly": "Vegetarian-friendly",
+        "near coworking": "Near coworking"
+      },
+      "mustHavesHelper": "Tap any that apply. Skip if nothing fits.",
+      "notes": "Anything else we should know?",
+      "notesPlaceholder": "Coming with a partner? Pet? Special routine?",
+      "notesHelper": "We pass this to the agent verbatim.",
+      "notesCounter": "{count}/{max}",
+      "optional": "(optional)",
+      "privacy": "We never store your intake unless you're signed in.",
+      "submit": "Build my plan",
+      "submitting": "Building your plan...",
+      "errors": {
+        "budgetEmpty": "Tell us a budget so we can match a tier.",
+        "budgetInvalid": "Budget should be a whole number.",
+        "budgetRange": "Budget seems off. Try a number between 200 and 20000.",
+        "notesTooLong": "Keep notes under {max} characters. Yours is {count}.",
+        "notesOverride": "Notes are too long. Keep it under {max} characters.",
+        "mustHavesOverride": "Pick at most 10 must-haves.",
+        "fieldGeneric": "This field looks off.",
+        "toastTitle": "A few fields need attention",
+        "toastDetail": "Check the highlighted ones and try again.",
+        "buildFailTitle": "Couldn't build your plan",
+        "buildFailFix": "Some fields need fixing.",
+        "buildFailTimeout": "The agent took too long. Try again in a minute.",
+        "buildFailRetry": "Try again in a minute.",
+        "buildFailUnexpected": "Got an unexpected response. Try again.",
+        "buildFailNetwork": "Network hiccup. Try again in a minute."
+      }
+    },
+    "result": {
+      "recapLabel": "Your plan, based on",
+      "perMonth": "{currency} {budget}/month",
+      "lifestyleSuffix": "{lifestyle} lifestyle",
+      "fromCountry": "from {flag} {name}",
+      "summary": {
+        "eyebrow": "Your plan, in plain English",
+        "title": "The short version"
+      },
+      "neighborhood": {
+        "sideSuffix": "{side} side",
+        "bestFit": "Best fit",
+        "rent": "Rent (1BR)",
+        "noise": "Noise",
+        "bestFor": "Best for",
+        "readGuide": "Read the {name} guide",
+        "alsoWorth": "Also worth a look"
+      },
+      "atAGlance": {
+        "monthlyTotal": "Monthly total",
+        "tier": "Tier",
+        "weekPlanLabel": "Week plan",
+        "weeks": "{count} weeks",
+        "week": "{count} week",
+        "tipsLabel": "Tips for you"
+      },
+      "costGroups": {
+        "Housing": "Housing",
+        "Food & drink": "Food & drink",
+        "Transport": "Transport",
+        "Connectivity": "Connectivity",
+        "Work": "Work",
+        "Lifestyle": "Lifestyle",
+        "Other": "Other"
+      },
+      "cost": {
+        "tierLow": "Budget",
+        "tierMid": "Moderate",
+        "tierHigh": "Comfortable",
+        "tierEyebrow": "{tier} tier - approximate",
+        "monthlyTotalTitle": "${total} / month"
+      },
+      "setup": {
+        "eyebrow": "First month",
+        "title": "Setup plan",
+        "weekHeading": "Week {number}"
+      },
+      "strategy": {
+        "eyebrow": "Strategy",
+        "title": "The bigger picture"
+      },
+      "tips": {
+        "eyebrow": "Tips",
+        "title": "Things you'll thank us for"
+      },
+      "sources": {
+        "label": "Why we picked this",
+        "summarySingle": "Built deterministically from {count} verified source",
+        "summaryPlural": "Built deterministically from {count} verified sources",
+        "retrievedSuffix": " + {count} retrieved chunks",
+        "types": {
+          "guide": "Guide",
+          "blog": "Blog",
+          "path": "Country playbook",
+          "neighborhood": "Neighborhood",
+          "space": "Space",
+          "cost-tier": "Cost tier",
+          "setup-step": "Setup step"
+        }
+      },
+      "actions": {
+        "reset": "Start over",
+        "email": "Email this to me",
+        "emailSubject": "My Istanbul relocation plan"
+      }
+    }
+  },
+  "errorPages": {
+    "error": {
+      "eyebrow": "Oops",
+      "title": "Something went wrong",
+      "description": "Don't worry, it's not you. Try refreshing, or head back home.",
+      "tryAgain": "Try again",
+      "goHome": "Go home"
+    },
+    "notFound": {
+      "code": "404",
+      "title": "Page not found",
+      "description": "This page doesn't exist or has been moved. Here are some places to go instead:",
+      "goHome": "Go home",
+      "browseGuides": "Browse guides",
+      "viewEvents": "View events",
+      "askTelegram": "Or ask in the Telegram group"
+    },
+    "loading": {
+      "srLabel": "Loading page content"
+    }
+  },
+  "blogIndexPage": {
+    "meta": {
+      "title": "Blog",
+      "description": "Community stories, Istanbul tips, and remote work insights from digital nomads living in Istanbul."
+    },
+    "hero": {
+      "title": "Blog",
+      "intro": "Stories, tips, and insights from remote workers living in Istanbul."
+    },
+    "search": {
+      "placeholder": "Search posts...",
+      "allPosts": "All posts",
+      "noResults": "No posts match your search. Try a different term or tag."
+    }
+  },
+  "blogPostPage": {
+    "breadcrumb": {
+      "home": "Home",
+      "blog": "Blog"
+    },
+    "backToBlog": "Back to all posts",
+    "translationInProgress": "This post hasn't been translated to {language} yet. You're reading the English original."
+  }
+}

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   Cloud,
   CloudRain,
@@ -28,10 +29,6 @@ interface WeatherApiResponse {
 
 interface MoodProfile {
   mood: WeatherMood;
-  label: string;
-  verb: string;
-  note: string;
-  cta: string;
   Icon: typeof Cloud;
 }
 
@@ -78,62 +75,15 @@ function getMood(current: CurrentWeather): MoodProfile {
   const isCloudy = code >= 2 && code <= 48;
   const isWindy = current.wind_speed_10m >= 28;
 
-  if (isStorm) {
-    return {
-      mood: "stormy",
-      label: "Storm watch",
-      verb: "Bring the serious umbrella.",
-      note: "Great cafe day. Pick somewhere with backup seating and stay close to metro.",
-      cta: "Cafe-first plan",
-      Icon: CloudRain,
-    };
-  }
-
-  if (isRain) {
-    return {
-      mood: "rainy",
-      label: "Rainy Istanbul",
-      verb: "The city is in ferry-window mode.",
-      note: "Kadikoy, Karakoy, and Galata still work. Just choose shorter walks and covered tables.",
-      cta: "Rain-safe route",
-      Icon: Umbrella,
-    };
-  }
-
-  if (isWindy) {
-    return {
-      mood: "windy",
-      label: "Bosphorus wind",
-      verb: "Ferry views, jacket required.",
-      note: "Good day for a shorter crossing, then a stable indoor work block.",
-      cta: "Wind-aware plan",
-      Icon: Wind,
-    };
-  }
-
-  if (isCloudy) {
-    return {
-      mood: "cloudy",
-      label: "Soft gray city",
-      verb: "Long walks, low glare, good focus.",
-      note: "A strong day for neighborhood scouting before the evening tables fill up.",
-      cta: "Scout a base",
-      Icon: Cloud,
-    };
-  }
-
-  return {
-    mood: "sunny",
-    label: "Bright Bosphorus",
-    verb: "Do the outside part first.",
-    note: "Walk the water, take the ferry, then cool down at a laptop-friendly cafe.",
-    cta: "Sunny day loop",
-    Icon: CloudSun,
-  };
+  if (isStorm) return { mood: "stormy", Icon: CloudRain };
+  if (isRain) return { mood: "rainy", Icon: Umbrella };
+  if (isWindy) return { mood: "windy", Icon: Wind };
+  if (isCloudy) return { mood: "cloudy", Icon: Cloud };
+  return { mood: "sunny", Icon: CloudSun };
 }
 
-function formatWeatherTime(value: string) {
-  return new Intl.DateTimeFormat("en", {
+function formatWeatherTime(value: string, locale: string) {
+  return new Intl.DateTimeFormat(locale, {
     hour: "2-digit",
     minute: "2-digit",
     timeZone: "Europe/Istanbul",
@@ -147,6 +97,7 @@ export function IstanbulTodayWidget({
 }) {
   const [current, setCurrent] = useState<CurrentWeather | null>(null);
   const [isFallback, setIsFallback] = useState(false);
+  const t = useTranslations("istanbulToday");
 
   useEffect(() => {
     const controller = new AbortController();
@@ -178,6 +129,10 @@ export function IstanbulTodayWidget({
   const weather = current ?? fallbackWeather;
   const profile = useMemo(() => getMood(weather), [weather]);
   const Icon = profile.Icon;
+  const localeForTime =
+    typeof document !== "undefined"
+      ? document.documentElement.lang || "en"
+      : "en";
 
   return (
     <section
@@ -196,10 +151,10 @@ export function IstanbulTodayWidget({
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-primary-200">
-                    Istanbul today
+                    {t("eyebrow")}
                   </p>
                   <h2 className="mt-4 max-w-md font-display text-4xl font-extrabold leading-[1.02] sm:text-h1">
-                    {profile.verb}
+                    {t(`moods.${profile.mood}.verb`)}
                   </h2>
                 </div>
                 <div className="rounded-md border border-white/15 bg-white/10 p-3 backdrop-blur">
@@ -209,15 +164,15 @@ export function IstanbulTodayWidget({
 
               <div className="mt-20 grid gap-3 sm:mt-10 sm:grid-cols-3">
                 <WeatherStat
-                  label="Temp"
+                  label={t("stats.temp")}
                   value={`${Math.round(weather.temperature_2m)}°C`}
                 />
                 <WeatherStat
-                  label="Rain"
+                  label={t("stats.rain")}
                   value={`${weather.precipitation.toFixed(1)} mm`}
                 />
                 <WeatherStat
-                  label="Wind"
+                  label={t("stats.wind")}
                   value={`${Math.round(weather.wind_speed_10m)} km/h`}
                 />
               </div>
@@ -228,31 +183,36 @@ export function IstanbulTodayWidget({
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-4 dark:border-white/10">
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-300">
-                  {profile.label}
+                  {t(`moods.${profile.mood}.label`)}
                 </p>
                 <p className="mt-1 text-sm text-[#5d6d7e] dark:text-[#b7aaa0]">
-                  Updated {formatWeatherTime(weather.time)}
-                  {isFallback ? " with fallback mood" : ""}
+                  {t("updated", {
+                    time: formatWeatherTime(weather.time, localeForTime),
+                  })}
+                  {isFallback ? t("fallbackSuffix") : ""}
                 </p>
               </div>
               <span className="inline-flex items-center gap-2 rounded-md bg-[#f6f1ea] px-3 py-1.5 text-xs font-medium text-neutral-800 dark:bg-white/10 dark:text-[#f2f3f4]">
                 <Droplets className="h-3.5 w-3.5 text-primary-600 dark:text-primary-300" />
-                Live sky
+                {t("liveSky")}
               </span>
             </div>
 
             <p className="mt-5 text-body-lg leading-8 text-neutral-800 dark:text-[#d8d0c8]">
-              {profile.note}
+              {t(`moods.${profile.mood}.note`)}
             </p>
 
             <div className="mt-6 grid gap-2 sm:grid-cols-2">
-              <MiniCue label="Best move" value={profile.cta} />
               <MiniCue
-                label="Nomad hint"
+                label={t("bestMove")}
+                value={t(`moods.${profile.mood}.cta`)}
+              />
+              <MiniCue
+                label={t("nomadHint")}
                 value={
                   profile.mood === "rainy" || profile.mood === "stormy"
-                    ? "Save one backup cafe"
-                    : "Leave room for a ferry"
+                    ? t("hints.backupCafe")
+                    : t("hints.ferry")
                 }
               />
             </div>

@@ -4,6 +4,43 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.20.0] - 2026-05-11
+
+### Added
+
+- Added multi-language support with `next-intl` for Turkish (`/tr`), Farsi (`/fa`), Arabic (`/ar`), and Russian (`/ru`). English remains at the root (`/`) so existing URLs and backlinks stay intact
+- Added per-locale `<html lang dir>` attributes using BCP 47 codes (`en-US`, `tr-TR`, `fa-IR`, `ar-SA`, `ru-RU`) and RTL direction for Arabic and Farsi
+- Added a globe-icon language switcher in the header dropdown with English / Türkçe / فارسی / العربية / Русский
+- Added hreflang alternates in `sitemap.xml` and `og:locale` per route for proper search engine attribution, with `x-default` pointing to English
+- Added per-locale UI string files at `src/messages/{en,tr,fa,ar,ru}.json` covering header, footer, mobile menu, bottom tab bar, language switcher, and the full homepage
+- Added a localized MDX loader at `src/lib/i18n/content.ts` that falls back to English when a translation is missing so locale rollout can be incremental
+- Added four native-fluent audit agents under `.claude/agents/` (`nomad-tr-editor`, `nomad-fa-editor`, `nomad-ar-editor`, `nomad-ru-editor`) that audit grammar, vocabulary, brand voice, locale SEO, and AI engine optimization, with a strict no-fabrication rule
+- Added per-locale keyword trackers and an i18n playbook at `docs/i18n/`
+
+### Changed
+
+- Moved every user-facing route under `src/app/[locale]/` while keeping API routes, auth callback, sitemap, and metadata files at the app root
+- Merged the existing Supabase auth and markdown content-negotiation middleware with `next-intl`'s locale routing so all three responsibilities run in one middleware pass
+- Refactored `Header`, `Footer`, `MobileMenuOverlay`, `BottomTabBar`, and the entire homepage to source every visible string from translation keys instead of hardcoded JSX
+- Refactored `navItems` and `footerNav` in `src/lib/constants.ts` from `{label, href}` literals to `{key, href}` so labels resolve through `useTranslations`
+- Updated `sitemap.ts` to emit per-locale entries with `<xhtml:link rel="alternate" hreflang="...">` blocks
+- Bumped package version to `1.20.0`
+
+## [1.19.0] - 2026-05-09
+
+### Added
+
+- Added a same-day work finder upgrade to `/spaces` with modes for best today, calls, quiet focus, rain-safe, open late, budget, and first visit
+- Added combinable work-signal filters for calls-friendly, quiet, strong sockets, rain-safe, first visit, open late, and budget-aware spaces
+- Added ranked best-match summaries, richer space labels, caution notes, and clearer partial-score language so users can compare cafes and coworking spaces faster
+- Added deterministic finder logic and Vitest coverage for signal derivation, combined filters, calls-mode ranking, and amenity search
+
+### Changed
+
+- Redesigned the Nomad Spaces hero around daily work decisions instead of a static directory
+- Moved the map into an optional comparison view so mobile users can scan results before opening the map
+- Bumped package version to `1.19.0`
+
 ## [1.18.0] - 2026-05-04
 
 ### Added

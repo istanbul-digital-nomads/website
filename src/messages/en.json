@@ -336,7 +336,15 @@
         "bestFirstMonth": "Best first month",
         "bestValue": "Best value",
         "bestFerryLife": "Best ferry life"
-      }
+      },
+      "description": "The most popular neighborhood for digital nomads. Kadikoy has a walkable center packed with independent cafes, a daily fish market, bookshops, and street food. The ferry to the European side takes 20 minutes and is one of the best commutes in the world.",
+      "vibe": "Local, independent, walkable. Feels like a small city within Istanbul.",
+      "transport": "Ferry to Eminonu/Karakoy (20 min), metro to Taksim via Marmaray",
+      "bestFor": [
+        "Steady work routine",
+        "Local neighborhood feel",
+        "Fair rent"
+      ]
     },
     "moda": {
       "name": "Moda",
@@ -345,7 +353,15 @@
         "quietest": "Quietest",
         "seaside": "Seaside",
         "creative": "Creative"
-      }
+      },
+      "description": "A quieter extension of Kadikoy, Moda sits on a peninsula with a seaside promenade. More residential, fewer tourists, excellent for evening walks. Close enough to Kadikoy center to walk (15 min) but feels distinctly calmer.",
+      "vibe": "Seaside, quiet, creative. Lots of cats.",
+      "transport": "Same as Kadikoy + nostalgic tram along the coast",
+      "bestFor": [
+        "Quiet evenings",
+        "Seaside walks",
+        "Creative freelancers"
+      ]
     },
     "cihangir": {
       "name": "Cihangir",
@@ -354,7 +370,15 @@
         "mostSocial": "Most social",
         "nightlife": "Nightlife",
         "bohemian": "Bohemian"
-      }
+      },
+      "description": "The bohemian heart of Istanbul. Cihangir is a small hilltop neighborhood with steep streets, Bosphorus views from every cafe, and a strong community feel. Popular with artists, freelancers, and foreigners. Higher rents than the Asian side but unbeatable atmosphere.",
+      "vibe": "Bohemian, social, hilly. Great views, strong cafe culture.",
+      "transport": "Walk to Taksim (10 min), Kabatas tram/funicular, ferries from Kabatas",
+      "bestFor": [
+        "Social nomads",
+        "Nightlife access",
+        "Bosphorus views"
+      ]
     },
     "besiktas": {
       "name": "Besiktas",
@@ -363,7 +387,15 @@
         "localEnergy": "Local energy",
         "streetFood": "Street food",
         "ferryLife": "Ferry life"
-      }
+      },
+      "description": "A lively waterfront neighborhood between Taksim and the Bosphorus Bridge. Besiktas has a big market, university energy (Bosphorus University is nearby), and some of the best street food in the city. More local and gritty than Cihangir.",
+      "vibe": "Lively, local, energetic. Market streets and student crowds.",
+      "transport": "Ferries to Kadikoy and Uskudar, buses to Taksim, close to E-5 highway",
+      "bestFor": [
+        "European-side energy",
+        "Street food lovers",
+        "Ferry commuters"
+      ]
     },
     "galata": {
       "name": "Karakoy / Galata",
@@ -372,7 +404,15 @@
         "bestShortStay": "Best short stay",
         "central": "Central",
         "designDistrict": "Design district"
-      }
+      },
+      "description": "The design and gallery district between the Galata Bridge and Galata Tower. Karakoy has been gentrified over the past decade into a hub of specialty coffee, concept stores, and boutique hotels. Great for short stays, expensive for long ones.",
+      "vibe": "Trendy, artsy, touristy. Beautiful architecture, lots of foot traffic.",
+      "transport": "Tram to Sultanahmet and Kabatas, walk to Beyoglu, ferries to Asian side",
+      "bestFor": [
+        "Short stays (1-2 weeks)",
+        "Central base",
+        "Design and galleries"
+      ]
     },
     "uskudar": {
       "name": "Uskudar",
@@ -381,7 +421,15 @@
         "quietFerryLife": "Quiet ferry life",
         "local": "Local",
         "sunsetWalks": "Sunset walks"
-      }
+      },
+      "description": "Uskudar is the calmer Asian-side answer to Karakoy: ferries, mosques, tea gardens, and long Bosphorus walks without the same tourist pressure. It works well if you want a real local base, quick access to Kadikoy and the European side, and quieter evenings than the nightlife districts.",
+      "vibe": "Traditional, waterfront, calmer. Strong ferry rhythm and everyday Istanbul texture.",
+      "transport": "Ferries to Eminonu, Besiktas, and Kabatas, Marmaray, metro toward Umraniye",
+      "bestFor": [
+        "Quiet ferry life",
+        "Local routines",
+        "Bosphorus sunsets"
+      ]
     },
     "nisantasi": {
       "name": "Nisantasi",
@@ -390,7 +438,15 @@
         "premium": "Premium",
         "cafeWork": "Cafe work",
         "centralComfort": "Central comfort"
-      }
+      },
+      "description": "Nisantasi is one of Istanbul's most polished residential districts: leafy side streets, apartment blocks with doormen, boutiques, clinics, gyms, and some of the city's most reliable cafe work sessions. It is not the cheapest base, but it is practical if you want central European-side living without being directly inside the Taksim nightlife flow.",
+      "vibe": "Polished, residential, upscale. Boutique streets with strong everyday convenience.",
+      "transport": "Walk to Osmanbey metro, quick taxi or metro access to Taksim, Sisli, and Levent",
+      "bestFor": [
+        "Comfortable budgets",
+        "Cafe work",
+        "Central errands"
+      ]
     },
     "levent": {
       "name": "Levent",
@@ -399,7 +455,15 @@
         "businessCorridor": "Business corridor",
         "founderFriendly": "Founder-friendly",
         "coworkingDensity": "Coworking density"
-      }
+      },
+      "description": "Levent is not romantic Istanbul, and that is exactly the point. It is the business corridor: towers, malls, gyms, metro stops, and coworking spaces. Choose it if your Istanbul life is work-heavy, you want reliable infrastructure, or you need fast access to meetings around Maslak, Sisli, and the airport-side business spine.",
+      "vibe": "Corporate, practical, vertical. Less charm, more infrastructure.",
+      "transport": "M2 metro through Levent and 4. Levent, buses along Buyukdere Avenue, easy taxi access north/south",
+      "bestFor": [
+        "Full-time remote",
+        "Business access",
+        "Coworking density"
+      ]
     },
     "balat": {
       "name": "Balat",
@@ -408,7 +472,15 @@
         "characterHeavy": "Character-heavy",
         "budget": "Budget",
         "historic": "Historic"
-      }
+      },
+      "description": "Balat is beautiful, uneven, and very specific. The colorful houses and antique streets are real, but it is not as frictionless as Kadikoy or Nisantasi: hills, older buildings, fewer polished work options, and more day-tripper foot traffic on famous streets. Pick it for character, budget, and a slower Golden Horn rhythm.",
+      "vibe": "Historic, colorful, rough-edged. Big personality with practical tradeoffs.",
+      "transport": "Buses and tram connections via Fener/Eminonu, quick taxis to Karakoy and Cihangir",
+      "bestFor": [
+        "Character",
+        "Lower rent",
+        "Slow creative days"
+      ]
     },
     "atasehir": {
       "name": "Atasehir",
@@ -417,7 +489,71 @@
         "newerApartments": "Newer apartments",
         "quietNights": "Quiet nights",
         "businessAccess": "Business access"
-      }
+      },
+      "description": "Atasehir is for a different kind of nomad: less ferry romance, more new-build convenience. You get towers, malls, business traffic, modern apartments, and access to Asian-side offices around the finance district. It is useful for longer stays if you want space, elevators, parking, gyms, and a quieter apartment after work.",
+      "vibe": "Modern, spacious, corporate. Practical but less walkable than Kadikoy.",
+      "transport": "Metro and buses across the Asian side, taxi access to Kadikoy, Umraniye, and the finance district",
+      "bestFor": [
+        "Newer apartments",
+        "Asian-side business",
+        "Quiet nights"
+      ]
+    }
+  },
+  "spacesList": {
+    "kolektif-house": {
+      "description": "One of Istanbul's larger coworking chains, with multiple locations. 24/7 access for members, free coffee and tea, meditation room, library, and terrace event spaces. Converted embroidery factory design."
+    },
+    "workinton": {
+      "description": "Professional-focused coworking chain with 20+ Turkey locations. Ergonomic desks, phone booths, meeting rooms, lockers, printing. Member access works across branches."
+    },
+    "impact-hub": {
+      "description": "Part of the global Impact Hub network (60+ countries). Community of social-impact founders, plug-and-work micro offices, reading corners, two meeting rooms, and a sky-deck. Near 4. Levent metro."
+    },
+    "justwork": {
+      "description": "10,000 sqm office campus modeled on Silicon Valley campuses. Sleeping pods, gym, showers, music studio, game room, broadcast studio, outdoor garden workspace, up to 20 themed meeting rooms. 24/7 access for members."
+    },
+    "petra-roasting": {
+      "description": "Istanbul-based specialty coffee roaster. The Kadikoy branch is frequently cited in laptop-cafe roundups, and staff are generally fine with longer stays. Can get noisy at peak hours per reviewer notes."
+    },
+    "coffee-manifesto": {
+      "description": "Well-known Kadikoy specialty coffee shop. Barista Koray Erdogdu on staff. Reviewers flag charging sockets at tables and say the space works for laptop sessions. Also has a Yeldegirmeni branch."
+    },
+    "walters-coffee": {
+      "description": "Breaking Bad themed cafe and in-house roastery in Moda, open since 2015. A vibe destination more than a serious work spot, but at least one reviewer calls it fine for remote work. Themed decor, hazmat suits on display."
+    },
+    "montag-coffee": {
+      "description": "Berlin-style specialty roaster with multiple Kadikoy/Moda locations. Calm ambiance, balcony seating, friendly baristas. Not the biggest space, so peak-hour seating can be tight."
+    },
+    "federal-coffee": {
+      "description": "Pioneer of specialty coffee in Turkey, multiple Istanbul branches. Galata location is frequently cited as one of the best nomad cafes on the European side - lots of seating, plentiful power plugs per third-party reviews. Free wifi, speed varies."
+    },
+    "coffee-sapiens": {
+      "description": "Independent specialty roaster since 2014, known for Rwanda filter coffees and flat whites. Multiple brewing methods (Aeropress, Chemex, cold brew, siphon). The Karakoy branch sits on a vine-shaded street of cafes."
+    },
+    "norm-coffee": {
+      "description": "Multi-roaster specialty cafe in Cihangir, using beans from Probador Colectiva, Petra, Kronotrop, and Four Letter Word. Custom-made Slayer espresso machine (only one in Istanbul), V60 and filter. Minimalist interior, homemade Basque cheesecake and tartines."
+    },
+    "espressolab": {
+      "description": "Two-level branch of the Turkish specialty chain, with a balcony overlooking the street. Free wifi capped at 2 hours (noted by visitor guides), so not ideal for all-day camps. Large menu, consistent across the chain."
+    },
+    "karabatak": {
+      "description": "Converted from an abandoned metal workshop in 2011. Two-storey cafe with separate quiet, group, and regular sections plus 40-seat outdoor area. Backstreet Karakoy vibe, near Galata Bridge. Great for atmosphere, less obviously a work-all-day spot."
+    },
+    "kronotrop": {
+      "description": "Widely credited as Turkey's first third-wave specialty coffee shop (opened 2012). Beans roasted in-house on a Loring S15. La Marzocco Strada EP, Hario V60, Aeropress. Small, well-designed space with low couches - better for a focused 2-3 hour session than all-day camp."
+    },
+    "moc-nisantasi": {
+      "description": "Australian-style specialty roaster founded by Sam Cevikoz. Roasts 12-origin beans in-house. Menu includes breakfasts and light meals (including Vegemite toast). Known for 24-28 hour cold brew. Hidden on a Nisantasi back street."
+    },
+    "coffeetopia": {
+      "description": "Specialty coffee chain founded by Serif Basaran (World Barista Championship judge, AST trainer). The Besiktas branch is one of multiple city locations. Note: the 'near ferry terminal' claim matches the Eminonu branch, not Besiktas specifically - address needs on-the-ground verification."
+    },
+    "coffee-department": {
+      "description": "Third-wave specialty coffee shop with an in-house Probat Probatino roaster. Bright, minimal interior with large windows. Staff hand out bean cards explaining taste notes and farm origin. Usually 5 filter options from farms worldwide."
+    },
+    "cafe-fes": {
+      "description": "Long-running cafe near the Grand Bazaar serving sandwiches, salads, fresh lemonade, and homemade desserts. Tripadvisor rating 4.4/5. Note: the previous 'Bosphorus view from Cihangir' description didn't match any of the actual Fes Cafe locations."
     }
   },
   "faqItems": {

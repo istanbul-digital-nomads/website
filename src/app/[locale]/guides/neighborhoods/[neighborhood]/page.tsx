@@ -43,6 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function NeighborhoodDetailPage({ params }: Props) {
   const tList = await getTranslations("neighborhoodList");
+  const tSpaces = await getTranslations("spacesList");
   const n = getNeighborhoodBySlug(params.neighborhood);
   if (!n) notFound();
 
@@ -51,6 +52,20 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
   const cafes = spacesHere.filter((s) => s.type === "cafe");
 
   const others = neighborhoods.filter((o) => o.slug !== n.slug).slice(0, 2);
+
+  // Per-neighborhood prose now lives in i18n; fall back to the English copy
+  // on the data object when a translation key is missing.
+  const vibe = tList.has(`${n.slug}.vibe`)
+    ? tList(`${n.slug}.vibe`)
+    : n.vibe;
+  const description = tList.has(`${n.slug}.description`)
+    ? tList(`${n.slug}.description`)
+    : n.description;
+
+  const describeSpace = (id: string, fallback: string) =>
+    tSpaces.has(`${id}.description`)
+      ? tSpaces(`${id}.description`)
+      : fallback;
 
   return (
     <>
@@ -128,10 +143,10 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
           <div>
             <p className="eyebrow">The feel</p>
             <h2 className="mt-3 text-3xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-              {n.vibe}
+              {vibe}
             </h2>
             <p className="mt-5 text-base leading-8 text-[#5d6d7e] dark:text-[#99a3ad]">
-              {n.description}
+              {description}
             </p>
           </div>
           <NeighborhoodStatCard neighborhood={n} />
@@ -193,7 +208,7 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
                         {s.name}
                       </h4>
                       <p className="mt-2 text-sm leading-7 text-[#5d6d7e] dark:text-[#99a3ad]">
-                        {s.description}
+                        {describeSpace(s.id, s.description)}
                       </p>
                     </div>
                   ))}
@@ -216,7 +231,7 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
                         {s.name}
                       </h4>
                       <p className="mt-2 text-sm leading-6 text-[#5d6d7e] dark:text-[#99a3ad]">
-                        {s.description}
+                        {describeSpace(s.id, s.description)}
                       </p>
                     </div>
                   ))}
@@ -276,10 +291,10 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
                   >
                     <div>
                       <p className="text-lg font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                        {o.name}
+                        {tList(`${o.slug}.name`)}
                       </p>
                       <p className="mt-1 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
-                        {o.oneLiner}
+                        {tList(`${o.slug}.oneLiner`)}
                       </p>
                     </div>
                     <ArrowRight className="h-5 w-5 shrink-0 text-neutral-400 transition-transform group-hover:translate-x-1 group-hover:text-primary-600 dark:group-hover:text-primary-400" />

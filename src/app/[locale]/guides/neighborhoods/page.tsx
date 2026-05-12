@@ -47,6 +47,8 @@ export default async function NeighborhoodsOverviewPage({
   const tList = await getTranslations("neighborhoodList");
   const tGuides = await getTranslations("guides");
   const tPage = await getTranslations("guideDetailPage");
+  const tCommon = await getTranslations("common");
+  const tCard = await getTranslations("neighborhoodGuidePage.card");
   const guide = guides.find((g) => g.slug === SLUG);
   if (!guide) notFound();
 
@@ -108,6 +110,9 @@ export default async function NeighborhoodsOverviewPage({
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {neighborhoods.map((n) => {
               const count = getSpacesInNeighborhood(n.slug).length;
+              const sideLabel = tCommon(
+                n.side === "European" ? "side.european" : "side.asian",
+              );
               return (
                 <Link
                   key={n.slug}
@@ -125,7 +130,7 @@ export default async function NeighborhoodsOverviewPage({
                     />
                     <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-white/85 px-3 py-1.5 text-xs font-medium text-[#1a1a2e] backdrop-blur dark:bg-[#1a1d27]/85 dark:text-[#f2f3f4]">
                       <MapPin className="h-3.5 w-3.5 text-primary-600 dark:text-primary-400" />
-                      {n.side} side
+                      {sideLabel}
                     </div>
                     <div className="absolute bottom-4 right-4 rounded-full bg-[#1a1a2e]/85 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.24em] text-white backdrop-blur">
                       {formatRentRange(n)}
@@ -151,11 +156,11 @@ export default async function NeighborhoodsOverviewPage({
                     <div className="mt-5 flex items-center justify-between border-t border-black/5 pt-4 dark:border-white/5">
                       <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#85929e]">
                         {count > 0
-                          ? `${count} ${count === 1 ? "space" : "spaces"} tracked`
-                          : "Coworking nearby"}
+                          ? tCard("spacesTracked", { count })
+                          : tCard("coworkingNearby")}
                       </span>
                       <span className="inline-flex items-center gap-1 text-sm font-medium text-primary-700 transition-colors group-hover:text-primary-600 dark:text-primary-300 dark:group-hover:text-primary-200">
-                        Details
+                        {tCard("details")}
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                       </span>
                     </div>

@@ -63,7 +63,7 @@ For `path-to-istanbul` posts, also preserve `country`, `countryCode`, `slug`, `f
 - Place names: prefer the locale's preferred transliteration (Persian: کادیکوی, Arabic: كاديكوي, Turkish: Kadıköy, Russian: Кадыкёй). Document chosen spellings in `docs/i18n/{locale}-keywords.md`.
 - Currencies: keep TL/USD figures unchanged; you may add the local currency in parentheses when relevant.
 - Dates inside body prose: use the locale's conventional format.
-- No fabrication: prices, statistics, quotes, and source citations must match the English source. If you can't verify a fact in the locale's context, leave the figure unchanged and add `<!-- TODO {LOCALE} verify: ... -->` next to it.
+- No fabrication: prices, statistics, quotes, and source citations must match the English source. If you can't verify a fact in the locale's context, leave the figure unchanged and add `{/* TODO {LOCALE} verify: ... */}` next to it. **Use the MDX comment syntax `{/* ... */}` - never HTML-comment syntax `<!-- ... -->`, which MDX rejects with a parse error.**
 
 ## Tooling
 

@@ -2231,5 +2231,63 @@
     "turkey": "Турция",
     "visa": "Виза",
     "workspace": "Рабочее место"
+  },
+  "emails": {
+    "shared": {
+      "brandName": "Istanbul Digital Nomads",
+      "ferryTicker": "Кадыкёй 09:10 / Каракёй 10:25 / Галата 18:30",
+      "footerTagline": "Istanbul Digital Nomads - заметки о Стамбуле с прицелом на паромы для тех, кто работает удалённо",
+      "footerSiteUrl": "istanbulnomads.com"
+    },
+    "contactForm": {
+      "subjectTemplate": "Новое сообщение в Istanbul Nomads от {name}",
+      "previewTextTemplate": "Новое сообщение от {name}",
+      "kicker": "Заметка во входящих",
+      "headingTemplate": "{name} прислал(а) сообщение",
+      "intro": "С сайта пришло новое сообщение из формы обратной связи. Ответьте прямо из этого письма, чтобы продолжить переписку.",
+      "fromLabel": "От кого",
+      "emailLabel": "Email",
+      "messageLabel": "Сообщение",
+      "replyCtaTemplate": "Ответить {name}"
+    },
+    "newsletterWelcome": {
+      "subject": "Ваш рабочий ритм в Стамбуле начинается здесь",
+      "previewText": "Стартовая карта Стамбула с прицелом на паромы уже у вас",
+      "kicker": "Добро пожаловать",
+      "heading": "Делаем Стамбул удобным для работы, маршрут за маршрутом.",
+      "body": "Вы в списке. Мы шлём практичные заметки о городе для тех, кто работает удалённо: где обосноваться, за какими столами удобно открыть ноутбук, сколько на самом деле стоит месяц и когда встречается сообщество.",
+      "firstWeekLabel": "Маршрут первой недели",
+      "firstWeekValue": "База в Кадыкёе / перезагрузка на пароме / вечер в Галате",
+      "firstStepLabel": "С чего начать",
+      "firstStepValue": "Выберите район до того, как искать жильё на месяц",
+      "startHereKicker": "Начните отсюда",
+      "links": {
+        "neighborhoodsTitle": "Гид по районам",
+        "neighborhoodsDesc": "Сравните районы у паромов, центральные, деловые и колоритные - с честными плюсами и минусами.",
+        "costTitle": "Разбор стоимости жизни",
+        "costDesc": "Посмотрите месячные бюджеты, прежде чем Стамбул начнёт торговаться с вашим кошельком.",
+        "coworkingTitle": "Коворкинги и кафе с ноутбуком",
+        "coworkingDesc": "Найдите надёжные столы для созвонов, дней фокуса и запасных вариантов."
+      },
+      "ctaJoin": "Присоединиться к рабочей неделе",
+      "unsubscribeNote": "Никакого шума. Только полезные заметки о Стамбуле.",
+      "unsubscribeLink": "Отписаться"
+    },
+    "guideApplication": {
+      "subjectTemplate": "Кандидат в локальные гиды: {name}",
+      "previewTextTemplate": "Новая заявка гида от {name}",
+      "kicker": "Кандидат в локальные гиды",
+      "headingTemplate": "{name} хочет водить номадов по Стамбулу",
+      "intro": "Посмотрите районы, языки, пример совета и мотивацию. Если совпадение сильное, ответьте прямо из этого письма.",
+      "experienceLabel": "Опыт",
+      "experienceValueTemplate": "{years} лет в Стамбуле",
+      "specializationsLabel": "Специализации",
+      "neighborhoodsLabel": "Районы",
+      "languagesLabel": "Языки",
+      "bioLabel": "О себе",
+      "sampleTipLabel": "Пример совета",
+      "motivationLabel": "Мотивация",
+      "replyCtaTemplate": "Ответить {name}"
+    }
   }
 }

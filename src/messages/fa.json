@@ -2207,5 +2207,63 @@
     "turkey": "ترکیه",
     "visa": "ویزا",
     "workspace": "فضای کار"
+  },
+  "emails": {
+    "shared": {
+      "brandName": "Istanbul Digital Nomads",
+      "ferryTicker": "کادیکوی 09:10 / کاراکوی 10:25 / گالاتا 18:30",
+      "footerTagline": "Istanbul Digital Nomads - یادداشت‌های شهر استانبول با محوریت کشتی برای دورکارها",
+      "footerSiteUrl": "istanbulnomads.com"
+    },
+    "contactForm": {
+      "subjectTemplate": "پیام جدید از {name} در Istanbul Nomads",
+      "previewTextTemplate": "پیام جدید از {name}",
+      "kicker": "یادداشت صندوق ورودی",
+      "headingTemplate": "{name} پیامی فرستاد",
+      "intro": "پیام جدیدی از فرم تماس سایت رسید. برای ادامهٔ گفت‌وگو می‌توانید مستقیماً از همین صندوق ورودی پاسخ دهید.",
+      "fromLabel": "فرستنده",
+      "emailLabel": "ایمیل",
+      "messageLabel": "پیام",
+      "replyCtaTemplate": "پاسخ به {name}"
+    },
+    "newsletterWelcome": {
+      "subject": "ریتم کاری شما در استانبول از همین‌جا شروع می‌شود",
+      "previewText": "نقشهٔ شروع استانبول با محوریت کشتی برای شما آماده است",
+      "kicker": "به جمع ما خوش آمدید",
+      "heading": "استانبول را قدم‌به‌قدم به شهری برای کار تبدیل کنید.",
+      "body": "در فهرست ما هستید. ما یادداشت‌های کاربردی شهر را برای دورکارها می‌فرستیم: کجا مستقر شوید، کدام میزها برای لپ‌تاپ مناسب‌اند، یک ماه واقعاً چقدر خرج برمی‌دارد و جامعه چه زمانی دور هم جمع می‌شود.",
+      "firstWeekLabel": "حلقهٔ هفتهٔ اول شما",
+      "firstWeekValue": "پایگاه کادیکوی / ریست با کشتی / غروب گالاتا",
+      "firstStepLabel": "اولین کاری که باید کرد",
+      "firstStepValue": "پیش از انتخاب اجارهٔ ماهانه، محله را انتخاب کنید",
+      "startHereKicker": "از اینجا شروع کنید",
+      "links": {
+        "neighborhoodsTitle": "راهنمای محله‌ها",
+        "neighborhoodsDesc": "محله‌های ساحل کشتی، مرکزی، کسب‌وکار و پرشخصیت را با مزایا و معایب واقعی مقایسه کنید.",
+        "costTitle": "تحلیل هزینهٔ زندگی",
+        "costDesc": "پیش از آنکه استانبول با کیف پول شما چانه بزند، بودجهٔ ماهانه را ببینید.",
+        "coworkingTitle": "فضاهای کار اشتراکی و کافه‌های لپ‌تاپ‌دوست",
+        "coworkingDesc": "میزهای قابل‌اعتماد برای تماس‌ها، روزهای تمرکز و برنامه‌های جایگزین پیدا کنید."
+      },
+      "ctaJoin": "به هفتهٔ کاری بپیوندید",
+      "unsubscribeNote": "بدون شلوغی. فقط یادداشت‌های مفید استانبول.",
+      "unsubscribeLink": "لغو اشتراک"
+    },
+    "guideApplication": {
+      "subjectTemplate": "نامزد راهنمای محلی: {name}",
+      "previewTextTemplate": "درخواست راهنمای جدید از {name}",
+      "kicker": "نامزد راهنمای محلی",
+      "headingTemplate": "{name} می‌خواهد در استانبول راهنمای کوچ‌نشین‌ها باشد",
+      "intro": "محله‌ها، زبان‌ها، نمونه نکته و انگیزهٔ او را مرور کنید. اگر تناسب خوبی به نظر می‌رسد، مستقیماً از همین ایمیل پاسخ دهید.",
+      "experienceLabel": "تجربه",
+      "experienceValueTemplate": "{years} سال در استانبول",
+      "specializationsLabel": "تخصص‌ها",
+      "neighborhoodsLabel": "محله‌ها",
+      "languagesLabel": "زبان‌ها",
+      "bioLabel": "زندگی‌نامه",
+      "sampleTipLabel": "نمونه نکته",
+      "motivationLabel": "انگیزه",
+      "replyCtaTemplate": "پاسخ به {name}"
+    }
   }
 }

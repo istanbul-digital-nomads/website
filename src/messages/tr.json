@@ -2227,5 +2227,63 @@
     "turkey": "Türkiye",
     "visa": "Vize",
     "workspace": "Çalışma alanı"
+  },
+  "emails": {
+    "shared": {
+      "brandName": "Istanbul Digital Nomads",
+      "ferryTicker": "Kadıköy 09:10 / Karaköy 10:25 / Galata 18:30",
+      "footerTagline": "Istanbul Digital Nomads - uzaktan çalışanlar için vapurla başlayan İstanbul notları",
+      "footerSiteUrl": "istanbulnomads.com"
+    },
+    "contactForm": {
+      "subjectTemplate": "Istanbul Nomads üzerinden {name} yeni bir mesaj gönderdi",
+      "previewTextTemplate": "{name} kişisinden yeni mesaj",
+      "kicker": "Gelen kutusu notu",
+      "headingTemplate": "{name} bir mesaj gönderdi",
+      "intro": "Siteden yeni bir iletişim formu mesajı geldi. Konuşmayı gelen kutunuzdan sürdürmek için doğrudan yanıtlayabilirsiniz.",
+      "fromLabel": "Gönderen",
+      "emailLabel": "E-posta",
+      "messageLabel": "Mesaj",
+      "replyCtaTemplate": "{name} kişisine yanıt verin"
+    },
+    "newsletterWelcome": {
+      "subject": "İstanbul'daki çalışma ritminiz burada başlıyor",
+      "previewText": "Vapurla başlayan İstanbul başlangıç haritanız hazır",
+      "kicker": "Aramıza hoş geldiniz",
+      "heading": "İstanbul'u adım adım çalışılır bir şehre çevirin.",
+      "body": "Listemizdesiniz. Uzaktan çalışanlar için pratik şehir notları yolluyoruz: nereye yerleşmeli, hangi masalar laptopla rahat, bir ay gerçekten ne tutar ve topluluk ne zaman buluşuyor.",
+      "firstWeekLabel": "İlk hafta rotanız",
+      "firstWeekValue": "Kadıköy üssü / vapurla reset / Galata akşamı",
+      "firstStepLabel": "İlk olarak ne yapmalı",
+      "firstStepValue": "Aylık kiralama yapmadan önce mahalleyi seçin",
+      "startHereKicker": "Buradan başlayın",
+      "links": {
+        "neighborhoodsTitle": "Mahalle rehberi",
+        "neighborhoodsDesc": "Vapur yakası, merkezi, iş odaklı ve karakter dolu mahalleleri gerçek artı ve eksileriyle karşılaştırın.",
+        "costTitle": "Yaşam maliyeti dökümü",
+        "costDesc": "İstanbul cüzdanınızla pazarlığa başlamadan önce aylık bütçeleri görün.",
+        "coworkingTitle": "Ortak çalışma alanları ve laptop kafeleri",
+        "coworkingDesc": "Toplantılar, odak günleri ve yedek planlar için güvenilir masalar bulun."
+      },
+      "ctaJoin": "Çalışma haftasına katılın",
+      "unsubscribeNote": "Gürültü yok. Sadece işe yarar İstanbul notları.",
+      "unsubscribeLink": "Listeden çık"
+    },
+    "guideApplication": {
+      "subjectTemplate": "Yerel rehber adayı: {name}",
+      "previewTextTemplate": "{name} kişisinden yeni rehber başvurusu",
+      "kicker": "Yerel rehber adayı",
+      "headingTemplate": "{name} İstanbul'da göçebelere rehberlik etmek istiyor",
+      "intro": "Mahallelerini, dillerini, örnek tüyosunu ve motivasyonunu inceleyin. Uyum güçlü görünüyorsa bu e-postayı doğrudan yanıtlayabilirsiniz.",
+      "experienceLabel": "Deneyim",
+      "experienceValueTemplate": "İstanbul'da {years} yıl",
+      "specializationsLabel": "Uzmanlık alanları",
+      "neighborhoodsLabel": "Mahalleler",
+      "languagesLabel": "Diller",
+      "bioLabel": "Kısa biyografi",
+      "sampleTipLabel": "Örnek tüyo",
+      "motivationLabel": "Motivasyon",
+      "replyCtaTemplate": "{name} kişisine yanıt verin"
+    }
   }
 }

@@ -111,11 +111,15 @@ export const mdxComponents = {
     </thead>
   ),
   th: ({ children, ...props }: Props<"th">) => (
+    // Wrap content in <bdi> so Latin runs like "20 GB" don't get
+    // bidi-flipped to "GB 20" inside RTL tables, while keeping the cell
+    // text-align: start (= right in RTL) so the whole table stays
+    // visually right-aligned for fa/ar readers.
     <th
       className="whitespace-nowrap px-4 py-3 text-start font-semibold"
       {...props}
     >
-      {children}
+      <bdi>{children}</bdi>
     </th>
   ),
   td: ({ children, ...props }: Props<"td">) => (
@@ -123,7 +127,7 @@ export const mdxComponents = {
       className="border-b border-black/5 px-4 py-3 align-top text-[#526e89] last:border-b-0 dark:border-white/5 dark:text-[#99a3ad]"
       {...props}
     >
-      {children}
+      <bdi>{children}</bdi>
     </td>
   ),
   hr: (props: Props<"hr">) => (

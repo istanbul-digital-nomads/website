@@ -447,7 +447,8 @@
     },
     "safety": {
       "question": "İstanbul güvenli mi?",
-      "answer": "Evet. İstanbul büyüklüğüne göre çok güvenli. Göçebelerin tercih ettiği mahalleler (Kadıköy, Cihangir, Beşiktaş, Karaköy) gece gündüz güvenli. Taksi için BiTaksi'yi kullan ve standart büyük şehir önlemlerini al."
+      "answer": "Evet. İstanbul büyüklüğüne göre çok güvenli. Göçebelerin tercih ettiği mahalleler (Kadıköy, Cihangir, Beşiktaş, Karaköy) gece gündüz güvenli. Taksi için BiTaksi'yi kullan ve standart büyük şehir önlemlerini al.",
+      "guideSlug": "neighborhoods"
     },
     "transport": {
       "question": "Havalimanından nasıl gelirim?",

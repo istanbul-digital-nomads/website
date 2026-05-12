@@ -16,7 +16,7 @@ import {
 import { socialLinks } from "@/lib/constants";
 
 interface Props {
-  params: { neighborhood: string };
+  params: { locale: string; neighborhood: string };
 }
 
 export async function generateStaticParams() {
@@ -27,9 +27,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const n = getNeighborhoodBySlug(params.neighborhood);
   if (!n) return {};
   const tList = await getTranslations("neighborhoodList");
+  const tDetail = await getTranslations("neighborhoodDetailPage");
   const name = tList(`${n.slug}.name`);
   const oneLiner = tList(`${n.slug}.oneLiner`);
-  const title = `${name} - Istanbul neighborhood guide`;
+  const title = tDetail("metaTitleTemplate", { name });
   return {
     title,
     description: oneLiner,

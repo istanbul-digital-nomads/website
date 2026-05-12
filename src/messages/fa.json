@@ -2157,6 +2157,20 @@
         "why": "زیبا و آرام، ولی وابسته به کشتی و برای دیدارهای منظم دست‌وپاگیر.",
         "exception": "یک خلوت نویسندگی برنامه‌ریزی‌شده یا ریست آخر هفته."
       }
+    },
+    "statCard": {
+      "verifiedStats": "آمار تأییدشده",
+      "side": "بخش",
+      "rent": "اجارهٔ یک‌خوابهٔ مبله",
+      "noiseLevel": "سطح سروصدا",
+      "transport": "حمل‌ونقل",
+      "coworkingTracked": "کار اشتراکی پایش‌شده",
+      "cafesTracked": "کافه‌های پایش‌شده",
+      "bestFor": "مناسب برای",
+      "sideValueTemplate": "{side}",
+      "coworkingCountTemplate": "{count, plural, one {# فضا} other {# فضا}}",
+      "cafeCountTemplate": "{count, plural, one {# کافه} other {# کافه}}",
+      "footnote": "بازهٔ اجاره از راهنماهای محله‌ها. تعداد فضاها زنده به‌روز می‌شود."
     }
   },
   "neighborhoodDetailPage": {
@@ -2187,6 +2201,7 @@
     "joinOnTelegram": "در تلگرام بپیوند",
     "compareEyebrow": "مقایسه",
     "otherNeighborhoods": "محله‌های دیگری که نومدها انتخاب می‌کنند",
-    "seeAllTen": "هر ده محله را ببین"
+    "seeAllTen": "هر ده محله را ببین",
+    "metaTitleTemplate": "{name} - راهنمای محله‌های استانبول"
   }
 }

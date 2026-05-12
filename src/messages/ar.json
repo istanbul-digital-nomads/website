@@ -2157,6 +2157,20 @@
         "why": "جميلة وهادئة، لكنّها تعتمد على العبّارة وغير مناسبة للقاءات منتظمة.",
         "exception": "خلوة كتابة مقصودة أو إعادة ضبط لعطلة الأسبوع."
       }
+    },
+    "statCard": {
+      "verifiedStats": "إحصاءات موثّقة",
+      "side": "الجانب",
+      "rent": "إيجار شقة بغرفة مفروشة",
+      "noiseLevel": "مستوى الضجيج",
+      "transport": "النقل",
+      "coworkingTracked": "فضاءات عمل مرصودة",
+      "cafesTracked": "مقاهٍ مرصودة",
+      "bestFor": "مناسب لـ",
+      "sideValueTemplate": "{side}",
+      "coworkingCountTemplate": "{count, plural, one {# فضاء} other {# فضاءات}}",
+      "cafeCountTemplate": "{count, plural, one {# مقهى} other {# مقاهٍ}}",
+      "footnote": "نطاقات الإيجار من أدلّة الأحياء. أعداد الفضاءات تتحدّث مباشرة."
     }
   },
   "neighborhoodDetailPage": {
@@ -2187,6 +2201,7 @@
     "joinOnTelegram": "انضمّ عبر تلغرام",
     "compareEyebrow": "قارن",
     "otherNeighborhoods": "أحياء أخرى يختارها الرحّالة",
-    "seeAllTen": "شاهد العشرة جميعاً"
+    "seeAllTen": "شاهد العشرة جميعاً",
+    "metaTitleTemplate": "{name} - دليل أحياء إسطنبول"
   }
 }

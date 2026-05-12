@@ -2157,6 +2157,20 @@
         "why": "Красиво и тихо, но зависит от парома и неудобно для регулярных встреч.",
         "exception": "Осознанный писательский ретрит или перезагрузка на выходные."
       }
+    },
+    "statCard": {
+      "verifiedStats": "Проверенные данные",
+      "side": "Сторона",
+      "rent": "Аренда меблированной 1-комнатной",
+      "noiseLevel": "Уровень шума",
+      "transport": "Транспорт",
+      "coworkingTracked": "Коворкинги в подборке",
+      "cafesTracked": "Кафе в подборке",
+      "bestFor": "Подходит для",
+      "sideValueTemplate": "{side}",
+      "coworkingCountTemplate": "{count, plural, one {# коворкинг} few {# коворкинга} many {# коворкингов} other {# коворкинга}}",
+      "cafeCountTemplate": "{count, plural, one {# кафе} few {# кафе} many {# кафе} other {# кафе}}",
+      "footnote": "Диапазоны аренды - из гидов по районам. Количество пространств обновляется в реальном времени."
     }
   },
   "neighborhoodDetailPage": {
@@ -2187,6 +2201,7 @@
     "joinOnTelegram": "Присоединиться в Telegram",
     "compareEyebrow": "Сравнить",
     "otherNeighborhoods": "Другие районы, которые выбирают номады",
-    "seeAllTen": "Посмотреть все десять"
+    "seeAllTen": "Посмотреть все десять",
+    "metaTitleTemplate": "{name} - гид по районам Стамбула"
   }
 }

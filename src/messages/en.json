@@ -2157,6 +2157,20 @@
         "why": "Beautiful and quiet, but ferry-dependent and awkward for regular meetups.",
         "exception": "A deliberate writing retreat or weekend reset."
       }
+    },
+    "statCard": {
+      "verifiedStats": "Verified stats",
+      "side": "Side",
+      "rent": "Furnished 1BR rent",
+      "noiseLevel": "Noise level",
+      "transport": "Transport",
+      "coworkingTracked": "Coworking tracked",
+      "cafesTracked": "Cafes tracked",
+      "bestFor": "Best for",
+      "sideValueTemplate": "{side}",
+      "coworkingCountTemplate": "{count, plural, one {# space} other {# spaces}}",
+      "cafeCountTemplate": "{count, plural, one {# cafe} other {# cafes}}",
+      "footnote": "Rent ranges from the neighborhood guides. Space counts update live."
     }
   },
   "neighborhoodDetailPage": {
@@ -2187,6 +2201,7 @@
     "joinOnTelegram": "Join on Telegram",
     "compareEyebrow": "Compare",
     "otherNeighborhoods": "Other neighborhoods nomads pick",
-    "seeAllTen": "See all ten"
+    "seeAllTen": "See all ten",
+    "metaTitleTemplate": "{name} - Istanbul neighborhood guide"
   }
 }

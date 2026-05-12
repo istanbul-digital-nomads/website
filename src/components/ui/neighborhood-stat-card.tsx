@@ -19,6 +19,9 @@ interface Props {
 
 export function NeighborhoodStatCard({ neighborhood }: Props) {
   const tList = useTranslations("neighborhoodList");
+  const tCard = useTranslations("neighborhoodGuidePage.statCard");
+  const tCommon = useTranslations("common.side");
+  const tNoise = useTranslations("neighborhoodDetailPage.noise");
   const spacesInNeighborhood = getSpacesInNeighborhood(neighborhood.slug);
   const cafeCount = spacesInNeighborhood.filter(
     (s) => s.type === "cafe",
@@ -37,49 +40,42 @@ export function NeighborhoodStatCard({ neighborhood }: Props) {
       (tList.raw(`${neighborhood.slug}.bestFor`) as string[])
     : neighborhood.bestFor;
 
+  const sideValue = tCommon(
+    neighborhood.side === "European" ? "european" : "asian",
+  );
+  const noiseValue = tNoise(neighborhood.noise);
+
   const rows: Array<{ icon: React.ElementType; label: string; value: string }> =
     [
-      {
-        icon: Compass,
-        label: "Side",
-        value: `${neighborhood.side} side`,
-      },
+      { icon: Compass, label: tCard("side"), value: sideValue },
       {
         icon: Banknote,
-        label: "Furnished 1BR rent",
+        label: tCard("rent"),
         value: formatRentRange(neighborhood),
       },
-      {
-        icon: Volume2,
-        label: "Noise level",
-        value: neighborhood.noise,
-      },
-      {
-        icon: Train,
-        label: "Transport",
-        value: transportValue,
-      },
+      { icon: Volume2, label: tCard("noiseLevel"), value: noiseValue },
+      { icon: Train, label: tCard("transport"), value: transportValue },
     ];
 
   if (coworkingCount > 0) {
     rows.push({
       icon: Building2,
-      label: "Coworking tracked",
-      value: `${coworkingCount} ${coworkingCount === 1 ? "space" : "spaces"}`,
+      label: tCard("coworkingTracked"),
+      value: tCard("coworkingCountTemplate", { count: coworkingCount }),
     });
   }
   if (cafeCount > 0) {
     rows.push({
       icon: Coffee,
-      label: "Cafes tracked",
-      value: `${cafeCount} ${cafeCount === 1 ? "cafe" : "cafes"}`,
+      label: tCard("cafesTracked"),
+      value: tCard("cafeCountTemplate", { count: cafeCount }),
     });
   }
 
   return (
     <div className="rounded-[1.75rem] border border-black/10 bg-white/55 p-6 dark:border-white/10 dark:bg-white/5">
       <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-primary-600 dark:text-primary-400">
-        Verified stats
+        {tCard("verifiedStats")}
       </p>
       <dl className="mt-5 space-y-4">
         {rows.map(({ icon: Icon, label, value }) => (
@@ -102,7 +98,7 @@ export function NeighborhoodStatCard({ neighborhood }: Props) {
 
       <div className="mt-5 border-t border-black/5 pt-4 dark:border-white/5">
         <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#85929e]">
-          Best for
+          {tCard("bestFor")}
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           {bestForTags.map((tag) => (
@@ -117,7 +113,7 @@ export function NeighborhoodStatCard({ neighborhood }: Props) {
       </div>
 
       <p className="mt-5 font-mono text-[9px] uppercase tracking-[0.2em] text-neutral-400 dark:text-[#5d6d7e]">
-        Rent from guides/neighborhoods. Space counts live from spaces.ts.
+        {tCard("footnote")}
       </p>
     </div>
   );

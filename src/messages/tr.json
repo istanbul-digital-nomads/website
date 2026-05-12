@@ -2157,6 +2157,20 @@
         "why": "Güzel ve sakin ama vapura bağımlı, düzenli buluşmalar için zor.",
         "exception": "Kasıtlı bir yazı inzivası ya da hafta sonu molası."
       }
+    },
+    "statCard": {
+      "verifiedStats": "Doğrulanmış veriler",
+      "side": "Yaka",
+      "rent": "Eşyalı 1+1 kirası",
+      "noiseLevel": "Gürültü seviyesi",
+      "transport": "Ulaşım",
+      "coworkingTracked": "Takip edilen coworking",
+      "cafesTracked": "Takip edilen kafeler",
+      "bestFor": "İçin uygun",
+      "sideValueTemplate": "{side}",
+      "coworkingCountTemplate": "{count, plural, one {# alan} other {# alan}}",
+      "cafeCountTemplate": "{count, plural, one {# kafe} other {# kafe}}",
+      "footnote": "Kira aralıkları mahalle rehberlerinden. Alan sayıları canlı güncellenir."
     }
   },
   "neighborhoodDetailPage": {
@@ -2187,6 +2201,7 @@
     "joinOnTelegram": "Telegram'da katıl",
     "compareEyebrow": "Karşılaştır",
     "otherNeighborhoods": "Göçebelerin tercih ettiği diğer mahalleler",
-    "seeAllTen": "On mahallenin hepsini gör"
+    "seeAllTen": "On mahallenin hepsini gör",
+    "metaTitleTemplate": "{name} - İstanbul mahalle rehberi"
   }
 }

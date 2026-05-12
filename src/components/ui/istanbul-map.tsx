@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, memo } from "react";
+import { useTranslations } from "next-intl";
 import Map, {
   Marker,
   Source,
@@ -236,6 +237,8 @@ function AnimatedMarker({
 }
 
 export function IstanbulMap() {
+  const tMap = useTranslations("sections.istanbulMap");
+  const tCommon = useTranslations("common.side");
   const { theme } = useTheme();
   const [activeMarker, setActiveMarker] = useState<string | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
@@ -346,10 +349,9 @@ export function IstanbulMap() {
         <div className="rounded-md border border-black/10 bg-white/90 px-5 py-4 backdrop-blur-xl dark:border-white/10 dark:bg-[#1a1612]/88">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="eyebrow">First-month map - Istanbul</p>
+              <p className="eyebrow">{tMap("eyebrow")}</p>
               <p className="mt-2 max-w-sm text-sm leading-6 text-neutral-700 dark:text-[#99a3ad]">
-                European side left, Asian side right, ferries tying the week
-                together. Hover neighborhoods to explore.
+                {tMap("body")}
               </p>
             </div>
             <div className="hidden rounded-md border border-black/10 bg-white/80 p-2.5 dark:border-white/10 dark:bg-white/10 sm:block">
@@ -359,15 +361,15 @@ export function IstanbulMap() {
           <div className="mt-3 flex gap-4 text-xs text-[#5d6d7e] dark:text-[#85929e]">
             <span className="flex items-center gap-1.5">
               <span className="h-2 w-2 rounded-full bg-accent-warm" />
-              European side
+              {tCommon("european")}
             </span>
             <span className="flex items-center gap-1.5">
               <span className="h-2 w-2 rounded-full bg-primary-500" />
-              Asian side
+              {tCommon("asian")}
             </span>
             <span className="flex items-center gap-1.5">
               <span className="h-2 w-2 rounded-full bg-accent-green" />
-              Ferry routes
+              {tMap("ferryRoutes")}
             </span>
           </div>
         </div>

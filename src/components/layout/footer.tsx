@@ -1,18 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Github, Mail, Send, Twitter } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
-import { siteConfig, footerNav, socialLinks } from "@/lib/constants";
+import { footerNav, socialLinks, type FooterLinkKey } from "@/lib/constants";
 import { NewsletterForm } from "@/components/newsletter-form";
 
 const socialIcons = [
-  { href: socialLinks.telegram, icon: Send, label: "Telegram" },
-  { href: socialLinks.github, icon: Github, label: "GitHub" },
-  { href: socialLinks.twitter, icon: Twitter, label: "X/Twitter" },
-  { href: `mailto:${socialLinks.email}`, icon: Mail, label: "Mail" },
-] as const;
+  { href: socialLinks.telegram, icon: Send, key: "telegram" as const },
+  { href: socialLinks.github, icon: Github, key: "github" as const },
+  { href: socialLinks.twitter, icon: Twitter, key: "twitter" as const },
+  { href: `mailto:${socialLinks.email}`, icon: Mail, key: "email" as const },
+];
 
-export function Footer() {
+export async function Footer() {
+  const tSite = await getTranslations("site");
+  const tFooter = await getTranslations("footer");
+  const tColumns = await getTranslations("footer.columns");
+  const tLinks = await getTranslations("footer.links");
+
   return (
     <footer className="relative overflow-hidden border-t border-black/10 bg-[#f6f1ea] text-neutral-950 dark:border-white/10 dark:bg-[#14110f] dark:text-[#f2f3f4]">
       <div className="pointer-events-none absolute inset-0 bg-[url('/images/neighborhoods/kadikoy/hero-premium-2026.jpg')] bg-cover bg-center opacity-[0.08] dark:opacity-[0.1]" />
@@ -22,14 +28,13 @@ export function Footer() {
         <div className="grid gap-5 border-b border-black/10 py-7 md:grid-cols-[minmax(0,1fr)_minmax(320px,420px)] md:items-end dark:border-white/10">
           <div>
             <p className="eyebrow text-primary-700 dark:text-primary-300">
-              Sunday letter
+              {tFooter("newsletterEyebrow")}
             </p>
             <h2 className="mt-2 max-w-2xl font-display text-h3 text-neutral-950 dark:text-[#f2f3f4]">
-              Get the Sunday letter
+              {tFooter("newsletterTitle")}
             </h2>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-[#5d6d7e] dark:text-[#b7aaa0] sm:text-base sm:leading-7">
-              Practical city notes, fresh guides, and low-noise community
-              updates from Istanbul.
+              {tFooter("newsletterBody")}
             </p>
           </div>
           <NewsletterForm variant="footer" />
@@ -40,7 +45,7 @@ export function Footer() {
             <Link href="/" className="inline-flex items-center gap-3">
               <Image
                 src="/images/logo-light.png"
-                alt="Istanbul Nomads"
+                alt={tSite("shortName")}
                 width={530}
                 height={680}
                 className="block dark:hidden"
@@ -48,40 +53,55 @@ export function Footer() {
               />
               <Image
                 src="/images/logo-dark.png"
-                alt="Istanbul Nomads"
+                alt={tSite("shortName")}
                 width={542}
                 height={693}
                 className="hidden dark:block"
                 style={{ width: 28, height: "auto" }}
               />
               <span className="max-w-48 text-sm font-semibold uppercase tracking-[0.2em] text-primary-900 dark:text-primary-100">
-                {siteConfig.name}
+                {tSite("name")}
               </span>
             </Link>
             <p className="mt-4 max-w-xs text-sm italic leading-7 text-[#6b6257] dark:text-[#b7aaa0]">
-              Local rhythm, practical guides, and a softer landing for digital
-              nomads staying longer in Istanbul.
+              {tFooter("tagline")}
             </p>
           </div>
 
           <div className="grid gap-8 min-[480px]:grid-cols-2 md:grid-cols-4">
-            <FooterColumn title="Community" links={footerNav.community} />
-            <FooterColumn title="Resources" links={footerNav.resources} />
-            <FooterColumn title="Connect" links={footerNav.connect} />
-            <FooterColumn title="Legal" links={footerNav.legal} />
+            <FooterColumn
+              title={tColumns("community")}
+              links={footerNav.community}
+              labelFor={(k) => tLinks(k)}
+            />
+            <FooterColumn
+              title={tColumns("resources")}
+              links={footerNav.resources}
+              labelFor={(k) => tLinks(k)}
+            />
+            <FooterColumn
+              title={tColumns("connect")}
+              links={footerNav.connect}
+              labelFor={(k) => tLinks(k)}
+            />
+            <FooterColumn
+              title={tColumns("legal")}
+              links={footerNav.legal}
+              labelFor={(k) => tLinks(k)}
+            />
           </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-2 border-b border-black/10 py-5 dark:border-white/10">
-          {socialIcons.map(({ href, icon: Icon, label }) => (
+          {socialIcons.map(({ href, icon: Icon, key }) => (
             <a
-              key={label}
+              key={key}
               href={href}
               target="_blank"
               rel="noopener noreferrer"
               className="tap-highlight inline-flex h-10 w-10 items-center justify-center rounded-lg border border-black/10 bg-white/35 text-[#5d4a3e] transition-colors hover:border-primary-500/40 hover:text-primary-700 dark:border-white/10 dark:bg-white/[0.04] dark:text-[#b7aaa0] dark:hover:border-primary-400/40 dark:hover:text-primary-200"
-              aria-label={label}
-              title={label}
+              aria-label={tLinks(key)}
+              title={tLinks(key)}
             >
               <Icon className="h-4.5 w-4.5" />
             </a>
@@ -90,9 +110,12 @@ export function Footer() {
 
         <div className="flex flex-col gap-2 py-5 pb-20 font-mono text-[11px] uppercase leading-5 tracking-[0.24em] text-[#7a6b60] md:flex-row md:items-center md:justify-between md:pb-5 dark:text-[#94877d]">
           <p>
-            &copy; {new Date().getFullYear()} {siteConfig.name}
+            {tFooter("copyright", {
+              year: new Date().getFullYear(),
+              name: tSite("name"),
+            })}
           </p>
-          <p>Made in Kadikoy · v1.14.0</p>
+          <p>{tFooter("madeIn")}</p>
         </div>
       </Container>
     </footer>
@@ -102,9 +125,15 @@ export function Footer() {
 function FooterColumn({
   title,
   links,
+  labelFor,
 }: {
   title: string;
-  links: ReadonlyArray<{ label: string; href: string; external?: boolean }>;
+  links: ReadonlyArray<{
+    key: FooterLinkKey;
+    href: string;
+    external?: boolean;
+  }>;
+  labelFor: (key: FooterLinkKey) => string;
 }) {
   return (
     <div>
@@ -113,7 +142,7 @@ function FooterColumn({
       </h3>
       <ul className="mt-4 space-y-2.5">
         {links.map((link) => (
-          <li key={link.label}>
+          <li key={`${link.key}-${link.href}`}>
             {link.external ? (
               <a
                 href={link.href}
@@ -121,14 +150,14 @@ function FooterColumn({
                 rel="noopener noreferrer"
                 className="text-sm leading-6 text-[#5d6d7e] transition-colors hover:text-primary-600 dark:text-[#b7aaa0] dark:hover:text-primary-300"
               >
-                {link.label}
+                {labelFor(link.key)}
               </a>
             ) : (
               <Link
                 href={link.href}
                 className="text-sm leading-6 text-[#5d6d7e] transition-colors hover:text-primary-600 dark:text-[#b7aaa0] dark:hover:text-primary-300"
               >
-                {link.label}
+                {labelFor(link.key)}
               </Link>
             )}
           </li>

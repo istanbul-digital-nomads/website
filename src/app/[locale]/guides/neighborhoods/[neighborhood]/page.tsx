@@ -44,6 +44,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function NeighborhoodDetailPage({ params }: Props) {
   const tList = await getTranslations("neighborhoodList");
   const tSpaces = await getTranslations("spacesList");
+  const tCommon = await getTranslations("common");
+  const tDetail = await getTranslations("neighborhoodDetailPage");
   const n = getNeighborhoodBySlug(params.neighborhood);
   if (!n) notFound();
 
@@ -52,6 +54,13 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
   const cafes = spacesHere.filter((s) => s.type === "cafe");
 
   const others = neighborhoods.filter((o) => o.slug !== n.slug).slice(0, 2);
+  const localizedName = tList(`${n.slug}.name`);
+  const sideLabel = tCommon(
+    n.side === "European" ? "side.european" : "side.asian",
+  );
+  const noiseLabel = tDetail("noiseLabel", {
+    noise: tDetail(`noise.${n.noise}`),
+  });
 
   // Per-neighborhood prose now lives in i18n; fall back to the English copy
   // on the data object when a translation key is missing.
@@ -85,28 +94,28 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
         <Container className="relative pb-16 pt-24 sm:pb-20 sm:pt-32">
           <nav className="mb-6 flex items-center gap-2 text-sm text-white/70">
             <Link href="/" className="hover:text-white">
-              Home
+              {tDetail("breadcrumb.home")}
             </Link>
             <span>/</span>
             <Link href="/guides/neighborhoods" className="hover:text-white">
-              Neighborhoods
+              {tDetail("breadcrumb.neighborhoods")}
             </Link>
             <span>/</span>
-            <span className="text-white">{tList(`${n.slug}.name`)}</span>
+            <span className="text-white">{localizedName}</span>
           </nav>
 
           <div className="flex items-center gap-2 text-xs">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 font-medium text-white backdrop-blur">
               <MapPin className="h-3.5 w-3.5" />
-              {n.side} side
+              {sideLabel}
             </span>
             <span className="rounded-full border border-white/20 px-3 py-1.5 font-mono uppercase tracking-[0.24em] text-white/80">
-              {n.noise} noise
+              {noiseLabel}
             </span>
           </div>
 
           <h1 className="mt-5 max-w-3xl text-4xl font-semibold text-white sm:text-6xl">
-            {tList(`${n.slug}.name`)}
+            {localizedName}
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80">
             {tList(`${n.slug}.oneLiner`)}
@@ -124,7 +133,7 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
           </div>
 
           <p className="mt-8 text-right font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">
-            Photo:{" "}
+            {tDetail("photoCredit")}{" "}
             <a
               href={n.hero.credit.sourceHref}
               target="_blank"
@@ -141,7 +150,7 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
       <Section>
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
           <div>
-            <p className="eyebrow">The feel</p>
+            <p className="eyebrow">{tDetail("feelEyebrow")}</p>
             <h2 className="mt-3 text-3xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
               {vibe}
             </h2>
@@ -156,7 +165,9 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
       {n.gallery.length > 0 && (
         <section className="pb-16">
           <Container>
-            <p className="eyebrow mb-6">More of {tList(`${n.slug}.name`)}</p>
+            <p className="eyebrow mb-6">
+              {tDetail("moreOf", { name: localizedName })}
+            </p>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {n.gallery.map((g) => (
                 <NeighborhoodPhotoImage
@@ -175,20 +186,19 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
           <Container>
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
-                <p className="eyebrow">Work here</p>
+                <p className="eyebrow">{tDetail("workHereEyebrow")}</p>
                 <h2 className="mt-3 text-3xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                  Coworking and cafes in {tList(`${n.slug}.name`)}
+                  {tDetail("workHereTitle", { name: localizedName })}
                 </h2>
                 <p className="mt-3 max-w-xl text-sm leading-7 text-[#5d6d7e] dark:text-[#99a3ad]">
-                  {spacesHere.length} spaces we track here, scored on wifi,
-                  power, comfort, noise, value, and vibe.
+                  {tDetail("workHereIntro", { count: spacesHere.length })}
                 </p>
               </div>
               <Link
                 href="/spaces"
                 className="inline-flex items-center gap-2 text-sm font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-[#f2f3f4] dark:hover:text-primary-400"
               >
-                All spaces
+                {tDetail("allSpaces")}
                 <MoveUpRight className="h-4 w-4" />
               </Link>
             </div>
@@ -196,7 +206,7 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
             {coworking.length > 0 && (
               <>
                 <h3 className="mt-10 font-mono text-[11px] uppercase tracking-[0.28em] text-primary-600 dark:text-primary-400">
-                  Coworking
+                  {tDetail("coworkingHeading")}
                 </h3>
                 <div className="mt-4 grid gap-4 md:grid-cols-2">
                   {coworking.map((s) => (
@@ -219,7 +229,7 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
             {cafes.length > 0 && (
               <>
                 <h3 className="mt-10 font-mono text-[11px] uppercase tracking-[0.28em] text-primary-600 dark:text-primary-400">
-                  Cafes
+                  {tDetail("cafesHeading")}
                 </h3>
                 <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {cafes.map((s) => (
@@ -247,22 +257,20 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
           <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
             <div className="rounded-2xl border border-black/10 bg-[#f6f1ea] p-8 dark:border-white/10 dark:bg-[#1a1612]">
               <p className="eyebrow text-primary-700 dark:text-primary-400">
-                Next step
+                {tDetail("nextStepEyebrow")}
               </p>
               <h2 className="mt-3 max-w-md text-3xl font-semibold text-neutral-950 dark:text-[#f2f3f4] sm:text-4xl">
-                Coming to {tList(`${n.slug}.name`)}? Say hi before you land.
+                {tDetail("comingTo", { name: localizedName })}
               </h2>
               <p className="mt-4 max-w-md text-base leading-8 text-[#5d6d7e] dark:text-[#99a3ad]">
-                Join the Telegram group and we&apos;ll point you to this
-                week&apos;s meetup, a reliable cafe, and anything else you need
-                to settle in.
+                {tDetail("joinTelegramBody")}
               </p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href={`/tools/first-week-planner?base=${n.slug}`}
                   className="inline-flex items-center justify-center gap-2 rounded-md bg-neutral-950 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-800 dark:bg-[#f2f3f4] dark:text-[#14110f] dark:hover:bg-[#d8d0c8]"
                 >
-                  Plan week one here
+                  {tDetail("planWeekOne")}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <a
@@ -271,16 +279,16 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 rounded-md border border-black/15 px-5 py-3 text-sm font-semibold text-neutral-950 transition-colors hover:border-primary-500/40 hover:bg-white/60 dark:border-white/20 dark:text-[#f2f3f4] dark:hover:bg-white/10"
                 >
-                  Join on Telegram
+                  {tDetail("joinOnTelegram")}
                   <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
             </div>
 
             <div>
-              <p className="eyebrow">Compare</p>
+              <p className="eyebrow">{tDetail("compareEyebrow")}</p>
               <h3 className="mt-3 text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                Other neighborhoods nomads pick
+                {tDetail("otherNeighborhoods")}
               </h3>
               <div className="mt-5 space-y-3">
                 {others.map((o) => (
@@ -305,7 +313,7 @@ export default async function NeighborhoodDetailPage({ params }: Props) {
                 href="/guides/neighborhoods"
                 className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-neutral-950 hover:text-primary-600 dark:text-[#f2f3f4] dark:hover:text-primary-400"
               >
-                See all ten
+                {tDetail("seeAllTen")}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>

@@ -2076,5 +2076,117 @@
     "comingSoon": "Bu rehberi topluluğun katkılarıyla yazıyoruz. Yakında tekrar uğra.",
     "contributeIntro": "Faydalı bir şey biliyor musun? Şurada paylaş",
     "telegramLinkText": "Telegram grubu"
+  },
+  "neighborhoodGuidePage": {
+    "card": {
+      "details": "Detaylar",
+      "spacesTracked": "{count} mekan takip ediliyor",
+      "coworkingNearby": "Yakında ortak çalışma alanı",
+      "sideLabel": "{side}"
+    },
+    "decisionNotes": {
+      "eyebrow": "Tam rehberlerin ötesinde",
+      "title": "Dürüst İstanbul kısa listesi - nereden başlamamak gerektiği dahil.",
+      "intro": "Kötü ilk aylar çoğunlukla çok uzakta, çok turistik ya da çok arabaya bağımlı bir yer tutmaktan gelir. Bu notlar her mahalleye tam sayfa açmadan bunu önlemene yardım eder.",
+      "readFirstWeekMistakes": "İlk hafta hatalarını oku",
+      "considerIf": "Şu durumlarda düşün",
+      "avoidAsFirstBase": "İlk üs olarak kaçın",
+      "tradeoffLabel": "Karşılığında: {tradeoff}",
+      "exceptionLabel": "İstisna: {exception}"
+    },
+    "conditionalAreas": {
+      "yeldegirmeni": {
+        "area": "Yeldeğirmeni",
+        "bestFor": "Kadıköy'e yakın daha uygun fiyatlı yaşam, sanatçılar",
+        "tradeoff": "Eski binalar, daire kalitesi tutarsız",
+        "verdict": "Kadıköy pahalıysa evet"
+      },
+      "bomontiFerikoy": {
+        "area": "Bomonti / Feriköy",
+        "bestFor": "Yeni binalar, Bomontiada, merkezi ulaşım",
+        "tradeoff": "Mahalle hissi daha az, taksi/metro planlaması daha çok",
+        "verdict": "Orta uzunlukta kalışlar için iyi"
+      },
+      "sisliMecidiyekoy": {
+        "area": "Şişli / Mecidiyeköy",
+        "bestFor": "Metro erişimi, günlük işler, merkezde daha düşük kira",
+        "tradeoff": "Yoğun, kalabalık, daha az şirin",
+        "verdict": "Pratik, romantik değil"
+      },
+      "etiler": {
+        "area": "Etiler",
+        "bestFor": "Yüksek bütçe, spor salonları, restoranlar, konfor",
+        "tradeoff": "Pahalı, günlük göçebe topluluğu için daha az yürünebilir",
+        "verdict": "Yüksek bütçeyle evet"
+      },
+      "kagithane": {
+        "area": "Kağıthane",
+        "bestFor": "Yeni daireler, Levent yakınında değer",
+        "tradeoff": "Bazı bölgeler araba odaklı, mahalle dokusu daha zayıf",
+        "verdict": "İşin yakındaysa iyi"
+      }
+    },
+    "avoidAreas": {
+      "sultanahmet": {
+        "area": "Sultanahmet",
+        "why": "Gezmek için güzel ama turist yoğun, günlük çalışma hayatı için zayıf.",
+        "exception": "Gerçek bir üsse geçmeden önce iki üç gece."
+      },
+      "fatihCore": {
+        "area": "Fatih merkez",
+        "why": "Merkezi ve daha ucuz ama ilk kez ev arayanlar için zor.",
+        "exception": "Yerel desteğin var ve tam sokağı biliyorsun."
+      },
+      "esenyurtBeylikduzu": {
+        "area": "Esenyurt / Beylikdüzü",
+        "why": "Kiralar uygun ama topluluğa ve merkezi iş/sosyal hayata uzak.",
+        "exception": "Aile sebebi ya da çok özel bir batı yakası bağlılığı."
+      },
+      "basaksehir": {
+        "area": "Başakşehir",
+        "why": "Yeni konutlar var ama araba bağımlı ve göçebe rutinlerinden kopuk.",
+        "exception": "Aile, iş ya da okul için o bölge şart."
+      },
+      "pendikTuzla": {
+        "area": "Pendik / Tuzla",
+        "why": "Belirli Anadolu yakası işleri için faydalı, aksi halde fazla doğuda.",
+        "exception": "Ofisin ya da partnerin zaten orada."
+      },
+      "princesIslands": {
+        "area": "Adalar",
+        "why": "Güzel ve sakin ama vapura bağımlı, düzenli buluşmalar için zor.",
+        "exception": "Kasıtlı bir yazı inzivası ya da hafta sonu molası."
+      }
+    }
+  },
+  "neighborhoodDetailPage": {
+    "breadcrumb": {
+      "home": "Ana sayfa",
+      "neighborhoods": "Mahalleler"
+    },
+    "sideLabel": "{side}",
+    "noiseLabel": "{noise} gürültü",
+    "noise": {
+      "Low": "Düşük",
+      "Medium": "Orta",
+      "High": "Yüksek"
+    },
+    "photoCredit": "Fotoğraf:",
+    "feelEyebrow": "Hissi",
+    "moreOf": "{name} mahallesinden daha fazla",
+    "workHereEyebrow": "Burada çalış",
+    "workHereTitle": "{name} mahallesinde ortak çalışma ve kafeler",
+    "workHereIntro": "Wifi, priz, konfor, gürültü, değer ve atmosfere göre puanlanan, burada takip ettiğimiz {count} mekan.",
+    "allSpaces": "Tüm mekanlar",
+    "coworkingHeading": "Ortak çalışma",
+    "cafesHeading": "Kafeler",
+    "nextStepEyebrow": "Sonraki adım",
+    "comingTo": "{name} mahallesine mi geliyorsun? İnmeden önce selam ver.",
+    "joinTelegramBody": "Telegram grubuna katıl, bu haftaki buluşmayı, güvenilir bir kafeyi ve yerleşmek için ihtiyacın olan her şeyi yönlendirelim.",
+    "planWeekOne": "İlk haftayı burada planla",
+    "joinOnTelegram": "Telegram'da katıl",
+    "compareEyebrow": "Karşılaştır",
+    "otherNeighborhoods": "Göçebelerin tercih ettiği diğer mahalleler",
+    "seeAllTen": "On mahallenin hepsini gör"
   }
 }

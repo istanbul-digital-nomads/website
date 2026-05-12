@@ -2076,5 +2076,117 @@
     "comingSoon": "We're writing this guide with input from the community. Check back soon.",
     "contributeIntro": "Know something useful? Share it in the",
     "telegramLinkText": "Telegram group"
+  },
+  "neighborhoodGuidePage": {
+    "card": {
+      "details": "Details",
+      "spacesTracked": "{count, plural, =1 {1 space tracked} other {# spaces tracked}}",
+      "coworkingNearby": "Coworking nearby",
+      "sideLabel": "{side} side"
+    },
+    "decisionNotes": {
+      "eyebrow": "Beyond the full guides",
+      "title": "The honest Istanbul shortlist, including where not to start.",
+      "intro": "Most bad first months come from booking too far out, too touristy, or too car-dependent. These notes help you avoid that without pretending every district needs a full page.",
+      "readFirstWeekMistakes": "Read first-week mistakes",
+      "considerIf": "Consider if",
+      "avoidAsFirstBase": "Avoid as first base",
+      "tradeoffLabel": "Tradeoff: {tradeoff}",
+      "exceptionLabel": "Exception: {exception}"
+    },
+    "conditionalAreas": {
+      "yeldegirmeni": {
+        "area": "Yeldegirmeni",
+        "bestFor": "Cheaper Kadikoy-adjacent living, artists",
+        "tradeoff": "Older buildings, uneven apartment quality",
+        "verdict": "Yes, if Kadikoy is pricey"
+      },
+      "bomontiFerikoy": {
+        "area": "Bomonti / Ferikoy",
+        "bestFor": "New builds, Bomontiada, central access",
+        "tradeoff": "Less village feeling, more taxi/metro planning",
+        "verdict": "Good for mid-stays"
+      },
+      "sisliMecidiyekoy": {
+        "area": "Sisli / Mecidiyekoy",
+        "bestFor": "Metro access, errands, lower central rent",
+        "tradeoff": "Dense, busy, less charming",
+        "verdict": "Practical, not romantic"
+      },
+      "etiler": {
+        "area": "Etiler",
+        "bestFor": "High budget, gyms, restaurants, comfort",
+        "tradeoff": "Expensive, less walkable for daily nomad community",
+        "verdict": "Yes, with a high budget"
+      },
+      "kagithane": {
+        "area": "Kagithane",
+        "bestFor": "Newer apartments, value near Levent",
+        "tradeoff": "Car-heavy pockets, less neighborhood texture",
+        "verdict": "Good if work is nearby"
+      }
+    },
+    "avoidAreas": {
+      "sultanahmet": {
+        "area": "Sultanahmet",
+        "why": "Beautiful for sightseeing, but tourist-heavy and weak for daily work life.",
+        "exception": "Two or three nights before moving to a real base."
+      },
+      "fatihCore": {
+        "area": "Fatih core",
+        "why": "Central and cheaper, but harder for first-time apartment hunting.",
+        "exception": "You have local help and know the exact street."
+      },
+      "esenyurtBeylikduzu": {
+        "area": "Esenyurt / Beylikduzu",
+        "why": "Cheaper rents, but far from the community and central work/social life.",
+        "exception": "Family reasons or a very specific west-side commitment."
+      },
+      "basaksehir": {
+        "area": "Basaksehir",
+        "why": "Newer housing, but car-dependent and disconnected from nomad routines.",
+        "exception": "You need that district for family, work, or school."
+      },
+      "pendikTuzla": {
+        "area": "Pendik / Tuzla",
+        "why": "Useful for specific Asian-side work, otherwise too far east.",
+        "exception": "Your office or partner is already there."
+      },
+      "princesIslands": {
+        "area": "Princes' Islands",
+        "why": "Beautiful and quiet, but ferry-dependent and awkward for regular meetups.",
+        "exception": "A deliberate writing retreat or weekend reset."
+      }
+    }
+  },
+  "neighborhoodDetailPage": {
+    "breadcrumb": {
+      "home": "Home",
+      "neighborhoods": "Neighborhoods"
+    },
+    "sideLabel": "{side} side",
+    "noiseLabel": "{noise} noise",
+    "noise": {
+      "Low": "Low",
+      "Medium": "Medium",
+      "High": "High"
+    },
+    "photoCredit": "Photo:",
+    "feelEyebrow": "The feel",
+    "moreOf": "More of {name}",
+    "workHereEyebrow": "Work here",
+    "workHereTitle": "Coworking and cafes in {name}",
+    "workHereIntro": "{count} spaces we track here, scored on wifi, power, comfort, noise, value, and vibe.",
+    "allSpaces": "All spaces",
+    "coworkingHeading": "Coworking",
+    "cafesHeading": "Cafes",
+    "nextStepEyebrow": "Next step",
+    "comingTo": "Coming to {name}? Say hi before you land.",
+    "joinTelegramBody": "Join the Telegram group and we'll point you to this week's meetup, a reliable cafe, and anything else you need to settle in.",
+    "planWeekOne": "Plan week one here",
+    "joinOnTelegram": "Join on Telegram",
+    "compareEyebrow": "Compare",
+    "otherNeighborhoods": "Other neighborhoods nomads pick",
+    "seeAllTen": "See all ten"
   }
 }

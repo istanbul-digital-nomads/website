@@ -464,11 +464,7 @@ export async function NewsletterWelcomeEmail({
   }`;
 
   return (
-    <EmailLayout
-      previewText={t("previewText")}
-      locale={locale}
-      {...chrome}
-    >
+    <EmailLayout previewText={t("previewText")} locale={locale} {...chrome}>
       <Kicker>{t("kicker")}</Kicker>
       <Heading>{t("heading")}</Heading>
       <BodyText>{t("body")}</BodyText>

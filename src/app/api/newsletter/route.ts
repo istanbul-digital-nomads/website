@@ -84,9 +84,7 @@ export async function POST(request: Request) {
       namespace: "emails.newsletterWelcome",
     });
     const subject = tSubject("subject");
-    const html = await render(
-      await NewsletterWelcomeEmail({ email, locale }),
-    );
+    const html = await render(await NewsletterWelcomeEmail({ email, locale }));
     const { error: emailError } = await getResend().emails.send({
       from: "Istanbul Nomads <noreply@istanbulnomads.com>",
       to: email,

@@ -18,11 +18,21 @@ const intlMiddleware = createIntlMiddleware(routing);
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // Skip Next internals, API routes, and well-known discovery paths entirely
+  // Skip Next internals, API routes, well-known discovery paths, and the
+  // root-level metadata routes (icon / apple-icon / opengraph-image at the
+  // app root - not the per-route ones under [locale]). next-intl middleware
+  // would otherwise try to apply locale routing to these, which 404s the
+  // generated PNGs since they live at the root segment.
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
-    pathname.startsWith("/.well-known")
+    pathname.startsWith("/.well-known") ||
+    pathname === "/icon" ||
+    pathname === "/apple-icon" ||
+    pathname === "/sitemap.xml" ||
+    pathname === "/robots.txt" ||
+    pathname === "/llms.txt" ||
+    pathname === "/openapi.json"
   ) {
     return NextResponse.next();
   }

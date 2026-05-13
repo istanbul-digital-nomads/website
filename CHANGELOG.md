@@ -4,6 +4,18 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.23.1] - 2026-05-14
+
+### Fixed
+
+- Lighthouse Accessibility (96 → expected 100):
+  - **Color contrast**: small `font-mono text-[10px]` labels in the `IstanbulTodayWidget` were under 4.5:1 in dark mode. Mood label moved from `dark:text-primary-300` (#e74c3c, 4.49) to `dark:text-primary-200` (#f1a9a0). `MiniCue` label moved from `dark:text-[#94877d]` (4.15) to `dark:text-[#bdb1a6]`. Both now well above the WCAG AA threshold.
+  - **Label-content-name mismatch on LanguageSwitcher button**: visible text is the locale code (e.g. "EN") but `aria-label="Language"` overrode it, so the accessible name didn't include the visible label. Dropped `aria-label`; the button now uses an `sr-only` "Language:" prefix plus the visible locale, producing accessible name "Language: EN" which contains the visible "EN".
+  - **Label-content-name mismatch on MapLibre markers** (home `IstanbulMap`): MapLibre defaults `aria-label="Map marker"` on the marker `<div>`, but each marker contains visible neighborhood text ("Galata", "Kadikoy", etc). Added a `useRef<MarkerInstance>` + `useEffect` that overrides the marker DOM's aria-label to the neighborhood name after mount.
+
+- Lighthouse Best Practices (96 → expected 100):
+  - **`/icon` returned 404** because the i18n middleware was running locale routing on Next.js's root metadata routes. Added `/icon`, `/apple-icon`, `/sitemap.xml`, `/robots.txt`, `/llms.txt`, `/openapi.json` to the middleware skip-list. The Next.js-generated favicon now serves at 200 (PNG, 1.4 KB).
+
 ## [1.23.0] - 2026-05-13
 
 ### Changed

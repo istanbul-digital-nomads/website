@@ -7,6 +7,7 @@ import Map, {
   Source,
   Layer,
   NavigationControl,
+  type MarkerInstance,
 } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { MapPin } from "lucide-react";
@@ -175,14 +176,25 @@ function AnimatedMarker({
   isActive: boolean;
 }) {
   const [visible, setVisible] = useState(false);
+  const markerRef = useRef<MarkerInstance>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), delay);
     return () => clearTimeout(timer);
   }, [delay]);
 
+  // MapLibre's marker DOM gets a generic aria-label="Map marker" by default,
+  // which fails WCAG label-in-name when the marker contains visible text
+  // (e.g. "GALATA"). Override with the neighborhood name so the accessible
+  // name matches the visible label.
+  useEffect(() => {
+    const el = markerRef.current?.getElement();
+    if (el) el.setAttribute("aria-label", neighborhood.name);
+  }, [neighborhood.name]);
+
   return (
     <Marker
+      ref={markerRef}
       longitude={neighborhood.lng}
       latitude={neighborhood.lat}
       anchor="center"

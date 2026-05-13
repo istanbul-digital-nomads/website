@@ -4,6 +4,29 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.22.0] - 2026-05-13
+
+### Added
+
+- `alternates.languages` hreflang map on every translated page (homepage, blog index + detail, guides index + detail, neighborhoods, spaces, path-to-istanbul index + country, about, contact, events, local-guides, login, onboarding, relocation-agent, credits - 19 pages total). Each page now signals all 5 locale variants + `x-default` so Google can serve the right locale per user. New `alternatesFor()` and `localeUrl()` helpers in `src/lib/seo.ts`.
+- `generateMetadata` on the homepage with localized title/description/keywords (`home.seo` namespace in all 5 message files).
+- WebSite + SearchAction + Organization + FAQPage JSON-LD on the homepage. SearchAction wires up the Google sitelinks search box; FAQPage emits 10 Q/A entries from existing `faqItems` translations.
+- Article + BreadcrumbList JSON-LD on `/guides/[slug]` with `inLanguage`, `datePublished`, `dateModified` from MDX frontmatter.
+- AboutPage + Organization JSON-LD on `/about`.
+- ItemList JSON-LD on `/spaces`: 18 entries as `LocalBusiness` (coworking) or `CafeOrCoffeeShop` (cafe) with `PostalAddress`, `GeoCoordinates`, `amenityFeature`, `priceRange`, `openingHours` where available.
+- `lastUpdated` frontmatter field on blog posts with a visible "Updated {date}" line on detail pages (translated to all 5 locales). Blog `dateModified` JSON-LD now reads from this when set.
+- Explicit AI-crawler allowlist in `robots.txt`: PerplexityBot, ChatGPT-User, OAI-SearchBot, ClaudeBot, anthropic-ai, Claude-Web, Applebot-Extended, Google-Extended. Explicit `Disallow: /` for training-only crawlers (GPTBot, CCBot, FacebookBot, Bytespider).
+- 10 new tests covering `localeUrl`, `alternatesFor`, and schema helpers (91 total).
+
+### Changed
+
+- `llms.txt` expanded with the 5-locale URL prefix table, agent endpoints (MCP server card, agent-skills), and one-line section descriptions so AI crawlers discover the multilingual content surface.
+- `agent-skills/read-istanbul-content` body updated with locale fetch examples.
+- Sitemap `lastmod` now reads from MDX `lastUpdated` / `date` frontmatter for guides + path-to-istanbul + blog (was always build-time). Blog priority + changefreq bumped from monthly/0.6 to weekly/0.7.
+- MCP server card instructions updated to advertise the locale-aware fetch tools.
+- `robots.txt` disallow list extended to cover `/onboarding` and `/login`.
+- Bumped package version to `1.22.0`.
+
 ## [1.21.1] - 2026-05-13
 
 ### Fixed

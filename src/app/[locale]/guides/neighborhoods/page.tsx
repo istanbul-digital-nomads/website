@@ -8,7 +8,8 @@ import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { guides } from "@/lib/data";
-import { isValidLocale, defaultLocale } from "@/lib/i18n/config";
+import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
+import { alternatesFor } from "@/lib/seo";
 import { getGuideContent } from "@/lib/guides";
 import { mdxComponents } from "@/components/ui/mdx-components";
 import { IstanbulTodayWidget } from "@/components/sections/istanbul-today-widget";
@@ -31,11 +32,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const guide = guides.find((g) => g.slug === SLUG);
   if (!guide) return {};
-  const locale = isValidLocale(params.locale) ? params.locale : defaultLocale;
+  const locale: Locale = isValidLocale(params.locale)
+    ? params.locale
+    : defaultLocale;
   const t = await getTranslations({ locale, namespace: "guides" });
   return {
     title: t(`${SLUG}.title`),
     description: t(`${SLUG}.description`),
+    alternates: alternatesFor(locale, `/guides/${SLUG}`),
   };
 }
 

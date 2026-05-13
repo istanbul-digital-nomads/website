@@ -12,13 +12,33 @@ import {
   SectionDescription,
 } from "@/components/ui/section";
 import { CtaBanner } from "@/components/sections/cta-banner";
+import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/config";
+import {
+  alternatesFor,
+  localeUrl,
+  organizationSchema,
+  jsonLdGraph,
+} from "@/lib/seo";
 import { MilestonesTimeline } from "./milestones-timeline";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("about.meta");
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
+  const t = await getTranslations({ locale, namespace: "about.meta" });
   return {
     title: t("title"),
     description: t("description"),
+    alternates: alternatesFor(locale, "/about"),
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      url: localeUrl(locale, "/about"),
+      type: "website",
+    },
   };
 }
 
@@ -44,8 +64,20 @@ export default function AboutPage() {
   const tMembers = useTranslations("about.team.members");
   const tMilestones = useTranslations("about.milestones");
 
+  const aboutPageSchema = {
+    "@type": "AboutPage",
+    name: tSite("name"),
+    description: tStory("p1"),
+    mainEntity: { "@id": "https://istanbulnomads.com#organization" },
+  };
+  const jsonLd = jsonLdGraph(organizationSchema(), aboutPageSchema);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Section className="overflow-hidden">
         <div className="flex flex-col items-center text-center">
           <div className="relative">

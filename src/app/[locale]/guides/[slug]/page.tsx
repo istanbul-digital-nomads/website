@@ -7,10 +7,16 @@ import { getTranslations } from "next-intl/server";
 import { Section } from "@/components/ui/section";
 import { guides } from "@/lib/data";
 import { getGuideContent } from "@/lib/guides";
-import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
+import {
+  isValidLocale,
+  defaultLocale,
+  bcp47,
+  type Locale,
+} from "@/lib/i18n/config";
 import { mdxComponents } from "@/components/ui/mdx-components";
 import { formatDate } from "@/lib/utils";
 import { mdxOptions } from "@/lib/mdx-options";
+import { alternatesFor, SITE_URL, localeUrl } from "@/lib/seo";
 
 interface GuidePageProps {
   params: { locale: string; slug: string };
@@ -29,9 +35,18 @@ export async function generateMetadata({
     ? params.locale
     : defaultLocale;
   const t = await getTranslations({ locale, namespace: "guides" });
+  const title = t(`${guide.slug}.title`);
+  const description = t(`${guide.slug}.description`);
   return {
-    title: t(`${guide.slug}.title`),
-    description: t(`${guide.slug}.description`),
+    title,
+    description,
+    alternates: alternatesFor(locale, `/guides/${guide.slug}`),
+    openGraph: {
+      type: "article",
+      title,
+      description,
+      url: localeUrl(locale, `/guides/${guide.slug}`),
+    },
   };
 }
 
@@ -50,9 +65,69 @@ export default async function GuidePage({ params }: GuidePageProps) {
   });
   const localizedTitle = t(`${guide.slug}.title`);
   const localizedDescription = t(`${guide.slug}.description`);
+  const canonicalUrl = localeUrl(locale, `/guides/${guide.slug}`);
+  const lastUpdated = guideContent?.frontmatter.lastUpdated;
+  const inLanguageTag =
+    guideContent?.translated || locale === defaultLocale
+      ? bcp47[locale]
+      : bcp47[defaultLocale];
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": `${canonicalUrl}#article`,
+        headline: localizedTitle,
+        description: localizedDescription,
+        url: canonicalUrl,
+        ...(lastUpdated
+          ? {
+              datePublished: lastUpdated,
+              dateModified: lastUpdated,
+            }
+          : {}),
+        inLanguage: inLanguageTag,
+        author: {
+          "@type": "Organization",
+          "@id": `${SITE_URL}#organization`,
+          name: "Istanbul Digital Nomads",
+        },
+        publisher: { "@id": `${SITE_URL}#organization` },
+        mainEntityOfPage: canonicalUrl,
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${canonicalUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: tPage("breadcrumb.home"),
+            item: localeUrl(locale, "/"),
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: tPage("breadcrumb.guides"),
+            item: localeUrl(locale, "/guides"),
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: localizedTitle,
+            item: canonicalUrl,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <Section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <div className="mx-auto max-w-3xl">
         <nav className="mb-6 flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
           <Link

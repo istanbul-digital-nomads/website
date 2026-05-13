@@ -6,18 +6,29 @@ import {
   SectionTitle,
   SectionDescription,
 } from "@/components/ui/section";
+import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
+import { alternatesFor, localeUrl } from "@/lib/seo";
 import { RelocationAgentShell } from "./relocation-agent-shell";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("relocationAgentPage.meta");
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
+  const t = await getTranslations({
+    locale,
+    namespace: "relocationAgentPage.meta",
+  });
   return {
     title: t("title"),
     description: t("description"),
-    alternates: { canonical: "/relocation-agent" },
+    alternates: alternatesFor(locale, "/relocation-agent"),
     openGraph: {
       title: t("title"),
       description: t("ogDescription"),
-      url: "https://istanbulnomads.com/relocation-agent",
+      url: localeUrl(locale, "/relocation-agent"),
       siteName: "Istanbul Digital Nomads",
       type: "website",
     },

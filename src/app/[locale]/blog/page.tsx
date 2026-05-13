@@ -3,18 +3,32 @@ import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { getAllBlogPosts, getAllTags } from "@/lib/blog";
-import { isValidLocale, defaultLocale } from "@/lib/i18n/config";
+import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
+import { alternatesFor, localeUrl } from "@/lib/seo";
 import { BlogListing } from "./blog-listing";
 
 interface Props {
   params: Promise<{ locale: string }>;
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("blogIndexPage.meta");
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
+  const t = await getTranslations({ locale, namespace: "blogIndexPage.meta" });
   return {
     title: t("title"),
     description: t("description"),
+    alternates: alternatesFor(locale, "/blog"),
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      url: localeUrl(locale, "/blog"),
+      type: "website",
+    },
   };
 }
 

@@ -12,13 +12,25 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { Container } from "@/components/ui/container";
 import { getLocalGuides } from "@/lib/supabase/queries";
+import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
+import { alternatesFor } from "@/lib/seo";
 import { LocalGuidesDirectory } from "./local-guides-directory";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("localGuidesPage.meta");
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
+  const t = await getTranslations({
+    locale,
+    namespace: "localGuidesPage.meta",
+  });
   return {
     title: t("title"),
     description: t("description"),
+    alternates: alternatesFor(locale, "/local-guides"),
   };
 }
 

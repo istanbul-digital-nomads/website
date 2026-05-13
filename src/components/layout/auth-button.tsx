@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { User } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { showToast } from "@/lib/toast";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
@@ -19,8 +18,11 @@ export function AuthButton() {
   useEffect(() => {
     let cleanupRef: (() => void) | null = null;
 
-    // Defer auth check to avoid blocking initial render
-    const timer = setTimeout(() => {
+    // Defer auth client load + check until after first paint. Lazy-importing
+    // the supabase client keeps its ~40 KB chunk off the initial bundle for
+    // anonymous visitors (the vast majority of home-page traffic).
+    const timer = setTimeout(async () => {
+      const { createClient } = await import("@/lib/supabase/client");
       const supabase = createClient();
 
       supabase.auth.getUser().then(async ({ data }) => {
@@ -51,6 +53,7 @@ export function AuthButton() {
   }, []);
 
   const handleSignOut = useCallback(async () => {
+    const { createClient } = await import("@/lib/supabase/client");
     const supabase = createClient();
     await supabase.auth.signOut();
     setUser(null);

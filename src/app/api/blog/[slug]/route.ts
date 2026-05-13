@@ -3,8 +3,9 @@ import { getBlogPostBySlug } from "@/lib/supabase/queries";
 
 export async function GET(
   _request: Request,
-  { params }: { params: { slug: string } },
+  props: { params: Promise<{ slug: string }> },
 ) {
+  const params = await props.params;
   const { data, error } = await getBlogPostBySlug(params.slug);
 
   if (error || !data) {

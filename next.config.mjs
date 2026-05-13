@@ -21,9 +21,21 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
   },
+  // resvg-js ships per-arch native .node binaries that webpack can't bundle
+  // (binary parse error). Mark it server-external so Next.js resolves it at
+  // runtime in the Node server instead. Promoted from experimental in Next 15.
+  serverExternalPackages: ["@resvg/resvg-js"],
+  // The fa/ar OG image renderer reads TTF files off disk via
+  // fs.readFileSync(process.cwd() + "public/fonts/og/..."). Next.js's output
+  // file tracing doesn't follow runtime path strings, so the fonts wouldn't
+  // ship with the serverless function bundle without this explicit include -
+  // the OG route would render blank text. Promoted out of experimental in 15.
+  outputFileTracingIncludes: {
+    "**/opengraph-image*": ["./public/fonts/og/**/*"],
+  },
   experimental: {
-    // Inline critical CSS in <head>, defer the rest. Requires the `beasties`
-    // devDep (the maintained fork of critters). Removes the ~250 ms
+    // Inline critical CSS in <head>, defer the rest. Next 15 uses `beasties`
+    // (the maintained fork of critters) internally. Removes the ~250 ms
     // render-blocking penalty Lighthouse mobile flagged on the main CSS file.
     optimizeCss: true,
     optimizePackageImports: [
@@ -34,18 +46,6 @@ const nextConfig = {
       "react-map-gl",
       "next-intl",
     ],
-    // resvg-js ships per-arch native .node binaries that webpack can't
-    // bundle (binary parse error). Mark it server-external so Next.js
-    // resolves it at runtime in the Node server instead.
-    serverComponentsExternalPackages: ["@resvg/resvg-js"],
-    // The fa/ar OG image renderer reads TTF files off disk via
-    // fs.readFileSync(process.cwd() + "public/fonts/og/..."). Next.js's
-    // output file tracing doesn't follow runtime path strings, so the
-    // fonts wouldn't ship with the serverless function bundle without
-    // this explicit include - the OG route would render blank text.
-    outputFileTracingIncludes: {
-      "**/opengraph-image*": ["./public/fonts/og/**/*"],
-    },
   },
   async headers() {
     return [

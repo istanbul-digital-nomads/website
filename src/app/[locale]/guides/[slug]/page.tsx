@@ -19,16 +19,17 @@ import { mdxOptions } from "@/lib/mdx-options";
 import { alternatesFor, SITE_URL, localeUrl } from "@/lib/seo";
 
 interface GuidePageProps {
-  params: { locale: string; slug: string };
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export async function generateStaticParams() {
   return guides.map((guide) => ({ slug: guide.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: GuidePageProps): Promise<Metadata> {
+export async function generateMetadata(
+  props: GuidePageProps,
+): Promise<Metadata> {
+  const params = await props.params;
   const guide = guides.find((g) => g.slug === params.slug);
   if (!guide) return {};
   const locale: Locale = isValidLocale(params.locale)
@@ -50,7 +51,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function GuidePage({ params }: GuidePageProps) {
+export default async function GuidePage(props: GuidePageProps) {
+  const params = await props.params;
   const guide = guides.find((g) => g.slug === params.slug);
   if (!guide) notFound();
 

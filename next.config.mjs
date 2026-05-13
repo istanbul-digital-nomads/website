@@ -34,6 +34,14 @@ const nextConfig = {
     // bundle (binary parse error). Mark it server-external so Next.js
     // resolves it at runtime in the Node server instead.
     serverComponentsExternalPackages: ["@resvg/resvg-js"],
+    // The fa/ar OG image renderer reads TTF files off disk via
+    // fs.readFileSync(process.cwd() + "public/fonts/og/..."). Next.js's
+    // output file tracing doesn't follow runtime path strings, so the
+    // fonts wouldn't ship with the serverless function bundle without
+    // this explicit include - the OG route would render blank text.
+    outputFileTracingIncludes: {
+      "**/opengraph-image*": ["./public/fonts/og/**/*"],
+    },
   },
   async headers() {
     return [

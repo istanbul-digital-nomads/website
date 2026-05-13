@@ -19,16 +19,23 @@ const WorldMap = dynamic(() => import("./world-map").then((m) => m.WorldMap), {
 export function CountrySelector() {
   const router = useRouter();
   const t = useTranslations("pathToIstanbulPage.selector");
+  const tCountries = useTranslations("lookups.countryNames");
   const [search, setSearch] = useState("");
+
+  const localizedName = (c: Country) =>
+    tCountries.has(c.slug) ? tCountries(c.slug) : c.name;
 
   const filtered = useMemo(() => {
     if (!search.trim()) return [];
     const q = search.toLowerCase();
     return COUNTRIES.filter(
       (c) =>
-        c.name.toLowerCase().includes(q) || c.code.toLowerCase().includes(q),
+        c.name.toLowerCase().includes(q) ||
+        c.code.toLowerCase().includes(q) ||
+        localizedName(c).toLowerCase().includes(q),
     ).slice(0, 8);
-  }, [search]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search, tCountries]);
 
   const supported = COUNTRIES.filter((c) => c.supported);
 
@@ -73,7 +80,7 @@ export function CountrySelector() {
                       {c.flag}
                     </span>
                     <span className="text-[#1a1a2e] dark:text-[#f2f3f4]">
-                      {c.name}
+                      {localizedName(c)}
                     </span>
                   </span>
                   {c.supported ? (
@@ -107,7 +114,7 @@ export function CountrySelector() {
               </span>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                  {c.name}
+                  {localizedName(c)}
                 </p>
                 <p className="flex items-center gap-1 text-xs text-primary-600 dark:text-primary-400">
                   {t("seeThePath")} <ArrowRight className="h-3 w-3" />

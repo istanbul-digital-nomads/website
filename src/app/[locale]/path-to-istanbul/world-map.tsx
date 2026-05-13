@@ -61,10 +61,18 @@ function greatCircle(
 
 function CountryMarker({
   country,
+  displayName,
+  comingSoonLabel,
+  openGuideLabel,
+  comingSoonAriaLabel,
   isLoading,
   onClick,
 }: {
   country: Country;
+  displayName: string;
+  comingSoonLabel: string;
+  openGuideLabel: string;
+  comingSoonAriaLabel: string;
   isLoading: boolean;
   onClick: () => void;
 }) {
@@ -80,11 +88,7 @@ function CountryMarker({
     >
       <button
         type="button"
-        aria-label={
-          country.supported
-            ? `Open guide for ${country.name}`
-            : `${country.name} - coming soon`
-        }
+        aria-label={country.supported ? openGuideLabel : comingSoonAriaLabel}
         className={cn(
           "group relative flex items-center justify-center rounded-full shadow-lg ring-2 transition-transform hover:scale-125 focus:outline-none focus:ring-4 focus:ring-primary-400",
           country.supported
@@ -103,8 +107,8 @@ function CountryMarker({
           {country.flag}
         </span>
         <span className="pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded bg-black/80 px-2 py-0.5 text-[10px] font-medium text-white opacity-0 transition-opacity group-hover:opacity-100">
-          {country.name}
-          {!country.supported && " · coming soon"}
+          {displayName}
+          {!country.supported && ` · ${comingSoonLabel}`}
         </span>
       </button>
     </Marker>

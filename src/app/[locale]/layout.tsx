@@ -10,7 +10,11 @@ import localFont from "next/font/local";
 import Script from "next/script";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
-import { setRequestLocale, getMessages } from "next-intl/server";
+import {
+  setRequestLocale,
+  getMessages,
+  getTranslations,
+} from "next-intl/server";
 import { isValidLocale } from "@/lib/i18n/config";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -142,43 +146,58 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const metadata: Metadata = {
-  title: {
-    default: "Istanbul Digital Nomads",
-    template: "%s | Istanbul Digital Nomads",
-  },
-  description:
-    "Digital nomad community in Istanbul - weekly coworking, practical city guides, and newcomer-friendly meetups.",
-  keywords: [
-    "digital nomad",
-    "istanbul",
-    "remote work",
-    "coworking",
-    "community",
-    "turkey",
-    "expat",
-  ],
-  metadataBase: new URL("https://istanbulnomads.com"),
-  openGraph: {
-    title: "Istanbul Digital Nomads",
-    description:
-      "Digital nomad community in Istanbul - weekly coworking, practical city guides, and newcomer-friendly meetups.",
-    url: "https://istanbulnomads.com",
-    siteName: "Istanbul Digital Nomads",
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Istanbul Digital Nomads",
-    description:
-      "Digital nomad community in Istanbul - weekly coworking, practical city guides, and newcomer-friendly meetups.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+// Open Graph wants underscore-separated BCP 47 tags (en_US not en-US).
+const ogLocaleFor = (locale: Locale): string => bcp47[locale].replace("-", "_");
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : "en";
+  const t = await getTranslations({ locale, namespace: "site" });
+  const description = t("description");
+  const ogLocaleTag = ogLocaleFor(locale);
+  const alternateLocales = routing.locales
+    .filter((l): l is Locale => l !== locale)
+    .map(ogLocaleFor);
+  return {
+    title: {
+      default: "Istanbul Digital Nomads",
+      template: "%s | Istanbul Digital Nomads",
+    },
+    description,
+    keywords: [
+      "digital nomad",
+      "istanbul",
+      "remote work",
+      "coworking",
+      "community",
+      "turkey",
+      "expat",
+    ],
+    metadataBase: new URL("https://istanbulnomads.com"),
+    openGraph: {
+      title: "Istanbul Digital Nomads",
+      description,
+      url: "https://istanbulnomads.com",
+      siteName: "Istanbul Digital Nomads",
+      locale: ogLocaleTag,
+      alternateLocale: alternateLocales,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Istanbul Digital Nomads",
+      description,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 export default async function LocaleLayout({
   children,

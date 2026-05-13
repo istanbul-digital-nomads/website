@@ -2327,6 +2327,33 @@
       "Dutch": "Hollandaca",
       "Japanese": "Japonca",
       "Korean": "Korece"
+    },
+    "countryNames": {
+      "iran": "İran",
+      "india": "Hindistan",
+      "russia": "Rusya",
+      "pakistan": "Pakistan",
+      "nigeria": "Nijerya",
+      "united-states": "Birleşik Devletler",
+      "united-kingdom": "Birleşik Krallık",
+      "germany": "Almanya",
+      "france": "Fransa",
+      "netherlands": "Hollanda",
+      "ukraine": "Ukrayna",
+      "egypt": "Mısır",
+      "indonesia": "Endonezya",
+      "uzbekistan": "Özbekistan",
+      "azerbaijan": "Azerbaycan",
+      "kazakhstan": "Kazakistan",
+      "canada": "Kanada",
+      "brazil": "Brezilya",
+      "south-africa": "Güney Afrika",
+      "australia": "Avustralya",
+      "syria": "Suriye",
+      "afghanistan": "Afganistan",
+      "iraq": "Irak",
+      "philippines": "Filipinler",
+      "bangladesh": "Bangladeş"
     }
   }
 }

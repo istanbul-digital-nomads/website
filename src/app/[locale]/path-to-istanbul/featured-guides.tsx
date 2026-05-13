@@ -5,12 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getLocalGuides } from "@/lib/supabase/queries";
-import { guideSpecializations } from "@/lib/constants";
 import { COUNTRIES, getCountryByCode } from "@/lib/path-to-istanbul";
-
-function specLabel(v: string) {
-  return guideSpecializations.find((s) => s.value === v)?.label ?? v;
-}
 
 async function PopularPaths() {
   const t = await getTranslations("pathToIstanbulPage.popularPaths");
@@ -63,6 +58,14 @@ export async function FeaturedGuides() {
   if (guides.length === 0) return <PopularPaths />;
 
   const t = await getTranslations("pathToIstanbulPage.featuredGuides");
+  const tSpecs = await getTranslations("lookups.guideSpecializations");
+  const specLabel = (v: string) => {
+    try {
+      return tSpecs(v);
+    } catch {
+      return v;
+    }
+  };
 
   return (
     <div>

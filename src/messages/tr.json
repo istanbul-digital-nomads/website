@@ -2285,5 +2285,48 @@
       "motivationLabel": "Motivasyon",
       "replyCtaTemplate": "{name} kişisine yanıt verin"
     }
+  },
+  "lookups": {
+    "guideSpecializations": {
+      "neighborhoods": "Mahalleler",
+      "visa-legal": "Vize ve Hukuk",
+      "housing": "Konut",
+      "food-dining": "Yeme İçme",
+      "coworking": "Ortak Çalışma",
+      "nightlife": "Gece Hayatı",
+      "culture": "Kültür",
+      "healthcare": "Sağlık",
+      "transport": "Ulaşım",
+      "tech-freelancing": "Teknoloji ve Freelance"
+    },
+    "istanbulNeighborhoods": {
+      "kadikoy": "Kadıköy",
+      "besiktas": "Beşiktaş",
+      "cihangir": "Cihangir",
+      "moda": "Moda",
+      "uskudar": "Üsküdar",
+      "beyoglu": "Beyoğlu",
+      "nisantasi": "Nişantaşı",
+      "karakoy": "Karaköy",
+      "galata": "Galata",
+      "sisli": "Şişli",
+      "levent": "Levent",
+      "balat": "Balat",
+      "atasehir": "Ataşehir"
+    },
+    "commonLanguages": {
+      "English": "İngilizce",
+      "Turkish": "Türkçe",
+      "German": "Almanca",
+      "French": "Fransızca",
+      "Spanish": "İspanyolca",
+      "Arabic": "Arapça",
+      "Russian": "Rusça",
+      "Portuguese": "Portekizce",
+      "Italian": "İtalyanca",
+      "Dutch": "Hollandaca",
+      "Japanese": "Japonca",
+      "Korean": "Korece"
+    }
   }
 }

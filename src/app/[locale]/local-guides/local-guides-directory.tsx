@@ -12,6 +12,8 @@ type LocalGuide = Database["public"]["Tables"]["local_guides"]["Row"];
 
 export function LocalGuidesDirectory({ guides }: { guides: LocalGuide[] }) {
   const t = useTranslations("localGuidesPage.directory");
+  const tSpecs = useTranslations("lookups.guideSpecializations");
+  const tNeighborhoods = useTranslations("lookups.istanbulNeighborhoods");
   const [search, setSearch] = useState("");
   const [activeSpec, setActiveSpec] = useState<string | null>(null);
   const [activeNeighborhood, setActiveNeighborhood] = useState<string | null>(
@@ -76,7 +78,7 @@ export function LocalGuidesDirectory({ guides }: { guides: LocalGuide[] }) {
                 : "bg-white/70 text-neutral-600 ring-1 ring-black/10 hover:bg-primary-50 dark:bg-white/5 dark:text-[#99a3ad] dark:ring-white/10",
             )}
           >
-            {spec.label}
+            {tSpecs(spec.value)}
           </button>
         ))}
       </div>
@@ -109,7 +111,7 @@ export function LocalGuidesDirectory({ guides }: { guides: LocalGuide[] }) {
                 : "bg-white/70 text-neutral-600 ring-1 ring-black/10 hover:bg-primary-50 dark:bg-white/5 dark:text-[#99a3ad] dark:ring-white/10",
             )}
           >
-            {n.label}
+            {tNeighborhoods(n.value)}
           </button>
         ))}
       </div>

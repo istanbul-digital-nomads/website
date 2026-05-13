@@ -108,8 +108,13 @@ The site ships in five languages. English is the default and lives at the root (
 
 - UI strings live in `src/messages/{locale}.json` and are loaded server-side by `next-intl`, so translated content adds near-zero client JS.
 - Routing is configured in `src/lib/i18n/routing.ts` with `localePrefix: "as-needed"` - English keeps its existing URLs so backlinks stay intact.
-- Per-locale MDX content goes under `src/content/{category}/{locale}/{slug}.mdx` (e.g., `src/content/blog/tr/...`). When a localized file is missing, the loader at `src/lib/i18n/content.ts` falls back to the English version.
-- `sitemap.xml` emits hreflang alternates with `x-default` pointing to English. `og:locale` and `<html lang dir>` are set per request.
+- Per-locale MDX content goes under `src/content/{category}/{locale}/{slug}.mdx` (e.g., `src/content/blog/tr/...`). All 16 blog posts, 11 city guides, and 5 country playbooks are translated to every locale (100% coverage). When a localized file is missing, the loader at `src/lib/i18n/content.ts` falls back to the English version.
+- `sitemap.xml` emits hreflang alternates with `x-default` pointing to English. `og:locale` and `og:locale:alternate` are emitted per request; `<html lang dir>` is set per locale.
+- Transactional emails (contact, newsletter, guide application) accept a `locale` from the form and render with localized subject + body and `<html lang dir>` for RTL clients.
+- Dates render via `Intl.DateTimeFormat` with the active locale's BCP 47 tag (Persian visitors see "۲ آوریل ۲۰۲۶", not "April 2, 2026").
+- Chrome's auto-translate is suppressed via `<meta name="google" content="notranslate">` and `translate="no"` on `<html>` so the page stays in the locale the user picked.
+- RTL polish: directional Lucide icons mirror via Tailwind's `--tw-scale-x` variable (composes with hover-translate utilities), hover-translate variants reverse direction in RTL, LTR runs (rent ranges, wifi speeds, hours) are bidi-isolated in `<bdi dir="ltr">`, MDX tables use logical-property utilities and cell-level `<bdi>` for mixed-direction content.
+- OpenGraph image rendering uses two pipelines: `@vercel/og` (satori) for en/tr/ru on Edge runtime, and `@resvg/resvg-js` (HarfBuzz) for fa/ar on Node runtime because satori can't shape Arabic-script glyphs (vercel/satori#74). The brand layout is replicated in both; see `docs/i18n/og-rendering.md`.
 - Four native-fluent audit agents under `.claude/agents/` (`nomad-tr-editor`, `nomad-fa-editor`, `nomad-ar-editor`, `nomad-ru-editor`) audit each locale for grammar, vocabulary, brand voice, locale SEO, and AI engine optimization with a strict no-fabrication rule. See `docs/i18n/` for the per-locale keyword trackers and playbooks.
 
 ## Getting Started

@@ -14,12 +14,6 @@ export const ogContentType = "image/png" as const;
 // So fa/ar routes go through resvg-js (Node runtime); everything else
 // continues to use satori. The visual design is replicated in
 // og-image-rtl.tsx so brand parity holds across locales.
-//
-// Kept for backward compat with existing call sites that imported it.
-// Now identity - dispatch happens inside renderOgImage based on locale.
-export function ogLocale(locale: Locale): Locale {
-  return locale;
-}
 
 interface OgImageProps {
   category: string; // small uppercase label, e.g. "Blog", "Path to Istanbul"

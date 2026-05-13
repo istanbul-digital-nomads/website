@@ -4,6 +4,48 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.21.0] - 2026-05-13
+
+### Added
+
+- Translated every blog post (16), city guide (11), and country playbook (5) to Turkish, Farsi, Arabic, and Russian (160 routes total at 100% per-locale coverage); each MDX lives at `src/content/{category}/{locale}/{slug}.mdx`
+- Lifted every visible UI string on `/events`, `/onboarding`, `/login`, `/relocation-agent`, `/contact`, `/credits`, `/local-guides`, `/local-guides/join`, the neighborhood guide tree, and the blog tag filter chips into `src/messages/{locale}.json`
+- Lifted prose fields from `src/lib/spaces.ts` (18 space descriptions) and `src/lib/neighborhoods.ts` (10 neighborhoods × `description`, `vibe`, `transport`, `bestFor`) into `spacesList.*` and `neighborhoodList.*` namespaces with translations
+- Lifted country display names (25 entries) for the relocation form's origin selector, the path-to-istanbul grid, and the world map tooltips into `lookups.countryNames`
+- Localized all three transactional email templates (contact form, newsletter welcome, guide application) with full subject + previewText + body i18n; emails now set `<html lang dir>` and right-align headers in RTL clients
+- Native Persian and Arabic OpenGraph image rendering via `@resvg/resvg-js` + HarfBuzz, replacing the English fallback that `@vercel/og` (satori) forced us into because it crashes on Arabic-script GSUB lookupType 5 substFormat 3 (vercel/satori#74). Ships Vazirmatn and Noto Sans Arabic TTFs under `/public/fonts/og/`. en/tr/ru continue to use satori; fa/ar use resvg with a hand-tuned RTL layout
+- Locale-aware date formatting in `src/lib/utils.ts` - `formatDate`, `formatDateShort`, `formatEventDate` now accept an optional `Locale` and route to the right BCP 47 tag via `Intl.DateTimeFormat`
+- Per-locale `og:locale` (en_US / tr_TR / fa_IR / ar_SA / ru_RU) and `og:locale:alternate` on every page via a `generateMetadata({ params })` in the root layout, plus localized `og:description`
+- `og` namespace in all five message files with `category`, `title`, `description`, `tagline`, `altText`, and per-route fallback labels for the 11 OG image generators
+- `blogTags` namespace localizing all 34 blog tag chip labels while keeping the URL slugs English so `/blog?tag=coworking` works across locales
+- `font-size-adjust: 0.52` + 82% root font-size for fa/ar to compensate for Bon Pro / Noto Sans Arabic ascender height
+- `next.config.mjs` `serverComponentsExternalPackages: ["@resvg/resvg-js"]` so webpack doesn't try to bundle the native `.node` binary
+- New documentation at `docs/i18n/og-rendering.md` explaining the dual-renderer architecture
+- `pnpm format` step in the agent translation playbook so future batches don't trigger CI Lint rework
+
+### Changed
+
+- Bumped all 13 OG image routes from Edge to Node runtime so the resvg path can `fs.readFileSync` the Arabic-script TTFs
+- Replaced static `transform: scaleX(-1)` rule for RTL icon mirroring with Tailwind's `--tw-scale-x: -1` CSS variable so the mirror composes correctly with hover-translate utilities; added `rtl:group-hover:-translate-x-*` variants at 7 icon sites so hover motion reverses direction in RTL
+- Locked bidi-isolated runs of LTR-format strings (rent ranges like `$480-$880/mo`, wifi speeds, hours, space prices) inside `<bdi dir="ltr">` so they stop reversing inside Persian/Arabic paragraphs
+- MDX tables now use logical-property utilities (`text-start`, `ms-6`, `ps-6 pe-4`, `border-s-4`) and wrap cell content in `<bdi>` so Latin runs like "20 GB" stay readable while the cell anchors right in RTL
+- The hero `<h1>` on Persian/Arabic pages drops its `max-w-[11.5ch]` cap (Arabic-script `ch` is wider than Latin) and tightens line-height
+- Reworded the `NeighborhoodStatCard` footnote to drop the `spaces.ts` filename reference so the line stays fully translatable
+- Toast helper (`src/lib/toast.ts`) reduced to pure pass-through; the five convenience methods that hard-coded English copy were removed and the one live caller (`contact-form`) now passes translated strings
+- Layout's static `metadata` export converted to `generateMetadata({ params })` so each page emits per-locale `og:locale` instead of always announcing `en_US`
+- Bumped package version to `1.21.0`
+
+### Fixed
+
+- Chrome's auto-translate was rewriting fa/ar pages into the viewer's preferred language - added `translate="no"` on `<html>` and `<meta name="google" content="notranslate">` so the page stays in the locale the user picked
+- Language switcher's "switch to default locale from prefixed URL" code path was a no-op because `router.replace` of next-intl silently dropped same-pathname navigations; replaced with an explicit `window.location.href` + `NEXT_LOCALE` cookie write
+- Hover state on directional Lucide icons in RTL used to un-mirror the arrow (Tailwind's hover utility outranked the static `transform: scaleX(-1)` rule) and slide it in the wrong direction; now the mirror persists and the slide goes leftward in RTL
+- `formatDate` was hardcoded to `en-US` so a Persian visitor saw "April 2, 2026" instead of "۲ آوریل ۲۰۲۶"
+- Country names in the relocation form's origin selector + world map tooltips rendered English ("United States", "Germany", "Iran") on fa/ar/tr/ru pages; lifted to `lookups.countryNames` and translated
+- Neighborhood / space / score-label data prose was rendering English on translated pages because the values lived in `.ts` data files; lifted into i18n with deferred fallback to the English string
+- Tag chips on `/blog` listing and `/blog/[slug]` detail rendered the raw English slug; localized via a `blogTags` lookup with slug fallback
+- Two batches of translated MDX files (FA + AR `turkey-digital-nomad-visa-guide.mdx`) shipped with `<!-- HTML comments -->` which MDX rejects and crashed the route at render time; converted to `{/* MDX comments */}` and documented the rule in the workflow guide
+
 ## [1.20.0] - 2026-05-11
 
 ### Added

@@ -4,6 +4,34 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.23.0] - 2026-05-13
+
+### Changed
+
+- Web Vitals pass on Core Web Vitals (LCP, INP, CLS):
+  - **Hero LCP**: deduped the home hero image preload. Mobile `<Image>` keeps `priority` with `sizes="(max-width: 1023px) 100vw, 1px"`; desktop variant loses `priority` and uses `sizes="(min-width: 1024px) 520px, 1px"`. Browser now preloads only the variant that matches the viewport instead of preloading both 100vw mobile and 520px desktop variants for every visitor. Expected mobile LCP improvement: 200-500 ms.
+  - **Weather widget server-rendered**: `IstanbulTodayWidget` (home + neighborhoods index) is now an async server component that fetches open-meteo with `next: { revalidate: 600 }`. The animated overlays moved to a small `WeatherScene` client island (`src/components/sections/istanbul-today-weather-scene.tsx`). Eliminates the prior client-side fetch + layout shift between fallback and live data; cuts ~20-30 KB of client JS off the home route.
+  - **CartoCDN preconnect scoped to map routes**: removed the global preconnect from `[locale]/layout.tsx`. Home / spaces / events / path-to-istanbul now call `react-dom`'s `preconnect("https://basemaps.cartocdn.com")` from their server components. Blog, guides, neighborhood detail, about, contact and other map-less routes no longer open a TLS handshake to the tile CDN.
+  - **NavigationProgress slimmed**: removed the `document.click` capture listener + `setInterval(200ms)` from `src/components/ui/navigation-progress.tsx`. The progress bar now only flashes on `usePathname` change. Saves 15-40 ms INP per tap on mobile.
+  - **WebMcpRegister deferred**: tool registration now runs via `requestIdleCallback` (fallback: 1.5 s `setTimeout`) so it doesn't compete with hydration on browsers that expose `navigator.modelContext`.
+- Stripped server-only `og` and `emails` namespaces from the `NextIntlClientProvider` payload (~5 KB JSON, ~1.5 KB gzip per page). They were only consumed by `opengraph-image*` route handlers and email render code, never by client components.
+
+### Optimized
+
+- Image sources:
+  - `public/images/weather/istanbul-rainy-bosphorus-2026.png`: 2.0 MB → 323 KB (resized 1672 → 1280 wide + palette compression).
+  - `public/images/logo-light.png`: 191 KB → 21 KB (resized 530 → 256 wide).
+  - `public/images/logo-dark.png`: 214 KB → 20 KB (resized 542 → 256 wide).
+  - Total source savings: 2.18 MB. The `next/image` optimizer still serves AVIF/WebP at runtime; the source-size reduction speeds up cold-cache optimizer fetches and shrinks the deploy bundle.
+
+### Performance reference
+
+The audit grading the above is in the parent `vercel-plugin:performance-optimizer` agent run. Top remaining work for a future pass:
+
+- Split `Header` and `BottomTabBar` into server shells + tiny client islands (estimated 70-100 KB gzipped per-route JS cut).
+- Audit / remove the no-op `<Reveal>` wrapper used in 9 files.
+- Cache Components / PPR migration when Next.js 15+ lands.
+
 ## [1.22.0] - 2026-05-13
 
 ### Added

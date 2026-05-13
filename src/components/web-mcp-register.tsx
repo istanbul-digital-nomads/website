@@ -116,17 +116,37 @@ export function WebMcpRegister() {
     const mc = (navigator as unknown as { modelContext?: ModelContext })
       .modelContext;
     if (!mc) return;
-    try {
-      if (typeof mc.registerTool === "function") {
-        for (const tool of TOOLS) mc.registerTool(tool);
-        return;
+
+    const register = () => {
+      try {
+        if (typeof mc.registerTool === "function") {
+          for (const tool of TOOLS) mc.registerTool(tool);
+          return;
+        }
+        if (typeof mc.provideContext === "function") {
+          mc.provideContext({ tools: TOOLS });
+        }
+      } catch {
+        // Agents that don't implement the API surface should not break the page.
       }
-      if (typeof mc.provideContext === "function") {
-        mc.provideContext({ tools: TOOLS });
-      }
-    } catch {
-      // Agents that don't implement the API surface should not break the page.
+    };
+
+    const ric = (
+      window as unknown as { requestIdleCallback?: typeof requestIdleCallback }
+    ).requestIdleCallback;
+    if (typeof ric === "function") {
+      const id = ric(register, { timeout: 2000 });
+      return () => {
+        const cic = (
+          window as unknown as {
+            cancelIdleCallback?: typeof cancelIdleCallback;
+          }
+        ).cancelIdleCallback;
+        if (typeof cic === "function") cic(id);
+      };
     }
+    const id = window.setTimeout(register, 1500);
+    return () => window.clearTimeout(id);
   }, []);
 
   return null;

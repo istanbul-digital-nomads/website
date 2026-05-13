@@ -214,6 +214,16 @@ export default async function LocaleLayout({
   const messages = await getMessages();
   const typedLocale = locale as Locale;
 
+  // Strip server-only namespaces from the client provider payload. `og` is
+  // only read by opengraph-image route handlers and `emails` by the React
+  // Email render path - neither ships to the browser via this provider, so
+  // there's no reason to include them in the SSR'd __NEXT_DATA__.
+  const clientMessages = Object.fromEntries(
+    Object.entries(messages).filter(
+      ([key]) => key !== "og" && key !== "emails",
+    ),
+  ) as typeof messages;
+
   return (
     <html
       lang={bcp47[typedLocale]}
@@ -223,8 +233,6 @@ export default async function LocaleLayout({
     >
       <head>
         <meta name="google" content="notranslate" />
-        <link rel="preconnect" href="https://basemaps.cartocdn.com" />
-        <link rel="dns-prefetch" href="https://basemaps.cartocdn.com" />
         <link
           rel="preconnect"
           href={process.env.NEXT_PUBLIC_SUPABASE_URL ?? ""}
@@ -256,7 +264,7 @@ export default async function LocaleLayout({
           .filter(Boolean)
           .join(" ")}
       >
-        <NextIntlClientProvider locale={typedLocale} messages={messages}>
+        <NextIntlClientProvider locale={typedLocale} messages={clientMessages}>
           <ThemeProvider>
             <NavigationProgress />
             <Header />

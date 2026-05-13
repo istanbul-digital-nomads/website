@@ -61,7 +61,7 @@ export function EventsList({
             onClick={() => setFilterType("all")}
             className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
               filterType === "all"
-                ? "bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300"
+                ? "bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-200"
                 : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 dark:bg-white/5 dark:text-[#99a3ad] dark:ring-white/10"
             }`}
           >
@@ -73,7 +73,7 @@ export function EventsList({
               onClick={() => setFilterType(type)}
               className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
                 filterType === type
-                  ? "bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300"
+                  ? "bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-200"
                   : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 dark:bg-white/5 dark:text-[#99a3ad] dark:ring-white/10"
               }`}
             >

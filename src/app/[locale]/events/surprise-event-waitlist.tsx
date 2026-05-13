@@ -125,7 +125,7 @@ export function SurpriseEventWaitlist() {
 
         <div className="relative grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/50 px-3 py-1 text-xs font-medium text-primary-700 ring-1 ring-white/60 backdrop-blur-md dark:bg-white/10 dark:text-primary-300 dark:ring-white/10">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/50 px-3 py-1 text-xs font-medium text-primary-700 ring-1 ring-white/60 backdrop-blur-md dark:bg-white/10 dark:text-primary-200 dark:ring-white/10">
               <Sparkles className="h-3.5 w-3.5" />
               {t("badge")}
             </span>
@@ -138,7 +138,7 @@ export function SurpriseEventWaitlist() {
 
             {joined ? (
               <div className="mt-6 space-y-3">
-                <div className="inline-flex items-center gap-2 rounded-xl bg-white/50 px-4 py-3 text-sm font-medium text-primary-700 ring-1 ring-white/60 backdrop-blur-md dark:bg-white/10 dark:text-primary-300 dark:ring-white/10">
+                <div className="inline-flex items-center gap-2 rounded-xl bg-white/50 px-4 py-3 text-sm font-medium text-primary-700 ring-1 ring-white/60 backdrop-blur-md dark:bg-white/10 dark:text-primary-200 dark:ring-white/10">
                   <Check className="h-4 w-4" />
                   {t("joinedConfirm")}
                 </div>
@@ -200,7 +200,7 @@ export function SurpriseEventWaitlist() {
           <div className="rounded-2xl bg-white/40 p-5 ring-1 ring-white/60 backdrop-blur-xl dark:bg-white/5 dark:ring-white/10">
             {realCount === 0 ? (
               <div className="flex flex-col items-start gap-2">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/60 text-primary-700 ring-1 ring-white/70 backdrop-blur-md dark:bg-white/10 dark:text-primary-300 dark:ring-white/10">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/60 text-primary-700 ring-1 ring-white/70 backdrop-blur-md dark:bg-white/10 dark:text-primary-200 dark:ring-white/10">
                   <Sparkles className="h-4 w-4" />
                 </div>
                 <p className="mt-2 text-sm font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">

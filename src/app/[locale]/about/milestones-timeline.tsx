@@ -69,7 +69,7 @@ export function MilestonesTimeline() {
                     )}
                   >
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="inline-flex items-center rounded-full bg-primary-500/10 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider text-primary-700 dark:bg-primary-400/10 dark:text-primary-300">
+                      <span className="inline-flex items-center rounded-full bg-primary-500/10 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider text-primary-700 dark:bg-primary-400/10 dark:text-primary-200">
                         {tItems(`${m.id}.date`)}
                       </span>
                       {m.upcoming && (

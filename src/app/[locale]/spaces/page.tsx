@@ -177,7 +177,7 @@ function HeroSignal({
   return (
     <div className="rounded-md border border-black/10 bg-white/70 p-4 dark:border-white/10 dark:bg-white/[0.04]">
       <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#94877d]">
-        <Icon className="h-4 w-4 text-primary-600 dark:text-primary-300" />
+        <Icon className="h-4 w-4 text-primary-600 dark:text-primary-200" />
         {label}
       </div>
       <p className="mt-3 font-display text-2xl font-extrabold text-neutral-950 dark:text-[#f2f3f4]">

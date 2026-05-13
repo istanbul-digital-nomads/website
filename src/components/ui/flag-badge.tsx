@@ -26,7 +26,7 @@ export function FlagBadge({
   const content = (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full bg-primary-50 px-2.5 py-0.5 text-xs font-medium text-primary-700 ring-1 ring-primary-200/60 dark:bg-primary-950/30 dark:text-primary-300 dark:ring-primary-900/40",
+        "inline-flex items-center gap-1.5 rounded-full bg-primary-50 px-2.5 py-0.5 text-xs font-medium text-primary-700 ring-1 ring-primary-200/60 dark:bg-primary-950/30 dark:text-primary-200 dark:ring-primary-900/40",
         className,
       )}
     >

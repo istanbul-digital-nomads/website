@@ -27,7 +27,7 @@ export async function NeighborhoodDecisionNotes() {
             </p>
             <Link
               href="/blog/first-week-mistakes"
-              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-700 transition-colors hover:text-primary-900 dark:text-primary-300 dark:hover:text-primary-100"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-700 transition-colors hover:text-primary-900 dark:text-primary-200 dark:hover:text-primary-100"
             >
               {t("readFirstWeekMistakes")}
               <MoveUpRight className="h-4 w-4" />

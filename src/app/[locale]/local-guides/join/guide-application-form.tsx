@@ -155,7 +155,7 @@ export function GuideApplicationForm() {
   if (submitted) {
     return (
       <div className="rounded-xl border border-primary-200 bg-primary-50/80 p-8 text-center dark:border-primary-900/40 dark:bg-primary-900/20">
-        <p className="text-lg font-semibold text-primary-800 dark:text-primary-300">
+        <p className="text-lg font-semibold text-primary-800 dark:text-primary-200">
           {t("submitted.title")}
         </p>
         <p className="mt-2 text-sm text-primary-700 dark:text-primary-400">

@@ -102,7 +102,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
                         "tap-highlight flex items-center rounded-2xl px-4 py-3 text-lg font-medium transition-colors",
                         pathname === child.href ||
                           pathname.startsWith(child.href + "/")
-                          ? "bg-primary-50 text-primary-700 dark:bg-white/10 dark:text-primary-300"
+                          ? "bg-primary-50 text-primary-700 dark:bg-white/10 dark:text-primary-200"
                           : "text-neutral-700 hover:bg-black/5 dark:text-[#99a3ad] dark:hover:bg-white/5",
                       )}
                     >
@@ -119,7 +119,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
                   className={cn(
                     "tap-highlight flex items-center rounded-2xl px-4 py-3 text-lg font-medium transition-colors",
                     pathname === item.href
-                      ? "bg-primary-50 text-primary-700 dark:bg-white/10 dark:text-primary-300"
+                      ? "bg-primary-50 text-primary-700 dark:bg-white/10 dark:text-primary-200"
                       : "text-neutral-700 hover:bg-black/5 dark:text-[#99a3ad] dark:hover:bg-white/5",
                   )}
                 >
@@ -133,7 +133,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
             href="/login"
             prefetch
             onClick={onClose}
-            className="tap-highlight mt-2 flex items-center gap-3 rounded-2xl bg-primary-50 px-4 py-3 text-lg font-medium text-primary-700 transition-colors dark:bg-white/10 dark:text-primary-300"
+            className="tap-highlight mt-2 flex items-center gap-3 rounded-2xl bg-primary-50 px-4 py-3 text-lg font-medium text-primary-700 transition-colors dark:bg-white/10 dark:text-primary-200"
           >
             <svg
               className="h-5 w-5"

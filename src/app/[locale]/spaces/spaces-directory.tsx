@@ -142,7 +142,7 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
         <div className="rounded-md border border-black/10 bg-[#f6f1ea] p-5 dark:border-white/10 dark:bg-[#1a1612]">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-300">
+              <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-200">
                 {t("mission.eyebrow")}
               </p>
               <h2 className="mt-3 max-w-lg font-display text-h2 text-neutral-950 dark:text-[#f2f3f4]">
@@ -152,7 +152,7 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
                 {selectedModeDescription} {t("mission.bodySuffix")}
               </p>
             </div>
-            <BriefcaseBusiness className="mt-1 h-6 w-6 text-primary-600 dark:text-primary-300" />
+            <BriefcaseBusiness className="mt-1 h-6 w-6 text-primary-600 dark:text-primary-200" />
           </div>
 
           <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -175,7 +175,7 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
           {suggestedNeeds.length > 0 ? (
             <div className="mt-5 rounded-md border border-black/10 bg-white/55 p-3 dark:border-white/10 dark:bg-white/[0.04]">
               <div className="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-neutral-500 dark:text-[#94877d]">
-                <Sparkles className="h-4 w-4 text-primary-600 dark:text-primary-300" />
+                <Sparkles className="h-4 w-4 text-primary-600 dark:text-primary-200" />
                 {t("suggested.title")}
               </div>
               <div className="flex flex-wrap gap-2">
@@ -413,7 +413,7 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
           className="flex w-full items-center justify-between gap-3 bg-[#f6f1ea] px-4 py-3 text-left dark:bg-[#1a1612]"
         >
           <span>
-            <span className="block font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-300">
+            <span className="block font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-200">
               {t("map.label")}
             </span>
             <span className="mt-1 block text-sm text-[#5d6d7e] dark:text-[#b7aaa0]">
@@ -441,7 +441,7 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
       <section>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-300">
+            <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-200">
               {t("results.eyebrow")}
             </p>
             <h2 className="mt-2 font-display text-h2 text-neutral-950 dark:text-[#f2f3f4]">
@@ -638,7 +638,7 @@ function MissionCard({
         {description}
       </span>
       <span className="relative mt-4 flex items-center gap-2 border-t border-black/10 pt-3 font-mono text-[9px] uppercase tracking-[0.18em] text-neutral-500 dark:border-white/10 dark:text-[#94877d]">
-        <Sparkles className="h-3.5 w-3.5 text-primary-600 dark:text-primary-300" />
+        <Sparkles className="h-3.5 w-3.5 text-primary-600 dark:text-primary-200" />
         {rewardPrefix} {reward}
       </span>
     </button>

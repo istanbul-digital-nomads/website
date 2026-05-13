@@ -127,7 +127,7 @@ export async function FeaturedGuides() {
                     .map((c) => (
                       <span
                         key={c.code}
-                        className="inline-flex items-center gap-1 rounded-full bg-primary-50 px-2 py-0.5 text-[10px] text-primary-700 dark:bg-primary-950/30 dark:text-primary-300"
+                        className="inline-flex items-center gap-1 rounded-full bg-primary-50 px-2 py-0.5 text-[10px] text-primary-700 dark:bg-primary-950/30 dark:text-primary-200"
                       >
                         <span aria-hidden="true">{c.flag}</span>
                         {tCountries.has(c.slug) ? tCountries(c.slug) : c.name}

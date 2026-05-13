@@ -151,7 +151,7 @@ export function StepFinal({ data, updateField, errors }: StepProps) {
         <button
           type="button"
           onClick={() => fileInputRef.current?.click()}
-          className="mt-2 flex items-center gap-2 rounded-xl border border-dashed border-primary-300 bg-primary-50/30 px-4 py-3 text-sm font-medium text-primary-700 transition-colors hover:bg-primary-50 dark:border-primary-800 dark:bg-primary-950/10 dark:text-primary-300"
+          className="mt-2 flex items-center gap-2 rounded-xl border border-dashed border-primary-300 bg-primary-50/30 px-4 py-3 text-sm font-medium text-primary-700 transition-colors hover:bg-primary-50 dark:border-primary-800 dark:bg-primary-950/10 dark:text-primary-200"
         >
           <Upload className="h-4 w-4" />
           {data.photo_verification_url ? t("photoUploaded") : t("photoUpload")}

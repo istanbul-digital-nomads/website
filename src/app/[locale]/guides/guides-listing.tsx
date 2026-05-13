@@ -124,7 +124,7 @@ export function GuidesListing({ guidesWithContent }: GuidesListingProps) {
                     <div className="flex items-start justify-between">
                       <Icon className="h-8 w-8 text-primary-600 dark:text-primary-400" />
                       {hasContent && (
-                        <span className="rounded-full bg-primary-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary-700 dark:bg-primary-900/30 dark:text-primary-300">
+                        <span className="rounded-full bg-primary-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary-700 dark:bg-primary-900/30 dark:text-primary-200">
                           {t("liveBadge")}
                         </span>
                       )}

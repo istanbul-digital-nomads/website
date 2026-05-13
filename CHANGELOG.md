@@ -4,6 +4,12 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.23.2] - 2026-05-14
+
+### Fixed
+
+- Lighthouse Accessibility 96 → 100: post-1.23.1 audit still flagged one element ("TURN THIS INTO WEEK ONE" in `NeighborhoodRhythmMatcher`) using `dark:text-primary-300` (#e74c3c → 4.48 contrast on a near-black bg). Same pattern existed in 25 other files across the codebase, so swept all `dark:text-primary-300` → `dark:text-primary-200` (#f1a9a0). All small-text uppercase eyebrow labels in dark mode now sit well above WCAG AA 4.5:1.
+
 ## [1.23.1] - 2026-05-14
 
 ### Fixed

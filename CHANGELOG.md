@@ -4,6 +4,13 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2026-05-14
+
+### Fixed
+
+- **Removed `dynamic({ ssr: false })` from `client-islands.tsx`**. Post-v2.0.0 Lighthouse showed Performance had dropped from 98 to ~86 and SEO from 100 to 92, with `BAILOUT_TO_CLIENT_SIDE_RENDERING` Suspense templates in the SSR HTML. Each `ssr: false` import now produces a bailout marker that delays React 19's Document Metadata flush, so the `<title>` and `<meta name="description">` ended up in body instead of head and Lighthouse couldn't find them. The four islands (BottomTabBar, NavigationProgress, Toaster, WebMcpRegister) are now plain client component imports - they SSR-render to their initial null state (no DOM cost) and hydrate cleanly with no bailout.
+- **Disabled `experimental.optimizeCss`**. On Next 15.5 + React 19 it inlines critical CSS *after* the React 19 metadata flush, undoing the LCP improvement it gave us on Next 14. Removed the `critters` devDep.
+
 ## [2.0.0] - 2026-05-14
 
 ### Changed (BREAKING - framework upgrade)

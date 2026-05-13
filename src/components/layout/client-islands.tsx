@@ -1,39 +1,16 @@
 "use client";
 
-import dynamic from "next/dynamic";
+// Under Next 15 + React 19, `dynamic({ ssr: false })` produces a Suspense
+// bailout marker (BAILOUT_TO_CLIENT_SIDE_RENDERING) at the spot the island
+// lives. That defers React 19's Document Metadata flush past LCP and tanks
+// the Lighthouse meta-description audit. Importing the client components
+// directly lets them SSR-render to their initial null state (no DOM cost),
+// then hydrate cleanly - no bailout, no Suspense template, metadata in head.
 
-// Next 15 disallows `ssr: false` on next/dynamic inside server components.
-// Hoist the four post-hydration islands the layout used to wire up into this
-// single client wrapper so the server layout stays static.
-
-const BottomTabBar = dynamic(
-  () =>
-    import("@/components/layout/bottom-tab-bar").then((m) => ({
-      default: m.BottomTabBar,
-    })),
-  { ssr: false },
-);
-
-const NavigationProgress = dynamic(
-  () =>
-    import("@/components/ui/navigation-progress").then((m) => ({
-      default: m.NavigationProgress,
-    })),
-  { ssr: false },
-);
-
-const Toaster = dynamic(
-  () => import("sonner").then((m) => ({ default: m.Toaster })),
-  { ssr: false },
-);
-
-const WebMcpRegister = dynamic(
-  () =>
-    import("@/components/web-mcp-register").then((m) => ({
-      default: m.WebMcpRegister,
-    })),
-  { ssr: false },
-);
+import { Toaster } from "sonner";
+import { BottomTabBar } from "@/components/layout/bottom-tab-bar";
+import { NavigationProgress } from "@/components/ui/navigation-progress";
+import { WebMcpRegister } from "@/components/web-mcp-register";
 
 export function NavProgressIsland() {
   return <NavigationProgress />;

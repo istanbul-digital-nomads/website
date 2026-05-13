@@ -34,10 +34,11 @@ const nextConfig = {
     "**/opengraph-image*": ["./public/fonts/og/**/*"],
   },
   experimental: {
-    // Inline critical CSS in <head>, defer the rest. Next 15 uses `beasties`
-    // (the maintained fork of critters) internally. Removes the ~250 ms
-    // render-blocking penalty Lighthouse mobile flagged on the main CSS file.
-    optimizeCss: true,
+    // optimizeCss was helpful on Next 14 but on Next 15.5 + React 19 it
+    // interacts badly with the new streaming metadata flow - critical CSS
+    // gets inlined AFTER the React 19 metadata flush, deferring LCP.
+    // Disabled until Next 16 swaps to beasties + better integration.
+    // optimizeCss: true,
     optimizePackageImports: [
       "lucide-react",
       "@headlessui/react",

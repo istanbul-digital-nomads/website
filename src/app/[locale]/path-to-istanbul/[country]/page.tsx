@@ -136,6 +136,7 @@ export default async function CountryPage({ params }: CountryPageProps) {
               summary={frontmatter.summary}
               stats={frontmatter.heroStats}
               lastUpdated={frontmatter.lastUpdated}
+              locale={locale}
             />
 
             <article className="mt-8 max-w-3xl sm:mt-12">

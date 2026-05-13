@@ -22,6 +22,7 @@ export default async function Image({ params }: Props) {
   const t = await getTranslations({ locale, namespace: "og" });
   const tGuides = await getTranslations({ locale, namespace: "guides" });
   return renderOgImage({
+    locale,
     category: t("guideDetail.category"),
     title:
       guideContent?.frontmatter.title ??

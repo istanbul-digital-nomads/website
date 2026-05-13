@@ -23,6 +23,7 @@ import { NeighborhoodRhythmMatcher } from "@/components/sections/neighborhood-rh
 import { guides } from "@/lib/data";
 import { socialLinks } from "@/lib/constants";
 import { formatEventDate } from "@/lib/utils";
+import type { Locale } from "@/lib/i18n/config";
 import { getEventsPublic } from "@/lib/supabase/queries";
 
 export const revalidate = 300;
@@ -73,7 +74,7 @@ export default async function HomePage({
   const heroTrustSignals = nextEvent
     ? [
         t("hero.trustSignals.nextCoworking", {
-          date: formatEventDate(nextEvent.date),
+          date: formatEventDate(nextEvent.date, locale as Locale),
         }),
         t("hero.trustSignals.freeToJoin"),
         t("hero.trustSignals.allRemoteWorkers"),
@@ -430,7 +431,7 @@ export default async function HomePage({
                       <div className="min-w-[220px] border-t border-black/10 pt-4 md:border-l md:border-t-0 md:pl-6 md:pt-0 dark:border-white/10">
                         <div className="flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#b7aaa0]">
                           <CalendarDays className="h-4 w-4" />
-                          {formatEventDate(event.date)}
+                          {formatEventDate(event.date, locale as Locale)}
                         </div>
                         <div className="mt-3 flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#b7aaa0]">
                           <MapPin className="h-4 w-4" />

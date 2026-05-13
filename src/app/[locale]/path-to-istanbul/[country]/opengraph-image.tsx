@@ -34,6 +34,7 @@ export default async function Image({ params }: Props) {
       : undefined);
 
   return renderOgImage({
+    locale,
     category: `${country?.flag ?? ""} ${categoryBase}`.trim(),
     title,
     description,

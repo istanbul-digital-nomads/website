@@ -7,9 +7,14 @@ export const ogContentType = "image/png" as const;
 
 // `@vercel/og` (the satori-based renderer behind ImageResponse) crashes on
 // Arabic-script glyphs with "lookupType: 5 - substFormat: 3 is not yet
-// supported" because the default Inter font's Arabic table isn't compatible.
-// Until we register a proper Arabic-script OG font, fall back to the English
-// copy for those locales so the route returns a valid PNG instead of a 500.
+// supported". The crash happens inside satori's GSUB lookup parser
+// regardless of which Arabic font (Vazirmatn, Noto Sans Arabic, Amiri) is
+// loaded, because all modern Arabic-script fonts rely on Contextual
+// Substitution Format 3 for shaping. Tracked at vercel/satori issue 523.
+//
+// Workaround: fall back to English content for fa/ar OG renders so the
+// route returns a valid PNG instead of a 500. When satori adds support,
+// remove this and pass the real locale through.
 export function ogLocale(locale: Locale): Locale {
   return locale === "fa" || locale === "ar" ? "en" : locale;
 }
@@ -19,6 +24,7 @@ interface OgImageProps {
   title: string; // large headline
   description?: string; // truncated subtitle (optional)
   tagline?: string; // localized footer tagline, defaults to English brand line
+  locale?: Locale; // reserved for future font wiring; currently unused
 }
 
 // Renders a branded OpenGraph card inspired by the Claude Code Docs style:

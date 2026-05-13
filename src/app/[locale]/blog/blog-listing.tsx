@@ -4,10 +4,11 @@ import { useCallback, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Search, Calendar, Clock, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/utils";
+import type { Locale } from "@/lib/i18n/config";
 import type { BlogPostMeta } from "@/lib/blog";
 
 interface BlogListingProps {
@@ -26,6 +27,7 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
   const t = useTranslations("blogIndexPage");
   const tTags = useTranslations("blogTags");
   const labelForTag = (slug: string) => (tTags.has(slug) ? tTags(slug) : slug);
+  const locale = useLocale() as Locale;
 
   const selectTag = useCallback(
     (tag: string | null) => {
@@ -140,7 +142,7 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
                   </span>
                   <span className="flex items-center gap-1">
                     <Calendar className="h-3 w-3" />
-                    {formatDate(post.date)}
+                    {formatDate(post.date, undefined, locale)}
                   </span>
                   <span className="flex items-center gap-1">
                     <Clock className="h-3 w-3" />

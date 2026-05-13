@@ -1,6 +1,7 @@
 import { Calendar } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { formatDate } from "@/lib/utils";
+import type { Locale } from "@/lib/i18n/config";
 import type { Country } from "@/lib/path-to-istanbul";
 import type { HeroStat } from "@/lib/path-to-istanbul-content";
 
@@ -9,6 +10,7 @@ interface CountryHeroProps {
   summary: string;
   stats?: HeroStat[];
   lastUpdated?: string;
+  locale: Locale;
 }
 
 export async function CountryHero({
@@ -16,6 +18,7 @@ export async function CountryHero({
   summary,
   stats,
   lastUpdated,
+  locale,
 }: CountryHeroProps) {
   const t = await getTranslations("countryPage.hero");
   return (
@@ -60,7 +63,9 @@ export async function CountryHero({
       {lastUpdated && (
         <div className="mt-5 flex items-center gap-2 text-xs text-[#5d6d7e] dark:text-[#99a3ad] sm:mt-6">
           <Calendar className="h-3.5 w-3.5" />
-          {t("lastUpdated", { date: formatDate(lastUpdated) })}
+          {t("lastUpdated", {
+            date: formatDate(lastUpdated, undefined, locale),
+          })}
         </div>
       )}
     </div>

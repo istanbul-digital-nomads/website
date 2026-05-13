@@ -19,6 +19,7 @@ export default async function Image({ params }: Props) {
   const post = getBlogPost(params.slug, locale);
   const t = await getTranslations({ locale, namespace: "og" });
   return renderOgImage({
+    locale,
     category: t("blogDetail.category"),
     title: post?.meta.title ?? "Istanbul Digital Nomads",
     description: post?.meta.description,

@@ -93,7 +93,11 @@ export default async function NeighborhoodsOverviewPage({
               <div className="mt-4 flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
                 <Calendar className="h-4 w-4" />
                 {tPage("lastUpdatedTemplate", {
-                  date: formatDate(guideContent.frontmatter.lastUpdated),
+                  date: formatDate(
+                    guideContent.frontmatter.lastUpdated,
+                    undefined,
+                    locale,
+                  ),
                 })}
               </div>
             )}

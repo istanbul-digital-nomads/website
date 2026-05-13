@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { Calendar, MapPin, Users } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { Section } from "@/components/ui/section";
 import { formatDate } from "@/lib/utils";
 import { eventTypes } from "@/lib/constants";
+import type { Locale } from "@/lib/i18n/config";
 import type { Event, EventType } from "@/types/models";
 
 const tabs = ["upcoming", "past"] as const;
@@ -28,6 +29,7 @@ export function EventsList({
   onSelect,
 }: EventsListProps) {
   const t = useTranslations("eventsPage.list");
+  const locale = useLocale() as Locale;
   const [tab, setTab] = useState<Tab>("upcoming");
   const [filterType, setFilterType] = useState<EventType | "all">("all");
 
@@ -118,7 +120,7 @@ export function EventsList({
                 <div className="mt-4 space-y-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
                   <div className="flex items-center gap-2">
                     <Calendar className="h-4 w-4" />
-                    {formatDate(event.date)}
+                    {formatDate(event.date, undefined, locale)}
                   </div>
                   <div className="flex items-center gap-2">
                     <MapPin className="h-4 w-4" />

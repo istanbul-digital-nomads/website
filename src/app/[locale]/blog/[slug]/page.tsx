@@ -238,7 +238,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </span>
               <span className="flex items-center gap-1.5">
                 <Calendar className="h-4 w-4" />
-                {formatDate(post.meta.date)}
+                {formatDate(post.meta.date, undefined, locale)}
               </span>
               <span className="flex items-center gap-1.5">
                 <Clock className="h-4 w-4" />

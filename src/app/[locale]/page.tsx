@@ -213,7 +213,7 @@ export default async function HomePage({
                   </div>
                 </div>
 
-                <h1 className="max-w-[11.5ch] text-balance font-display text-[2.86rem] font-extrabold leading-[0.94] text-neutral-950 sm:text-[4.15rem] lg:text-[5.55rem] dark:text-[#f2f3f4]">
+                <h1 className="max-w-[11.5ch] font-display text-[2.86rem] font-extrabold leading-[0.94] text-neutral-950 sm:text-[4.15rem] lg:text-[5.55rem] dark:text-[#f2f3f4]">
                   {t("hero.title")}
                 </h1>
                 <p className="mt-5 max-w-2xl text-[1.0625rem] leading-8 text-neutral-700 sm:text-body-xl dark:text-[#b7aaa0]">

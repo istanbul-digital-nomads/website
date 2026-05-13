@@ -16,11 +16,24 @@ export function AuthButton() {
   const t = useTranslations("auth");
 
   useEffect(() => {
+    // Cheap heuristic: skip the supabase client entirely when there's no
+    // Supabase auth cookie (sb-*-auth-token). For anonymous visitors - the
+    // vast majority of home-page traffic - this avoids downloading the ~40 KB
+    // supabase chunk and the ~50 KB gotrue-js auth client. Authenticated
+    // visitors fall through to the deferred dynamic import below.
+    const hasAuthCookie =
+      typeof document !== "undefined" &&
+      document.cookie.split(";").some((c) => c.trim().startsWith("sb-"));
+    if (!hasAuthCookie) {
+      setLoading(false);
+      return;
+    }
+
     let cleanupRef: (() => void) | null = null;
 
     // Defer auth client load + check until after first paint. Lazy-importing
-    // the supabase client keeps its ~40 KB chunk off the initial bundle for
-    // anonymous visitors (the vast majority of home-page traffic).
+    // the supabase client keeps its chunk off the initial bundle even for
+    // signed-in visitors.
     const timer = setTimeout(async () => {
       const { createClient } = await import("@/lib/supabase/client");
       const supabase = createClient();

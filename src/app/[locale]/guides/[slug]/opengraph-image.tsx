@@ -1,4 +1,4 @@
-import { renderOgImage, ogLocale, ogSize, ogContentType } from "@/lib/og-image";
+import { renderOgImage, ogSize, ogContentType } from "@/lib/og-image";
 import { guides } from "@/lib/data";
 import { getGuideContent } from "@/lib/guides";
 import { getTranslations } from "next-intl/server";
@@ -14,9 +14,7 @@ interface Props {
 }
 
 export default async function Image({ params }: Props) {
-  const locale = ogLocale(
-    isValidLocale(params.locale) ? params.locale : defaultLocale,
-  );
+  const locale = isValidLocale(params.locale) ? params.locale : defaultLocale;
   const guide = guides.find((g) => g.slug === params.slug);
   const guideContent = guide ? getGuideContent(params.slug, locale) : null;
   const t = await getTranslations({ locale, namespace: "og" });

@@ -1,22 +1,24 @@
 import { ImageResponse } from "next/og";
 import type { Locale } from "@/lib/i18n/config";
+import { isRtlOgLocale, renderOgImageRtl } from "@/lib/og-image-rtl";
 
 // Shared size/contentType for every route's opengraph-image.tsx.
 export const ogSize = { width: 1200, height: 630 } as const;
 export const ogContentType = "image/png" as const;
 
-// `@vercel/og` (the satori-based renderer behind ImageResponse) crashes on
-// Arabic-script glyphs with "lookupType: 5 - substFormat: 3 is not yet
-// supported". The crash happens inside satori's GSUB lookup parser
-// regardless of which Arabic font (Vazirmatn, Noto Sans Arabic, Amiri) is
-// loaded, because all modern Arabic-script fonts rely on Contextual
-// Substitution Format 3 for shaping. Tracked at vercel/satori issue 523.
+// Why two renderers:
+// - `@vercel/og` (satori) crashes on Arabic-script glyphs with
+//   "lookupType: 5 - substFormat: 3 is not yet supported"
+//   (vercel/satori#74 - RTL languages are not on the roadmap as of 2026).
+// - resvg-js + HarfBuzz handles Arabic shaping correctly.
+// So fa/ar routes go through resvg-js (Node runtime); everything else
+// continues to use satori. The visual design is replicated in
+// og-image-rtl.tsx so brand parity holds across locales.
 //
-// Workaround: fall back to English content for fa/ar OG renders so the
-// route returns a valid PNG instead of a 500. When satori adds support,
-// remove this and pass the real locale through.
+// Kept for backward compat with existing call sites that imported it.
+// Now identity - dispatch happens inside renderOgImage based on locale.
 export function ogLocale(locale: Locale): Locale {
-  return locale === "fa" || locale === "ar" ? "en" : locale;
+  return locale;
 }
 
 interface OgImageProps {
@@ -24,7 +26,7 @@ interface OgImageProps {
   title: string; // large headline
   description?: string; // truncated subtitle (optional)
   tagline?: string; // localized footer tagline, defaults to English brand line
-  locale?: Locale; // reserved for future font wiring; currently unused
+  locale?: Locale; // when fa/ar, dispatches to the resvg-js renderer
 }
 
 // Renders a branded OpenGraph card inspired by the Claude Code Docs style:
@@ -34,7 +36,20 @@ export function renderOgImage({
   title,
   description,
   tagline = "Remote life, local rhythm",
+  locale,
 }: OgImageProps) {
+  // Dispatch Arabic-script locales to the resvg-js renderer (which can
+  // actually shape Arabic glyphs). LTR locales continue with satori.
+  if (isRtlOgLocale(locale)) {
+    return renderOgImageRtl({
+      category,
+      title,
+      description,
+      tagline,
+      locale,
+    });
+  }
+
   const BRAND = "#c0392b";
   const BG = "#0f1117";
   const FG = "#f2f3f4";

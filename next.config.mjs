@@ -30,6 +30,10 @@ const nextConfig = {
       "react-map-gl",
       "next-intl",
     ],
+    // resvg-js ships per-arch native .node binaries that webpack can't
+    // bundle (binary parse error). Mark it server-external so Next.js
+    // resolves it at runtime in the Node server instead.
+    serverComponentsExternalPackages: ["@resvg/resvg-js"],
   },
   async headers() {
     return [

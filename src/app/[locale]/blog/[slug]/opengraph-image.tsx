@@ -1,4 +1,4 @@
-import { renderOgImage, ogLocale, ogSize, ogContentType } from "@/lib/og-image";
+import { renderOgImage, ogSize, ogContentType } from "@/lib/og-image";
 import { getBlogPost } from "@/lib/blog";
 import { getTranslations } from "next-intl/server";
 import { isValidLocale, defaultLocale } from "@/lib/i18n/config";
@@ -13,9 +13,7 @@ interface Props {
 }
 
 export default async function Image({ params }: Props) {
-  const locale = ogLocale(
-    isValidLocale(params.locale) ? params.locale : defaultLocale,
-  );
+  const locale = isValidLocale(params.locale) ? params.locale : defaultLocale;
   const post = getBlogPost(params.slug, locale);
   const t = await getTranslations({ locale, namespace: "og" });
   return renderOgImage({

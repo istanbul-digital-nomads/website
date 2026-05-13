@@ -1543,7 +1543,9 @@
     },
     "map": {
       "turkeyLabel": "تركيا - بلد وجهتك",
-      "istanbulLabel": "إسطنبول - وجهتك"
+      "istanbulLabel": "إسطنبول - وجهتك",
+      "openGuideForCountry": "افتح دليل {country}",
+      "countryComingSoon": "{country} - قريبًا"
     }
   },
   "countryPage": {

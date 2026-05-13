@@ -119,6 +119,8 @@ export function WorldMap() {
   const router = useRouter();
   const { theme } = useTheme();
   const t = useTranslations("pathToIstanbulPage.map");
+  const tSelector = useTranslations("pathToIstanbulPage.selector");
+  const tCountries = useTranslations("lookups.countryNames");
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MapRef | null>(null);
   const [mounted, setMounted] = useState(false);
@@ -300,14 +302,27 @@ export function WorldMap() {
           </div>
         </Marker>
 
-        {COUNTRIES.map((country) => (
-          <CountryMarker
-            key={country.code}
-            country={country}
-            isLoading={loadingCode === country.code}
-            onClick={() => handleCountryClick(country)}
-          />
-        ))}
+        {COUNTRIES.map((country) => {
+          const displayName = tCountries.has(country.slug)
+            ? tCountries(country.slug)
+            : country.name;
+          return (
+            <CountryMarker
+              key={country.code}
+              country={country}
+              displayName={displayName}
+              comingSoonLabel={tSelector("comingSoon")}
+              openGuideLabel={t("openGuideForCountry", {
+                country: displayName,
+              })}
+              comingSoonAriaLabel={t("countryComingSoon", {
+                country: displayName,
+              })}
+              isLoading={loadingCode === country.code}
+              onClick={() => handleCountryClick(country)}
+            />
+          );
+        })}
       </Map>
 
       {/* Loading overlay during route transition */}

@@ -40,11 +40,18 @@ export async function generateMetadata({
   if (!country) return {};
   const locale = isValidLocale(params.locale) ? params.locale : defaultLocale;
   const content = getPathContent(country.slug, locale);
-  const t = await getTranslations("countryPage.meta");
-  const title = t("titleTemplate", { country: country.name });
+  const t = await getTranslations({ locale, namespace: "countryPage.meta" });
+  const tCountries = await getTranslations({
+    locale,
+    namespace: "lookups.countryNames",
+  });
+  const countryName = tCountries.has(country.slug)
+    ? tCountries(country.slug)
+    : country.name;
+  const title = t("titleTemplate", { country: countryName });
   const description =
     content?.frontmatter.summary ??
-    t("fallbackDescription", { country: country.name });
+    t("fallbackDescription", { country: countryName });
   return {
     title,
     description,
@@ -64,6 +71,13 @@ export default async function CountryPage({ params }: CountryPageProps) {
 
   const t = await getTranslations("countryPage");
   const tGuides = await getTranslations({ locale, namespace: "guides" });
+  const tCountries = await getTranslations({
+    locale,
+    namespace: "lookups.countryNames",
+  });
+  const countryName = tCountries.has(country.slug)
+    ? tCountries(country.slug)
+    : country.name;
 
   const { content: mdxSource, frontmatter } = content;
 
@@ -79,7 +93,7 @@ export default async function CountryPage({ params }: CountryPageProps) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: t("meta.titleTemplate", { country: country.name }),
+    name: t("meta.titleTemplate", { country: countryName }),
     description: frontmatter.summary,
     inLanguage: content.translated ? bcp47[locale] : bcp47[defaultLocale],
     step: [
@@ -125,7 +139,7 @@ export default async function CountryPage({ params }: CountryPageProps) {
           </Link>
           <span>/</span>
           <span className="text-[#1a1a2e] dark:text-[#f2f3f4]">
-            {country.name}
+            {countryName}
           </span>
         </nav>
 

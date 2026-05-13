@@ -1555,7 +1555,9 @@
     },
     "map": {
       "turkeyLabel": "Türkiye - varış ülken",
-      "istanbulLabel": "İstanbul - varış noktan"
+      "istanbulLabel": "İstanbul - varış noktan",
+      "openGuideForCountry": "{country} için rehberi aç",
+      "countryComingSoon": "{country} - yakında"
     }
   },
   "countryPage": {

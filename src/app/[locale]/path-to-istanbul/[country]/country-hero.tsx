@@ -20,7 +20,14 @@ export async function CountryHero({
   lastUpdated,
   locale,
 }: CountryHeroProps) {
-  const t = await getTranslations("countryPage.hero");
+  const t = await getTranslations({ locale, namespace: "countryPage.hero" });
+  const tCountries = await getTranslations({
+    locale,
+    namespace: "lookups.countryNames",
+  });
+  const countryName = tCountries.has(country.slug)
+    ? tCountries(country.slug)
+    : country.name;
   return (
     <div className="relative overflow-hidden rounded-2xl border border-primary-200/50 bg-gradient-to-br from-primary-50 via-white to-white p-5 dark:border-primary-900/30 dark:from-primary-950/40 dark:via-[#0f1117] dark:to-[#0f1117] sm:rounded-3xl sm:p-10 sm:py-14">
       <span
@@ -34,7 +41,7 @@ export async function CountryHero({
           {t("eyebrow")}
         </p>
         <h1 className="mt-1 text-2xl font-bold tracking-tight text-[#1a1a2e] dark:text-[#f2f3f4] sm:text-4xl">
-          {t("title", { country: country.name })}
+          {t("title", { country: countryName })}
         </h1>
       </div>
 

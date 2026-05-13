@@ -283,6 +283,7 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
     "relocationAgentPage.form.mustHaveOptions",
   );
   const tErrors = useTranslations("relocationAgentPage.form.errors");
+  const tCountries = useTranslations("lookups.countryNames");
 
   const DURATION_OPTIONS = useMemo(
     () =>
@@ -316,11 +317,11 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
       { value: "", label: t("originSkip") },
       ...COUNTRIES.map((c) => ({
         value: c.slug,
-        label: `${c.flag} ${c.name}`,
+        label: `${c.flag} ${tCountries.has(c.slug) ? tCountries(c.slug) : c.name}`,
       })),
       { value: "other", label: t("originOther") },
     ],
-    [t],
+    [t, tCountries],
   );
 
   const [form, setForm] = useState<FormState>(initialState);

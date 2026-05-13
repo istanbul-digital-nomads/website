@@ -1559,7 +1559,9 @@
     },
     "map": {
       "turkeyLabel": "Турция - твоя страна назначения",
-      "istanbulLabel": "Стамбул - твоя точка назначения"
+      "istanbulLabel": "Стамбул - твоя точка назначения",
+      "openGuideForCountry": "Открыть гайд по стране {country}",
+      "countryComingSoon": "{country} - скоро"
     }
   },
   "countryPage": {

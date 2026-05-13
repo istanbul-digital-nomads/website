@@ -1535,7 +1535,9 @@
     },
     "map": {
       "turkeyLabel": "ترکیه - کشور مقصد تو",
-      "istanbulLabel": "استانبول - مقصد تو"
+      "istanbulLabel": "استانبول - مقصد تو",
+      "openGuideForCountry": "راهنمای {country} را باز کن",
+      "countryComingSoon": "{country} - به‌زودی"
     }
   },
   "countryPage": {

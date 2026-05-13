@@ -4,13 +4,31 @@ import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { guides } from "@/lib/data";
 import { hasGuideContent } from "@/lib/guides";
+import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
+import { alternatesFor, localeUrl } from "@/lib/seo";
 import { GuidesListing } from "./guides-listing";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("guidesIndexPage.meta");
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
+  const t = await getTranslations({
+    locale,
+    namespace: "guidesIndexPage.meta",
+  });
   return {
     title: t("title"),
     description: t("description"),
+    alternates: alternatesFor(locale, "/guides"),
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      url: localeUrl(locale, "/guides"),
+      type: "website",
+    },
   };
 }
 

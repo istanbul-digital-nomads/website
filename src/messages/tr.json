@@ -837,6 +837,11 @@
     "cta": "Telegram'a katıl"
   },
   "home": {
+    "seo": {
+      "title": "Istanbul Digital Nomads - İstanbul'da çalış, yaşa, yerleş",
+      "description": "İstanbul'daki dijital göçebelerin buluşma noktası. Haftalık coworking, mahalle rehberleri, vize bilgileri, doğrulanmış ortak çalışma alanları ve ülkeye özel taşınma planları.",
+      "keywords": "istanbul dijital göçebe, istanbul uzaktan çalışma, istanbul coworking, türkiye dijital göçebe vizesi, istanbul'da yaşamak göçebe, kadıköy coworking, istanbul dijital göçebe topluluğu"
+    },
     "meta": {
       "tickerSchedule": "Kadıköy 09:10 / Karaköy 10:25 / Galata 18:30",
       "tickerTimezone": "GMT+3 / önce vapur / laptop hazır",
@@ -1961,6 +1966,7 @@
       "blog": "Blog"
     },
     "backToBlog": "Tüm yazılara dön",
+    "lastUpdated": "{date} tarihinde güncellendi",
     "translationInProgress": "Bu yazı henüz {language} diline çevrilmedi. İngilizce orijinalini okuyorsun."
   },
   "og": {

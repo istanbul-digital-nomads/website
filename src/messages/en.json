@@ -817,6 +817,11 @@
     "cta": "Join on Telegram"
   },
   "home": {
+    "seo": {
+      "title": "Istanbul Digital Nomads - Work, live, and land well in Istanbul",
+      "description": "The community hub for digital nomads in Istanbul. Weekly coworking, neighborhood guides, visa info, verified coworking spaces, and country-by-country relocation playbooks.",
+      "keywords": "digital nomad istanbul, remote work istanbul, coworking istanbul, istanbul nomad visa, living in istanbul as a nomad, istanbul kadikoy coworking, istanbul digital nomad community"
+    },
     "meta": {
       "tickerSchedule": "Kadikoy 09:10 / Karakoy 10:25 / Galata 18:30",
       "tickerTimezone": "GMT+3 / ferry-first / laptop-ready",
@@ -1941,6 +1946,7 @@
       "blog": "Blog"
     },
     "backToBlog": "Back to all posts",
+    "lastUpdated": "Updated {date}",
     "translationInProgress": "This post hasn't been translated to {language} yet. You're reading the English original."
   },
   "og": {

@@ -21,6 +21,7 @@ import {
 } from "@/lib/i18n/config";
 import { guides as cityGuides } from "@/lib/data";
 import { getAllBlogPosts } from "@/lib/blog";
+import { alternatesFor, localeUrl } from "@/lib/seo";
 import { CountryHero } from "./country-hero";
 import { CountryTOC } from "./country-toc";
 import { GuidesFromCountry } from "../guides-from-country";
@@ -55,7 +56,13 @@ export async function generateMetadata({
   return {
     title,
     description,
-    openGraph: { title, description },
+    alternates: alternatesFor(locale, `/path-to-istanbul/${country.slug}`),
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      url: localeUrl(locale, `/path-to-istanbul/${country.slug}`),
+    },
   };
 }
 

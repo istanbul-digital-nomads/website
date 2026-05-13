@@ -1,13 +1,28 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { getEvents } from "@/lib/supabase/queries";
+import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
+import { alternatesFor, localeUrl } from "@/lib/seo";
 import { EventsView } from "./events-view";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("eventsPage.meta");
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
+  const t = await getTranslations({ locale, namespace: "eventsPage.meta" });
   return {
     title: t("title"),
     description: t("description"),
+    alternates: alternatesFor(locale, "/events"),
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      url: localeUrl(locale, "/events"),
+      type: "website",
+    },
   };
 }
 

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,11 +23,51 @@ import { NeighborhoodsMapSection } from "@/components/sections/neighborhoods-map
 import { NeighborhoodRhythmMatcher } from "@/components/sections/neighborhood-rhythm-matcher";
 import { guides } from "@/lib/data";
 import { socialLinks } from "@/lib/constants";
+import { faqItems } from "@/lib/faq";
 import { formatEventDate } from "@/lib/utils";
-import type { Locale } from "@/lib/i18n/config";
+import {
+  bcp47,
+  defaultLocale,
+  isValidLocale,
+  type Locale,
+} from "@/lib/i18n/config";
+import {
+  alternatesFor,
+  faqPageSchema,
+  jsonLdGraph,
+  organizationSchema,
+  websiteSchema,
+} from "@/lib/seo";
 import { getEventsPublic } from "@/lib/supabase/queries";
 
 export const revalidate = 300;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
+  const t = await getTranslations({ locale, namespace: "home.seo" });
+  const tSite = await getTranslations({ locale, namespace: "site" });
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords")
+      .split(",")
+      .map((k) => k.trim()),
+    alternates: alternatesFor(locale, "/"),
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      url: locale === defaultLocale ? "/" : `/${locale}`,
+      type: "website",
+      siteName: tSite("name"),
+    },
+  };
+}
+
 const FAQSection = dynamic(
   () =>
     import("@/components/sections/faq-section").then((m) => ({
@@ -60,10 +101,36 @@ export default async function HomePage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+  const { locale: rawLocale } = await params;
+  setRequestLocale(rawLocale);
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
   const t = await getTranslations("home");
   const tGuides = await getTranslations("guides");
+  const tFaq = await getTranslations("faqItems");
+
+  const faqs = faqItems.map((item) => ({
+    question: tFaq(`${item.id}.question`),
+    answer: tFaq(`${item.id}.answer`),
+  }));
+  const homeSchema = {
+    "@type": "WebPage",
+    "@id": `${"https://istanbulnomads.com"}#webpage`,
+    url:
+      locale === defaultLocale
+        ? "https://istanbulnomads.com"
+        : `https://istanbulnomads.com/${locale}`,
+    name: t("seo.title"),
+    description: t("seo.description"),
+    inLanguage: bcp47[locale],
+    isPartOf: { "@id": "https://istanbulnomads.com#website" },
+    about: { "@id": "https://istanbulnomads.com#organization" },
+  };
+  const jsonLd = jsonLdGraph(
+    organizationSchema(),
+    websiteSchema(locale),
+    homeSchema,
+    faqPageSchema(faqs),
+  );
 
   const { data: upcomingEvents } = await getEventsPublic({
     past: false,
@@ -115,6 +182,10 @@ export default async function HomePage({
 
   return (
     <div className="overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <section className="relative isolate border-b border-black/10 bg-[#fbfaf8] dark:border-white/10 dark:bg-[#14110f]">
         <div className="bg-grid absolute inset-0 opacity-[0.32] dark:opacity-[0.14]" />
         <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-primary-500/10 to-transparent dark:from-primary-950/20" />

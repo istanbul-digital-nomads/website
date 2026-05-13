@@ -13,10 +13,12 @@ import {
   isValidLocale,
   defaultLocale,
   localeNames,
+  bcp47,
   type Locale,
 } from "@/lib/i18n/config";
 import { formatDate } from "@/lib/utils";
 import { mdxOptions } from "@/lib/mdx-options";
+import { alternatesFor } from "@/lib/seo";
 
 const SITE_URL = "https://istanbulnomads.com";
 
@@ -71,9 +73,7 @@ export async function generateMetadata({
     title: post.meta.title,
     description: post.meta.description,
     keywords: post.meta.keywords ?? post.meta.tags,
-    alternates: {
-      canonical: `/blog/${post.meta.slug}`,
-    },
+    alternates: alternatesFor(locale, `/blog/${post.meta.slug}`),
     openGraph: post.meta.coverImage
       ? {
           type: "article",
@@ -113,6 +113,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const tagLabel = (slug: string) => (tTags.has(slug) ? tTags(slug) : slug);
   const canonicalUrl = `${SITE_URL}/blog/${post.meta.slug}`;
   const faqs = extractFaqs(post.content);
+  const inLanguageTag = post.meta.translated
+    ? bcp47[locale]
+    : bcp47[defaultLocale];
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -123,16 +126,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         description: post.meta.description,
         url: canonicalUrl,
         datePublished: post.meta.date,
-        dateModified: post.meta.date,
-        inLanguage: post.meta.translated ? locale : defaultLocale,
+        dateModified: post.meta.lastUpdated ?? post.meta.date,
+        inLanguage: inLanguageTag,
         author: {
           "@type": "Person",
           name: post.meta.author,
         },
         publisher: {
           "@type": "Organization",
+          "@id": `${SITE_URL}#organization`,
           name: "Istanbul Digital Nomads",
           url: SITE_URL,
+          logo: {
+            "@type": "ImageObject",
+            url: `${SITE_URL}/images/logo-light.png`,
+          },
         },
         image: post.meta.coverImage
           ? `${SITE_URL}${post.meta.coverImage.src}`
@@ -244,6 +252,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <Clock className="h-4 w-4" />
                 {post.meta.readingTime}
               </span>
+              {post.meta.lastUpdated &&
+                post.meta.lastUpdated !== post.meta.date && (
+                  <span className="flex items-center gap-1.5">
+                    <Calendar className="h-4 w-4" />
+                    {t("lastUpdated", {
+                      date: formatDate(
+                        post.meta.lastUpdated,
+                        undefined,
+                        locale,
+                      ),
+                    })}
+                  </span>
+                )}
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">

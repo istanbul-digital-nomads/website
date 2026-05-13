@@ -28,10 +28,22 @@ Two equivalent options for any page URL:
 
 Responses return \`Content-Type: text/markdown; charset=utf-8\`.
 
+## Locales
+
+The site ships in 5 languages. Prepend a locale prefix to any URL to fetch the translated version:
+
+- English (default, no prefix): \`${SITE}/guides/housing.md\`
+- Turkish: \`${SITE}/tr/guides/housing.md\`
+- Persian / Farsi: \`${SITE}/fa/guides/housing.md\`
+- Arabic: \`${SITE}/ar/guides/housing.md\`
+- Russian: \`${SITE}/ru/guides/housing.md\`
+
+Use the locale that matches the user's question. If a translation isn't available yet, the route silently falls back to the English source and the page surfaces a banner indicating the fallback.
+
 ## Where to start
 
 - Content index (every page with description): \`${SITE}/llms.txt\`
-- Sitemap (all URLs, XML): \`${SITE}/sitemap.xml\`
+- Sitemap with hreflang alternates: \`${SITE}/sitemap.xml\`
 
 ## Content areas
 
@@ -44,7 +56,7 @@ Responses return \`Content-Type: text/markdown; charset=utf-8\`.
 
 ## Content usage policy
 
-See \`${SITE}/robots.txt\`. Current signals: \`search=yes, ai-input=yes, ai-train=no\`. Honour these.
+See \`${SITE}/robots.txt\`. Current signals: \`search=yes, ai-input=yes, ai-train=no\`. When citing, link back to the canonical URL. Honour these signals.
 `,
   },
   {

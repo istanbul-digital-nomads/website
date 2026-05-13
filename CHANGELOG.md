@@ -4,6 +4,18 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.24.0] - 2026-05-14
+
+### Changed
+
+- Performance pass aimed at mobile LCP + unused-JS reduction (Lighthouse mobile was 82-95 depending on cache state, with ~260 KB of unused JS still shipping on initial paint):
+  - **MapLibre is now IntersectionObserver-gated**: the home `NeighborhoodsMapSection` previously called the `dynamic({ssr:false})` `IstanbulMap` directly, which meant the ~280 KB map chunk was fetched as soon as the page hydrated. Replaced with a `LazyMap` wrapper that only renders `<IstanbulMap />` once an `IntersectionObserver` (rootMargin 400px) marks the placeholder as near-viewport. For visitors who don't scroll past the hero, the entire MapLibre + style + worker payload is skipped.
+  - **Supabase auth client is now dynamic-imported in `AuthButton`**: `createClient` was a static import, so the ~40 KB supabase chunk shipped with the Header chunk on every page even for anonymous visitors (the vast majority of home-page traffic). The auth check + sign-out flow now `await import("@/lib/supabase/client")` at runtime, so the chunk only loads after the 100 ms post-hydration timer fires, and the supabase code is code-split into its own chunk that visitors who never need auth don't download.
+
+### Performance reference
+
+After this PR, Lighthouse mobile is expected to land around 90-95 reliably (was 82-95 cache-state-dependent). The remaining gap to 100 mobile Performance is the deferred L-effort work: split `Header` + `BottomTabBar` into server shells + tiny client islands, and migrate to Next.js 15's PPR / Cache Components.
+
 ## [1.23.2] - 2026-05-14
 
 ### Fixed

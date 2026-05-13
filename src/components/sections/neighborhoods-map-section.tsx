@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/container";
 
@@ -16,6 +17,48 @@ const IstanbulMap = dynamic(
     ),
   },
 );
+
+// MapLibre + style + worker is ~280 KB of JS. Defer the dynamic import until
+// the map section is near the viewport so it doesn't compete with the rest of
+// the home page's initial paint or hydration. rootMargin="400px" gives the
+// chunk time to download + parse before the user scrolls in.
+function LazyMap() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") {
+      setShouldLoad(true);
+      return;
+    }
+    const node = containerRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "400px" },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative min-h-[360px] sm:min-h-[480px] lg:min-h-[560px]"
+    >
+      {shouldLoad ? (
+        <IstanbulMap />
+      ) : (
+        <div className="absolute inset-0 rounded-xl border border-primary-200/60 bg-[#e8e0d4] dark:border-primary-900/40 dark:bg-[#1a1612]" />
+      )}
+    </div>
+  );
+}
 
 export function NeighborhoodsMapSection() {
   const t = useTranslations("sections.neighborhoodsMap");
@@ -34,9 +77,7 @@ export function NeighborhoodsMapSection() {
             </p>
           </div>
 
-          <div className="relative min-h-[360px] sm:min-h-[480px] lg:min-h-[560px]">
-            <IstanbulMap />
-          </div>
+          <LazyMap />
         </div>
       </Container>
     </section>

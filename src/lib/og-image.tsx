@@ -1,18 +1,49 @@
 import { ImageResponse } from "next/og";
+import type { Locale } from "@/lib/i18n/config";
+import { isRtlOgLocale, renderOgImageRtl } from "@/lib/og-image-rtl";
 
 // Shared size/contentType for every route's opengraph-image.tsx.
 export const ogSize = { width: 1200, height: 630 } as const;
 export const ogContentType = "image/png" as const;
 
+// Why two renderers:
+// - `@vercel/og` (satori) crashes on Arabic-script glyphs with
+//   "lookupType: 5 - substFormat: 3 is not yet supported"
+//   (vercel/satori#74 - RTL languages are not on the roadmap as of 2026).
+// - resvg-js + HarfBuzz handles Arabic shaping correctly.
+// So fa/ar routes go through resvg-js (Node runtime); everything else
+// continues to use satori. The visual design is replicated in
+// og-image-rtl.tsx so brand parity holds across locales.
+
 interface OgImageProps {
   category: string; // small uppercase label, e.g. "Blog", "Path to Istanbul"
   title: string; // large headline
   description?: string; // truncated subtitle (optional)
+  tagline?: string; // localized footer tagline, defaults to English brand line
+  locale?: Locale; // when fa/ar, dispatches to the resvg-js renderer
 }
 
 // Renders a branded OpenGraph card inspired by the Claude Code Docs style:
 // dark canvas, brand wordmark top-left, category label, large title, muted description.
-export function renderOgImage({ category, title, description }: OgImageProps) {
+export function renderOgImage({
+  category,
+  title,
+  description,
+  tagline = "Remote life, local rhythm",
+  locale,
+}: OgImageProps) {
+  // Dispatch Arabic-script locales to the resvg-js renderer (which can
+  // actually shape Arabic glyphs). LTR locales continue with satori.
+  if (isRtlOgLocale(locale)) {
+    return renderOgImageRtl({
+      category,
+      title,
+      description,
+      tagline,
+      locale,
+    });
+  }
+
   const BRAND = "#c0392b";
   const BG = "#0f1117";
   const FG = "#f2f3f4";
@@ -126,9 +157,7 @@ export function renderOgImage({ category, title, description }: OgImageProps) {
         }}
       >
         <div>istanbulnomads.com</div>
-        <div style={{ color: BRAND, fontWeight: 600 }}>
-          Remote life, local rhythm
-        </div>
+        <div style={{ color: BRAND, fontWeight: 600 }}>{tagline}</div>
       </div>
     </div>,
     { ...ogSize },

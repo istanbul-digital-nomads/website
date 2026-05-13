@@ -4,19 +4,16 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Sun, Moon, Monitor, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  navItems,
-  siteConfig,
-  socialLinks,
-  type NavItem,
-} from "@/lib/constants";
+import { navItems, socialLinks, type NavItem } from "@/lib/constants";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "./theme-provider";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import { AuthButton } from "./auth-button";
+import { LanguageSwitcher } from "./language-switcher";
 
 const themeIcons = { light: Sun, dark: Moon, system: Monitor } as const;
 const themeOrder = ["light", "dark", "system"] as const;
@@ -36,6 +33,8 @@ function NavDropdown({
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const tNav = useTranslations("nav");
+  const tItems = useTranslations("nav.items");
 
   const isChildActive = item.children.some(
     (child) => pathname === child.href || pathname.startsWith(child.href + "/"),
@@ -62,7 +61,7 @@ function NavDropdown({
             : "text-neutral-600 dark:text-[#85929e]",
         )}
       >
-        {item.label}
+        {tNav(item.key)}
         <ChevronDown
           className={cn(
             "h-3.5 w-3.5 transition-transform duration-200",
@@ -87,10 +86,10 @@ function NavDropdown({
               )}
             >
               <div className="text-sm font-medium text-neutral-900 dark:text-[#f2f3f4]">
-                {child.label}
+                {tItems(`${child.key}.label`)}
               </div>
               <div className="mt-0.5 text-xs text-neutral-500 dark:text-[#85929e]">
-                {child.description}
+                {tItems(`${child.key}.description`)}
               </div>
             </Link>
           ))}
@@ -104,6 +103,8 @@ export function Header() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const { direction, scrolled, atTop } = useScrollDirection();
+  const tSite = useTranslations("site");
+  const tNav = useTranslations("nav");
 
   const cycleTheme = () => {
     const idx = themeOrder.indexOf(theme);
@@ -133,7 +134,7 @@ export function Header() {
           <Link href="/" prefetch className="flex items-center gap-3">
             <Image
               src="/images/logo-light.png"
-              alt="Istanbul Nomads"
+              alt={tSite("shortName")}
               width={530}
               height={680}
               className="block dark:hidden"
@@ -142,7 +143,7 @@ export function Header() {
             />
             <Image
               src="/images/logo-dark.png"
-              alt="Istanbul Nomads"
+              alt={tSite("shortName")}
               width={542}
               height={693}
               className="hidden dark:block"
@@ -151,10 +152,10 @@ export function Header() {
             />
             <div>
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-neutral-950 dark:text-[#f2f3f4]">
-                {siteConfig.shortName}
+                {tSite("shortName")}
               </div>
               <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-neutral-500 dark:text-[#85929e]">
-                Remote life, local rhythm
+                {tSite("tagline")}
               </div>
             </div>
           </Link>
@@ -162,7 +163,7 @@ export function Header() {
           <nav className="hidden items-center gap-1 md:flex">
             {navItems.map((item) =>
               isDropdown(item) ? (
-                <NavDropdown key={item.label} item={item} pathname={pathname} />
+                <NavDropdown key={item.key} item={item} pathname={pathname} />
               ) : (
                 <Link
                   key={item.href}
@@ -175,7 +176,7 @@ export function Header() {
                       : "text-neutral-600 dark:text-[#85929e]",
                   )}
                 >
-                  {item.label}
+                  {tNav(item.key)}
                 </Link>
               ),
             )}
@@ -185,10 +186,12 @@ export function Header() {
             <button
               onClick={cycleTheme}
               className="rounded-full border border-black/5 p-2 text-neutral-500 transition-colors hover:bg-black/5 dark:border-white/10 dark:text-[#99a3ad] dark:hover:bg-white/10"
-              aria-label={`Switch theme (current: ${theme})`}
+              aria-label={tNav("theme.ariaLabel", { theme })}
             >
               <ThemeIcon className="h-5 w-5" />
             </button>
+
+            <LanguageSwitcher />
 
             <AuthButton />
 
@@ -202,7 +205,7 @@ export function Header() {
                 size="sm"
                 className="rounded-lg bg-primary-600 px-4 text-white hover:bg-primary-700 dark:bg-primary-500 dark:text-white dark:hover:bg-primary-400"
               >
-                Join on Telegram
+                {tNav("joinTelegram")}
               </Button>
             </a>
           </div>

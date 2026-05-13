@@ -1,3 +1,7 @@
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin("./src/lib/i18n/request.ts");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
@@ -24,7 +28,12 @@ const nextConfig = {
       "sonner",
       "@supabase/supabase-js",
       "react-map-gl",
+      "next-intl",
     ],
+    // resvg-js ships per-arch native .node binaries that webpack can't
+    // bundle (binary parse error). Mark it server-external so Next.js
+    // resolves it at runtime in the Node server instead.
+    serverComponentsExternalPackages: ["@resvg/resvg-js"],
   },
   async headers() {
     return [
@@ -63,4 +72,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

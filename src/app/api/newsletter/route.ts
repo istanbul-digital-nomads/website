@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { render } from "@react-email/render";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { NewsletterWelcomeEmail } from "@/lib/emails";
 import { rateLimit, getClientIp, rateLimitHeaders } from "@/lib/rate-limit";
+import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/config";
 
 function getResend() {
   return new Resend(process.env.RESEND_API_KEY);
@@ -41,6 +43,9 @@ export async function POST(request: Request) {
 
   const body = await request.json();
   const email = (body.email || "").trim().toLowerCase();
+  const rawLocale =
+    typeof body?.locale === "string" ? body.locale : defaultLocale;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json(
@@ -74,11 +79,16 @@ export async function POST(request: Request) {
   }
 
   try {
-    const html = await render(NewsletterWelcomeEmail({ email }));
+    const tSubject = await getTranslations({
+      locale,
+      namespace: "emails.newsletterWelcome",
+    });
+    const subject = tSubject("subject");
+    const html = await render(await NewsletterWelcomeEmail({ email, locale }));
     const { error: emailError } = await getResend().emails.send({
       from: "Istanbul Nomads <noreply@istanbulnomads.com>",
       to: email,
-      subject: "Your Istanbul work rhythm starts here",
+      subject,
       html,
     });
     if (emailError) {

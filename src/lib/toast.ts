@@ -1,8 +1,9 @@
 import { toast } from "sonner";
 
-// Branded toast presets for Istanbul Digital Nomads
-// Glassy design with Turkey Red brand accent
-// Usage: showToast.success("RSVP confirmed!") or showToast.error("Failed to save")
+// Branded toast presets. Messages and descriptions are passed in by callers
+// so they can be localized via `useTranslations`. No literal English copy
+// lives in this module.
+// Usage: showToast.success(t("toast.success"), t("toast.successBody"))
 
 export const showToast = {
   success(message: string, description?: string) {
@@ -26,42 +27,5 @@ export const showToast = {
     },
   ) {
     return toast.promise(promise, messages);
-  },
-
-  auth(message: string) {
-    toast(message, {
-      description: "Sign in with Google to continue.",
-      action: {
-        label: "Sign In",
-        onClick: () => (window.location.href = "/login"),
-      },
-    });
-  },
-
-  rsvp(eventTitle: string, status: "going" | "maybe" | "not_going") {
-    const labels = {
-      going: "You're going!",
-      maybe: "Marked as maybe",
-      not_going: "RSVP removed",
-    };
-    toast.success(labels[status], { description: eventTitle });
-  },
-
-  contact() {
-    toast.success("Message sent!", {
-      description: "We'll get back to you soon.",
-    });
-  },
-
-  profileUpdated() {
-    toast.success("Profile updated", {
-      description: "Your changes have been saved.",
-    });
-  },
-
-  guideApplication() {
-    toast.success("Application submitted!", {
-      description: "We'll review it and get back to you soon.",
-    });
   },
 };

@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { render } from "@react-email/render";
+import { getTranslations } from "next-intl/server";
 import { validateContactForm } from "@/lib/validations";
 import { ContactFormEmail } from "@/lib/emails";
 import { rateLimit, getClientIp, rateLimitHeaders } from "@/lib/rate-limit";
+import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/config";
 
 function getResend() {
   return new Resend(process.env.RESEND_API_KEY);
@@ -34,14 +36,24 @@ export async function POST(request: Request) {
   }
 
   const { name, email, message } = result.data!;
+  const rawLocale =
+    typeof body?.locale === "string" ? body.locale : defaultLocale;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
 
   try {
-    const html = await render(ContactFormEmail({ name, email, message }));
+    const tSubject = await getTranslations({
+      locale,
+      namespace: "emails.contactForm",
+    });
+    const subject = tSubject("subjectTemplate", { name });
+    const html = await render(
+      await ContactFormEmail({ name, email, message, locale }),
+    );
     await getResend().emails.send({
       from: "Istanbul Nomads <noreply@istanbulnomads.com>",
       to: "hello@istanbulnomads.com",
       replyTo: email,
-      subject: `New Istanbul Nomads message from ${name}`,
+      subject,
       html,
     });
   } catch {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { ArrowRight, Check } from "lucide-react";
 import { showToast } from "@/lib/toast";
 
@@ -11,6 +12,8 @@ export function NewsletterForm({
 }) {
   const [loading, setLoading] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
+  const t = useTranslations("newsletter");
+  const locale = useLocale();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -23,20 +26,20 @@ export function NewsletterForm({
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, locale }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        showToast.error("Could not subscribe", data.error);
+        showToast.error(t("toast.errorTitle"), data.error);
         return;
       }
 
       setSubscribed(true);
-      showToast.success("You're in!", data.data.message);
+      showToast.success(t("toast.successTitle"), data.data.message);
     } catch {
-      showToast.error("Something went wrong", "Please try again later.");
+      showToast.error(t("toast.failedTitle"), t("toast.failedBody"));
     } finally {
       setLoading(false);
     }
@@ -46,7 +49,7 @@ export function NewsletterForm({
     return (
       <div className="flex items-center gap-2 text-sm font-medium text-primary-600 dark:text-primary-400">
         <Check className="h-4 w-4" />
-        You&apos;re subscribed!
+        {t("subscribed")}
       </div>
     );
   }
@@ -59,7 +62,7 @@ export function NewsletterForm({
         type="email"
         name="email"
         required
-        placeholder="you@example.com"
+        placeholder={t("placeholder")}
         className={`min-w-0 flex-1 rounded-xl border px-3.5 py-2.5 text-sm outline-none transition-colors placeholder:text-neutral-400 focus:border-primary-400 focus:ring-1 focus:ring-primary-400 ${
           isFooter
             ? "border-black/10 bg-white/70 text-neutral-950 placeholder:text-neutral-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-[#f2f3f4] dark:placeholder:text-[#8f8378]"
@@ -74,10 +77,10 @@ export function NewsletterForm({
             ? "border border-primary-600 bg-primary-600 text-white hover:border-primary-700 hover:bg-primary-700 dark:border-primary-500 dark:bg-primary-500 dark:hover:border-primary-400 dark:hover:bg-primary-400"
             : "bg-primary-600 text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600"
         }`}
-        aria-label={isFooter ? "Subscribe to the Sunday letter" : undefined}
+        aria-label={isFooter ? t("ariaSubscribe") : undefined}
       >
         <span className={isFooter ? "sr-only sm:not-sr-only" : undefined}>
-          {loading ? "..." : "Subscribe"}
+          {loading ? "..." : t("subscribe")}
         </span>
         {!loading && <ArrowRight className="h-3.5 w-3.5" />}
       </button>

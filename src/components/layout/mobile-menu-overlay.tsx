@@ -5,8 +5,9 @@ import { X, Github, Send, Twitter, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
-import { navItems, socialLinks, type NavItem } from "@/lib/constants";
+import { navItems, socialLinks } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "./theme-provider";
 
@@ -15,22 +16,27 @@ interface MobileMenuOverlayProps {
   onClose: () => void;
 }
 
-const themes = [
-  { value: "light" as const, label: "Light" },
-  { value: "dark" as const, label: "Dark" },
-  { value: "system" as const, label: "Auto" },
-];
+const themeOptions = ["light", "dark", "system"] as const;
 
 const socialIcons = [
-  { href: socialLinks.telegram, icon: Send, label: "Telegram" },
-  { href: socialLinks.github, icon: Github, label: "GitHub" },
-  { href: socialLinks.twitter, icon: Twitter, label: "Twitter" },
-  { href: `mailto:${socialLinks.email}`, icon: Mail, label: "Email" },
+  { href: socialLinks.telegram, icon: Send, key: "telegram" as const },
+  { href: socialLinks.github, icon: Github, key: "github" as const },
+  { href: socialLinks.twitter, icon: Twitter, key: "twitter" as const },
+  {
+    href: `mailto:${socialLinks.email}`,
+    icon: Mail,
+    key: "email" as const,
+  },
 ];
 
 export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
+  const tSite = useTranslations("site");
+  const tNav = useTranslations("nav");
+  const tItems = useTranslations("nav.items");
+  const tMobile = useTranslations("mobileMenu");
+  const tBottomNav = useTranslations("bottomNav");
 
   return (
     <Dialog open={open} onClose={onClose} className="relative z-[60] md:hidden">
@@ -39,7 +45,6 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
         aria-hidden="true"
       />
       <DialogPanel className="fixed inset-0 flex flex-col bg-[rgba(255,247,243,0.98)] backdrop-blur-xl transition-transform duration-300 data-[closed]:translate-y-full dark:bg-[rgba(26,29,39,0.98)]">
-        {/* Header */}
         <div
           className="flex items-center justify-between px-6"
           style={{
@@ -49,44 +54,43 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
           <div className="flex items-center gap-2.5">
             <Image
               src="/images/logo-light.png"
-              alt="Istanbul Nomads"
+              alt={tSite("shortName")}
               width={25}
               height={32}
               className="block dark:hidden"
             />
             <Image
               src="/images/logo-dark.png"
-              alt="Istanbul Nomads"
+              alt={tSite("shortName")}
               width={25}
               height={32}
               className="hidden dark:block"
             />
             <div>
               <span className="text-lg font-bold text-primary-600 dark:text-primary-400">
-                Menu
+                {tMobile("menu")}
               </span>
               <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.26em] text-neutral-500 dark:text-[#85929e]">
-                Istanbul Digital Nomads
+                {tSite("name")}
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
             className="tap-highlight rounded-full border border-black/10 p-2.5 text-neutral-500 hover:bg-primary-50 dark:border-white/10 dark:hover:bg-white/10"
-            aria-label="Close menu"
+            aria-label={tBottomNav("closeMenu")}
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
-        {/* Navigation */}
         <nav className="mt-6 flex-1 overflow-y-auto px-4">
           <div className="space-y-1">
             {navItems.map((item) =>
               "children" in item ? (
-                <div key={item.label}>
+                <div key={item.key}>
                   <p className="px-4 pb-1 pt-4 font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-400 dark:text-[#5d6d7e]">
-                    {item.label}
+                    {tNav(item.key)}
                   </p>
                   {item.children.map((child) => (
                     <Link
@@ -102,7 +106,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
                           : "text-neutral-700 hover:bg-black/5 dark:text-[#99a3ad] dark:hover:bg-white/5",
                       )}
                     >
-                      {child.label}
+                      {tItems(`${child.key}.label`)}
                     </Link>
                   ))}
                 </div>
@@ -119,13 +123,12 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
                       : "text-neutral-700 hover:bg-black/5 dark:text-[#99a3ad] dark:hover:bg-white/5",
                   )}
                 >
-                  {item.label}
+                  {tNav(item.key)}
                 </Link>
               ),
             )}
           </div>
 
-          {/* Sign In */}
           <Link
             href="/login"
             prefetch
@@ -144,46 +147,44 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>
-            Sign In
+            {tMobile("signIn")}
           </Link>
 
-          {/* Theme toggle */}
           <div className="mt-6">
             <p className="px-4 font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-500 dark:text-[#85929e]">
-              Appearance
+              {tMobile("appearance")}
             </p>
             <div className="mt-3 flex gap-1 rounded-full border border-black/10 bg-white/60 p-1 dark:border-white/10 dark:bg-white/5">
-              {themes.map((t) => (
+              {themeOptions.map((opt) => (
                 <button
-                  key={t.value}
-                  onClick={() => setTheme(t.value)}
+                  key={opt}
+                  onClick={() => setTheme(opt)}
                   className={cn(
                     "tap-highlight flex-1 rounded-full py-2.5 text-sm font-medium transition-colors",
-                    theme === t.value
+                    theme === opt
                       ? "bg-primary-600 text-white shadow-sm dark:bg-primary-500"
                       : "text-neutral-600 hover:text-neutral-900 dark:text-[#85929e] dark:hover:text-[#99a3ad]",
                   )}
                 >
-                  {t.label}
+                  {tMobile(`themes.${opt}`)}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Social links */}
           <div className="mt-6">
             <p className="px-4 font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-500 dark:text-[#85929e]">
-              Connect
+              {tMobile("connect")}
             </p>
             <div className="mt-3 flex gap-3 px-4">
-              {socialIcons.map(({ href, icon: Icon, label }) => (
+              {socialIcons.map(({ href, icon: Icon, key }) => (
                 <a
-                  key={label}
+                  key={key}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="tap-highlight rounded-full border border-black/10 p-3 text-neutral-500 transition-colors hover:bg-black/5 hover:text-neutral-900 dark:border-white/10 dark:text-[#99a3ad] dark:hover:bg-white/10 dark:hover:text-white"
-                  aria-label={label}
+                  aria-label={tMobile(`social.${key}`)}
                 >
                   <Icon className="h-5 w-5" />
                 </a>
@@ -192,7 +193,6 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
           </div>
         </nav>
 
-        {/* Bottom CTA */}
         <div
           className="px-6 pb-4"
           style={{
@@ -206,7 +206,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
             onClick={onClose}
           >
             <Button className="w-full rounded-full" size="lg">
-              Join on Telegram
+              {tNav("joinTelegram")}
             </Button>
           </a>
         </div>

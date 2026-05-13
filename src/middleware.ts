@@ -1,5 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import createIntlMiddleware from "next-intl/middleware";
+import { routing } from "@/lib/i18n/routing";
 
 const SITE = "https://istanbulnomads.com";
 
@@ -10,6 +12,8 @@ const NO_MARKDOWN_PREFIXES = [
   "/auth",
   "/onboarding",
 ];
+
+const intlMiddleware = createIntlMiddleware(routing);
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -46,22 +50,18 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Run next-intl locale routing first. It will rewrite/redirect based on
+  // the URL prefix and the default locale's `as-needed` policy.
+  let response = intlMiddleware(request);
+
   const hasMarkdown = !NO_MARKDOWN_PREFIXES.some((p) => pathname.startsWith(p));
 
-  // Refresh Supabase session if auth cookies exist
+  // Refresh Supabase session if auth cookies exist, layering on top of intl's response
   const hasAuthCookie = request.cookies
     .getAll()
     .some((c) => c.name.startsWith("sb-"));
 
-  let response: NextResponse;
-
-  if (!hasAuthCookie) {
-    response = NextResponse.next();
-  } else {
-    response = NextResponse.next({
-      request: { headers: request.headers },
-    });
-
+  if (hasAuthCookie) {
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,

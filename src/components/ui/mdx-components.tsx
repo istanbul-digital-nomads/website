@@ -60,7 +60,7 @@ export const mdxComponents = {
   ),
   ul: ({ children, ...props }: Props<"ul">) => (
     <ul
-      className="mb-4 ml-6 list-disc space-y-2 text-[#526e89] marker:text-primary-400 dark:text-[#99a3ad]"
+      className="mb-4 ms-6 list-disc space-y-2 text-[#526e89] marker:text-primary-400 dark:text-[#99a3ad]"
       {...props}
     >
       {children}
@@ -68,7 +68,7 @@ export const mdxComponents = {
   ),
   ol: ({ children, ...props }: Props<"ol">) => (
     <ol
-      className="mb-4 ml-6 list-decimal space-y-2 text-[#526e89] marker:text-primary-400 dark:text-[#99a3ad]"
+      className="mb-4 ms-6 list-decimal space-y-2 text-[#526e89] marker:text-primary-400 dark:text-[#99a3ad]"
       {...props}
     >
       {children}
@@ -89,7 +89,7 @@ export const mdxComponents = {
   ),
   blockquote: ({ children, ...props }: Props<"blockquote">) => (
     <blockquote
-      className="my-6 rounded-xl border-l-4 border-primary-400 bg-primary-50/50 py-4 pl-6 pr-4 dark:border-primary-700 dark:bg-primary-950/20"
+      className="my-6 rounded-xl border-s-4 border-primary-400 bg-primary-50/50 py-4 pe-4 ps-6 dark:border-primary-700 dark:bg-primary-950/20"
       {...props}
     >
       {children}
@@ -97,7 +97,7 @@ export const mdxComponents = {
   ),
   table: ({ children, ...props }: Props<"table">) => (
     <div className="my-6 overflow-x-auto rounded-md border border-black/10 bg-white/45 dark:border-white/10 dark:bg-white/5">
-      <table className="min-w-full text-left text-sm" {...props}>
+      <table className="min-w-full text-start text-sm" {...props}>
         {children}
       </table>
     </div>
@@ -111,8 +111,15 @@ export const mdxComponents = {
     </thead>
   ),
   th: ({ children, ...props }: Props<"th">) => (
-    <th className="whitespace-nowrap px-4 py-3 font-semibold" {...props}>
-      {children}
+    // Wrap content in <bdi> so Latin runs like "20 GB" don't get
+    // bidi-flipped to "GB 20" inside RTL tables, while keeping the cell
+    // text-align: start (= right in RTL) so the whole table stays
+    // visually right-aligned for fa/ar readers.
+    <th
+      className="whitespace-nowrap px-4 py-3 text-start font-semibold"
+      {...props}
+    >
+      <bdi>{children}</bdi>
     </th>
   ),
   td: ({ children, ...props }: Props<"td">) => (
@@ -120,7 +127,7 @@ export const mdxComponents = {
       className="border-b border-black/5 px-4 py-3 align-top text-[#526e89] last:border-b-0 dark:border-white/5 dark:text-[#99a3ad]"
       {...props}
     >
-      {children}
+      <bdi>{children}</bdi>
     </td>
   ),
   hr: (props: Props<"hr">) => (

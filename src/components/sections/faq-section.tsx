@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/container";
@@ -10,33 +11,35 @@ import { faqItems } from "@/lib/faq";
 
 export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const t = useTranslations("sections.faq");
+  const tItems = useTranslations("faqItems");
+  const tGuides = useTranslations("guides");
 
   return (
     <section className="py-16 md:py-24">
       <Container>
         <Reveal>
           <div className="mx-auto max-w-3xl">
-            <p className="eyebrow">Common questions</p>
+            <p className="eyebrow">{t("eyebrow")}</p>
             <h2 className="mt-4 text-3xl font-bold tracking-tight text-[#1a1a2e] sm:text-4xl dark:text-[#f2f3f4]">
-              What nomads ask before arriving.
+              {t("title")}
             </h2>
             <p className="mt-4 text-lg text-[#5d6d7e] dark:text-[#99a3ad]">
-              Quick answers from our city guides. Click any question for more
-              detail.
+              {t("intro")}
             </p>
 
             <div className="mt-10 divide-y divide-primary-200/30 dark:divide-[rgba(44,47,58,0.5)]">
               {faqItems.map((item, index) => {
                 const isOpen = openIndex === index;
                 return (
-                  <div key={index}>
+                  <div key={item.id}>
                     <button
                       onClick={() => setOpenIndex(isOpen ? null : index)}
                       aria-expanded={openIndex === index}
                       className="flex w-full items-center justify-between py-5 text-left"
                     >
                       <span className="pr-4 text-base font-medium text-[#1a1a2e] dark:text-[#f2f3f4]">
-                        {item.question}
+                        {tItems(`${item.id}.question`)}
                       </span>
                       <ChevronDown
                         className={cn(
@@ -56,13 +59,15 @@ export function FAQSection() {
                       <div className="overflow-hidden">
                         <div className="pb-5">
                           <p className="text-sm leading-7 text-[#526e89] dark:text-[#99a3ad]">
-                            {item.answer}
+                            {tItems(`${item.id}.answer`)}
                           </p>
                           <Link
                             href={`/guides/${item.guideSlug}`}
                             className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 transition-colors hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300"
                           >
-                            Read the {item.guideTitle} guide
+                            {t("readGuide", {
+                              guide: tGuides(`${item.guideSlug}.title`),
+                            })}
                             <ArrowRight className="h-3.5 w-3.5" />
                           </Link>
                         </div>

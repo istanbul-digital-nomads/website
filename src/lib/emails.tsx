@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-head-element */
 import * as React from "react";
+import { getTranslations } from "next-intl/server";
+import { defaultLocale, isRtl, type Locale } from "@/lib/i18n/config";
 
 const brandColors = {
   bg: "#f6f0e9",
@@ -23,16 +25,30 @@ const textStyles = {
 function EmailLayout({
   children,
   previewText,
+  locale,
+  brandName,
+  brandTagline,
+  ferryTicker,
+  footerTagline,
+  footerSiteUrl,
 }: {
   children: React.ReactNode;
   previewText: string;
+  locale: Locale;
+  brandName: string;
+  brandTagline: string;
+  ferryTicker: string;
+  footerTagline: string;
+  footerSiteUrl: string;
 }) {
+  const rtl = isRtl(locale);
+  const dir = rtl ? "rtl" : "ltr";
   return (
-    <html>
+    <html lang={locale} dir={dir}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Istanbul Digital Nomads</title>
+        <title>{brandName}</title>
       </head>
       <body
         style={{
@@ -40,6 +56,7 @@ function EmailLayout({
           padding: 0,
           backgroundColor: brandColors.bg,
           fontFamily: textStyles.sans,
+          direction: dir,
         }}
       >
         <span
@@ -57,7 +74,8 @@ function EmailLayout({
           width="100%"
           cellPadding={0}
           cellSpacing={0}
-          style={{ backgroundColor: brandColors.bg }}
+          style={{ backgroundColor: brandColors.bg, direction: dir }}
+          dir={dir}
         >
           <tr>
             <td align="center" style={{ padding: "40px 16px" }}>
@@ -66,7 +84,8 @@ function EmailLayout({
                 width="100%"
                 cellPadding={0}
                 cellSpacing={0}
-                style={{ maxWidth: 560 }}
+                style={{ maxWidth: 560, direction: dir }}
+                dir={dir}
               >
                 <tr>
                   <td
@@ -78,12 +97,13 @@ function EmailLayout({
                       letterSpacing: "0.22em",
                       textTransform: "uppercase" as const,
                       color: brandColors.primary,
+                      textAlign: rtl ? ("right" as const) : ("left" as const),
                     }}
                   >
-                    Istanbul Digital Nomads
+                    {brandName}
                     <span style={{ color: brandColors.muted }}>
                       {" "}
-                      / remote life, local rhythm
+                      / {brandTagline}
                     </span>
                   </td>
                 </tr>
@@ -102,7 +122,11 @@ function EmailLayout({
                       width="100%"
                       cellPadding={0}
                       cellSpacing={0}
-                      style={{ backgroundColor: brandColors.ink }}
+                      style={{
+                        backgroundColor: brandColors.ink,
+                        direction: dir,
+                      }}
+                      dir={dir}
                     >
                       <tr>
                         <td style={{ padding: "18px 28px" }}>
@@ -115,9 +139,12 @@ function EmailLayout({
                               letterSpacing: "0.2em",
                               textTransform: "uppercase" as const,
                               color: "#d8d0c8",
+                              textAlign: rtl
+                                ? ("right" as const)
+                                : ("left" as const),
                             }}
                           >
-                            Kadikoy 09:10 / Karakoy 10:25 / Galata 18:30
+                            {ferryTicker}
                           </p>
                         </td>
                       </tr>
@@ -135,8 +162,7 @@ function EmailLayout({
                       lineHeight: "20px",
                     }}
                   >
-                    Istanbul Digital Nomads - ferry-first city notes for remote
-                    workers
+                    {footerTagline}
                     <br />
                     <a
                       href="https://istanbulnomads.com"
@@ -145,7 +171,7 @@ function EmailLayout({
                         textDecoration: "none",
                       }}
                     >
-                      istanbulnomads.com
+                      {footerSiteUrl}
                     </a>
                   </td>
                 </tr>
@@ -336,28 +362,51 @@ function LinkCard({
   );
 }
 
-export function ContactFormEmail({
+async function getSharedChrome(locale: Locale) {
+  const tShared = await getTranslations({
+    locale,
+    namespace: "emails.shared",
+  });
+  const tSite = await getTranslations({ locale, namespace: "site" });
+  return {
+    brandName: tShared("brandName"),
+    brandTagline: tSite("tagline"),
+    ferryTicker: tShared("ferryTicker"),
+    footerTagline: tShared("footerTagline"),
+    footerSiteUrl: tShared("footerSiteUrl"),
+  };
+}
+
+export async function ContactFormEmail({
   name,
   email,
   message,
+  locale = defaultLocale,
 }: {
   name: string;
   email: string;
   message: string;
+  locale?: Locale;
 }) {
+  const t = await getTranslations({
+    locale,
+    namespace: "emails.contactForm",
+  });
+  const chrome = await getSharedChrome(locale);
   return (
-    <EmailLayout previewText={`New message from ${name}`}>
-      <Kicker>Inbox note</Kicker>
-      <Heading>{name} sent a message</Heading>
-      <BodyText>
-        A new contact form message came in from the website. Reply directly to
-        continue the thread from your inbox.
-      </BodyText>
+    <EmailLayout
+      previewText={t("previewTextTemplate", { name })}
+      locale={locale}
+      {...chrome}
+    >
+      <Kicker>{t("kicker")}</Kicker>
+      <Heading>{t("headingTemplate", { name })}</Heading>
+      <BodyText>{t("intro")}</BodyText>
 
       <InfoPanel>
-        <FieldLabel>From</FieldLabel>
+        <FieldLabel>{t("fromLabel")}</FieldLabel>
         <FieldValue>{name}</FieldValue>
-        <FieldLabel>Email</FieldLabel>
+        <FieldLabel>{t("emailLabel")}</FieldLabel>
         <FieldValue>
           <a
             href={`mailto:${email}`}
@@ -371,7 +420,7 @@ export function ContactFormEmail({
         </FieldValue>
       </InfoPanel>
 
-      <FieldLabel>Message</FieldLabel>
+      <FieldLabel>{t("messageLabel")}</FieldLabel>
       <p
         style={{
           margin: 0,
@@ -391,51 +440,58 @@ export function ContactFormEmail({
           margin: "28px 0",
         }}
       />
-      <PrimaryButton href={`mailto:${email}`}>Reply to {name}</PrimaryButton>
+      <PrimaryButton href={`mailto:${email}`}>
+        {t("replyCtaTemplate", { name })}
+      </PrimaryButton>
     </EmailLayout>
   );
 }
 
-export function NewsletterWelcomeEmail({ email = "" }: { email?: string }) {
+export async function NewsletterWelcomeEmail({
+  email = "",
+  locale = defaultLocale,
+}: {
+  email?: string;
+  locale?: Locale;
+}) {
+  const t = await getTranslations({
+    locale,
+    namespace: "emails.newsletterWelcome",
+  });
+  const chrome = await getSharedChrome(locale);
   const unsubscribeHref = `https://istanbulnomads.com/unsubscribe${
     email ? `?email=${encodeURIComponent(email)}` : ""
   }`;
 
   return (
-    <EmailLayout previewText="Your ferry-first Istanbul starter map is here">
-      <Kicker>Welcome aboard</Kicker>
-      <Heading>Make Istanbul workable, one good route at a time.</Heading>
-      <BodyText>
-        You&apos;re on the list. We send practical city notes for remote
-        workers: where to base yourself, which tables are laptop-safe, what a
-        month really costs, and when the community is meeting next.
-      </BodyText>
+    <EmailLayout previewText={t("previewText")} locale={locale} {...chrome}>
+      <Kicker>{t("kicker")}</Kicker>
+      <Heading>{t("heading")}</Heading>
+      <BodyText>{t("body")}</BodyText>
 
       <InfoPanel>
-        <FieldLabel>Your first-week loop</FieldLabel>
-        <FieldValue>Kadikoy base / ferry reset / Galata evening</FieldValue>
-        <FieldLabel>What to do first</FieldLabel>
-        <FieldValue>
-          Pick a neighborhood before picking a monthly rental
-        </FieldValue>
+        <FieldLabel>{t("firstWeekLabel")}</FieldLabel>
+        <FieldValue>{t("firstWeekValue")}</FieldValue>
+        <FieldLabel>{t("firstStepLabel")}</FieldLabel>
+        <FieldValue>{t("firstStepValue")}</FieldValue>
       </InfoPanel>
 
-      <Kicker>Start here</Kicker>
+      <Kicker>{t("startHereKicker")}</Kicker>
 
       {[
         {
-          title: "Neighborhoods guide",
-          desc: "Compare ferry-side, central, business, and character-heavy neighborhoods with real tradeoffs.",
+          title: t("links.neighborhoodsTitle"),
+          desc: t("links.neighborhoodsDesc"),
           href: "https://istanbulnomads.com/guides/neighborhoods",
         },
         {
-          title: "Cost of living breakdown",
-          desc: "See monthly budgets before Istanbul starts negotiating with your wallet.",
+          title: t("links.costTitle"),
+          desc: t("links.costDesc"),
           href: "https://istanbulnomads.com/guides/cost-of-living",
         },
         {
-          title: "Coworking and laptop cafes",
-          desc: "Find reliable tables for calls, focus days, and backup plans.",
+          title: t("links.coworkingTitle"),
+          desc: t("links.coworkingDesc"),
           href: "https://istanbulnomads.com/guides/coworking",
         },
       ].map((link) => (
@@ -452,7 +508,7 @@ export function NewsletterWelcomeEmail({ email = "" }: { email?: string }) {
         <tr>
           <td align="center">
             <PrimaryButton href="https://t.me/istanbul_digital_nomads">
-              Join the workweek
+              {t("ctaJoin")}
             </PrimaryButton>
           </td>
         </tr>
@@ -474,19 +530,19 @@ export function NewsletterWelcomeEmail({ email = "" }: { email?: string }) {
           textAlign: "center" as const,
         }}
       >
-        No noise. Just useful Istanbul notes.{" "}
+        {t("unsubscribeNote")}{" "}
         <a
           href={unsubscribeHref}
           style={{ color: brandColors.primaryLight, textDecoration: "none" }}
         >
-          Unsubscribe
+          {t("unsubscribeLink")}
         </a>
       </p>
     </EmailLayout>
   );
 }
 
-export function GuideApplicationEmail({
+export async function GuideApplicationEmail({
   name,
   email,
   specializations,
@@ -496,6 +552,7 @@ export function GuideApplicationEmail({
   bio,
   motivation,
   sample_tip,
+  locale = defaultLocale,
 }: {
   name: string;
   email: string;
@@ -506,28 +563,37 @@ export function GuideApplicationEmail({
   bio: string;
   motivation: string;
   sample_tip?: string;
+  locale?: Locale;
 }) {
+  const t = await getTranslations({
+    locale,
+    namespace: "emails.guideApplication",
+  });
+  const chrome = await getSharedChrome(locale);
   return (
-    <EmailLayout previewText={`New guide application from ${name}`}>
-      <Kicker>Local guide candidate</Kicker>
-      <Heading>{name} wants to guide nomads in Istanbul</Heading>
-      <BodyText>
-        Review their neighborhoods, languages, sample tip, and motivation. If
-        the fit looks strong, reply directly from this email.
-      </BodyText>
+    <EmailLayout
+      previewText={t("previewTextTemplate", { name })}
+      locale={locale}
+      {...chrome}
+    >
+      <Kicker>{t("kicker")}</Kicker>
+      <Heading>{t("headingTemplate", { name })}</Heading>
+      <BodyText>{t("intro")}</BodyText>
 
       <InfoPanel>
-        <FieldLabel>Experience</FieldLabel>
-        <FieldValue>{years_in_istanbul} years in Istanbul</FieldValue>
-        <FieldLabel>Specializations</FieldLabel>
+        <FieldLabel>{t("experienceLabel")}</FieldLabel>
+        <FieldValue>
+          {t("experienceValueTemplate", { years: years_in_istanbul })}
+        </FieldValue>
+        <FieldLabel>{t("specializationsLabel")}</FieldLabel>
         <FieldValue>{specializations.join(", ")}</FieldValue>
-        <FieldLabel>Neighborhoods</FieldLabel>
+        <FieldLabel>{t("neighborhoodsLabel")}</FieldLabel>
         <FieldValue>{neighborhoods.join(", ")}</FieldValue>
-        <FieldLabel>Languages</FieldLabel>
+        <FieldLabel>{t("languagesLabel")}</FieldLabel>
         <FieldValue>{languages.join(", ")}</FieldValue>
       </InfoPanel>
 
-      <FieldLabel>Bio</FieldLabel>
+      <FieldLabel>{t("bioLabel")}</FieldLabel>
       <p
         style={{
           margin: "0 0 20px",
@@ -542,7 +608,7 @@ export function GuideApplicationEmail({
 
       {sample_tip ? (
         <>
-          <FieldLabel>Sample tip</FieldLabel>
+          <FieldLabel>{t("sampleTipLabel")}</FieldLabel>
           <p
             style={{
               margin: "0 0 20px",
@@ -557,7 +623,7 @@ export function GuideApplicationEmail({
         </>
       ) : null}
 
-      <FieldLabel>Motivation</FieldLabel>
+      <FieldLabel>{t("motivationLabel")}</FieldLabel>
       <p
         style={{
           margin: 0,
@@ -577,7 +643,9 @@ export function GuideApplicationEmail({
           margin: "28px 0",
         }}
       />
-      <PrimaryButton href={`mailto:${email}`}>Reply to {name}</PrimaryButton>
+      <PrimaryButton href={`mailto:${email}`}>
+        {t("replyCtaTemplate", { name })}
+      </PrimaryButton>
     </EmailLayout>
   );
 }

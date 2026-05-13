@@ -19,9 +19,11 @@ Istanbul Nomads is more than a landing page - it's a full community platform. He
 
 ### Current Release
 
-- **Version:** `1.18.0`
+- **Version:** `1.20.0`
+- **Multi-language support:** English (root), Turkish (`/tr`), Farsi (`/fa`), Arabic (`/ar`), and Russian (`/ru`) with proper hreflang, locale-aware sitemap, RTL for Arabic and Farsi, and a language switcher in the header. Backed by four native-fluent audit agents that enforce grammar, brand voice, locale SEO, and AI engine optimization
 - **Neighborhood coverage:** 10 full Istanbul neighborhood guides with photos, rent ranges, transport notes, coworking context, markdown endpoints, and relocation-agent scoring
 - **First Week Planner:** Shareable seven-day landing plans turn arrival profile, base neighborhood, work rhythm, social appetite, and budget comfort into a practical Istanbul week-one itinerary
+- **Nomad Spaces finder:** Same-day work modes and combinable filters help visitors find calls-friendly, quiet, rain-safe, late, budget, and first-visit work spots
 - **Neighborhood decision layer:** Interactive rhythm matcher, structured badges, and first-base guidance help visitors choose a neighborhood by actual daily routine instead of a generic top-ten list
 - **Istanbul Today:** Live weather widget with current Istanbul mood, nomad-specific day planning, and a generated photoreal Bosphorus rain scene
 - **Broader area coverage:** 25+ Istanbul areas covered through tiered guidance, including "worth considering" and "usually not a first base" sections
@@ -90,6 +92,30 @@ Istanbul Nomads is more than a landing page - it's a full community platform. He
 | Email          | Resend                                         | Transactional + newsletter                                                         |
 | Error Tracking | Sentry                                         | Runtime error monitoring                                                           |
 | CI/CD          | GitHub Actions                                 | Lint, type check, build on every PR                                                |
+| i18n           | next-intl                                      | Server-rendered translations, RTL support, locale-aware routing and metadata       |
+
+## Internationalization
+
+The site ships in five languages. English is the default and lives at the root (`/`); the other four sit under language-only prefixes:
+
+| Locale  | URL prefix | BCP 47 | Direction |
+| ------- | ---------- | ------ | --------- |
+| English | `/`        | en-US  | LTR       |
+| Turkish | `/tr`      | tr-TR  | LTR       |
+| Farsi   | `/fa`      | fa-IR  | RTL       |
+| Arabic  | `/ar`      | ar-SA  | RTL       |
+| Russian | `/ru`      | ru-RU  | LTR       |
+
+- UI strings live in `src/messages/{locale}.json` and are loaded server-side by `next-intl`, so translated content adds near-zero client JS.
+- Routing is configured in `src/lib/i18n/routing.ts` with `localePrefix: "as-needed"` - English keeps its existing URLs so backlinks stay intact.
+- Per-locale MDX content goes under `src/content/{category}/{locale}/{slug}.mdx` (e.g., `src/content/blog/tr/...`). All 16 blog posts, 11 city guides, and 5 country playbooks are translated to every locale (100% coverage). When a localized file is missing, the loader at `src/lib/i18n/content.ts` falls back to the English version.
+- `sitemap.xml` emits hreflang alternates with `x-default` pointing to English. `og:locale` and `og:locale:alternate` are emitted per request; `<html lang dir>` is set per locale.
+- Transactional emails (contact, newsletter, guide application) accept a `locale` from the form and render with localized subject + body and `<html lang dir>` for RTL clients.
+- Dates render via `Intl.DateTimeFormat` with the active locale's BCP 47 tag (Persian visitors see "۲ آوریل ۲۰۲۶", not "April 2, 2026").
+- Chrome's auto-translate is suppressed via `<meta name="google" content="notranslate">` and `translate="no"` on `<html>` so the page stays in the locale the user picked.
+- RTL polish: directional Lucide icons mirror via Tailwind's `--tw-scale-x` variable (composes with hover-translate utilities), hover-translate variants reverse direction in RTL, LTR runs (rent ranges, wifi speeds, hours) are bidi-isolated in `<bdi dir="ltr">`, MDX tables use logical-property utilities and cell-level `<bdi>` for mixed-direction content.
+- OpenGraph image rendering uses two pipelines: `@vercel/og` (satori) for en/tr/ru on Edge runtime, and `@resvg/resvg-js` (HarfBuzz) for fa/ar on Node runtime because satori can't shape Arabic-script glyphs (vercel/satori#74). The brand layout is replicated in both; see `docs/i18n/og-rendering.md`.
+- Four native-fluent audit agents under `.claude/agents/` (`nomad-tr-editor`, `nomad-fa-editor`, `nomad-ar-editor`, `nomad-ru-editor`) audit each locale for grammar, vocabulary, brand voice, locale SEO, and AI engine optimization with a strict no-fabrication rule. See `docs/i18n/` for the per-locale keyword trackers and playbooks.
 
 ## Getting Started
 

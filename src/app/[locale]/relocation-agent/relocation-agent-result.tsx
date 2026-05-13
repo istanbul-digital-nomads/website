@@ -123,8 +123,14 @@ function IntakeRecap({ intake }: { intake: RelocationIntake }) {
   const tLifestyle = useTranslations(
     "relocationAgentPage.form.lifestyleOptions",
   );
+  const tCountries = useTranslations("lookups.countryNames");
   const country = intake.originCountry
     ? COUNTRIES.find((c) => c.slug === intake.originCountry)
+    : null;
+  const countryName = country
+    ? tCountries.has(country.slug)
+      ? tCountries(country.slug)
+      : country.name
     : null;
 
   // Look the slug values up in the same form-option dictionaries so the
@@ -161,8 +167,8 @@ function IntakeRecap({ intake }: { intake: RelocationIntake }) {
     durationLabel,
     t("lifestyleSuffix", { lifestyle: lifestyleLabel }),
     workLabel,
-    country
-      ? t("fromCountry", { flag: country.flag, name: country.name })
+    country && countryName
+      ? t("fromCountry", { flag: country.flag, name: countryName })
       : null,
   ].filter(Boolean) as string[];
 

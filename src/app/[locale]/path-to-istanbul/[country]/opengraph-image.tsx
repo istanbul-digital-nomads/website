@@ -20,16 +20,25 @@ export default async function Image({ params }: Props) {
   const country = getCountryBySlug(params.country);
   const content = country ? getPathContent(country.slug, locale) : null;
   const t = await getTranslations({ locale, namespace: "og" });
+  const tCountries = await getTranslations({
+    locale,
+    namespace: "lookups.countryNames",
+  });
+  const countryName = country
+    ? tCountries.has(country.slug)
+      ? tCountries(country.slug)
+      : country.name
+    : undefined;
 
   const categoryBase = t("pathToIstanbulCountry.category");
   const title = country
-    ? t("pathToIstanbulCountry.titleTemplate", { country: country.name })
+    ? t("pathToIstanbulCountry.titleTemplate", { country: countryName! })
     : t("pathToIstanbulCountry.fallbackTitle");
   const description =
     content?.frontmatter.summary ??
     (country
       ? t("pathToIstanbulCountry.fallbackDescriptionTemplate", {
-          country: country.name,
+          country: countryName!,
         })
       : undefined);
 

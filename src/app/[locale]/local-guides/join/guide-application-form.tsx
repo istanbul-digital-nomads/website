@@ -13,11 +13,6 @@ import {
 } from "@/lib/constants";
 import { COUNTRIES } from "@/lib/path-to-istanbul";
 
-const ORIGIN_COUNTRY_OPTIONS = COUNTRIES.map((c) => ({
-  value: c.code,
-  label: `${c.flag} ${c.name}`,
-}));
-
 interface FormData {
   name: string;
   email: string;
@@ -65,6 +60,7 @@ export function GuideApplicationForm() {
   const tSpecs = useTranslations("lookups.guideSpecializations");
   const tNeighborhoods = useTranslations("lookups.istanbulNeighborhoods");
   const tLanguages = useTranslations("lookups.commonLanguages");
+  const tCountries = useTranslations("lookups.countryNames");
   const locale = useLocale();
   const [form, setForm] = useState<FormData>(initial);
   const [loading, setLoading] = useState(false);
@@ -96,6 +92,14 @@ export function GuideApplicationForm() {
         label: tLanguages(name),
       })),
     [tLanguages],
+  );
+  const originCountryOptions = useMemo(
+    () =>
+      COUNTRIES.map((c) => ({
+        value: c.code,
+        label: `${c.flag} ${tCountries.has(c.slug) ? tCountries(c.slug) : c.name}`,
+      })),
+    [tCountries],
   );
 
   function update<K extends keyof FormData>(field: K, value: FormData[K]) {
@@ -239,7 +243,7 @@ export function GuideApplicationForm() {
         />
         <MultiSelectToggle
           label={t("fields.originCountries.label")}
-          options={ORIGIN_COUNTRY_OPTIONS}
+          options={originCountryOptions}
           value={form.origin_countries}
           onChange={(v) => update("origin_countries", v)}
         />

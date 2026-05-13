@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { getCountryByCode } from "@/lib/path-to-istanbul";
 import { cn } from "@/lib/utils";
 
@@ -13,8 +16,12 @@ export function FlagBadge({
   linkToCountryPage = false,
   className,
 }: FlagBadgeProps) {
+  const tCountries = useTranslations("lookups.countryNames");
   const country = getCountryByCode(code);
   if (!country) return null;
+  const countryName = tCountries.has(country.slug)
+    ? tCountries(country.slug)
+    : country.name;
 
   const content = (
     <span
@@ -24,7 +31,7 @@ export function FlagBadge({
       )}
     >
       <span aria-hidden="true">{country.flag}</span>
-      <span>{country.name}</span>
+      <span>{countryName}</span>
     </span>
   );
 

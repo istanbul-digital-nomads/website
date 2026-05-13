@@ -18,6 +18,10 @@ function neighborhoodLabel(v: string) {
 
 export async function GuidesFromCountry({ country }: { country: Country }) {
   const t = await getTranslations("pathToIstanbulPage.guidesFromCountry");
+  const tCountries = await getTranslations("lookups.countryNames");
+  const countryName = tCountries.has(country.slug)
+    ? tCountries(country.slug)
+    : country.name;
 
   // Tier 1: guides with exact origin-country match
   const { data: originMatches } = await getLocalGuides({
@@ -53,14 +57,14 @@ export async function GuidesFromCountry({ country }: { country: Country }) {
       <div className="flex items-start justify-between gap-4">
         <div>
           <h2 className="text-2xl font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-            {t("title", { country: country.name })}
+            {t("title", { country: countryName })}
           </h2>
           <p className="mt-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
             {tier === "origin"
               ? t("tierOrigin")
               : tier === "language"
-                ? t("tierLanguage", { country: country.name })
-                : t("tierEmpty", { country: country.name })}
+                ? t("tierLanguage", { country: countryName })
+                : t("tierEmpty", { country: countryName })}
           </p>
         </div>
         <span aria-hidden="true" className="text-3xl">
@@ -71,7 +75,7 @@ export async function GuidesFromCountry({ country }: { country: Country }) {
       {tier === "empty" ? (
         <div className="mt-6 rounded-xl border border-dashed border-primary-300/40 bg-white/60 p-6 text-center dark:border-primary-800/40 dark:bg-[#1a1a2e]/40">
           <p className="text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
-            {t("emptyBody", { country: country.name })}
+            {t("emptyBody", { country: countryName })}
           </p>
           <Link href="/local-guides/join" className="mt-4 inline-block">
             <Button size="sm" className="rounded-full">

@@ -9,6 +9,7 @@ import { COUNTRIES, getCountryByCode } from "@/lib/path-to-istanbul";
 
 async function PopularPaths() {
   const t = await getTranslations("pathToIstanbulPage.popularPaths");
+  const tCountries = await getTranslations("lookups.countryNames");
   const supported = COUNTRIES.filter((c) => c.supported);
   return (
     <div>
@@ -36,7 +37,7 @@ async function PopularPaths() {
                 </span>
                 <div>
                   <div className="text-base font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
-                    {c.name}
+                    {tCountries.has(c.slug) ? tCountries(c.slug) : c.name}
                   </div>
                   <div className="text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
                     {t("summary")}
@@ -59,6 +60,7 @@ export async function FeaturedGuides() {
 
   const t = await getTranslations("pathToIstanbulPage.featuredGuides");
   const tSpecs = await getTranslations("lookups.guideSpecializations");
+  const tCountries = await getTranslations("lookups.countryNames");
   const specLabel = (v: string) => {
     try {
       return tSpecs(v);
@@ -128,7 +130,7 @@ export async function FeaturedGuides() {
                         className="inline-flex items-center gap-1 rounded-full bg-primary-50 px-2 py-0.5 text-[10px] text-primary-700 dark:bg-primary-950/30 dark:text-primary-300"
                       >
                         <span aria-hidden="true">{c.flag}</span>
-                        {c.name}
+                        {tCountries.has(c.slug) ? tCountries(c.slug) : c.name}
                       </span>
                     ))}
                 </div>

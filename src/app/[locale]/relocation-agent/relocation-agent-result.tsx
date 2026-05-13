@@ -118,17 +118,49 @@ export function RelocationAgentResult({
 
 function IntakeRecap({ intake }: { intake: RelocationIntake }) {
   const t = useTranslations("relocationAgentPage.result");
+  const tDuration = useTranslations("relocationAgentPage.form.durationOptions");
+  const tWork = useTranslations("relocationAgentPage.form.workOptions");
+  const tLifestyle = useTranslations(
+    "relocationAgentPage.form.lifestyleOptions",
+  );
   const country = intake.originCountry
     ? COUNTRIES.find((c) => c.slug === intake.originCountry)
     : null;
+
+  // Look the slug values up in the same form-option dictionaries so the
+  // recap reads in the visitor's language (e.g. "remote full time" -> the
+  // translated label) instead of the raw slug
+  const durationLabel = (() => {
+    try {
+      return tDuration(intake.duration);
+    } catch {
+      return intake.duration.replace(/-/g, " ");
+    }
+  })();
+  const workLabel = (() => {
+    try {
+      return tWork(intake.work);
+    } catch {
+      return intake.work.replace(/-/g, " ");
+    }
+  })();
+
+  const lifestyleLabel = (() => {
+    try {
+      return tLifestyle(intake.lifestyle);
+    } catch {
+      return intake.lifestyle;
+    }
+  })();
+
   const items = [
     t("perMonth", {
       currency: intake.currency,
       budget: intake.budget.toLocaleString(),
     }),
-    intake.duration.replace(/-/g, " "),
-    t("lifestyleSuffix", { lifestyle: intake.lifestyle }),
-    intake.work.replace(/-/g, " "),
+    durationLabel,
+    t("lifestyleSuffix", { lifestyle: lifestyleLabel }),
+    workLabel,
     country
       ? t("fromCountry", { flag: country.flag, name: country.name })
       : null,

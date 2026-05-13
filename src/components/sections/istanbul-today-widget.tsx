@@ -140,7 +140,7 @@ export async function IstanbulTodayWidget({
           <div className="p-5 sm:p-7">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-4 dark:border-white/10">
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-300">
+                <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-200">
                   {t(`moods.${profile.mood}.label`)}
                 </p>
                 <p className="mt-1 text-sm text-[#5d6d7e] dark:text-[#b7aaa0]">
@@ -195,7 +195,7 @@ function WeatherStat({ label, value }: { label: string; value: string }) {
 function MiniCue({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-md border border-black/10 bg-[#f6f1ea]/70 p-4 dark:border-white/10 dark:bg-white/[0.06]">
-      <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#94877d]">
+      <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-neutral-600 dark:text-[#bdb1a6]">
         {label}
       </p>
       <p className="mt-2 font-semibold text-neutral-950 dark:text-[#f2f3f4]">

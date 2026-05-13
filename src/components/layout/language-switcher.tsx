@@ -68,18 +68,19 @@ export function LanguageSwitcher() {
       <button
         onClick={() => setOpen(!open)}
         className="flex items-center gap-1.5 rounded-full border border-black/5 px-2.5 py-1.5 text-xs font-medium uppercase tracking-wider text-neutral-600 transition-colors hover:bg-black/5 dark:border-white/10 dark:text-[#99a3ad] dark:hover:bg-white/10"
-        aria-label={t("label")}
         title={t("label")}
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        <Globe className="h-3.5 w-3.5" />
+        <Globe className="h-3.5 w-3.5" aria-hidden="true" />
+        <span className="sr-only">{t("label")}:</span>
         <span>{locale}</span>
         <ChevronDown
           className={cn(
             "h-3 w-3 transition-transform duration-200",
             open && "rotate-180",
           )}
+          aria-hidden="true"
         />
       </button>
 

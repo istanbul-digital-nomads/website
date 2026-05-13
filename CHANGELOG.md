@@ -4,6 +4,12 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.21.1] - 2026-05-13
+
+### Fixed
+
+- Production OG images for `/fa` and `/ar` rendered empty (gradient + IN badge only, no text). The TTFs in `/public/fonts/og/` weren't being bundled into the Vercel serverless function because Next.js's output file tracing follows static imports but doesn't follow runtime path strings (`fs.readFileSync(process.cwd() + "public/fonts/og/...")`). resvg-js silently fell back to no font and rendered text invisibly. Added `experimental.outputFileTracingIncludes` in `next.config.mjs` to ship `/public/fonts/og/**/*` with any `opengraph-image*` route. Local dev was unaffected because `process.cwd()` resolves to the full repo there.
+
 ## [1.21.0] - 2026-05-13
 
 ### Added

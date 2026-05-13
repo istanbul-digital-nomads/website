@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import {
   IBM_Plex_Mono,
   Inter,
@@ -21,38 +20,15 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import {
+  BottomTabBarIsland,
+  NavProgressIsland,
+  ToasterIsland,
+  WebMcpRegisterIsland,
+} from "@/components/layout/client-islands";
 import { routing } from "@/lib/i18n/routing";
 import { bcp47, isRtl, type Locale } from "@/lib/i18n/config";
 import "@/styles/globals.css";
-
-const BottomTabBar = dynamic(
-  () =>
-    import("@/components/layout/bottom-tab-bar").then((m) => ({
-      default: m.BottomTabBar,
-    })),
-  { ssr: false },
-);
-
-const NavigationProgress = dynamic(
-  () =>
-    import("@/components/ui/navigation-progress").then((m) => ({
-      default: m.NavigationProgress,
-    })),
-  { ssr: false },
-);
-
-const Toaster = dynamic(
-  () => import("sonner").then((m) => ({ default: m.Toaster })),
-  { ssr: false },
-);
-
-const WebMcpRegister = dynamic(
-  () =>
-    import("@/components/web-mcp-register").then((m) => ({
-      default: m.WebMcpRegister,
-    })),
-  { ssr: false },
-);
 
 const inter = Inter({
   subsets: ["latin"],
@@ -266,24 +242,16 @@ export default async function LocaleLayout({
       >
         <NextIntlClientProvider locale={typedLocale} messages={clientMessages}>
           <ThemeProvider>
-            <NavigationProgress />
+            <NavProgressIsland />
             <Header />
             <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">
               {children}
             </main>
             <Footer />
-            <BottomTabBar />
+            <BottomTabBarIsland />
           </ThemeProvider>
-          <Toaster
-            position="top-center"
-            toastOptions={{
-              className: "toast-brand",
-              duration: 4000,
-            }}
-            gap={8}
-            visibleToasts={3}
-          />
-          <WebMcpRegister />
+          <ToasterIsland />
+          <WebMcpRegisterIsland />
           <Analytics />
           <SpeedInsights />
         </NextIntlClientProvider>

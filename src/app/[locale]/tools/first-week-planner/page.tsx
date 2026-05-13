@@ -24,10 +24,11 @@ export async function generateMetadata({
 }
 
 interface Props {
-  searchParams?: Record<string, string | string[] | undefined>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }
 
-export default function FirstWeekPlannerPage({ searchParams = {} }: Props) {
+export default async function FirstWeekPlannerPage(props: Props) {
+  const searchParams = (await props.searchParams) ?? {};
   const params = new URLSearchParams();
 
   Object.entries(searchParams).forEach(([key, value]) => {

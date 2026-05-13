@@ -366,7 +366,12 @@ function OptionGroup<T extends string>({
   options: PlannerOption<T>[];
   onChange: (value: T) => void;
 }) {
-  const tGroup = useTranslations(`firstWeekPlanner.options.${groupKey}`);
+  // next-intl 4 narrows useTranslations keys against the message tree at
+  // compile time; the dynamic groupKey defeats that. Cast to a permissive
+  // shape - runtime behavior is unchanged.
+  const tGroup = useTranslations(
+    `firstWeekPlanner.options.${groupKey}` as never,
+  ) as (key: string) => string;
   return (
     <div>
       <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#94877d]">

@@ -18,14 +18,15 @@ import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { alternatesFor } from "@/lib/seo";
 
 interface Props {
-  params: { locale: string; neighborhood: string };
+  params: Promise<{ locale: string; neighborhood: string }>;
 }
 
 export async function generateStaticParams() {
   return neighborhoods.map((n) => ({ neighborhood: n.slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const n = getNeighborhoodBySlug(params.neighborhood);
   if (!n) return {};
   const locale: Locale = isValidLocale(params.locale)
@@ -48,7 +49,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function NeighborhoodDetailPage({ params }: Props) {
+export default async function NeighborhoodDetailPage(props: Props) {
+  const params = await props.params;
   const tList = await getTranslations("neighborhoodList");
   const tSpaces = await getTranslations("spacesList");
   const tCommon = await getTranslations("common");

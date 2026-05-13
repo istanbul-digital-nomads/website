@@ -25,11 +25,10 @@ import {
 
 const SLUG = "neighborhoods";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { locale: string };
+export async function generateMetadata(props: {
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
+  const params = await props.params;
   const guide = guides.find((g) => g.slug === SLUG);
   if (!guide) return {};
   const locale: Locale = isValidLocale(params.locale)
@@ -43,11 +42,10 @@ export async function generateMetadata({
   };
 }
 
-export default async function NeighborhoodsOverviewPage({
-  params,
-}: {
-  params: { locale: string };
+export default async function NeighborhoodsOverviewPage(props: {
+  params: Promise<{ locale: string }>;
 }) {
+  const params = await props.params;
   const tList = await getTranslations("neighborhoodList");
   const tGuides = await getTranslations("guides");
   const tPage = await getTranslations("guideDetailPage");

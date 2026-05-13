@@ -14,6 +14,8 @@ import {
   getSpacesInNeighborhood,
 } from "@/lib/neighborhoods";
 import { socialLinks } from "@/lib/constants";
+import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
+import { alternatesFor } from "@/lib/seo";
 
 interface Props {
   params: { locale: string; neighborhood: string };
@@ -26,6 +28,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const n = getNeighborhoodBySlug(params.neighborhood);
   if (!n) return {};
+  const locale: Locale = isValidLocale(params.locale)
+    ? params.locale
+    : defaultLocale;
   const tList = await getTranslations("neighborhoodList");
   const tDetail = await getTranslations("neighborhoodDetailPage");
   const name = tList(`${n.slug}.name`);
@@ -34,6 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description: oneLiner,
+    alternates: alternatesFor(locale, `/guides/neighborhoods/${n.slug}`),
     openGraph: {
       title,
       description: oneLiner,

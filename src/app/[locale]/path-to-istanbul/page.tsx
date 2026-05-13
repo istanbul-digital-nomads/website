@@ -6,19 +6,30 @@ import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
+import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
+import { alternatesFor, localeUrl } from "@/lib/seo";
 import { CountrySelector } from "./country-selector";
 import { FeaturedGuides } from "./featured-guides";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("pathToIstanbulPage.meta");
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
+  const t = await getTranslations({
+    locale,
+    namespace: "pathToIstanbulPage.meta",
+  });
   return {
     title: t("title"),
     description: t("description"),
-    alternates: { canonical: "/path-to-istanbul" },
+    alternates: alternatesFor(locale, "/path-to-istanbul"),
     openGraph: {
       title: t("ogTitle"),
       description: t("ogDescription"),
-      url: "/path-to-istanbul",
+      url: localeUrl(locale, "/path-to-istanbul"),
       type: "website",
     },
   };

@@ -12,6 +12,7 @@ export interface BlogPostMeta {
   description: string;
   author: string;
   date: string;
+  lastUpdated?: string;
   tags: string[];
   keywords?: string[];
   readingTime: string;
@@ -24,6 +25,7 @@ interface BlogFrontmatter {
   description?: string;
   author?: string;
   date?: string;
+  lastUpdated?: string;
   tags?: string[];
   keywords?: string[];
 }
@@ -113,6 +115,7 @@ export function getAllBlogPosts(
       description: fm.description || "",
       author: fm.author || "Istanbul Digital Nomads",
       date: fm.date || "2026-01-01",
+      lastUpdated: fm.lastUpdated,
       tags: fm.tags || [],
       keywords: fm.keywords,
       readingTime: estimateReadingTime(content),
@@ -142,6 +145,7 @@ export function getBlogPost(slug: string, locale: Locale = defaultLocale) {
       description: fm.description || "",
       author: fm.author || "Istanbul Digital Nomads",
       date: fm.date || "2026-01-01",
+      lastUpdated: fm.lastUpdated,
       tags: fm.tags || [],
       keywords: fm.keywords,
       readingTime: estimateReadingTime(content),

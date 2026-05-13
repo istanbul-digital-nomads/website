@@ -6,12 +6,21 @@ import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { blogCoverImages } from "@/lib/blog-covers";
+import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
+import { alternatesFor } from "@/lib/seo";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("creditsPage.meta");
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
+  const t = await getTranslations({ locale, namespace: "creditsPage.meta" });
   return {
     title: t("title"),
     description: t("description"),
+    alternates: alternatesFor(locale, "/credits"),
   };
 }
 

@@ -1,8 +1,4 @@
-"use client";
-
-import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+import { getLocale, getTranslations } from "next-intl/server";
 import {
   Cloud,
   CloudRain,
@@ -11,9 +7,9 @@ import {
   Umbrella,
   Wind,
 } from "lucide-react";
+import { bcp47, isValidLocale, type Locale } from "@/lib/i18n/config";
 import { cn } from "@/lib/utils";
-
-type WeatherMood = "sunny" | "cloudy" | "rainy" | "stormy" | "windy";
+import { WeatherScene, type WeatherMood } from "./istanbul-today-weather-scene";
 
 interface CurrentWeather {
   time: string;
@@ -40,34 +36,6 @@ const fallbackWeather: CurrentWeather = {
   wind_speed_10m: 14,
 };
 
-const rainDrops = Array.from({ length: 34 }, (_, index) => ({
-  id: index,
-  left: `${(index * 37) % 100}%`,
-  delay: `${(index % 9) * -0.18}s`,
-  duration: `${0.72 + (index % 5) * 0.08}s`,
-  height: `${18 + (index % 4) * 8}px`,
-}));
-
-const sparkleDots = Array.from({ length: 18 }, (_, index) => ({
-  id: index,
-  left: `${(index * 53) % 100}%`,
-  top: `${12 + ((index * 31) % 68)}%`,
-  delay: `${(index % 7) * -0.26}s`,
-}));
-
-const windLines = Array.from({ length: 9 }, (_, index) => ({
-  id: index,
-  top: `${18 + index * 8}%`,
-  delay: `${index * -0.25}s`,
-  width: `${72 + (index % 3) * 42}px`,
-}));
-
-const rainSplashes = Array.from({ length: 12 }, (_, index) => ({
-  id: index,
-  left: `${6 + ((index * 23) % 88)}%`,
-  delay: `${index * -0.2}s`,
-}));
-
 function getMood(current: CurrentWeather): MoodProfile {
   const code = current.weather_code;
   const isRain = (code >= 51 && code <= 67) || (code >= 80 && code <= 82);
@@ -90,49 +58,39 @@ function formatWeatherTime(value: string, locale: string) {
   }).format(new Date(value));
 }
 
-export function IstanbulTodayWidget({
+async function fetchCurrentWeather(): Promise<{
+  current: CurrentWeather;
+  isFallback: boolean;
+}> {
+  try {
+    const response = await fetch(
+      "https://api.open-meteo.com/v1/forecast?latitude=41.0082&longitude=28.9784&current=temperature_2m,precipitation,weather_code,wind_speed_10m&timezone=Europe%2FIstanbul&forecast_days=1",
+      { next: { revalidate: 600 } },
+    );
+    if (!response.ok) throw new Error("Weather request failed");
+    const payload = (await response.json()) as WeatherApiResponse;
+    if (!payload.current) {
+      return { current: fallbackWeather, isFallback: true };
+    }
+    return { current: payload.current, isFallback: false };
+  } catch {
+    return { current: fallbackWeather, isFallback: true };
+  }
+}
+
+export async function IstanbulTodayWidget({
   compact = false,
 }: {
   compact?: boolean;
 }) {
-  const [current, setCurrent] = useState<CurrentWeather | null>(null);
-  const [isFallback, setIsFallback] = useState(false);
-  const t = useTranslations("istanbulToday");
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    async function loadWeather() {
-      try {
-        const response = await fetch(
-          "https://api.open-meteo.com/v1/forecast?latitude=41.0082&longitude=28.9784&current=temperature_2m,precipitation,weather_code,wind_speed_10m&timezone=Europe%2FIstanbul&forecast_days=1",
-          { signal: controller.signal },
-        );
-
-        if (!response.ok) throw new Error("Weather request failed");
-
-        const payload = (await response.json()) as WeatherApiResponse;
-        setCurrent(payload.current ?? fallbackWeather);
-        setIsFallback(!payload.current);
-      } catch (error) {
-        if (controller.signal.aborted) return;
-        setCurrent(fallbackWeather);
-        setIsFallback(true);
-      }
-    }
-
-    loadWeather();
-
-    return () => controller.abort();
-  }, []);
-
-  const weather = current ?? fallbackWeather;
-  const profile = useMemo(() => getMood(weather), [weather]);
+  const t = await getTranslations("istanbulToday");
+  const rawLocale = await getLocale();
+  const locale: Locale = isValidLocale(rawLocale)
+    ? (rawLocale as Locale)
+    : "en";
+  const { current: weather, isFallback } = await fetchCurrentWeather();
+  const profile = getMood(weather);
   const Icon = profile.Icon;
-  const localeForTime =
-    typeof document !== "undefined"
-      ? document.documentElement.lang || "en"
-      : "en";
 
   return (
     <section
@@ -187,7 +145,7 @@ export function IstanbulTodayWidget({
                 </p>
                 <p className="mt-1 text-sm text-[#5d6d7e] dark:text-[#b7aaa0]">
                   {t("updated", {
-                    time: formatWeatherTime(weather.time, localeForTime),
+                    time: formatWeatherTime(weather.time, bcp47[locale]),
                   })}
                   {isFallback ? t("fallbackSuffix") : ""}
                 </p>
@@ -243,102 +201,6 @@ function MiniCue({ label, value }: { label: string; value: string }) {
       <p className="mt-2 font-semibold text-neutral-950 dark:text-[#f2f3f4]">
         {value}
       </p>
-    </div>
-  );
-}
-
-function WeatherScene({ mood }: { mood: WeatherMood }) {
-  const rainy = mood === "rainy" || mood === "stormy";
-  const sunny = mood === "sunny";
-  const windy = mood === "windy";
-  const cloudy = mood === "cloudy" || mood === "windy";
-
-  return (
-    <div className="absolute inset-0 overflow-hidden bg-[#171310]">
-      <Image
-        src="/images/weather/istanbul-rainy-bosphorus-2026.png"
-        alt=""
-        fill
-        priority={false}
-        sizes="(max-width: 1024px) 100vw, 680px"
-        className="object-cover object-[56%_50%]"
-      />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,9,8,0.86)_0%,rgba(10,9,8,0.5)_43%,rgba(10,9,8,0.1)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#14110f]/78 via-[#14110f]/24 to-transparent" />
-      <div
-        className={cn(
-          "absolute inset-0 mix-blend-soft-light",
-          sunny && "bg-[#f4a35d]/35",
-          rainy && "bg-[#1a2330]/45",
-          cloudy && "bg-[#6e7782]/35",
-        )}
-      />
-      <div className="istanbul-window-glow absolute inset-y-0 right-0 w-[45%] bg-[linear-gradient(105deg,transparent_0%,rgba(255,255,255,0.16)_45%,transparent_64%)] opacity-70" />
-      <div className="istanbul-haze absolute left-[-8%] top-[35%] h-24 w-[116%] rounded-full bg-white/10 blur-2xl" />
-
-      {sunny && (
-        <>
-          <div className="istanbul-sun absolute right-10 top-8 h-24 w-24 rounded-full bg-[#ffd37a]" />
-          {sparkleDots.map((dot) => (
-            <span
-              key={dot.id}
-              className="istanbul-spark absolute h-1.5 w-1.5 rounded-full bg-white/70"
-              style={{
-                left: dot.left,
-                top: dot.top,
-                animationDelay: dot.delay,
-              }}
-            />
-          ))}
-        </>
-      )}
-
-      {cloudy && (
-        <>
-          <div className="istanbul-cloud absolute left-[12%] top-10 h-16 w-36 rounded-full bg-white/18 blur-sm" />
-          <div className="istanbul-cloud-slow absolute right-[8%] top-20 h-20 w-44 rounded-full bg-white/14 blur-sm" />
-        </>
-      )}
-
-      {rainy && (
-        <>
-          {rainDrops.map((drop) => (
-            <span
-              key={drop.id}
-              className="istanbul-rain absolute top-[-40px] w-px rotate-12 rounded-full bg-primary-100/70"
-              style={{
-                left: drop.left,
-                height: drop.height,
-                animationDelay: drop.delay,
-                animationDuration: drop.duration,
-              }}
-            />
-          ))}
-          {rainSplashes.map((splash) => (
-            <span
-              key={splash.id}
-              className="istanbul-rain-splash absolute bottom-[20%] h-1 w-5 rounded-full border border-white/25"
-              style={{
-                left: splash.left,
-                animationDelay: splash.delay,
-              }}
-            />
-          ))}
-        </>
-      )}
-
-      {windy &&
-        windLines.map((line) => (
-          <span
-            key={line.id}
-            className="istanbul-wind absolute left-[-30%] h-px rounded-full bg-white/35"
-            style={{
-              top: line.top,
-              width: line.width,
-              animationDelay: line.delay,
-            }}
-          />
-        ))}
     </div>
   );
 }

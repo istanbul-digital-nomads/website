@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { preconnect } from "react-dom";
 import { ArrowRight, Clock3, Headphones, MapPin, PlugZap } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
@@ -39,6 +40,7 @@ export default async function SpacesPage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
+  preconnect("https://basemaps.cartocdn.com");
   const { locale: rawLocale } = await params;
   const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
   const t = await getTranslations("spacesPage");

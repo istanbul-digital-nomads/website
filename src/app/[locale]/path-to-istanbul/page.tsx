@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { preconnect } from "react-dom";
 import { ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Section } from "@/components/ui/section";
@@ -36,6 +37,7 @@ export async function generateMetadata({
 }
 
 export default async function PathToIstanbulPage() {
+  preconnect("https://basemaps.cartocdn.com");
   const t = await getTranslations("pathToIstanbulPage");
   return (
     <>

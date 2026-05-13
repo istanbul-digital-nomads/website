@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import { preconnect } from "react-dom";
 import {
   ArrowRight,
   CalendarDays,
@@ -101,6 +102,7 @@ export default async function HomePage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
+  preconnect("https://basemaps.cartocdn.com");
   const { locale: rawLocale } = await params;
   setRequestLocale(rawLocale);
   const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
@@ -250,7 +252,7 @@ export default async function HomePage({
                       alt={t("hero.imageAlt")}
                       fill
                       priority
-                      sizes="100vw"
+                      sizes="(max-width: 1023px) 100vw, 1px"
                       className="object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#14110f] via-[#14110f]/20 to-transparent" />
@@ -299,8 +301,7 @@ export default async function HomePage({
                   src="/images/neighborhoods/moda/hero-premium-2026.jpg"
                   alt={t("hero.imageAlt")}
                   fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 520px"
+                  sizes="(min-width: 1024px) 520px, 1px"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a2e]/75 via-[#1a1a2e]/10 to-transparent" />

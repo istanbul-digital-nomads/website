@@ -162,14 +162,14 @@ export function FirstWeekPlanner({ initialInput }: Props) {
             <div className="rounded-md border border-black/10 bg-white/70 p-4 dark:border-white/10 dark:bg-white/[0.04]">
               <div className="flex items-center justify-between gap-3 border-b border-black/10 pb-4 dark:border-white/10">
                 <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-300">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-200">
                     {t("aside.eyebrow")}
                   </p>
                   <p className="mt-1 text-sm text-[#5d6d7e] dark:text-[#b7aaa0]">
                     {t("aside.subtitle")}
                   </p>
                 </div>
-                <CalendarDays className="h-5 w-5 text-primary-600 dark:text-primary-300" />
+                <CalendarDays className="h-5 w-5 text-primary-600 dark:text-primary-200" />
               </div>
 
               <div className="mt-5 space-y-6">
@@ -232,7 +232,7 @@ export function FirstWeekPlanner({ initialInput }: Props) {
             <div className="rounded-md border border-black/10 bg-[#f6f1ea] p-5 dark:border-white/10 dark:bg-[#1a1612]">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-300">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-200">
                     {t("plan.eyebrow")}
                   </p>
                   <h2 className="mt-3 max-w-2xl font-display text-h1 text-neutral-950 dark:text-[#f2f3f4]">
@@ -261,7 +261,7 @@ export function FirstWeekPlanner({ initialInput }: Props) {
                     <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#94877d]">
                       {t("plan.dayLabel", { day: day.day })}
                     </p>
-                    <p className="mt-2 font-display text-3xl font-extrabold text-primary-700 dark:text-primary-300">
+                    <p className="mt-2 font-display text-3xl font-extrabold text-primary-700 dark:text-primary-200">
                       {day.day}
                     </p>
                   </div>
@@ -269,7 +269,7 @@ export function FirstWeekPlanner({ initialInput }: Props) {
                   <div>
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div>
-                        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-700 dark:text-primary-300">
+                        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-700 dark:text-primary-200">
                           {day.theme}
                         </p>
                         <h3 className="mt-2 font-display text-2xl font-extrabold text-neutral-950 dark:text-[#f2f3f4]">
@@ -299,7 +299,7 @@ export function FirstWeekPlanner({ initialInput }: Props) {
                     </div>
 
                     <div className="mt-4 flex items-start gap-2 rounded-md bg-primary-50/70 p-3 text-sm leading-6 text-primary-950 dark:bg-primary-950/20 dark:text-primary-100">
-                      <Check className="mt-1 h-4 w-4 shrink-0 text-primary-700 dark:text-primary-300" />
+                      <Check className="mt-1 h-4 w-4 shrink-0 text-primary-700 dark:text-primary-200" />
                       <p>{day.why}</p>
                     </div>
                   </div>
@@ -309,7 +309,7 @@ export function FirstWeekPlanner({ initialInput }: Props) {
 
             <div className="grid gap-5 lg:grid-cols-2">
               <div className="rounded-md border border-black/10 bg-white/70 p-5 dark:border-white/10 dark:bg-white/[0.04]">
-                <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-300">
+                <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-200">
                   {t("plan.saveLinks")}
                 </p>
                 <div className="mt-4 grid gap-2">
@@ -469,7 +469,7 @@ function NeighborhoodButton({
       )}
     >
       <span className="flex items-center gap-2 text-sm font-semibold text-neutral-950 dark:text-[#f2f3f4]">
-        <MapPin className="h-3.5 w-3.5 text-primary-600 dark:text-primary-300" />
+        <MapPin className="h-3.5 w-3.5 text-primary-600 dark:text-primary-200" />
         {label}
       </span>
       <span className="mt-1 block font-mono text-[9px] uppercase tracking-[0.18em] text-neutral-500 dark:text-[#94877d]">

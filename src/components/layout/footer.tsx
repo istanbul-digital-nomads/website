@@ -27,7 +27,7 @@ export async function Footer() {
       <Container className="relative">
         <div className="grid gap-5 border-b border-black/10 py-7 md:grid-cols-[minmax(0,1fr)_minmax(320px,420px)] md:items-end dark:border-white/10">
           <div>
-            <p className="eyebrow text-primary-700 dark:text-primary-300">
+            <p className="eyebrow text-primary-700 dark:text-primary-200">
               {tFooter("newsletterEyebrow")}
             </p>
             <h2 className="mt-2 max-w-2xl font-display text-h3 text-neutral-950 dark:text-[#f2f3f4]">
@@ -137,7 +137,7 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h3 className="font-mono text-[11px] font-medium uppercase tracking-[0.32em] text-primary-700 dark:text-primary-300">
+      <h3 className="font-mono text-[11px] font-medium uppercase tracking-[0.32em] text-primary-700 dark:text-primary-200">
         {title}
       </h3>
       <ul className="mt-4 space-y-2.5">

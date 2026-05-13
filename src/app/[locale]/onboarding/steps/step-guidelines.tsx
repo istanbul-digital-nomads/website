@@ -41,7 +41,7 @@ export function StepGuidelines({ data, updateField, errors }: StepProps) {
               key={key}
               className="flex gap-3 text-sm text-[#5d6d7e] dark:text-[#99a3ad]"
             >
-              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-semibold text-primary-700 dark:bg-primary-900/30 dark:text-primary-300">
+              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-semibold text-primary-700 dark:bg-primary-900/30 dark:text-primary-200">
                 {i + 1}
               </span>
               <span>{tRules(key)}</span>

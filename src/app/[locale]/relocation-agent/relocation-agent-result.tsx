@@ -302,7 +302,7 @@ function NeighborhoodMatchCard({
           <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
             <a
               href={`/guides/neighborhoods/${primary.slug}`}
-              className="inline-flex items-center gap-1 font-medium text-primary-700 hover:text-primary-800 dark:text-primary-300 dark:hover:text-primary-200"
+              className="inline-flex items-center gap-1 font-medium text-primary-700 hover:text-primary-800 dark:text-primary-200 dark:hover:text-primary-200"
             >
               {t("readGuide", { name: primary.name })}
               <ArrowRight className="h-3.5 w-3.5" />

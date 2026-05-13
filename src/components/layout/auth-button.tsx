@@ -96,7 +96,7 @@ export function AuthButton() {
         {!onboardingComplete && (
           <Link
             href="/onboarding"
-            className="hidden items-center gap-1.5 rounded-full bg-primary-50 px-3 py-1.5 text-xs font-medium text-primary-700 transition-colors hover:bg-primary-100 md:flex dark:bg-primary-900/20 dark:text-primary-300"
+            className="hidden items-center gap-1.5 rounded-full bg-primary-50 px-3 py-1.5 text-xs font-medium text-primary-700 transition-colors hover:bg-primary-100 md:flex dark:bg-primary-900/20 dark:text-primary-200"
           >
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary-500" />
             {t("completeProfile")}
@@ -118,7 +118,7 @@ export function AuthButton() {
               className="h-7 w-7 rounded-full ring-2 ring-primary-500/30"
             />
           ) : (
-            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary-100 text-xs font-medium text-primary-700 dark:bg-primary-900/30 dark:text-primary-300">
+            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary-100 text-xs font-medium text-primary-700 dark:bg-primary-900/30 dark:text-primary-200">
               {name[0].toUpperCase()}
             </div>
           )}

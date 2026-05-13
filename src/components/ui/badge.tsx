@@ -12,7 +12,7 @@ const variantStyles: Record<BadgeVariant, string> = {
   default:
     "bg-neutral-100 text-neutral-700 dark:bg-[rgba(44,62,80,0.1)] dark:text-[#99a3ad]",
   meetup:
-    "bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300",
+    "bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-200",
   coworking:
     "bg-[rgba(39,174,96,0.12)] text-[rgb(33,106,92)] dark:bg-[rgba(39,174,96,0.22)] dark:text-[rgb(144,222,204)]",
   workshop:

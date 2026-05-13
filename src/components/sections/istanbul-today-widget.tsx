@@ -151,7 +151,7 @@ export async function IstanbulTodayWidget({
                 </p>
               </div>
               <span className="inline-flex items-center gap-2 rounded-md bg-[#f6f1ea] px-3 py-1.5 text-xs font-medium text-neutral-800 dark:bg-white/10 dark:text-[#f2f3f4]">
-                <Droplets className="h-3.5 w-3.5 text-primary-600 dark:text-primary-300" />
+                <Droplets className="h-3.5 w-3.5 text-primary-600 dark:text-primary-200" />
                 {t("liveSky")}
               </span>
             </div>

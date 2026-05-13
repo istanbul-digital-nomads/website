@@ -123,7 +123,7 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
                   {post.tags.slice(0, 3).map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full bg-primary-100/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary-700 dark:bg-primary-900/20 dark:text-primary-300"
+                      className="rounded-full bg-primary-100/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary-700 dark:bg-primary-900/20 dark:text-primary-200"
                     >
                       {labelForTag(tag)}
                     </span>

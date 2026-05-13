@@ -194,7 +194,7 @@ export default async function HomePage({
 
         <Container className="relative py-8 sm:py-12 lg:py-16">
           <div className="mb-8 grid gap-3 border-y border-black/10 py-3 font-mono text-[10px] uppercase tracking-[0.22em] text-neutral-500 sm:grid-cols-[1fr_auto] sm:items-center dark:border-white/10 dark:text-[#94877d]">
-            <p className="text-primary-700 dark:text-primary-300">
+            <p className="text-primary-700 dark:text-primary-200">
               {t("meta.tickerSchedule")}
             </p>
             <p>{t("meta.tickerTimezone")}</p>
@@ -322,7 +322,7 @@ export default async function HomePage({
               <div className="p-5 sm:p-6">
                 <div className="flex items-center justify-between gap-4 border-b border-black/10 pb-4 dark:border-white/10">
                   <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.26em] text-primary-700 dark:text-primary-300">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.26em] text-primary-700 dark:text-primary-200">
                       {t("hero.fieldCard.eyebrow")}
                     </p>
                     <h2 className="mt-2 font-display text-2xl font-extrabold text-neutral-950 dark:text-[#f2f3f4]">
@@ -350,7 +350,7 @@ export default async function HomePage({
                       </p>
                       <div className="relative flex justify-center">
                         <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full border border-primary-500/40 bg-white dark:bg-[#14110f]">
-                          <step.icon className="h-3 w-3 text-primary-600 dark:text-primary-300" />
+                          <step.icon className="h-3 w-3 text-primary-600 dark:text-primary-200" />
                         </span>
                         {index < heroRouteSteps.length - 1 && (
                           <span className="absolute top-7 h-9 w-px bg-black/10 dark:bg-white/10" />
@@ -370,7 +370,7 @@ export default async function HomePage({
 
                 <Link
                   href="/guides"
-                  className="mt-6 inline-flex items-center gap-2 border-t border-black/10 pt-4 text-sm font-semibold text-primary-700 transition-colors hover:text-primary-900 dark:border-white/10 dark:text-primary-300 dark:hover:text-primary-100"
+                  className="mt-6 inline-flex items-center gap-2 border-t border-black/10 pt-4 text-sm font-semibold text-primary-700 transition-colors hover:text-primary-900 dark:border-white/10 dark:text-primary-200 dark:hover:text-primary-100"
                 >
                   {t("hero.fieldCard.openGuide")}
                   <MoveUpRight className="h-4 w-4" />
@@ -639,7 +639,7 @@ export default async function HomePage({
         <Container>
           <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr]">
             <Reveal className="border-y border-black/10 py-8 dark:border-white/10">
-              <p className="eyebrow text-primary-700 dark:text-primary-300">
+              <p className="eyebrow text-primary-700 dark:text-primary-200">
                 {t("firstMonth.eyebrow")}
               </p>
               <h2 className="mt-4 max-w-md font-display text-h1 text-neutral-950 dark:text-[#f2f3f4]">
@@ -695,7 +695,7 @@ export default async function HomePage({
         <Container>
           <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr]">
             <Reveal className="border-t border-black/10 pt-8 dark:border-white/10">
-              <p className="eyebrow text-primary-700 dark:text-primary-300">
+              <p className="eyebrow text-primary-700 dark:text-primary-200">
                 {t("whyStay.eyebrow")}
               </p>
               <h2 className="mt-4 max-w-md font-display text-h1 text-neutral-950 dark:text-[#f2f3f4]">
@@ -759,7 +759,7 @@ export default async function HomePage({
           <Reveal className="border-y border-black/10 py-10 dark:border-white/10">
             <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
               <div>
-                <p className="eyebrow text-primary-700 dark:text-primary-300">
+                <p className="eyebrow text-primary-700 dark:text-primary-200">
                   {t("joinCta.eyebrow")}
                 </p>
                 <h2 className="mt-4 max-w-3xl font-display text-h1 text-neutral-950 dark:text-[#f2f3f4]">

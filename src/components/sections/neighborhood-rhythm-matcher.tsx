@@ -105,12 +105,12 @@ export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
 
         <div className="rounded-md border border-black/10 bg-white/70 p-3 dark:border-white/10 dark:bg-[#14110f]/80">
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/10 px-2 pb-3 dark:border-white/10">
-            <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-primary-700 dark:text-primary-300">
+            <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-primary-700 dark:text-primary-200">
               <SlidersHorizontal className="h-4 w-4" />
               {t("liveMatch")}
             </div>
             <div className="inline-flex items-center gap-2 rounded-md bg-[#f6f1ea] px-3 py-1.5 text-xs text-neutral-700 dark:bg-white/10 dark:text-[#d5dce3]">
-              <Sparkles className="h-3.5 w-3.5 text-primary-600 dark:text-primary-300" />
+              <Sparkles className="h-3.5 w-3.5 text-primary-600 dark:text-primary-200" />
               {t("signals", {
                 count: selected.length || defaultRhythms.length,
               })}
@@ -195,7 +195,7 @@ export function NeighborhoodRhythmMatcher({ compact = false }: Props) {
           {matches[0] ? (
             <div className="mt-4 flex flex-col gap-3 rounded-md border border-black/10 bg-[#f6f1ea] p-4 dark:border-white/10 dark:bg-white/[0.04] sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-700 dark:text-primary-300">
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-700 dark:text-primary-200">
                   {t("turnIntoWeekOne")}
                 </p>
                 <p className="mt-1 text-sm leading-6 text-[#5d6d7e] dark:text-[#b7aaa0]">

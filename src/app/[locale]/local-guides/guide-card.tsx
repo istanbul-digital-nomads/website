@@ -17,22 +17,31 @@ import { useTranslations } from "next-intl";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { FlagBadge } from "@/components/ui/flag-badge";
-import { guideSpecializations, istanbulNeighborhoods } from "@/lib/constants";
 import type { Database } from "@/types/database";
 
 type LocalGuide = Database["public"]["Tables"]["local_guides"]["Row"];
 
-function getSpecLabel(value: string) {
-  return guideSpecializations.find((s) => s.value === value)?.label || value;
-}
-
-function getNeighborhoodLabel(value: string) {
-  return istanbulNeighborhoods.find((n) => n.value === value)?.label || value;
-}
-
 export function GuideCard({ guide }: { guide: LocalGuide }) {
   const [expanded, setExpanded] = useState(false);
   const t = useTranslations("localGuidesPage.card");
+  const tSpecs = useTranslations("lookups.guideSpecializations");
+  const tNeighborhoods = useTranslations("lookups.istanbulNeighborhoods");
+
+  // Safe lookup: missing key falls back to the raw slug instead of throwing
+  function specLabel(value: string) {
+    try {
+      return tSpecs(value);
+    } catch {
+      return value;
+    }
+  }
+  function neighborhoodLabel(value: string) {
+    try {
+      return tNeighborhoods(value);
+    } catch {
+      return value;
+    }
+  }
 
   const hasSocials =
     guide.social_instagram ||
@@ -89,7 +98,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
           <div className="mt-4 flex flex-wrap gap-1.5">
             {guide.specializations.map((spec) => (
               <Badge key={spec} variant="default">
-                {getSpecLabel(spec)}
+                {specLabel(spec)}
               </Badge>
             ))}
           </div>
@@ -113,7 +122,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
             {guide.neighborhoods.length > 0 && (
               <div className="flex items-center gap-1.5 text-xs text-neutral-500 dark:text-[#85929e]">
                 <MapPin className="h-3 w-3 shrink-0" />
-                {guide.neighborhoods.map(getNeighborhoodLabel).join(", ")}
+                {guide.neighborhoods.map(neighborhoodLabel).join(", ")}
               </div>
             )}
             {guide.languages.length > 0 && (

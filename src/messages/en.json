@@ -2265,5 +2265,48 @@
       "motivationLabel": "Motivation",
       "replyCtaTemplate": "Reply to {name}"
     }
+  },
+  "lookups": {
+    "guideSpecializations": {
+      "neighborhoods": "Neighborhoods",
+      "visa-legal": "Visa & Legal",
+      "housing": "Housing",
+      "food-dining": "Food & Dining",
+      "coworking": "Coworking",
+      "nightlife": "Nightlife",
+      "culture": "Culture",
+      "healthcare": "Healthcare",
+      "transport": "Transport",
+      "tech-freelancing": "Tech & Freelancing"
+    },
+    "istanbulNeighborhoods": {
+      "kadikoy": "Kadikoy",
+      "besiktas": "Besiktas",
+      "cihangir": "Cihangir",
+      "moda": "Moda",
+      "uskudar": "Uskudar",
+      "beyoglu": "Beyoglu",
+      "nisantasi": "Nisantasi",
+      "karakoy": "Karakoy",
+      "galata": "Galata",
+      "sisli": "Sisli",
+      "levent": "Levent",
+      "balat": "Balat",
+      "atasehir": "Atasehir"
+    },
+    "commonLanguages": {
+      "English": "English",
+      "Turkish": "Turkish",
+      "German": "German",
+      "French": "French",
+      "Spanish": "Spanish",
+      "Arabic": "Arabic",
+      "Russian": "Russian",
+      "Portuguese": "Portuguese",
+      "Italian": "Italian",
+      "Dutch": "Dutch",
+      "Japanese": "Japanese",
+      "Korean": "Korean"
+    }
   }
 }

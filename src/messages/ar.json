@@ -2273,5 +2273,48 @@
       "motivationLabel": "الدافع",
       "replyCtaTemplate": "الرد على {name}"
     }
+  },
+  "lookups": {
+    "guideSpecializations": {
+      "neighborhoods": "الأحياء",
+      "visa-legal": "التأشيرة والشؤون القانونية",
+      "housing": "السكن",
+      "food-dining": "الطعام والمطاعم",
+      "coworking": "العمل المشترك",
+      "nightlife": "الحياة الليلية",
+      "culture": "الثقافة",
+      "healthcare": "الصحة",
+      "transport": "النقل",
+      "tech-freelancing": "التقنية والعمل الحر"
+    },
+    "istanbulNeighborhoods": {
+      "kadikoy": "كاديكوي",
+      "besiktas": "بشكتاش",
+      "cihangir": "جيهانغير",
+      "moda": "مودا",
+      "uskudar": "أسكدار",
+      "beyoglu": "بي أوغلو",
+      "nisantasi": "نيشانتاشي",
+      "karakoy": "كاراكوي",
+      "galata": "غلطة",
+      "sisli": "شيشلي",
+      "levent": "ليفينت",
+      "balat": "بلاط",
+      "atasehir": "آتاشهير"
+    },
+    "commonLanguages": {
+      "English": "الإنجليزية",
+      "Turkish": "التركية",
+      "German": "الألمانية",
+      "French": "الفرنسية",
+      "Spanish": "الإسبانية",
+      "Arabic": "العربية",
+      "Russian": "الروسية",
+      "Portuguese": "البرتغالية",
+      "Italian": "الإيطالية",
+      "Dutch": "الهولندية",
+      "Japanese": "اليابانية",
+      "Korean": "الكورية"
+    }
   }
 }

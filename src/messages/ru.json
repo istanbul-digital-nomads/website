@@ -2289,5 +2289,48 @@
       "motivationLabel": "Мотивация",
       "replyCtaTemplate": "Ответить {name}"
     }
+  },
+  "lookups": {
+    "guideSpecializations": {
+      "neighborhoods": "Районы",
+      "visa-legal": "Визы и юридические вопросы",
+      "housing": "Жильё",
+      "food-dining": "Еда и рестораны",
+      "coworking": "Коворкинг",
+      "nightlife": "Ночная жизнь",
+      "culture": "Культура",
+      "healthcare": "Здравоохранение",
+      "transport": "Транспорт",
+      "tech-freelancing": "IT и фриланс"
+    },
+    "istanbulNeighborhoods": {
+      "kadikoy": "Кадыкёй",
+      "besiktas": "Бешикташ",
+      "cihangir": "Джихангир",
+      "moda": "Мода",
+      "uskudar": "Ускюдар",
+      "beyoglu": "Бейоглу",
+      "nisantasi": "Нишанташи",
+      "karakoy": "Каракёй",
+      "galata": "Галата",
+      "sisli": "Шишли",
+      "levent": "Левент",
+      "balat": "Балат",
+      "atasehir": "Аташехир"
+    },
+    "commonLanguages": {
+      "English": "Английский",
+      "Turkish": "Турецкий",
+      "German": "Немецкий",
+      "French": "Французский",
+      "Spanish": "Испанский",
+      "Arabic": "Арабский",
+      "Russian": "Русский",
+      "Portuguese": "Португальский",
+      "Italian": "Итальянский",
+      "Dutch": "Нидерландский",
+      "Japanese": "Японский",
+      "Korean": "Корейский"
+    }
   }
 }

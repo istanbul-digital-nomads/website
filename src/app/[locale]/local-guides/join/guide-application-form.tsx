@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useMemo, useState, type FormEvent } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Input, Textarea } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -62,10 +62,41 @@ const initial: FormData = {
 
 export function GuideApplicationForm() {
   const t = useTranslations("localGuidesJoinPage");
+  const tSpecs = useTranslations("lookups.guideSpecializations");
+  const tNeighborhoods = useTranslations("lookups.istanbulNeighborhoods");
+  const tLanguages = useTranslations("lookups.commonLanguages");
   const locale = useLocale();
   const [form, setForm] = useState<FormData>(initial);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  // Translate the constant values into locale-aware option lists. Keeping
+  // the slug as `value` means stored DB rows still work; only the rendered
+  // label is localized.
+  const specializationOptions = useMemo(
+    () =>
+      guideSpecializations.map((s) => ({
+        value: s.value,
+        label: tSpecs(s.value),
+      })),
+    [tSpecs],
+  );
+  const neighborhoodOptions = useMemo(
+    () =>
+      istanbulNeighborhoods.map((n) => ({
+        value: n.value,
+        label: tNeighborhoods(n.value),
+      })),
+    [tNeighborhoods],
+  );
+  const languageOptions = useMemo(
+    () =>
+      commonLanguages.map((name) => ({
+        value: name,
+        label: tLanguages(name),
+      })),
+    [tLanguages],
+  );
 
   function update<K extends keyof FormData>(field: K, value: FormData[K]) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -178,21 +209,21 @@ export function GuideApplicationForm() {
         </div>
         <MultiSelectToggle
           label={t("fields.languages.label")}
-          options={commonLanguages}
+          options={languageOptions}
           value={form.languages}
           onChange={(v) => update("languages", v)}
           required
         />
         <MultiSelectToggle
           label={t("fields.specializations.label")}
-          options={guideSpecializations}
+          options={specializationOptions}
           value={form.specializations}
           onChange={(v) => update("specializations", v)}
           required
         />
         <MultiSelectToggle
           label={t("fields.neighborhoods.label")}
-          options={istanbulNeighborhoods}
+          options={neighborhoodOptions}
           value={form.neighborhoods}
           onChange={(v) => update("neighborhoods", v)}
           required

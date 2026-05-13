@@ -5,8 +5,9 @@ import { validateUpdateEvent } from "@/lib/validations";
 
 export async function GET(
   _request: Request,
-  { params }: { params: { id: string } },
+  props: { params: Promise<{ id: string }> },
 ) {
+  const params = await props.params;
   const { data, error } = await getEventById(params.id);
 
   if (error || !data) {
@@ -18,8 +19,9 @@ export async function GET(
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } },
+  props: { params: Promise<{ id: string }> },
 ) {
+  const params = await props.params;
   const supabase = await createClient();
   const {
     data: { user },
@@ -51,8 +53,9 @@ export async function PATCH(
 
 export async function DELETE(
   _request: Request,
-  { params }: { params: { id: string } },
+  props: { params: Promise<{ id: string }> },
 ) {
+  const params = await props.params;
   const supabase = await createClient();
   const {
     data: { user },

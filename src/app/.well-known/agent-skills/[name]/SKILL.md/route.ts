@@ -9,8 +9,9 @@ export function generateStaticParams() {
 
 export async function GET(
   _req: Request,
-  { params }: { params: { name: string } },
+  props: { params: Promise<{ name: string }> },
 ) {
+  const params = await props.params;
   const skill = findSkill(params.name);
 
   if (!skill) {

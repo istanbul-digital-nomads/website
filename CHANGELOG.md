@@ -4,6 +4,40 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-05-14
+
+### Changed (BREAKING - framework upgrade)
+
+- **Next.js 14.2.35 → 15.5.18** and **React 18.3.1 → 19.2.6**. Major upgrade to unlock the Performance ceiling on Next 14 + the React 19 compiler, Document Metadata, and PPR.
+- **`next-intl` 3.26.5 → 4.12.0**. Tighter type-checking on `useTranslations` keys; the dynamic-key call in `OptionGroup` (`firstWeekPlanner.tsx`) is cast to a permissive shape - runtime behavior unchanged.
+- **`@next/bundle-analyzer`, `eslint-config-next`** bumped to 15.5 to match Next 15.
+- **`@types/react`, `@types/react-dom`** bumped to 19.2.
+
+### Codemod + manual fixes
+
+- Ran `@next/codemod next-async-request-api` - 207 files migrated to `params: Promise<...>` / `searchParams: Promise<...>`.
+- Next 15 disallows `dynamic({ ssr: false })` from server components. Hoisted the four post-hydration islands (`BottomTabBar`, `NavigationProgress`, `Toaster`, `WebMcpRegister`) into `src/components/layout/client-islands.tsx` so the locale layout stays fully server-rendered.
+- `next.config.mjs`: `experimental.serverComponentsExternalPackages` → `serverExternalPackages`; `experimental.outputFileTracingIncludes` → `outputFileTracingIncludes` (both promoted out of `experimental` in Next 15).
+- `src/components/ui/mdx-components.tsx`: `JSX.IntrinsicElements` namespace removed in React 19; now `import type { JSX } from "react"`.
+- `src/app/[locale]/error.tsx`: replaced `<a href="/">` with `<Link href="/">` (Next 15 lint now blocks intra-site `<a>` tags).
+- `src/app/[locale]/tools/first-week-planner/page.tsx`: `searchParams` is now `Promise<...> | undefined`; coalesce to `{}` before iterating.
+- Kept `critters` as devDep - Next 15.5 still requires it for `experimental.optimizeCss` even though Next 16 swaps to `beasties` internally.
+
+### Verified locally
+
+- `pnpm build` clean (Next 15.5 / React 19.2 / next-intl 4.12)
+- `pnpm type-check` clean
+- `pnpm test` 91/91 passing
+- Preview: EN home + FA `/guides/coworking` (RTL) + FA `/spaces` all render correctly
+- Server weather widget shows real data (14°C, 0.0 mm, 18 km/h)
+- OG images: EN (satori path) 131 KB, FA (resvg-js path) 103 KB - both 1200x630 PNG
+- Metadata routes: `/icon` 200 PNG, `/robots.txt` 200, `/sitemap.xml` 200, `/llms.txt` 200
+
+### Not in this PR
+
+- **PPR (Partial Prerendering)**. Most routes are already fully static-prerendered (●) so PPR would need explicit dynamic markers to help. Will land in a follow-up sprint with a Suspense boundary pass.
+- **Next 15 → 16**. Adds `middleware.ts → proxy.ts` rename + Node.js runtime + Cache Components GA + Turbopack prod builds. Worth its own release once Next 16 stabilizes a bit.
+
 ## [1.25.0] - 2026-05-14
 
 ### Changed

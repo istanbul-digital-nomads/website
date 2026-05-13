@@ -27,16 +27,17 @@ import { CountryTOC } from "./country-toc";
 import { GuidesFromCountry } from "../guides-from-country";
 
 interface CountryPageProps {
-  params: { locale: string; country: string };
+  params: Promise<{ locale: string; country: string }>;
 }
 
 export async function generateStaticParams() {
   return getSupportedCountries().map((c) => ({ country: c.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: CountryPageProps): Promise<Metadata> {
+export async function generateMetadata(
+  props: CountryPageProps,
+): Promise<Metadata> {
+  const params = await props.params;
   const country = getCountryBySlug(params.country);
   if (!country) return {};
   const locale = isValidLocale(params.locale) ? params.locale : defaultLocale;
@@ -66,7 +67,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function CountryPage({ params }: CountryPageProps) {
+export default async function CountryPage(props: CountryPageProps) {
+  const params = await props.params;
   const country = getCountryBySlug(params.country);
   if (!country || !country.supported) notFound();
 

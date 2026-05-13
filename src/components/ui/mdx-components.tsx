@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, JSX, ReactNode } from "react";
 import Image from "next/image";
 
 type Props<T extends keyof JSX.IntrinsicElements> = ComponentPropsWithoutRef<T>;

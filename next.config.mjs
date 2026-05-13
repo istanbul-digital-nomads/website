@@ -22,6 +22,10 @@ const nextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
   },
   experimental: {
+    // Inline critical CSS in <head>, defer the rest. Requires the `beasties`
+    // devDep (the maintained fork of critters). Removes the ~250 ms
+    // render-blocking penalty Lighthouse mobile flagged on the main CSS file.
+    optimizeCss: true,
     optimizePackageImports: [
       "lucide-react",
       "@headlessui/react",

@@ -4,6 +4,13 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.25.0] - 2026-05-14
+
+### Changed
+
+- **Removed `text-balance` from the home page LCP H1**. Lighthouse mobile attributed 1.4 s of "element render delay" to the H1 paint; CSS `text-balance` triggers a more expensive layout pass to balance line wrapping, which under 4x CPU throttling on a mobile simulation has measurable cost. The H1 already has `max-w-[11.5ch]` so the wrap point is constrained without `text-balance` doing extra work.
+- **Enabled `experimental.optimizeCss`** in `next.config.mjs` (added `critters` as a devDep). When it kicks in, Next.js inlines the critical CSS in `<head>` and defers the rest, which Lighthouse mobile flagged as a 250 ms render-blocking penalty on the main CSS bundle.
+
 ## [1.24.1] - 2026-05-14
 
 ### Fixed

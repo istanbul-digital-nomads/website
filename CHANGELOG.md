@@ -4,6 +4,12 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.24.1] - 2026-05-14
+
+### Fixed
+
+- v1.24.0 dynamic-imported the supabase client but still triggered the import after a 100 ms timer in `AuthButton`, so anonymous visitors (no `sb-*-auth-token` cookie) still downloaded the ~40 KB supabase chunk + ~50 KB gotrue-js auth client even though they had no session. `AuthButton` now checks for a Supabase auth cookie up-front and short-circuits the dynamic import entirely when there isn't one. The Sign In button renders immediately with no loading state. Authenticated visitors still hit the deferred dynamic import as before.
+
 ## [1.24.0] - 2026-05-14
 
 ### Changed

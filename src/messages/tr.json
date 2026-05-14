@@ -257,8 +257,8 @@
       "description": "Turist vize kuralları, ikamet izni süreci ve yasal ipuçları."
     },
     "internet": {
-      "title": "İnternet ve SIM Kartlar",
-      "description": "En iyi mobil paketler, ev interneti seçenekleri ve yedek çözümler."
+      "title": "İstanbul'da İnternet ve SIM (2026): Hızlar, Fiyatlar, Öneriler",
+      "description": "Turkcell, Türk Telekom, Vodafone karşılaştırması. Turist SIM 250 TL'den. Her coworking'in wifi hızı. Dijital göçebeler ne kullanıyor."
     },
     "transport": {
       "title": "Ulaşım",
@@ -1569,8 +1569,8 @@
   },
   "countryPage": {
     "meta": {
-      "titleTemplate": "{country}'dan İstanbul'a taşınmak",
-      "fallbackDescription": "{country} kökenli göçebeler için İstanbul'a vize, uçuş, ev ve topluluk bilgileri."
+      "titleTemplate": "{country}'dan İstanbul'a (2026): Vize, Maliyet, Topluluk",
+      "fallbackDescription": "Gerçek vize kuralları, bankacılık, aylık maliyetler ve İstanbul'daki {country} topluluğu. Bu yolu yapan göçebelerin yazdığı rehber."
     },
     "breadcrumb": {
       "home": "Ana sayfa",

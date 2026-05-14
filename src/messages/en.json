@@ -2447,5 +2447,51 @@
       "primary": "Plan your first week",
       "secondary": "Read first"
     }
+  },
+  "neighborhoodsV2": {
+    "index": {
+      "eyebrow": "Neighborhoods · ten worth a season",
+      "title": "Ten neighborhoods,",
+      "titleItalic": "opinionated on purpose.",
+      "lede": "We don't list every postcode. We list the ten places a remote worker can actually live for one to six months - and we tell you what they're like at 07:00 and 22:30, not just on a Saturday afternoon.",
+      "schematicLabel": "Bosphorus · schematic",
+      "guideEyebrow": "The long read"
+    },
+    "row": {
+      "rent": "1BR range",
+      "side": "Side",
+      "noise": "Noise",
+      "spaces": "Spaces tracked",
+      "open": "Open {name}"
+    },
+    "glance": {
+      "eyebrow": "At a glance",
+      "kicker": "real numbers only",
+      "rentUsd": "Rent · 1BR (USD)",
+      "rentTl": "Rent · 1BR (TRY)",
+      "perMonth": "per month",
+      "side": "Side of the city",
+      "noise": "Noise at night",
+      "spaces": "Spaces tracked",
+      "spacesSub": "verified cafes + coworking",
+      "coords": "Coordinates"
+    },
+    "work": {
+      "eyebrow": "Where to work",
+      "allSpaces": "All spaces",
+      "title": "Verified cafes and coworking, scored on what matters.",
+      "coworking": "Coworking",
+      "cafes": "Cafes",
+      "laptopReady": "Laptop-ready"
+    },
+    "similar": {
+      "eyebrow": "If you like {name}",
+      "kicker": "you may also like"
+    },
+    "detail": {
+      "leadPhoto": "Lead photo",
+      "detailPhoto": "Detail",
+      "ledeEyebrow": "The lede"
+    }
   }
 }

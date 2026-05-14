@@ -2467,5 +2467,51 @@
       "primary": "İlk haftanı planla",
       "secondary": "Önce oku"
     }
+  },
+  "neighborhoodsV2": {
+    "index": {
+      "eyebrow": "Mahalleler · bir mevsim değecek on tanesi",
+      "title": "On mahalle,",
+      "titleItalic": "bilerek taraflı seçildi.",
+      "lede": "Her posta kodunu sıralamıyoruz. Uzaktan çalışan birinin bir ila altı ay gerçekten yaşayabileceği on yeri sıralıyoruz - ve buraların sadece cumartesi öğleden sonra değil, 07:00 ve 22:30'da nasıl olduğunu anlatıyoruz.",
+      "schematicLabel": "Bosphorus · şema",
+      "guideEyebrow": "Uzun yazı"
+    },
+    "row": {
+      "rent": "1+1 aralığı",
+      "side": "Yaka",
+      "noise": "Gürültü",
+      "spaces": "Takip edilen mekan",
+      "open": "{name} mahallesini aç"
+    },
+    "glance": {
+      "eyebrow": "Bir bakışta",
+      "kicker": "sadece gerçek rakamlar",
+      "rentUsd": "Kira · 1+1 (USD)",
+      "rentTl": "Kira · 1+1 (TRY)",
+      "perMonth": "aylık",
+      "side": "Şehrin yakası",
+      "noise": "Gece gürültüsü",
+      "spaces": "Takip edilen mekan",
+      "spacesSub": "doğrulanmış kafe + coworking",
+      "coords": "Koordinatlar"
+    },
+    "work": {
+      "eyebrow": "Nerede çalışılır",
+      "allSpaces": "Tüm mekanlar",
+      "title": "Doğrulanmış kafeler ve coworking, önemli şeylere göre puanlandı.",
+      "coworking": "Coworking",
+      "cafes": "Kafeler",
+      "laptopReady": "Laptopa uygun"
+    },
+    "similar": {
+      "eyebrow": "{name} hoşuna gittiyse",
+      "kicker": "bunları da beğenebilirsin"
+    },
+    "detail": {
+      "leadPhoto": "Kapak fotoğrafı",
+      "detailPhoto": "Detay",
+      "ledeEyebrow": "Giriş"
+    }
   }
 }

@@ -32,6 +32,14 @@ Design System v2 - "Ambient Tech with Istanbul Soul". An editorial-first, dark-n
 - **Real data, honest placeholders** - the events strip pulls live from Supabase with a calm empty state; the guides shelf and matcher use existing content; image slots are `PhotoSlot` placeholders until real photography. The `MembershipTiers` and `CirclesStrip` sections from the design reference are intentionally **deferred** - they advertise products (Nomad+, Circles) that don't exist yet, and a fake pricing table is a lie, not a placeholder.
 - **i18n** - new `homeV2` namespace with all the new editorial copy, translated into Turkish, Persian, Arabic, and Russian.
 
+### Phase 3 - Neighborhoods index + detail
+
+- **Neighborhoods index rewritten** ([src/app/[locale]/guides/neighborhoods/page.tsx](src/app/[locale]/guides/neighborhoods/page.tsx)) as an editorial list - big numbered rows (photo slot + name + blurb + a four-cell data grid), a not-to-scale `BosphorusSchematic` orientation map, the restyled matcher, and the existing long-form guide wrapped in the new chrome.
+- **Neighborhood detail rewritten** ([src/app/[locale]/guides/neighborhoods/[neighborhood]/page.tsx](src/app/[locale]/guides/neighborhoods/[neighborhood]/page.tsx)) - a breadcrumb + giant serif name hero with a photo cluster and lede, an "at a glance" data table, a "where to work" section, a "similar neighborhoods" closer, and a CTA. Works for all ten neighborhoods.
+- **Real data only** - rent ranges, side, noise, coordinates, and tracked-space counts come straight off `src/lib/neighborhoods.ts` and `src/lib/spaces.ts`; space scores use `computeNomadScore` and stay blank when unverified. Per the brand's no-fabrication rule, the design reference's invented wifi/walkability survey scores were **not** added.
+- **Deferred** - the content-heavy editorial sections from the design reference (day-in-the-life timeline, eat/drink/supply, "what to know") need new, hand-written editorial copy per neighborhood that doesn't exist yet. They're a content follow-up, not shipped here - a placeholder with no real content would be a lie.
+- **i18n** - new `neighborhoodsV2` namespace, translated into Turkish, Persian, Arabic, and Russian.
+
 ## [3.2.0] - 2026-05-14
 
 ### Changed

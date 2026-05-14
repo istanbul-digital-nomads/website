@@ -33,6 +33,12 @@ const nextConfig = {
   outputFileTracingIncludes: {
     "**/opengraph-image*": ["./public/fonts/og/**/*"],
   },
+  // Cache Components is the path to mobile Perf 100, but Next 16 enforces it
+  // strictly: any uncached data access (translations, fetch, params) outside
+  // of a <Suspense> fails the build with "Uncached data was accessed outside
+  // of <Suspense>". That's a focused refactor (Suspense boundaries on every
+  // page + `'use cache'` directives). Deferred to a follow-up sprint.
+  // cacheComponents: true,
   experimental: {
     // Inline critical CSS + defer the rest. Requires `critters` devDep on
     // Next 15.5 (Next 16 swaps to `beasties`). v2.0.1 disabled this because

@@ -41,8 +41,6 @@ import {
 } from "@/lib/seo";
 import { getEventsPublic } from "@/lib/supabase/queries";
 
-export const revalidate = 300;
-
 export async function generateMetadata({
   params,
 }: {

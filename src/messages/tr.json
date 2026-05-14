@@ -66,6 +66,7 @@
     },
     "social": {
       "telegram": "Telegram",
+      "instagram": "Instagram",
       "github": "GitHub",
       "twitter": "Twitter",
       "email": "E-posta"
@@ -98,6 +99,7 @@
       "costOfLiving": "Yaşam Maliyeti",
       "photoCredits": "Fotoğraf kredileri",
       "telegram": "Telegram",
+      "instagram": "Instagram",
       "github": "GitHub",
       "twitter": "Twitter",
       "email": "E-posta",

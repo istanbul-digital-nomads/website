@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 
 const SITE = "https://istanbulnomads.com";
 
+export const dynamic = "force-static";
+
 export async function GET() {
   const spec = {
     openapi: "3.1.0",

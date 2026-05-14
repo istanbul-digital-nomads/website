@@ -14,7 +14,7 @@ export interface BlogCoverImage {
 }
 
 const generatedCredit = {
-  author: "Istanbul Digital Nomads",
+  author: "Istanbul Nomads",
   source: "OpenAI",
   sourceHref: "https://openai.com/",
   license: "Generated",

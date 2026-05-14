@@ -1,12 +1,12 @@
 export const siteConfig = {
-  name: "Istanbul Digital Nomads",
-  shortName: "Istanbul Digital Nomads",
+  name: "Istanbul Nomads",
+  shortName: "Istanbul Nomads",
   description:
     "Digital nomad community in Istanbul with weekly coworking, local guides, and a softer landing for people staying longer.",
   url: "https://istanbulnomads.com",
   ogImage: "https://istanbulnomads.com/og.png",
   locale: "en_US",
-  creator: "Istanbul Digital Nomads",
+  creator: "Istanbul Nomads",
 } as const;
 
 export const socialLinks = {

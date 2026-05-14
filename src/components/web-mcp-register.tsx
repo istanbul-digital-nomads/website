@@ -65,7 +65,7 @@ const TOOLS = [
     name: "list_upcoming_istanbul_events",
     title: "List upcoming nomad events",
     description:
-      "List upcoming Istanbul Digital Nomads community events - meetups, coworking sessions, workshops, social gatherings.",
+      "List upcoming Istanbul Nomads community events - meetups, coworking sessions, workshops, social gatherings.",
     inputSchema: {
       type: "object",
       properties: {
@@ -85,7 +85,7 @@ const TOOLS = [
     name: "list_istanbul_blog_posts",
     title: "List nomad blog posts",
     description:
-      "List Istanbul Digital Nomads blog posts with title, slug, date, and description. Fetch individual posts via /blog/<slug>.md.",
+      "List Istanbul Nomads blog posts with title, slug, date, and description. Fetch individual posts via /blog/<slug>.md.",
     inputSchema: {
       type: "object",
       properties: {},

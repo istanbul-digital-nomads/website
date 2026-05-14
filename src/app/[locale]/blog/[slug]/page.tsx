@@ -135,7 +135,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         publisher: {
           "@type": "Organization",
           "@id": `${SITE_URL}#organization`,
-          name: "Istanbul Digital Nomads",
+          name: "Istanbul Nomads",
           url: SITE_URL,
           logo: {
             "@type": "ImageObject",

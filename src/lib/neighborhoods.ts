@@ -94,7 +94,7 @@ const unsplashCredit = (
 });
 
 const generatedCredit = (): PhotoCredit => ({
-  author: "Istanbul Digital Nomads",
+  author: "Istanbul Nomads",
   source: "OpenAI",
   sourceHref: "https://openai.com/",
   license: "Generated",

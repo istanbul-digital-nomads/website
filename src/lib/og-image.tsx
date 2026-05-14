@@ -96,7 +96,7 @@ export function renderOgImage({
             textTransform: "uppercase",
           }}
         >
-          Istanbul Digital Nomads
+          Istanbul Nomads
         </div>
       </div>
 

@@ -152,12 +152,13 @@ export async function generateMetadata({
     .map(ogLocaleFor);
   return {
     title: {
-      default: "Istanbul Digital Nomads",
-      template: "%s | Istanbul Digital Nomads",
+      default: "Istanbul Nomads",
+      template: "%s | Istanbul Nomads",
     },
     description,
     keywords: [
-      "digital nomad",
+      "istanbul nomads",
+      "digital nomad istanbul",
       "istanbul",
       "remote work",
       "coworking",
@@ -167,17 +168,17 @@ export async function generateMetadata({
     ],
     metadataBase: new URL("https://istanbulnomads.com"),
     openGraph: {
-      title: "Istanbul Digital Nomads",
+      title: "Istanbul Nomads",
       description,
       url: "https://istanbulnomads.com",
-      siteName: "Istanbul Digital Nomads",
+      siteName: "Istanbul Nomads",
       locale: ogLocaleTag,
       alternateLocale: alternateLocales,
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: "Istanbul Digital Nomads",
+      title: "Istanbul Nomads",
       description,
     },
     robots: {

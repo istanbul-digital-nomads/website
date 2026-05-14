@@ -6,12 +6,12 @@ export async function GET() {
   const spec = {
     openapi: "3.1.0",
     info: {
-      title: "Istanbul Digital Nomads - public API",
+      title: "Istanbul Nomads - public API",
       version: "1.0.0",
       description:
         "Read-only public endpoints exposed by istanbulnomads.com. Events are the only public data surface; everything else is rendered HTML or markdown.",
       contact: {
-        name: "Istanbul Digital Nomads",
+        name: "Istanbul Nomads",
         url: `${SITE}/contact`,
       },
       license: {

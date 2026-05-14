@@ -1,7 +1,7 @@
 {
   "site": {
-    "name": "Istanbul Digital Nomads",
-    "shortName": "Istanbul Digital Nomads",
+    "name": "Istanbul Nomads",
+    "shortName": "Istanbul Nomads",
     "tagline": "Uzaktan yaşam, yerel ritim",
     "description": "İstanbul'daki dijital göçebe topluluğu - haftalık ortak çalışma, yerel rehberler ve uzun süre kalanlar için yumuşak bir başlangıç."
   },
@@ -1569,7 +1569,7 @@
   },
   "countryPage": {
     "meta": {
-      "titleTemplate": "{country}'dan İstanbul'a (2026): Vize, Maliyet, Topluluk",
+      "titleTemplate": "{country} → İstanbul (2026): Vize, Maliyet, Topluluk",
       "fallbackDescription": "Gerçek vize kuralları, bankacılık, aylık maliyetler ve İstanbul'daki {country} topluluğu. Bu yolu yapan göçebelerin yazdığı rehber."
     },
     "breadcrumb": {

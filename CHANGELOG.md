@@ -1,8 +1,21 @@
 # Changelog
 
-All notable changes to the Istanbul Digital Nomads website will be documented in this file.
+All notable changes to the Istanbul Nomads website will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [3.2.0] - 2026-05-14
+
+### Changed
+
+- **Brand rename: "Istanbul Digital Nomads" → "Istanbul Nomads"** across every code-level surface. Title template, OpenGraph metadata, Twitter cards, schema.org organization name, OpenAPI spec, MCP server card, OAuth resource name, llms.txt, OG image alt text, and the brand-label fields (`name`, `shortName`) in all five locale message files. The English brand is used consistently across all locales, matching the existing pattern. Aligns the brand with the domain (`istanbulnomads.com`) and with what people actually search - Google Trends shows steady search volume for "istanbul nomads" and near-zero for "istanbul digital nomads".
+- **Title template suffix** ([src/app/[locale]/layout.tsx](src/app/[locale]/layout.tsx)) - now `"%s | Istanbul Nomads"` instead of `"%s | Istanbul Digital Nomads"`. Every page title is ~15 characters shorter, leaving more room for keywords before Google's truncation threshold.
+- **SEO keywords** ([src/app/[locale]/layout.tsx](src/app/[locale]/layout.tsx)) - added `"istanbul nomads"` and `"digital nomad istanbul"` to the meta keywords array. The former matches the brand and current search trends; the latter captures the long-tail variant.
+- **Path-to-Istanbul title templates** - rewrote Russian and Turkish templates ([src/messages/ru.json](src/messages/ru.json), [src/messages/tr.json](src/messages/tr.json)) to use an arrow pattern (`{country} → Стамбул`, `{country} → İstanbul`). The previous Russian template `"Из {country} в Стамбул"` broke grammar (genitive case required after "Из", but country names are stored in nominative). The previous Turkish suffix `"{country}'dan İstanbul'a"` broke vowel-harmony for back-vowel countries (İngiltere needs `'den`, not `'dan`). The arrow pattern is grammatically agnostic and reads cleanly in all 5 locales.
+
+### Not included in this release
+
+Body prose in MDX content files (`/content/`) and narrative paragraphs in message JSON (About story, mission statements) still reference "Istanbul Digital Nomads" mid-sentence. Those need careful sentence-by-sentence review and ship in a follow-up pass.
 
 ## [3.1.8] - 2026-05-14
 

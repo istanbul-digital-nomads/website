@@ -10,7 +10,7 @@ export async function GET() {
   const blogPosts = getAllBlogPosts();
   const countries = getSupportedCountries();
 
-  const body = `# Istanbul Digital Nomads
+  const body = `# Istanbul Nomads
 
 > The community hub for digital nomads living and working in Istanbul. Verified coworking spaces, neighborhood guides, visa and residency info, a weekly event calendar, and country-specific relocation playbooks. Content is available in English (default), Turkish (\`/tr\`), Persian (\`/fa\`), Arabic (\`/ar\`), and Russian (\`/ru\`).
 

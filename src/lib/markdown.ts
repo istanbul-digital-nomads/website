@@ -47,7 +47,7 @@ function guideListingMarkdown(): string {
 function blogListingMarkdown(): string {
   const posts = getAllBlogPosts();
   const header = frontmatterHeader(
-    "Istanbul Digital Nomads - Blog",
+    "Istanbul Nomads - Blog",
     "Articles and first-hand experience from nomads living in Istanbul.",
     `${SITE}/blog`,
   );
@@ -149,7 +149,7 @@ function spacesIndexMarkdown(): string {
 }
 
 function homepageMarkdown(): string {
-  return `# Istanbul Digital Nomads
+  return `# Istanbul Nomads
 
 > The community hub for digital nomads living and working in Istanbul - verified coworking spaces, neighborhood guides, visa and residency info, and a weekly event calendar.
 
@@ -190,7 +190,7 @@ export function getMarkdownForPath(pathname: string): { body: string } | null {
   if (p === "/about") {
     return {
       body: simpleStubMarkdown(
-        "About Istanbul Digital Nomads",
+        "About Istanbul Nomads",
         "Community hub run by nomads who live here - practical, verified, no tourist fluff.",
         `${SITE}/about`,
       ),
@@ -200,7 +200,7 @@ export function getMarkdownForPath(pathname: string): { body: string } | null {
   if (p === "/events") {
     return {
       body: simpleStubMarkdown(
-        "Istanbul Digital Nomads - Events",
+        "Istanbul Nomads - Events",
         "Weekly meetups, coworking days, and nomad events in Istanbul.",
         `${SITE}/events`,
       ),
@@ -210,7 +210,7 @@ export function getMarkdownForPath(pathname: string): { body: string } | null {
   if (p === "/contact") {
     return {
       body: simpleStubMarkdown(
-        "Contact Istanbul Digital Nomads",
+        "Contact Istanbul Nomads",
         "Reach the team for partnerships, corrections, or community questions.",
         `${SITE}/contact`,
       ),
@@ -230,7 +230,7 @@ export function getMarkdownForPath(pathname: string): { body: string } | null {
   if (p === "/local-guides" || p === "/local-guides/join") {
     return {
       body: simpleStubMarkdown(
-        "Local guides - Istanbul Digital Nomads",
+        "Local guides - Istanbul Nomads",
         "Human guides from the community who show nomads around Istanbul.",
         `${SITE}${p}`,
       ),

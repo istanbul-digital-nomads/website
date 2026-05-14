@@ -4,7 +4,7 @@ import { isValidLocale, defaultLocale } from "@/lib/i18n/config";
 
 export const size = ogSize;
 export const contentType = ogContentType;
-export const alt = "Contact Istanbul Digital Nomads";
+export const alt = "Contact Istanbul Nomads";
 
 interface Props {
   params: Promise<{ locale: string }>;

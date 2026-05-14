@@ -92,7 +92,7 @@ export default async function GuidePage(props: GuidePageProps) {
         author: {
           "@type": "Organization",
           "@id": `${SITE_URL}#organization`,
-          name: "Istanbul Digital Nomads",
+          name: "Istanbul Nomads",
         },
         publisher: { "@id": `${SITE_URL}#organization` },
         mainEntityOfPage: canonicalUrl,

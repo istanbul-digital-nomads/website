@@ -29,7 +29,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("ogDescription"),
       url: localeUrl(locale, "/relocation-agent"),
-      siteName: "Istanbul Digital Nomads",
+      siteName: "Istanbul Nomads",
       type: "website",
     },
   };

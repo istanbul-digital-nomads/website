@@ -124,7 +124,7 @@ function buildSvg(props: RtlProps): string {
   const CONTENT_LEFT = PADDING_X;
   const BADGE_SIZE = 40;
   const BADGE_GAP = 16;
-  const BRAND_TEXT = "Istanbul Digital Nomads";
+  const BRAND_TEXT = "Istanbul Nomads";
 
   // Type scale tuned so a 2-line title + 2-line description + footer all
   // sit between the brand wordmark and the footer with breathing room.

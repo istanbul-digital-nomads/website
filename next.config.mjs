@@ -34,11 +34,13 @@ const nextConfig = {
     "**/opengraph-image*": ["./public/fonts/og/**/*"],
   },
   experimental: {
-    // optimizeCss was helpful on Next 14 but on Next 15.5 + React 19 it
-    // interacts badly with the new streaming metadata flow - critical CSS
-    // gets inlined AFTER the React 19 metadata flush, deferring LCP.
-    // Disabled until Next 16 swaps to beasties + better integration.
-    // optimizeCss: true,
+    // Inline critical CSS + defer the rest. Requires `critters` devDep on
+    // Next 15.5 (Next 16 swaps to `beasties`). v2.0.1 disabled this because
+    // the streaming-metadata bailout was the dominant issue; now that bailout
+    // is fixed (v2.0.1 islands) and metadata is in head (v2.0.2), critters
+    // can do its job - removes the ~150 ms render-blocking penalty on the
+    // main CSS bundle.
+    optimizeCss: true,
     optimizePackageImports: [
       "lucide-react",
       "@headlessui/react",

@@ -32,14 +32,22 @@ import "@/styles/globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
-  display: "swap",
+  // Same reasoning as Manrope below: `optional` prevents the post-FCP font
+  // swap that Lighthouse mobile latched onto as a new LCP candidate.
+  display: "optional",
   variable: "--font-sans",
   preload: true,
 });
 
 const manrope = Manrope({
   subsets: ["latin"],
-  display: "swap",
+  // `optional` gives the browser ~100 ms to download the font; if it isn't
+  // ready, the fallback is used permanently. `swap` was triggering a paint
+  // when Manrope arrived 1-3 s in, which Lighthouse mobile latched onto as
+  // the LCP event for the H1 - inflating LCP from ~1.4 s to ~3.8 s. The
+  // next/font fallback uses ascent-override + size-adjust to match Manrope's
+  // metrics, so the layout doesn't shift either way.
+  display: "optional",
   weight: ["600", "700", "800"],
   variable: "--font-display",
   preload: true,
@@ -47,7 +55,9 @@ const manrope = Manrope({
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  display: "swap",
+  // Mono font is only used for small eyebrows / labels - `optional` avoids
+  // a font swap shifting LCP candidates.
+  display: "optional",
   weight: ["400", "500"],
   variable: "--font-mono",
   preload: true,

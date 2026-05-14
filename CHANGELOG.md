@@ -25,6 +25,13 @@ Design System v2 - "Ambient Tech with Istanbul Soul". An editorial-first, dark-n
 - **Token mechanism** - the ink/paper/accent CSS variables are space-separated RGB channels wired as `rgb(var(--token) / <alpha-value>)`, so Tailwind's `/opacity` modifier works on every themed colour.
 - **i18n** - new `ambient` namespace added to all five locale message files; translated into Turkish, Persian, Arabic, and Russian.
 
+### Phase 2 - Homepage
+
+- **Homepage rewritten** ([src/app/[locale]/page.tsx](src/app/[locale]/page.tsx)) as eight editorial sections under `src/components/sections/home/`: the issue-style hero (full-bleed photo slot + the moving Bosphorus ferry strip), "three doors" (Planner / Matcher / Telegram), "the shape of a week" with an annotated timeline, the guides shelf, the neighborhood matcher, the upcoming-events strip, the Sunday-letter signup, and the closing CTA.
+- **Matcher restyled** - `NeighborhoodRhythmMatcher` (shared with the neighborhoods index) re-skinned to the ink/paper tokens with a `SectionEyebrow` header; all matching logic untouched.
+- **Real data, honest placeholders** - the events strip pulls live from Supabase with a calm empty state; the guides shelf and matcher use existing content; image slots are `PhotoSlot` placeholders until real photography. The `MembershipTiers` and `CirclesStrip` sections from the design reference are intentionally **deferred** - they advertise products (Nomad+, Circles) that don't exist yet, and a fake pricing table is a lie, not a placeholder.
+- **i18n** - new `homeV2` namespace with all the new editorial copy, translated into Turkish, Persian, Arabic, and Russian.
+
 ## [3.2.0] - 2026-05-14
 
 ### Changed

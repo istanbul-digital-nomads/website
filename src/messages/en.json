@@ -2356,5 +2356,96 @@
       "dusk": "Dusk",
       "night": "Night"
     }
+  },
+  "homeV2": {
+    "hero": {
+      "photoCaption": "Kadıköy pier, dawn",
+      "masthead": "Made in Kadıköy · Est. 2023",
+      "membersLabel": "members",
+      "eyebrowNum": "N° 01",
+      "eyebrowLabel": "Arrival",
+      "eyebrowMeta": "Asia base. Ferry reset. Evening table.",
+      "headline": "Istanbul, for people who work remotely and want to stay a while.",
+      "lede": "A publication and a community for the one-to-six-month version of Istanbul. Made in Kadıköy by people who actually live here.",
+      "ctaPrimary": "Plan your first week",
+      "ctaSecondary": "Read first"
+    },
+    "doors": {
+      "eyebrow": "Three doors · pick one",
+      "planner": {
+        "title": "Plan your week",
+        "italic": "in seven minutes",
+        "body": "Six questions in, a Monday-to-Sunday schedule out. Addresses, ferry times, the one café open before 09:00.",
+        "photoCaption": "Walter's, Yeldeğirmeni · 10:30",
+        "cta": "Open the planner"
+      },
+      "matcher": {
+        "title": "Find a neighborhood",
+        "italic": "that fits you, not the postcard",
+        "body": "Ten neighborhoods scored on what you actually need. Not a personality test. Mostly a spreadsheet with opinions.",
+        "photoCaption": "Cihangir rooftop · dusk",
+        "cta": "Take the matcher"
+      },
+      "community": {
+        "title": "Join the community",
+        "italic": "or just read first",
+        "body": "A Telegram of remote workers who actually live here, weekly dinners, and guides written by people on the ground. No recruiters.",
+        "photoCaption": "Friday dinner · Çiya",
+        "cta": "Open Telegram"
+      }
+    },
+    "week": {
+      "eyebrow": "The shape of a week · not a productivity system",
+      "line1": "Asia base.",
+      "line2": "Ferry reset.",
+      "line3": "Evening table.",
+      "body1": "Three calls a day, two coffees, one ferry. The city is a commute and the commute is the city. Most weeks settle into a rhythm somewhere between this is where I work and this is where I live.",
+      "body2": "We sort the site around that rhythm. Not discover the magic of Istanbul. Just - Tuesday at 14:00, the wifi at your café dropped, where else has a window seat.",
+      "timeline": {
+        "t1": "Pier coffee. Window open. No phone.",
+        "t2": "Window seat at the café. Two calls.",
+        "t3": "Lokanta lunch. Three plates, no English required.",
+        "t4": "Ferry to the other side. Tea on deck.",
+        "t5": "Last good ferry back. Lights out by midnight."
+      }
+    },
+    "guidesShelf": {
+      "eyebrow": "Guides · on the shelf",
+      "title": "The long-form parts of the site -",
+      "titleItalic": "written, edited, dated, signed.",
+      "readLabel": "Read · {num}",
+      "allGuides": "All guides"
+    },
+    "events": {
+      "eyebrow": "Upcoming · the next fortnight",
+      "title": "What's on the calendar",
+      "titleItalic": "this fortnight.",
+      "rsvp": "RSVP",
+      "emptyEyebrow": "Dates scheduled soon",
+      "emptyTitle": "No public events on the calendar right now - check the Telegram for what's being planned.",
+      "note": "↳ Auto-RSVP via Telegram. We don't email you unless you ask.",
+      "allEvents": "All upcoming events"
+    },
+    "letter": {
+      "eyebrow": "Sunday letter",
+      "title": "One letter,",
+      "titleItalic": "Sundays, 09:00 local.",
+      "body": "A short read about Istanbul this week - a few things to know, one place to go, one piece of writing we liked. No tracking pixels. Easy to unsubscribe.",
+      "cardEyebrow": "In the letter",
+      "card": {
+        "item1": "Three things worth knowing about the city this week.",
+        "item2": "One place to go - a café, a market, a walk.",
+        "item3": "One piece of writing from the community we liked."
+      },
+      "cardFoot": "Short. Honest. No tracking."
+    },
+    "cta": {
+      "kicker": "One last thing",
+      "line1": "The ferry leaves",
+      "line2": "every twenty minutes.",
+      "line3": "You can be on it tomorrow.",
+      "primary": "Plan your first week",
+      "secondary": "Read first"
+    }
   }
 }

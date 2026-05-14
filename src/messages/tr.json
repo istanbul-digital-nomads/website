@@ -2376,5 +2376,96 @@
       "dusk": "Akşam",
       "night": "Gece"
     }
+  },
+  "homeV2": {
+    "hero": {
+      "photoCaption": "Kadıköy iskelesi, şafak",
+      "masthead": "Made in Kadıköy · Est. 2023",
+      "membersLabel": "üye",
+      "eyebrowNum": "N° 01",
+      "eyebrowLabel": "Varış",
+      "eyebrowMeta": "Asya'da üs. Vapurla sıfırlanma. Akşam sofrası.",
+      "headline": "İstanbul, uzaktan çalışan ve bir süre kalmak isteyenler için.",
+      "lede": "İstanbul'un bir-altı aylık hali için bir yayın ve bir topluluk. Kadıköy'de, burada gerçekten yaşayanlar tarafından yapıldı.",
+      "ctaPrimary": "İlk haftanı planla",
+      "ctaSecondary": "Önce oku"
+    },
+    "doors": {
+      "eyebrow": "Üç kapı · birini seç",
+      "planner": {
+        "title": "Haftanı planla",
+        "italic": "yedi dakikada",
+        "body": "Altı soru gir, Pazartesi'den Pazar'a bir program çıksın. Adresler, vapur saatleri, 09:00'dan önce açık olan o tek kafe.",
+        "photoCaption": "Walter's, Yeldeğirmeni · 10:30",
+        "cta": "Planlayıcıyı aç"
+      },
+      "matcher": {
+        "title": "Bir mahalle bul",
+        "italic": "kartpostala değil, sana uyanı",
+        "body": "Gerçekten ihtiyacın olana göre puanlanmış on mahalle. Kişilik testi değil. Daha çok, görüşleri olan bir tablo.",
+        "photoCaption": "Cihangir'de teras · gün batımı",
+        "cta": "Eşleştiriciyi dene"
+      },
+      "community": {
+        "title": "Topluluğa katıl",
+        "italic": "ya da önce sadece oku",
+        "body": "Burada gerçekten yaşayan uzaktan çalışanların olduğu bir Telegram, haftalık yemekler ve sahadaki insanların yazdığı rehberler. İşe alımcı yok.",
+        "photoCaption": "Cuma yemeği · Çiya",
+        "cta": "Telegram'ı aç"
+      }
+    },
+    "week": {
+      "eyebrow": "Bir haftanın şekli · verimlilik sistemi değil",
+      "line1": "Asya'da üs.",
+      "line2": "Vapurla sıfırlanma.",
+      "line3": "Akşam sofrası.",
+      "body1": "Günde üç görüşme, iki kahve, bir vapur. Şehir bir yol, yol da şehir. Çoğu hafta, burada çalışıyorum ile burada yaşıyorum arasında bir yere oturan bir ritme kavuşuyor.",
+      "body2": "Siteyi o ritme göre düzenliyoruz. İstanbul'un büyüsünü keşfet diye değil. Sadece - Salı 14:00'te kafenin wifi'si gitti, başka nerede pencere kenarı var.",
+      "timeline": {
+        "t1": "İskelede kahve. Pencere açık. Telefon yok.",
+        "t2": "Kafede pencere kenarı. İki görüşme.",
+        "t3": "Lokantada öğle yemeği. Üç tabak, İngilizce gerekmiyor.",
+        "t4": "Karşı yakaya vapur. Güvertede çay.",
+        "t5": "Son iyi vapurla dönüş. Gece yarısına kadar uyku."
+      }
+    },
+    "guidesShelf": {
+      "eyebrow": "Rehberler · rafta",
+      "title": "Sitenin uzun soluklu kısımları -",
+      "titleItalic": "yazıldı, düzenlendi, tarihlendi, imzalandı.",
+      "readLabel": "Oku · {num}",
+      "allGuides": "Tüm rehberler"
+    },
+    "events": {
+      "eyebrow": "Yaklaşan · önümüzdeki iki hafta",
+      "title": "Takvimde neler var",
+      "titleItalic": "önümüzdeki iki hafta.",
+      "rsvp": "Katılacağım",
+      "emptyEyebrow": "Tarihler yakında belli olacak",
+      "emptyTitle": "Şu an takvimde halka açık etkinlik yok - neler planlandığını görmek için Telegram'a bak.",
+      "note": "↳ Telegram üzerinden otomatik katılım. Sen istemedikçe sana e-posta göndermiyoruz.",
+      "allEvents": "Tüm yaklaşan etkinlikler"
+    },
+    "letter": {
+      "eyebrow": "Pazar mektubu",
+      "title": "Tek mektup,",
+      "titleItalic": "Pazarları, 09:00 yerel saat.",
+      "body": "Bu hafta İstanbul üzerine kısa bir okuma - bilmen gereken birkaç şey, gidilecek bir yer, beğendiğimiz bir yazı. Takip pikseli yok. Abonelikten çıkmak kolay.",
+      "cardEyebrow": "Mektupta",
+      "card": {
+        "item1": "Bu hafta şehir hakkında bilmeye değer üç şey.",
+        "item2": "Gidilecek bir yer - bir kafe, bir pazar, bir yürüyüş.",
+        "item3": "Topluluktan beğendiğimiz bir yazı."
+      },
+      "cardFoot": "Kısa. Dürüst. Takip yok."
+    },
+    "cta": {
+      "kicker": "Son bir şey",
+      "line1": "Vapur kalkıyor",
+      "line2": "her yirmi dakikada bir.",
+      "line3": "Yarın o vapurda olabilirsin.",
+      "primary": "İlk haftanı planla",
+      "secondary": "Önce oku"
+    }
   }
 }

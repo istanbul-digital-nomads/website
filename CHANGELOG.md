@@ -4,6 +4,18 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.0] - 2026-05-14
+
+Design System v2 - "Ambient Tech with Istanbul Soul". An editorial-first, dark-native visual identity (see `docs/plan/design/`). Shipping in phases; this entry grows as phases land.
+
+### Phase 0 - Foundations
+
+- **Font stack swap** ([src/app/[locale]/layout.tsx](src/app/[locale]/layout.tsx)) - Inter -> **Geist** (UI/body), Manrope -> **Fraunces** (editorial display serif, weights 300/400/500 + italic), IBM Plex Mono -> **JetBrains Mono** (numbers/metadata). CSS variable names (`--font-sans` / `--font-display` / `--font-mono`) and the `display: "optional"` LCP optimisation are unchanged. The Persian (Bon Pro) and Arabic (Noto Sans Arabic) RTL fonts and their 82% scaling are untouched.
+- **"Ink + paper" design tokens** ([tailwind.config.ts](tailwind.config.ts), [src/styles/globals.css](src/styles/globals.css)) - a 6-step `ink` surface ramp, 4-step `paper` text ramp, and accent set (`terracotta`, `bosphorus`, `ferry-yellow`, `moss` + dim variants). Implemented as CSS custom properties that flip between light and dark, so every redesigned surface is theme-aware. Dark values are canonical (from the design reference); light values are new.
+- **Type scale** - `display-2xl/xl/lg`, `h1-h4`, `lede`, `body`, `meta`, `mono` keys with the v2 weights and tracking. Base `h1-h6` reweighted to Fraunces 400. Legacy keys kept for not-yet-redesigned pages.
+- **Time-of-day accent** - `<html>` gets a `tod-{dawn|midday|dusk|night}` class from the server (`getTimeOfDay` in [src/lib/ambient.ts](src/lib/ambient.ts), a `use cache` function), driving a `--tod-accent` CSS variable.
+- **Motion** - `ease-soft` timing function, `fast/mid/slow` durations, the `ferry-cross` keyframe (the one moving signal, frozen under `prefers-reduced-motion`), and tabular numerals on `.font-mono`.
+
 ## [3.2.0] - 2026-05-14
 
 ### Changed

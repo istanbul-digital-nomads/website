@@ -55,26 +55,93 @@ const config: Config = {
           light: "#ffffff",
           dark: "#1a1612",
         },
+        // Design System v2 - "ink + paper" tokens. Mapped to CSS custom
+        // properties so they flip between light and dark in globals.css.
+        // Dark values from docs/plan/design/files/tokens.jsx (canonical).
+        ink: {
+          0: "var(--ink-0)",
+          1: "var(--ink-1)",
+          2: "var(--ink-2)",
+          3: "var(--ink-3)",
+          4: "var(--ink-4)",
+          5: "var(--ink-5)",
+        },
+        paper: {
+          DEFAULT: "var(--paper)",
+          dim: "var(--paper-dim)",
+          mute: "var(--paper-mute)",
+          faint: "var(--paper-faint)",
+        },
+        terracotta: {
+          DEFAULT: "var(--terracotta)",
+          dim: "var(--terracotta-dim)",
+        },
+        bosphorus: {
+          DEFAULT: "var(--bosphorus)",
+          dim: "var(--bosphorus-dim)",
+        },
+        "ferry-yellow": "var(--ferry-yellow)",
+        moss: "var(--moss)",
+        // Time-of-day accent, set by the `tod-*` class on <html>.
+        tod: "var(--tod-accent)",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
-        display: ["var(--font-display)", "var(--font-sans)", "system-ui"],
-        mono: ["var(--font-mono)", "monospace"],
+        display: ["var(--font-display)", "Georgia", "serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       fontSize: {
+        // Design System v2 scale (docs/plan/design DESIGN_SYSTEM.md §3).
+        // Display weights are light (300); page titles 400; subsections 500.
+        "display-2xl": [
+          "9.25rem",
+          { lineHeight: "0.9", letterSpacing: "-0.045em", fontWeight: "300" },
+        ],
+        "display-xl": [
+          "6.75rem",
+          { lineHeight: "0.92", letterSpacing: "-0.04em", fontWeight: "300" },
+        ],
+        "display-lg": [
+          "5rem",
+          { lineHeight: "0.95", letterSpacing: "-0.035em", fontWeight: "300" },
+        ],
+        h1: [
+          "3.5rem",
+          { lineHeight: "1", letterSpacing: "-0.03em", fontWeight: "400" },
+        ],
+        h2: [
+          "2.375rem",
+          { lineHeight: "1.05", letterSpacing: "-0.025em", fontWeight: "400" },
+        ],
+        h3: [
+          "1.75rem",
+          { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "400" },
+        ],
+        h4: [
+          "1.375rem",
+          { lineHeight: "1.15", letterSpacing: "-0.015em", fontWeight: "500" },
+        ],
+        lede: ["1.1875rem", { lineHeight: "1.45" }],
+        body: ["1rem", { lineHeight: "1.55" }],
+        meta: ["0.8125rem", { lineHeight: "1.5" }],
+        mono: ["0.6875rem", { lineHeight: "1.5", letterSpacing: "0.06em" }],
+        // Legacy keys kept for not-yet-redesigned pages.
         "display-sm": ["3.5rem", { lineHeight: "4rem", fontWeight: "800" }],
         "display-md": ["4rem", { lineHeight: "4.5rem", fontWeight: "800" }],
-        "display-lg": ["4.5rem", { lineHeight: "5rem", fontWeight: "800" }],
-        h1: ["2.75rem", { lineHeight: "3.25rem", fontWeight: "800" }],
-        h2: ["2.25rem", { lineHeight: "2.75rem", fontWeight: "800" }],
-        h3: ["1.75rem", { lineHeight: "2.25rem", fontWeight: "700" }],
-        body: ["1rem", { lineHeight: "1.75rem" }],
         "body-lg": ["1.0625rem", { lineHeight: "1.875rem" }],
         "body-xl": ["1.125rem", { lineHeight: "2rem" }],
         eyebrow: [
           "0.6875rem",
           { lineHeight: "1rem", letterSpacing: "0.35em", fontWeight: "500" },
         ],
+      },
+      transitionTimingFunction: {
+        soft: "cubic-bezier(0.2, 0.7, 0.3, 1)",
+      },
+      transitionDuration: {
+        fast: "140ms",
+        mid: "280ms",
+        slow: "520ms",
       },
       maxWidth: {
         prose: "65ch",

@@ -3,18 +3,18 @@ import { getBlogPost } from "@/lib/blog";
 import { getTranslations } from "next-intl/server";
 import { isValidLocale, defaultLocale } from "@/lib/i18n/config";
 
+export const runtime = "nodejs";
 export const size = ogSize;
 export const contentType = ogContentType;
 export const alt = "Istanbul Digital Nomads Blog";
 
 interface Props {
-  params: Promise<{ locale: string; slug: string }>;
+  params: { locale: string; slug: string };
 }
 
 export default async function Image({ params }: Props) {
-  const { locale: rawLocale, slug } = await params;
-  const locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
-  const post = getBlogPost(slug, locale);
+  const locale = isValidLocale(params.locale) ? params.locale : defaultLocale;
+  const post = getBlogPost(params.slug, locale);
   const t = await getTranslations({ locale, namespace: "og" });
   return renderOgImage({
     locale,

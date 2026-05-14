@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { findSkill, agentSkills } from "@/lib/agent-skills";
 
+export const dynamic = "force-static";
+
 export function generateStaticParams() {
   return agentSkills.map((s) => ({ name: s.name }));
 }

@@ -244,10 +244,11 @@ export default async function LocaleLayout({
           content="#14110f"
           media="(prefers-color-scheme: dark)"
         />
-        {/* Theme init: ThemeProvider applies the dark class after hydration.
-            Inline theme-on-html script was the source of React #418 hydration
-            mismatch under Next 16 + React 19 + cacheComponents - suppressHydration
-            no longer covers className mutation pre-hydration in this mode. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("theme");var d=document.documentElement;if(t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme:dark)").matches))d.classList.add("dark")}catch(e){}})()`,
+          }}
+        />
       </head>
       <body
         className={[

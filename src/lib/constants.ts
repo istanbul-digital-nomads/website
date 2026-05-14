@@ -13,6 +13,7 @@ export const socialLinks = {
   telegram: "https://t.me/istanbul_digital_nomads",
   github: "https://github.com/istanbul-digital-nomads",
   twitter: "https://twitter.com/istanbulnomads",
+  instagram: "https://instagram.com/istanbulnomads",
   email: "hello@istanbulnomads.com",
 } as const;
 
@@ -68,6 +69,7 @@ export type FooterLinkKey =
   | "telegram"
   | "github"
   | "twitter"
+  | "instagram"
   | "email"
   | "openapi"
   | "llmsTxt";
@@ -94,6 +96,7 @@ export const footerNav: Record<
   ],
   connect: [
     { key: "telegram", href: socialLinks.telegram, external: true },
+    { key: "instagram", href: socialLinks.instagram, external: true },
     { key: "github", href: socialLinks.github, external: true },
     { key: "twitter", href: socialLinks.twitter, external: true },
     { key: "email", href: `mailto:${socialLinks.email}`, external: true },

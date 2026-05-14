@@ -66,6 +66,7 @@
     },
     "social": {
       "telegram": "Telegram",
+      "instagram": "Instagram",
       "github": "GitHub",
       "twitter": "Twitter",
       "email": "Email"
@@ -98,6 +99,7 @@
       "costOfLiving": "Cost of Living",
       "photoCredits": "Photo credits",
       "telegram": "Telegram",
+      "instagram": "Instagram",
       "github": "GitHub",
       "twitter": "Twitter",
       "email": "Email",

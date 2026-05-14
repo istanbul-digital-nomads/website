@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Github, Mail, Send, Twitter } from "lucide-react";
+import { Github, Instagram, Mail, Send, Twitter } from "lucide-react";
 import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import type { Locale } from "@/lib/i18n/config";
 import { Container } from "@/components/ui/container";
@@ -9,6 +9,7 @@ import { NewsletterForm } from "@/components/newsletter-form";
 
 const socialIcons = [
   { href: socialLinks.telegram, icon: Send, key: "telegram" as const },
+  { href: socialLinks.instagram, icon: Instagram, key: "instagram" as const },
   { href: socialLinks.github, icon: Github, key: "github" as const },
   { href: socialLinks.twitter, icon: Twitter, key: "twitter" as const },
   { href: `mailto:${socialLinks.email}`, icon: Mail, key: "email" as const },

@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 
-export const dynamic = "force-static";
-
 // Supabase Auth is the OIDC provider for any protected endpoint on istanbulnomads.com.
 // This document tells agents where to send users for authentication and where to fetch
 // the signing keys that verify bearer tokens. Issuer and endpoints MUST match the

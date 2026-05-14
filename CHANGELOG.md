@@ -4,6 +4,33 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-05-14
+
+### Changed (BREAKING - framework upgrade)
+
+- **Next.js 15.5.18 → 16.2.6**. Now on the latest stable Next.js. React 19.2 and next-intl 4.12 unchanged.
+- **ESLint 8.57 → 10.3**. Required peer for `eslint-config-next` 16.
+
+### Breaking change handling
+
+- **`middleware.ts` → `proxy.ts`**. Ran `@next/codemod middleware-to-proxy`; the file moved and the named export went from `middleware()` to `proxy()`. Next 16's renamed convention - same runtime, same matcher.
+- **Removed all `export const runtime = "edge" | "nodejs"`** route segment configs (14 files). Next 16 doesn't allow them when `cacheComponents` is on, and they were boilerplate anyway. Routes that needed Node runtime (the OG image generators using `@resvg/resvg-js` native bindings) still get it via `serverExternalPackages`.
+- **Removed `export const revalidate = 300`** from the home page and `export const dynamic = "force-static"` from the eight `.well-known/` + API discovery routes. Both flags are incompatible with Cache Components, and Next 16's new defaults make them moot.
+- **Fixed OG image route Promise params**. The Next-15 `next-async-request-api` codemod missed all 13 `opengraph-image.tsx` files because they aren't `page.tsx`. They were still destructuring `params.locale` synchronously, which silently returned `undefined` on Next 15+ → all locale OG images were falling back to the EN default. Verified by visual diff: FA OG now renders Persian text with proper RTL + HarfBuzz shaping (resvg-js path), 103 KB vs the broken 91 KB EN-fallback.
+
+### Performance notes
+
+- **Cache Components opt-in deferred**. Next 16 enforces `'use cache'` + Suspense boundaries strictly - any uncached data access (translations, fetch, params) outside a `<Suspense>` fails the build. Enabling it requires Suspense scaffolding on every page; that's a focused refactor with measurable LCP upside (cached static shell + streamed dynamic bits) and lands in a dedicated PR.
+- All `[locale]/*` routes that were `●` (SSG) on Next 15 now show as `ƒ` (Dynamic) in the Next 16 build output. The on-disk behavior is functionally identical (the response is generated server-side and cached at the Vercel edge); the build classification just reflects Next 16's dynamic-by-default model.
+
+### Verified locally
+- `pnpm build` clean (Next 16 / React 19.2 / next-intl 4.12 / eslint 10)
+- `pnpm type-check` + `pnpm test` (91/91) clean
+- All 5 locale homes return 200 on local prod server
+- FA OG image renders correctly with Persian text (was broken on Next 15 too - this PR is the actual fix)
+- Title + meta description still in `<head>` from byte 0
+- All metadata routes (icon / robots / sitemap / llms / openapi) 200
+
 ## [2.0.3] - 2026-05-14
 
 ### Changed

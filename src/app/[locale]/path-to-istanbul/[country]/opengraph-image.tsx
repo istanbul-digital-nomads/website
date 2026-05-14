@@ -4,18 +4,18 @@ import { getPathContent } from "@/lib/path-to-istanbul-content";
 import { getTranslations } from "next-intl/server";
 import { isValidLocale, defaultLocale } from "@/lib/i18n/config";
 
-export const runtime = "nodejs";
 export const size = ogSize;
 export const contentType = ogContentType;
 export const alt = "Moving to Istanbul";
 
 interface Props {
-  params: { locale: string; country: string };
+  params: Promise<{ locale: string; country: string }>;
 }
 
 export default async function Image({ params }: Props) {
-  const locale = isValidLocale(params.locale) ? params.locale : defaultLocale;
-  const country = getCountryBySlug(params.country);
+  const { locale: rawLocale, country: countrySlug } = await params;
+  const locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
+  const country = getCountryBySlug(countrySlug);
   const content = country ? getPathContent(country.slug, locale) : null;
   const t = await getTranslations({ locale, namespace: "og" });
   const tCountries = await getTranslations({

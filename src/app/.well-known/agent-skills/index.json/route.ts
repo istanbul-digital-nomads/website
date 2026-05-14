@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { agentSkills, skillDigest, skillUrl } from "@/lib/agent-skills";
 
-export const dynamic = "force-static";
-
 export async function GET() {
   const body = {
     $schema:

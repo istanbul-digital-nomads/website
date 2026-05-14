@@ -4,6 +4,12 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.2] - 2026-05-14
+
+### Fixed
+
+- **Render `<title>` and `<meta name="description">` directly in the layout's server `<head>`**, instead of relying solely on `generateMetadata`. React 19's Document Metadata flow on Next 15.5 streams those tags into `<body>` and the browser hoists them at parse time, but Lighthouse audits the response before hoist - so it scored meta-description = 0 on prod even though the tag was in the HTML. Now both Lighthouse and search crawlers see the metadata in head from byte 0. The `generateMetadata` system still runs and emits the same tags later; the browser deduplicates.
+
 ## [2.0.1] - 2026-05-14
 
 ### Fixed

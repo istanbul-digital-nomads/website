@@ -189,6 +189,9 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
   const messages = await getMessages();
   const typedLocale = locale as Locale;
+  const tSite = await getTranslations({ locale, namespace: "site" });
+  const fallbackTitle = "Istanbul Digital Nomads";
+  const fallbackDescription = tSite("description");
 
   // Strip server-only namespaces from the client provider payload. `og` is
   // only read by opengraph-image route handlers and `emails` by the React
@@ -208,6 +211,15 @@ export default async function LocaleLayout({
       suppressHydrationWarning
     >
       <head>
+        {/* React 19's Document Metadata flow renders <title>/<meta> into
+            body by default and the browser hoists them at parse time. That's
+            functionally fine but Lighthouse audits the response before hoist
+            and scores meta-description as missing. Render the SEO-critical
+            tags directly in head so they're there from byte 0; Next.js's
+            generateMetadata still emits the same tags later (the browser
+            handles the dedupe). */}
+        <title>{fallbackTitle}</title>
+        <meta name="description" content={fallbackDescription} />
         <meta name="google" content="notranslate" />
         <link
           rel="preconnect"

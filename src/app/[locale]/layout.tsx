@@ -16,10 +16,7 @@ import {
   getTranslations,
 } from "next-intl/server";
 import { isValidLocale } from "@/lib/i18n/config";
-import {
-  getCachedMessages,
-  getCachedTranslations,
-} from "@/lib/i18n/cache-translations";
+import { getCachedMessages } from "@/lib/i18n/cache-translations";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/layout/theme-provider";
@@ -208,9 +205,6 @@ export default async function LocaleLayout({
   // which Next 16's cacheComponents forbids in any path leading to a cached
   // page. The cache-friendly helpers read the message JSON directly.
   const messages = getCachedMessages(typedLocale);
-  const tSite = getCachedTranslations(typedLocale, "site");
-  const fallbackTitle = "Istanbul Digital Nomads";
-  const fallbackDescription = tSite("description");
 
   // Strip server-only namespaces from the client provider payload. `og` is
   // only read by opengraph-image route handlers and `emails` by the React
@@ -230,15 +224,11 @@ export default async function LocaleLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* React 19's Document Metadata flow renders <title>/<meta> into
-            body by default and the browser hoists them at parse time. That's
-            functionally fine but Lighthouse audits the response before hoist
-            and scores meta-description as missing. Render the SEO-critical
-            tags directly in head so they're there from byte 0; Next.js's
-            generateMetadata still emits the same tags later (the browser
-            handles the dedupe). */}
-        <title>{fallbackTitle}</title>
-        <meta name="description" content={fallbackDescription} />
+        {/* Next 16 streams generateMetadata output into <head> directly
+            (different from Next 15's React 19 body-streaming flow), so the
+            manual title/description fallback we needed on Next 15 (v2.0.2)
+            now creates duplicates that React 19 flags as hydration mismatch.
+            Removed - rely on generateMetadata instead. */}
         <meta name="google" content="notranslate" />
         <link
           rel="preconnect"

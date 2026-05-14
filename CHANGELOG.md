@@ -4,6 +4,26 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.8] - 2026-05-14
+
+### Changed
+
+- **Canonical host enforcement** ([src/proxy.ts](src/proxy.ts)) - Google had indexed three host variants (`https://istanbulnomads.com`, `https://www.istanbulnomads.com`, `http://www.istanbulnomads.com`), splitting link equity. The proxy now 301-redirects any non-canonical host or non-HTTPS request to `https://istanbulnomads.com` so search engines consolidate ranking signals. Localhost and `*.vercel.app` preview deployments pass through untouched so dev and PR previews keep working.
+- **SEO metadata rewrite** for two high-intent surfaces, across all five locales:
+  - `guides.internet` title/description - now leads with year, the three carriers compared, concrete tourist-SIM pricing, and coworking wifi speeds instead of a generic summary.
+  - `countryPage.meta` title template + fallback description - now front-loads "2026", visa/cost/community specifics, and a credibility line ("written by nomads who've made the move").
+
+## [3.1.0] - [3.1.7] - 2026-05-14
+
+Stabilization pass on the Next.js 16 + Cache Components release (see 3.0.0):
+
+- **3.1.1** - removed a duplicate `<title>`/`<meta description>` in the layout head that React 19 flagged as a hydration mismatch; `generateMetadata` is the single source of truth.
+- **3.1.2** - cached the `Footer` (`'use cache'` + `locale` prop) so its `new Date().getFullYear()` copyright stops triggering Next 16's runtime-current-time error.
+- **3.1.3 / 3.1.4** - probed and disproved the inline theme script as the React #418 source, then restored it (it prevents dark-mode FOUC).
+- **3.1.5** - temporarily enabled `productionBrowserSourceMaps` to trace the minified React #418.
+- **3.1.6** - **fixed React #418**: `sonner`'s `Toaster` calls `useState(document.hidden)` at render; the v3.1.0 switch from `dynamic({ssr:false})` to a static import made it SSR-render, where `document` is undefined. Moved `Toaster` back to `dynamic({ssr:false})` inside the `"use client"` `client-islands.tsx` wrapper.
+- **3.1.7** - added Instagram ([@istanbulnomads](https://instagram.com/istanbulnomads)) to `socialLinks`, the footer icon row, the footer "Connect" column, and all five locale message files.
+
 ## [3.0.0] - 2026-05-14
 
 ### Changed (BREAKING - framework upgrade + Cache Components)

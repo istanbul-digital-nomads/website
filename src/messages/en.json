@@ -257,8 +257,8 @@
       "description": "Tourist visa rules, residence permit process, and legal tips."
     },
     "internet": {
-      "title": "Internet & SIM Cards",
-      "description": "Best mobile plans, home internet options, and backup solutions."
+      "title": "Internet & SIM in Istanbul (2026): Speeds, Prices, Picks",
+      "description": "Turkcell, Türk Telekom, Vodafone compared. Tourist SIMs from 250 TL. Wifi speeds at every major coworking. What nomads actually use."
     },
     "transport": {
       "title": "Getting Around",
@@ -1549,8 +1549,8 @@
   },
   "countryPage": {
     "meta": {
-      "titleTemplate": "Moving to Istanbul from {country}",
-      "fallbackDescription": "Visa, flights, housing, and community for {country}-born nomads moving to Istanbul."
+      "titleTemplate": "From {country} to Istanbul (2026): Visa, Costs, Community",
+      "fallbackDescription": "Real visa rules, banking, monthly costs, and the {country} community already in Istanbul. Written by nomads who've made the move."
     },
     "breadcrumb": {
       "home": "Home",

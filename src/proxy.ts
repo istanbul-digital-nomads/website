@@ -4,6 +4,7 @@ import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "@/lib/i18n/routing";
 
 const SITE = "https://istanbulnomads.com";
+const CANONICAL_HOST = "istanbulnomads.com";
 
 const NO_MARKDOWN_PREFIXES = [
   "/dashboard",
@@ -17,6 +18,31 @@ const intlMiddleware = createIntlMiddleware(routing);
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+
+  // Canonical host enforcement. Google indexed three host variants
+  // (https://istanbulnomads.com, https://www.istanbulnomads.com,
+  // http://www.istanbulnomads.com) which split link equity and confused
+  // rankings. Redirect any non-canonical host to https://istanbulnomads.com
+  // with a permanent 301 so search engines consolidate the signals.
+  // Pass through during local dev (localhost / 127.0.0.1) and on Vercel
+  // preview deployments (*.vercel.app) so dev and PR previews keep working.
+  const host = request.headers.get("host") || "";
+  const proto =
+    request.headers.get("x-forwarded-proto") ||
+    request.nextUrl.protocol.replace(":", "");
+  const isLocalHost =
+    host.startsWith("localhost") || host.startsWith("127.0.0.1");
+  const isVercelPreview = host.endsWith(".vercel.app");
+  if (
+    !isLocalHost &&
+    !isVercelPreview &&
+    (host !== CANONICAL_HOST || proto !== "https")
+  ) {
+    const target = new URL(request.nextUrl.toString());
+    target.protocol = "https:";
+    target.host = CANONICAL_HOST;
+    return NextResponse.redirect(target, 301);
+  }
 
   // Skip Next internals, API routes, well-known discovery paths, and the
   // root-level metadata routes (icon / apple-icon / opengraph-image at the

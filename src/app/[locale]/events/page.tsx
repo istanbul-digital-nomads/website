@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import { preconnect } from "react-dom";
 import { getTranslations } from "next-intl/server";
-import { getEvents } from "@/lib/supabase/queries";
+import { getCachedTranslations } from "@/lib/i18n/cache-translations";
+import { getEventsPublic } from "@/lib/supabase/queries";
 import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { alternatesFor, localeUrl } from "@/lib/seo";
-import { EventsView } from "./events-view";
+import { Container } from "@/components/ui/container";
+import { SectionEyebrow } from "@/components/ui/section-eyebrow";
+import { EventsBoard } from "@/components/sections/events/events-board";
+import { SurpriseEventWaitlist } from "./surprise-event-waitlist";
 
 export async function generateMetadata({
   params,
@@ -27,12 +30,47 @@ export async function generateMetadata({
   };
 }
 
-export default async function EventsPage() {
-  preconnect("https://basemaps.cartocdn.com");
+export default async function EventsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
+  const t = getCachedTranslations(locale, "eventsV2");
+
   const [{ data: upcoming }, { data: past }] = await Promise.all([
-    getEvents({ past: false }),
-    getEvents({ past: true }),
+    getEventsPublic({ past: false }),
+    getEventsPublic({ past: true }),
   ]);
 
-  return <EventsView upcomingEvents={upcoming ?? []} pastEvents={past ?? []} />;
+  return (
+    <section className="bg-ink-1 pt-16 lg:pt-24">
+      <Container>
+        <SectionEyebrow num="N° 01" label={t("eyebrow")} />
+        <h1 className="mt-8 max-w-3xl font-display text-display-lg leading-none text-paper lg:text-display-xl">
+          {t("title")}{" "}
+          <span className="italic text-terracotta">{t("titleItalic")}</span>
+        </h1>
+        <p className="mt-8 max-w-2xl text-lede leading-relaxed text-paper-dim">
+          {t("lede")}
+        </p>
+
+        <div className="mt-14">
+          <EventsBoard
+            upcomingEvents={upcoming ?? []}
+            pastEvents={past ?? []}
+          />
+        </div>
+
+        <p className="mt-6 font-mono text-[10.5px] uppercase tracking-wider text-paper-faint">
+          {t("note")}
+        </p>
+
+        <div className="mt-20 border-t border-ink-3 pb-24 pt-16">
+          <SurpriseEventWaitlist />
+        </div>
+      </Container>
+    </section>
+  );
 }

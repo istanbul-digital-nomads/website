@@ -40,6 +40,14 @@ Design System v2 - "Ambient Tech with Istanbul Soul". An editorial-first, dark-n
 - **Deferred** - the content-heavy editorial sections from the design reference (day-in-the-life timeline, eat/drink/supply, "what to know") need new, hand-written editorial copy per neighborhood that doesn't exist yet. They're a content follow-up, not shipped here - a placeholder with no real content would be a lie.
 - **i18n** - new `neighborhoodsV2` namespace, translated into Turkish, Persian, Arabic, and Russian.
 
+### Phase 4 - Events
+
+- **Events index rewritten** ([src/app/[locale]/events/page.tsx](src/app/[locale]/events/page.tsx)) as an editorial board - a serif headline, an upcoming/past tab + type-filter `EventsBoard` over a row-list (the row is the unit, not a card), and the existing surprise-event waitlist. The map-first view and its `events-map`/`events-view`/`events-list` components were removed.
+- **Event detail page** ([src/app/[locale]/events/[id]/page.tsx](src/app/[locale]/events/[id]/page.tsx)) - new. Breadcrumb + serif title hero, photo slot, description, and a sticky booking panel. Resolves by `slug` then falls back to the uuid `id`.
+- **Ticketing groundwork** - migration `012_event_ticketing.sql` adds optional `slug` / `price_try` / `price_usd` / `kind` / `waitlist_count` columns to `events`. `src/lib/stripe.ts` is an env-gated Stripe stub: `STRIPE_SECRET_KEY` isn't wired up, so paid events fall back to the free Telegram RSVP path with an honest note rather than a dead paywall. The migration isn't applied yet - reading code treats every new column as optional.
+- **Caching** - `getEventsPublic` / `getEventByIdPublic` are now `use cache` (cacheLife "minutes", tag "events") so they're callable from uncached server components and `generateMetadata` under cacheComponents. The layout's `usePathname` client islands are now Suspense-wrapped so fully-dynamic routes don't trip the "uncached data outside Suspense" guard.
+- **i18n** - new `eventsV2` namespace, translated into Turkish, Persian, Arabic, and Russian.
+
 ## [3.2.0] - 2026-05-14
 
 ### Changed

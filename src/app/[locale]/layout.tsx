@@ -284,7 +284,13 @@ export default async function LocaleLayout({
           now={new Date(0)}
         >
           <ThemeProvider>
-            <NavProgressIsland />
+            {/* NavProgress + BottomTabBar read usePathname, which is
+                dynamic data on fully-dynamic routes (e.g. /events/[id]).
+                Wrapped in Suspense so they don't trip cacheComponents'
+                "uncached data outside Suspense" guard. */}
+            <Suspense fallback={null}>
+              <NavProgressIsland />
+            </Suspense>
             <Suspense fallback={null}>
               <AmbientBar locale={typedLocale} />
             </Suspense>
@@ -297,7 +303,9 @@ export default async function LocaleLayout({
             <Suspense fallback={null}>
               <Footer locale={typedLocale} />
             </Suspense>
-            <BottomTabBarIsland />
+            <Suspense fallback={null}>
+              <BottomTabBarIsland />
+            </Suspense>
           </ThemeProvider>
           <ToasterIsland />
           <WebMcpRegisterIsland />

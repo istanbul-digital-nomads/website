@@ -94,6 +94,13 @@ export interface Database {
           is_published: boolean;
           created_at: string;
           updated_at: string;
+          // Added in migration 012_event_ticketing.sql. Nullable so existing
+          // rows and the free-RSVP flow are unaffected.
+          slug: string | null;
+          price_try: number | null;
+          price_usd: number | null;
+          kind: string | null;
+          waitlist_count: number;
         };
         Insert: {
           id?: string;

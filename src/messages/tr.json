@@ -2513,5 +2513,34 @@
       "detailPhoto": "Detay",
       "ledeEyebrow": "Giriş"
     }
+  },
+  "eventsV2": {
+    "eyebrow": "Etkinlikler · neler oluyor",
+    "title": "Takvim:",
+    "titleItalic": "önümüzdeki iki hafta ve geçen iki hafta.",
+    "lede": "Haftalık yemekler, vapurda coworking, yürüyüşler ve arada bir tekne turu. Ücretsiz etkinliklere Telegram'dan RSVP yap; ücretli deneyimlerde yerin tutulur.",
+    "note": "↳ Telegram üzerinden otomatik RSVP. Sen istemedikçe sana e-posta atmıyoruz.",
+    "free": "Ücretsiz",
+    "rsvp": "RSVP",
+    "recap": "Özet",
+    "detail": {
+      "metaPrefix": "{title} · Istanbul Nomads etkinliği",
+      "date": "Tarih",
+      "time": "Saat",
+      "location": "Yer",
+      "price": "Fiyat",
+      "seats": "Kontenjan",
+      "openSeats": "Boş",
+      "aboutEyebrow": "Bu etkinlik hakkında",
+      "bookEyebrow": "Yer ayır",
+      "rsvpEyebrow": "RSVP",
+      "book": "Yer ayır",
+      "rsvpTelegram": "Telegram'dan RSVP yap",
+      "rsvpNote": "RSVP, Telegram grubunda yapılıyor. Burada hesap açmana gerek yok.",
+      "paidFallbackNote": "Bu ücretli bir etkinlik. Kartla ödeme henüz aktif değil - yerini tutmak için bize Telegram'dan yaz.",
+      "pastTag": "Geçmiş",
+      "pastNote": "Bu etkinlik çoktan oldu. Sıradakiler için yaklaşan etkinlikler listesine bak.",
+      "allEvents": "Tüm etkinlikler"
+    }
   }
 }

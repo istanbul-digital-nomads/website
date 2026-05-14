@@ -2493,5 +2493,34 @@
       "detailPhoto": "Detail",
       "ledeEyebrow": "The lede"
     }
+  },
+  "eventsV2": {
+    "eyebrow": "Events · what's on",
+    "title": "The calendar,",
+    "titleItalic": "the next fortnight and the last.",
+    "lede": "Weekly dinners, ferry coworking, walks, and the occasional sail. Free events RSVP through Telegram; paid experiences hold your seat.",
+    "note": "↳ Auto-RSVP via Telegram. We don't email you unless you ask.",
+    "free": "Free",
+    "rsvp": "RSVP",
+    "recap": "Recap",
+    "detail": {
+      "metaPrefix": "{title} · Istanbul Nomads event",
+      "date": "Date",
+      "time": "Time",
+      "location": "Location",
+      "price": "Price",
+      "seats": "Seats",
+      "openSeats": "Open",
+      "aboutEyebrow": "About this one",
+      "bookEyebrow": "Book a seat",
+      "rsvpEyebrow": "RSVP",
+      "book": "Book a seat",
+      "rsvpTelegram": "RSVP on Telegram",
+      "rsvpNote": "RSVP happens in the Telegram group. No account needed here.",
+      "paidFallbackNote": "This is a paid event. Card checkout isn't live yet - message us on Telegram to hold a seat.",
+      "pastTag": "Past",
+      "pastNote": "This one already happened. Check the upcoming list for what's next.",
+      "allEvents": "All events"
+    }
   }
 }

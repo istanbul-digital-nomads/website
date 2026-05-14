@@ -1,3 +1,4 @@
+import { cacheLife, cacheTag } from "next/cache";
 import { createClient, createPublicClient } from "./server";
 import type {
   Event,
@@ -15,13 +16,18 @@ type LocalGuideRow = Database["public"]["Tables"]["local_guides"]["Row"];
 
 // --- Events ---
 
-// Public (cookie-less) events query. Safe for ISR/SSG pages where we don't
-// want the route bailed out to dynamic rendering by `cookies()`.
+// Public (cookie-less) events query. `use cache` so it can be called from
+// uncached server components (the events index, generateMetadata) without
+// bailing the route to fully-dynamic or tripping the "uncached data
+// outside Suspense" guard under cacheComponents.
 export async function getEventsPublic(options?: {
   type?: string;
   past?: boolean;
   limit?: number;
 }) {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("events");
   const supabase = createPublicClient();
   let query = supabase
     .from("events")
@@ -89,6 +95,50 @@ export async function getEventById(id: string) {
   const eventWithCount = Object.assign({}, event, { rsvp_count: count ?? 0 });
   return {
     data: eventWithCount as EventWithRSVPCount,
+    error: null,
+  };
+}
+
+// Public (cookie-less) single-event fetch by id or slug. ISR/SSG-safe -
+// used by the event detail page. Tries `slug` first, falls back to `id`.
+export async function getEventByIdPublic(idOrSlug: string) {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("events");
+  const supabase = createPublicClient();
+  const bySlug = await supabase
+    .from("events")
+    .select("*")
+    .eq("slug", idOrSlug)
+    .eq("is_published", true)
+    .maybeSingle();
+
+  const result = bySlug.data
+    ? bySlug
+    : await supabase
+        .from("events")
+        .select("*")
+        .eq("id", idOrSlug)
+        .eq("is_published", true)
+        .maybeSingle();
+
+  // Cast: the two maybeSingle() results are structurally identical, but
+  // TS unions their builder types into `never` for `.data`.
+  const event = result.data as Event | null;
+  if (result.error || !event) {
+    return { data: null, error: result.error };
+  }
+
+  const { count } = await supabase
+    .from("rsvps")
+    .select("*", { count: "exact", head: true })
+    .eq("event_id", event.id)
+    .eq("status", "going");
+
+  return {
+    data: Object.assign({}, event, {
+      rsvp_count: count ?? 0,
+    }) as EventWithRSVPCount,
     error: null,
   };
 }

@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Github, Mail, Send, Twitter } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getCachedTranslations } from "@/lib/i18n/cache-translations";
+import type { Locale } from "@/lib/i18n/config";
 import { Container } from "@/components/ui/container";
 import { footerNav, socialLinks, type FooterLinkKey } from "@/lib/constants";
 import { NewsletterForm } from "@/components/newsletter-form";
@@ -13,11 +14,12 @@ const socialIcons = [
   { href: `mailto:${socialLinks.email}`, icon: Mail, key: "email" as const },
 ];
 
-export async function Footer() {
-  const tSite = await getTranslations("site");
-  const tFooter = await getTranslations("footer");
-  const tColumns = await getTranslations("footer.columns");
-  const tLinks = await getTranslations("footer.links");
+export async function Footer({ locale }: { locale: Locale }) {
+  "use cache";
+  const tSite = getCachedTranslations(locale, "site");
+  const tFooter = getCachedTranslations(locale, "footer");
+  const tColumns = getCachedTranslations(locale, "footer.columns");
+  const tLinks = getCachedTranslations(locale, "footer.links");
 
   return (
     <footer className="relative overflow-hidden border-t border-black/10 bg-[#f6f1ea] text-neutral-950 dark:border-white/10 dark:bg-[#14110f] dark:text-[#f2f3f4]">

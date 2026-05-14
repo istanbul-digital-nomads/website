@@ -284,7 +284,7 @@ export default async function LocaleLayout({
               <Suspense fallback={null}>{children}</Suspense>
             </main>
             <Suspense fallback={null}>
-              <Footer />
+              <Footer locale={typedLocale} />
             </Suspense>
             <BottomTabBarIsland />
           </ThemeProvider>

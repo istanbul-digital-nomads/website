@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import {
   IBM_Plex_Mono,
   Inter,
@@ -15,6 +16,10 @@ import {
   getTranslations,
 } from "next-intl/server";
 import { isValidLocale } from "@/lib/i18n/config";
+import {
+  getCachedMessages,
+  getCachedTranslations,
+} from "@/lib/i18n/cache-translations";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/layout/theme-provider";
@@ -197,9 +202,13 @@ export default async function LocaleLayout({
     notFound();
   }
   setRequestLocale(locale);
-  const messages = await getMessages();
   const typedLocale = locale as Locale;
-  const tSite = await getTranslations({ locale, namespace: "site" });
+  // Static, cache-safe message + translator. `getMessages()` and
+  // `getTranslations()` from next-intl/server read headers() under the hood,
+  // which Next 16's cacheComponents forbids in any path leading to a cached
+  // page. The cache-friendly helpers read the message JSON directly.
+  const messages = getCachedMessages(typedLocale);
+  const tSite = getCachedTranslations(typedLocale, "site");
   const fallbackTitle = "Istanbul Digital Nomads";
   const fallbackDescription = tSite("description");
 
@@ -262,14 +271,31 @@ export default async function LocaleLayout({
           .filter(Boolean)
           .join(" ")}
       >
-        <NextIntlClientProvider locale={typedLocale} messages={clientMessages}>
+        {/* Explicit `formats`, `timeZone`, and `now` props - if omitted,
+            NextIntlClientProviderServer reads them from request config via
+            headers(), which Next 16's cacheComponents forbids. Passing fixed
+            defaults makes the provider cache-safe. `now` is set to the Unix
+            epoch because we use `Intl.DateTimeFormat` directly (via the
+            helpers in `src/lib/utils.ts`) and never rely on the provider's
+            relative-time formatter. */}
+        <NextIntlClientProvider
+          locale={typedLocale}
+          messages={clientMessages}
+          formats={{}}
+          timeZone="Europe/Istanbul"
+          now={new Date(0)}
+        >
           <ThemeProvider>
             <NavProgressIsland />
-            <Header />
+            <Suspense fallback={null}>
+              <Header />
+            </Suspense>
             <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">
-              {children}
+              <Suspense fallback={null}>{children}</Suspense>
             </main>
-            <Footer />
+            <Suspense fallback={null}>
+              <Footer />
+            </Suspense>
             <BottomTabBarIsland />
           </ThemeProvider>
           <ToasterIsland />

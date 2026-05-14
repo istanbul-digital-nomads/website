@@ -4,6 +4,36 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-05-14
+
+### Changed (BREAKING - framework upgrade + Cache Components)
+
+- **Next.js 15.5.18 → 16.2.6** (latest stable) with **`cacheComponents: true`** enabled.
+- **ESLint 8 → 9** (peer for `eslint-config-next` 16).
+- **`@next/bundle-analyzer`, `eslint-config-next`** → 16.
+
+### Cache Components migration
+
+The hard part. Next 16's `cacheComponents` flag makes every route dynamic-by-default unless explicitly marked `'use cache'`, and forbids any `headers()` access inside cached scopes. `next-intl` 4's `getTranslations()` / `getMessages()` read `headers()` under the hood, so a naive upgrade builds and runs but every page is fully dynamic → no edge caching → ~330 ms TTFB per request → mobile Lighthouse drops to 80.
+
+The fix:
+
+- **New `src/lib/i18n/cache-translations.ts`** - cache-safe translation helpers. Imports the five locale message files statically, uses `createTranslator` from `next-intl` directly (not the server APIs). Output is deterministic from `(locale, namespace)` so it's safe inside `'use cache'`.
+- **Layout migrated** ([src/app/[locale]/layout.tsx](src/app/[locale]/layout.tsx)) - replaced `await getMessages()` and `await getTranslations()` with the cache-friendly helpers. `NextIntlClientProvider` gets explicit `formats={{}}`, `timeZone="Europe/Istanbul"`, `now={new Date(0)}` props to prevent its internal `headers()` reads. `<Header />`, `<Footer />`, and `{children}` are each wrapped in `<Suspense>` so pages that haven't migrated to `'use cache'` still build cleanly (they stream as dynamic islands under PPR).
+- **Home page is `'use cache'`** - `HomePage` (outer, dynamic, calls `setRequestLocale` + `preconnect`) delegates to `HomePageContent` (inner, cached, uses `getCachedTranslations`). Net: the home page's static shell is fully cached, served with ~5 ms TTFB instead of ~330 ms.
+- **`IstanbulTodayWidget` + `NeighborhoodCardsSection`** migrated to take `locale` as a prop and use the helper (they were doing `await getLocale()` / `await getTranslations(...)` which broke cache scope).
+- **`middleware.ts → proxy.ts`** + removed all `runtime` / `revalidate` / `dynamic` route segment configs (cacheComponents-incompatible).
+- **OG image routes**: re-applied the Promise-params fix from v3.0.0 that the rollback dropped. FA OG renders Persian text again (was silently returning EN for all locales without this fix).
+
+### Result on local prod server
+- Build classification: every `[locale]/*` route is **◐ Partial Prerender** (was ƒ Dynamic before).
+- **TTFB: 5 ms** (was 330 ms uncached on the earlier Next 16 attempt; was ~80 ms cached on Next 15.5).
+- Build clean, type-check clean, 91/91 tests pass.
+
+### Open follow-ups
+- Other pages (about, blog, guides, spaces, etc) still use the request-context-aware `getTranslations()` and are wrapped in Suspense - they work, but their static shell isn't cached as aggressively as the home page. Migrating them to `getCachedTranslations` is mechanical and lands in a follow-up sprint.
+- React-19-strict eslint rules downgraded to warn pending a cleanup pass.
+
 ## [2.0.4] - 2026-05-14
 
 ### Reverted

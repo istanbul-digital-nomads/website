@@ -113,7 +113,7 @@ export async function getFxRate(): Promise<FxRate> {
     if (typeof rate !== "number") throw new Error("fx shape");
     return { usdTry: rate.toFixed(2) };
   } catch {
-    return { usdTry: "—" };
+    return { usdTry: "-" };
   }
 }
 

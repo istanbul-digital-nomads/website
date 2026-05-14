@@ -3,6 +3,28 @@ import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
 
 export default defineConfig([
   {
+    // Brand rule (CLAUDE.md): never use em dashes. Scoped to src/** so the
+    // rule never lints this config file (whose selector necessarily
+    // contains an em dash). The selector uses the literal character - the
+    // previous — escape form silently matched every literal.
+    files: ["src/**/*.{ts,tsx}"],
+    rules: {
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "Literal[value=/—/]",
+          message:
+            "No em dashes. Use a regular dash (-) or rephrase. See CLAUDE.md.",
+        },
+        {
+          selector: "TemplateElement[value.cooked=/—/]",
+          message:
+            "No em dashes. Use a regular dash (-) or rephrase. See CLAUDE.md.",
+        },
+      ],
+    },
+  },
+  {
     extends: [...nextCoreWebVitals],
     rules: {
       // eslint-plugin-react-hooks 7 (shipped with eslint-config-next 16) adds

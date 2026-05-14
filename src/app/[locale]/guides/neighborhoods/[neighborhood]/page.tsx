@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -50,6 +51,14 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function NeighborhoodDetailPage(props: Props) {
+  return (
+    <Suspense fallback={null}>
+      <NeighborhoodDetailContent {...props} />
+    </Suspense>
+  );
+}
+
+async function NeighborhoodDetailContent(props: Props) {
   const params = await props.params;
   const tList = await getTranslations("neighborhoodList");
   const tSpaces = await getTranslations("spacesList");

@@ -4,19 +4,19 @@ import { getGuideContent } from "@/lib/guides";
 import { getTranslations } from "next-intl/server";
 import { isValidLocale, defaultLocale } from "@/lib/i18n/config";
 
-export const runtime = "nodejs";
 export const size = ogSize;
 export const contentType = ogContentType;
 export const alt = "Istanbul City Guide";
 
 interface Props {
-  params: { locale: string; slug: string };
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export default async function Image({ params }: Props) {
-  const locale = isValidLocale(params.locale) ? params.locale : defaultLocale;
-  const guide = guides.find((g) => g.slug === params.slug);
-  const guideContent = guide ? getGuideContent(params.slug, locale) : null;
+  const { locale: rawLocale, slug } = await params;
+  const locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
+  const guide = guides.find((g) => g.slug === slug);
+  const guideContent = guide ? getGuideContent(slug, locale) : null;
   const t = await getTranslations({ locale, namespace: "og" });
   const tGuides = await getTranslations({ locale, namespace: "guides" });
   return renderOgImage({

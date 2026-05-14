@@ -15,6 +15,7 @@ import {
   Wifi,
 } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
@@ -40,8 +41,6 @@ import {
   websiteSchema,
 } from "@/lib/seo";
 import { getEventsPublic } from "@/lib/supabase/queries";
-
-export const revalidate = 300;
 
 export async function generateMetadata({
   params,
@@ -106,9 +105,14 @@ export default async function HomePage({
   const { locale: rawLocale } = await params;
   setRequestLocale(rawLocale);
   const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
-  const t = await getTranslations("home");
-  const tGuides = await getTranslations("guides");
-  const tFaq = await getTranslations("faqItems");
+  return <HomePageContent locale={locale} />;
+}
+
+async function HomePageContent({ locale }: { locale: Locale }) {
+  "use cache";
+  const t = getCachedTranslations(locale, "home");
+  const tGuides = getCachedTranslations(locale, "guides");
+  const tFaq = getCachedTranslations(locale, "faqItems");
 
   const faqs = faqItems.map((item) => ({
     question: tFaq(`${item.id}.question`),
@@ -381,7 +385,7 @@ export default async function HomePage({
         </Container>
       </section>
 
-      <IstanbulTodayWidget />
+      <IstanbulTodayWidget locale={locale} />
 
       <section className="border-b border-black/10 bg-[#fbfaf8] py-10 dark:border-white/10 dark:bg-[#14110f]">
         <Container>
@@ -549,7 +553,7 @@ export default async function HomePage({
 
       <NeighborhoodsMapSection />
 
-      <NeighborhoodCardsSection />
+      <NeighborhoodCardsSection locale={locale} />
 
       <section className="border-y border-black/10 py-16 lg:py-20 dark:border-white/10">
         <Container>

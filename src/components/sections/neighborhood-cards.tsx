@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, MapPin } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getCachedTranslations } from "@/lib/i18n/cache-translations";
+import type { Locale } from "@/lib/i18n/config";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import {
@@ -10,10 +11,10 @@ import {
   getSpacesInNeighborhood,
 } from "@/lib/neighborhoods";
 
-export async function NeighborhoodCardsSection() {
-  const t = await getTranslations("sections.neighborhoodCards");
-  const tCommon = await getTranslations("common");
-  const tList = await getTranslations("neighborhoodList");
+export async function NeighborhoodCardsSection({ locale }: { locale: Locale }) {
+  const t = getCachedTranslations(locale, "sections.neighborhoodCards");
+  const tCommon = getCachedTranslations(locale, "common");
+  const tList = getCachedTranslations(locale, "neighborhoodList");
 
   return (
     <section

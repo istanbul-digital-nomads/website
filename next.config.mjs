@@ -6,9 +6,6 @@ const withNextIntl = createNextIntlPlugin("./src/lib/i18n/request.ts");
 const nextConfig = {
   poweredByHeader: false,
   compress: true,
-  // Temporarily on to debug a minified React #418 in prod. Costs ~10% bundle
-  // size; flip back to false once the underlying error is fixed.
-  productionBrowserSourceMaps: true,
   images: {
     remotePatterns: [
       {

@@ -4,6 +4,13 @@ All notable changes to the Istanbul Digital Nomads website will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.3] - 2026-05-14
+
+### Changed
+
+- **Switched `next/font` `display: "swap"` → `display: "optional"`** on Manrope (the H1 display font), Inter (body sans), and IBM Plex Mono. `swap` was triggering a paint when the web font arrived 1-3 s in, which Lighthouse mobile latched onto as a new LCP candidate - inflating the home H1's LCP from ~1.4 s to ~3.8 s. With `optional`, the browser keeps the size-adjusted fallback if the font isn't ready in ~100 ms (no late swap → no LCP regression). next/font's auto-generated fallback uses `ascent-override` and `size-adjust` so the layout doesn't shift either way.
+- **Re-enabled `experimental.optimizeCss`** (re-added `critters` devDep). The render-blocking penalty on the 18 KB CSS bundle was contributing ~150 ms of FCP/LCP; with the v2.0.1 bailout fix + v2.0.2 head metadata both in place, critters now does its job without conflicting with the streaming flow.
+
 ## [2.0.2] - 2026-05-14
 
 ### Fixed

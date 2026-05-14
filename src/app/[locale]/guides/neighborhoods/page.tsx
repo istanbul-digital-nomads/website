@@ -107,7 +107,7 @@ export default async function NeighborhoodsOverviewPage(props: {
         </Container>
       </section>
 
-      <IstanbulTodayWidget compact />
+      <IstanbulTodayWidget compact locale={locale} />
 
       <NeighborhoodRhythmMatcher compact />
 

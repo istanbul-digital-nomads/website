@@ -33,6 +33,7 @@ const nextConfig = {
   outputFileTracingIncludes: {
     "**/opengraph-image*": ["./public/fonts/og/**/*"],
   },
+  cacheComponents: true,
   experimental: {
     // Inline critical CSS + defer the rest. Requires `critters` devDep on
     // Next 15.5 (Next 16 swaps to `beasties`). v2.0.1 disabled this because

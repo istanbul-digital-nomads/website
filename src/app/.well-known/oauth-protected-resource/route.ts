@@ -4,8 +4,6 @@ const SITE = "https://istanbulnomads.com";
 const SUPABASE_URL =
   process.env.NEXT_PUBLIC_SUPABASE_URL ?? "https://supabase.co";
 
-export const dynamic = "force-static";
-
 // Declares istanbulnomads.com as a protected resource per RFC 9728. Agents that
 // want to call write endpoints (POST /api/events, RSVP, member actions) first
 // obtain a token from the Supabase authorization server listed below, then

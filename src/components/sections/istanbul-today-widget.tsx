@@ -1,4 +1,4 @@
-import { getLocale, getTranslations } from "next-intl/server";
+import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import {
   Cloud,
   CloudRain,
@@ -80,14 +80,12 @@ async function fetchCurrentWeather(): Promise<{
 
 export async function IstanbulTodayWidget({
   compact = false,
+  locale,
 }: {
   compact?: boolean;
+  locale: Locale;
 }) {
-  const t = await getTranslations("istanbulToday");
-  const rawLocale = await getLocale();
-  const locale: Locale = isValidLocale(rawLocale)
-    ? (rawLocale as Locale)
-    : "en";
+  const t = getCachedTranslations(locale, "istanbulToday");
   const { current: weather, isFallback } = await fetchCurrentWeather();
   const profile = getMood(weather);
   const Icon = profile.Icon;

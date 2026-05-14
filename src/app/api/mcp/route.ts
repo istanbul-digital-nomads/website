@@ -7,8 +7,6 @@ import { getEventsPublic } from "@/lib/supabase/queries";
 import { getMarkdownForPath } from "@/lib/markdown";
 import { rateLimit, getClientIp, rateLimitHeaders } from "@/lib/rate-limit";
 
-export const dynamic = "force-dynamic";
-
 const MCP_LIMIT = 60;
 const MCP_WINDOW_MS = 60_000;
 

@@ -15,7 +15,7 @@ const NO_MARKDOWN_PREFIXES = [
 
 const intlMiddleware = createIntlMiddleware(routing);
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Skip Next internals, API routes, well-known discovery paths, and the

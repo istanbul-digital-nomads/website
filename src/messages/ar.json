@@ -2353,5 +2353,16 @@
       "philippines": "الفلبين",
       "bangladesh": "بنغلاديش"
     }
+  },
+  "ambient": {
+    "liveFrom": "مباشر من كاديكوي",
+    "ferry": "العبّارة",
+    "members": "عضو",
+    "tod": {
+      "dawn": "الفجر",
+      "midday": "الظهر",
+      "dusk": "الغروب",
+      "night": "الليل"
+    }
   }
 }

@@ -2365,5 +2365,16 @@
       "philippines": "Filipinler",
       "bangladesh": "Bangladeş"
     }
+  },
+  "ambient": {
+    "liveFrom": "Canlı: Kadıköy",
+    "ferry": "Vapur",
+    "members": "üye",
+    "tod": {
+      "dawn": "Şafak",
+      "midday": "Öğle",
+      "dusk": "Akşam",
+      "night": "Gece"
+    }
   }
 }

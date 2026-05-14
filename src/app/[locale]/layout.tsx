@@ -20,6 +20,7 @@ import { getCachedMessages } from "@/lib/i18n/cache-translations";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/layout/theme-provider";
+import { AmbientBar } from "@/components/layout/ambient-bar";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import {
@@ -284,6 +285,9 @@ export default async function LocaleLayout({
         >
           <ThemeProvider>
             <NavProgressIsland />
+            <Suspense fallback={null}>
+              <AmbientBar locale={typedLocale} />
+            </Suspense>
             <Suspense fallback={null}>
               <Header />
             </Suspense>

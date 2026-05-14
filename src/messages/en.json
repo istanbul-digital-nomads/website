@@ -2345,5 +2345,16 @@
       "philippines": "Philippines",
       "bangladesh": "Bangladesh"
     }
+  },
+  "ambient": {
+    "liveFrom": "Live from Kadıköy",
+    "ferry": "Ferry",
+    "members": "members",
+    "tod": {
+      "dawn": "Dawn",
+      "midday": "Midday",
+      "dusk": "Dusk",
+      "night": "Night"
+    }
   }
 }

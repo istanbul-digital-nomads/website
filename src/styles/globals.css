@@ -11,23 +11,25 @@
 
     /* Design System v2 - "ink + paper" tokens (light mode).
        The ink ramp is a warm paper canvas; paper-* is the ink text colour.
-       Accents keep the same hue in both themes. */
-    --ink-0: #ece7db;
-    --ink-1: #f4f1ea;
-    --ink-2: #ffffff;
-    --ink-3: #e4ded0;
-    --ink-4: #d4ccb8;
-    --ink-5: #bfb59c;
-    --paper: #1f1b16;
-    --paper-dim: #423c32;
-    --paper-mute: #6b6456;
-    --paper-faint: #948c7a;
-    --terracotta: #b6552e;
-    --terracotta-dim: #8e4424;
-    --bosphorus: #336079;
-    --bosphorus-dim: #2a4d62;
-    --ferry-yellow: #c98f2c;
-    --moss: #5c6c42;
+       Accents keep the same hue in both themes. Values are space-separated
+       RGB channels so Tailwind's `/opacity` modifier works (the colors are
+       wired as `rgb(var(--token) / <alpha-value>)` in tailwind.config.ts). */
+    --ink-0: 236 231 219;
+    --ink-1: 244 241 234;
+    --ink-2: 255 255 255;
+    --ink-3: 228 222 208;
+    --ink-4: 212 204 184;
+    --ink-5: 191 181 156;
+    --paper: 31 27 22;
+    --paper-dim: 66 60 50;
+    --paper-mute: 107 100 86;
+    --paper-faint: 148 140 122;
+    --terracotta: 182 85 46;
+    --terracotta-dim: 142 68 36;
+    --bosphorus: 51 96 121;
+    --bosphorus-dim: 42 77 98;
+    --ferry-yellow: 201 143 44;
+    --moss: 92 108 66;
     --tod-accent: var(--terracotta);
   }
 
@@ -37,23 +39,24 @@
     --muted: #b7aaa0;
     --line: rgba(242, 243, 244, 0.1);
 
-    /* Design System v2 - dark mode (canonical values from tokens.jsx). */
-    --ink-0: #0b0e11;
-    --ink-1: #0e1216;
-    --ink-2: #141a20;
-    --ink-3: #1c232b;
-    --ink-4: #283038;
-    --ink-5: #3a444f;
-    --paper: #f4ead7;
-    --paper-dim: #d9cfba;
-    --paper-mute: #a39c8b;
-    --paper-faint: #6f6a5e;
-    --terracotta: #c4633a;
-    --terracotta-dim: #8e4424;
-    --bosphorus: #3d6b8a;
-    --bosphorus-dim: #2f5470;
-    --ferry-yellow: #e7b04a;
-    --moss: #6b7d4e;
+    /* Design System v2 - dark mode (canonical values from tokens.jsx).
+       Space-separated RGB channels - see the :root note above. */
+    --ink-0: 11 14 17;
+    --ink-1: 14 18 22;
+    --ink-2: 20 26 32;
+    --ink-3: 28 35 43;
+    --ink-4: 40 48 56;
+    --ink-5: 58 68 79;
+    --paper: 244 234 215;
+    --paper-dim: 217 207 186;
+    --paper-mute: 163 156 139;
+    --paper-faint: 111 106 94;
+    --terracotta: 196 99 58;
+    --terracotta-dim: 142 68 36;
+    --bosphorus: 61 107 138;
+    --bosphorus-dim: 47 84 112;
+    --ferry-yellow: 231 176 74;
+    --moss: 107 125 78;
     --tod-accent: var(--terracotta);
   }
 

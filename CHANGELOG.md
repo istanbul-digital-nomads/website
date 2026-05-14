@@ -16,6 +16,15 @@ Design System v2 - "Ambient Tech with Istanbul Soul". An editorial-first, dark-n
 - **Time-of-day accent** - `<html>` gets a `tod-{dawn|midday|dusk|night}` class from the server (`getTimeOfDay` in [src/lib/ambient.ts](src/lib/ambient.ts), a `use cache` function), driving a `--tod-accent` CSS variable.
 - **Motion** - `ease-soft` timing function, `fast/mid/slow` durations, the `ferry-cross` keyframe (the one moving signal, frozen under `prefers-reduced-motion`), and tabular numerals on `.font-mono`.
 
+### Phase 1 - Shared chrome
+
+- **AmbientBar** ([src/components/layout/ambient-bar.tsx](src/components/layout/ambient-bar.tsx)) - a thin monospace strip across the top of every page carrying the city's living signals: Istanbul local time, weather + time-of-day, the next Kadıköy ferry, the USD/TRY rate, and the opted-in member count. Server-rendered; sits above the header in normal flow.
+- **`src/lib/ambient.ts`** - the signal fetchers (`getIstanbulTime`, `getWeather` via Open-Meteo, `getFxRate` via Frankfurter, `getFerryStatus` from a static schedule, `getMemberCount` from Supabase). Each is a `use cache` function with a short `cacheLife` and a static fallback - the bar renders on every page and must never block or throw.
+- **New atoms** - `SectionEyebrow`, `PhotoSlot` (atmospheric placeholder until real photography), `Tag`, and brand `Mark` SVGs (ferry, Bosphorus wave, logo roundel) under `src/components/ui/`.
+- **Header + Footer restyled** to the ink/paper tokens - translucent blurred header with a terracotta active-nav dot and a `⌘K` search affordance (visual only for now), editorial footer with a serif masthead and a mono coordinate block.
+- **Token mechanism** - the ink/paper/accent CSS variables are space-separated RGB channels wired as `rgb(var(--token) / <alpha-value>)`, so Tailwind's `/opacity` modifier works on every themed colour.
+- **i18n** - new `ambient` namespace added to all five locale message files; translated into Turkish, Persian, Arabic, and Russian.
+
 ## [3.2.0] - 2026-05-14
 
 ### Changed

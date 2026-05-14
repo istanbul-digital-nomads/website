@@ -5,11 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Sun, Moon, Monitor, ChevronDown } from "lucide-react";
+import { Sun, Moon, Monitor, ChevronDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { navItems, socialLinks, type NavItem } from "@/lib/constants";
 import { Container } from "@/components/ui/container";
-import { Button } from "@/components/ui/button";
 import { useTheme } from "./theme-provider";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import { AuthButton } from "./auth-button";
@@ -55,10 +54,8 @@ function NavDropdown({
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          "flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium transition-all hover:bg-black/5 hover:text-neutral-950 dark:hover:bg-white/10 dark:hover:text-[#f2f3f4]",
-          isChildActive
-            ? "bg-black/5 text-neutral-950 dark:bg-white/10 dark:text-[#f2f3f4]"
-            : "text-neutral-600 dark:text-[#85929e]",
+          "flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-fast hover:text-paper",
+          isChildActive ? "text-paper" : "text-paper-mute",
         )}
       >
         {tNav(item.key)}
@@ -71,28 +68,31 @@ function NavDropdown({
       </button>
 
       {open && (
-        <div className="absolute left-1/2 top-full z-50 mt-2 w-64 -translate-x-1/2 rounded-xl border border-black/10 bg-white/95 p-2 shadow-[0_16px_42px_rgba(20,17,15,0.1)] backdrop-blur-xl dark:border-white/10 dark:bg-[#1a1612]/95 dark:shadow-[0_16px_42px_rgba(0,0,0,0.35)]">
-          {item.children.map((child) => (
-            <Link
-              key={child.href}
-              href={child.href}
-              prefetch
-              onClick={() => setOpen(false)}
-              className={cn(
-                "block rounded-xl px-3.5 py-2.5 transition-colors hover:bg-black/5 dark:hover:bg-white/5",
-                (pathname === child.href ||
-                  pathname.startsWith(child.href + "/")) &&
-                  "bg-primary-50/80 dark:bg-primary-900/20",
-              )}
-            >
-              <div className="text-sm font-medium text-neutral-900 dark:text-[#f2f3f4]">
-                {tItems(`${child.key}.label`)}
-              </div>
-              <div className="mt-0.5 text-xs text-neutral-500 dark:text-[#85929e]">
-                {tItems(`${child.key}.description`)}
-              </div>
-            </Link>
-          ))}
+        <div className="absolute left-1/2 top-full z-50 mt-3 w-64 -translate-x-1/2 border border-ink-3 bg-ink-1/95 p-2 shadow-[0_16px_42px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+          {item.children.map((child) => {
+            const active =
+              pathname === child.href ||
+              pathname.startsWith(child.href + "/");
+            return (
+              <Link
+                key={child.href}
+                href={child.href}
+                prefetch
+                onClick={() => setOpen(false)}
+                className={cn(
+                  "block px-3.5 py-2.5 transition-colors hover:bg-ink-2",
+                  active && "bg-ink-2",
+                )}
+              >
+                <div className="text-sm font-medium text-paper">
+                  {tItems(`${child.key}.label`)}
+                </div>
+                <div className="mt-0.5 text-xs text-paper-mute">
+                  {tItems(`${child.key}.description`)}
+                </div>
+              </Link>
+            );
+          })}
         </div>
       )}
     </div>
@@ -118,9 +118,8 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-black/5 bg-[rgba(250,250,250,0.9)] backdrop-blur-md transition-[background-color,border-color,box-shadow,transform] duration-300 dark:border-white/10 dark:bg-[rgba(20,17,15,0.9)]",
-        scrolled &&
-          "border-black/10 bg-[rgba(250,250,250,0.96)] shadow-[0_8px_24px_rgba(20,17,15,0.06)] dark:border-white/15 dark:bg-[rgba(20,17,15,0.96)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.24)]",
+        "sticky top-0 z-50 border-b border-ink-3 bg-ink-1/80 backdrop-blur-md transition-[background-color,box-shadow,transform] duration-300",
+        scrolled && "bg-ink-1/95 shadow-[0_8px_24px_rgba(0,0,0,0.18)]",
         hideOnMobile && "max-md:-translate-y-full",
       )}
     >
@@ -138,7 +137,7 @@ export function Header() {
               width={530}
               height={680}
               className="block dark:hidden"
-              style={{ width: 35, height: "auto" }}
+              style={{ width: 32, height: "auto" }}
               priority
             />
             <Image
@@ -147,14 +146,14 @@ export function Header() {
               width={542}
               height={693}
               className="hidden dark:block"
-              style={{ width: 35, height: "auto" }}
+              style={{ width: 32, height: "auto" }}
               priority
             />
-            <div>
-              <div className="text-sm font-semibold uppercase tracking-[0.22em] text-neutral-950 dark:text-[#f2f3f4]">
+            <div className="leading-none">
+              <div className="font-display text-[17px] tracking-tight text-paper">
                 {tSite("shortName")}
               </div>
-              <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-neutral-500 dark:text-[#85929e]">
+              <div className="mt-1 font-mono text-[9.5px] uppercase tracking-[0.18em] text-paper-mute">
                 {tSite("tagline")}
               </div>
             </div>
@@ -170,22 +169,36 @@ export function Header() {
                   href={item.href}
                   prefetch
                   className={cn(
-                    "rounded-lg px-3 py-2 text-sm font-medium transition-all hover:bg-black/5 hover:text-neutral-950 dark:hover:bg-white/10 dark:hover:text-[#f2f3f4]",
-                    pathname === item.href
-                      ? "bg-black/5 text-neutral-950 dark:bg-white/10 dark:text-[#f2f3f4]"
-                      : "text-neutral-600 dark:text-[#85929e]",
+                    "relative px-3 py-2 text-sm font-medium transition-colors duration-fast hover:text-paper",
+                    pathname === item.href ? "text-paper" : "text-paper-mute",
                   )}
                 >
                   {tNav(item.key)}
+                  {pathname === item.href && (
+                    <span className="absolute -bottom-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-terracotta" />
+                  )}
                 </Link>
               ),
             )}
           </nav>
 
           <div className="flex items-center gap-2">
+            {/* Command palette affordance - visual only until the Command-K
+                menu lands in a later phase. */}
+            <button
+              type="button"
+              className="hidden items-center gap-2 border border-ink-4 px-3 py-1.5 font-mono text-[11px] text-paper-mute transition-colors hover:border-ink-5 hover:text-paper lg:flex"
+              aria-label="Search"
+            >
+              <Search className="h-3.5 w-3.5" />
+              <span className="border border-ink-4 px-1.5 py-px text-[10px]">
+                ⌘K
+              </span>
+            </button>
+
             <button
               onClick={cycleTheme}
-              className="rounded-full border border-black/5 p-2 text-neutral-500 transition-colors hover:bg-black/5 dark:border-white/10 dark:text-[#99a3ad] dark:hover:bg-white/10"
+              className="border border-ink-4 p-2 text-paper-mute transition-colors hover:border-ink-5 hover:text-paper"
               aria-label={tNav("theme.ariaLabel", { theme })}
             >
               <ThemeIcon className="h-5 w-5" />
@@ -199,14 +212,9 @@ export function Header() {
               href={socialLinks.telegram}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden md:block"
+              className="hidden bg-terracotta px-4 py-2 text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim md:block"
             >
-              <Button
-                size="sm"
-                className="rounded-lg bg-primary-600 px-4 text-white hover:bg-primary-700 dark:bg-primary-500 dark:text-white dark:hover:bg-primary-400"
-              >
-                {tNav("joinTelegram")}
-              </Button>
+              {tNav("joinTelegram")}
             </a>
           </div>
         </div>

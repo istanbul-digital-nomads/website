@@ -2345,5 +2345,16 @@
       "philippines": "فیلیپین",
       "bangladesh": "بنگلادش"
     }
+  },
+  "ambient": {
+    "liveFrom": "زنده از کادیکوی",
+    "ferry": "کشتی",
+    "members": "عضو",
+    "tod": {
+      "dawn": "سپیده‌دم",
+      "midday": "ظهر",
+      "dusk": "غروب",
+      "night": "شب"
+    }
   }
 }

@@ -55,35 +55,36 @@ const config: Config = {
           light: "#ffffff",
           dark: "#1a1612",
         },
-        // Design System v2 - "ink + paper" tokens. Mapped to CSS custom
-        // properties so they flip between light and dark in globals.css.
+        // Design System v2 - "ink + paper" tokens. Backed by CSS custom
+        // properties (space-separated RGB channels) so they flip between
+        // light and dark and support Tailwind's `/opacity` modifier.
         // Dark values from docs/plan/design/files/tokens.jsx (canonical).
         ink: {
-          0: "var(--ink-0)",
-          1: "var(--ink-1)",
-          2: "var(--ink-2)",
-          3: "var(--ink-3)",
-          4: "var(--ink-4)",
-          5: "var(--ink-5)",
+          0: "rgb(var(--ink-0) / <alpha-value>)",
+          1: "rgb(var(--ink-1) / <alpha-value>)",
+          2: "rgb(var(--ink-2) / <alpha-value>)",
+          3: "rgb(var(--ink-3) / <alpha-value>)",
+          4: "rgb(var(--ink-4) / <alpha-value>)",
+          5: "rgb(var(--ink-5) / <alpha-value>)",
         },
         paper: {
-          DEFAULT: "var(--paper)",
-          dim: "var(--paper-dim)",
-          mute: "var(--paper-mute)",
-          faint: "var(--paper-faint)",
+          DEFAULT: "rgb(var(--paper) / <alpha-value>)",
+          dim: "rgb(var(--paper-dim) / <alpha-value>)",
+          mute: "rgb(var(--paper-mute) / <alpha-value>)",
+          faint: "rgb(var(--paper-faint) / <alpha-value>)",
         },
         terracotta: {
-          DEFAULT: "var(--terracotta)",
-          dim: "var(--terracotta-dim)",
+          DEFAULT: "rgb(var(--terracotta) / <alpha-value>)",
+          dim: "rgb(var(--terracotta-dim) / <alpha-value>)",
         },
         bosphorus: {
-          DEFAULT: "var(--bosphorus)",
-          dim: "var(--bosphorus-dim)",
+          DEFAULT: "rgb(var(--bosphorus) / <alpha-value>)",
+          dim: "rgb(var(--bosphorus-dim) / <alpha-value>)",
         },
-        "ferry-yellow": "var(--ferry-yellow)",
-        moss: "var(--moss)",
+        "ferry-yellow": "rgb(var(--ferry-yellow) / <alpha-value>)",
+        moss: "rgb(var(--moss) / <alpha-value>)",
         // Time-of-day accent, set by the `tod-*` class on <html>.
-        tod: "var(--tod-accent)",
+        tod: "rgb(var(--tod-accent) / <alpha-value>)",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],

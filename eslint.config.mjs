@@ -3,6 +3,15 @@ import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
 
 export default defineConfig([
   {
+    // The design reference artboards (docs/plan/design/files/*.jsx) are
+    // standalone Figma-canvas snippets loaded in a special harness - they
+    // use globals like `AmbientBar` / `NavBar` / `PhotoSlot` without
+    // importing, by design. They're documentation, not source.
+    // `.claude/worktrees/` is gitignored sandbox copies of the repo left
+    // behind by agent runs; eslint shouldn't recurse into them locally.
+    ignores: ["docs/", ".claude/"],
+  },
+  {
     // Brand rule (CLAUDE.md): never use em dashes. Scoped to src/** so the
     // rule never lints this config file (whose selector necessarily
     // contains an em dash). The selector uses the literal character - the

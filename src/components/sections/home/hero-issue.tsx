@@ -43,8 +43,8 @@ export async function HeroIssue({ locale }: { locale: Locale }) {
             <span className="absolute left-[52px] top-2 h-2 w-2 rounded-full bg-ferry-yellow" />
             <span className="absolute right-[52px] top-2 h-2 w-2 rounded-full bg-terracotta" />
             <span
-              className="ferry-cross absolute left-0 top-1.5 text-paper"
-              style={{ ["--ferry-distance" as string]: "calc(100% - 1.25rem)" }}
+              className="ferry-cross absolute top-1.5 text-paper"
+              style={{ ["--ferry-width" as string]: "20px" }}
             >
               <FerryMark />
             </span>

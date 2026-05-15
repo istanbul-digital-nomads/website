@@ -948,14 +948,19 @@ html.tod-night {
 }
 
 /* Design System v2 - the one moving signal: a ferry crossing the
-   Bosphorus header strip on the homepage. One per page, no parallax. */
+   Bosphorus header strip on the homepage. One per page, no parallax.
+   The keyframe animates `left` (not `transform: translateX`) because
+   percentages in `translateX` resolve against the element's own width,
+   while `left` resolves against the positioned parent - exactly what
+   we want for "cross the strait". `--ferry-width` lets the ferry sit
+   flush against the right edge at the end of the trip. */
 .ferry-cross {
   animation: ferry-cross 24s linear infinite;
 }
 
 @keyframes ferry-cross {
   0% {
-    transform: translateX(0);
+    left: 0;
     opacity: 0;
   }
   8% {
@@ -965,7 +970,7 @@ html.tod-night {
     opacity: 1;
   }
   100% {
-    transform: translateX(var(--ferry-distance, 620px));
+    left: calc(100% - var(--ferry-width, 1.25rem));
     opacity: 0;
   }
 }

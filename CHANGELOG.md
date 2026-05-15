@@ -69,6 +69,10 @@ Design System v2 - "Ambient Tech with Istanbul Soul". An editorial-first, dark-n
 - **Search dataset** ([src/lib/search.ts](src/lib/search.ts)) - prebuilt server-side per locale and passed as a serializable list (`SearchItem[]`) into the client component, so per-keystroke filtering is fully in-memory. Sources: thirteen static pages, all guides, neighborhoods, circles, and up to 25 upcoming events from Supabase. Events failure is swallowed - the rest of the index keeps working.
 - **i18n** - new `commandMenu` namespace (placeholder, group headings, page labels, ARIA strings), translated into Turkish, Persian, Arabic, and Russian.
 
+### Phase 7 - Photography (asset-blocked, swap path ready)
+
+Real Istanbul photography can't be fabricated, so the `PhotoSlot` placeholders shipped in Phases 1-5 stand. What's done here is the swap path: `PhotoSlot` now optionally accepts `src` + `alt` (and `priority` / `sizes` / `credit` pass-throughs) and renders `next/image` with the same chrome (corner mark + caption strip) when set. Every existing `<PhotoSlot kind="..." />` call site upgrades by adding `src` and `alt` - no refactor, no rewrite. The actual photos are the missing input.
+
 ## [3.2.0] - 2026-05-14
 
 ### Changed

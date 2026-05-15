@@ -1,11 +1,19 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /**
- * Design System v2 atmospheric photo placeholder. Until real Istanbul
- * photography is shot (a later phase), every image slot ships as one of
- * these - a tinted, grid-textured panel with a mono corner mark and a
- * caption describing the intended shot. A placeholder is honest; a stock
- * photo is a lie. When a real photo arrives, swap this for `next/image`.
+ * Design System v2 photo slot. Two modes:
+ *
+ * 1. **Placeholder** (default, no `src`) - a tinted, grid-textured panel
+ *    with an optional mono corner mark and caption describing the intended
+ *    shot. Honest stand-in until real Istanbul photography is shot.
+ *
+ * 2. **Real photo** (pass `src` + `alt`) - renders `next/image` with the
+ *    same chrome (corner mark + caption). An optional `credit` slot
+ *    appears in the lower-right of the caption strip ("photographer ·
+ *    location · time"). When real photos arrive, every existing
+ *    `<PhotoSlot kind="..." />` call upgrades by adding `src` and `alt`
+ *    - no refactor needed.
  */
 
 export type PhotoKind =
@@ -38,36 +46,66 @@ function background(kind: PhotoKind): string {
 
 export function PhotoSlot({
   kind = "mono",
+  src,
+  alt,
+  credit,
+  priority,
+  sizes,
   corner,
   caption,
   className,
   style,
 }: {
   kind?: PhotoKind;
+  /** Real image source. When set, renders next/image instead of the
+   *  placeholder gradient. `alt` becomes required at the type level. */
+  src?: string;
+  alt?: string;
+  /** Photographer credit shown in the lower-right of the caption strip
+   *  when a real photo is rendered. Mono caption stays in design voice. */
+  credit?: string;
+  /** Pass-through to next/image for above-the-fold slots. */
+  priority?: boolean;
+  /** Pass-through to next/image. Defaults sensibly for grid + hero use. */
+  sizes?: string;
   /** Top-left mono mark (section number, category, or short label). */
   corner?: string;
-  /** Bottom caption describing the intended shot. */
+  /** Bottom caption - intended-shot description in placeholder mode, or
+   *  a place/date caption in real-photo mode. */
   caption?: string;
   className?: string;
   style?: React.CSSProperties;
 }) {
+  const isReal = Boolean(src && alt);
   return (
     <figure
       className={cn(
         "relative overflow-hidden border border-ink-4",
         className,
       )}
-      style={{ background: background(kind), ...style }}
+      style={isReal ? style : { background: background(kind), ...style }}
     >
+      {isReal ? (
+        <Image
+          src={src!}
+          alt={alt!}
+          fill
+          priority={priority}
+          sizes={sizes ?? "(max-width: 768px) 100vw, 50vw"}
+          className="object-cover"
+        />
+      ) : null}
       {corner ? (
-        <span className="absolute left-3 top-3 font-mono text-[10px] uppercase tracking-wider text-paper-dim">
+        <span className="absolute left-3 top-3 z-10 font-mono text-[10px] uppercase tracking-wider text-paper-dim">
           {corner}
         </span>
       ) : null}
-      {caption ? (
-        <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-gradient-to-t from-black/85 to-transparent p-3 font-mono text-[10px] uppercase tracking-wider text-paper-dim">
-          <span>{caption}</span>
-          <span className="shrink-0 text-paper-faint">↳ photo slot</span>
+      {caption || credit ? (
+        <figcaption className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-3 bg-gradient-to-t from-black/85 to-transparent p-3 font-mono text-[10px] uppercase tracking-wider text-paper-dim">
+          {caption ? <span>{caption}</span> : <span />}
+          <span className="shrink-0 text-paper-faint">
+            {isReal ? credit : "↳ photo slot"}
+          </span>
         </figcaption>
       ) : null}
     </figure>

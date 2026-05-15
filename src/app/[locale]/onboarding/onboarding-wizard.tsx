@@ -191,7 +191,8 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
       }
 
       showToast.success(t("welcome"));
-      router.push("/");
+      // Land newly-onboarded members on their dashboard.
+      router.push("/dashboard");
       router.refresh();
     } catch {
       showToast.error(t("submitError"));

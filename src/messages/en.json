@@ -42,6 +42,18 @@
       "blog": {
         "label": "Blog",
         "description": "Stories and tips from the community"
+      },
+      "members": {
+        "label": "Member Directory",
+        "description": "Opt-in profiles from people on the ground"
+      },
+      "circles": {
+        "label": "Circles",
+        "description": "Six smaller rooms inside the community"
+      },
+      "perks": {
+        "label": "Perks Vault",
+        "description": "Partner offers, a Nomad+ benefit"
       }
     }
   },
@@ -104,7 +116,10 @@
       "twitter": "Twitter",
       "email": "Email",
       "openapi": "OpenAPI",
-      "llmsTxt": "LLMs.txt"
+      "llmsTxt": "LLMs.txt",
+      "members": "Member directory",
+      "circles": "Circles",
+      "perks": "Perks vault"
     }
   },
   "auth": {
@@ -112,7 +127,8 @@
     "signOut": "Sign out",
     "signedOut": "Signed out",
     "completeProfile": "Complete profile",
-    "memberFallback": "Member"
+    "memberFallback": "Member",
+    "openDashboard": "Open dashboard"
   },
   "newsletter": {
     "placeholder": "you@example.com",
@@ -342,7 +358,11 @@
       "description": "The most popular neighborhood for digital nomads. Kadikoy has a walkable center packed with independent cafes, a daily fish market, bookshops, and street food. The ferry to the European side takes 20 minutes and is one of the best commutes in the world.",
       "vibe": "Local, independent, walkable. Feels like a small city within Istanbul.",
       "transport": "Ferry to Eminonu/Karakoy (20 min), metro to Taksim via Marmaray",
-      "bestFor": ["Steady work routine", "Local neighborhood feel", "Fair rent"]
+      "bestFor": [
+        "Steady work routine",
+        "Local neighborhood feel",
+        "Fair rent"
+      ]
     },
     "moda": {
       "name": "Moda",
@@ -355,7 +375,11 @@
       "description": "A quieter extension of Kadikoy, Moda sits on a peninsula with a seaside promenade. More residential, fewer tourists, excellent for evening walks. Close enough to Kadikoy center to walk (15 min) but feels distinctly calmer.",
       "vibe": "Seaside, quiet, creative. Lots of cats.",
       "transport": "Same as Kadikoy + nostalgic tram along the coast",
-      "bestFor": ["Quiet evenings", "Seaside walks", "Creative freelancers"]
+      "bestFor": [
+        "Quiet evenings",
+        "Seaside walks",
+        "Creative freelancers"
+      ]
     },
     "cihangir": {
       "name": "Cihangir",
@@ -368,7 +392,11 @@
       "description": "The bohemian heart of Istanbul. Cihangir is a small hilltop neighborhood with steep streets, Bosphorus views from every cafe, and a strong community feel. Popular with artists, freelancers, and foreigners. Higher rents than the Asian side but unbeatable atmosphere.",
       "vibe": "Bohemian, social, hilly. Great views, strong cafe culture.",
       "transport": "Walk to Taksim (10 min), Kabatas tram/funicular, ferries from Kabatas",
-      "bestFor": ["Social nomads", "Nightlife access", "Bosphorus views"]
+      "bestFor": [
+        "Social nomads",
+        "Nightlife access",
+        "Bosphorus views"
+      ]
     },
     "besiktas": {
       "name": "Besiktas",
@@ -415,7 +443,11 @@
       "description": "Uskudar is the calmer Asian-side answer to Karakoy: ferries, mosques, tea gardens, and long Bosphorus walks without the same tourist pressure. It works well if you want a real local base, quick access to Kadikoy and the European side, and quieter evenings than the nightlife districts.",
       "vibe": "Traditional, waterfront, calmer. Strong ferry rhythm and everyday Istanbul texture.",
       "transport": "Ferries to Eminonu, Besiktas, and Kabatas, Marmaray, metro toward Umraniye",
-      "bestFor": ["Quiet ferry life", "Local routines", "Bosphorus sunsets"]
+      "bestFor": [
+        "Quiet ferry life",
+        "Local routines",
+        "Bosphorus sunsets"
+      ]
     },
     "nisantasi": {
       "name": "Nisantasi",
@@ -428,7 +460,11 @@
       "description": "Nisantasi is one of Istanbul's most polished residential districts: leafy side streets, apartment blocks with doormen, boutiques, clinics, gyms, and some of the city's most reliable cafe work sessions. It is not the cheapest base, but it is practical if you want central European-side living without being directly inside the Taksim nightlife flow.",
       "vibe": "Polished, residential, upscale. Boutique streets with strong everyday convenience.",
       "transport": "Walk to Osmanbey metro, quick taxi or metro access to Taksim, Sisli, and Levent",
-      "bestFor": ["Comfortable budgets", "Cafe work", "Central errands"]
+      "bestFor": [
+        "Comfortable budgets",
+        "Cafe work",
+        "Central errands"
+      ]
     },
     "levent": {
       "name": "Levent",
@@ -441,7 +477,11 @@
       "description": "Levent is not romantic Istanbul, and that is exactly the point. It is the business corridor: towers, malls, gyms, metro stops, and coworking spaces. Choose it if your Istanbul life is work-heavy, you want reliable infrastructure, or you need fast access to meetings around Maslak, Sisli, and the airport-side business spine.",
       "vibe": "Corporate, practical, vertical. Less charm, more infrastructure.",
       "transport": "M2 metro through Levent and 4. Levent, buses along Buyukdere Avenue, easy taxi access north/south",
-      "bestFor": ["Full-time remote", "Business access", "Coworking density"]
+      "bestFor": [
+        "Full-time remote",
+        "Business access",
+        "Coworking density"
+      ]
     },
     "balat": {
       "name": "Balat",
@@ -454,7 +494,11 @@
       "description": "Balat is beautiful, uneven, and very specific. The colorful houses and antique streets are real, but it is not as frictionless as Kadikoy or Nisantasi: hills, older buildings, fewer polished work options, and more day-tripper foot traffic on famous streets. Pick it for character, budget, and a slower Golden Horn rhythm.",
       "vibe": "Historic, colorful, rough-edged. Big personality with practical tradeoffs.",
       "transport": "Buses and tram connections via Fener/Eminonu, quick taxis to Karakoy and Cihangir",
-      "bestFor": ["Character", "Lower rent", "Slow creative days"]
+      "bestFor": [
+        "Character",
+        "Lower rent",
+        "Slow creative days"
+      ]
     },
     "atasehir": {
       "name": "Atasehir",
@@ -467,7 +511,11 @@
       "description": "Atasehir is for a different kind of nomad: less ferry romance, more new-build convenience. You get towers, malls, business traffic, modern apartments, and access to Asian-side offices around the finance district. It is useful for longer stays if you want space, elevators, parking, gyms, and a quieter apartment after work.",
       "vibe": "Modern, spacious, corporate. Practical but less walkable than Kadikoy.",
       "transport": "Metro and buses across the Asian side, taxi access to Kadikoy, Umraniye, and the finance district",
-      "bestFor": ["Newer apartments", "Asian-side business", "Quiet nights"]
+      "bestFor": [
+        "Newer apartments",
+        "Asian-side business",
+        "Quiet nights"
+      ]
     }
   },
   "spacesList": {
@@ -2446,6 +2494,51 @@
       "line3": "You can be on it tomorrow.",
       "primary": "Plan your first week",
       "secondary": "Read first"
+    },
+    "membership": {
+      "eyebrow": "Membership · two ways to belong",
+      "title": "Two ways",
+      "titleItalic": "to belong.",
+      "body": "Reading the site is free. Joining the Telegram is free. The paid tier (Nomad+) is for the unromantic parts - perks, priority on small experiences, a public profile, the Sunday letter members edition.",
+      "rule1": "↳ No paywalls on guides",
+      "rule2": "↳ No ads in the feed",
+      "rule3": "↳ No recruiters, ever",
+      "members": "members",
+      "free": {
+        "title": "Free",
+        "priceLabel": "Forever · no card",
+        "bullets": {
+          "b1": "All guides and neighborhoods",
+          "b2": "The First Week Planner and the Neighborhood Matcher",
+          "b3": "Telegram channel access",
+          "b4": "RSVP to free events",
+          "b5": "Member directory · read-only"
+        },
+        "cta": "Join Telegram"
+      },
+      "plus": {
+        "tag": "Coming soon · waitlist open",
+        "priceTbd": "TBD",
+        "priceLabel": "/ mo · waitlist for early access",
+        "bullets": {
+          "b1": "Everything in Free",
+          "b2": "Perks vault · partner offers as they land",
+          "b3": "Priority on paid experiences",
+          "b4": "Public profile in the member directory",
+          "b5": "Sunday letter · members edition",
+          "b6": "Listed as open-to-coffee if you want"
+        },
+        "waitlistCta": "Ask to join the waitlist",
+        "previewCta": "See what is planned"
+      }
+    },
+    "circles": {
+      "eyebrow": "Circles · small rooms inside the big room",
+      "title": "Six smaller rooms",
+      "titleItalic": "if Telegram is too many people.",
+      "open": "Open",
+      "footnote": "Circles aren’t gated. They run inside the same Telegram - you join one by joining its thread.",
+      "seeAll": "All circles"
     }
   },
   "neighborhoodsV2": {

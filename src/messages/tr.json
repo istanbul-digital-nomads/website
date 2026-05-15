@@ -42,6 +42,18 @@
       "blog": {
         "label": "Blog",
         "description": "Topluluktan hikayeler ve ipuçları"
+      },
+      "members": {
+        "label": "Üye Rehberi",
+        "description": "Sahadaki insanların isteğe bağlı profilleri"
+      },
+      "circles": {
+        "label": "Circles",
+        "description": "Topluluğun içindeki altı küçük oda"
+      },
+      "perks": {
+        "label": "Perks Kasası",
+        "description": "Partner avantajları, bir Nomad+ ayrıcalığı"
       }
     }
   },
@@ -104,7 +116,10 @@
       "twitter": "Twitter",
       "email": "E-posta",
       "openapi": "OpenAPI",
-      "llmsTxt": "LLMs.txt"
+      "llmsTxt": "LLMs.txt",
+      "members": "Üye rehberi",
+      "circles": "Circles",
+      "perks": "Perks kasası"
     }
   },
   "auth": {
@@ -112,7 +127,8 @@
     "signOut": "Çıkış yap",
     "signedOut": "Çıkış yapıldı",
     "completeProfile": "Profili tamamla",
-    "memberFallback": "Üye"
+    "memberFallback": "Üye",
+    "openDashboard": "Paneli aç"
   },
   "newsletter": {
     "placeholder": "siz@ornek.com",
@@ -444,7 +460,11 @@
       "description": "Nişantaşı, İstanbul'un en cilalı yerleşim bölgelerinden biri: ağaçlı yan sokaklar, kapıcılı apartmanlar, butikler, klinikler, spor salonları ve şehrin en güvenilir kafe çalışma seanslarından bazıları. En ucuz üs değil ama Taksim gece hayatının tam içinde olmadan merkezi Avrupa yakası yaşamı istiyorsan pratik.",
       "vibe": "Cilalı, yerleşim odaklı, lüks. Butik sokaklar ve güçlü günlük kolaylık.",
       "transport": "Osmanbey metrosuna yürüyüş, Taksim, Şişli ve Levent'e hızlı taksi veya metro erişimi",
-      "bestFor": ["Rahat bütçeler", "Kafe çalışması", "Merkezi günlük işler"]
+      "bestFor": [
+        "Rahat bütçeler",
+        "Kafe çalışması",
+        "Merkezi günlük işler"
+      ]
     },
     "levent": {
       "name": "Levent",
@@ -474,7 +494,11 @@
       "description": "Balat güzel, engebeli ve çok özgün. Renkli evler ve antika sokaklar gerçek ama Kadıköy ya da Nişantaşı kadar pürüzsüz değil: yokuşlar, eski binalar, daha az cilalı çalışma seçenekleri ve ünlü sokaklarda daha fazla günübirlikçi yaya trafiği. Karakter, bütçe ve daha yavaş bir Haliç ritmi için seç.",
       "vibe": "Tarihi, renkli, pürüzlü. Pratik tavizlerle birlikte büyük bir kişilik.",
       "transport": "Fener/Eminönü üzerinden otobüs ve tramvay bağlantıları, Karaköy ve Cihangir'e hızlı taksiler",
-      "bestFor": ["Karakter", "Daha düşük kira", "Yavaş yaratıcı günler"]
+      "bestFor": [
+        "Karakter",
+        "Daha düşük kira",
+        "Yavaş yaratıcı günler"
+      ]
     },
     "atasehir": {
       "name": "Ataşehir",
@@ -487,7 +511,11 @@
       "description": "Ataşehir farklı bir göçebe türü için: daha az vapur romantizmi, daha çok yeni yapı konforu. Gökdelenler, AVM'ler, iş trafiği, modern daireler ve finans bölgesi çevresindeki Anadolu yakası ofislerine erişim seni bekliyor. Alan, asansör, otopark, spor salonu ve işten sonra daha sessiz bir daire istiyorsan uzun konaklamalar için işine yarar.",
       "vibe": "Modern, ferah, kurumsal. Pratik ama Kadıköy kadar yürünebilir değil.",
       "transport": "Anadolu yakası boyunca metro ve otobüsler, Kadıköy, Ümraniye ve finans bölgesine taksiyle erişim",
-      "bestFor": ["Yeni daireler", "Anadolu yakası iş", "Sessiz geceler"]
+      "bestFor": [
+        "Yeni daireler",
+        "Anadolu yakası iş",
+        "Sessiz geceler"
+      ]
     }
   },
   "spacesList": {
@@ -2466,6 +2494,51 @@
       "line3": "Yarın o vapurda olabilirsin.",
       "primary": "İlk haftanı planla",
       "secondary": "Önce oku"
+    },
+    "membership": {
+      "eyebrow": "Üyelik · ait olmanın iki yolu",
+      "title": "Ait olmanın",
+      "titleItalic": "iki yolu.",
+      "body": "Siteyi okumak ücretsiz. Telegram'a katılmak ücretsiz. Ücretli kademe (Nomad+) işin az romantik kısmı için - avantajlar, küçük deneyimlerde öncelik, herkese açık profil, Pazar mektubunun üye sürümü.",
+      "rule1": "↳ Rehberlerde paywall yok",
+      "rule2": "↳ Akışta reklam yok",
+      "rule3": "↳ İşe alımcı yok, asla",
+      "members": "üye",
+      "free": {
+        "title": "Ücretsiz",
+        "priceLabel": "Sonsuza dek · kart yok",
+        "bullets": {
+          "b1": "Tüm rehberler ve mahalleler",
+          "b2": "İlk Hafta Planlayıcı ve Mahalle Eşleştirici",
+          "b3": "Telegram kanalına erişim",
+          "b4": "Ücretsiz etkinliklere RSVP",
+          "b5": "Üye rehberi · sadece okuma"
+        },
+        "cta": "Telegram'a katıl"
+      },
+      "plus": {
+        "tag": "Yakında · bekleme listesi açık",
+        "priceTbd": "Belirsiz",
+        "priceLabel": "/ ay · erken erişim için bekleme listesi",
+        "bullets": {
+          "b1": "Ücretsizdeki her şey",
+          "b2": "Perks kasası · partner avantajları geldikçe",
+          "b3": "Ücretli deneyimlerde öncelik",
+          "b4": "Üye rehberinde herkese açık profil",
+          "b5": "Pazar mektubu · üye sürümü",
+          "b6": "İstersen 'kahveye açık' olarak listelen"
+        },
+        "waitlistCta": "Bekleme listesine yazıl",
+        "previewCta": "Neler planlandığını gör"
+      }
+    },
+    "circles": {
+      "eyebrow": "Circles · büyük odanın içindeki küçük odalar",
+      "title": "Altı küçük oda,",
+      "titleItalic": "Telegram sana fazla kalabalık geliyorsa.",
+      "open": "Aç",
+      "footnote": "Circles'a giriş kapısı yok. Hepsi aynı Telegram'ın içinde - bir circle'a, başlığına katılarak girersin.",
+      "seeAll": "Tüm circles"
     }
   },
   "neighborhoodsV2": {

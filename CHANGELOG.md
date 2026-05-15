@@ -73,6 +73,17 @@ Design System v2 - "Ambient Tech with Istanbul Soul". An editorial-first, dark-n
 
 Real Istanbul photography can't be fabricated, so the `PhotoSlot` placeholders shipped in Phases 1-5 stand. What's done here is the swap path: `PhotoSlot` now optionally accepts `src` + `alt` (and `priority` / `sizes` / `credit` pass-throughs) and renders `next/image` with the same chrome (corner mark + caption strip) when set. Every existing `<PhotoSlot kind="..." />` call site upgrades by adding `src` and `alt` - no refactor, no rewrite. The actual photos are the missing input.
 
+### Phase 8 - Member-area wiring + previously deferred homepage sections
+
+- **Auth callback default** ([src/app/auth/callback/route.ts](src/app/auth/callback/route.ts)) - signing in now lands on `/dashboard` by default. Explicit `?next=` (used by gated routes that redirect through `/login`) still overrides.
+- **Onboarding completion redirect** ([src/app/[locale]/onboarding/onboarding-wizard.tsx](src/app/[locale]/onboarding/onboarding-wizard.tsx)) - newly-onboarded members land on `/dashboard` instead of `/`.
+- **AuthButton rewired** ([src/components/layout/auth-button.tsx](src/components/layout/auth-button.tsx)) - the name/avatar button now opens `/dashboard` (previously signed the user out); a separate `LogOut` icon sits next to it for sign-out. The "complete profile" nudge stays. Restyled to the ink/paper tokens.
+- **Navigation surfaces** ([src/lib/constants.ts](src/lib/constants.ts)) - `Community` dropdown gains Member Directory, Circles, and Perks Vault. Footer's community column picks up the same three. The header `⌘K` button + the dashboard tile route there directly. New nav labels translated to all five locales.
+- **Homepage MembershipTiers section** ([src/components/sections/home/membership-tiers.tsx](src/components/sections/home/membership-tiers.tsx)) - the previously deferred "two ways to belong" panel. Free tier shows the real `is_visible` member count; Nomad+ is marked "Coming soon · waitlist open" with price as TBD (no fabricated price - Stripe isn't wired, so the CTA goes to the Telegram waitlist).
+- **Homepage CirclesStrip section** ([src/components/sections/home/circles-strip.tsx](src/components/sections/home/circles-strip.tsx)) - the six circles in a strip on the homepage, real data from `src/lib/circles.ts`, each linking to its detail page.
+- **i18n** - new `homeV2.membership` and `homeV2.circles` blocks, plus `auth.openDashboard` and three new nav.items / footer.links entries (`members`, `circles`, `perks`), all translated into Turkish, Persian, Arabic, and Russian.
+- **Version bumped to 3.3.0** in [package.json](package.json) to match the changelog section.
+
 ## [3.2.0] - 2026-05-14
 
 ### Changed

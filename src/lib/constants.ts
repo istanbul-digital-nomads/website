@@ -25,7 +25,10 @@ export type NavChildKey =
   | "firstWeekPlanner"
   | "localGuides"
   | "events"
-  | "blog";
+  | "blog"
+  | "members"
+  | "circles"
+  | "perks";
 
 export type NavItem =
   | { key: NavItemKey; href: string }
@@ -47,6 +50,9 @@ export const navItems: NavItem[] = [
     key: "community",
     children: [
       { key: "events", href: "/events" },
+      { key: "members", href: "/members" },
+      { key: "circles", href: "/circles" },
+      { key: "perks", href: "/perks" },
       { key: "blog", href: "/blog" },
     ],
   },
@@ -72,7 +78,10 @@ export type FooterLinkKey =
   | "instagram"
   | "email"
   | "openapi"
-  | "llmsTxt";
+  | "llmsTxt"
+  | "members"
+  | "circles"
+  | "perks";
 
 export const footerNav: Record<
   "community" | "resources" | "connect" | "legal",
@@ -80,8 +89,11 @@ export const footerNav: Record<
 > = {
   community: [
     { key: "aboutUs", href: "/about" },
-    { key: "localGuides", href: "/local-guides" },
     { key: "events", href: "/events" },
+    { key: "members", href: "/members" },
+    { key: "circles", href: "/circles" },
+    { key: "perks", href: "/perks" },
+    { key: "localGuides", href: "/local-guides" },
     { key: "blog", href: "/blog" },
     { key: "contact", href: "/contact" },
   ],

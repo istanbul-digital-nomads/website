@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { showToast } from "@/lib/toast";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
@@ -88,11 +88,12 @@ export function AuthButton() {
     const avatar = user.user_metadata?.avatar_url;
 
     return (
-      <div className="flex items-center gap-2">
-        <button
-          onClick={handleSignOut}
-          className="hidden items-center gap-2 rounded-full border border-black/5 px-3 py-1.5 text-sm font-medium text-[#5d6d7e] transition-colors hover:bg-black/5 md:flex dark:border-white/10 dark:text-[#99a3ad] dark:hover:bg-white/10"
-          title={t("signOut")}
+      <div className="flex items-center gap-1.5">
+        {/* Desktop: name button -> /dashboard, separate sign-out icon */}
+        <Link
+          href="/dashboard"
+          title={t("openDashboard")}
+          className="hidden items-center gap-2 border border-ink-4 px-3 py-1.5 text-sm font-medium text-paper-mute transition-colors duration-fast hover:border-ink-5 hover:text-paper md:flex"
         >
           {avatar ? (
             <Image
@@ -105,25 +106,35 @@ export function AuthButton() {
           ) : (
             <User className="h-4 w-4" />
           )}
-          <span className="max-w-[100px] truncate">{name}</span>
-        </button>
+          <span className="max-w-[120px] truncate">{name}</span>
+        </Link>
 
         {/* Complete profile nudge */}
         {!onboardingComplete && (
           <Link
             href="/onboarding"
-            className="hidden items-center gap-1.5 rounded-full bg-primary-50 px-3 py-1.5 text-xs font-medium text-primary-700 transition-colors hover:bg-primary-100 md:flex dark:bg-primary-900/20 dark:text-primary-200"
+            className="hidden items-center gap-1.5 border border-terracotta bg-terracotta/10 px-3 py-1.5 text-xs font-medium text-terracotta transition-colors hover:bg-terracotta/20 md:flex"
           >
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary-500" />
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-terracotta" />
             {t("completeProfile")}
           </Link>
         )}
 
-        {/* Mobile - avatar with nudge dot */}
+        {/* Sign-out icon (desktop only; mobile uses the avatar tap) */}
+        <button
+          onClick={handleSignOut}
+          title={t("signOut")}
+          aria-label={t("signOut")}
+          className="hidden border border-ink-4 p-2 text-paper-mute transition-colors duration-fast hover:border-ink-5 hover:text-paper md:inline-flex"
+        >
+          <LogOut className="h-4 w-4" />
+        </button>
+
+        {/* Mobile - avatar tap goes to dashboard (or onboarding if incomplete) */}
         <Link
-          href={onboardingComplete ? "#" : "/onboarding"}
-          onClick={onboardingComplete ? handleSignOut : undefined}
+          href={onboardingComplete ? "/dashboard" : "/onboarding"}
           className="relative rounded-full p-1.5 md:hidden"
+          title={onboardingComplete ? t("openDashboard") : t("completeProfile")}
         >
           {avatar ? (
             <Image
@@ -131,15 +142,15 @@ export function AuthButton() {
               alt={name}
               width={28}
               height={28}
-              className="h-7 w-7 rounded-full ring-2 ring-primary-500/30"
+              className="h-7 w-7 rounded-full ring-2 ring-terracotta/40"
             />
           ) : (
-            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary-100 text-xs font-medium text-primary-700 dark:bg-primary-900/30 dark:text-primary-200">
+            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-terracotta/20 text-xs font-medium text-terracotta">
               {name[0].toUpperCase()}
             </div>
           )}
           {!onboardingComplete && (
-            <span className="absolute right-1 top-1 h-2.5 w-2.5 animate-pulse rounded-full bg-primary-500 ring-2 ring-white dark:ring-[#0f1117]" />
+            <span className="absolute right-1 top-1 h-2.5 w-2.5 animate-pulse rounded-full bg-terracotta ring-2 ring-ink-1" />
           )}
         </Link>
       </div>

@@ -2586,5 +2586,67 @@
         "editProfile": "Profilini düzenle"
       }
     }
+  },
+  "circlesV2": {
+    "metaTitle": "Circles",
+    "metaDescription": "Istanbul Nomads topluluğunun içindeki altı küçük oda.",
+    "eyebrow": "Circles · büyük odanın içindeki küçük odalar",
+    "title": "Altı küçük oda,",
+    "titleItalic": "Telegram sana fazla kalabalık geliyorsa.",
+    "lede": "Ana Telegram herkes demek. Circles ise alt gruplar - aynı cumartesiyi, aynı tekneyi, aynı fotoğraf yürüyüşünü isteyenler için daha küçük başlıklar.",
+    "open": "Aç",
+    "footnote": "Circles'a giriş kapısı yok. Hepsi aynı Telegram'ın içinde - bir circle'a, başlığına katılarak girersin; başvuru yok, ücret yok.",
+    "joinTelegram": "Telegram'da katıl",
+    "circleEyebrow": "Circle",
+    "rhythmEyebrow": "Ritim",
+    "joinEyebrow": "Bu circle'a katıl",
+    "joinBody": "Circles ana Telegram'ın içinde yaşıyor. Gruba katıl, sonra circle'ın başlığını iste - biri seni ekler.",
+    "otherEyebrow": "Diğer circle'lar",
+    "names": {
+      "coworking": "Coworking",
+      "hiking": "Doğa Yürüyüşü",
+      "sailing": "Yelken",
+      "photography": "Fotoğraf",
+      "wine": "Şarap",
+      "founders": "Founders"
+    },
+    "blurbs": {
+      "coworking": "Salı günü wifi'nin çalıştığı yer.",
+      "hiking": "Belgrad Ormanı, Aydos Dağı, çoğu cumartesi.",
+      "sailing": "Bostancı'dan kalkan tekne günleri.",
+      "photography": "Kameralar elde, sakin yürüyüşler.",
+      "wine": "Anadolu şişeleri, puanlama yok.",
+      "founders": "İki haftada bir perşembe ofis saatleri."
+    },
+    "descriptions": {
+      "coworking": "Üyelerin çoğu için varsayılan circle. Hangi kafede boş pencere kenarı var, kimin wifi'si gitti, bu hafta sakin masalar nerede - hepsinin konuşulduğu sürekli bir başlık. Rezervasyon yok, ayrılacak masa yok - sadece aynı birkaç mekândan çalışıp not paylaşan insanlar.",
+      "hiking": "Hafta sonları şehir dışına. Sıcakta Belgrad Ormanı, hava açıkken Anadolu yakasının sırtları, ara sıra daha uzun bir gezi. Tempo yarış değil sohbet temposu - mesele kilometre değil, yürüyüşün ve insanların kendisi.",
+      "sailing": "Rüzgâr el verdiğinde Marmara'da gün batımına kadar yelken, Bostancı ve Kalamış'tan kalkışlı. Bazı üyelerin ehliyeti var, çoğunun yok - tayfa olarak öğreniyorsun. Masraflar tekne başına bölüşülür, her gezinin öncesinde paylaşılır.",
+      "photography": "Kameralarla mahalleler arasında yavaş yürüyüşler - Balat, salı pazarı, alacakaranlıkta vapurlar. Her kamera, her seviye. Yürüyüşler aynı zamanda bir mahalleyi adam gibi tanımanın iyi bir yolu.",
+      "wine": "Çoğunlukla Anadolu şarabı - yerli üzümler iyi ve hak ettiği değeri görmüyor. Birinin evinde ya da Cihangir'de bir şarap barında resmi olmayan tadımlar. Puanlama yok, snobluk yok, sadece tanımaya değer şişeler.",
+      "founders": "Bir şeyler kuran üyeler için - tek başına kurucular, büyümekte olan serbest çalışanlar, küçük uzaktan ekipler. İki haftada bir perşembe ofis saatleri: bir sorun getir, onu daha önce yaşamış bir oda dolusu insan bul."
+    },
+    "rhythms": {
+      "coworking": "Gün boyu sohbet, her perşembe sabit bir cowork oturumu.",
+      "hiking": "Çoğu hafta bir cumartesi yürüyüşü, birkaç gün önceden paylaşılır.",
+      "sailing": "Havaya bağlı. Geziler hava durumu iyi olduğunda paylaşılır.",
+      "photography": "İki haftada bir fotoğraf yürüyüşü.",
+      "wine": "Aşağı yukarı ayda bir tadım.",
+      "founders": "İki haftada bir perşembe ofis saatleri."
+    }
+  },
+  "perksV2": {
+    "metaTitle": "Perks",
+    "metaDescription": "Istanbul Nomads partner avantajları kasası - bir Nomad+ ayrıcalığı.",
+    "eyebrow": "Perks · kasa",
+    "kicker": "bir Nomad+ ayrıcalığı",
+    "title": "Partner avantajları,",
+    "titleItalic": "gerçekten burada yaşayanlar için.",
+    "lede": "Kafelerden, coworking mekânlarından ve yerel işletmelerden gelen sabit tekliflerin olduğu bir kasa - sokaktan girerek değil, topluluğun parçası olarak elde ettiğin türden.",
+    "emptyEyebrow": "Kasa hazırlanıyor",
+    "emptyTitle": "Avantajlar kasası kuruluyor - partner partner, dolgu malzemesi yok.",
+    "emptyBody": "Sayfayı şişirmek yerine gerçek tekliflerle gerçek partnerler imzalıyoruz. Nomad+ kademesi ile ilk avantajlar birlikte geliyor. O zamana kadar topluluğun kendisi zaten avantaj.",
+    "joinTelegram": "Telegram'da katıl",
+    "seeCircles": "Circle'lara göz at"
   }
 }

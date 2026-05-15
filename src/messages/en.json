@@ -2566,5 +2566,67 @@
         "editProfile": "Edit your profile"
       }
     }
+  },
+  "circlesV2": {
+    "metaTitle": "Circles",
+    "metaDescription": "Six smaller rooms inside the Istanbul Nomads community.",
+    "eyebrow": "Circles · small rooms inside the big room",
+    "title": "Six smaller rooms",
+    "titleItalic": "if Telegram is too many people.",
+    "lede": "The main Telegram is everyone. Circles are the subsets - smaller threads for people who want the same Saturday, the same boat, the same camera walk.",
+    "open": "Open",
+    "footnote": "Circles aren't gated. They run inside the same Telegram - you join a circle by joining its thread, no application, no fee.",
+    "joinTelegram": "Join on Telegram",
+    "circleEyebrow": "The circle",
+    "rhythmEyebrow": "The rhythm",
+    "joinEyebrow": "Join this circle",
+    "joinBody": "Circles live inside the main Telegram. Join the group, then ask for the circle's thread - someone will add you.",
+    "otherEyebrow": "The other circles",
+    "names": {
+      "coworking": "Coworking",
+      "hiking": "Hiking",
+      "sailing": "Sailing",
+      "photography": "Photography",
+      "wine": "Wine",
+      "founders": "Founders"
+    },
+    "blurbs": {
+      "coworking": "Where the wifi works on a Tuesday.",
+      "hiking": "Belgrad Forest, Mt. Aydos, most Saturdays.",
+      "sailing": "Bareboat days out of Bostanci.",
+      "photography": "Quiet walks with cameras out.",
+      "wine": "Anatolian bottles, no scoring.",
+      "founders": "Office hours every other Thursday."
+    },
+    "descriptions": {
+      "coworking": "The default circle for most members. A running thread of which cafe has a free window seat, whose wifi dropped, and where the quiet tables are this week. No bookings, no desks to reserve - just people who work from the same handful of rooms comparing notes.",
+      "hiking": "Out of the city on weekends. Belgrad Forest when it's hot, the Asian-side ridges when it's clear, the occasional bigger trip. Pace is conversational, not competitive - the point is the walk and the people, not the kilometres.",
+      "sailing": "Day sails on the Marmara when the wind cooperates, out of Bostanci and Kalamis. Some members have licences, most don't - you learn by crewing. Costs are split per boat, posted before each trip.",
+      "photography": "Slow walks through neighborhoods with cameras - Balat, the Tuesday market, the ferries at dusk. Any camera, any level. The walks double as a good way to learn a neighborhood properly.",
+      "wine": "Anatolian wine, mostly - the local grapes are good and underrated. Informal tastings at someone's flat or a wine bar in Cihangir. No scoring, no snobbery, just bottles worth knowing about.",
+      "founders": "For members building something - solo founders, freelancers scaling up, small remote teams. Office hours every other Thursday: bring a problem, get a room of people who've hit it before."
+    },
+    "rhythms": {
+      "coworking": "Daily chatter, a standing Thursday cowork session.",
+      "hiking": "A Saturday walk most weeks, posted a few days ahead.",
+      "sailing": "Weather-dependent. Trips posted when the forecast is good.",
+      "photography": "A photo walk every couple of weeks.",
+      "wine": "A tasting roughly monthly.",
+      "founders": "Office hours every other Thursday."
+    }
+  },
+  "perksV2": {
+    "metaTitle": "Perks",
+    "metaDescription": "The Istanbul Nomads partner perks vault - a Nomad+ benefit.",
+    "eyebrow": "Perks · the vault",
+    "kicker": "a Nomad+ benefit",
+    "title": "Partner perks,",
+    "titleItalic": "for the people who actually live here.",
+    "lede": "A vault of standing offers from cafes, coworking spaces, and local businesses - the kind you only get by being part of the community, not by walking in off the street.",
+    "emptyEyebrow": "Vault in progress",
+    "emptyTitle": "The perks vault is being built - partner by partner, no filler.",
+    "emptyBody": "We're signing real partners with real offers rather than padding the page. The Nomad+ tier and the first perks land together. Until then, the community itself is the perk.",
+    "joinTelegram": "Join on Telegram",
+    "seeCircles": "See the circles"
   }
 }

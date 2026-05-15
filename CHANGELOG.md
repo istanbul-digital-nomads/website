@@ -56,6 +56,13 @@ Design System v2 - "Ambient Tech with Istanbul Soul". An editorial-first, dark-n
 - **Queries** - `getMembersPublic` / `getMemberByIdPublic` added (`use cache`, cookie-less, opt-in fields only); new `MemberPublicProfile` type.
 - **i18n** - new `membersV2` namespace, translated into Turkish, Persian, Arabic, and Russian.
 
+### Phase 5b - Circles + perks vault
+
+- **Circles** - six "small rooms inside the big room" (Coworking, Hiking, Sailing, Photography, Wine, Founders). Defined as static editorial data in [src/lib/circles.ts](src/lib/circles.ts) - real, not invented. New `/circles` index ([src/app/[locale]/circles/page.tsx](src/app/[locale]/circles/page.tsx)) and `/circles/[slug]` detail ([src/app/[locale]/circles/[slug]/page.tsx](src/app/[locale]/circles/[slug]/page.tsx)) with `generateStaticParams` over the six slugs. Each card carries the circle's accent colour (terracotta / bosphorus / ferry-yellow / moss / their dim variants). Joining is honest: the circles live inside the main Telegram, not a separate gated thing.
+- **Perks vault** ([src/app/[locale]/perks/page.tsx](src/app/[locale]/perks/page.tsx)) - new. Reads from a `perks` table that lands with migration 013 and isn't applied yet, so the page degrades to an honest "vault in progress" state rather than fabricating partner offers.
+- **Migration `013_circles_perks.sql`** - adds `circle_members`, `perks`, `perk_claims` tables plus `is_nomad_plus` / `nomad_plus_since` / `last_seen_at` / `open_to_coffee` columns to `members`. RLS: perks public-read, claims and circle memberships member-scoped. Reading code (`getPerksPublic`) is fully guarded against the missing table so the build/runtime stays green until the migration is applied.
+- **i18n** - new `circlesV2` and `perksV2` namespaces, translated into Turkish, Persian, Arabic, and Russian.
+
 ## [3.2.0] - 2026-05-14
 
 ### Changed

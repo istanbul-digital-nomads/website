@@ -951,16 +951,19 @@ html.tod-night {
    Bosphorus header strip on the homepage. One per page, no parallax.
    The keyframe animates `left` (not `transform: translateX`) because
    percentages in `translateX` resolve against the element's own width,
-   while `left` resolves against the positioned parent - exactly what
-   we want for "cross the strait". `--ferry-width` lets the ferry sit
-   flush against the right edge at the end of the trip. */
+   while `left` resolves against the positioned parent.
+
+   `--ferry-start` / `--ferry-end` let the consumer align the ferry with
+   the dock dots on each side. Defaults travel the full strait. The ferry
+   fades in at the start dock, sails across, fades out at the end dock,
+   then snaps back invisibly to the start - infinite loop, no flicker. */
 .ferry-cross {
   animation: ferry-cross 24s linear infinite;
 }
 
 @keyframes ferry-cross {
   0% {
-    left: 0;
+    left: var(--ferry-start, 0);
     opacity: 0;
   }
   8% {
@@ -970,7 +973,7 @@ html.tod-night {
     opacity: 1;
   }
   100% {
-    left: calc(100% - var(--ferry-width, 1.25rem));
+    left: var(--ferry-end, calc(100% - var(--ferry-width, 1.25rem)));
     opacity: 0;
   }
 }

@@ -48,6 +48,14 @@ Design System v2 - "Ambient Tech with Istanbul Soul". An editorial-first, dark-n
 - **Caching** - `getEventsPublic` / `getEventByIdPublic` are now `use cache` (cacheLife "minutes", tag "events") so they're callable from uncached server components and `generateMetadata` under cacheComponents. The layout's `usePathname` client islands are now Suspense-wrapped so fully-dynamic routes don't trip the "uncached data outside Suspense" guard.
 - **i18n** - new `eventsV2` namespace, translated into Turkish, Persian, Arabic, and Russian.
 
+### Phase 5a - Member surfaces
+
+- **Member directory** ([src/app/[locale]/members/page.tsx](src/app/[locale]/members/page.tsx)) - new. An opt-in grid of `is_visible` members; cards show avatar (real photo or a tinted initial block - no fake faces), name, location, bio, and skill tags.
+- **Member profile** ([src/app/[locale]/members/[id]/page.tsx](src/app/[locale]/members/[id]/page.tsx)) - new. Avatar + facts sidebar, bio, skills, languages, website, and a Telegram reach-out CTA. Reach-out goes through Telegram, not on-site DMs.
+- **Member dashboard** ([src/app/[locale]/dashboard/page.tsx](src/app/[locale]/dashboard/page.tsx)) - new, auth-gated (redirects to `/login?next=/dashboard` when signed out). A masthead, a real-fields-only profile-completeness panel, and quick links. No fabricated "activity ledger" - just what the `members` row actually contains.
+- **Queries** - `getMembersPublic` / `getMemberByIdPublic` added (`use cache`, cookie-less, opt-in fields only); new `MemberPublicProfile` type.
+- **i18n** - new `membersV2` namespace, translated into Turkish, Persian, Arabic, and Russian.
+
 ## [3.2.0] - 2026-05-14
 
 ### Changed

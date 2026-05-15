@@ -5,6 +5,7 @@ import type {
   EventWithRSVPCount,
   Member,
   MemberPublic,
+  MemberPublicProfile,
   BlogPost,
   BlogPostWithAuthor,
   RSVP,
@@ -186,6 +187,39 @@ export async function getMembers() {
     .order("created_at", { ascending: false });
 
   return { data: data as MemberPublic[] | null, error };
+}
+
+// Public (cookie-less) opt-in member directory. `use cache` so the
+// directory and profile pages stay prerenderable under cacheComponents.
+export async function getMembersPublic() {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("members");
+  const supabase = createPublicClient();
+  const { data, error } = await supabase
+    .from("members")
+    .select(
+      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle",
+    )
+    .eq("is_visible", true)
+    .order("created_at", { ascending: false });
+  return { data: data as MemberPublic[] | null, error };
+}
+
+export async function getMemberByIdPublic(id: string) {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("members");
+  const supabase = createPublicClient();
+  const { data, error } = await supabase
+    .from("members")
+    .select(
+      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle, profession, languages, member_type",
+    )
+    .eq("id", id)
+    .eq("is_visible", true)
+    .maybeSingle();
+  return { data: data as MemberPublicProfile | null, error };
 }
 
 export async function getCurrentMember() {

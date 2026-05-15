@@ -53,6 +53,11 @@ export type MemberPublic = Pick<
   | "telegram_handle"
 >;
 
+// Extended public shape for the member profile page (Design System v2
+// Phase 5a) - still only opt-in, non-sensitive fields.
+export type MemberPublicProfile = MemberPublic &
+  Pick<Member, "profession" | "languages" | "member_type">;
+
 // --- Static Content Types ---
 
 export type { Guide } from "@/lib/data";

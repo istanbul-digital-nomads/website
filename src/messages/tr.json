@@ -2542,5 +2542,49 @@
       "pastNote": "Bu etkinlik çoktan oldu. Sıradakiler için yaklaşan etkinlikler listesine bak.",
       "allEvents": "Tüm etkinlikler"
     }
+  },
+  "membersV2": {
+    "metaTitle": "Üyeler",
+    "metaDescription": "Istanbul Nomads üyelerinin isteğe bağlı rehberi - sahadaki insanlar.",
+    "eyebrow": "Üyeler · sahadaki insanlar",
+    "title": "Kimler burada,",
+    "titleItalic": "ve neyin peşindeler.",
+    "lede": "Listede yer almayı kendi seçen üyelerin isteğe bağlı rehberi. Telegram üzerinden ulaş - site üzerinden mesajlaşmıyoruz.",
+    "emptyEyebrow": "Rehber açılıyor",
+    "emptyTitle": "Henüz herkese açık profil yok. Üyeler tek tek katılıyor - yakında tekrar uğra.",
+    "profile": {
+      "location": "Konum",
+      "profession": "Meslek",
+      "type": "Üye tipi",
+      "reachOut": "Telegram'dan ulaş",
+      "aboutEyebrow": "Hakkında",
+      "noBio": "Bu üye henüz bir biyografi yazmamış.",
+      "skills": "Yetenekler",
+      "languages": "Diller"
+    },
+    "dashboard": {
+      "eyebrow": "Panelin",
+      "greeting": "Tekrar hoş geldin, {name}.",
+      "noMeta": "Profiline meslek ve konum ekle.",
+      "profileEyebrow": "Profilin",
+      "done": "Tamam",
+      "todo": "Yapılacak",
+      "completeProfile": "Profilini tamamla",
+      "linksEyebrow": "Hızlı bağlantılar",
+      "fields": {
+        "bio": "Biyografi",
+        "location": "Konum",
+        "profession": "Meslek",
+        "skills": "Yetenekler",
+        "languages": "Diller",
+        "visible": "Rehberde listeleniyor"
+      },
+      "links": {
+        "directory": "Üye rehberi",
+        "profile": "Herkese açık profilini gör",
+        "events": "Yaklaşan etkinlikler",
+        "editProfile": "Profilini düzenle"
+      }
+    }
   }
 }

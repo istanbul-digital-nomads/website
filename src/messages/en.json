@@ -2522,5 +2522,49 @@
       "pastNote": "This one already happened. Check the upcoming list for what's next.",
       "allEvents": "All events"
     }
+  },
+  "membersV2": {
+    "metaTitle": "Members",
+    "metaDescription": "The opt-in directory of Istanbul Nomads members - the people on the ground.",
+    "eyebrow": "Members · the people on the ground",
+    "title": "Who's here,",
+    "titleItalic": "and what they're up to.",
+    "lede": "An opt-in directory of members who chose to be listed. Reach out through Telegram - we don't do DMs through the site.",
+    "emptyEyebrow": "Directory opening up",
+    "emptyTitle": "No public profiles yet. Members opt in one by one - check back soon.",
+    "profile": {
+      "location": "Location",
+      "profession": "Profession",
+      "type": "Member type",
+      "reachOut": "Reach out on Telegram",
+      "aboutEyebrow": "About",
+      "noBio": "This member hasn't written a bio yet.",
+      "skills": "Skills",
+      "languages": "Languages"
+    },
+    "dashboard": {
+      "eyebrow": "Your dashboard",
+      "greeting": "Welcome back, {name}.",
+      "noMeta": "Add a profession and location to your profile.",
+      "profileEyebrow": "Your profile",
+      "done": "Done",
+      "todo": "To do",
+      "completeProfile": "Complete your profile",
+      "linksEyebrow": "Quick links",
+      "fields": {
+        "bio": "Bio",
+        "location": "Location",
+        "profession": "Profession",
+        "skills": "Skills",
+        "languages": "Languages",
+        "visible": "Listed in directory"
+      },
+      "links": {
+        "directory": "Member directory",
+        "profile": "View your public profile",
+        "events": "Upcoming events",
+        "editProfile": "Edit your profile"
+      }
+    }
   }
 }

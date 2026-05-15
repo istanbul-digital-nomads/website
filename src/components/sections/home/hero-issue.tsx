@@ -42,17 +42,19 @@ export async function HeroIssue({ locale }: { locale: Locale }) {
             <div className="absolute inset-x-14 top-3 border-t border-dashed border-bosphorus/60" />
             <span className="absolute left-[52px] top-2 h-2 w-2 rounded-full bg-ferry-yellow" />
             <span className="absolute right-[52px] top-2 h-2 w-2 rounded-full bg-terracotta" />
-            {/* Ferry starts centered on the yellow dock (left:52px, w-2,
-                center at 56px - ferry half-width 10px = 46px) and ends
-                centered on the terracotta dock (right:52px, center at
-                100% - 56px - 10px = 100% - 66px). */}
+            {/* Ferry centered on each dock dot. Dock dots are 8px wide,
+                outer edge 52px from each side of the strait, so each
+                dock's center is at 56px. The 30px ferry has half-width
+                15px, so it centers at 56-15=41px on the yellow side and
+                calc(100% - 56px - 15px) = calc(100% - 71px) on the red
+                side. */}
             <span
-              className="ferry-cross absolute top-1.5 text-paper"
+              className="ferry-cross absolute -top-1 text-paper"
               style={
                 {
-                  "--ferry-start": "46px",
-                  "--ferry-end": "calc(100% - 66px)",
-                  "--ferry-width": "20px",
+                  "--ferry-start": "41px",
+                  "--ferry-end": "calc(100% - 71px)",
+                  "--ferry-width": "30px",
                 } as React.CSSProperties
               }
             >

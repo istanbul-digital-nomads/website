@@ -948,32 +948,55 @@ html.tod-night {
 }
 
 /* Design System v2 - the one moving signal: a ferry crossing the
-   Bosphorus header strip on the homepage. One per page, no parallax.
-   The keyframe animates `left` (not `transform: translateX`) because
-   percentages in `translateX` resolve against the element's own width,
-   while `left` resolves against the positioned parent.
+   Bosphorus header strip and back, indefinitely. One per page, no
+   parallax.
 
-   `--ferry-start` / `--ferry-end` let the consumer align the ferry with
-   the dock dots on each side. Defaults travel the full strait. The ferry
-   fades in at the start dock, sails across, fades out at the end dock,
-   then snaps back invisibly to the start - infinite loop, no flicker. */
+   `left` is animated (not `transform: translateX`) because percentages
+   in translateX resolve against the element's own width, while `left`
+   resolves against the positioned parent - the strait container.
+   `--ferry-start` / `--ferry-end` align the ferry with the dock dots
+   on each side.
+
+   The ferry sails Europe -> Asia, briefly docks and flips
+   (transform: scaleX(-1)) so its bow points back the way it came,
+   sails Asia -> Europe, flips again, and repeats. The flip is the only
+   way the SVG (which has a fixed right-facing bow) can plausibly do
+   a return leg without looking like it's drifting backwards. */
 .ferry-cross {
-  animation: ferry-cross 24s linear infinite;
+  animation: ferry-cross 30s ease-in-out infinite;
 }
 
 @keyframes ferry-cross {
+  /* Forward leg: Europe -> Asia, bow right */
   0% {
     left: var(--ferry-start, 0);
+    transform: scaleX(1);
     opacity: 0;
   }
-  8% {
+  4% {
     opacity: 1;
   }
-  92% {
-    opacity: 1;
-  }
-  100% {
+  46% {
     left: var(--ferry-end, calc(100% - var(--ferry-width, 1.25rem)));
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  /* Brief dock at Asia, ferry turns around */
+  50% {
+    left: var(--ferry-end, calc(100% - var(--ferry-width, 1.25rem)));
+    transform: scaleX(-1);
+    opacity: 1;
+  }
+  /* Return leg: Asia -> Europe, bow left */
+  96% {
+    left: var(--ferry-start, 0);
+    transform: scaleX(-1);
+    opacity: 1;
+  }
+  /* Brief dock at Europe, ferry turns around for the next loop */
+  100% {
+    left: var(--ferry-start, 0);
+    transform: scaleX(1);
     opacity: 0;
   }
 }

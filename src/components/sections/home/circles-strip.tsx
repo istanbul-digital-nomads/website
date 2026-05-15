@@ -57,9 +57,7 @@ export function CirclesStrip({ locale }: { locale: Locale }) {
               <p className="mt-1.5 flex-1 text-xs leading-relaxed text-paper-dim">
                 {tList(`blurbs.${circle.slug}`)}
               </p>
-              <span
-                className={`mt-3 text-xs ${ACCENT_TEXT[circle.accent]}`}
-              >
+              <span className={`mt-3 text-xs ${ACCENT_TEXT[circle.accent]}`}>
                 {t("open")} →
               </span>
             </Link>

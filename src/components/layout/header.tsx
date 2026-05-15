@@ -71,8 +71,7 @@ function NavDropdown({
         <div className="absolute left-1/2 top-full z-50 mt-3 w-64 -translate-x-1/2 border border-ink-3 bg-ink-1/95 p-2 shadow-[0_16px_42px_rgba(0,0,0,0.35)] backdrop-blur-xl">
           {item.children.map((child) => {
             const active =
-              pathname === child.href ||
-              pathname.startsWith(child.href + "/");
+              pathname === child.href || pathname.startsWith(child.href + "/");
             return (
               <Link
                 key={child.href}

@@ -11,10 +11,7 @@ import { Tag } from "@/components/ui/tag";
 import { HoodAtAGlance } from "@/components/sections/neighborhoods/hood-at-a-glance";
 import { WorkSpaces } from "@/components/sections/neighborhoods/work-spaces";
 import { SimilarNeighborhoods } from "@/components/sections/neighborhoods/similar-neighborhoods";
-import {
-  neighborhoods,
-  getNeighborhoodBySlug,
-} from "@/lib/neighborhoods";
+import { neighborhoods, getNeighborhoodBySlug } from "@/lib/neighborhoods";
 import { socialLinks } from "@/lib/constants";
 import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { alternatesFor } from "@/lib/seo";
@@ -90,7 +87,8 @@ async function NeighborhoodDetailContent(props: Props) {
             <span>/</span>
             <span className="text-paper">{name}</span>
             <span className="ml-auto text-paper-faint">
-              {sideLabel} · {n.coords[1].toFixed(2)}°N {n.coords[0].toFixed(2)}°E
+              {sideLabel} · {n.coords[1].toFixed(2)}°N {n.coords[0].toFixed(2)}
+              °E
             </span>
           </nav>
 
@@ -100,7 +98,9 @@ async function NeighborhoodDetailContent(props: Props) {
             </h1>
             <div className="flex flex-wrap gap-2 lg:justify-end">
               {n.badges.map((badgeKey) => (
-                <Tag key={badgeKey}>{tList(`${n.slug}.badges.${badgeKey}`)}</Tag>
+                <Tag key={badgeKey}>
+                  {tList(`${n.slug}.badges.${badgeKey}`)}
+                </Tag>
               ))}
             </div>
           </div>

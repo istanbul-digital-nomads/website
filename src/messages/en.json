@@ -358,11 +358,7 @@
       "description": "The most popular neighborhood for digital nomads. Kadikoy has a walkable center packed with independent cafes, a daily fish market, bookshops, and street food. The ferry to the European side takes 20 minutes and is one of the best commutes in the world.",
       "vibe": "Local, independent, walkable. Feels like a small city within Istanbul.",
       "transport": "Ferry to Eminonu/Karakoy (20 min), metro to Taksim via Marmaray",
-      "bestFor": [
-        "Steady work routine",
-        "Local neighborhood feel",
-        "Fair rent"
-      ]
+      "bestFor": ["Steady work routine", "Local neighborhood feel", "Fair rent"]
     },
     "moda": {
       "name": "Moda",
@@ -375,11 +371,7 @@
       "description": "A quieter extension of Kadikoy, Moda sits on a peninsula with a seaside promenade. More residential, fewer tourists, excellent for evening walks. Close enough to Kadikoy center to walk (15 min) but feels distinctly calmer.",
       "vibe": "Seaside, quiet, creative. Lots of cats.",
       "transport": "Same as Kadikoy + nostalgic tram along the coast",
-      "bestFor": [
-        "Quiet evenings",
-        "Seaside walks",
-        "Creative freelancers"
-      ]
+      "bestFor": ["Quiet evenings", "Seaside walks", "Creative freelancers"]
     },
     "cihangir": {
       "name": "Cihangir",
@@ -392,11 +384,7 @@
       "description": "The bohemian heart of Istanbul. Cihangir is a small hilltop neighborhood with steep streets, Bosphorus views from every cafe, and a strong community feel. Popular with artists, freelancers, and foreigners. Higher rents than the Asian side but unbeatable atmosphere.",
       "vibe": "Bohemian, social, hilly. Great views, strong cafe culture.",
       "transport": "Walk to Taksim (10 min), Kabatas tram/funicular, ferries from Kabatas",
-      "bestFor": [
-        "Social nomads",
-        "Nightlife access",
-        "Bosphorus views"
-      ]
+      "bestFor": ["Social nomads", "Nightlife access", "Bosphorus views"]
     },
     "besiktas": {
       "name": "Besiktas",
@@ -443,11 +431,7 @@
       "description": "Uskudar is the calmer Asian-side answer to Karakoy: ferries, mosques, tea gardens, and long Bosphorus walks without the same tourist pressure. It works well if you want a real local base, quick access to Kadikoy and the European side, and quieter evenings than the nightlife districts.",
       "vibe": "Traditional, waterfront, calmer. Strong ferry rhythm and everyday Istanbul texture.",
       "transport": "Ferries to Eminonu, Besiktas, and Kabatas, Marmaray, metro toward Umraniye",
-      "bestFor": [
-        "Quiet ferry life",
-        "Local routines",
-        "Bosphorus sunsets"
-      ]
+      "bestFor": ["Quiet ferry life", "Local routines", "Bosphorus sunsets"]
     },
     "nisantasi": {
       "name": "Nisantasi",
@@ -460,11 +444,7 @@
       "description": "Nisantasi is one of Istanbul's most polished residential districts: leafy side streets, apartment blocks with doormen, boutiques, clinics, gyms, and some of the city's most reliable cafe work sessions. It is not the cheapest base, but it is practical if you want central European-side living without being directly inside the Taksim nightlife flow.",
       "vibe": "Polished, residential, upscale. Boutique streets with strong everyday convenience.",
       "transport": "Walk to Osmanbey metro, quick taxi or metro access to Taksim, Sisli, and Levent",
-      "bestFor": [
-        "Comfortable budgets",
-        "Cafe work",
-        "Central errands"
-      ]
+      "bestFor": ["Comfortable budgets", "Cafe work", "Central errands"]
     },
     "levent": {
       "name": "Levent",
@@ -477,11 +457,7 @@
       "description": "Levent is not romantic Istanbul, and that is exactly the point. It is the business corridor: towers, malls, gyms, metro stops, and coworking spaces. Choose it if your Istanbul life is work-heavy, you want reliable infrastructure, or you need fast access to meetings around Maslak, Sisli, and the airport-side business spine.",
       "vibe": "Corporate, practical, vertical. Less charm, more infrastructure.",
       "transport": "M2 metro through Levent and 4. Levent, buses along Buyukdere Avenue, easy taxi access north/south",
-      "bestFor": [
-        "Full-time remote",
-        "Business access",
-        "Coworking density"
-      ]
+      "bestFor": ["Full-time remote", "Business access", "Coworking density"]
     },
     "balat": {
       "name": "Balat",
@@ -494,11 +470,7 @@
       "description": "Balat is beautiful, uneven, and very specific. The colorful houses and antique streets are real, but it is not as frictionless as Kadikoy or Nisantasi: hills, older buildings, fewer polished work options, and more day-tripper foot traffic on famous streets. Pick it for character, budget, and a slower Golden Horn rhythm.",
       "vibe": "Historic, colorful, rough-edged. Big personality with practical tradeoffs.",
       "transport": "Buses and tram connections via Fener/Eminonu, quick taxis to Karakoy and Cihangir",
-      "bestFor": [
-        "Character",
-        "Lower rent",
-        "Slow creative days"
-      ]
+      "bestFor": ["Character", "Lower rent", "Slow creative days"]
     },
     "atasehir": {
       "name": "Atasehir",
@@ -511,11 +483,7 @@
       "description": "Atasehir is for a different kind of nomad: less ferry romance, more new-build convenience. You get towers, malls, business traffic, modern apartments, and access to Asian-side offices around the finance district. It is useful for longer stays if you want space, elevators, parking, gyms, and a quieter apartment after work.",
       "vibe": "Modern, spacious, corporate. Practical but less walkable than Kadikoy.",
       "transport": "Metro and buses across the Asian side, taxi access to Kadikoy, Umraniye, and the finance district",
-      "bestFor": [
-        "Newer apartments",
-        "Asian-side business",
-        "Quiet nights"
-      ]
+      "bestFor": ["Newer apartments", "Asian-side business", "Quiet nights"]
     }
   },
   "spacesList": {

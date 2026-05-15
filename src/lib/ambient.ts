@@ -104,9 +104,12 @@ export async function getFxRate(): Promise<FxRate> {
   "use cache";
   cacheLife("hours");
   try {
-    const r = await fetch("https://api.frankfurter.app/latest?from=USD&to=TRY", {
-      signal: AbortSignal.timeout(4000),
-    });
+    const r = await fetch(
+      "https://api.frankfurter.app/latest?from=USD&to=TRY",
+      {
+        signal: AbortSignal.timeout(4000),
+      },
+    );
     if (!r.ok) throw new Error(`fx ${r.status}`);
     const d = await r.json();
     const rate = d?.rates?.TRY;

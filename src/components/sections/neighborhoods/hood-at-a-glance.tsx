@@ -38,9 +38,7 @@ export function HoodAtAGlance({
       },
       {
         label: tV2("glance.side"),
-        value: tCommon(
-          n.side === "European" ? "side.european" : "side.asian",
-        ),
+        value: tCommon(n.side === "European" ? "side.european" : "side.asian"),
         tone: "text-ferry-yellow",
       },
       {

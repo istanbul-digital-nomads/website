@@ -79,10 +79,7 @@ export function PhotoSlot({
   const isReal = Boolean(src && alt);
   return (
     <figure
-      className={cn(
-        "relative overflow-hidden border border-ink-4",
-        className,
-      )}
+      className={cn("relative overflow-hidden border border-ink-4", className)}
       style={isReal ? style : { background: background(kind), ...style }}
     >
       {isReal ? (

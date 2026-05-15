@@ -45,7 +45,8 @@ export async function EventsStrip({ locale }: { locale: Locale }) {
                 href="/events"
                 className="grid grid-cols-[5rem_4rem_auto_1fr_auto] items-center gap-4 px-6 py-5 transition-colors hover:bg-ink-2 sm:gap-8"
                 style={{
-                  borderTop: i === 0 ? undefined : "1px solid rgb(var(--ink-3))",
+                  borderTop:
+                    i === 0 ? undefined : "1px solid rgb(var(--ink-3))",
                 }}
               >
                 <span className="font-mono text-[11px] uppercase tracking-wider text-terracotta">
@@ -67,9 +68,7 @@ export async function EventsStrip({ locale }: { locale: Locale }) {
                     </span>
                   ) : null}
                 </span>
-                <span className="text-sm text-terracotta">
-                  {t("rsvp")} →
-                </span>
+                <span className="text-sm text-terracotta">{t("rsvp")} →</span>
               </Link>
             ))
           ) : (

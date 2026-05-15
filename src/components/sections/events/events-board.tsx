@@ -86,9 +86,7 @@ export function EventsBoard({
       {rows.length === 0 ? (
         <div className="px-2 py-12">
           <p className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
-            {tab === "upcoming"
-              ? tList("emptyUpcoming")
-              : tList("emptyPast")}
+            {tab === "upcoming" ? tList("emptyUpcoming") : tList("emptyPast")}
           </p>
         </div>
       ) : (
@@ -99,8 +97,7 @@ export function EventsBoard({
               href={`/events/${event.slug ?? event.id}`}
               className="grid grid-cols-[6rem_auto_1fr_auto] items-center gap-4 px-5 py-5 transition-colors duration-fast hover:bg-ink-2 sm:gap-8 sm:px-7"
               style={{
-                borderTop:
-                  i === 0 ? undefined : "1px solid rgb(var(--ink-3))",
+                borderTop: i === 0 ? undefined : "1px solid rgb(var(--ink-3))",
               }}
             >
               <div className="font-mono text-[11px] uppercase tracking-wider text-terracotta">

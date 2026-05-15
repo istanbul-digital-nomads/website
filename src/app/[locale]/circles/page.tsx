@@ -79,9 +79,7 @@ export default async function CirclesPage({
               <p className="mt-2 flex-1 text-sm leading-relaxed text-paper-dim">
                 {t(`blurbs.${circle.slug}`)}
               </p>
-              <span
-                className={`mt-4 text-sm ${ACCENT_TEXT[circle.accent]}`}
-              >
+              <span className={`mt-4 text-sm ${ACCENT_TEXT[circle.accent]}`}>
                 {t("open")} →
               </span>
             </Link>

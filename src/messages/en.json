@@ -2628,5 +2628,33 @@
     "emptyBody": "We're signing real partners with real offers rather than padding the page. The Nomad+ tier and the first perks land together. Until then, the community itself is the perk.",
     "joinTelegram": "Join on Telegram",
     "seeCircles": "See the circles"
+  },
+  "commandMenu": {
+    "ariaLabel": "Search and navigate",
+    "placeholder": "Search neighborhoods, guides, events...",
+    "empty": "Nothing matches. Try a different word.",
+    "footnote": "↑↓ to navigate · ↵ to open",
+    "groups": {
+      "pages": "Pages",
+      "guides": "Guides",
+      "neighborhoods": "Neighborhoods",
+      "circles": "Circles",
+      "events": "Events"
+    },
+    "pages": {
+      "home": "Home",
+      "about": "About",
+      "contact": "Contact",
+      "events": "Events",
+      "guides": "All guides",
+      "blog": "Blog",
+      "spaces": "Nomad spaces",
+      "members": "Member directory",
+      "circles": "Circles",
+      "perks": "Perks vault",
+      "planner": "First Week Planner",
+      "pathToIstanbul": "Path to Istanbul",
+      "dashboard": "Your dashboard"
+    }
   }
 }

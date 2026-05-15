@@ -2648,5 +2648,33 @@
     "emptyBody": "Sayfayı şişirmek yerine gerçek tekliflerle gerçek partnerler imzalıyoruz. Nomad+ kademesi ile ilk avantajlar birlikte geliyor. O zamana kadar topluluğun kendisi zaten avantaj.",
     "joinTelegram": "Telegram'da katıl",
     "seeCircles": "Circle'lara göz at"
+  },
+  "commandMenu": {
+    "ariaLabel": "Ara ve gezin",
+    "placeholder": "Mahalle, rehber, etkinlik ara...",
+    "empty": "Eşleşme yok. Başka bir kelime dene.",
+    "footnote": "↑↓ gezinmek için · ↵ açmak için",
+    "groups": {
+      "pages": "Sayfalar",
+      "guides": "Rehberler",
+      "neighborhoods": "Mahalleler",
+      "circles": "Circles",
+      "events": "Etkinlikler"
+    },
+    "pages": {
+      "home": "Ana sayfa",
+      "about": "Hakkımızda",
+      "contact": "İletişim",
+      "events": "Etkinlikler",
+      "guides": "Tüm rehberler",
+      "blog": "Blog",
+      "spaces": "Göçebe mekanları",
+      "members": "Üye rehberi",
+      "circles": "Circles",
+      "perks": "Perks kasası",
+      "planner": "İlk Hafta Planlayıcı",
+      "pathToIstanbul": "İstanbul'a Yol",
+      "dashboard": "Panelin"
+    }
   }
 }

@@ -32,6 +32,8 @@ import {
 import { routing } from "@/lib/i18n/routing";
 import { bcp47, isRtl, type Locale } from "@/lib/i18n/config";
 import { getTimeOfDay } from "@/lib/ambient";
+import { getSearchItems } from "@/lib/search";
+import { CommandMenu } from "@/components/ui/command-menu";
 import "@/styles/globals.css";
 
 // Design System v2 font stack: Geist (UI/body), Fraunces (editorial display
@@ -223,6 +225,11 @@ export default async function LocaleLayout({
   // and the accent catches up within a few minutes of each tod boundary.
   const tod = await getTimeOfDay();
 
+  // Design System v2 Phase 6: Command-K dataset, prebuilt server-side per
+  // locale. All sources are either static (pages/guides/neighborhoods/
+  // circles) or `use cache` (events), so this stays prerenderable.
+  const searchItems = await getSearchItems(typedLocale);
+
   return (
     <html
       lang={bcp47[typedLocale]}
@@ -306,6 +313,7 @@ export default async function LocaleLayout({
             <Suspense fallback={null}>
               <BottomTabBarIsland />
             </Suspense>
+            <CommandMenu items={searchItems} />
           </ThemeProvider>
           <ToasterIsland />
           <WebMcpRegisterIsland />

@@ -63,6 +63,12 @@ Design System v2 - "Ambient Tech with Istanbul Soul". An editorial-first, dark-n
 - **Migration `013_circles_perks.sql`** - adds `circle_members`, `perks`, `perk_claims` tables plus `is_nomad_plus` / `nomad_plus_since` / `last_seen_at` / `open_to_coffee` columns to `members`. RLS: perks public-read, claims and circle memberships member-scoped. Reading code (`getPerksPublic`) is fully guarded against the missing table so the build/runtime stays green until the migration is applied.
 - **i18n** - new `circlesV2` and `perksV2` namespaces, translated into Turkish, Persian, Arabic, and Russian.
 
+### Phase 6 - Command-K menu
+
+- **Global `⌘K` overlay** ([src/components/ui/command-menu.tsx](src/components/ui/command-menu.tsx)) - built on `cmdk` 1.1. Opens on `Cmd/Ctrl+K` from anywhere; the existing `⌘K` button in the header now dispatches an `open-command-menu` window event that the menu listens for, no shared store needed. Selecting a row navigates via `next/navigation`.
+- **Search dataset** ([src/lib/search.ts](src/lib/search.ts)) - prebuilt server-side per locale and passed as a serializable list (`SearchItem[]`) into the client component, so per-keystroke filtering is fully in-memory. Sources: thirteen static pages, all guides, neighborhoods, circles, and up to 25 upcoming events from Supabase. Events failure is swallowed - the rest of the index keeps working.
+- **i18n** - new `commandMenu` namespace (placeholder, group headings, page labels, ARIA strings), translated into Turkish, Persian, Arabic, and Russian.
+
 ## [3.2.0] - 2026-05-14
 
 ### Changed

@@ -183,10 +183,14 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            {/* Command palette affordance - visual only until the Command-K
-                menu lands in a later phase. */}
+            {/* Command palette trigger - dispatches the open event the
+                global CommandMenu listens for. Cmd/Ctrl+K opens it from
+                anywhere too. */}
             <button
               type="button"
+              onClick={() =>
+                window.dispatchEvent(new Event("open-command-menu"))
+              }
               className="hidden items-center gap-2 border border-ink-4 px-3 py-1.5 font-mono text-[11px] text-paper-mute transition-colors hover:border-ink-5 hover:text-paper lg:flex"
               aria-label="Search"
             >

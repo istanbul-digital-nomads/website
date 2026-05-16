@@ -54,15 +54,17 @@ export type PlanCreateInput = z.infer<typeof planCreateSchema>;
 // Edit/PATCH partial. Skips the "space_id or custom_location" refinement
 // since a partial update may not touch either field; the create-time
 // refinement still guards initial creation.
-export const planUpdateSchema = planBase.partial().refine(
-  (v) =>
-    v.end_time === undefined ||
-    v.start_time === undefined ||
-    !v.end_time ||
-    !v.start_time ||
-    v.end_time > v.start_time,
-  { message: "end_time must be after start_time", path: ["end_time"] },
-);
+export const planUpdateSchema = planBase
+  .partial()
+  .refine(
+    (v) =>
+      v.end_time === undefined ||
+      v.start_time === undefined ||
+      !v.end_time ||
+      !v.start_time ||
+      v.end_time > v.start_time,
+    { message: "end_time must be after start_time", path: ["end_time"] },
+  );
 
 export const commentCreateSchema = z.object({
   body: z.string().trim().min(1).max(500),

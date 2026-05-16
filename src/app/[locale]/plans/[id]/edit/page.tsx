@@ -33,8 +33,7 @@ async function Content({
   if (!member) redirect(`/login?next=/plans/${id}/edit`);
 
   const supabase = await createClient();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const sb = supabase as any;
+  const sb = supabase as unknown as { from: (t: string) => any };
   const { data: plan } = await sb
     .from("plans")
     .select("*")
@@ -73,8 +72,10 @@ async function Content({
             action={async () => {
               "use server";
               const client = await createClient();
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              await (client as any)
+              const sb = client as unknown as {
+                from: (t: string) => any;
+              };
+              await sb
                 .from("plans")
                 .update({ status: "cancelled" })
                 .eq("id", plan.id)

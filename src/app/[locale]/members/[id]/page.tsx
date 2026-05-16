@@ -9,6 +9,7 @@ import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { Container } from "@/components/ui/container";
 import { SectionEyebrow } from "@/components/ui/section-eyebrow";
 import { Tag } from "@/components/ui/tag";
+import { MemberPlansToday } from "@/components/plans/member-plans-today";
 
 interface Props {
   params: Promise<{ locale: string; id: string }>;
@@ -112,6 +113,8 @@ async function MemberProfileContent(props: Props) {
                 {t("profile.noBio")}
               </p>
             )}
+
+            <MemberPlansToday memberId={member.id} locale={locale} />
 
             {member.skills && member.skills.length > 0 ? (
               <div className="mt-10 border-t border-ink-3 pt-8">

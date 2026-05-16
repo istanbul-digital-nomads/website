@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { showToast } from "@/lib/toast";
+import { cn } from "@/lib/utils";
 import { StepAbout } from "./steps/step-about";
 import { StepContact } from "./steps/step-contact";
 import { StepInterests } from "./steps/step-interests";
@@ -89,10 +90,38 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [shakeButton, setShakeButton] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const stepHeadingRef = useRef<HTMLHeadingElement>(null);
 
   const StepComponent = STEPS[currentStep].component;
   const isLastStep = currentStep === STEPS.length - 1;
   const isFirstStep = currentStep === 0;
+
+  // Move keyboard focus to the step heading on step change so screen readers
+  // announce the new step and tab order resets to its top.
+  useEffect(() => {
+    stepHeadingRef.current?.focus({ preventScroll: false });
+  }, [currentStep]);
+
+  // Auto-save partial profile on each step transition so a member can
+  // bounce mid-flow and resume where they left off.
+  const saveProgress = useCallback(async (data: OnboardingData) => {
+    try {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) return;
+      const { email, agrees_guidelines, ...updateData } = data;
+      void email;
+      void agrees_guidelines;
+      const sb = supabase as unknown as {
+        from: (table: string) => any;
+      };
+      await sb.from("members").update(updateData).eq("id", user.id);
+    } catch {
+      // Silent - this is best-effort and shouldn't block step navigation.
+    }
+  }, []);
 
   const updateField = useCallback((field: string, value: unknown) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -124,6 +153,8 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
     if (isLastStep) {
       handleSubmit();
     } else {
+      // Best-effort save so the member can resume if they bounce mid-flow.
+      void saveProgress(formData);
       setCurrentStep((prev) => prev + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -201,45 +232,62 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
     }
   }
 
+  const hasErrors = Object.keys(errors).length > 0;
+
   return (
-    <section className="py-8 md:py-16">
+    <section className="bg-ink-0 pb-32 pt-6 md:pb-16 md:pt-12">
       <Container>
         <div className="mx-auto max-w-2xl">
-          {/* Progress bar */}
-          <div className="mb-8">
+          {/* Progress strip */}
+          <div className="mb-8" aria-label="Onboarding progress">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-[#1a1a2e] dark:text-[#f2f3f4]">
+              <span className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
                 {t("stepIndicator", {
                   current: currentStep + 1,
                   total: STEPS.length,
                 })}
               </span>
               <button
+                type="button"
                 onClick={handleSkip}
-                className="text-sm text-[#5d6d7e] transition-colors hover:text-primary-600 dark:text-[#99a3ad]"
+                className="min-h-[44px] px-2 py-2 text-sm text-paper-mute transition-colors hover:text-paper focus-visible:outline-none focus-visible:underline"
               >
                 {t("skip")}
               </button>
             </div>
-            <div className="mt-3 flex gap-1.5">
+            <div
+              className="mt-3 flex gap-1.5"
+              role="progressbar"
+              aria-valuemin={1}
+              aria-valuemax={STEPS.length}
+              aria-valuenow={currentStep + 1}
+            >
               {STEPS.map((step, i) => (
                 <div
                   key={step.key}
-                  className={`h-1.5 flex-1 rounded-full transition-colors ${
-                    i <= currentStep
-                      ? "bg-primary-500"
-                      : "bg-primary-100 dark:bg-primary-900/30"
-                  }`}
+                  className={cn(
+                    "h-1.5 flex-1 rounded-full transition-colors motion-reduce:transition-none",
+                    i <= currentStep ? "bg-terracotta" : "bg-ink-3",
+                  )}
                 />
               ))}
             </div>
-            <p className="mt-2 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
+            <h1
+              ref={stepHeadingRef}
+              tabIndex={-1}
+              className="mt-4 font-display text-h2 leading-tight text-paper focus-visible:outline-none"
+            >
               {tSteps(`${STEPS[currentStep].key}.label`)}
-            </p>
+            </h1>
+          </div>
+
+          {/* Error live region (announced to screen readers) */}
+          <div role="alert" aria-live="polite" className="sr-only">
+            {hasErrors ? t("hasErrors") : ""}
           </div>
 
           {/* Step content */}
-          <div className="rounded-2xl border border-primary-200/30 bg-white/70 p-6 shadow-sm backdrop-blur-sm sm:p-8 dark:border-[rgba(192,57,43,0.12)] dark:bg-[#1a1d27]/70">
+          <div className="border border-ink-3 bg-ink-1 p-6 sm:p-8">
             <StepComponent
               data={formData}
               updateField={updateField}
@@ -247,15 +295,11 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
             />
           </div>
 
-          {/* Navigation buttons */}
-          <div className="mt-6 flex items-center justify-between">
+          {/* Desktop nav (inline) */}
+          <div className="mt-6 hidden items-center justify-between md:flex">
             <div>
               {!isFirstStep && (
-                <Button
-                  variant="ghost"
-                  onClick={handleBack}
-                  className="rounded-xl"
-                >
+                <Button variant="ghost" onClick={handleBack}>
                   {t("back")}
                 </Button>
               )}
@@ -263,7 +307,7 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
             <Button
               onClick={handleNext}
               loading={submitting}
-              className={`rounded-xl px-8 ${shakeButton ? "animate-shake" : ""}`}
+              className={cn("px-8", shakeButton && "animate-shake")}
               size="lg"
             >
               {isLastStep ? t("submit") : t("continue")}
@@ -271,6 +315,32 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
           </div>
         </div>
       </Container>
+
+      {/* Mobile sticky footer */}
+      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-ink-3 bg-ink-1 px-4 py-3 backdrop-blur-md md:hidden">
+        <div className="mx-auto flex max-w-2xl items-center gap-3">
+          {!isFirstStep && (
+            <Button
+              variant="ghost"
+              onClick={handleBack}
+              className="min-h-[48px]"
+            >
+              {t("back")}
+            </Button>
+          )}
+          <Button
+            onClick={handleNext}
+            loading={submitting}
+            className={cn(
+              "ms-auto min-h-[48px] flex-1",
+              shakeButton && "animate-shake",
+            )}
+            size="lg"
+          >
+            {isLastStep ? t("submit") : t("continue")}
+          </Button>
+        </div>
+      </div>
     </section>
   );
 }

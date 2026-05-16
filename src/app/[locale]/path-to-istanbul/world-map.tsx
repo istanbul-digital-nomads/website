@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Map, {
   type MapRef,
   Marker,
@@ -117,6 +117,7 @@ function CountryMarker({
 
 export function WorldMap() {
   const router = useRouter();
+  const locale = useLocale();
   const { theme } = useTheme();
   const t = useTranslations("pathToIstanbulPage.map");
   const tSelector = useTranslations("pathToIstanbulPage.selector");
@@ -126,6 +127,7 @@ export function WorldMap() {
   const [mounted, setMounted] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [loadingCode, setLoadingCode] = useState<string | null>(null);
+  const isRtl = locale === "ar" || locale === "fa";
 
   const isDark =
     theme === "dark" ||
@@ -177,6 +179,11 @@ export function WorldMap() {
       const turkeyGeo = await turkeyRes.json();
 
       const apply = () => {
+        map.getStyle().layers?.forEach((layer) => {
+          if (layer.type === "symbol" && layer.layout?.["text-field"]) {
+            map.setLayoutProperty(layer.id, "visibility", "none");
+          }
+        });
         if (!map.getSource("turkey")) {
           map.addSource("turkey", { type: "geojson", data: turkeyGeo });
           map.addLayer({
@@ -279,10 +286,11 @@ export function WorldMap() {
         <Marker longitude={35.2433} latitude={39.1} anchor="center">
           <div
             aria-label={t("turkeyLabel")}
-            className="pointer-events-none flex items-center gap-1.5 rounded-full bg-primary-500 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg ring-2 ring-white/80 dark:ring-[#1a1a2e]/80"
+            dir={isRtl ? "rtl" : "ltr"}
+            className="pointer-events-none flex items-center gap-1.5 rounded-md bg-primary-500 px-3 py-1.5 text-sm font-semibold text-white shadow-lg ring-2 ring-white/80 dark:ring-[#1a1a2e]/80"
           >
             <span aria-hidden="true">🇹🇷</span>
-            <span>Turkey</span>
+            <span>{t("turkeyName")}</span>
           </div>
         </Marker>
 
@@ -290,10 +298,11 @@ export function WorldMap() {
         <Marker longitude={ISTANBUL[0]} latitude={ISTANBUL[1]} anchor="bottom">
           <div
             aria-label={t("istanbulLabel")}
+            dir={isRtl ? "rtl" : "ltr"}
             className="pointer-events-none flex flex-col items-center"
           >
-            <span className="mb-1 rounded-full bg-[#1a1a2e] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-lg ring-2 ring-primary-500">
-              Istanbul
+            <span className="mb-1 rounded-md bg-[#1a1a2e] px-2.5 py-1 text-xs font-semibold text-white shadow-lg ring-2 ring-primary-500">
+              {t("istanbulName")}
             </span>
             <span
               aria-hidden="true"
@@ -328,9 +337,12 @@ export function WorldMap() {
       {/* Loading overlay during route transition */}
       {isPending && loadingCode && (
         <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-black/30 backdrop-blur-[1px] transition-opacity dark:bg-black/50">
-          <div className="flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-[#1a1a2e] shadow-xl dark:bg-[#1a1a2e] dark:text-[#f2f3f4]">
+          <div
+            dir={isRtl ? "rtl" : "ltr"}
+            className="flex items-center gap-2 rounded-md bg-white px-4 py-2 text-sm font-medium text-[#1a1a2e] shadow-xl dark:bg-[#1a1a2e] dark:text-[#f2f3f4]"
+          >
             <Loader2 className="h-4 w-4 animate-spin text-primary-500" />
-            Loading path to Istanbul...
+            {t("loadingPath")}
           </div>
         </div>
       )}

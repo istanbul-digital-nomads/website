@@ -1558,8 +1558,11 @@
       "yearsShort": "y in Istanbul"
     },
     "map": {
+      "turkeyName": "Turkey",
+      "istanbulName": "Istanbul",
       "turkeyLabel": "Turkey - your destination country",
       "istanbulLabel": "Istanbul - your destination",
+      "loadingPath": "Loading path to Istanbul...",
       "openGuideForCountry": "Open guide for {country}",
       "countryComingSoon": "{country} - coming soon"
     }

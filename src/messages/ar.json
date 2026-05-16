@@ -1566,8 +1566,11 @@
       "yearsShort": " سنة في إسطنبول"
     },
     "map": {
+      "turkeyName": "تركيا",
+      "istanbulName": "إسطنبول",
       "turkeyLabel": "تركيا - بلد وجهتك",
       "istanbulLabel": "إسطنبول - وجهتك",
+      "loadingPath": "جارٍ تحميل الطريق إلى إسطنبول...",
       "openGuideForCountry": "افتح دليل {country}",
       "countryComingSoon": "{country} - قريبًا"
     }

@@ -1582,8 +1582,11 @@
       "yearsShort": " лет в Стамбуле"
     },
     "map": {
+      "turkeyName": "Турция",
+      "istanbulName": "Стамбул",
       "turkeyLabel": "Турция - твоя страна назначения",
       "istanbulLabel": "Стамбул - твоя точка назначения",
+      "loadingPath": "Загружаем путь в Стамбул...",
       "openGuideForCountry": "Открыть гайд по стране {country}",
       "countryComingSoon": "{country} - скоро"
     }

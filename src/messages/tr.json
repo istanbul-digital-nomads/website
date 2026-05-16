@@ -1578,8 +1578,11 @@
       "yearsShort": " yıl İstanbul'da"
     },
     "map": {
+      "turkeyName": "Türkiye",
+      "istanbulName": "İstanbul",
       "turkeyLabel": "Türkiye - varış ülken",
       "istanbulLabel": "İstanbul - varış noktan",
+      "loadingPath": "İstanbul yolu yükleniyor...",
       "openGuideForCountry": "{country} için rehberi aç",
       "countryComingSoon": "{country} - yakında"
     }

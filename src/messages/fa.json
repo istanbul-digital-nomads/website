@@ -1558,8 +1558,11 @@
       "yearsShort": " سال در استانبول"
     },
     "map": {
+      "turkeyName": "ترکیه",
+      "istanbulName": "استانبول",
       "turkeyLabel": "ترکیه - کشور مقصد تو",
       "istanbulLabel": "استانبول - مقصد تو",
+      "loadingPath": "در حال بارگذاری مسیر استانبول...",
       "openGuideForCountry": "راهنمای {country} را باز کن",
       "countryComingSoon": "{country} - به‌زودی"
     }

@@ -6,10 +6,6 @@
     {
       "path": "/api/cron/expire-plans",
       "schedule": "5 21 * * *"
-    },
-    {
-      "path": "/api/cron/plan-reminders",
-      "schedule": "*/15 * * * *"
     }
   ],
   "headers": [

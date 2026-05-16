@@ -50,7 +50,7 @@ export default async function NeighborhoodsOverviewPage(props: {
           <div className="grid gap-12 lg:grid-cols-[1.6fr_380px] lg:items-start">
             <div>
               <SectionEyebrow num="N° 01" label={t("index.eyebrow")} />
-              <h1 className="mt-8 max-w-2xl font-display text-display-lg leading-none text-paper lg:text-display-xl">
+              <h1 className="mt-8 max-w-2xl font-display text-h1 leading-none text-paper lg:text-display-lg">
                 {t("index.title")}{" "}
                 <span className="italic text-terracotta">
                   {t("index.titleItalic")}

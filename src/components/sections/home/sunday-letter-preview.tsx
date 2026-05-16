@@ -18,7 +18,7 @@ export function SundayLetterPreview({ locale }: { locale: Locale }) {
         <div className="grid gap-16 lg:grid-cols-[1.2fr_1fr] lg:items-center">
           <div>
             <SectionEyebrow num="N° 07" label={t("eyebrow")} />
-            <h2 className="mt-8 font-display text-display-lg leading-tight text-paper">
+            <h2 className="mt-8 font-display text-h1 leading-tight text-paper">
               {t("title")}
               <br />
               <span className="italic text-terracotta">{t("titleItalic")}</span>

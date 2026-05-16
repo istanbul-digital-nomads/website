@@ -18,7 +18,7 @@ export function QuietCta({ locale }: { locale: Locale }) {
         <p className="font-mono text-[11px] uppercase tracking-wider text-paper-faint">
           ↳ {t("kicker")}
         </p>
-        <h2 className="mx-auto mt-8 max-w-4xl font-display text-display-lg leading-none text-paper lg:text-display-xl">
+        <h2 className="mx-auto mt-8 max-w-4xl font-display text-h1 leading-none text-paper lg:text-display-lg">
           {t("line1")}{" "}
           <span className="italic text-terracotta">{t("line2")}</span>{" "}
           <span className="text-paper-mute">{t("line3")}</span>

@@ -173,7 +173,7 @@ async function NeighborhoodDetailContent(props: Props) {
             <p className="font-mono text-[11px] uppercase tracking-wider text-paper-faint">
               {tDetail("nextStepEyebrow")}
             </p>
-            <h2 className="mx-auto mt-6 max-w-3xl font-display text-display-lg leading-tight text-paper">
+            <h2 className="mx-auto mt-6 max-w-3xl font-display text-h1 leading-tight text-paper">
               {tDetail("comingTo", { name })}
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-paper-dim">

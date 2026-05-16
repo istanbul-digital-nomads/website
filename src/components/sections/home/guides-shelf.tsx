@@ -28,7 +28,7 @@ export function GuidesShelf({ locale }: { locale: Locale }) {
       <Container>
         <SectionEyebrow num="N° 04" label={t("eyebrow")} />
 
-        <h2 className="mt-8 max-w-4xl font-display text-display-lg leading-tight text-paper">
+        <h2 className="mt-8 max-w-4xl font-display text-h1 leading-tight text-paper">
           {t("title")}{" "}
           <span className="italic text-paper-mute">{t("titleItalic")}</span>
         </h2>

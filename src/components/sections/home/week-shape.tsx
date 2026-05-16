@@ -20,7 +20,7 @@ export function WeekShape({ locale }: { locale: Locale }) {
         <SectionEyebrow num="N° 03" label={t("eyebrow")} />
 
         <div className="mt-14 grid gap-16 lg:grid-cols-[1.5fr_1fr] lg:items-start">
-          <h2 className="font-display text-display-lg leading-none text-paper">
+          <h2 className="font-display text-h1 leading-none text-paper">
             <span className="italic text-terracotta">{t("line1")}</span>
             <br />
             <span className="italic text-bosphorus">{t("line2")}</span>

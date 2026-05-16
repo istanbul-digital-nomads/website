@@ -37,7 +37,7 @@ export function CirclesStrip({ locale }: { locale: Locale }) {
       <Container>
         <SectionEyebrow num="N° 08" label={t("eyebrow")} />
 
-        <h2 className="mt-8 max-w-3xl font-display text-display-lg leading-tight text-paper">
+        <h2 className="mt-8 max-w-3xl font-display text-h1 leading-tight text-paper">
           {t("title")}{" "}
           <span className="italic text-terracotta">{t("titleItalic")}</span>
         </h2>

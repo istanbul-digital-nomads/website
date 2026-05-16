@@ -48,7 +48,7 @@ export default async function EventsPage({
     <section className="bg-ink-1 pt-16 lg:pt-24">
       <Container>
         <SectionEyebrow num="N° 01" label={t("eyebrow")} />
-        <h1 className="mt-8 max-w-3xl font-display text-display-lg leading-none text-paper lg:text-display-xl">
+        <h1 className="mt-8 max-w-3xl font-display text-h1 leading-none text-paper lg:text-display-lg">
           {t("title")}{" "}
           <span className="italic text-terracotta">{t("titleItalic")}</span>
         </h1>

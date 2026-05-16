@@ -58,7 +58,7 @@ export default async function CircleDetailPage(props: Props) {
           />
           <SectionEyebrow num="N° 01" label={t("circleEyebrow")} />
         </div>
-        <h1 className="mt-6 font-display text-display-lg leading-none text-paper lg:text-display-xl">
+        <h1 className="mt-6 font-display text-h1 leading-none text-paper lg:text-display-lg">
           {t("names." + slug)}
         </h1>
 

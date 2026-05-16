@@ -64,7 +64,7 @@ async function DashboardContent({
       <Container>
         {/* Masthead */}
         <SectionEyebrow num="N° 01" label={t("eyebrow")} />
-        <h1 className="mt-8 font-display text-display-lg leading-none text-paper lg:text-display-xl">
+        <h1 className="mt-8 font-display text-h1 leading-none text-paper lg:text-display-lg">
           {t("greeting", { name: member.display_name })}
         </h1>
         <p className="mt-6 font-mono text-[12px] uppercase tracking-wider text-paper-mute">

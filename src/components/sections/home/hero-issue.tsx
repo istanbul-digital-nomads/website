@@ -103,7 +103,7 @@ export async function HeroIssue({ locale }: { locale: Locale }) {
       </div>
 
       {/* Masthead rule + headline + lede */}
-      <Container className="pt-16 lg:pt-24">
+      <Container className="pt-12 lg:pt-20">
         <div className="grid grid-cols-[auto_1fr_auto] items-center gap-6">
           <span className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
             {t("eyebrowNum")} · {t("eyebrowLabel")}
@@ -114,11 +114,11 @@ export async function HeroIssue({ locale }: { locale: Locale }) {
           </span>
         </div>
 
-        <h1 className="mt-10 max-w-[16ch] font-display text-display-lg text-paper sm:text-display-xl lg:text-display-2xl">
+        <h1 className="mt-8 max-w-[16ch] font-display text-h1 text-paper sm:text-display-lg lg:text-display-xl">
           {t("headline")}
         </h1>
 
-        <div className="mt-12 grid gap-10 pb-20 lg:grid-cols-[1fr_320px] lg:items-end">
+        <div className="mt-10 grid gap-10 pb-20 lg:grid-cols-[1fr_320px] lg:items-end">
           <p className="max-w-2xl font-display text-lede leading-relaxed text-paper-dim">
             {t("lede")}
           </p>

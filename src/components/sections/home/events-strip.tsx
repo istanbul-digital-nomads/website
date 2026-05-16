@@ -33,7 +33,7 @@ export async function EventsStrip({ locale }: { locale: Locale }) {
       <Container>
         <SectionEyebrow num="N° 06" label={t("eyebrow")} />
 
-        <h2 className="mt-8 font-display text-display-lg leading-tight text-paper">
+        <h2 className="mt-8 font-display text-h1 leading-tight text-paper">
           {t("title")}{" "}
           <span className="italic text-terracotta">{t("titleItalic")}</span>
         </h2>

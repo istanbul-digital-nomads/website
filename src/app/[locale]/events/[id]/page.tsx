@@ -6,6 +6,7 @@ import { getTranslations } from "next-intl/server";
 import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import { getEventByIdPublic } from "@/lib/supabase/queries";
 import { isStripeConfigured } from "@/lib/stripe";
+import { getEventPhoto } from "@/lib/editorial-photos";
 import { socialLinks } from "@/lib/constants";
 import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { Container } from "@/components/ui/container";
@@ -76,6 +77,7 @@ async function EventDetailContent(props: Props) {
 
   const isPaid = typeof event.price_try === "number" && event.price_try > 0;
   const isPast = start.getTime() < Date.now();
+  const photo = getEventPhoto(event);
   // Paid events route through Stripe Checkout once it's provisioned; until
   // then they fall back to the free Telegram RSVP path (see lib/stripe.ts).
   const paidCheckoutLive = isPaid && isStripeConfigured();
@@ -125,6 +127,10 @@ async function EventDetailContent(props: Props) {
 
             <PhotoSlot
               kind="street"
+              src={photo.src}
+              alt={photo.alt}
+              credit={photo.credit}
+              objectPosition={photo.objectPosition}
               corner={tList(`types.${event.type}`)}
               caption={event.location_name}
               className="mt-10 h-72 lg:h-96"

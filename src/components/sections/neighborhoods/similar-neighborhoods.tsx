@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import type { Locale } from "@/lib/i18n/config";
 import { type Neighborhood, neighborhoods } from "@/lib/neighborhoods";
+import { getNeighborhoodPhotoSet } from "@/lib/editorial-photos";
 import { SectionEyebrow } from "@/components/ui/section-eyebrow";
 import { PhotoSlot, type PhotoKind } from "@/components/ui/photo-slot";
 
@@ -45,6 +46,7 @@ export function SimilarNeighborhoods({
             const sideLabel = tCommon(
               o.side === "European" ? "side.european" : "side.asian",
             );
+            const photos = getNeighborhoodPhotoSet(o);
             return (
               <Link
                 key={o.slug}
@@ -53,6 +55,10 @@ export function SimilarNeighborhoods({
               >
                 <PhotoSlot
                   kind={PHOTO_BY_SIDE[o.side]}
+                  src={photos.hero.src}
+                  alt={photos.hero.alt}
+                  credit={photos.hero.credit}
+                  objectPosition={photos.hero.objectPosition}
                   corner={sideLabel}
                   className="h-52"
                 />

@@ -6,6 +6,7 @@ import {
   formatRentRange,
   getSpacesInNeighborhood,
 } from "@/lib/neighborhoods";
+import { getNeighborhoodPhotoSet } from "@/lib/editorial-photos";
 import { PhotoSlot, type PhotoKind } from "@/components/ui/photo-slot";
 
 /**
@@ -38,6 +39,7 @@ export function NeighborhoodListRow({
     n.side === "European" ? "side.european" : "side.asian",
   );
   const spaceCount = getSpacesInNeighborhood(n.slug).length;
+  const photos = getNeighborhoodPhotoSet(n);
 
   const cells: [string, string][] = [
     [tV2("row.rent"), formatRentRange(n)],
@@ -57,6 +59,10 @@ export function NeighborhoodListRow({
 
       <PhotoSlot
         kind={PHOTO_BY_SIDE[n.side]}
+        src={photos.hero.src}
+        alt={photos.hero.alt}
+        credit={photos.hero.credit}
+        objectPosition={photos.hero.objectPosition}
         corner={name}
         caption={`${name} · ${sideLabel}`}
         className="h-44"

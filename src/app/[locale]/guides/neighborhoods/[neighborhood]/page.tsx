@@ -12,6 +12,7 @@ import { HoodAtAGlance } from "@/components/sections/neighborhoods/hood-at-a-gla
 import { WorkSpaces } from "@/components/sections/neighborhoods/work-spaces";
 import { SimilarNeighborhoods } from "@/components/sections/neighborhoods/similar-neighborhoods";
 import { neighborhoods, getNeighborhoodBySlug } from "@/lib/neighborhoods";
+import { getNeighborhoodPhotoSet } from "@/lib/editorial-photos";
 import { socialLinks } from "@/lib/constants";
 import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { alternatesFor } from "@/lib/seo";
@@ -74,6 +75,9 @@ async function NeighborhoodDetailContent(props: Props) {
     ? tList(`${n.slug}.description`)
     : n.description;
   const photoKind = n.side === "Asian" ? "dawn" : "dusk";
+  const photos = getNeighborhoodPhotoSet(n);
+  const firstDetailPhoto = photos.details[0] ?? photos.hero;
+  const secondDetailPhoto = photos.details[1] ?? photos.hero;
 
   return (
     <>
@@ -108,6 +112,10 @@ async function NeighborhoodDetailContent(props: Props) {
           <div className="mt-10 grid gap-4 lg:grid-cols-[1.6fr_1fr]">
             <PhotoSlot
               kind={photoKind}
+              src={photos.hero.src}
+              alt={photos.hero.alt}
+              credit={photos.hero.credit}
+              objectPosition={photos.hero.objectPosition}
               corner={tV2("detail.leadPhoto")}
               caption={`${name} · ${sideLabel}`}
               className="h-80 lg:h-[32rem]"
@@ -115,11 +123,19 @@ async function NeighborhoodDetailContent(props: Props) {
             <div className="grid grid-rows-2 gap-4">
               <PhotoSlot
                 kind="interior"
+                src={firstDetailPhoto.src}
+                alt={firstDetailPhoto.alt}
+                credit={firstDetailPhoto.credit}
+                objectPosition={firstDetailPhoto.objectPosition}
                 corner={tV2("detail.detailPhoto")}
                 className="h-40 lg:h-auto"
               />
               <PhotoSlot
                 kind="street"
+                src={secondDetailPhoto.src}
+                alt={secondDetailPhoto.alt}
+                credit={secondDetailPhoto.credit}
+                objectPosition={secondDetailPhoto.objectPosition}
                 corner={tV2("detail.detailPhoto")}
                 className="h-40 lg:h-auto"
               />

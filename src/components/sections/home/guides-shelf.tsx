@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import type { Locale } from "@/lib/i18n/config";
 import { guides } from "@/lib/data";
+import { homeGuidePhotos } from "@/lib/editorial-photos";
 import { Container } from "@/components/ui/container";
 import { SectionEyebrow } from "@/components/ui/section-eyebrow";
 import { PhotoSlot, type PhotoKind } from "@/components/ui/photo-slot";
@@ -35,11 +36,16 @@ export function GuidesShelf({ locale }: { locale: Locale }) {
           {FEATURED.map((item, i) => {
             const guide = guides.find((g) => g.slug === item.slug);
             if (!guide) return null;
+            const photo = homeGuidePhotos[guide.slug];
             return (
               <article key={item.slug} className="flex flex-col gap-4">
                 <Link href={`/guides/${guide.slug}`} className="group">
                   <PhotoSlot
                     kind={item.photo}
+                    src={photo?.src}
+                    alt={photo?.alt}
+                    credit={photo?.credit}
+                    objectPosition={photo?.objectPosition}
                     corner={guide.category.replace("-", " ")}
                     className={i === 0 ? "h-80" : "h-52"}
                   />

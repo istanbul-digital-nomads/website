@@ -3,6 +3,7 @@ import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import type { Locale } from "@/lib/i18n/config";
 import { getMemberCount } from "@/lib/ambient";
 import { socialLinks } from "@/lib/constants";
+import { homeHeroPhoto } from "@/lib/editorial-photos";
 import { Container } from "@/components/ui/container";
 import { PhotoSlot } from "@/components/ui/photo-slot";
 import { FerryMark } from "@/components/ui/mark";
@@ -23,6 +24,12 @@ export async function HeroIssue({ locale }: { locale: Locale }) {
       <div className="relative">
         <PhotoSlot
           kind="dawn"
+          src={homeHeroPhoto.src}
+          alt={homeHeroPhoto.alt}
+          credit={homeHeroPhoto.credit}
+          priority
+          sizes="100vw"
+          objectPosition={homeHeroPhoto.objectPosition}
           caption={t("photoCaption")}
           className="h-[44vw] max-h-[620px] min-h-[320px] w-full border-x-0 border-t-0"
         />

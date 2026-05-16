@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import type { Locale } from "@/lib/i18n/config";
 import { socialLinks } from "@/lib/constants";
+import { homeDoorPhotos } from "@/lib/editorial-photos";
 import { Container } from "@/components/ui/container";
 import { SectionEyebrow } from "@/components/ui/section-eyebrow";
 import { PhotoSlot, type PhotoKind } from "@/components/ui/photo-slot";
@@ -53,6 +54,7 @@ export function ThreeDoors({ locale }: { locale: Locale }) {
 
         <div className="mt-12 grid gap-px bg-ink-4 border border-ink-4 md:grid-cols-3">
           {DOORS.map((door) => {
+            const photo = homeDoorPhotos[door.id];
             const Body = (
               <>
                 <div className="flex items-baseline justify-between">
@@ -77,6 +79,10 @@ export function ThreeDoors({ locale }: { locale: Locale }) {
                 </p>
                 <PhotoSlot
                   kind={door.photo}
+                  src={photo.src}
+                  alt={photo.alt}
+                  credit={photo.credit}
+                  objectPosition={photo.objectPosition}
                   corner={door.num}
                   caption={t(`${door.id}.photoCaption`)}
                   className="mt-7 h-32"

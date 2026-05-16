@@ -51,6 +51,7 @@ export function PhotoSlot({
   credit,
   priority,
   sizes,
+  objectPosition,
   corner,
   caption,
   className,
@@ -68,6 +69,8 @@ export function PhotoSlot({
   priority?: boolean;
   /** Pass-through to next/image. Defaults sensibly for grid + hero use. */
   sizes?: string;
+  /** Optional image focal point for art-directed crops. */
+  objectPosition?: string;
   /** Top-left mono mark (section number, category, or short label). */
   corner?: string;
   /** Bottom caption - intended-shot description in placeholder mode, or
@@ -80,20 +83,27 @@ export function PhotoSlot({
   return (
     <figure
       className={cn("relative overflow-hidden border border-ink-4", className)}
-      style={isReal ? style : { background: background(kind), ...style }}
+      style={{ background: background(kind), ...style }}
     >
       {isReal ? (
         <Image
           src={src!}
           alt={alt!}
           fill
-          priority={priority}
+          preload={priority}
           sizes={sizes ?? "(max-width: 768px) 100vw, 50vw"}
-          className="object-cover"
+          className="object-cover transition-transform duration-slow ease-soft"
+          style={{ objectPosition }}
         />
       ) : null}
+      {isReal ? (
+        <>
+          <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/40 via-black/0 to-transparent" />
+          <div className="absolute inset-0 z-[1] shadow-[inset_0_0_80px_rgba(0,0,0,0.12)]" />
+        </>
+      ) : null}
       {corner ? (
-        <span className="absolute left-3 top-3 z-10 font-mono text-[10px] uppercase tracking-wider text-paper-dim">
+        <span className="absolute left-3 top-3 z-10 bg-ink-0/55 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-paper-dim backdrop-blur-sm">
           {corner}
         </span>
       ) : null}

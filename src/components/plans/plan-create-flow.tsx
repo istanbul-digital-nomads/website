@@ -12,7 +12,7 @@ import { useRouter } from "@/lib/i18n/routing";
 import { useLocale, useTranslations } from "next-intl";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Container } from "@/components/ui/container";
 import { BottomSheet, type SheetHeight } from "@/components/ui/bottom-sheet";
 import { cn } from "@/lib/utils";
 import { showToast } from "@/lib/toast";
@@ -270,182 +270,184 @@ export function PlanCreateFlow() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="relative h-[calc(100svh-6rem)] overflow-hidden bg-ink-0"
-    >
-      {/* Map fills the section, site header stays visible above */}
-      <PlanCreateMap
-        stops={stops}
-        focusedUid={focusedUid}
-        pickerMode={pickerMode}
-        onPickSpace={handlePickSpace}
-        onDropCustomPin={handleDropCustomPin}
-        onFocusStop={handleFocusStop}
-      />
-
-      {/* Picker cancel button - only when in picker mode AND we have stops */}
-      {pickerMode && stops.length > 0 && (
-        <button
-          type="button"
-          onClick={cancelPicker}
-          className="absolute end-4 top-20 z-20 rounded-full border border-ink-4 bg-ink-0/90 px-4 py-2 text-xs font-medium text-paper backdrop-blur-md transition-colors hover:border-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
-        >
-          {t("cancelPicker")}
-        </button>
-      )}
-
-      <BottomSheet
-        height={sheetHeight}
-        onHeightChange={setSheetHeight}
-        ariaLabel="Create plan"
-        caption={
-          stops.length === 0
-            ? t("addFirstStop")
-            : t("stopCountCaption", { count: stops.length })
-        }
+    <Container className="py-4 md:py-6">
+      <form
+        onSubmit={handleSubmit}
+        className="relative h-[calc(100svh-9rem)] max-h-[840px] overflow-hidden rounded-lg border border-ink-3 bg-ink-1"
       >
-        {/* Header: title + date in one compact row */}
-        <div className="flex items-center gap-2 px-4 py-2.5">
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder={autoTitle || t("titlePlaceholder")}
-            maxLength={80}
-            aria-label={t("titleLabel")}
-            className="min-w-0 flex-1 border-0 bg-transparent p-0 font-display text-base text-paper placeholder:text-paper-faint focus-visible:outline-none"
-          />
-          <DayChip
-            active={scheduledDate === today}
-            onClick={() => setScheduledDate(today)}
-            label={t("today")}
-          />
-          <DayChip
-            active={scheduledDate === tomorrow}
-            onClick={() => setScheduledDate(tomorrow)}
-            label={t("tomorrow")}
-          />
-          <input
-            type="date"
-            value={scheduledDate}
-            min={today}
-            onChange={(e) => setScheduledDate(e.target.value)}
-            aria-label={t("dateLabel")}
-            className="w-9 cursor-pointer rounded-md border border-ink-3 bg-transparent p-1.5 text-xs text-paper focus-visible:border-terracotta focus-visible:outline-none"
-          />
-        </div>
+        {/* Map fills the card, sheet sits absolute at the bottom */}
+        <PlanCreateMap
+          stops={stops}
+          focusedUid={focusedUid}
+          pickerMode={pickerMode}
+          onPickSpace={handlePickSpace}
+          onDropCustomPin={handleDropCustomPin}
+          onFocusStop={handleFocusStop}
+        />
 
-        {/* Stop chips row */}
-        <div className="border-t border-ink-3 px-4 py-2.5">
-          <div
-            role="tablist"
-            aria-label="Plan stops"
-            className="flex gap-1.5 overflow-x-auto"
+        {/* Picker cancel button - only when in picker mode AND we have stops */}
+        {pickerMode && stops.length > 0 && (
+          <button
+            type="button"
+            onClick={cancelPicker}
+            className="absolute end-4 top-20 z-20 rounded-full border border-ink-4 bg-ink-0/90 px-4 py-2 text-xs font-medium text-paper backdrop-blur-md transition-colors hover:border-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
           >
-            {stops.map((stop, i) => {
-              const VibeIcon = VIBE_ICONS[stop.vibe];
-              const active = stop.uid === focusedUid;
-              const label =
-                spaces.find((sp) => sp.id === stop.space_id)?.name ??
-                stop.custom_location ??
-                "Pin";
-              return (
-                <button
-                  key={stop.uid}
-                  role="tab"
-                  aria-selected={active}
-                  type="button"
-                  onClick={() => handleFocusStop(stop.uid)}
-                  className={cn(
-                    "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
-                    active
-                      ? "border-terracotta bg-terracotta/15 text-paper"
-                      : "border-ink-3 text-paper-mute hover:border-paper",
-                  )}
-                >
-                  <span className="flex h-4 w-4 items-center justify-center rounded-full bg-terracotta font-mono text-[9px] text-ink-0">
-                    {i + 1}
-                  </span>
-                  <span className="max-w-[10ch] truncate">{label}</span>
-                  <VibeIcon className="h-3 w-3 text-terracotta" aria-hidden />
-                </button>
-              );
-            })}
-            <button
-              type="button"
-              onClick={startAddPicker}
-              aria-label={t("addStop")}
-              className={cn(
-                "inline-flex shrink-0 items-center gap-1 rounded-full border border-dashed px-2.5 py-1.5 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
-                pickerMode && !replacingUid
-                  ? "border-terracotta text-paper"
-                  : "border-ink-3 text-paper-mute hover:border-paper hover:text-paper",
-              )}
-            >
-              <Plus className="h-3.5 w-3.5" aria-hidden />
-              {stops.length === 0 ? t("addFirstStop") : t("addStop")}
-            </button>
-          </div>
-        </div>
-
-        {/* Focused stop editor */}
-        <div ref={editorRef}>
-          {focusedStop ? (
-            <PlanStopEditor
-              key={focusedStop.uid}
-              stop={focusedStop}
-              index={stops.findIndex((s) => s.uid === focusedUid)}
-              total={stops.length}
-              onChange={(next) => updateStop(focusedStop.uid, next)}
-              onRemove={() => removeStop(focusedStop.uid)}
-              onRequestChangeLocation={() =>
-                startReplacePicker(focusedStop.uid)
-              }
-            />
-          ) : (
-            <div className="px-4 py-8 text-center text-sm text-paper-dim">
-              {pickerMode ? t("pickerHint") : t("tapAStopHint")}
-            </div>
-          )}
-        </div>
-
-        {/* Capacity (optional, inline + minimal) */}
-        {stops.length > 0 && (
-          <div className="flex items-center gap-3 border-t border-ink-3 px-4 py-3">
-            <label
-              htmlFor="plan-capacity"
-              className="font-mono text-[10px] uppercase tracking-wider text-paper-mute"
-            >
-              {t("capacityLabel")}
-            </label>
-            <input
-              id="plan-capacity"
-              type="number"
-              min={2}
-              max={20}
-              value={capacity}
-              onChange={(e) => setCapacity(e.target.value)}
-              placeholder="-"
-              className="w-16 rounded-md border border-ink-3 bg-transparent px-2 py-1 text-sm text-paper placeholder:text-paper-faint focus-visible:border-terracotta focus-visible:outline-none"
-            />
-          </div>
+            {t("cancelPicker")}
+          </button>
         )}
 
-        {/* Submit */}
-        <div className="sticky bottom-0 border-t border-ink-3 bg-ink-1 px-4 py-3">
-          <Button
-            type="submit"
-            size="lg"
-            loading={loading}
-            disabled={stops.length === 0}
-            className="w-full"
-          >
-            {t("submit")}
-          </Button>
-        </div>
-      </BottomSheet>
-    </form>
+        <BottomSheet
+          height={sheetHeight}
+          onHeightChange={setSheetHeight}
+          ariaLabel="Create plan"
+          caption={
+            stops.length === 0
+              ? t("addFirstStop")
+              : t("stopCountCaption", { count: stops.length })
+          }
+        >
+          {/* Header: title + date in one compact row */}
+          <div className="flex items-center gap-2 px-4 py-2.5">
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder={autoTitle || t("titlePlaceholder")}
+              maxLength={80}
+              aria-label={t("titleLabel")}
+              className="min-w-0 flex-1 border-0 bg-transparent p-0 font-display text-base text-paper placeholder:text-paper-faint focus-visible:outline-none"
+            />
+            <DayChip
+              active={scheduledDate === today}
+              onClick={() => setScheduledDate(today)}
+              label={t("today")}
+            />
+            <DayChip
+              active={scheduledDate === tomorrow}
+              onClick={() => setScheduledDate(tomorrow)}
+              label={t("tomorrow")}
+            />
+            <input
+              type="date"
+              value={scheduledDate}
+              min={today}
+              onChange={(e) => setScheduledDate(e.target.value)}
+              aria-label={t("dateLabel")}
+              className="w-9 cursor-pointer rounded-md border border-ink-3 bg-transparent p-1.5 text-xs text-paper focus-visible:border-terracotta focus-visible:outline-none"
+            />
+          </div>
+
+          {/* Stop chips row */}
+          <div className="border-t border-ink-3 px-4 py-2.5">
+            <div
+              role="tablist"
+              aria-label="Plan stops"
+              className="flex gap-1.5 overflow-x-auto"
+            >
+              {stops.map((stop, i) => {
+                const VibeIcon = VIBE_ICONS[stop.vibe];
+                const active = stop.uid === focusedUid;
+                const label =
+                  spaces.find((sp) => sp.id === stop.space_id)?.name ??
+                  stop.custom_location ??
+                  "Pin";
+                return (
+                  <button
+                    key={stop.uid}
+                    role="tab"
+                    aria-selected={active}
+                    type="button"
+                    onClick={() => handleFocusStop(stop.uid)}
+                    className={cn(
+                      "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
+                      active
+                        ? "border-terracotta bg-terracotta/15 text-paper"
+                        : "border-ink-3 text-paper-mute hover:border-paper",
+                    )}
+                  >
+                    <span className="flex h-4 w-4 items-center justify-center rounded-full bg-terracotta font-mono text-[9px] text-ink-0">
+                      {i + 1}
+                    </span>
+                    <span className="max-w-[10ch] truncate">{label}</span>
+                    <VibeIcon className="h-3 w-3 text-terracotta" aria-hidden />
+                  </button>
+                );
+              })}
+              <button
+                type="button"
+                onClick={startAddPicker}
+                aria-label={t("addStop")}
+                className={cn(
+                  "inline-flex shrink-0 items-center gap-1 rounded-full border border-dashed px-2.5 py-1.5 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
+                  pickerMode && !replacingUid
+                    ? "border-terracotta text-paper"
+                    : "border-ink-3 text-paper-mute hover:border-paper hover:text-paper",
+                )}
+              >
+                <Plus className="h-3.5 w-3.5" aria-hidden />
+                {stops.length === 0 ? t("addFirstStop") : t("addStop")}
+              </button>
+            </div>
+          </div>
+
+          {/* Focused stop editor */}
+          <div ref={editorRef}>
+            {focusedStop ? (
+              <PlanStopEditor
+                key={focusedStop.uid}
+                stop={focusedStop}
+                index={stops.findIndex((s) => s.uid === focusedUid)}
+                total={stops.length}
+                onChange={(next) => updateStop(focusedStop.uid, next)}
+                onRemove={() => removeStop(focusedStop.uid)}
+                onRequestChangeLocation={() =>
+                  startReplacePicker(focusedStop.uid)
+                }
+              />
+            ) : (
+              <div className="px-4 py-8 text-center text-sm text-paper-dim">
+                {pickerMode ? t("pickerHint") : t("tapAStopHint")}
+              </div>
+            )}
+          </div>
+
+          {/* Capacity (optional, inline + minimal) */}
+          {stops.length > 0 && (
+            <div className="flex items-center gap-3 border-t border-ink-3 px-4 py-3">
+              <label
+                htmlFor="plan-capacity"
+                className="font-mono text-[10px] uppercase tracking-wider text-paper-mute"
+              >
+                {t("capacityLabel")}
+              </label>
+              <input
+                id="plan-capacity"
+                type="number"
+                min={2}
+                max={20}
+                value={capacity}
+                onChange={(e) => setCapacity(e.target.value)}
+                placeholder="-"
+                className="w-16 rounded-md border border-ink-3 bg-transparent px-2 py-1 text-sm text-paper placeholder:text-paper-faint focus-visible:border-terracotta focus-visible:outline-none"
+              />
+            </div>
+          )}
+
+          {/* Submit */}
+          <div className="sticky bottom-0 border-t border-ink-3 bg-ink-1 px-4 py-3">
+            <Button
+              type="submit"
+              size="lg"
+              loading={loading}
+              disabled={stops.length === 0}
+              className="w-full"
+            >
+              {t("submit")}
+            </Button>
+          </div>
+        </BottomSheet>
+      </form>
+    </Container>
   );
 }
 

@@ -22,6 +22,20 @@ const DARK_STYLE =
 const ISTANBUL_CENTER = { longitude: 29.0, latitude: 41.015 } as const;
 const INITIAL_ZOOM = 11.3;
 
+// Greater Istanbul bbox - generous around the 19 verified spaces + the 10
+// neighbourhood centers, so panning stays within the city. Used both to
+// constrain the map view (`maxBounds`) and to reject custom-pin taps that
+// fall outside (e.g. a wild zoom-out followed by a stray tap).
+const ISTANBUL_BOUNDS: [[number, number], [number, number]] = [
+  [28.7, 40.85], // SW: [lng, lat]
+  [29.4, 41.2], // NE
+];
+
+function isWithinIstanbul(lat: number, lng: number): boolean {
+  const [[swLng, swLat], [neLng, neLat]] = ISTANBUL_BOUNDS;
+  return lng >= swLng && lng <= neLng && lat >= swLat && lat <= neLat;
+}
+
 export interface DraftStop {
   /** Stable client-side id for React keys. */
   uid: string;
@@ -124,7 +138,9 @@ export function PlanCreateMap({
   const handleMapClick = useCallback(
     (e: MapLayerMouseEvent) => {
       if (!pickerMode) return;
-      onDropCustomPin(e.lngLat.lat, e.lngLat.lng);
+      const { lat, lng } = e.lngLat;
+      if (!isWithinIstanbul(lat, lng)) return; // defense in depth; maxBounds already constrains panning
+      onDropCustomPin(lat, lng);
     },
     [pickerMode, onDropCustomPin],
   );
@@ -143,6 +159,9 @@ export function PlanCreateMap({
         initialViewState={{ ...ISTANBUL_CENTER, zoom: INITIAL_ZOOM }}
         style={{ width: "100%", height: "100%" }}
         attributionControl={false}
+        maxBounds={ISTANBUL_BOUNDS}
+        minZoom={10}
+        maxZoom={17}
         onClick={handleMapClick}
         onLoad={() => setMapLoaded(true)}
         cursor={pickerMode ? "crosshair" : "grab"}

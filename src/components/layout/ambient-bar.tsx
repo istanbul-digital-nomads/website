@@ -32,18 +32,24 @@ export async function AmbientBar({ locale }: { locale: Locale }) {
 
   return (
     <div className="flex items-stretch overflow-x-auto border-b border-ink-3 bg-ink-0 font-mono text-[11px] uppercase tracking-wider text-paper-mute">
-      <Cell className="border-r border-ink-3">
+      <Cell className="border-e border-ink-3">
         <Dot live />
         <span className="text-paper">{t("liveFrom")}</span>
       </Cell>
 
-      <Cell className="border-r border-ink-3">
-        <span className="text-paper tabular-nums">{time}</span>
-        <span className="text-paper-faint">UTC+3</span>
+      <Cell className="border-e border-ink-3">
+        <span className="text-paper tabular-nums" dir="ltr">
+          {time}
+        </span>
+        <span className="text-paper-faint" dir="ltr">
+          UTC+3
+        </span>
       </Cell>
 
-      <Cell className="border-r border-ink-3">
-        <span className="text-paper tabular-nums">{weather.temp}°</span>
+      <Cell className="border-e border-ink-3">
+        <span className="text-paper tabular-nums" dir="ltr">
+          {weather.temp}°
+        </span>
         <span
           className="inline-block h-1.5 w-1.5 rounded-full bg-tod"
           style={{ boxShadow: "0 0 8px rgb(var(--tod-accent))" }}
@@ -51,29 +57,39 @@ export async function AmbientBar({ locale }: { locale: Locale }) {
         <span className="text-tod">{t(`tod.${tod}`)}</span>
       </Cell>
 
-      <Cell className="hidden border-r border-ink-3 sm:flex">
+      <Cell className="hidden border-e border-ink-3 sm:flex">
         <span className="text-paper-faint">{t("ferry")}</span>
-        <span className="text-paper">{ferry.route}</span>
+        <span className="text-paper" dir="ltr">
+          {ferry.route}
+        </span>
         {ferry.running ? (
-          <span className="text-ferry-yellow">↗ {ferry.next}</span>
+          <span className="text-ferry-yellow" dir="ltr">
+            ↗ {ferry.next}
+          </span>
         ) : (
-          <span className="text-paper-faint">{ferry.next}</span>
+          <span className="text-paper-faint" dir="ltr">
+            {ferry.next}
+          </span>
         )}
       </Cell>
 
-      <Cell className="hidden border-r border-ink-3 sm:flex">
-        <span className="text-paper-faint">1 USD</span>
-        <span className="text-paper tabular-nums">₺{fx.usdTry}</span>
+      <Cell className="hidden border-e border-ink-3 sm:flex">
+        <span className="text-paper-faint" dir="ltr">
+          1 USD
+        </span>
+        <span className="text-paper tabular-nums" dir="ltr">
+          ₺{fx.usdTry}
+        </span>
       </Cell>
 
       <div className="flex-1" />
 
       {members !== null ? (
-        <Cell className="border-l border-ink-3">
+        <Cell className="border-s border-ink-3">
           <Dot live />
           {/* Data numerals stay Western/LTR even in RTL locales, matching
               the time and FX cells (design rule). */}
-          <span className="text-paper tabular-nums">
+          <span className="text-paper tabular-nums" dir="ltr">
             {members.toLocaleString("en-US")}
           </span>
           <span className="text-paper-faint">{t("members")}</span>

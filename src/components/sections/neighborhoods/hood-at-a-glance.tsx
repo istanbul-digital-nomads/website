@@ -71,9 +71,9 @@ export function HoodAtAGlance({
           {cells.map((cell, i) => (
             <div
               key={cell.label}
-              className="border-ink-3 px-6 py-7 [&:not(:nth-child(3n))]:lg:border-r [&:not(:last-child)]:border-b lg:[&:nth-child(n+4)]:border-b-0"
+              className="border-ink-3 px-6 py-7 [&:not(:last-child)]:border-b lg:[&:not(:nth-child(3n))]:border-e lg:[&:nth-child(n+4)]:border-b-0"
               style={{
-                borderRightWidth: i % 3 === 2 ? 0 : undefined,
+                borderInlineEndWidth: i % 3 === 2 ? 0 : undefined,
               }}
             >
               <div className="font-mono text-[10.5px] uppercase tracking-wider text-paper-mute">

@@ -58,11 +58,11 @@ export async function NeighborhoodCardsSection({ locale }: { locale: Locale }) {
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
                       className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                     />
-                    <div className="absolute left-4 top-4 flex items-center gap-2 rounded-md bg-white/85 px-3 py-1.5 text-xs font-medium text-[#1a1a2e] backdrop-blur dark:bg-[#1a1612]/85 dark:text-[#f2f3f4]">
+                    <div className="absolute start-4 top-4 flex items-center gap-2 rounded-md bg-white/85 px-3 py-1.5 text-xs font-medium text-[#1a1a2e] backdrop-blur dark:bg-[#1a1612]/85 dark:text-[#f2f3f4]">
                       <MapPin className="h-3.5 w-3.5 text-primary-600 dark:text-primary-400" />
                       {sideLabel}
                     </div>
-                    <div className="absolute bottom-4 right-4 rounded-md bg-[#1a1a2e]/85 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.24em] text-white backdrop-blur">
+                    <div className="absolute bottom-4 end-4 rounded-md bg-[#1a1a2e]/85 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.24em] text-white backdrop-blur">
                       <bdi dir="ltr">{formatRentRange(n)}</bdi>
                     </div>
                   </div>
@@ -86,7 +86,7 @@ export async function NeighborhoodCardsSection({ locale }: { locale: Locale }) {
                       ))}
                     </div>
 
-                    <div className="mt-5 flex items-center justify-between border-t border-black/5 pt-4 dark:border-white/5">
+                    <div className="mt-5 flex items-center justify-between gap-3 border-t border-black/5 pt-4 dark:border-white/5">
                       <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#85929e]">
                         {count > 0
                           ? t("spacesTracked", { count })
@@ -107,10 +107,10 @@ export async function NeighborhoodCardsSection({ locale }: { locale: Locale }) {
         <Reveal delay={4} className="mt-10 flex justify-center">
           <Link
             href="/guides/neighborhoods"
-            className="inline-flex items-center gap-2 text-sm font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-[#f2f3f4] dark:hover:text-primary-400"
+            className="group inline-flex items-center gap-2 text-sm font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-[#f2f3f4] dark:hover:text-primary-400"
           >
             {t("compareAll")}
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
           </Link>
         </Reveal>
       </Container>

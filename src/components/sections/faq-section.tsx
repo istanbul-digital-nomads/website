@@ -36,9 +36,9 @@ export function FAQSection() {
                     <button
                       onClick={() => setOpenIndex(isOpen ? null : index)}
                       aria-expanded={openIndex === index}
-                      className="flex w-full items-center justify-between py-5 text-left"
+                      className="flex w-full items-center justify-between py-5 text-start"
                     >
-                      <span className="pr-4 text-base font-medium text-[#1a1a2e] dark:text-[#f2f3f4]">
+                      <span className="pe-4 text-base font-medium text-[#1a1a2e] dark:text-[#f2f3f4]">
                         {tItems(`${item.id}.question`)}
                       </span>
                       <ChevronDown
@@ -63,12 +63,12 @@ export function FAQSection() {
                           </p>
                           <Link
                             href={`/guides/${item.guideSlug}`}
-                            className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 transition-colors hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300"
+                            className="group mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 transition-colors hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300"
                           >
                             {t("readGuide", {
                               guide: tGuides(`${item.guideSlug}.title`),
                             })}
-                            <ArrowRight className="h-3.5 w-3.5" />
+                            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
                           </Link>
                         </div>
                       </div>

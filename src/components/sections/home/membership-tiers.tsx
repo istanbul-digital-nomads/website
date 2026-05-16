@@ -27,7 +27,7 @@ export async function MembershipTiers({ locale }: { locale: Locale }) {
 
         <div className="mt-12 grid border border-ink-3 lg:grid-cols-[1fr_1.4fr_1.4fr]">
           {/* Statement */}
-          <div className="border-b border-ink-3 p-10 lg:border-b-0 lg:border-r">
+          <div className="border-b border-ink-3 p-10 lg:border-b-0 lg:border-e">
             <h2 className="font-display text-h2 leading-tight text-paper">
               {t("title")}{" "}
               <span className="italic text-terracotta">{t("titleItalic")}</span>
@@ -43,18 +43,24 @@ export async function MembershipTiers({ locale }: { locale: Locale }) {
           </div>
 
           {/* Free tier */}
-          <div className="flex flex-col border-b border-ink-3 p-10 lg:border-b-0 lg:border-r">
+          <div className="flex flex-col border-b border-ink-3 p-10 lg:border-b-0 lg:border-e">
             <div className="flex items-baseline justify-between">
               <h3 className="font-display text-h2 text-paper">
                 {t("free.title")}
               </h3>
               {memberCountLabel ? (
-                <span className="font-mono text-[10.5px] uppercase tracking-wider text-paper-faint">
+                <span
+                  className="font-mono text-[10.5px] uppercase tracking-wider text-paper-faint"
+                  dir="ltr"
+                >
                   {memberCountLabel}
                 </span>
               ) : null}
             </div>
-            <p className="mt-3 font-mono text-3xl tabular-nums text-paper">
+            <p
+              className="mt-3 font-mono text-3xl tabular-nums text-paper"
+              dir="ltr"
+            >
               ₺0
             </p>
             <p className="mt-1 font-mono text-[10.5px] uppercase tracking-wider text-paper-mute">

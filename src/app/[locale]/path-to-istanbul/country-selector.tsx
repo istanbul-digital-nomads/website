@@ -52,16 +52,16 @@ export function CountrySelector() {
 
       {/* Search */}
       <div className="relative">
-        <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#5d6d7e] dark:text-[#99a3ad]" />
+        <Search className="absolute start-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#5d6d7e] dark:text-[#99a3ad]" />
         <input
           type="text"
           placeholder={t("searchPlaceholder")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full rounded-xl border border-primary-200/40 bg-white/70 py-3 pl-11 pr-4 text-sm text-[#1a1a2e] placeholder:text-[#5d6d7e]/60 focus:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-500/20 dark:border-[rgba(44,62,80,0.12)] dark:bg-[#1a1a2e] dark:text-[#f2f3f4] dark:placeholder:text-[#99a3ad]/60"
+          className="w-full rounded-xl border border-primary-200/40 bg-white/70 py-3 pe-4 ps-11 text-start text-sm text-[#1a1a2e] placeholder:text-[#5d6d7e]/60 focus:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-500/20 dark:border-[rgba(44,62,80,0.12)] dark:bg-[#1a1a2e] dark:text-[#f2f3f4] dark:placeholder:text-[#99a3ad]/60"
         />
         {filtered.length > 0 && (
-          <ul className="absolute left-0 right-0 top-full z-10 mt-2 max-h-80 overflow-y-auto rounded-xl border border-black/10 bg-white shadow-lg dark:border-white/10 dark:bg-[#1a1a2e]">
+          <ul className="absolute inset-x-0 top-full z-10 mt-2 max-h-80 overflow-y-auto rounded-xl border border-black/10 bg-white shadow-lg dark:border-white/10 dark:bg-[#1a1a2e]">
             {filtered.map((c) => (
               <li key={c.code}>
                 <button
@@ -69,7 +69,7 @@ export function CountrySelector() {
                   onClick={() => handleSelect(c)}
                   disabled={!c.supported}
                   className={cn(
-                    "flex w-full items-center justify-between gap-3 px-4 py-2.5 text-left text-sm transition-colors",
+                    "flex w-full items-center justify-between gap-3 px-4 py-2.5 text-start text-sm transition-colors",
                     c.supported
                       ? "hover:bg-primary-50 dark:hover:bg-primary-950/30"
                       : "cursor-not-allowed opacity-50",

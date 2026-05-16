@@ -222,7 +222,7 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
               <button
                 type="button"
                 onClick={() => setSelectedId(topMatch.space.id)}
-                className="w-full rounded-md border border-white/15 bg-white/[0.08] p-4 text-left transition-colors hover:bg-white/[0.12]"
+                className="w-full rounded-md border border-white/15 bg-white/[0.08] p-4 text-start transition-colors hover:bg-white/[0.12]"
               >
                 <span className="flex flex-wrap items-start justify-between gap-3">
                   <span>
@@ -287,7 +287,7 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
                       type="button"
                       onClick={() => setSelectedId(space.id)}
                       className={cn(
-                        "grid w-full gap-3 rounded-md border p-3 text-left transition-colors sm:grid-cols-[2rem_1fr_auto]",
+                        "grid w-full gap-3 rounded-md border p-3 text-start transition-colors sm:grid-cols-[2rem_1fr_auto]",
                         selectedId === space.id
                           ? "border-primary-300 bg-white/12"
                           : "border-white/10 bg-white/[0.04] hover:bg-white/[0.08]",
@@ -331,7 +331,7 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
       <section className="rounded-md border border-black/10 bg-white/70 p-4 dark:border-white/10 dark:bg-white/[0.04]">
         <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
           <div className="relative">
-            <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
+            <Search className="absolute start-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
             <input
               type="search"
               placeholder={t("search.placeholder")}
@@ -339,7 +339,7 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
               onChange={(event) =>
                 updateFilters({ search: event.target.value })
               }
-              className="h-11 w-full rounded-md border border-black/10 bg-white pl-10 pr-4 text-sm outline-none transition-colors placeholder:text-neutral-400 focus:border-primary-400 focus:ring-1 focus:ring-primary-400 dark:border-white/10 dark:bg-[#14110f] dark:text-[#f2f3f4] dark:placeholder:text-[#94877d]"
+              className="h-11 w-full rounded-md border border-black/10 bg-white pe-4 ps-10 text-start text-sm outline-none transition-colors placeholder:text-neutral-400 focus:border-primary-400 focus:ring-1 focus:ring-primary-400 dark:border-white/10 dark:bg-[#14110f] dark:text-[#f2f3f4] dark:placeholder:text-[#94877d]"
             />
           </div>
 
@@ -410,7 +410,7 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
         <button
           type="button"
           onClick={() => setShowMap((current) => !current)}
-          className="flex w-full items-center justify-between gap-3 bg-[#f6f1ea] px-4 py-3 text-left dark:bg-[#1a1612]"
+          className="flex w-full items-center justify-between gap-3 bg-[#f6f1ea] px-4 py-3 text-start dark:bg-[#1a1612]"
         >
           <span>
             <span className="block font-mono text-[10px] uppercase tracking-[0.24em] text-primary-700 dark:text-primary-200">
@@ -609,13 +609,13 @@ function MissionCard({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "group relative min-h-36 overflow-hidden rounded-md border p-3 text-left transition-all",
+        "group relative min-h-36 overflow-hidden rounded-md border p-3 text-start transition-all",
         active
           ? "border-primary-600 bg-white text-neutral-950 shadow-[0_18px_46px_rgba(20,17,15,0.12)] dark:border-primary-400 dark:bg-white/10 dark:text-[#f2f3f4]"
           : "border-black/10 bg-white/35 text-neutral-700 hover:-translate-y-0.5 hover:border-primary-500/40 hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:text-[#b7aaa0] dark:hover:bg-white/10",
       )}
     >
-      <span className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary-500/10 transition-transform group-hover:scale-125" />
+      <span className="pointer-events-none absolute -end-8 -top-8 h-24 w-24 rounded-full bg-primary-500/10 transition-transform group-hover:scale-125" />
       <span className="relative flex items-start justify-between gap-3">
         <span className="flex h-10 w-10 items-center justify-center rounded-md bg-[#14110f] text-white dark:bg-[#f2f3f4] dark:text-[#14110f]">
           <Icon className="h-5 w-5" />
@@ -821,7 +821,7 @@ function NeedButton({
       aria-pressed={active}
       data-need={value}
       className={cn(
-        "flex min-h-16 items-start gap-2 rounded-md border px-3 py-2 text-left transition-colors",
+        "flex min-h-16 items-start gap-2 rounded-md border px-3 py-2 text-start transition-colors",
         active
           ? "border-primary-600 bg-primary-50 text-neutral-950 dark:border-primary-400 dark:bg-primary-950/30 dark:text-[#f2f3f4]"
           : "border-black/10 bg-white text-neutral-700 hover:border-primary-500/40 dark:border-white/10 dark:bg-white/5 dark:text-[#b7aaa0]",

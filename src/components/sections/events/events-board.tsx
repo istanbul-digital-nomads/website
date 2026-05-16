@@ -119,8 +119,11 @@ export function EventsBoard({
                   </div>
                 ) : null}
               </div>
-              <div className="text-right">
-                <div className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
+              <div className="text-end">
+                <div
+                  className="font-mono text-[11px] uppercase tracking-wider text-paper-mute"
+                  dir={event.price_try ? "ltr" : undefined}
+                >
                   {event.price_try
                     ? `₺${event.price_try.toLocaleString("en-US")}`
                     : t("free")}

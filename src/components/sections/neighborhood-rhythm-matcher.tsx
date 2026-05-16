@@ -81,7 +81,7 @@ export function NeighborhoodRhythmMatcher({
                   type="button"
                   onClick={() => toggle(option.key)}
                   className={cn(
-                    "group flex min-h-[74px] items-start gap-3 border px-4 py-3 text-left transition-colors duration-fast",
+                    "group flex min-h-[74px] items-start gap-3 border px-4 py-3 text-start transition-colors duration-fast",
                     active
                       ? "border-terracotta bg-terracotta/10 text-paper"
                       : "border-ink-4 bg-ink-2 text-paper-mute hover:border-ink-5",
@@ -141,7 +141,7 @@ export function NeighborhoodRhythmMatcher({
                     sizes="(max-width: 640px) 100vw, 180px"
                     className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                   />
-                  <div className="absolute left-2 top-2 bg-ink-0/80 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-paper">
+                  <div className="absolute start-2 top-2 bg-ink-0/80 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-paper">
                     #{index + 1}
                   </div>
                 </div>

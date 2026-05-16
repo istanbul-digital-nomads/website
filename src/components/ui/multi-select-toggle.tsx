@@ -31,7 +31,7 @@ export function MultiSelectToggle({
     <div>
       <label className="block text-sm font-medium text-neutral-900 dark:text-[#f2f3f4]">
         {label}
-        {required && <span className="ml-0.5 text-red-500">*</span>}
+        {required && <span className="ms-0.5 text-red-500">*</span>}
       </label>
       <div className="mt-2 flex flex-wrap gap-2">
         {options.map((opt) => {

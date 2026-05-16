@@ -103,14 +103,14 @@ export function PhotoSlot({
         </>
       ) : null}
       {corner ? (
-        <span className="absolute left-3 top-3 z-10 bg-ink-0/55 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-paper-dim backdrop-blur-sm">
+        <span className="absolute start-3 top-3 z-10 bg-ink-0/55 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-paper-dim backdrop-blur-sm">
           {corner}
         </span>
       ) : null}
       {caption || credit ? (
-        <figcaption className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-3 bg-gradient-to-t from-black/85 to-transparent p-3 font-mono text-[10px] uppercase tracking-wider text-paper-dim">
-          {caption ? <span>{caption}</span> : <span />}
-          <span className="shrink-0 text-paper-faint">
+        <figcaption className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-3 bg-gradient-to-t from-black/85 to-transparent p-3 text-start font-mono text-[10px] uppercase tracking-wider text-paper-dim">
+          {caption ? <span className="min-w-0">{caption}</span> : <span />}
+          <span className="shrink-0 text-paper-faint" dir="ltr">
             {isReal ? credit : "↳ photo slot"}
           </span>
         </figcaption>

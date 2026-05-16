@@ -42,13 +42,13 @@ export function LocalGuidesDirectory({ guides }: { guides: LocalGuide[] }) {
     <div>
       {/* Search */}
       <div className="relative">
-        <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
+        <Search className="absolute start-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
         <input
           type="text"
           placeholder={t("searchPlaceholder")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full rounded-xl border border-black/10 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition-colors placeholder:text-neutral-400 focus:border-primary-400 focus:ring-1 focus:ring-primary-400 dark:border-white/10 dark:bg-white/5 dark:text-[#f2f3f4] dark:placeholder:text-[#5d6d7e]"
+          className="w-full rounded-xl border border-black/10 bg-white py-2.5 pe-4 ps-10 text-start text-sm outline-none transition-colors placeholder:text-neutral-400 focus:border-primary-400 focus:ring-1 focus:ring-primary-400 dark:border-white/10 dark:bg-white/5 dark:text-[#f2f3f4] dark:placeholder:text-[#5d6d7e]"
         />
       </div>
 

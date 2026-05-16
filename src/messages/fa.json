@@ -1680,6 +1680,8 @@
       "saveError": "نتوانستیم پروفایلت را ذخیره کنیم",
       "signInAgain": "لطفاً دوباره وارد شو",
       "welcome": "به Istanbul Digital Nomads خوش آمدی!",
+      "profileUpdated": "پروفایل به‌روزرسانی شد",
+      "saveChanges": "ذخیره تغییرات",
       "hasErrors": "لطفاً قبل از ادامه فیلدهای مشخص‌شده را اصلاح کن."
     },
     "validation": {

@@ -1704,6 +1704,8 @@
       "saveError": "Не удалось сохранить профиль",
       "signInAgain": "Войди, пожалуйста, снова",
       "welcome": "Добро пожаловать в Istanbul Digital Nomads!",
+      "profileUpdated": "Профиль обновлён",
+      "saveChanges": "Сохранить изменения",
       "hasErrors": "Исправь выделенные поля, чтобы продолжить."
     },
     "validation": {

@@ -1688,6 +1688,8 @@
       "saveError": "تعذّر حفظ ملفك",
       "signInAgain": "سجّل الدخول مرة أخرى من فضلك",
       "welcome": "أهلًا بك في Istanbul Digital Nomads!",
+      "profileUpdated": "تم تحديث الملف الشخصي",
+      "saveChanges": "حفظ التغييرات",
       "hasErrors": "يرجى تصحيح الحقول المظللة قبل المتابعة."
     },
     "validation": {

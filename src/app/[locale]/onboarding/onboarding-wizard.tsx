@@ -23,6 +23,13 @@ interface OnboardingWizardProps {
     email: string;
     avatar_url: string;
   };
+  /**
+   * Full member row. When `existing.onboarding_completed` is true the
+   * wizard pre-fills every step from the member's saved profile (edit
+   * mode) and tweaks the submit copy accordingly. When omitted or false,
+   * the wizard runs as first-time onboarding.
+   */
+  existing?: Record<string, unknown> | null;
 }
 
 const STEPS = [
@@ -76,16 +83,28 @@ function useValidator() {
   );
 }
 
-export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
+export function OnboardingWizard({
+  initialData,
+  existing,
+}: OnboardingWizardProps) {
   const router = useRouter();
   const t = useTranslations("onboardingPage.wizard");
   const tSteps = useTranslations("onboardingPage.steps");
   const validateStep = useValidator();
 
+  const isEdit = !!existing?.onboarding_completed;
+
   const [currentStep, setCurrentStep] = useState(0);
-  const [formData, setFormData] = useState<OnboardingData>({
-    display_name: initialData.display_name,
-    email: initialData.email,
+  const [formData, setFormData] = useState<OnboardingData>(() => {
+    if (isEdit && existing) {
+      // Edit mode: seed every step from the saved profile so each field
+      // shows the current value and the wizard becomes a multi-step editor.
+      return { ...existing, email: initialData.email };
+    }
+    return {
+      display_name: initialData.display_name,
+      email: initialData.email,
+    };
   });
   const [errors, setErrors] = useState<FieldErrors>({});
   const [shakeButton, setShakeButton] = useState(false);
@@ -221,8 +240,9 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
         return;
       }
 
-      showToast.success(t("welcome"));
-      // Land newly-onboarded members on their dashboard.
+      showToast.success(isEdit ? t("profileUpdated") : t("welcome"));
+      // Land newly-onboarded members on their dashboard; editors back
+      // on /dashboard too (their starting point).
       router.push("/dashboard");
       router.refresh();
     } catch {
@@ -310,7 +330,11 @@ export function OnboardingWizard({ initialData }: OnboardingWizardProps) {
               className={cn("px-8", shakeButton && "animate-shake")}
               size="lg"
             >
-              {isLastStep ? t("submit") : t("continue")}
+              {isLastStep
+                ? isEdit
+                  ? t("saveChanges")
+                  : t("submit")
+                : t("continue")}
             </Button>
           </div>
         </div>

@@ -1700,6 +1700,8 @@
       "saveError": "Profilin kaydedilemedi",
       "signInAgain": "Lütfen tekrar giriş yap",
       "welcome": "Istanbul Digital Nomads'a hoş geldin!",
+      "profileUpdated": "Profil güncellendi",
+      "saveChanges": "Değişiklikleri kaydet",
       "hasErrors": "Devam etmeden önce vurgulanan alanları düzelt."
     },
     "validation": {

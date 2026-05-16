@@ -23,7 +23,7 @@ export default async function OnboardingPage() {
   }
 
   const { data: member } = await (supabase.from("members") as any)
-    .select("display_name, email, avatar_url, onboarding_completed")
+    .select("*")
     .eq("id", user.id)
     .single();
 
@@ -31,10 +31,8 @@ export default async function OnboardingPage() {
     redirect("/login");
   }
 
-  if (member.onboarding_completed) {
-    redirect("/");
-  }
-
+  // Already-completed members can re-enter this page to edit their profile.
+  // The wizard re-saves on submit (onboarding_completed stays true).
   return (
     <OnboardingWizard
       initialData={{
@@ -43,6 +41,7 @@ export default async function OnboardingPage() {
         avatar_url:
           (member.avatar_url as string) || user.user_metadata?.avatar_url || "",
       }}
+      existing={member}
     />
   );
 }

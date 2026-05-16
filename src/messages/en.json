@@ -1680,6 +1680,8 @@
       "saveError": "Couldn't save your profile",
       "signInAgain": "Please sign in again",
       "welcome": "Welcome to Istanbul Digital Nomads!",
+      "profileUpdated": "Profile updated",
+      "saveChanges": "Save changes",
       "hasErrors": "Please fix the highlighted fields before continuing."
     },
     "validation": {

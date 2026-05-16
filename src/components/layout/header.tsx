@@ -194,12 +194,15 @@ export function Header() {
               }
               className={cn(
                 headerControl,
-                "hidden gap-2 px-3 font-mono text-[11px] xl:inline-flex",
+                "hidden w-32 justify-between gap-3 px-3 text-left xl:inline-flex",
               )}
               aria-label="Search"
             >
-              <Search className="h-3.5 w-3.5" />
-              <span className="border border-ink-4 px-1.5 py-px text-[10px]">
+              <span className="flex min-w-0 items-center gap-2 text-paper-mute">
+                <Search className="h-3.5 w-3.5 shrink-0" />
+                <span className="truncate text-[13px]">Search</span>
+              </span>
+              <span className="border border-ink-4 bg-ink-0/40 px-1.5 py-px font-mono text-[10px] text-paper-faint">
                 ⌘K
               </span>
             </button>

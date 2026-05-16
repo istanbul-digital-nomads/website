@@ -74,13 +74,19 @@ export async function HeroIssue({ locale }: { locale: Locale }) {
         </div>
 
         {/* Masthead label */}
-        <div className="absolute right-4 top-4 border border-paper/20 bg-ink-0/55 px-4 py-2.5 text-right backdrop-blur-sm">
-          <div className="font-mono text-[9.5px] uppercase tracking-wider text-paper-faint">
+        <div
+          className="absolute right-4 top-4 min-w-[230px] border border-white/20 px-4 py-3 text-right shadow-[0_16px_48px_rgba(0,0,0,0.36)] backdrop-blur-md sm:min-w-[270px]"
+          style={{ backgroundColor: "rgba(17, 16, 13, 0.88)" }}
+        >
+          <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#d8c5a5]">
             {t("masthead")}
           </div>
           {members !== null ? (
-            <div className="mt-1 font-mono text-[9.5px] uppercase tracking-wider text-paper">
-              {members.toLocaleString("en-US")} {t("membersLabel")}
+            <div className="mt-2 flex items-center justify-end gap-2 border-t border-white/15 pt-2 font-mono text-[13px] uppercase tracking-[0.12em] text-[#fff7e8]">
+              <span className="tabular-nums">
+                {members.toLocaleString("en-US")}
+              </span>
+              <span>{t("membersLabel")}</span>
             </div>
           ) : null}
         </div>

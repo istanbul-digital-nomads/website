@@ -23,7 +23,9 @@ export function PlanCard({
   capacityOpenLabel,
   todayLabel,
 }: Props) {
-  const space = plan.space_id ? spaces.find((s) => s.id === plan.space_id) : null;
+  const space = plan.space_id
+    ? spaces.find((s) => s.id === plan.space_id)
+    : null;
   const locationName =
     space?.name ?? plan.custom_location ?? plan.neighborhood_slug ?? "";
 
@@ -59,7 +61,10 @@ export function PlanCard({
             )}
           </div>
           <span className="inline-flex items-center gap-1.5 border border-ink-3 bg-ink-2 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-paper">
-            <PlanVibeIcon vibe={plan.vibe} className="h-3 w-3 text-terracotta" />
+            <PlanVibeIcon
+              vibe={plan.vibe}
+              className="h-3 w-3 text-terracotta"
+            />
             {vibeLabels[plan.vibe]}
           </span>
         </div>

@@ -12,11 +12,7 @@ import { JoinLeaveButton } from "@/components/plans/join-leave-button";
 import { getPlanById } from "@/lib/plans/queries";
 import { getCurrentMember } from "@/lib/supabase/queries";
 import { spaces } from "@/lib/spaces";
-import {
-  defaultLocale,
-  isValidLocale,
-  type Locale,
-} from "@/lib/i18n/config";
+import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/config";
 
 export const metadata: Metadata = {
   title: "Plan",
@@ -70,10 +66,15 @@ async function Content({
       <section className="border-b border-ink-3 bg-ink-1 py-12 lg:py-16">
         <Container className="max-w-3xl">
           <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-paper-mute">
-            <PlanVibeIcon vibe={plan.vibe} className="h-3.5 w-3.5 text-terracotta" />
+            <PlanVibeIcon
+              vibe={plan.vibe}
+              className="h-3.5 w-3.5 text-terracotta"
+            />
             <span>{t(`vibes.${plan.vibe}`)}</span>
             <span className="mx-1 text-paper-faint">·</span>
-            <span>{dateFmt.format(new Date(`${plan.scheduled_date}T12:00:00Z`))}</span>
+            <span>
+              {dateFmt.format(new Date(`${plan.scheduled_date}T12:00:00Z`))}
+            </span>
           </div>
 
           <h1 className="mt-4 font-display text-display-lg leading-tight text-paper">
@@ -92,7 +93,7 @@ async function Content({
               <span dir="ltr">
                 {plan.start_time && plan.end_time
                   ? `${plan.start_time.slice(0, 5)} – ${plan.end_time.slice(0, 5)}`
-                  : plan.start_time?.slice(0, 5) ?? t("range.today")}
+                  : (plan.start_time?.slice(0, 5) ?? t("range.today"))}
               </span>
             </span>
             <span className="inline-flex items-center gap-2">
@@ -163,11 +164,7 @@ async function Content({
             {tDetail("attendees", { count: plan.attendee_count })}
           </h2>
           <div className="mt-4 flex items-center gap-3">
-            <PlanAttendeeStack
-              attendees={plan.attendees}
-              max={8}
-              size={36}
-            />
+            <PlanAttendeeStack attendees={plan.attendees} max={8} size={36} />
             <ul className="flex flex-wrap gap-x-3 gap-y-1 text-sm text-paper-dim">
               {plan.attendees.slice(0, 8).map((a) => (
                 <li key={a.member_id}>{a.display_name}</li>

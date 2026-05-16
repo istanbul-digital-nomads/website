@@ -186,11 +186,7 @@ export async function leavePlan(planId: string, userId: string) {
   return { error: error?.message ?? null };
 }
 
-export async function addComment(
-  planId: string,
-  userId: string,
-  body: string,
-) {
+export async function addComment(planId: string, userId: string, body: string) {
   const supabase = await createClient();
   const sb = asAny(supabase);
   const { data, error } = await sb
@@ -202,8 +198,5 @@ export async function addComment(
 }
 
 function escapeHtml(s: string) {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }

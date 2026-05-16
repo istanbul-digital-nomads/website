@@ -89,19 +89,21 @@ export async function getPlansForFeed(options: {
   const { data, error } = await query;
   if (error) return { data: [], error: error.message };
 
-  const cards: PlanCardSummary[] = ((data ?? []) as unknown as Array<
-    PlanRow & {
-      host: PlanCardSummary["host"];
-      attendees: Array<{
-        member_id: string;
-        member: {
-          id: string;
-          display_name: string;
-          avatar_url: string | null;
-        } | null;
-      }>;
-    }
-  >).map((row) => ({
+  const cards: PlanCardSummary[] = (
+    (data ?? []) as unknown as Array<
+      PlanRow & {
+        host: PlanCardSummary["host"];
+        attendees: Array<{
+          member_id: string;
+          member: {
+            id: string;
+            display_name: string;
+            avatar_url: string | null;
+          } | null;
+        }>;
+      }
+    >
+  ).map((row) => ({
     ...row,
     host: row.host,
     attendees: (row.attendees ?? [])
@@ -218,7 +220,9 @@ export async function getMyAttendance(planIds: string[]): Promise<Set<string>> {
     .eq("status", "going")
     .in("plan_id", planIds);
 
-  return new Set(((data ?? []) as Pick<AttendeeRow, "plan_id">[]).map((r) => r.plan_id));
+  return new Set(
+    ((data ?? []) as Pick<AttendeeRow, "plan_id">[]).map((r) => r.plan_id),
+  );
 }
 
 export async function getMyTelegramSubscription(): Promise<{
@@ -237,7 +241,9 @@ export async function getMyTelegramSubscription(): Promise<{
     .eq("member_id", user.id)
     .maybeSingle();
 
-  return data ? { chat_id: (data as { telegram_chat_id: number }).telegram_chat_id } : null;
+  return data
+    ? { chat_id: (data as { telegram_chat_id: number }).telegram_chat_id }
+    : null;
 }
 
 // Public counters - cookie-less, cached for the landing.
@@ -255,8 +261,9 @@ export async function getPlansTodayCount(): Promise<{
   ]);
   return {
     count:
-      ((countRes.data as { count?: number } | null)?.count as number | undefined) ??
-      0,
+      ((countRes.data as { count?: number } | null)?.count as
+        | number
+        | undefined) ?? 0,
     byNeighborhood:
       ((byHoodRes.data ?? []) as Array<{
         neighborhood_slug: string;

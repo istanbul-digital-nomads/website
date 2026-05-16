@@ -7,11 +7,7 @@ import { PlanCreateForm } from "@/components/plans/plan-create-form";
 import { getCurrentMember } from "@/lib/supabase/queries";
 import { spaces } from "@/lib/spaces";
 import { neighborhoods } from "@/lib/neighborhoods";
-import {
-  defaultLocale,
-  isValidLocale,
-  type Locale,
-} from "@/lib/i18n/config";
+import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/config";
 
 export const metadata: Metadata = {
   title: "Share a plan",

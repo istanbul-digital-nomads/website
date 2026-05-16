@@ -9,11 +9,7 @@ import { PlansToneDisclaimer } from "@/components/plans/landing/tone-disclaimer"
 import { PlanFeed } from "@/components/plans/plan-feed";
 import { PlanFilters } from "@/components/plans/plan-filters";
 import { getCurrentMember } from "@/lib/supabase/queries";
-import {
-  defaultLocale,
-  isValidLocale,
-  type Locale,
-} from "@/lib/i18n/config";
+import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/config";
 import { alternatesFor, localeUrl } from "@/lib/seo";
 import { neighborhoods } from "@/lib/neighborhoods";
 import type { PlanRange } from "@/lib/plans/queries";

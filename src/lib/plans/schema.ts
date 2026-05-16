@@ -36,11 +36,10 @@ export const planCreateSchema = z
     ),
     language: z.string().min(2).max(5).optional(),
   })
-  .refine(
-    (v) =>
-      !v.end_time || !v.start_time || v.end_time > v.start_time,
-    { message: "end_time must be after start_time", path: ["end_time"] },
-  )
+  .refine((v) => !v.end_time || !v.start_time || v.end_time > v.start_time, {
+    message: "end_time must be after start_time",
+    path: ["end_time"],
+  })
   .refine((v) => v.space_id || v.custom_location, {
     message: "Pick a space or write a custom location",
     path: ["space_id"],

@@ -42,7 +42,9 @@ export async function PATCH(request: Request, { params }: Ctx) {
     }
     const scheduledDate = parsed.data.scheduled_date ?? current.scheduled_date;
     const endTime =
-      parsed.data.end_time !== undefined ? parsed.data.end_time : current.end_time;
+      parsed.data.end_time !== undefined
+        ? parsed.data.end_time
+        : current.end_time;
     update.expires_at = computeExpiresAt(scheduledDate, endTime ?? null);
   }
 

@@ -19,7 +19,11 @@ export async function POST(_request: Request, { params }: Ctx) {
   if (!user)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const rl = await rateLimit(`plan-join:${user.id}`, JOIN_LIMIT, JOIN_WINDOW_MS);
+  const rl = await rateLimit(
+    `plan-join:${user.id}`,
+    JOIN_LIMIT,
+    JOIN_WINDOW_MS,
+  );
   const headers = rateLimitHeaders(rl, JOIN_LIMIT);
   if (!rl.allowed) {
     return NextResponse.json(
@@ -33,7 +37,10 @@ export async function POST(_request: Request, { params }: Ctx) {
     const status = error === "Plan is full" ? 409 : 400;
     return NextResponse.json({ error }, { status, headers });
   }
-  return NextResponse.json({ data: { joined: true } }, { status: 201, headers });
+  return NextResponse.json(
+    { data: { joined: true } },
+    { status: 201, headers },
+  );
 }
 
 export async function DELETE(_request: Request, { params }: Ctx) {

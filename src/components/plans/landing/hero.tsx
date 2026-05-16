@@ -4,11 +4,7 @@ import { socialLinks } from "@/lib/constants";
 import { Container } from "@/components/ui/container";
 import { PlansTodayCounter } from "../plans-today-counter";
 
-export async function PlansLandingHero({
-  isAuthed,
-}: {
-  isAuthed: boolean;
-}) {
+export async function PlansLandingHero({ isAuthed }: { isAuthed: boolean }) {
   const t = await getTranslations("plans.landing");
 
   return (

@@ -30,6 +30,7 @@ export const VIBE_ICONS: Record<PlanVibe, LucideIcon> = {
 
 export function isPlanVibe(value: unknown): value is PlanVibe {
   return (
-    typeof value === "string" && (PLAN_VIBES as readonly string[]).includes(value)
+    typeof value === "string" &&
+    (PLAN_VIBES as readonly string[]).includes(value)
   );
 }

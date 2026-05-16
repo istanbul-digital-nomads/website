@@ -2,7 +2,9 @@ const ISTANBUL_TZ = "Europe/Istanbul";
 
 function istanbulOffsetMinutes(date: Date): number {
   const utc = new Date(date.toLocaleString("en-US", { timeZone: "UTC" }));
-  const local = new Date(date.toLocaleString("en-US", { timeZone: ISTANBUL_TZ }));
+  const local = new Date(
+    date.toLocaleString("en-US", { timeZone: ISTANBUL_TZ }),
+  );
   return Math.round((local.getTime() - utc.getTime()) / 60_000);
 }
 

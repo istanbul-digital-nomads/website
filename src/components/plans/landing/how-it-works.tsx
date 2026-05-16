@@ -19,10 +19,7 @@ export async function PlansHowItWorks() {
 
         <ol className="mt-12 grid gap-6 md:grid-cols-3">
           {steps.map((step, i) => (
-            <li
-              key={step}
-              className="border border-ink-3 bg-ink-2 p-6 lg:p-8"
-            >
+            <li key={step} className="border border-ink-3 bg-ink-2 p-6 lg:p-8">
               <span className="font-mono text-4xl leading-none text-terracotta">
                 {String(i + 1).padStart(2, "0")}
               </span>

@@ -77,9 +77,10 @@ export async function GET(request: Request) {
         },
       },
     );
-    const subs = ((await subRes.json().catch(() => [])) as Array<{
-      telegram_chat_id: number;
-    }>) ?? [];
+    const subs =
+      ((await subRes.json().catch(() => [])) as Array<{
+        telegram_chat_id: number;
+      }>) ?? [];
 
     for (const s of subs) {
       await sendTelegram({

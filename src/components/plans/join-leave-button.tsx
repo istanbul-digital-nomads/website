@@ -59,11 +59,7 @@ export function JoinLeaveButton({
   }
 
   return (
-    <Button
-      loading={loading}
-      onClick={toggle}
-      disabled={isFull && !joined}
-    >
+    <Button loading={loading} onClick={toggle} disabled={isFull && !joined}>
       {isFull ? t("full") : t("join")}
     </Button>
   );

@@ -47,7 +47,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const update = (await request.json().catch(() => null)) as TelegramUpdate | null;
+  const update = (await request
+    .json()
+    .catch(() => null)) as TelegramUpdate | null;
   if (!update?.message) return NextResponse.json({ ok: true });
 
   const chatId = update.message.chat.id;
@@ -76,22 +78,19 @@ export async function POST(request: Request) {
     const serviceUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
     if (serviceUrl && serviceKey) {
-      const res = await fetch(
-        `${serviceUrl}/rest/v1/telegram_subscriptions`,
-        {
-          method: "POST",
-          headers: {
-            apikey: serviceKey,
-            Authorization: `Bearer ${serviceKey}`,
-            "Content-Type": "application/json",
-            Prefer: "resolution=merge-duplicates,return=minimal",
-          },
-          body: JSON.stringify({
-            member_id: userId,
-            telegram_chat_id: chatId,
-          }),
+      const res = await fetch(`${serviceUrl}/rest/v1/telegram_subscriptions`, {
+        method: "POST",
+        headers: {
+          apikey: serviceKey,
+          Authorization: `Bearer ${serviceKey}`,
+          "Content-Type": "application/json",
+          Prefer: "resolution=merge-duplicates,return=minimal",
         },
-      );
+        body: JSON.stringify({
+          member_id: userId,
+          telegram_chat_id: chatId,
+        }),
+      });
       if (!res.ok) {
         console.error("[telegram webhook] upsert failed", res.status);
       }

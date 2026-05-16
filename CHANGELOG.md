@@ -4,6 +4,33 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.0] - 2026-05-17
+
+**Multi-stop plans + map-first create flow.** A plan is now a *day* with one or more *stops* on it (cowork at Kolektif 10-2, beer at Karga at 6), each pinned visually on a map. The create flow is rewritten as a mobile-first full-bleed map with a swipeable bottom sheet - tap a verified space pin or tap anywhere to drop a custom pin, then fill in time / vibe / notes per stop. Member profiles now surface a member's upcoming plans inline. Onboarding wizard gets a mobile-first chrome refresh with a sticky footer, auto-save between steps, and an a11y baseline.
+
+### Added
+
+- **Map-first create flow** at [src/app/[locale]/plans/new/page.tsx](src/app/[locale]/plans/new/page.tsx) - full-bleed [PlanCreateMap](src/components/plans/plan-create-map.tsx) (maplibre + CartoCDN tiles, 19 verified space pins always visible) with a three-snap-height [BottomSheet](src/components/ui/bottom-sheet.tsx) (peek 22vh / half 50vh / full 90vh, touch-draggable on mobile, tap-to-cycle for keyboard). Stops appear as numbered terracotta pins (1, 2, 3) connected by a dashed line. Tap a space pin = picked. Tap anywhere on the map = custom pin (with a typed label + nearest-neighborhood inference). Per-stop editor [PlanStopEditor](src/components/plans/plan-stop-editor.tsx) handles time pickers (native `<input type="time">` for OS-native mobile UX), 6-vibe icon row, notes, and remove. Auto-generates plan title from the first two stop names when blank.
+- **Supabase migration 014_plans → 015** ([supabase/migrations/015_plan_stops.sql](supabase/migrations/015_plan_stops.sql)) - new `plan_stops` table with `(plan_id, ordinal, space_id, custom_location, neighborhood_slug, lat, lng, start_time, end_time, vibe, notes)`. RLS scoped via the parent `plans.creator_id`. The per-stop columns are dropped from `plans` (which becomes a clean day-level row: date, title, capacity, expiry). `plans_today_by_neighborhood` view rewritten to count distinct plans per neighborhood across all stops. **Already applied to production Supabase.**
+- **Today's plans by this member** on the profile page ([src/components/plans/member-plans-today.tsx](src/components/plans/member-plans-today.tsx)) - up to N upcoming plans hosted by the member, rendered as `PlanCard`s in a 2-col grid. Hidden entirely when the member has no upcoming plans.
+- **`getMemberPlansToday`** query in [src/lib/plans/queries.ts](src/lib/plans/queries.ts).
+- **A11y baseline** across new components - 44px min tap targets, `aria-pressed` on toggle chips, `aria-label` on map markers (`"${space} (${type})"` / `"Stop N of M"`), focus rings on every interactive element, `role="region"` + `aria-label` on the bottom sheet, `aria-live="polite"` for picker mode hints and form errors, focus-on-step-change in the onboarding wizard, `prefers-reduced-motion` respected on sheet height transitions.
+
+### Changed
+
+- **Onboarding wizard** ([src/app/[locale]/onboarding/onboarding-wizard.tsx](src/app/[locale]/onboarding/onboarding-wizard.tsx)) - chrome rebuilt on the new ink/paper/terracotta design tokens; sticky mobile footer with full-width Next button (48px min height); progress strip uses terracotta fill on completed steps; focus moves to the step heading on transition so screen readers announce it; auto-save partial profile to Supabase between steps so members can bounce mid-flow and resume; `aria-live` error announcement region; step components themselves unchanged (they keep all the existing form logic - a per-step visual refresh is a follow-up).
+- **PlanCard** ([src/components/plans/plan-card.tsx](src/components/plans/plan-card.tsx)) - now renders a stop timeline (up to 3 stops visible, "+N more" when over). Vibe icon comes from the first stop. `aria-label` summarises the plan.
+- **PlanDetail page** ([src/app/[locale]/plans/[id]/page.tsx](src/app/[locale]/plans/[id]/page.tsx)) - vertical numbered stop list with each stop's vibe, neighborhood, time range, and notes. Header strip simplified now that vibe/time are per-stop.
+- **Mutations API** ([src/lib/plans/mutations.ts](src/lib/plans/mutations.ts)) - `createPlan` inserts the plan, then the stops as a batch, rolls back the plan on stops insert failure. New `updatePlanStops` replaces a plan's stops wholesale. `cancelPlan` and `joinPlan` unchanged in behaviour.
+- **Expiry calculator** ([src/lib/plans/expiry.ts](src/lib/plans/expiry.ts)) - now takes an array of end_times and uses the latest. Tests updated; 10/10 pass.
+- **PATCH /api/plans/[id]** accepts an optional `stops` array; when present, replaces stops via `updatePlanStops` and recomputes `expires_at`. Title/capacity/scheduled_date updates supported independently.
+- **Cron `/api/cron/plan-reminders`** queries the earliest stop's `start_time` per plan instead of the (now-removed) plan-level `start_time`.
+
+### Removed
+
+- Plan-level `space_id`, `custom_location`, `neighborhood_slug`, `start_time`, `end_time`, `vibe`, `notes` columns - all moved to `plan_stops`. No production data was lost (no plans had been created on the prior schema).
+- The single-stop stacked-form `PlanCreateForm` component - replaced by the map+sheet flow.
+
 ## [3.4.0] - 2026-05-16
 
 **Daily Plans** - a deliberately lighter sibling of events for casual same-day "I'll be at X cafe Monday 2pm, drop by" coordination. Members-only feed with a public counter on the landing, Strava-inspired card UI, Telegram bot for notifications while all plan state stays in-app. First Week Planner deprioritised from all UI entry points.

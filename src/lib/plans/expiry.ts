@@ -21,21 +21,28 @@ function offsetString(minutes: number): string {
 /**
  * Compute when a plan should drop off the active feed.
  *
- * - If `endTime` is set: end_time + 1h grace, in Istanbul TZ.
- * - Else: end of `scheduledDate` (23:59:59) in Istanbul TZ.
+ * - If any stop has an end_time set, expiry = latest end_time + 1h grace
+ *   on the scheduled date in Istanbul TZ.
+ * - Otherwise: end of `scheduledDate` (23:59:59) in Istanbul TZ.
  *
  * Returns an ISO string suitable for a timestamptz column.
  */
 export function computeExpiresAt(
   scheduledDate: string, // YYYY-MM-DD
-  endTime: string | null, // HH:MM[:SS] or null
+  endTimes: Array<string | null | undefined>, // each "HH:MM[:SS]" or nullish
 ): string {
   const probe = new Date(`${scheduledDate}T12:00:00Z`);
   const offsetMin = istanbulOffsetMinutes(probe);
   const offset = offsetString(offsetMin);
 
-  if (endTime) {
-    const [hh = "0", mm = "0"] = endTime.split(":");
+  const latestEnd = endTimes
+    .filter((t): t is string => !!t)
+    .reduce<
+      string | null
+    >((max, t) => (max === null || t > max ? t : max), null);
+
+  if (latestEnd) {
+    const [hh = "0", mm = "0"] = latestEnd.split(":");
     const local = new Date(
       `${scheduledDate}T${pad(Number(hh))}:${pad(Number(mm))}:00${offset}`,
     );
@@ -64,7 +71,7 @@ export function todayInIstanbul(now: Date = new Date()): string {
 
 /**
  * Add `days` to a YYYY-MM-DD string and return the new YYYY-MM-DD.
- * Uses UTC arithmetic so DST transitions don't matter at the date level.
+ * UTC arithmetic so DST is irrelevant at the date level.
  */
 export function addDays(date: string, days: number): string {
   const d = new Date(`${date}T12:00:00Z`);

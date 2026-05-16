@@ -2,7 +2,7 @@ import "server-only";
 import { revalidateTag } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { sendTelegram } from "./telegram";
-import type { PlanCreateInput } from "./schema";
+import type { PlanCreateInput, PlanStopInput } from "./schema";
 import { computeExpiresAt } from "./expiry";
 import type { Database } from "@/types/database";
 
@@ -10,13 +10,27 @@ type PlanRow = Database["public"]["Tables"]["plans"]["Row"];
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://istanbulnomads.com";
 
-// Supabase generated types don't yet include the plans tables (migration
-// 014 not applied to a typegen run). Cast via this helper, matching the
-// codebase's existing pattern for un-typed tables (see queries.ts perks).
-type SB = ReturnType<typeof createClient> extends Promise<infer C> ? C : never;
-function asAny(client: SB) {
-  return client as unknown as {
-    from: (table: string) => any; // eslint-disable-line @typescript-eslint/no-explicit-any
+type AnySupabase = {
+  from: (table: string) => any;
+};
+
+function asAny(client: Awaited<ReturnType<typeof createClient>>): AnySupabase {
+  return client as unknown as AnySupabase;
+}
+
+function stopRow(stop: PlanStopInput, planId: string, ordinal: number) {
+  return {
+    plan_id: planId,
+    ordinal,
+    space_id: stop.space_id ?? null,
+    custom_location: stop.custom_location ?? null,
+    neighborhood_slug: stop.neighborhood_slug ?? null,
+    lat: stop.lat ?? null,
+    lng: stop.lng ?? null,
+    start_time: stop.start_time ?? null,
+    end_time: stop.end_time ?? null,
+    vibe: stop.vibe,
+    notes: stop.notes ?? null,
   };
 }
 
@@ -26,35 +40,38 @@ export async function createPlan(
 ): Promise<{ data: PlanRow | null; error: string | null }> {
   const supabase = await createClient();
   const sb = asAny(supabase);
+
   const expires_at = computeExpiresAt(
     input.scheduled_date,
-    input.end_time ?? null,
+    input.stops.map((s) => s.end_time ?? null),
   );
-
-  const payload = {
-    creator_id: userId,
-    scheduled_date: input.scheduled_date,
-    start_time: input.start_time ?? null,
-    end_time: input.end_time ?? null,
-    space_id: input.space_id ?? null,
-    neighborhood_slug: input.neighborhood_slug ?? null,
-    custom_location: input.custom_location ?? null,
-    title: input.title,
-    vibe: input.vibe,
-    notes: input.notes ?? null,
-    capacity: input.capacity ?? null,
-    language: input.language ?? "en",
-    expires_at,
-  };
 
   const { data, error } = await sb
     .from("plans")
-    .insert(payload)
+    .insert({
+      creator_id: userId,
+      scheduled_date: input.scheduled_date,
+      title: input.title,
+      capacity: input.capacity ?? null,
+      language: input.language ?? "en",
+      expires_at,
+    })
     .select("*")
     .single();
 
-  if (error) return { data: null, error: error.message };
+  if (error || !data) {
+    return { data: null, error: error?.message ?? "Failed to create plan" };
+  }
   const plan = data as PlanRow;
+
+  // Insert stops with 1-based ordinal.
+  const stopRows = input.stops.map((stop, i) => stopRow(stop, plan.id, i + 1));
+  const { error: stopsErr } = await sb.from("plan_stops").insert(stopRows);
+  if (stopsErr) {
+    // Roll back the plan row so we don't leave an orphan with zero stops.
+    await sb.from("plans").delete().eq("id", plan.id);
+    return { data: null, error: stopsErr.message };
+  }
 
   // Auto-attend as host
   await sb
@@ -65,9 +82,49 @@ export async function createPlan(
   return { data: plan, error: null };
 }
 
+export async function updatePlanStops(
+  planId: string,
+  userId: string,
+  stops: PlanStopInput[],
+  scheduledDate: string,
+): Promise<{ error: string | null }> {
+  const supabase = await createClient();
+  const sb = asAny(supabase);
+
+  // Verify ownership before deleting.
+  const { data: plan } = await sb
+    .from("plans")
+    .select("id, scheduled_date")
+    .eq("id", planId)
+    .eq("creator_id", userId)
+    .maybeSingle();
+  if (!plan) return { error: "Plan not found" };
+
+  const { error: delErr } = await sb
+    .from("plan_stops")
+    .delete()
+    .eq("plan_id", planId);
+  if (delErr) return { error: delErr.message };
+
+  const stopRows = stops.map((stop, i) => stopRow(stop, planId, i + 1));
+  const { error: insErr } = await sb.from("plan_stops").insert(stopRows);
+  if (insErr) return { error: insErr.message };
+
+  // Recompute expires_at.
+  const expires_at = computeExpiresAt(
+    scheduledDate,
+    stops.map((s) => s.end_time ?? null),
+  );
+  await sb.from("plans").update({ expires_at }).eq("id", planId);
+
+  revalidateTag("plans-today", "minutes");
+  return { error: null };
+}
+
 export async function cancelPlan(planId: string, userId: string) {
   const supabase = await createClient();
   const sb = asAny(supabase);
+
   const { data: plan, error: readErr } = await sb
     .from("plans")
     .select("*")
@@ -84,10 +141,9 @@ export async function cancelPlan(planId: string, userId: string) {
     .update({ status: "cancelled" })
     .eq("id", planId)
     .eq("creator_id", userId);
-
   if (error) return { error: error.message };
 
-  // Notify attendees (excluding host)
+  // Notify attendees (excluding host).
   const { data: attendees } = await sb
     .from("plan_attendees")
     .select("member_id, member:members(display_name)")
@@ -119,9 +175,10 @@ export async function cancelPlan(planId: string, userId: string) {
 export async function joinPlan(planId: string, userId: string) {
   const supabase = await createClient();
   const sb = asAny(supabase);
+
   const { data: plan, error: planErr } = await sb
     .from("plans")
-    .select("id, creator_id, title, capacity, start_time, scheduled_date")
+    .select("id, creator_id, title, capacity")
     .eq("id", planId)
     .eq("status", "active")
     .maybeSingle();
@@ -130,7 +187,6 @@ export async function joinPlan(planId: string, userId: string) {
     return { error: planErr?.message ?? "Plan not found" };
   }
 
-  // Capacity check
   if (plan.capacity != null) {
     const { count } = await sb
       .from("plan_attendees")
@@ -148,10 +204,8 @@ export async function joinPlan(planId: string, userId: string) {
       { plan_id: planId, member_id: userId, status: "going" },
       { onConflict: "plan_id,member_id" },
     );
-
   if (error) return { error: error.message };
 
-  // Notify host if not joining their own plan
   if (plan.creator_id !== userId) {
     const [{ data: joinerRow }, { data: hostSub }] = await Promise.all([
       sb.from("members").select("display_name").eq("id", userId).maybeSingle(),

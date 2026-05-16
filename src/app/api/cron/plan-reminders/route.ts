@@ -5,16 +5,16 @@ import { todayInIstanbul } from "@/lib/plans/expiry";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://istanbulnomads.com";
 
-interface PlanWithAttendees {
+interface PlanWithStops {
   id: string;
   title: string;
   scheduled_date: string;
-  start_time: string | null;
   reminder_sent_at: string | null;
   attendees: Array<{
     member_id: string;
     member: { display_name: string } | null;
   }>;
+  stops: Array<{ start_time: string | null }>;
 }
 
 export async function GET(request: Request) {
@@ -33,22 +33,23 @@ export async function GET(request: Request) {
     );
   }
 
-  const supabase = createPublicClient();
-  // Window: plans starting in 55-70 min from now, today or tomorrow Istanbul TZ.
+  const supabase = createPublicClient() as unknown as {
+    from: (t: string) => any;
+  };
   const today = todayInIstanbul();
   const { data: plans, error } = await supabase
     .from("plans")
     .select(
       `
-      id, title, scheduled_date, start_time, reminder_sent_at,
+      id, title, scheduled_date, reminder_sent_at,
       attendees:plan_attendees (
         member_id, member:members(display_name)
-      )
+      ),
+      stops:plan_stops ( start_time )
       `,
     )
     .eq("status", "active")
     .gte("scheduled_date", today)
-    .not("start_time", "is", null)
     .is("reminder_sent_at", null);
 
   if (error) {
@@ -57,14 +58,20 @@ export async function GET(request: Request) {
 
   const now = new Date();
   const sent: string[] = [];
-  for (const raw of (plans ?? []) as unknown as PlanWithAttendees[]) {
-    if (!raw.start_time) continue;
-    const startISO = `${raw.scheduled_date}T${raw.start_time}+03:00`;
+
+  for (const raw of (plans ?? []) as unknown as PlanWithStops[]) {
+    // Find the earliest stop start_time on this plan.
+    const earliest = raw.stops
+      .map((s) => s.start_time)
+      .filter((t): t is string => !!t)
+      .sort()[0];
+    if (!earliest) continue;
+
+    const startISO = `${raw.scheduled_date}T${earliest}+03:00`;
     const start = new Date(startISO).getTime();
     const minutesUntil = (start - now.getTime()) / 60_000;
     if (minutesUntil < 55 || minutesUntil > 70) continue;
 
-    // Lookup chat IDs for all attendees
     const memberIds = raw.attendees.map((a) => a.member_id);
     if (!memberIds.length) continue;
 
@@ -90,7 +97,6 @@ export async function GET(request: Request) {
       });
     }
 
-    // Mark reminder sent
     await fetch(`${serviceUrl}/rest/v1/plans?id=eq.${raw.id}`, {
       method: "PATCH",
       headers: {

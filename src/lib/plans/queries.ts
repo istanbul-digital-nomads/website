@@ -2,13 +2,20 @@ import { cacheLife, cacheTag } from "next/cache";
 import { createClient, createPublicClient } from "@/lib/supabase/server";
 import { todayInIstanbul, addDays } from "./expiry";
 import type { Database } from "@/types/database";
+import type { PlanVibe } from "./vibes";
 
 type PlanRow = Database["public"]["Tables"]["plans"]["Row"];
+type StopRow = Database["public"]["Tables"]["plan_stops"]["Row"];
 type AttendeeRow = Database["public"]["Tables"]["plan_attendees"]["Row"];
 type CommentRow = Database["public"]["Tables"]["plan_comments"]["Row"];
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnySupabase = { from: (table: string) => any };
+type AnySupabase = {
+  from: (table: string) => any;
+};
+
+export interface PlanStop extends Omit<StopRow, "vibe"> {
+  vibe: PlanVibe;
+}
 
 export interface PlanCardSummary extends PlanRow {
   host: {
@@ -23,6 +30,7 @@ export interface PlanCardSummary extends PlanRow {
     avatar_url: string | null;
   }>;
   attendee_count: number;
+  stops: PlanStop[];
 }
 
 export interface PlanDetail extends PlanCardSummary {
@@ -50,6 +58,24 @@ function rangeBounds(range: PlanRange): { from: string; to: string } {
   return { from: today, to: addDays(today, 7) };
 }
 
+function sortStops<T extends { ordinal: number }>(
+  stops: T[] | null | undefined,
+): T[] {
+  return (stops ?? []).slice().sort((a, b) => a.ordinal - b.ordinal);
+}
+
+const PLAN_SELECT = `
+  *,
+  host:members!plans_creator_id_fkey (
+    id, display_name, avatar_url, city_district
+  ),
+  attendees:plan_attendees (
+    member_id,
+    member:members (id, display_name, avatar_url)
+  ),
+  stops:plan_stops (*)
+`;
+
 export async function getPlansForFeed(options: {
   range: PlanRange;
   neighborhood?: string;
@@ -60,61 +86,67 @@ export async function getPlansForFeed(options: {
 
   let query = supabase
     .from("plans")
-    .select(
-      `
-      *,
-      host:members!plans_creator_id_fkey (
-        id, display_name, avatar_url, city_district
-      ),
-      attendees:plan_attendees (
-        member_id,
-        member:members (id, display_name, avatar_url)
-      )
-      `,
-    )
+    .select(PLAN_SELECT)
     .eq("status", "active")
     .gte("scheduled_date", from)
     .lte("scheduled_date", to)
     .gt("expires_at", new Date().toISOString())
-    .order("scheduled_date", { ascending: true })
-    .order("start_time", { ascending: true, nullsFirst: false });
+    .order("scheduled_date", { ascending: true });
 
-  if (options.neighborhood) {
-    query = query.eq("neighborhood_slug", options.neighborhood);
-  }
-  if (options.vibe) {
-    query = query.eq("vibe", options.vibe);
-  }
+  // Stop-level filters: server-side via the stop table join. Supabase
+  // doesn't filter the parent table by joined-row conditions out of the box,
+  // so we post-filter in app code below.
 
   const { data, error } = await query;
   if (error) return { data: [], error: error.message };
 
-  const cards: PlanCardSummary[] = (
-    (data ?? []) as unknown as Array<
-      PlanRow & {
-        host: PlanCardSummary["host"];
-        attendees: Array<{
-          member_id: string;
-          member: {
-            id: string;
-            display_name: string;
-            avatar_url: string | null;
-          } | null;
-        }>;
+  type Raw = PlanRow & {
+    host: PlanCardSummary["host"];
+    attendees: Array<{
+      member_id: string;
+      member: {
+        id: string;
+        display_name: string;
+        avatar_url: string | null;
+      } | null;
+    }>;
+    stops: StopRow[];
+  };
+
+  const cards: PlanCardSummary[] = ((data ?? []) as unknown as Raw[])
+    .map((row) => ({
+      ...row,
+      host: row.host,
+      attendees: (row.attendees ?? [])
+        .filter((a) => a.member)
+        .map((a) => ({
+          member_id: a.member_id,
+          display_name: a.member!.display_name,
+          avatar_url: a.member!.avatar_url,
+        })),
+      attendee_count: row.attendees?.length ?? 0,
+      stops: sortStops(row.stops) as PlanStop[],
+    }))
+    .filter((plan) => {
+      if (
+        options.neighborhood &&
+        !plan.stops.some((s) => s.neighborhood_slug === options.neighborhood)
+      ) {
+        return false;
       }
-    >
-  ).map((row) => ({
-    ...row,
-    host: row.host,
-    attendees: (row.attendees ?? [])
-      .filter((a) => a.member)
-      .map((a) => ({
-        member_id: a.member_id,
-        display_name: a.member!.display_name,
-        avatar_url: a.member!.avatar_url,
-      })),
-    attendee_count: row.attendees?.length ?? 0,
-  }));
+      if (options.vibe && !plan.stops.some((s) => s.vibe === options.vibe)) {
+        return false;
+      }
+      return true;
+    })
+    .sort((a, b) => {
+      const aStart = a.stops[0]?.start_time ?? "99:99";
+      const bStart = b.stops[0]?.start_time ?? "99:99";
+      return (
+        a.scheduled_date.localeCompare(b.scheduled_date) ||
+        aStart.localeCompare(bStart)
+      );
+    });
 
   return { data: cards, error: null };
 }
@@ -135,6 +167,7 @@ export async function getPlanById(
         member_id,
         member:members (id, display_name, avatar_url)
       ),
+      stops:plan_stops (*),
       comments:plan_comments (
         id, plan_id, author_id, body, created_at,
         author:members (id, display_name, avatar_url)
@@ -147,7 +180,7 @@ export async function getPlanById(
   if (error) return { data: null, error: error.message };
   if (!data) return { data: null, error: null };
 
-  const row = data as unknown as PlanRow & {
+  type Raw = PlanRow & {
     host: {
       id: string;
       display_name: string;
@@ -163,6 +196,7 @@ export async function getPlanById(
         avatar_url: string | null;
       } | null;
     }>;
+    stops: StopRow[];
     comments: Array<
       CommentRow & {
         author: {
@@ -173,6 +207,7 @@ export async function getPlanById(
       }
     >;
   };
+  const row = data as unknown as Raw;
 
   const attendees = (row.attendees ?? [])
     .filter((a) => a.member)
@@ -196,6 +231,7 @@ export async function getPlanById(
       attendees,
       attendee_count: attendees.length,
       host_telegram_handle: row.host?.telegram_handle ?? null,
+      stops: sortStops(row.stops) as PlanStop[],
       comments: (row.comments ?? []).sort((a, b) =>
         a.created_at.localeCompare(b.created_at),
       ),
@@ -270,4 +306,50 @@ export async function getPlansTodayCount(): Promise<{
         count: number;
       }>) ?? [],
   };
+}
+
+// Plans hosted today by a specific member (for the profile page surface).
+export async function getMemberPlansToday(
+  memberId: string,
+): Promise<PlanCardSummary[]> {
+  const supabase = (await createClient()) as unknown as AnySupabase;
+  const today = todayInIstanbul();
+  const { data, error } = await supabase
+    .from("plans")
+    .select(PLAN_SELECT)
+    .eq("status", "active")
+    .eq("creator_id", memberId)
+    .gte("scheduled_date", today)
+    .lte("scheduled_date", addDays(today, 7))
+    .gt("expires_at", new Date().toISOString())
+    .order("scheduled_date", { ascending: true });
+
+  if (error || !data) return [];
+
+  type Raw = PlanRow & {
+    host: PlanCardSummary["host"];
+    attendees: Array<{
+      member_id: string;
+      member: {
+        id: string;
+        display_name: string;
+        avatar_url: string | null;
+      } | null;
+    }>;
+    stops: StopRow[];
+  };
+
+  return (data as unknown as Raw[]).map((row) => ({
+    ...row,
+    host: row.host,
+    attendees: (row.attendees ?? [])
+      .filter((a) => a.member)
+      .map((a) => ({
+        member_id: a.member_id,
+        display_name: a.member!.display_name,
+        avatar_url: a.member!.avatar_url,
+      })),
+    attendee_count: row.attendees?.length ?? 0,
+    stops: sortStops(row.stops) as PlanStop[],
+  }));
 }

@@ -412,20 +412,7 @@ export interface Database {
           id: string;
           creator_id: string;
           scheduled_date: string;
-          start_time: string | null;
-          end_time: string | null;
-          space_id: string | null;
-          neighborhood_slug: string | null;
-          custom_location: string | null;
           title: string;
-          vibe:
-            | "focus"
-            | "cowork"
-            | "social"
-            | "meal"
-            | "after-work"
-            | "outdoor";
-          notes: string | null;
           capacity: number | null;
           status: "active" | "cancelled" | "expired";
           reminder_sent_at: string | null;
@@ -438,12 +425,52 @@ export interface Database {
           id?: string;
           creator_id: string;
           scheduled_date: string;
+          title: string;
+          capacity?: number | null;
+          status?: "active" | "cancelled" | "expired";
+          reminder_sent_at?: string | null;
+          expires_at: string;
+          language?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          [key: string]: unknown;
+        };
+      };
+      plan_stops: {
+        Row: {
+          id: string;
+          plan_id: string;
+          ordinal: number;
+          space_id: string | null;
+          custom_location: string | null;
+          neighborhood_slug: string | null;
+          lat: number | null;
+          lng: number | null;
+          start_time: string | null;
+          end_time: string | null;
+          vibe:
+            | "focus"
+            | "cowork"
+            | "social"
+            | "meal"
+            | "after-work"
+            | "outdoor";
+          notes: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          plan_id: string;
+          ordinal: number;
+          space_id?: string | null;
+          custom_location?: string | null;
+          neighborhood_slug?: string | null;
+          lat?: number | null;
+          lng?: number | null;
           start_time?: string | null;
           end_time?: string | null;
-          space_id?: string | null;
-          neighborhood_slug?: string | null;
-          custom_location?: string | null;
-          title: string;
           vibe:
             | "focus"
             | "cowork"
@@ -452,13 +479,7 @@ export interface Database {
             | "after-work"
             | "outdoor";
           notes?: string | null;
-          capacity?: number | null;
-          status?: "active" | "cancelled" | "expired";
-          reminder_sent_at?: string | null;
-          expires_at: string;
-          language?: string | null;
           created_at?: string;
-          updated_at?: string;
         };
         Update: {
           [key: string]: unknown;

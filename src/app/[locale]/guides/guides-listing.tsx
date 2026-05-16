@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Search } from "lucide-react";
 import {
+  ArrowRight,
   MapPin,
   Wifi,
   Home,
@@ -15,6 +15,7 @@ import {
   Stethoscope,
   Music,
   Globe,
+  Search,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Card, CardContent } from "@/components/ui/card";
@@ -118,25 +119,32 @@ export function GuidesListing({ guidesWithContent }: GuidesListingProps) {
             const Icon = iconMap[guide.icon] || MapPin;
             const hasContent = guidesWithContent.includes(guide.slug);
             return (
-              <Link key={guide.slug} href={`/guides/${guide.slug}`}>
-                <Card hoverable className="h-full">
-                  <CardContent>
-                    <div className="flex items-start justify-between">
-                      <Icon className="h-8 w-8 text-primary-600 dark:text-primary-400" />
+              <Link
+                key={guide.slug}
+                href={`/guides/${guide.slug}`}
+                className="group block h-full rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fbfaf8] dark:focus-visible:ring-offset-[#14110f]"
+              >
+                <Card hoverable className="h-full p-0">
+                  <CardContent className="flex h-full min-h-[244px] flex-col p-5">
+                    <div className="flex items-start justify-between gap-4">
+                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-md border border-primary-500/15 bg-primary-50 text-primary-700 dark:border-primary-400/20 dark:bg-primary-950/25 dark:text-primary-300">
+                        <Icon className="h-5 w-5" />
+                      </span>
                       {hasContent && (
-                        <span className="rounded-full bg-primary-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary-700 dark:bg-primary-900/30 dark:text-primary-200">
+                        <span className="rounded-sm border border-primary-500/20 bg-primary-50 px-2 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-primary-800 dark:border-primary-400/20 dark:bg-primary-950/30 dark:text-primary-200">
                           {t("liveBadge")}
                         </span>
                       )}
                     </div>
-                    <h2 className="mt-4 text-lg font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
+                    <h2 className="mt-5 text-lg font-semibold leading-tight text-[#1a1a2e] dark:text-[#f2f3f4]">
                       {guide.title}
                     </h2>
-                    <p className="mt-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
+                    <p className="mt-2 line-clamp-3 flex-1 text-sm leading-6 text-[#5d6d7e] dark:text-[#99a3ad]">
                       {guide.description}
                     </p>
-                    <span className="mt-4 inline-block text-sm font-medium text-primary-600 dark:text-primary-400">
-                      {t("readGuide")} &rarr;
+                    <span className="mt-5 inline-flex items-center gap-1.5 border-t border-black/5 pt-4 text-sm font-medium text-primary-700 transition-colors group-hover:text-primary-600 dark:border-white/5 dark:text-primary-300 dark:group-hover:text-primary-200">
+                      {t("readGuide")}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
                     </span>
                   </CardContent>
                 </Card>

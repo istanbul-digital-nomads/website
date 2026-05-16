@@ -73,7 +73,7 @@ export function NeighborhoodStatCard({ neighborhood }: Props) {
   }
 
   return (
-    <div className="rounded-[1.75rem] border border-black/10 bg-white/55 p-6 dark:border-white/10 dark:bg-white/5">
+    <div className="rounded-md border border-black/10 bg-white/55 p-6 shadow-[0_18px_48px_rgba(20,17,15,0.06)] dark:border-white/10 dark:bg-white/5 dark:shadow-none">
       <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-primary-600 dark:text-primary-400">
         {tCard("verifiedStats")}
       </p>

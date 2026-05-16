@@ -50,9 +50,9 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
     guide.social_website;
 
   return (
-    <Card hoverable className="overflow-hidden">
-      <CardContent className="p-0">
-        <div className="p-6">
+    <Card hoverable className="h-full overflow-hidden p-0">
+      <CardContent className="h-full p-0">
+        <div className="flex h-full flex-col p-5">
           {/* Header */}
           <div className="flex items-start gap-4">
             {guide.photo_url ? (
@@ -61,10 +61,10 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
                 alt={guide.name}
                 width={64}
                 height={64}
-                className="h-16 w-16 rounded-full object-cover"
+                className="h-16 w-16 rounded-md object-cover"
               />
             ) : (
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xl font-semibold text-primary-700 dark:bg-primary-900/30 dark:text-primary-400">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-md border border-primary-500/15 bg-primary-100 text-xl font-semibold text-primary-700 dark:border-primary-400/20 dark:bg-primary-900/30 dark:text-primary-400">
                 {guide.name[0]}
               </div>
             )}
@@ -89,7 +89,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
           </div>
 
           {/* Bio */}
-          <p className="mt-4 text-sm leading-7 text-neutral-600 dark:text-[#99a3ad]">
+          <p className="mt-4 flex-1 text-sm leading-7 text-neutral-600 dark:text-[#99a3ad]">
             {expanded ? guide.bio : guide.bio.slice(0, 120)}
             {!expanded && guide.bio.length > 120 && "..."}
           </p>
@@ -105,7 +105,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
 
           {/* Origin countries */}
           {guide.origin_countries && guide.origin_countries.length > 0 && (
-            <div className="mt-3">
+            <div className="mt-4 border-t border-black/5 pt-4 dark:border-white/5">
               <p className="mb-1.5 text-[10px] font-medium uppercase tracking-wider text-neutral-500 dark:text-[#85929e]">
                 {t("helpsPeopleFrom")}
               </p>
@@ -141,7 +141,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
                   href={guide.social_instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-lg border border-black/10 p-2 text-neutral-500 transition-colors hover:bg-primary-50 hover:text-primary-600 dark:border-white/10 dark:hover:bg-white/10 dark:hover:text-primary-400"
+                  className="rounded-md border border-black/10 p-2 text-neutral-500 transition-colors hover:bg-primary-50 hover:text-primary-600 dark:border-white/10 dark:hover:bg-white/10 dark:hover:text-primary-400"
                   aria-label={t("social.instagram")}
                 >
                   <Instagram className="h-4 w-4" />
@@ -152,7 +152,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
                   href={guide.social_linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-lg border border-black/10 p-2 text-neutral-500 transition-colors hover:bg-primary-50 hover:text-primary-600 dark:border-white/10 dark:hover:bg-white/10 dark:hover:text-primary-400"
+                  className="rounded-md border border-black/10 p-2 text-neutral-500 transition-colors hover:bg-primary-50 hover:text-primary-600 dark:border-white/10 dark:hover:bg-white/10 dark:hover:text-primary-400"
                   aria-label={t("social.linkedin")}
                 >
                   <Linkedin className="h-4 w-4" />
@@ -163,7 +163,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
                   href={guide.social_twitter}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-lg border border-black/10 p-2 text-neutral-500 transition-colors hover:bg-primary-50 hover:text-primary-600 dark:border-white/10 dark:hover:bg-white/10 dark:hover:text-primary-400"
+                  className="rounded-md border border-black/10 p-2 text-neutral-500 transition-colors hover:bg-primary-50 hover:text-primary-600 dark:border-white/10 dark:hover:bg-white/10 dark:hover:text-primary-400"
                   aria-label={t("social.twitter")}
                 >
                   <Twitter className="h-4 w-4" />
@@ -174,7 +174,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
                   href={guide.social_website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-lg border border-black/10 p-2 text-neutral-500 transition-colors hover:bg-primary-50 hover:text-primary-600 dark:border-white/10 dark:hover:bg-white/10 dark:hover:text-primary-400"
+                  className="rounded-md border border-black/10 p-2 text-neutral-500 transition-colors hover:bg-primary-50 hover:text-primary-600 dark:border-white/10 dark:hover:bg-white/10 dark:hover:text-primary-400"
                   aria-label={t("social.website")}
                 >
                   <Globe className="h-4 w-4" />
@@ -187,7 +187,7 @@ export function GuideCard({ guide }: { guide: LocalGuide }) {
           {(guide.bio.length > 120 || hasSocials) && (
             <button
               onClick={() => setExpanded(!expanded)}
-              className="mt-3 flex items-center gap-1 text-xs font-medium text-primary-600 transition-colors hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+              className="mt-4 inline-flex items-center gap-1.5 self-start rounded-sm text-xs font-medium text-primary-600 transition-colors hover:text-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-primary-400 dark:hover:text-primary-300 dark:focus-visible:ring-offset-[#1a1612]"
             >
               {expanded ? (
                 <>

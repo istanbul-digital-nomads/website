@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { Search, Calendar, Clock, User } from "lucide-react";
+import { ArrowRight, Search, Calendar, Clock, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/utils";
 import type { Locale } from "@/lib/i18n/config";
@@ -46,6 +46,7 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
     const matchesTag = !activeTag || post.tags.includes(activeTag);
     return matchesSearch && matchesTag;
   });
+  const tCommon = useTranslations("common");
 
   return (
     <div>
@@ -104,7 +105,7 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group block overflow-hidden rounded-md border border-black/10 bg-white transition-[border-color,background-color,transform] hover:-translate-y-0.5 hover:border-primary-300/70 hover:bg-white/95 dark:border-white/10 dark:bg-[#1a1612] dark:hover:border-primary-500/35 dark:hover:bg-[rgba(60,40,30,0.35)]"
+              className="group flex h-full flex-col overflow-hidden rounded-md border border-black/10 bg-white transition-[border-color,background-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary-300/70 hover:bg-white/95 hover:shadow-[0_18px_48px_rgba(20,17,15,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fbfaf8] dark:border-white/10 dark:bg-[#1a1612] dark:hover:border-primary-500/35 dark:hover:bg-[rgba(60,40,30,0.35)] dark:hover:shadow-none dark:focus-visible:ring-offset-[#14110f]"
             >
               {post.coverImage ? (
                 <div className="relative aspect-[16/10] overflow-hidden bg-[#1a1612]">
@@ -118,7 +119,7 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-transparent" />
                 </div>
               ) : null}
-              <div className="p-5">
+              <div className="flex flex-1 flex-col p-5">
                 <div className="flex flex-wrap gap-1.5">
                   {post.tags.slice(0, 3).map((tag) => (
                     <span
@@ -129,13 +130,13 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
                     </span>
                   ))}
                 </div>
-                <h2 className="mt-3 text-lg font-semibold text-[#1a1a2e] dark:text-[#f2f3f4]">
+                <h2 className="mt-3 line-clamp-2 text-lg font-semibold leading-tight text-[#1a1a2e] dark:text-[#f2f3f4]">
                   {post.title}
                 </h2>
-                <p className="mt-2 line-clamp-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
+                <p className="mt-2 line-clamp-3 flex-1 text-sm leading-6 text-[#5d6d7e] dark:text-[#99a3ad]">
                   {post.description}
                 </p>
-                <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
+                <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-black/5 pt-4 text-xs text-[#5d6d7e] dark:border-white/5 dark:text-[#99a3ad]">
                   <span className="flex items-center gap-1">
                     <User className="h-3 w-3" />
                     {post.author}
@@ -149,6 +150,10 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
                     {post.readingTime}
                   </span>
                 </div>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary-700 transition-colors group-hover:text-primary-600 dark:text-primary-300 dark:group-hover:text-primary-200">
+                  {tCommon("readMore")}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+                </span>
               </div>
             </Link>
           ))}

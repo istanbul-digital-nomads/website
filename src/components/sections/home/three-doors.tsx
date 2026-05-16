@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import type { Locale } from "@/lib/i18n/config";
 import { socialLinks } from "@/lib/constants";
@@ -89,9 +90,10 @@ export function ThreeDoors({ locale }: { locale: Locale }) {
                 />
                 <div className="mt-6 border-t border-ink-3 pt-5">
                   <span
-                    className={`text-sm ${door.tone} border-b border-current pb-0.5`}
+                    className={`inline-flex items-center gap-1.5 border-b border-current pb-0.5 text-sm ${door.tone}`}
                   >
-                    {t(`${door.id}.cta`)} →
+                    {t(`${door.id}.cta`)}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
                   </span>
                 </div>
               </>
@@ -102,7 +104,7 @@ export function ThreeDoors({ locale }: { locale: Locale }) {
                 href={door.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex min-h-[30rem] flex-col bg-ink-1 p-9 transition-colors duration-fast hover:bg-ink-2"
+                className="group flex min-h-[30rem] flex-col bg-ink-1 p-9 transition-colors duration-fast hover:bg-ink-2"
               >
                 {Body}
               </a>
@@ -110,7 +112,7 @@ export function ThreeDoors({ locale }: { locale: Locale }) {
               <Link
                 key={door.id}
                 href={door.href}
-                className="flex min-h-[30rem] flex-col bg-ink-1 p-9 transition-colors duration-fast hover:bg-ink-2"
+                className="group flex min-h-[30rem] flex-col bg-ink-1 p-9 transition-colors duration-fast hover:bg-ink-2"
               >
                 {Body}
               </Link>

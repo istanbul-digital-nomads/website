@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import type { Locale } from "@/lib/i18n/config";
 import { getMemberCount } from "@/lib/ambient";
@@ -78,9 +79,10 @@ export async function MembershipTiers({ locale }: { locale: Locale }) {
               href={socialLinks.telegram}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-block self-start border border-ink-4 px-5 py-3 text-sm text-paper transition-colors duration-fast hover:border-ink-5"
+              className="group mt-8 inline-flex items-center gap-1.5 self-start border border-ink-4 px-5 py-3 text-sm text-paper transition-colors duration-fast hover:border-ink-5"
             >
-              {t("free.cta")} →
+              {t("free.cta")}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
             </a>
           </div>
 
@@ -114,9 +116,10 @@ export async function MembershipTiers({ locale }: { locale: Locale }) {
                 href={socialLinks.telegram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-terracotta px-5 py-3 text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim"
+                className="group inline-flex items-center gap-1.5 bg-terracotta px-5 py-3 text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim"
               >
-                {t("plus.waitlistCta")} →
+                {t("plus.waitlistCta")}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
               </a>
               <Link
                 href="/perks"

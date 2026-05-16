@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import type { Locale } from "@/lib/i18n/config";
 import { circles, type CircleAccent } from "@/lib/circles";
@@ -46,7 +47,7 @@ export function CirclesStrip({ locale }: { locale: Locale }) {
             <Link
               key={circle.slug}
               href={`/circles/${circle.slug}`}
-              className="group flex min-h-[12rem] flex-col border border-ink-3 bg-ink-2 p-5 transition-colors duration-fast hover:border-ink-5"
+              className="group flex min-h-[12rem] flex-col rounded-md border border-ink-3 bg-ink-2 p-5 transition-[border-color,background-color,transform] duration-fast hover:-translate-y-0.5 hover:border-ink-5 hover:bg-ink-2/80"
             >
               <span
                 className={`h-3 w-3 rounded-full border-2 ${ACCENT_RING[circle.accent]}`}
@@ -57,8 +58,11 @@ export function CirclesStrip({ locale }: { locale: Locale }) {
               <p className="mt-1.5 flex-1 text-xs leading-relaxed text-paper-dim">
                 {tList(`blurbs.${circle.slug}`)}
               </p>
-              <span className={`mt-3 text-xs ${ACCENT_TEXT[circle.accent]}`}>
-                {t("open")} →
+              <span
+                className={`mt-3 inline-flex items-center gap-1.5 text-xs ${ACCENT_TEXT[circle.accent]}`}
+              >
+                {t("open")}
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
               </span>
             </Link>
           ))}
@@ -70,9 +74,10 @@ export function CirclesStrip({ locale }: { locale: Locale }) {
           </p>
           <Link
             href="/circles"
-            className="border-b border-terracotta pb-0.5 text-sm text-terracotta"
+            className="group inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta"
           >
-            {t("seeAll")} →
+            {t("seeAll")}
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
           </Link>
         </div>
       </Container>

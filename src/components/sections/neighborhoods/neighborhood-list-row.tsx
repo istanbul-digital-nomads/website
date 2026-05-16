@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import type { Locale } from "@/lib/i18n/config";
 import {
@@ -51,7 +52,7 @@ export function NeighborhoodListRow({
   return (
     <Link
       href={`/guides/neighborhoods/${n.slug}`}
-      className="grid items-center gap-6 border-b border-ink-3 py-10 transition-colors hover:bg-ink-2 lg:grid-cols-[auto_1.4fr_2fr_1fr] lg:gap-12"
+      className="group grid items-center gap-6 border-b border-ink-3 py-10 transition-colors hover:bg-ink-2 lg:grid-cols-[auto_1.4fr_2fr_1fr] lg:gap-12"
     >
       <div className="font-mono text-4xl tabular-nums text-paper-faint lg:text-5xl">
         {String(num).padStart(2, "0")}
@@ -105,8 +106,9 @@ export function NeighborhoodListRow({
           </div>
         ))}
         <div className="col-span-2 mt-3">
-          <span className="border-b border-terracotta pb-0.5 text-sm text-terracotta">
-            {tV2("row.open", { name })} →
+          <span className="inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta">
+            {tV2("row.open", { name })}
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
           </span>
         </div>
       </div>

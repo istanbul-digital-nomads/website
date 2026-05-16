@@ -48,7 +48,7 @@ export async function NeighborhoodCardsSection({ locale }: { locale: Locale }) {
                 <Link
                   href={`/guides/neighborhoods/${n.slug}`}
                   prefetch
-                  className="group block min-w-[82vw] snap-start overflow-hidden rounded-md border border-black/10 bg-white/50 transition-all hover:-translate-y-0.5 hover:border-primary-500/35 hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:border-primary-400/35 dark:hover:bg-white/10 sm:min-w-0"
+                  className="group flex h-full min-w-[82vw] snap-start flex-col overflow-hidden rounded-md border border-black/10 bg-white/50 transition-[border-color,background-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary-500/35 hover:bg-white/80 hover:shadow-[0_18px_48px_rgba(20,17,15,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fbfaf8] dark:border-white/10 dark:bg-white/5 dark:hover:border-primary-400/35 dark:hover:bg-white/10 dark:hover:shadow-none dark:focus-visible:ring-offset-[#14110f] sm:min-w-0"
                 >
                   <div className="relative aspect-[3/2] w-full overflow-hidden bg-primary-50/30 dark:bg-primary-950/20">
                     <Image
@@ -67,11 +67,11 @@ export async function NeighborhoodCardsSection({ locale }: { locale: Locale }) {
                     </div>
                   </div>
 
-                  <div className="p-6">
+                  <div className="flex flex-1 flex-col p-5">
                     <h3 className="font-display text-2xl font-extrabold text-[#1a1a2e] dark:text-[#f2f3f4]">
                       {tList(`${n.slug}.name`)}
                     </h3>
-                    <p className="mt-3 text-sm leading-7 text-[#5d6d7e] dark:text-[#b7aaa0]">
+                    <p className="mt-3 line-clamp-3 flex-1 text-sm leading-7 text-[#5d6d7e] dark:text-[#b7aaa0]">
                       {tList(`${n.slug}.oneLiner`)}
                     </p>
 
@@ -94,7 +94,7 @@ export async function NeighborhoodCardsSection({ locale }: { locale: Locale }) {
                       </span>
                       <span className="inline-flex items-center gap-1 text-sm font-medium text-primary-700 transition-colors group-hover:text-primary-600 dark:text-primary-200 dark:group-hover:text-primary-200">
                         {t("explore")}
-                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
                       </span>
                     </div>
                   </div>
@@ -110,7 +110,7 @@ export async function NeighborhoodCardsSection({ locale }: { locale: Locale }) {
             className="group inline-flex items-center gap-2 text-sm font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-[#f2f3f4] dark:hover:text-primary-400"
           >
             {t("compareAll")}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
           </Link>
         </Reveal>
       </Container>

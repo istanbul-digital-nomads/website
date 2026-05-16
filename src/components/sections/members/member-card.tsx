@@ -12,9 +12,9 @@ export function MemberCard({ member }: { member: MemberPublic }) {
   return (
     <Link
       href={`/members/${member.id}`}
-      className="group flex flex-col border border-ink-3 bg-ink-2 p-5 transition-colors duration-fast hover:border-ink-5"
+      className="group flex h-full flex-col rounded-md border border-ink-3 bg-ink-2 p-5 transition-[border-color,background-color,transform] duration-fast hover:-translate-y-0.5 hover:border-ink-5 hover:bg-ink-2/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 focus-visible:ring-offset-ink-1"
     >
-      <div className="relative aspect-square w-full overflow-hidden border border-ink-4 bg-ink-3">
+      <div className="relative aspect-square w-full overflow-hidden rounded-md border border-ink-4 bg-ink-3">
         {member.avatar_url ? (
           <Image
             src={member.avatar_url}
@@ -29,7 +29,7 @@ export function MemberCard({ member }: { member: MemberPublic }) {
           </span>
         )}
       </div>
-      <h3 className="mt-4 font-display text-h4 text-paper transition-colors group-hover:text-terracotta">
+      <h3 className="mt-4 font-display text-h4 leading-tight text-paper transition-colors group-hover:text-terracotta">
         {member.display_name}
       </h3>
       {member.location ? (
@@ -38,7 +38,7 @@ export function MemberCard({ member }: { member: MemberPublic }) {
         </p>
       ) : null}
       {member.bio ? (
-        <p className="mt-2.5 line-clamp-2 text-sm leading-relaxed text-paper-dim">
+        <p className="mt-2.5 line-clamp-2 flex-1 text-sm leading-relaxed text-paper-dim">
           {member.bio}
         </p>
       ) : null}

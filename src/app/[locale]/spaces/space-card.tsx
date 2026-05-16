@@ -54,8 +54,9 @@ export function SpaceCard({
       <Card
         hoverable
         className={cn(
-          "cursor-pointer transition-all",
-          isSelected && "ring-2 ring-primary-500/50 dark:ring-primary-400/50",
+          "cursor-pointer p-0 transition-all",
+          isSelected &&
+            "border-primary-500/55 ring-2 ring-primary-500/20 dark:border-primary-400/50 dark:ring-primary-400/20",
         )}
         onClick={() => onSelect(space.id)}
       >
@@ -64,8 +65,8 @@ export function SpaceCard({
             {/* Header row */}
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <h3 className="text-base font-semibold text-neutral-900 dark:text-[#f2f3f4]">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="min-w-0 text-base font-semibold leading-tight text-neutral-900 dark:text-[#f2f3f4]">
                     {space.name}
                   </h3>
                   <Badge
@@ -84,12 +85,12 @@ export function SpaceCard({
               <NomadScoreBadge scores={space.nomad_score} size="md" />
             </div>
 
-            <div className="mt-3 flex flex-wrap gap-1.5">
+            <div className="mt-4 flex flex-wrap gap-1.5">
               {signals.labels.slice(0, 4).map((label) => (
                 <span
                   key={label}
                   className={cn(
-                    "rounded-md px-2 py-1 text-xs font-medium",
+                    "rounded-sm px-2 py-1 text-xs font-medium",
                     label === "Bring headphones" ||
                       label === "Best before lunch"
                       ? "bg-amber-50 text-amber-800 dark:bg-amber-950/30 dark:text-amber-100"
@@ -103,7 +104,7 @@ export function SpaceCard({
 
             {/* Quick info - LTR-isolated to keep numbers, times, and price
                 ranges readable inside RTL locales. */}
-            <div className="mt-3 flex flex-wrap gap-3 text-xs text-neutral-600 dark:text-[#99a3ad]">
+            <div className="mt-4 flex flex-wrap gap-3 border-t border-black/5 pt-4 text-xs text-neutral-600 dark:border-white/5 dark:text-[#99a3ad]">
               {space.wifi_speed && (
                 <span className="flex items-center gap-1">
                   <Wifi className="h-3 w-3" />
@@ -175,7 +176,7 @@ export function SpaceCard({
                       <ShieldCheck className="h-3.5 w-3.5 text-primary-500" />
                       {t("sources")}
                       {space.last_verified && (
-                        <span className="ml-1 font-normal normal-case text-neutral-500 dark:text-[#85929e]">
+                        <span className="ms-1 font-normal normal-case text-neutral-500 dark:text-[#85929e]">
                           {t("verified", { date: space.last_verified })}
                         </span>
                       )}
@@ -206,7 +207,7 @@ export function SpaceCard({
                 e.stopPropagation();
                 setExpanded(!expanded);
               }}
-              className="mt-2 flex items-center gap-1 text-xs font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+              className="mt-3 inline-flex items-center gap-1.5 rounded-sm text-xs font-medium text-primary-600 transition-colors hover:text-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-primary-400 dark:hover:text-primary-300 dark:focus-visible:ring-offset-[#1a1612]"
             >
               {expanded ? (
                 <>

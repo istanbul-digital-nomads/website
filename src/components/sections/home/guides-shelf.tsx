@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import type { Locale } from "@/lib/i18n/config";
 import { guides } from "@/lib/data";
@@ -78,9 +79,10 @@ export function GuidesShelf({ locale }: { locale: Locale }) {
         <div className="mt-12 border-t border-ink-3 pt-6">
           <Link
             href="/guides"
-            className="text-sm text-terracotta border-b border-terracotta pb-0.5"
+            className="group inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta"
           >
-            {t("allGuides")} →
+            {t("allGuides")}
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
           </Link>
         </div>
       </Container>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import type { Locale } from "@/lib/i18n/config";
 import { getEventsPublic } from "@/lib/supabase/queries";
@@ -43,7 +44,7 @@ export async function EventsStrip({ locale }: { locale: Locale }) {
               <Link
                 key={event.id}
                 href="/events"
-                className="grid grid-cols-[5rem_4rem_auto_1fr_auto] items-center gap-4 px-6 py-5 transition-colors hover:bg-ink-2 sm:gap-8"
+                className="group grid grid-cols-[5rem_4rem_auto_1fr_auto] items-center gap-4 px-6 py-5 transition-colors hover:bg-ink-2 sm:gap-8"
                 style={{
                   borderTop:
                     i === 0 ? undefined : "1px solid rgb(var(--ink-3))",
@@ -68,7 +69,10 @@ export async function EventsStrip({ locale }: { locale: Locale }) {
                     </span>
                   ) : null}
                 </span>
-                <span className="text-sm text-terracotta">{t("rsvp")} →</span>
+                <span className="inline-flex items-center gap-1.5 text-sm text-terracotta">
+                  {t("rsvp")}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+                </span>
               </Link>
             ))
           ) : (
@@ -89,9 +93,10 @@ export async function EventsStrip({ locale }: { locale: Locale }) {
           </span>
           <Link
             href="/events"
-            className="text-sm text-terracotta border-b border-terracotta pb-0.5"
+            className="group inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta"
           >
-            {t("allEvents")} →
+            {t("allEvents")}
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
           </Link>
         </div>
       </Container>

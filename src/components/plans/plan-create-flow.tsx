@@ -10,7 +10,7 @@ import {
 } from "react";
 import { useRouter } from "@/lib/i18n/routing";
 import { useLocale, useTranslations } from "next-intl";
-import { Plus, X } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BottomSheet, type SheetHeight } from "@/components/ui/bottom-sheet";
@@ -86,6 +86,11 @@ export function PlanCreateFlow() {
   const [stops, setStops] = useState<EditableStop[]>([]);
   const [focusedUid, setFocusedUid] = useState<string | null>(null);
   const [pickerMode, setPickerMode] = useState(true); // open in picker mode
+  /**
+   * When set, the next "pick a space" / "drop a pin" REPLACES the
+   * location on this stop's uid instead of creating a new stop.
+   */
+  const [replacingUid, setReplacingUid] = useState<string | null>(null);
   const [sheetHeight, setSheetHeight] = useState<SheetHeight>("peek");
   const [loading, setLoading] = useState(false);
   const editorRef = useRef<HTMLDivElement>(null);
@@ -101,32 +106,98 @@ export function PlanCreateFlow() {
     return names.slice(0, 2).join(" → ");
   }, [stops]);
 
-  const handlePickSpace = useCallback((sp: NomadSpace) => {
-    const stop = makeStopFromSpace(sp);
-    setStops((prev) => [...prev, stop]);
-    setFocusedUid(stop.uid);
-    setPickerMode(false);
-    setSheetHeight("half");
-  }, []);
+  const handlePickSpace = useCallback(
+    (sp: NomadSpace) => {
+      if (replacingUid) {
+        setStops((prev) =>
+          prev.map((s) =>
+            s.uid === replacingUid
+              ? {
+                  ...s,
+                  space_id: sp.id,
+                  custom_location: null,
+                  neighborhood_slug:
+                    neighborhoods.find(
+                      (n) =>
+                        n.name.toLowerCase() === sp.neighborhood.toLowerCase(),
+                    )?.slug ?? null,
+                  lat: sp.coordinates[1],
+                  lng: sp.coordinates[0],
+                }
+              : s,
+          ),
+        );
+        setFocusedUid(replacingUid);
+        setReplacingUid(null);
+      } else {
+        const stop = makeStopFromSpace(sp);
+        setStops((prev) => [...prev, stop]);
+        setFocusedUid(stop.uid);
+      }
+      setPickerMode(false);
+      setSheetHeight("half");
+    },
+    [replacingUid],
+  );
 
-  const handleDropCustomPin = useCallback((lat: number, lng: number) => {
-    const stop = makeStopFromPin(lat, lng);
-    setStops((prev) => [...prev, stop]);
-    setFocusedUid(stop.uid);
-    setPickerMode(false);
-    setSheetHeight("half");
-  }, []);
+  const handleDropCustomPin = useCallback(
+    (lat: number, lng: number) => {
+      if (replacingUid) {
+        setStops((prev) =>
+          prev.map((s) =>
+            s.uid === replacingUid
+              ? {
+                  ...s,
+                  space_id: null,
+                  custom_location: s.custom_location ?? "",
+                  neighborhood_slug: inferNeighborhood(lat, lng),
+                  lat,
+                  lng,
+                }
+              : s,
+          ),
+        );
+        setFocusedUid(replacingUid);
+        setReplacingUid(null);
+      } else {
+        const stop = makeStopFromPin(lat, lng);
+        setStops((prev) => [...prev, stop]);
+        setFocusedUid(stop.uid);
+      }
+      setPickerMode(false);
+      setSheetHeight("half");
+    },
+    [replacingUid],
+  );
 
   const handleFocusStop = useCallback((targetUid: string) => {
     setFocusedUid(targetUid);
     setPickerMode(false);
+    setReplacingUid(null);
     setSheetHeight("half");
   }, []);
 
-  function startPicker() {
+  function startAddPicker() {
     setFocusedUid(null);
+    setReplacingUid(null);
     setPickerMode(true);
     setSheetHeight("peek");
+  }
+
+  function startReplacePicker(targetUid: string) {
+    setReplacingUid(targetUid);
+    setFocusedUid(targetUid);
+    setPickerMode(true);
+    setSheetHeight("peek");
+  }
+
+  function cancelPicker() {
+    setPickerMode(false);
+    setReplacingUid(null);
+    if (stops.length > 0) {
+      setFocusedUid((cur) => cur ?? stops[0]!.uid);
+      setSheetHeight("half");
+    }
   }
 
   function updateStop(targetUid: string, next: EditableStop) {
@@ -201,9 +272,9 @@ export function PlanCreateFlow() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="fixed inset-0 z-10 flex flex-col bg-ink-0"
+      className="relative h-[calc(100svh-6rem)] overflow-hidden bg-ink-0"
     >
-      {/* Map fills the screen behind the sheet */}
+      {/* Map fills the section, site header stays visible above */}
       <PlanCreateMap
         stops={stops}
         focusedUid={focusedUid}
@@ -213,15 +284,16 @@ export function PlanCreateFlow() {
         onFocusStop={handleFocusStop}
       />
 
-      {/* Close button */}
-      <button
-        type="button"
-        onClick={() => router.push("/plans" as never)}
-        aria-label="Close create plan"
-        className="absolute end-4 top-4 z-20 rounded-full border border-ink-4 bg-ink-0/90 p-2 text-paper backdrop-blur-md transition-colors hover:border-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
-      >
-        <X className="h-5 w-5" />
-      </button>
+      {/* Picker cancel button - only when in picker mode AND we have stops */}
+      {pickerMode && stops.length > 0 && (
+        <button
+          type="button"
+          onClick={cancelPicker}
+          className="absolute end-4 top-20 z-20 rounded-full border border-ink-4 bg-ink-0/90 px-4 py-2 text-xs font-medium text-paper backdrop-blur-md transition-colors hover:border-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
+        >
+          {t("cancelPicker")}
+        </button>
+      )}
 
       <BottomSheet
         height={sheetHeight}
@@ -229,8 +301,8 @@ export function PlanCreateFlow() {
         ariaLabel="Create plan"
         caption={
           stops.length === 0
-            ? "Add your first stop"
-            : `${stops.length} stop${stops.length === 1 ? "" : "s"}`
+            ? t("addFirstStop")
+            : t("stopCountCaption", { count: stops.length })
         }
       >
         {/* Header: date + title */}
@@ -303,16 +375,16 @@ export function PlanCreateFlow() {
             })}
             <button
               type="button"
-              onClick={startPicker}
+              onClick={startAddPicker}
               aria-label={t("addStop")}
               className={cn(
-                "inline-flex shrink-0 items-center gap-1.5 rounded-full border-2 border-dashed px-3 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
-                pickerMode
+                "inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-full border-2 border-dashed px-3 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
+                pickerMode && !replacingUid
                   ? "border-terracotta text-paper"
                   : "border-ink-4 text-paper-mute hover:border-paper hover:text-paper",
               )}
             >
-              <Plus className="h-4 w-4" />
+              <Plus className="h-4 w-4" aria-hidden />
               {stops.length === 0 ? t("addFirstStop") : t("addStop")}
             </button>
           </div>
@@ -328,7 +400,9 @@ export function PlanCreateFlow() {
               total={stops.length}
               onChange={(next) => updateStop(focusedStop.uid, next)}
               onRemove={() => removeStop(focusedStop.uid)}
-              onRequestRePin={startPicker}
+              onRequestChangeLocation={() =>
+                startReplacePicker(focusedStop.uid)
+              }
             />
           ) : (
             <div className="px-4 py-8 text-center text-sm text-paper-dim">

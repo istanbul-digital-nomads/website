@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 export type SheetHeight = "peek" | "half" | "full";
 
-const HEIGHT_VH: Record<SheetHeight, number> = {
+const HEIGHT_PCT: Record<SheetHeight, number> = {
   peek: 22,
   half: 50,
   full: 90,
@@ -21,6 +21,13 @@ interface BottomSheetProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   /** Visual hint shown next to the handle. */
   caption?: ReactNode;
+  /**
+   * Position relative to the closest `position: relative` ancestor.
+   * Default `absolute` keeps the sheet inside its parent container so the
+   * site header above stays visible. Use `fixed` for true viewport-pinned
+   * sheets.
+   */
+  position?: "absolute" | "fixed";
 }
 
 /**
@@ -35,13 +42,15 @@ export function BottomSheet({
   caption,
   className,
   children,
+  position = "absolute",
   ...rest
 }: BottomSheetProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [dragOffsetVh, setDragOffsetVh] = useState(0);
+  const [dragOffsetPct, setDragOffsetPct] = useState(0);
   const dragStateRef = useRef<{
     startY: number;
-    startHeightVh: number;
+    startHeightPct: number;
+    parentHeight: number;
   } | null>(null);
 
   function cycleHeight(direction: 1 | -1 = 1) {
@@ -50,19 +59,22 @@ export function BottomSheet({
     onHeightChange(next);
   }
 
-  function nearestSnap(currentVh: number): SheetHeight {
+  function nearestSnap(currentPct: number): SheetHeight {
     return ORDER.reduce((best, h) => {
-      return Math.abs(HEIGHT_VH[h] - currentVh) <
-        Math.abs(HEIGHT_VH[best] - currentVh)
+      return Math.abs(HEIGHT_PCT[h] - currentPct) <
+        Math.abs(HEIGHT_PCT[best] - currentPct)
         ? h
         : best;
     }, ORDER[0]);
   }
 
   function onTouchStart(e: React.TouchEvent) {
+    const parent = ref.current?.parentElement;
+    const parentHeight = parent?.clientHeight ?? window.innerHeight;
     dragStateRef.current = {
       startY: e.touches[0]!.clientY,
-      startHeightVh: HEIGHT_VH[height],
+      startHeightPct: HEIGHT_PCT[height],
+      parentHeight,
     };
   }
 
@@ -70,25 +82,27 @@ export function BottomSheet({
     const s = dragStateRef.current;
     if (!s) return;
     const deltaY = e.touches[0]!.clientY - s.startY;
-    // Drag down = decrease height. Translate Y delta to vh.
-    const vh = window.innerHeight / 100;
-    const delta = -deltaY / vh;
-    setDragOffsetVh(delta);
+    // Drag down = decrease height. Translate Y delta to % of container.
+    const delta = -(deltaY / s.parentHeight) * 100;
+    setDragOffsetPct(delta);
   }
 
   function onTouchEnd() {
     const s = dragStateRef.current;
     if (!s) return;
-    const finalVh = Math.max(10, Math.min(95, s.startHeightVh + dragOffsetVh));
-    const snap = nearestSnap(finalVh);
+    const finalPct = Math.max(
+      10,
+      Math.min(95, s.startHeightPct + dragOffsetPct),
+    );
+    const snap = nearestSnap(finalPct);
     onHeightChange(snap);
-    setDragOffsetVh(0);
+    setDragOffsetPct(0);
     dragStateRef.current = null;
   }
 
-  const effectiveVh = Math.max(
+  const effectivePct = Math.max(
     10,
-    Math.min(95, HEIGHT_VH[height] + dragOffsetVh),
+    Math.min(95, HEIGHT_PCT[height] + dragOffsetPct),
   );
 
   return (
@@ -98,13 +112,14 @@ export function BottomSheet({
       aria-label={ariaLabel}
       data-expanded={height !== "peek" ? "true" : "false"}
       className={cn(
-        "fixed inset-x-0 bottom-0 z-30 flex flex-col rounded-t-2xl border-t border-ink-3 bg-ink-1 text-paper shadow-[0_-20px_60px_rgba(0,0,0,0.35)]",
+        position === "fixed" ? "fixed" : "absolute",
+        "inset-x-0 bottom-0 z-30 flex flex-col rounded-t-2xl border-t border-ink-3 bg-ink-1 text-paper shadow-[0_-20px_60px_rgba(0,0,0,0.35)]",
         // Always render the height; CSS transitions handle motion. Disable
         // animation under reduced-motion.
         "transition-[height] duration-300 ease-out motion-reduce:transition-none",
         className,
       )}
-      style={{ height: `${effectiveVh}vh` }}
+      style={{ height: `${effectivePct}%` }}
       {...rest}
     >
       <button

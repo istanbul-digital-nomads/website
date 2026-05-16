@@ -1,6 +1,6 @@
 "use client";
 
-import { Trash2 } from "lucide-react";
+import { MapPin, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Input, Textarea } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -21,7 +21,7 @@ interface Props {
   total: number;
   onChange: (next: EditableStop) => void;
   onRemove: () => void;
-  onRequestRePin: () => void;
+  onRequestChangeLocation: () => void;
 }
 
 export function PlanStopEditor({
@@ -30,7 +30,7 @@ export function PlanStopEditor({
   total,
   onChange,
   onRemove,
-  onRequestRePin,
+  onRequestChangeLocation,
 }: Props) {
   const t = useTranslations("plans.create");
   const tVibes = useTranslations("plans.vibes");
@@ -69,9 +69,19 @@ export function PlanStopEditor({
           aria-label={`Remove stop ${index + 1}`}
           className="rounded-md border border-ink-4 p-2 text-paper-mute transition-colors hover:border-red-500 hover:text-red-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
         >
-          <Trash2 className="h-4 w-4" />
+          <Trash2 className="h-4 w-4" aria-hidden />
         </button>
       </div>
+
+      {/* Change location - always available, prominent */}
+      <button
+        type="button"
+        onClick={onRequestChangeLocation}
+        className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-md border border-terracotta/60 bg-terracotta/5 px-4 py-2.5 text-sm font-medium text-paper transition-colors hover:bg-terracotta/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
+      >
+        <MapPin className="h-4 w-4 text-terracotta" aria-hidden />
+        {t("changeLocation")}
+      </button>
 
       {/* Custom-location label (only when this is a custom pin) */}
       {!stop.space_id && (
@@ -140,17 +150,6 @@ export function PlanStopEditor({
         helperText={t("notesHelp")}
         rows={3}
       />
-
-      {/* Re-pin shortcut for custom pins */}
-      {!stop.space_id && (
-        <button
-          type="button"
-          onClick={onRequestRePin}
-          className="text-xs font-medium text-terracotta underline-offset-2 hover:underline focus-visible:outline-none focus-visible:underline"
-        >
-          Move pin
-        </button>
-      )}
     </section>
   );
 }

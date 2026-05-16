@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Map, {
   Marker,
   Source,
@@ -9,7 +9,7 @@ import Map, {
   type MapLayerMouseEvent,
 } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { Plus } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
 import { spaces, type NomadSpace } from "@/lib/spaces";
 import { useTheme } from "@/components/layout/theme-provider";
 import { cn } from "@/lib/utils";
@@ -64,6 +64,7 @@ export function PlanCreateMap({
 }: Props) {
   const { theme } = useTheme();
   const mapRef = useRef<MapRef>(null);
+  const [mapLoaded, setMapLoaded] = useState(false);
 
   const isDark =
     theme === "dark" ||
@@ -143,6 +144,7 @@ export function PlanCreateMap({
         style={{ width: "100%", height: "100%" }}
         attributionControl={false}
         onClick={handleMapClick}
+        onLoad={() => setMapLoaded(true)}
         cursor={pickerMode ? "crosshair" : "grab"}
       >
         {/* Verified space pins (always visible) */}
@@ -253,8 +255,29 @@ export function PlanCreateMap({
           className="absolute inset-x-4 top-4 z-10 mx-auto max-w-md rounded-lg border border-terracotta/40 bg-ink-0/90 px-4 py-3 backdrop-blur-md"
         >
           <p className="flex items-center gap-2 text-sm text-paper">
-            <Plus className="h-4 w-4 text-terracotta" />
+            <Plus className="h-4 w-4 text-terracotta" aria-hidden />
             Tap a space, or tap anywhere on the map to drop a pin
+          </p>
+        </div>
+      )}
+
+      {/* Loading skeleton over the map until tiles are ready. */}
+      {!mapLoaded && (
+        <div
+          role="status"
+          aria-live="polite"
+          aria-label="Loading map"
+          className={cn(
+            "pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center gap-3",
+            isDark ? "bg-[#1a1d27]" : "bg-[#e8e0d4]",
+          )}
+        >
+          <Loader2
+            className="h-8 w-8 animate-spin text-terracotta motion-reduce:animate-none"
+            aria-hidden
+          />
+          <p className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
+            Loading Istanbul
           </p>
         </div>
       )}

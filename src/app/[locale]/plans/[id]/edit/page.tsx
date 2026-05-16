@@ -50,6 +50,9 @@ async function Content({
           end_time: s.end_time,
           vibe: s.vibe,
           notes: s.notes,
+          transport_mode: s.transport_mode,
+          transport_price_min: s.transport_price_min,
+          transport_price_max: s.transport_price_max,
         })),
       }}
     />

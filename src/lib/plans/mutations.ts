@@ -31,6 +31,12 @@ function stopRow(stop: PlanStopInput, planId: string, ordinal: number) {
     end_time: stop.end_time ?? null,
     vibe: stop.vibe,
     notes: stop.notes ?? null,
+    // Transport applies to stops after the first.
+    transport_mode: ordinal === 1 ? null : (stop.transport_mode ?? null),
+    transport_price_min:
+      ordinal === 1 ? null : (stop.transport_price_min ?? null),
+    transport_price_max:
+      ordinal === 1 ? null : (stop.transport_price_max ?? null),
   };
 }
 

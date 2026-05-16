@@ -2,9 +2,13 @@
 
 import { MapPin, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Input, Textarea } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { PLAN_VIBES, VIBE_ICONS, type PlanVibe } from "@/lib/plans/vibes";
+import {
+  TRANSPORT_MODES,
+  TRANSPORT_ICONS,
+  type TransportMode,
+} from "@/lib/plans/transport";
 import { spaces } from "@/lib/spaces";
 import type { DraftStop } from "./plan-create-map";
 
@@ -13,6 +17,9 @@ export interface EditableStop extends DraftStop {
   end_time: string;
   vibe: PlanVibe;
   notes: string;
+  transport_mode: TransportMode | null;
+  transport_price_min: string;
+  transport_price_max: string;
 }
 
 interface Props {
@@ -34,6 +41,7 @@ export function PlanStopEditor({
 }: Props) {
   const t = useTranslations("plans.create");
   const tVibes = useTranslations("plans.vibes");
+  const tTransport = useTranslations("plans.transport");
 
   const space = stop.space_id
     ? spaces.find((s) => s.id === stop.space_id)
@@ -156,6 +164,78 @@ export function PlanStopEditor({
         aria-label={t("notesLabel")}
         className="w-full resize-none rounded-md border border-ink-3 bg-transparent px-3 py-2 text-sm text-paper placeholder:text-paper-faint focus-visible:border-terracotta focus-visible:outline-none"
       />
+
+      {/* Transport: only for stops after the first. */}
+      {index > 0 && (
+        <div className="space-y-2 border-t border-ink-3 pt-3">
+          <p className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+            {t("transportEyebrow")}
+          </p>
+          <div
+            role="radiogroup"
+            aria-label={t("transportLabel")}
+            className="flex flex-wrap gap-1.5"
+          >
+            {TRANSPORT_MODES.map((m) => {
+              const Icon = TRANSPORT_ICONS[m];
+              const active = stop.transport_mode === m;
+              const label = tTransport(m);
+              return (
+                <button
+                  key={m}
+                  type="button"
+                  role="radio"
+                  aria-checked={active}
+                  aria-label={label}
+                  title={label}
+                  onClick={() => patch({ transport_mode: active ? null : m })}
+                  className={cn(
+                    "inline-flex h-9 w-9 items-center justify-center rounded-md border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
+                    active
+                      ? "border-terracotta bg-terracotta/15 text-paper"
+                      : "border-ink-3 text-paper-mute hover:border-ink-4 hover:text-paper",
+                  )}
+                >
+                  <Icon className="h-4 w-4" aria-hidden />
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Price range (only after a transport mode is picked). */}
+          {stop.transport_mode && (
+            <div className="flex items-center gap-2 text-sm">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                ₺
+              </span>
+              <input
+                type="number"
+                inputMode="numeric"
+                min={0}
+                value={stop.transport_price_min}
+                onChange={(e) => patch({ transport_price_min: e.target.value })}
+                placeholder={t("priceMinPlaceholder")}
+                aria-label={t("priceMinLabel")}
+                className="w-20 rounded-md border border-ink-3 bg-transparent px-2 py-1.5 text-sm text-paper placeholder:text-paper-faint focus-visible:border-terracotta focus-visible:outline-none"
+              />
+              <span aria-hidden className="text-paper-mute">
+                –
+              </span>
+              <input
+                type="number"
+                inputMode="numeric"
+                min={0}
+                value={stop.transport_price_max}
+                onChange={(e) => patch({ transport_price_max: e.target.value })}
+                placeholder={t("priceMaxPlaceholder")}
+                aria-label={t("priceMaxLabel")}
+                className="w-20 rounded-md border border-ink-3 bg-transparent px-2 py-1.5 text-sm text-paper placeholder:text-paper-faint focus-visible:border-terracotta focus-visible:outline-none"
+              />
+              <span className="text-xs text-paper-mute">{t("priceHint")}</span>
+            </div>
+          )}
+        </div>
+      )}
     </section>
   );
 }

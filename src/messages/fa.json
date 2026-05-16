@@ -2861,6 +2861,13 @@
       "changeLocation": "تغییر مکان",
       "cancelPicker": "لغو",
       "stopCountCaption": "{count, plural, =1 {۱ توقف} other {# توقف}}",
+      "transportEyebrow": "چگونه به اینجا برسیم",
+      "transportLabel": "حمل‌ونقل",
+      "priceMinLabel": "حداقل قیمت",
+      "priceMaxLabel": "حداکثر قیمت",
+      "priceMinPlaceholder": "حداقل",
+      "priceMaxPlaceholder": "حداکثر",
+      "priceHint": "لیر ترکیه، اختیاری",
       "pickerHint": "روی یک مکان بزن، یا هر جای روی نقشه برای رها کردن سنجاق.",
       "tapAStopHint": "برای ویرایش، روی یکی از توقف‌های بالا بزن.",
       "noStops": "برای اشتراک‌گذاری برنامه حداقل یک توقف اضافه کن.",
@@ -2872,6 +2879,17 @@
       "errorBody": "مشکلی پیش آمد. کمی بعد دوباره امتحان کن."
     },
     "stops": "{count} توقف",
+    "transport": {
+      "ferry": "قایق",
+      "metro": "مترو",
+      "tram": "تراموا",
+      "bus": "اتوبوس",
+      "minibus": "دلمش",
+      "taxi": "تاکسی",
+      "shared_uber": "اوبر مشترک",
+      "walk": "پیاده",
+      "bike": "دوچرخه"
+    },
     "memberSurface": {
       "title": "برنامه‌های امروز",
       "subtitle": "این عضو در ۷ روز آینده کجا خواهد بود. برای پیوستن بزن."

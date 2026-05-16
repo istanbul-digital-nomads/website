@@ -3,6 +3,7 @@ import { createClient, createPublicClient } from "@/lib/supabase/server";
 import { todayInIstanbul, addDays } from "./expiry";
 import type { Database } from "@/types/database";
 import type { PlanVibe } from "./vibes";
+import type { TransportMode } from "./transport";
 
 type PlanRow = Database["public"]["Tables"]["plans"]["Row"];
 type StopRow = Database["public"]["Tables"]["plan_stops"]["Row"];
@@ -13,8 +14,9 @@ type AnySupabase = {
   from: (table: string) => any;
 };
 
-export interface PlanStop extends Omit<StopRow, "vibe"> {
+export interface PlanStop extends Omit<StopRow, "vibe" | "transport_mode"> {
   vibe: PlanVibe;
+  transport_mode: TransportMode | null;
 }
 
 export interface PlanCardSummary extends PlanRow {

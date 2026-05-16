@@ -54,6 +54,9 @@ function makeStopFromSpace(sp: NomadSpace): EditableStop {
     end_time: "",
     vibe: "cowork",
     notes: "",
+    transport_mode: null,
+    transport_price_min: "",
+    transport_price_max: "",
   };
 }
 
@@ -69,6 +72,9 @@ function makeStopFromPin(lat: number, lng: number): EditableStop {
     end_time: "",
     vibe: "social",
     notes: "",
+    transport_mode: null,
+    transport_price_min: "",
+    transport_price_max: "",
   };
 }
 
@@ -88,6 +94,9 @@ export interface PlanInitialState {
     end_time: string | null;
     vibe: PlanVibe;
     notes: string | null;
+    transport_mode: import("@/lib/plans/transport").TransportMode | null;
+    transport_price_min: number | null;
+    transport_price_max: number | null;
   }>;
 }
 
@@ -127,6 +136,11 @@ export function PlanCreateFlow({ initial }: PlanCreateFlowProps = {}) {
         end_time: s.end_time ?? "",
         vibe: s.vibe,
         notes: s.notes ?? "",
+        transport_mode: s.transport_mode,
+        transport_price_min:
+          s.transport_price_min != null ? String(s.transport_price_min) : "",
+        transport_price_max:
+          s.transport_price_max != null ? String(s.transport_price_max) : "",
       })) ?? [],
     // initial only matters at first render; the prop is conceptually a one-shot seed.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -300,6 +314,13 @@ export function PlanCreateFlow({ initial }: PlanCreateFlowProps = {}) {
         end_time: s.end_time || null,
         vibe: s.vibe,
         notes: s.notes || null,
+        transport_mode: s.transport_mode ?? null,
+        transport_price_min: s.transport_price_min
+          ? Number(s.transport_price_min)
+          : null,
+        transport_price_max: s.transport_price_max
+          ? Number(s.transport_price_max)
+          : null,
       })),
     };
 

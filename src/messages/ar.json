@@ -2869,6 +2869,13 @@
       "changeLocation": "غيّر الموقع",
       "cancelPicker": "إلغاء",
       "stopCountCaption": "{count, plural, =1 {محطة واحدة} other {# محطات}}",
+      "transportEyebrow": "كيف الوصول إلى هنا",
+      "transportLabel": "وسيلة النقل",
+      "priceMinLabel": "أدنى سعر",
+      "priceMaxLabel": "أقصى سعر",
+      "priceMinPlaceholder": "أدنى",
+      "priceMaxPlaceholder": "أقصى",
+      "priceHint": "ليرة تركية، اختياري",
       "pickerHint": "انقر مكاناً، أو انقر في أي مكان على الخريطة لإسقاط دبوس.",
       "tapAStopHint": "انقر على محطة في الأعلى لتعديلها.",
       "noStops": "أضف محطة واحدة على الأقل لمشاركة خطة.",
@@ -2880,6 +2887,17 @@
       "errorBody": "حدث خطأ ما. حاول مجدداً بعد قليل."
     },
     "stops": "{count} محطات",
+    "transport": {
+      "ferry": "عبّارة",
+      "metro": "مترو",
+      "tram": "ترام",
+      "bus": "حافلة",
+      "minibus": "دولموش",
+      "taxi": "تاكسي",
+      "shared_uber": "أوبر مشترك",
+      "walk": "مشي",
+      "bike": "دراجة"
+    },
     "memberSurface": {
       "title": "خطط اليوم",
       "subtitle": "أين سيكون هذا العضو خلال الأيام السبعة القادمة. انقر للانضمام."

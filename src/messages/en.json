@@ -2861,6 +2861,13 @@
       "changeLocation": "Change location",
       "cancelPicker": "Cancel",
       "stopCountCaption": "{count, plural, =1 {1 stop} other {# stops}}",
+      "transportEyebrow": "Getting here",
+      "transportLabel": "Transport",
+      "priceMinLabel": "Min price",
+      "priceMaxLabel": "Max price",
+      "priceMinPlaceholder": "Min",
+      "priceMaxPlaceholder": "Max",
+      "priceHint": "TRY, optional",
       "pickerHint": "Tap a space, or tap anywhere on the map to drop a pin.",
       "tapAStopHint": "Tap a stop chip above to edit it.",
       "noStops": "Add at least one stop to share a plan.",
@@ -2872,6 +2879,17 @@
       "errorBody": "Something went wrong. Try again in a moment."
     },
     "stops": "{count} stops",
+    "transport": {
+      "ferry": "Ferry",
+      "metro": "Metro",
+      "tram": "Tram",
+      "bus": "Bus",
+      "minibus": "Minibus",
+      "taxi": "Taxi",
+      "shared_uber": "Shared ride",
+      "walk": "Walk",
+      "bike": "Bike"
+    },
     "memberSurface": {
       "title": "Today's plans",
       "subtitle": "Where this member will be in the next 7 days. Tap to join."

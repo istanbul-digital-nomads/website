@@ -2881,6 +2881,13 @@
       "changeLocation": "Konumu değiştir",
       "cancelPicker": "İptal",
       "stopCountCaption": "{count, plural, =1 {1 durak} other {# durak}}",
+      "transportEyebrow": "Buraya nasıl gelinir",
+      "transportLabel": "Ulaşım",
+      "priceMinLabel": "Min fiyat",
+      "priceMaxLabel": "Maks fiyat",
+      "priceMinPlaceholder": "Min",
+      "priceMaxPlaceholder": "Maks",
+      "priceHint": "TL, opsiyonel",
       "pickerHint": "Bir mekana dokun ya da haritada herhangi bir yere dokunarak pin bırak.",
       "tapAStopHint": "Düzenlemek için yukarıdaki bir durağa dokun.",
       "noStops": "Plan paylaşmak için en az bir durak ekle.",
@@ -2892,6 +2899,17 @@
       "errorBody": "Bir şeyler ters gitti. Birazdan tekrar dene."
     },
     "stops": "{count} durak",
+    "transport": {
+      "ferry": "Vapur",
+      "metro": "Metro",
+      "tram": "Tramvay",
+      "bus": "Otobüs",
+      "minibus": "Dolmuş",
+      "taxi": "Taksi",
+      "shared_uber": "Ortak Uber",
+      "walk": "Yürüyüş",
+      "bike": "Bisiklet"
+    },
     "memberSurface": {
       "title": "Bugünün planları",
       "subtitle": "Bu üye önümüzdeki 7 günde nerede olacak. Katılmak için dokun."

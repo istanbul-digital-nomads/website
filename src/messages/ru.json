@@ -2885,6 +2885,13 @@
       "changeLocation": "Сменить место",
       "cancelPicker": "Отмена",
       "stopCountCaption": "{count, plural, =1 {1 точка} few {# точки} other {# точек}}",
+      "transportEyebrow": "Как сюда добраться",
+      "transportLabel": "Транспорт",
+      "priceMinLabel": "Мин цена",
+      "priceMaxLabel": "Макс цена",
+      "priceMinPlaceholder": "Мин",
+      "priceMaxPlaceholder": "Макс",
+      "priceHint": "TRY, опционально",
       "pickerHint": "Нажми на место или в любую точку на карте, чтобы поставить пин.",
       "tapAStopHint": "Нажми на точку выше, чтобы редактировать.",
       "noStops": "Добавь хотя бы одну точку, чтобы поделиться планом.",
@@ -2896,6 +2903,17 @@
       "errorBody": "Что-то пошло не так. Попробуй чуть позже."
     },
     "stops": "{count} точек",
+    "transport": {
+      "ferry": "Паром",
+      "metro": "Метро",
+      "tram": "Трамвай",
+      "bus": "Автобус",
+      "minibus": "Долмуш",
+      "taxi": "Такси",
+      "shared_uber": "Поездка вскладчину",
+      "walk": "Пешком",
+      "bike": "Велосипед"
+    },
     "memberSurface": {
       "title": "Планы на ближайшие дни",
       "subtitle": "Где этот участник будет в ближайшие 7 дней. Нажми, чтобы присоединиться."

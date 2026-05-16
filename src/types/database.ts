@@ -458,6 +458,21 @@ export interface Database {
             | "after-work"
             | "outdoor";
           notes: string | null;
+          // How the host gets to THIS stop from the previous one.
+          // Null on ordinal=1 (no previous stop).
+          transport_mode:
+            | "ferry"
+            | "metro"
+            | "bus"
+            | "taxi"
+            | "shared_uber"
+            | "walk"
+            | "bike"
+            | "tram"
+            | "minibus"
+            | null;
+          transport_price_min: number | null;
+          transport_price_max: number | null;
           created_at: string;
         };
         Insert: {
@@ -479,6 +494,19 @@ export interface Database {
             | "after-work"
             | "outdoor";
           notes?: string | null;
+          transport_mode?:
+            | "ferry"
+            | "metro"
+            | "bus"
+            | "taxi"
+            | "shared_uber"
+            | "walk"
+            | "bike"
+            | "tram"
+            | "minibus"
+            | null;
+          transport_price_min?: number | null;
+          transport_price_max?: number | null;
           created_at?: string;
         };
         Update: {

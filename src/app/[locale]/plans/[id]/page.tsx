@@ -10,6 +10,8 @@ import { PlanVibeIcon } from "@/components/plans/plan-vibe-icon";
 import { PlanAttendeeStack } from "@/components/plans/plan-attendee-stack";
 import { PlanComments } from "@/components/plans/plan-comments";
 import { JoinLeaveButton } from "@/components/plans/join-leave-button";
+import { PlanDetailMap } from "@/components/plans/plan-detail-map";
+import { TRANSPORT_ICONS } from "@/lib/plans/transport";
 import { getPlanById, type PlanStop } from "@/lib/plans/queries";
 import { getCurrentMember } from "@/lib/supabase/queries";
 import { spaces } from "@/lib/spaces";
@@ -160,60 +162,98 @@ async function Content({
         </Container>
       </section>
 
-      {/* Stops timeline */}
+      {/* Map: shown when 1+ stops have a resolvable location */}
+      <Container className="max-w-3xl pt-8">
+        <PlanDetailMap stops={plan.stops} />
+      </Container>
+
+      {/* Stops timeline (with transport legs between stops) */}
       <Container className="max-w-3xl py-10">
         <h2 className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
           {t("stops", { count: plan.stops.length })}
         </h2>
         <ol className="mt-5 space-y-3" aria-label="Plan stops">
-          {plan.stops.map((stop, i) => (
-            <li
-              key={stop.id}
-              className="relative flex gap-4 border border-ink-3 bg-ink-1 p-4"
-            >
-              <span
-                aria-hidden
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-terracotta font-mono text-sm font-semibold text-ink-0"
-              >
-                {i + 1}
-              </span>
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <p className="font-display text-h3 leading-tight text-paper">
-                    {stopLocationName(stop)}
-                  </p>
-                  {formatTime(stop.start_time, stop.end_time) && (
-                    <span
-                      className="font-mono text-[11px] uppercase tracking-wider text-terracotta"
-                      dir="ltr"
-                    >
-                      {formatTime(stop.start_time, stop.end_time)}
-                    </span>
-                  )}
-                </div>
-                <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-paper-dim">
-                  <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
-                    <PlanVibeIcon
-                      vibe={stop.vibe}
-                      className="h-3 w-3 text-terracotta"
+          {plan.stops.map((stop, i) => {
+            const TransportIcon = stop.transport_mode
+              ? TRANSPORT_ICONS[stop.transport_mode]
+              : null;
+            const priceLabel =
+              stop.transport_price_min != null &&
+              stop.transport_price_max != null &&
+              stop.transport_price_min !== stop.transport_price_max
+                ? `₺${stop.transport_price_min}-${stop.transport_price_max}`
+                : stop.transport_price_min != null ||
+                    stop.transport_price_max != null
+                  ? `₺${stop.transport_price_min ?? stop.transport_price_max}`
+                  : null;
+            return (
+              <li key={stop.id} className="border border-ink-3 bg-ink-1">
+                {/* Transport leg from previous stop to this one. */}
+                {i > 0 && TransportIcon && stop.transport_mode && (
+                  <div
+                    className="flex items-center gap-2 border-b border-ink-3 bg-ink-2 px-4 py-2 text-sm text-paper-dim"
+                    aria-label={`Travel to stop ${i + 1}`}
+                  >
+                    <TransportIcon
+                      className="h-4 w-4 text-terracotta"
+                      aria-hidden
                     />
-                    {t(`vibes.${stop.vibe}`)}
-                  </span>
-                  {stop.neighborhood_slug && (
-                    <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
-                      <MapPin className="h-3 w-3" aria-hidden />
-                      {stop.neighborhood_slug}
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                      {t(`transport.${stop.transport_mode}`)}
                     </span>
-                  )}
-                </div>
-                {stop.notes && (
-                  <p className="mt-3 whitespace-pre-wrap text-sm text-paper-dim">
-                    {stop.notes}
-                  </p>
+                    {priceLabel && (
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-paper-faint">
+                        · {priceLabel}
+                      </span>
+                    )}
+                  </div>
                 )}
-              </div>
-            </li>
-          ))}
+                <div className="flex gap-4 p-4">
+                  <span
+                    aria-hidden
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-terracotta font-mono text-sm font-semibold text-ink-0"
+                  >
+                    {i + 1}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-baseline justify-between gap-2">
+                      <p className="font-display text-h3 leading-tight text-paper">
+                        {stopLocationName(stop)}
+                      </p>
+                      {formatTime(stop.start_time, stop.end_time) && (
+                        <span
+                          className="font-mono text-[11px] uppercase tracking-wider text-terracotta"
+                          dir="ltr"
+                        >
+                          {formatTime(stop.start_time, stop.end_time)}
+                        </span>
+                      )}
+                    </div>
+                    <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-paper-dim">
+                      <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                        <PlanVibeIcon
+                          vibe={stop.vibe}
+                          className="h-3 w-3 text-terracotta"
+                        />
+                        {t(`vibes.${stop.vibe}`)}
+                      </span>
+                      {stop.neighborhood_slug && (
+                        <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                          <MapPin className="h-3 w-3" aria-hidden />
+                          {stop.neighborhood_slug}
+                        </span>
+                      )}
+                    </div>
+                    {stop.notes && (
+                      <p className="mt-3 whitespace-pre-wrap text-sm text-paper-dim">
+                        {stop.notes}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </li>
+            );
+          })}
         </ol>
       </Container>
 

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { PLAN_VIBES } from "./vibes";
+import { TRANSPORT_MODES } from "./transport";
 
 const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 const timeRegex = /^([01]\d|2[0-3]):[0-5]\d$/;
@@ -35,6 +36,18 @@ export const planStopSchema = z
     ),
     vibe: z.enum(PLAN_VIBES),
     notes: z.preprocess(emptyToNull, z.string().max(280).nullable().optional()),
+    transport_mode: z.preprocess(
+      emptyToNull,
+      z.enum(TRANSPORT_MODES).nullable().optional(),
+    ),
+    transport_price_min: z.preprocess(
+      numberOrNull,
+      z.number().int().min(0).nullable().optional(),
+    ),
+    transport_price_max: z.preprocess(
+      numberOrNull,
+      z.number().int().min(0).nullable().optional(),
+    ),
   })
   .refine(
     (v) =>
@@ -47,7 +60,17 @@ export const planStopSchema = z
   .refine((v) => !v.end_time || !v.start_time || v.end_time > v.start_time, {
     message: "end_time must be after start_time",
     path: ["end_time"],
-  });
+  })
+  .refine(
+    (v) =>
+      v.transport_price_min == null ||
+      v.transport_price_max == null ||
+      v.transport_price_max >= v.transport_price_min,
+    {
+      message: "Max price must be greater than min",
+      path: ["transport_price_max"],
+    },
+  );
 
 export type PlanStopInput = z.infer<typeof planStopSchema>;
 

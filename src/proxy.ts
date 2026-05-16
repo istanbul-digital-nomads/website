@@ -55,6 +55,7 @@ export async function proxy(request: NextRequest) {
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
+    pathname.startsWith("/auth") ||
     pathname.startsWith("/.well-known") ||
     pathname === "/icon" ||
     pathname === "/apple-icon" ||

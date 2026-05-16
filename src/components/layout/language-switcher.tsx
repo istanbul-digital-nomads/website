@@ -67,7 +67,7 @@ export function LanguageSwitcher() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 rounded-full border border-black/5 px-2.5 py-1.5 text-xs font-medium uppercase tracking-wider text-neutral-600 transition-colors hover:bg-black/5 dark:border-white/10 dark:text-[#99a3ad] dark:hover:bg-white/10"
+        className="inline-flex h-9 items-center justify-center gap-1.5 border border-ink-4 bg-ink-1/55 px-2.5 text-xs font-medium uppercase tracking-wider text-paper-mute transition-colors duration-fast hover:border-ink-5 hover:bg-ink-2 hover:text-paper"
         title={t("label")}
         aria-haspopup="listbox"
         aria-expanded={open}
@@ -87,7 +87,7 @@ export function LanguageSwitcher() {
       {open && (
         <div
           role="listbox"
-          className="absolute right-0 top-full z-50 mt-2 w-40 rounded-xl border border-black/10 bg-white/95 p-1.5 shadow-[0_16px_42px_rgba(20,17,15,0.1)] backdrop-blur-xl dark:border-white/10 dark:bg-[#1a1612]/95 dark:shadow-[0_16px_42px_rgba(0,0,0,0.35)]"
+          className="absolute right-0 top-full z-50 mt-2 w-40 border border-ink-3 bg-ink-1/95 p-1.5 shadow-[0_16px_42px_rgba(0,0,0,0.35)] backdrop-blur-xl"
         >
           {locales.map((l) => (
             <button
@@ -96,10 +96,10 @@ export function LanguageSwitcher() {
               aria-selected={locale === l}
               onClick={() => switchLocale(l)}
               className={cn(
-                "block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors hover:bg-black/5 dark:hover:bg-white/5",
+                "block w-full px-3 py-2 text-left text-sm transition-colors hover:bg-ink-2",
                 locale === l
-                  ? "bg-primary-50/80 font-medium text-primary-700 dark:bg-primary-900/20 dark:text-primary-200"
-                  : "text-neutral-700 dark:text-[#d4d7da]",
+                  ? "bg-ink-2 font-medium text-paper"
+                  : "text-paper-mute",
               )}
             >
               {localeNames[l]}

@@ -5,9 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { LogOut, User } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { showToast } from "@/lib/toast";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
+
+const headerControl =
+  "inline-flex h-9 items-center justify-center border border-ink-4 bg-ink-1/55 text-sm text-paper-mute transition-colors duration-fast hover:border-ink-5 hover:bg-ink-2 hover:text-paper";
 
 export function AuthButton() {
   const [user, setUser] = useState<SupabaseUser | null>(null);
@@ -93,7 +95,7 @@ export function AuthButton() {
         <Link
           href="/dashboard"
           title={t("openDashboard")}
-          className="hidden items-center gap-2 border border-ink-4 px-3 py-1.5 text-sm font-medium text-paper-mute transition-colors duration-fast hover:border-ink-5 hover:text-paper md:flex"
+          className={`${headerControl} hidden gap-2 px-3 font-medium md:inline-flex`}
         >
           {avatar ? (
             <Image
@@ -113,7 +115,7 @@ export function AuthButton() {
         {!onboardingComplete && (
           <Link
             href="/onboarding"
-            className="hidden items-center gap-1.5 border border-terracotta bg-terracotta/10 px-3 py-1.5 text-xs font-medium text-terracotta transition-colors hover:bg-terracotta/20 md:flex"
+            className="hidden h-9 items-center gap-1.5 border border-terracotta bg-terracotta/10 px-3 text-xs font-medium text-terracotta transition-colors hover:bg-terracotta/20 md:inline-flex"
           >
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-terracotta" />
             {t("completeProfile")}
@@ -125,7 +127,7 @@ export function AuthButton() {
           onClick={handleSignOut}
           title={t("signOut")}
           aria-label={t("signOut")}
-          className="hidden border border-ink-4 p-2 text-paper-mute transition-colors duration-fast hover:border-ink-5 hover:text-paper md:inline-flex"
+          className={`${headerControl} hidden w-9 md:inline-flex`}
         >
           <LogOut className="h-4 w-4" />
         </button>
@@ -158,11 +160,12 @@ export function AuthButton() {
   }
 
   return (
-    <Link href="/login" className="hidden md:block">
-      <Button size="sm" variant="ghost" className="rounded-full">
-        <User className="h-4 w-4" />
-        {t("signIn")}
-      </Button>
+    <Link
+      href="/login"
+      className={`${headerControl} hidden gap-1.5 px-3 font-medium md:inline-flex`}
+    >
+      <User className="h-4 w-4" />
+      {t("signIn")}
     </Link>
   );
 }

@@ -16,6 +16,8 @@ import { LanguageSwitcher } from "./language-switcher";
 
 const themeIcons = { light: Sun, dark: Moon, system: Monitor } as const;
 const themeOrder = ["light", "dark", "system"] as const;
+const headerControl =
+  "inline-flex h-9 items-center justify-center border border-ink-4 bg-ink-1/55 text-sm text-paper-mute transition-colors duration-fast hover:border-ink-5 hover:bg-ink-2 hover:text-paper";
 
 function isDropdown(
   item: NavItem,
@@ -129,7 +131,7 @@ export function Header() {
             scrolled && "h-14",
           )}
         >
-          <Link href="/" prefetch className="flex items-center gap-3">
+          <Link href="/" prefetch className="flex shrink-0 items-center gap-3">
             <Image
               src="/images/logo-light.png"
               alt={tSite("shortName")}
@@ -158,7 +160,7 @@ export function Header() {
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav className="hidden min-w-0 flex-1 items-center justify-center gap-1 px-6 lg:flex">
             {navItems.map((item) =>
               isDropdown(item) ? (
                 <NavDropdown key={item.key} item={item} pathname={pathname} />
@@ -181,7 +183,7 @@ export function Header() {
             )}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5">
             {/* Command palette trigger - dispatches the open event the
                 global CommandMenu listens for. Cmd/Ctrl+K opens it from
                 anywhere too. */}
@@ -190,7 +192,10 @@ export function Header() {
               onClick={() =>
                 window.dispatchEvent(new Event("open-command-menu"))
               }
-              className="hidden items-center gap-2 border border-ink-4 px-3 py-1.5 font-mono text-[11px] text-paper-mute transition-colors hover:border-ink-5 hover:text-paper lg:flex"
+              className={cn(
+                headerControl,
+                "hidden gap-2 px-3 font-mono text-[11px] xl:inline-flex",
+              )}
               aria-label="Search"
             >
               <Search className="h-3.5 w-3.5" />
@@ -201,10 +206,10 @@ export function Header() {
 
             <button
               onClick={cycleTheme}
-              className="border border-ink-4 p-2 text-paper-mute transition-colors hover:border-ink-5 hover:text-paper"
+              className={cn(headerControl, "w-9")}
               aria-label={tNav("theme.ariaLabel", { theme })}
             >
-              <ThemeIcon className="h-5 w-5" />
+              <ThemeIcon className="h-4 w-4" />
             </button>
 
             <LanguageSwitcher />
@@ -215,7 +220,7 @@ export function Header() {
               href={socialLinks.telegram}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden bg-terracotta px-4 py-2 text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim md:block"
+              className="hidden h-9 items-center bg-terracotta px-4 text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim md:inline-flex"
             >
               {tNav("joinTelegram")}
             </a>

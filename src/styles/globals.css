@@ -936,6 +936,45 @@
   animation: istanbul-city-light 3.8s ease-in-out infinite;
 }
 
+.site-header [data-header-inner] {
+  height: 64px !important;
+}
+
+.site-header.is-scrolled [data-header-inner] {
+  height: 56px !important;
+}
+
+.site-header .header-control {
+  height: 36px !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+}
+
+.site-header [data-header-brand] {
+  width: 220px !important;
+}
+
+.site-header .header-nav-link,
+.site-header .header-nav-dropdown {
+  font-size: 14px !important;
+  line-height: 20px !important;
+  padding: 8px 12px !important;
+}
+
+@media (min-width: 1280px) {
+  .header-nav {
+    min-width: 508px !important;
+  }
+
+  .header-nav-link {
+    width: 104px !important;
+  }
+
+  .header-nav-dropdown {
+    width: 128px !important;
+  }
+}
+
 /* Design System v2 - time-of-day accent. The <html> element gets one of
    these classes from the server (getTimeOfDay in src/lib/ambient.ts). Kept
    as plain top-level CSS - rules placed in @layer base get tree-shaken by

@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type CSSProperties } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { ChevronDown, Globe } from "lucide-react";
 import {
@@ -12,6 +12,12 @@ import {
   type Locale,
 } from "@/lib/i18n/config";
 import { cn } from "@/lib/utils";
+
+const headerControlStyle = {
+  height: 36,
+  fontSize: 12,
+  lineHeight: "16px",
+} satisfies CSSProperties;
 
 export function LanguageSwitcher() {
   const locale = useLocale() as Locale;
@@ -69,10 +75,11 @@ export function LanguageSwitcher() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="inline-flex h-9 items-center justify-center gap-1.5 border border-ink-4 bg-ink-1/55 px-2.5 text-xs font-medium uppercase tracking-wider text-paper-mute transition-colors duration-fast hover:border-ink-5 hover:bg-ink-2 hover:text-paper"
+        className="header-control inline-flex h-9 items-center justify-center gap-1.5 border border-ink-4 bg-ink-1/55 px-2.5 text-xs font-medium uppercase tracking-wider text-paper-mute transition-colors duration-fast hover:border-ink-5 hover:bg-ink-2 hover:text-paper"
         title={t("label")}
         aria-haspopup="listbox"
         aria-expanded={open}
+        style={headerControlStyle}
       >
         <Globe className="h-3.5 w-3.5" aria-hidden="true" />
         <span className="sr-only">{t("label")}:</span>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, type CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -9,7 +9,12 @@ import { showToast } from "@/lib/toast";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 
 const headerControl =
-  "inline-flex h-9 items-center justify-center border border-ink-4 bg-ink-1/55 text-sm text-paper-mute transition-colors duration-fast hover:border-ink-5 hover:bg-ink-2 hover:text-paper";
+  "header-control inline-flex h-9 items-center justify-center border border-ink-4 bg-ink-1/55 text-sm text-paper-mute transition-colors duration-fast hover:border-ink-5 hover:bg-ink-2 hover:text-paper";
+const headerControlStyle = {
+  height: 36,
+  fontSize: 14,
+  lineHeight: "20px",
+} satisfies CSSProperties;
 
 export function AuthButton() {
   const [user, setUser] = useState<SupabaseUser | null>(null);
@@ -96,6 +101,7 @@ export function AuthButton() {
           href="/dashboard"
           title={t("openDashboard")}
           className={`${headerControl} hidden gap-2 px-3 font-medium md:inline-flex`}
+          style={headerControlStyle}
         >
           {avatar ? (
             <Image
@@ -116,6 +122,7 @@ export function AuthButton() {
           <Link
             href="/onboarding"
             className="hidden h-9 items-center gap-1.5 border border-terracotta bg-terracotta/10 px-3 text-xs font-medium text-terracotta transition-colors hover:bg-terracotta/20 md:inline-flex"
+            style={{ height: 36, fontSize: 12, lineHeight: "16px" }}
           >
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-terracotta" />
             {t("completeProfile")}
@@ -128,6 +135,7 @@ export function AuthButton() {
           title={t("signOut")}
           aria-label={t("signOut")}
           className={`${headerControl} hidden w-9 md:inline-flex`}
+          style={{ ...headerControlStyle, width: 36 }}
         >
           <LogOut className="h-4 w-4" />
         </button>
@@ -162,7 +170,8 @@ export function AuthButton() {
   return (
     <Link
       href="/login"
-      className={`${headerControl} hidden gap-1.5 px-3 font-medium md:inline-flex`}
+      className={`${headerControl} hidden w-20 gap-1.5 px-3 font-medium md:inline-flex`}
+      style={{ ...headerControlStyle, width: 80 }}
     >
       <User className="h-4 w-4" />
       {t("signIn")}

@@ -74,7 +74,9 @@ export const eventFallbackPhotos = {
 export function getNeighborhoodPhotoSet(neighborhood: Neighborhood) {
   return {
     hero: fromPhoto(neighborhood.hero, "center 52%"),
-    details: neighborhood.gallery.map((photo) => fromPhoto(photo, "center 50%")),
+    details: neighborhood.gallery.map((photo) =>
+      fromPhoto(photo, "center 50%"),
+    ),
   };
 }
 

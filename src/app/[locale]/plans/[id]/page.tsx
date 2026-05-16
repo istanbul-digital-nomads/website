@@ -3,7 +3,8 @@ import { Suspense } from "react";
 import Image from "next/image";
 import { redirect, notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { ExternalLink, MapPin, Users } from "lucide-react";
+import { ExternalLink, MapPin, Pencil, Users } from "lucide-react";
+import { Link } from "@/lib/i18n/routing";
 import { Container } from "@/components/ui/container";
 import { PlanVibeIcon } from "@/components/plans/plan-vibe-icon";
 import { PlanAttendeeStack } from "@/components/plans/plan-attendee-stack";
@@ -122,14 +123,27 @@ async function Content({
                 </p>
               </div>
             </div>
-            <JoinLeaveButton
-              planId={plan.id}
-              initialJoined={
-                plan.attendees.some((a) => a.member_id === member.id) || isHost
-              }
-              isHost={isHost}
-              isFull={isFull}
-            />
+            <div className="flex items-center gap-2">
+              {isHost && (
+                <Link
+                  href={`/plans/${plan.id}/edit`}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-ink-4 text-paper-mute transition-colors hover:border-paper hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
+                  aria-label={tDetail("edit")}
+                  title={tDetail("edit")}
+                >
+                  <Pencil className="h-4 w-4" aria-hidden />
+                </Link>
+              )}
+              <JoinLeaveButton
+                planId={plan.id}
+                initialJoined={
+                  plan.attendees.some((a) => a.member_id === member.id) ||
+                  isHost
+                }
+                isHost={isHost}
+                isFull={isFull}
+              />
+            </div>
           </div>
 
           {isAttendee && !isHost && plan.host_telegram_handle && (

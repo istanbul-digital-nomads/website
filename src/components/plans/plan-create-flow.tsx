@@ -72,26 +72,80 @@ function makeStopFromPin(lat: number, lng: number): EditableStop {
   };
 }
 
-export function PlanCreateFlow() {
+export interface PlanInitialState {
+  /** Existing plan id when editing - switches submit to PATCH. */
+  id: string;
+  scheduled_date: string;
+  title: string;
+  capacity: number | null;
+  stops: Array<{
+    space_id: string | null;
+    custom_location: string | null;
+    neighborhood_slug: string | null;
+    lat: number | null;
+    lng: number | null;
+    start_time: string | null;
+    end_time: string | null;
+    vibe: PlanVibe;
+    notes: string | null;
+  }>;
+}
+
+interface PlanCreateFlowProps {
+  /** When provided, the flow becomes an edit flow for that plan. */
+  initial?: PlanInitialState;
+}
+
+export function PlanCreateFlow({ initial }: PlanCreateFlowProps = {}) {
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("plans.create");
+  const isEdit = !!initial;
 
   const today = todayInIstanbul();
   const tomorrow = addDays(today, 1);
 
-  const [scheduledDate, setScheduledDate] = useState(today);
-  const [title, setTitle] = useState("");
-  const [capacity, setCapacity] = useState("");
-  const [stops, setStops] = useState<EditableStop[]>([]);
-  const [focusedUid, setFocusedUid] = useState<string | null>(null);
-  const [pickerMode, setPickerMode] = useState(true); // open in picker mode
+  const [scheduledDate, setScheduledDate] = useState(
+    initial?.scheduled_date ?? today,
+  );
+  const [title, setTitle] = useState(initial?.title ?? "");
+  const [capacity, setCapacity] = useState(
+    initial?.capacity != null ? String(initial.capacity) : "",
+  );
+  // Compute initial stops + first focused uid together so the edit flow
+  // can open with the first stop focused (no setState-in-effect dance).
+  const initialStops = useMemo<EditableStop[]>(
+    () =>
+      initial?.stops.map<EditableStop>((s) => ({
+        uid: uid(),
+        space_id: s.space_id,
+        custom_location: s.custom_location,
+        neighborhood_slug: s.neighborhood_slug,
+        lat: s.lat,
+        lng: s.lng,
+        start_time: s.start_time ?? "",
+        end_time: s.end_time ?? "",
+        vibe: s.vibe,
+        notes: s.notes ?? "",
+      })) ?? [],
+    // initial only matters at first render; the prop is conceptually a one-shot seed.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+  const [stops, setStops] = useState<EditableStop[]>(initialStops);
+  const [focusedUid, setFocusedUid] = useState<string | null>(
+    isEdit ? (initialStops[0]?.uid ?? null) : null,
+  );
+  // Edit mode opens directly in the editor; create mode opens in picker.
+  const [pickerMode, setPickerMode] = useState(!isEdit);
   /**
    * When set, the next "pick a space" / "drop a pin" REPLACES the
    * location on this stop's uid instead of creating a new stop.
    */
   const [replacingUid, setReplacingUid] = useState<string | null>(null);
-  const [sheetHeight, setSheetHeight] = useState<SheetHeight>("peek");
+  const [sheetHeight, setSheetHeight] = useState<SheetHeight>(
+    isEdit ? "half" : "peek",
+  );
   const [loading, setLoading] = useState(false);
   const editorRef = useRef<HTMLDivElement>(null);
 
@@ -250,8 +304,10 @@ export function PlanCreateFlow() {
     };
 
     try {
-      const res = await fetch("/api/plans", {
-        method: "POST",
+      const url = isEdit ? `/api/plans/${initial.id}` : "/api/plans";
+      const method = isEdit ? "PATCH" : "POST";
+      const res = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
@@ -260,8 +316,9 @@ export function PlanCreateFlow() {
         showToast.error(t("errorTitle"), json.error);
         return;
       }
-      showToast.success(t("successTitle"));
-      router.push(`/plans/${json.data.id}` as never);
+      showToast.success(isEdit ? t("updateSuccess") : t("successTitle"));
+      const planId = isEdit ? initial.id : json.data.id;
+      router.push(`/plans/${planId}` as never);
     } catch {
       showToast.error(t("errorTitle"), t("errorBody"));
     } finally {
@@ -442,7 +499,7 @@ export function PlanCreateFlow() {
               disabled={stops.length === 0}
               className="w-full"
             >
-              {t("submit")}
+              {isEdit ? t("updateSubmit") : t("submit")}
             </Button>
           </div>
         </BottomSheet>

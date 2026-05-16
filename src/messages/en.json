@@ -2665,6 +2665,7 @@
         "visible": "Listed in directory"
       },
       "links": {
+        "plans": "Today's plans",
         "directory": "Member directory",
         "profile": "View your public profile",
         "events": "Upcoming events",
@@ -2862,7 +2863,9 @@
       "tapAStopHint": "Tap a stop chip above to edit it.",
       "noStops": "Add at least one stop to share a plan.",
       "submit": "Share plan",
+      "updateSubmit": "Save changes",
       "successTitle": "Plan shared",
+      "updateSuccess": "Plan updated",
       "errorTitle": "Couldn't share",
       "errorBody": "Something went wrong. Try again in a moment."
     },
@@ -2878,6 +2881,7 @@
       "leave": "Leave plan",
       "full": "Plan is full",
       "youHost": "You're hosting",
+      "edit": "Edit plan",
       "openTelegram": "Message {name} on Telegram",
       "errorTitle": "Action failed",
       "errorBody": "Couldn't update. Try again."

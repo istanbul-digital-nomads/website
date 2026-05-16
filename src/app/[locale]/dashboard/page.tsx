@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/routing";
 import { redirect } from "next/navigation";
 import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import { getCurrentMember } from "@/lib/supabase/queries";
@@ -53,6 +53,7 @@ async function DashboardContent({
   const done = fields.filter(([, ok]) => ok).length;
 
   const links: [string, string][] = [
+    [t("links.plans"), "/plans"],
     [t("links.directory"), "/members"],
     [t("links.profile"), `/members/${member.id}`],
     [t("links.events"), "/events"],

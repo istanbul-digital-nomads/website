@@ -2685,6 +2685,7 @@
         "visible": "Rehberde listeleniyor"
       },
       "links": {
+        "plans": "Bugünün planları",
         "directory": "Üye rehberi",
         "profile": "Herkese açık profilini gör",
         "events": "Yaklaşan etkinlikler",
@@ -2882,7 +2883,9 @@
       "tapAStopHint": "Düzenlemek için yukarıdaki bir durağa dokun.",
       "noStops": "Plan paylaşmak için en az bir durak ekle.",
       "submit": "Planı paylaş",
+      "updateSubmit": "Değişiklikleri kaydet",
       "successTitle": "Plan paylaşıldı",
+      "updateSuccess": "Plan güncellendi",
       "errorTitle": "Paylaşılamadı",
       "errorBody": "Bir şeyler ters gitti. Birazdan tekrar dene."
     },
@@ -2898,6 +2901,7 @@
       "leave": "Plandan ayrıl",
       "full": "Plan dolu",
       "youHost": "Sen host'sun",
+      "edit": "Planı düzenle",
       "openTelegram": "Telegram'dan {name} kişisine yaz",
       "errorTitle": "İşlem başarısız",
       "errorBody": "Güncellenemedi. Tekrar dene."

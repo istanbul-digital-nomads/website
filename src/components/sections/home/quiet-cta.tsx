@@ -25,7 +25,7 @@ export function QuietCta({ locale }: { locale: Locale }) {
         </h2>
         <div className="mt-14 flex flex-wrap justify-center gap-3">
           <Link
-            href="/tools/first-week-planner"
+            href="/plans"
             className="group inline-flex items-center gap-1.5 bg-terracotta px-8 py-4 text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim"
           >
             {t("primary")}

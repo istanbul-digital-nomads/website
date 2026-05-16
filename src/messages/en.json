@@ -55,6 +55,10 @@
       "perks": {
         "label": "Perks Vault",
         "description": "Partner offers, a Nomad+ benefit"
+      },
+      "plans": {
+        "label": "Today's Plans",
+        "description": "Casual same-day cowork and social plans"
       }
     }
   },
@@ -120,7 +124,8 @@
       "llmsTxt": "LLMs.txt",
       "members": "Member directory",
       "circles": "Circles",
-      "perks": "Perks vault"
+      "perks": "Perks vault",
+      "plans": "Today's plans"
     }
   },
   "auth": {
@@ -2756,6 +2761,140 @@
       "planner": "First Week Planner",
       "pathToIstanbul": "Path to Istanbul",
       "dashboard": "Your dashboard"
+    }
+  },
+  "plans": {
+    "meta": {
+      "title": "Today's plans - Istanbul Nomads",
+      "description": "Casual same-day plans from nomads in Istanbul. See who's working from where, who's grabbing dinner, who's down for a beer after."
+    },
+    "landing": {
+      "eyebrowLabel": "Today's plans",
+      "eyebrowMeta": "Members only",
+      "headline": "What are nomads up to in Istanbul today?",
+      "lede": "Skip the event-planning overhead. Just say where you'll be and when. Other nomads can join, or just wave from the next table.",
+      "ctaShare": "Share a plan",
+      "ctaSignIn": "Sign in to see plans",
+      "ctaTelegram": "Join on Telegram"
+    },
+    "counter": {
+      "eyebrow": "Live count",
+      "activeAcross": "plans running across {hoods} neighborhoods"
+    },
+    "howItWorks": {
+      "eyebrow": "How it works",
+      "title": "Plans, not events.",
+      "steps": {
+        "share": {
+          "title": "Share where you'll be",
+          "body": "Pick a cafe or coworking spot, set a time, add a one-liner. Takes 30 seconds."
+        },
+        "join": {
+          "title": "Someone wants to join?",
+          "body": "Members tap 'I'm in'. You get a Telegram ping. They see your handle. The rest happens in person."
+        },
+        "show": {
+          "title": "Just show up",
+          "body": "No RSVP guilt, no countdown clock, no minimum attendance. Change your mind, cancel with one tap."
+        }
+      }
+    },
+    "tone": {
+      "kicker": "What this isn't",
+      "line1": "Not a meetup board.",
+      "line2": "Just plans.",
+      "body": "We already have events for organised meetups - cowork sessions, dinners, workshops. Plans are for the in-between: 'I'm at Karga from 3, drop by'. Nothing to RSVP for, nothing to host."
+    },
+    "feed": {
+      "subtitle": "Tap a plan to see the host and join."
+    },
+    "range": {
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "week": "This week"
+    },
+    "filters": {
+      "all": "All"
+    },
+    "vibes": {
+      "focus": "Focus",
+      "cowork": "Cowork",
+      "social": "Social",
+      "meal": "Meal",
+      "after-work": "After work",
+      "outdoor": "Outdoor"
+    },
+    "empty": {
+      "title": "No plans yet for this view",
+      "body": "Be the first to share one - other nomads check this page every day."
+    },
+    "capacity": {
+      "open": "Open",
+      "going": "going"
+    },
+    "create": {
+      "eyebrow": "New plan",
+      "title": "Share what you're up to",
+      "intro": "Keep it casual. Tell people where you'll be and when. The rest is just turning up.",
+      "whenTitle": "When",
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "startTime": "Start (optional)",
+      "endTime": "End (optional)",
+      "whereTitle": "Where",
+      "pickSpace": "Pick a verified spot",
+      "orCustom": "Or write a custom location",
+      "customLocation": "Custom location",
+      "customLocationPlaceholder": "e.g. Moda sahil, near the cats",
+      "neighborhood": "Neighborhood",
+      "whatTitle": "What",
+      "titleLabel": "Plan title",
+      "titlePlaceholder": "e.g. Focus cowork + beer after",
+      "vibeLabel": "Vibe",
+      "notesLabel": "Notes (optional)",
+      "notesPlaceholder": "Anything else? 'Back table', 'bring a laptop'...",
+      "notesHelp": "280 characters max.",
+      "whoTitle": "Who",
+      "capacityLabel": "Max attendees (optional)",
+      "capacityPlaceholder": "e.g. 4",
+      "capacityHelp": "Leave blank for no limit. Range 2-20.",
+      "submit": "Share plan",
+      "successTitle": "Plan shared",
+      "errorTitle": "Couldn't share",
+      "errorBody": "Something went wrong. Try again in a moment."
+    },
+    "detail": {
+      "host": "Host",
+      "attendees": "{count} going",
+      "join": "I'm in",
+      "leave": "Leave plan",
+      "full": "Plan is full",
+      "youHost": "You're hosting",
+      "openTelegram": "Message {name} on Telegram",
+      "errorTitle": "Action failed",
+      "errorBody": "Couldn't update. Try again."
+    },
+    "comments": {
+      "title": "Chat ({count})",
+      "empty": "No messages yet. Say hi.",
+      "placeholder": "Quick note for the group...",
+      "submit": "Send",
+      "errorTitle": "Couldn't send"
+    },
+    "edit": {
+      "eyebrow": "Edit",
+      "intro": "You can cancel this plan. Editing the time and location is coming soon.",
+      "editComingSoon": "Full edit coming next release.",
+      "editComingSoonHint": "For now, cancel and reshare if you need to move the time or place.",
+      "back": "Back to plan",
+      "cancelPlan": "Cancel plan"
+    },
+    "telegram": {
+      "connect": "Connect Telegram for pings",
+      "openedTitle": "Telegram opened",
+      "openedBody": "Tap Start in the chat to finish connecting.",
+      "errorTitle": "Couldn't open Telegram",
+      "notConfigured": "Telegram bot isn't set up yet."
     }
   }
 }

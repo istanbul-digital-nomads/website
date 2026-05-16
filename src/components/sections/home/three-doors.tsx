@@ -24,7 +24,7 @@ const DOORS: {
   {
     id: "planner",
     num: "01",
-    href: "/tools/first-week-planner",
+    href: "/plans",
     photo: "interior",
     tone: "text-terracotta",
   },

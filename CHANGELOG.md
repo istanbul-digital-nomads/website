@@ -4,6 +4,29 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.4.0] - 2026-05-16
+
+**Daily Plans** - a deliberately lighter sibling of events for casual same-day "I'll be at X cafe Monday 2pm, drop by" coordination. Members-only feed with a public counter on the landing, Strava-inspired card UI, Telegram bot for notifications while all plan state stays in-app. First Week Planner deprioritised from all UI entry points.
+
+### Added
+
+- **`/plans` landing + members feed** ([src/app/[locale]/plans/](src/app/[locale]/plans/)) - editorial hero ("What are nomads up to in Istanbul today?"), live public counter (`plans running across N neighborhoods`), "How it works" 3-step explainer, "Not a meetup board, just plans" tone disclaimer. Logged-in members get a Today / Tomorrow / This week feed below the fold with neighborhood + vibe filters. Sign-in CTA for anon.
+- **`/plans/new`** ([src/app/[locale]/plans/new/page.tsx](src/app/[locale]/plans/new/page.tsx)) - single-page create flow: When (today / tomorrow / date + optional times), Where (pick from `nomadSpaces` or write a custom location), What (title, vibe, notes), Who (optional capacity 2-20).
+- **`/plans/[id]`** ([src/app/[locale]/plans/[id]/page.tsx](src/app/[locale]/plans/[id]/page.tsx)) - plan detail with host card, attendee stack, join/leave button, host's Telegram deep-link revealed after joining, in-app comments thread.
+- **`/plans/[id]/edit`** - cancel-only for v1 (full edit deferred to v1.1).
+- **Supabase migration 014** ([supabase/migrations/014_plans.sql](supabase/migrations/014_plans.sql)) - tables `plans`, `plan_attendees`, `plan_comments`, `telegram_subscriptions`; public views `plans_today_count` + `plans_today_by_neighborhood` granted to `anon`; RLS policies (authed read for plans/attendees/comments, write own, host can delete own plan or its comments); 6 indexes; `updated_at` trigger.
+- **`src/lib/plans/`** - `vibes.ts` (focus/cowork/social/meal/after-work/outdoor + lucide icon map), `schema.ts` (zod validators matching DB constraints), `expiry.ts` (Istanbul-TZ-aware lifecycle: end-of-day for day-only plans, end_time + 1h grace for timed plans), `telegram.ts` (Bot API client with no-op fallback when `TELEGRAM_BOT_TOKEN` is unset), `queries.ts` (`getPlansForFeed`, `getPlanById`, `getPlansTodayCount`), `mutations.ts` (`createPlan`, `joinPlan`, `cancelPlan`, ...) with side-effect Telegram notifications.
+- **API routes** under [src/app/api/plans/](src/app/api/plans/), [src/app/api/telegram/](src/app/api/telegram/), [src/app/api/cron/](src/app/api/cron/) - rate-limited via existing `@upstash/ratelimit`, cron routes gated by `CRON_SECRET` bearer.
+- **Telegram bot integration** - `/start <token>` deep-link captures the user's `chat_id` into `telegram_subscriptions` (token issued via `/api/telegram/link`, stored in Upstash with 10-min TTL). Notifications: host pinged on join, all attendees pinged 1h before start, cancellations broadcast.
+- **Vercel Cron** ([vercel.json](vercel.json)) - daily 00:05 Istanbul (`5 21 * * *` UTC) for `/api/cron/expire-plans`, every 15min for `/api/cron/plan-reminders`.
+- **i18n** - new `plans` namespace in all 5 locales (`en`, `tr`, `ar`, `fa`, `ru`) plus a `plans` entry in `nav.items`, `footer.links`, and `commandMenu.pages`. Non-English copy is acceptable for v1 but worth a polish pass from the `nomad-{tr,ar,fa,ru}-editor` agents.
+- **9 timezone tests** ([src/lib/plans/expiry.test.ts](src/lib/plans/expiry.test.ts)) covering DST-stable Istanbul (UTC+3 year-round), midnight boundaries, month/year rollover.
+
+### Changed
+
+- **First Week Planner hidden from all UI entry points** - header dropdown ([src/lib/constants.ts](src/lib/constants.ts)), footer resources column, homepage hero ([src/components/sections/home/hero-issue.tsx](src/components/sections/home/hero-issue.tsx)), quiet CTA ([src/components/sections/home/quiet-cta.tsx](src/components/sections/home/quiet-cta.tsx)), three-doors grid ([src/components/sections/home/three-doors.tsx](src/components/sections/home/three-doors.tsx)), neighborhood matcher ([src/components/sections/neighborhood-rhythm-matcher.tsx](src/components/sections/neighborhood-rhythm-matcher.tsx)), spaces page, neighborhood detail, sitemap, llms.txt, command-menu search. All previously planner-pointing CTAs now route to `/plans` (or `/plans?neighborhood=...`). The `/tools/first-week-planner` route still resolves so external links don't 404.
+- **Community nav** now leads with "Today's Plans" - it's the new front door for the membership.
+
 ## [3.3.0] - 2026-05-14
 
 Design System v2 - "Ambient Tech with Istanbul Soul". An editorial-first, dark-native visual identity (see `docs/plan/design/`). Shipping in phases; this entry grows as phases land.

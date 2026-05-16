@@ -72,11 +72,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
     { path: "/events", changeFrequency: "daily", priority: 0.8 },
     { path: "/spaces", changeFrequency: "weekly", priority: 0.8 },
-    {
-      path: "/tools/first-week-planner",
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
+    { path: "/plans", changeFrequency: "daily", priority: 0.9 },
     { path: "/local-guides", changeFrequency: "weekly", priority: 0.8 },
     { path: "/path-to-istanbul", changeFrequency: "weekly", priority: 0.9 },
     { path: "/local-guides/join", changeFrequency: "monthly", priority: 0.6 },

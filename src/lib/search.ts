@@ -35,7 +35,7 @@ const STATIC_PAGE_KEYS = [
   { key: "members", href: "/members" },
   { key: "circles", href: "/circles" },
   { key: "perks", href: "/perks" },
-  { key: "planner", href: "/tools/first-week-planner" },
+  { key: "planner", href: "/plans" },
   { key: "pathToIstanbul", href: "/path-to-istanbul" },
   { key: "dashboard", href: "/dashboard" },
 ] as const;

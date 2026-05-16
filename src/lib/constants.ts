@@ -22,13 +22,13 @@ export type NavChildKey =
   | "cityGuides"
   | "pathToIstanbul"
   | "nomadSpaces"
-  | "firstWeekPlanner"
   | "localGuides"
   | "events"
   | "blog"
   | "members"
   | "circles"
-  | "perks";
+  | "perks"
+  | "plans";
 
 export type NavItem =
   | { key: NavItemKey; href: string }
@@ -42,13 +42,13 @@ export const navItems: NavItem[] = [
       { key: "cityGuides", href: "/guides" },
       { key: "pathToIstanbul", href: "/path-to-istanbul" },
       { key: "nomadSpaces", href: "/spaces" },
-      { key: "firstWeekPlanner", href: "/tools/first-week-planner" },
       { key: "localGuides", href: "/local-guides" },
     ],
   },
   {
     key: "community",
     children: [
+      { key: "plans", href: "/plans" },
       { key: "events", href: "/events" },
       { key: "members", href: "/members" },
       { key: "circles", href: "/circles" },
@@ -68,7 +68,6 @@ export type FooterLinkKey =
   | "nomadSpaces"
   | "cityGuides"
   | "pathToIstanbul"
-  | "firstWeekPlanner"
   | "neighborhoods"
   | "costOfLiving"
   | "photoCredits"
@@ -81,7 +80,8 @@ export type FooterLinkKey =
   | "llmsTxt"
   | "members"
   | "circles"
-  | "perks";
+  | "perks"
+  | "plans";
 
 export const footerNav: Record<
   "community" | "resources" | "connect" | "legal",
@@ -89,6 +89,7 @@ export const footerNav: Record<
 > = {
   community: [
     { key: "aboutUs", href: "/about" },
+    { key: "plans", href: "/plans" },
     { key: "events", href: "/events" },
     { key: "members", href: "/members" },
     { key: "circles", href: "/circles" },
@@ -101,7 +102,6 @@ export const footerNav: Record<
     { key: "nomadSpaces", href: "/spaces" },
     { key: "cityGuides", href: "/guides" },
     { key: "pathToIstanbul", href: "/path-to-istanbul" },
-    { key: "firstWeekPlanner", href: "/tools/first-week-planner" },
     { key: "neighborhoods", href: "/guides/neighborhoods" },
     { key: "costOfLiving", href: "/guides/cost-of-living" },
     { key: "photoCredits", href: "/credits" },

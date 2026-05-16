@@ -214,7 +214,7 @@ export function NeighborhoodRhythmMatcher({
                 </p>
               </div>
               <Link
-                href={`/tools/first-week-planner?base=${matches[0].neighborhood.slug}`}
+                href={`/plans?neighborhood=${matches[0].neighborhood.slug}`}
                 className="inline-flex shrink-0 items-center justify-center gap-2 bg-terracotta px-4 py-2.5 text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim"
               >
                 {t("planFromMatch")}

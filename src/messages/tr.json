@@ -55,6 +55,10 @@
       "perks": {
         "label": "Perks Kasası",
         "description": "Partner avantajları, bir Nomad+ ayrıcalığı"
+      },
+      "plans": {
+        "label": "Bugünün Planları",
+        "description": "Aynı gün cowork ve sosyal planlar"
       }
     }
   },
@@ -120,7 +124,8 @@
       "llmsTxt": "LLMs.txt",
       "members": "Üye rehberi",
       "circles": "Circles",
-      "perks": "Perks kasası"
+      "perks": "Perks kasası",
+      "plans": "Bugünün planları"
     }
   },
   "auth": {
@@ -2776,6 +2781,140 @@
       "planner": "İlk Hafta Planlayıcı",
       "pathToIstanbul": "İstanbul'a Yol",
       "dashboard": "Panelin"
+    }
+  },
+  "plans": {
+    "meta": {
+      "title": "Bugünün planları - Istanbul Nomads",
+      "description": "İstanbul'daki nomadlardan günü gününe planlar. Kim nereden çalışıyor, kim akşam yemeğine çıkıyor, kim sonrasında bira içmeye gidiyor."
+    },
+    "landing": {
+      "eyebrowLabel": "Bugünün planları",
+      "eyebrowMeta": "Sadece üyelere",
+      "headline": "İstanbul'daki nomadlar bugün ne yapıyor?",
+      "lede": "Etkinlik planlama yükünü atla. Sadece nerede ve ne zaman olacağını söyle. Diğer nomadlar katılabilir ya da yan masadan el sallar.",
+      "ctaShare": "Plan paylaş",
+      "ctaSignIn": "Planları görmek için giriş yap",
+      "ctaTelegram": "Telegram'a katıl"
+    },
+    "counter": {
+      "eyebrow": "Anlık sayım",
+      "activeAcross": "{hoods} mahallede aktif plan var"
+    },
+    "howItWorks": {
+      "eyebrow": "Nasıl çalışır",
+      "title": "Plan, etkinlik değil.",
+      "steps": {
+        "share": {
+          "title": "Nerede olacağını paylaş",
+          "body": "Bir kafe ya da ortak çalışma mekanı seç, saat belirle, tek satırlık not ekle. 30 saniye sürer."
+        },
+        "join": {
+          "title": "Biri katılmak istiyor mu?",
+          "body": "Üyeler 'Ben varım' diyor. Sana Telegram'dan haber gelir. Kullanıcı adını görürler. Gerisi yüz yüze."
+        },
+        "show": {
+          "title": "Sadece gel",
+          "body": "RSVP baskısı yok, geri sayım yok, asgari katılım yok. Fikrini değiştirirsen tek dokunuşla iptal et."
+        }
+      }
+    },
+    "tone": {
+      "kicker": "Bu ne değil",
+      "line1": "Bir meetup panosu değil.",
+      "line2": "Sadece planlar.",
+      "body": "Düzenli buluşmalar için zaten etkinliklerimiz var - ortak çalışma seansları, yemekler, atölyeler. Planlar arada kalan kısım için: 'Saat 3'ten itibaren Karga'dayım, uğra'. RSVP edilecek bir şey yok, organize edecek bir şey yok."
+    },
+    "feed": {
+      "subtitle": "Bir plana dokunup hostu görüp katıl."
+    },
+    "range": {
+      "today": "Bugün",
+      "tomorrow": "Yarın",
+      "week": "Bu hafta"
+    },
+    "filters": {
+      "all": "Hepsi"
+    },
+    "vibes": {
+      "focus": "Odaklan",
+      "cowork": "Cowork",
+      "social": "Sosyal",
+      "meal": "Yemek",
+      "after-work": "İş sonrası",
+      "outdoor": "Açık hava"
+    },
+    "empty": {
+      "title": "Bu görünüm için henüz plan yok",
+      "body": "İlk paylaşan sen ol - diğer nomadlar bu sayfayı her gün kontrol ediyor."
+    },
+    "capacity": {
+      "open": "Açık",
+      "going": "katılıyor"
+    },
+    "create": {
+      "eyebrow": "Yeni plan",
+      "title": "Ne yapacağını paylaş",
+      "intro": "Rahat tut. İnsanlara nerede ve ne zaman olacağını söyle. Gerisi gelmek.",
+      "whenTitle": "Ne zaman",
+      "today": "Bugün",
+      "tomorrow": "Yarın",
+      "startTime": "Başlangıç (opsiyonel)",
+      "endTime": "Bitiş (opsiyonel)",
+      "whereTitle": "Nerede",
+      "pickSpace": "Doğrulanmış bir mekan seç",
+      "orCustom": "Ya da özel bir konum yaz",
+      "customLocation": "Özel konum",
+      "customLocationPlaceholder": "ör. Moda sahil, kedilerin yanı",
+      "neighborhood": "Mahalle",
+      "whatTitle": "Ne",
+      "titleLabel": "Plan başlığı",
+      "titlePlaceholder": "ör. Odaklı cowork + sonra bira",
+      "vibeLabel": "Mod",
+      "notesLabel": "Notlar (opsiyonel)",
+      "notesPlaceholder": "Başka bir şey? 'Arka masada', 'laptop getir'...",
+      "notesHelp": "En fazla 280 karakter.",
+      "whoTitle": "Kim",
+      "capacityLabel": "Maks katılımcı (opsiyonel)",
+      "capacityPlaceholder": "ör. 4",
+      "capacityHelp": "Sınırsız için boş bırak. Aralık 2-20.",
+      "submit": "Planı paylaş",
+      "successTitle": "Plan paylaşıldı",
+      "errorTitle": "Paylaşılamadı",
+      "errorBody": "Bir şeyler ters gitti. Birazdan tekrar dene."
+    },
+    "detail": {
+      "host": "Host",
+      "attendees": "{count} katılıyor",
+      "join": "Ben varım",
+      "leave": "Plandan ayrıl",
+      "full": "Plan dolu",
+      "youHost": "Sen host'sun",
+      "openTelegram": "Telegram'dan {name} kişisine yaz",
+      "errorTitle": "İşlem başarısız",
+      "errorBody": "Güncellenemedi. Tekrar dene."
+    },
+    "comments": {
+      "title": "Sohbet ({count})",
+      "empty": "Henüz mesaj yok. Selam ver.",
+      "placeholder": "Grup için kısa bir not...",
+      "submit": "Gönder",
+      "errorTitle": "Gönderilemedi"
+    },
+    "edit": {
+      "eyebrow": "Düzenle",
+      "intro": "Bu planı iptal edebilirsin. Zaman ve konum düzenlemesi yakında.",
+      "editComingSoon": "Tam düzenleme bir sonraki sürümde.",
+      "editComingSoonHint": "Şimdilik, zaman veya yer değiştirmen gerekirse iptal et ve yeniden paylaş.",
+      "back": "Plana dön",
+      "cancelPlan": "Planı iptal et"
+    },
+    "telegram": {
+      "connect": "Bildirimler için Telegram bağla",
+      "openedTitle": "Telegram açıldı",
+      "openedBody": "Bağlantıyı tamamlamak için sohbette Start'a dokun.",
+      "errorTitle": "Telegram açılamadı",
+      "notConfigured": "Telegram botu henüz ayarlanmadı."
     }
   }
 }

@@ -124,7 +124,7 @@ export async function HeroIssue({ locale }: { locale: Locale }) {
           </p>
           <div className="flex flex-wrap gap-3 lg:justify-end rtl:lg:justify-start">
             <Link
-              href="/tools/first-week-planner"
+              href="/plans"
               className="bg-terracotta px-6 py-3.5 text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim"
             >
               {t("ctaPrimary")} <span dir="ltr">{rtl ? "←" : "→"}</span>

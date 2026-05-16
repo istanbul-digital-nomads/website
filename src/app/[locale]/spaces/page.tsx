@@ -112,7 +112,7 @@ export default async function SpacesPage({
                   <ArrowRight className="h-4 w-4" />
                 </a>
                 <Link
-                  href="/tools/first-week-planner"
+                  href="/plans"
                   className="inline-flex items-center justify-center gap-2 rounded-md border border-black/15 px-5 py-3 text-sm font-semibold text-neutral-950 transition-colors hover:border-primary-500/40 hover:bg-white/60 dark:border-white/20 dark:text-[#f2f3f4] dark:hover:bg-white/10"
                 >
                   {t("hero.planWeekOne")}

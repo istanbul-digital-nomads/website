@@ -10,6 +10,7 @@
     "explore": "استكشف",
     "community": "المجتمع",
     "contact": "تواصل",
+    "search": "بحث",
     "joinTelegram": "انضم على تليغرام",
     "theme": {
       "ariaLabel": "تبديل المظهر (الحالي: {theme})"
@@ -2701,6 +2702,8 @@
   "commandMenu": {
     "ariaLabel": "البحث والتنقّل",
     "placeholder": "ابحث في الأحياء والأدلة والفعاليات...",
+    "close": "إغلاق البحث",
+    "openHint": "enter للفتح",
     "empty": "لا توجد نتائج. جرّب كلمة أخرى.",
     "footnote": "↑↓ للتنقّل · ↵ للفتح",
     "groups": {

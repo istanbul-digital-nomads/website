@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { ChevronDown, Globe } from "lucide-react";
 import {
+  isRtl,
   locales,
   localeNames,
   defaultLocale,
@@ -14,6 +15,7 @@ import { cn } from "@/lib/utils";
 
 export function LanguageSwitcher() {
   const locale = useLocale() as Locale;
+  const rtl = isRtl(locale);
   const t = useTranslations("languageSwitcher");
   const browserPathname = usePathname();
   const browserSearch = useSearchParams();
@@ -87,7 +89,8 @@ export function LanguageSwitcher() {
       {open && (
         <div
           role="listbox"
-          className="absolute right-0 top-full z-50 mt-2 w-40 border border-ink-3 bg-ink-1/95 p-1.5 shadow-[0_16px_42px_rgba(0,0,0,0.35)] backdrop-blur-xl"
+          className="absolute end-0 top-full z-50 mt-2 w-40 border border-ink-3 bg-ink-1/95 p-1.5 shadow-[0_16px_42px_rgba(0,0,0,0.35)] backdrop-blur-xl"
+          dir={rtl ? "rtl" : "ltr"}
         >
           {locales.map((l) => (
             <button
@@ -96,7 +99,7 @@ export function LanguageSwitcher() {
               aria-selected={locale === l}
               onClick={() => switchLocale(l)}
               className={cn(
-                "block w-full px-3 py-2 text-left text-sm transition-colors hover:bg-ink-2",
+                "block w-full px-3 py-2 text-start text-sm transition-colors hover:bg-ink-2",
                 locale === l
                   ? "bg-ink-2 font-medium text-paper"
                   : "text-paper-mute",

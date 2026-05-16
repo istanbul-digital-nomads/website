@@ -10,6 +10,7 @@
     "explore": "Исследовать",
     "community": "Сообщество",
     "contact": "Контакты",
+    "search": "Поиск",
     "joinTelegram": "Вступить в Telegram",
     "theme": {
       "ariaLabel": "Сменить тему (текущая: {theme})"
@@ -2717,6 +2718,8 @@
   "commandMenu": {
     "ariaLabel": "Поиск и навигация",
     "placeholder": "Ищи районы, гайды, события...",
+    "close": "Закрыть поиск",
+    "openHint": "enter, чтобы открыть",
     "empty": "Ничего не нашлось. Попробуй другое слово.",
     "footnote": "↑↓ листать · ↵ открыть",
     "groups": {

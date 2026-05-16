@@ -4,9 +4,10 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Sun, Moon, Monitor, ChevronDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { isRtl, type Locale } from "@/lib/i18n/config";
 import { navItems, socialLinks, type NavItem } from "@/lib/constants";
 import { Container } from "@/components/ui/container";
 import { useTheme } from "./theme-provider";
@@ -34,6 +35,8 @@ function NavDropdown({
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const locale = useLocale() as Locale;
+  const rtl = isRtl(locale);
   const tNav = useTranslations("nav");
   const tItems = useTranslations("nav.items");
 
@@ -59,6 +62,7 @@ function NavDropdown({
           "flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-fast hover:text-paper",
           isChildActive ? "text-paper" : "text-paper-mute",
         )}
+        dir={rtl ? "rtl" : "ltr"}
       >
         {tNav(item.key)}
         <ChevronDown
@@ -70,7 +74,10 @@ function NavDropdown({
       </button>
 
       {open && (
-        <div className="absolute left-1/2 top-full z-50 mt-3 w-64 -translate-x-1/2 border border-ink-3 bg-ink-1/95 p-2 shadow-[0_16px_42px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+        <div
+          className="absolute left-1/2 top-full z-50 mt-3 w-64 -translate-x-1/2 border border-ink-3 bg-ink-1/95 p-2 shadow-[0_16px_42px_rgba(0,0,0,0.35)] backdrop-blur-xl"
+          dir={rtl ? "rtl" : "ltr"}
+        >
           {item.children.map((child) => {
             const active =
               pathname === child.href || pathname.startsWith(child.href + "/");
@@ -81,7 +88,7 @@ function NavDropdown({
                 prefetch
                 onClick={() => setOpen(false)}
                 className={cn(
-                  "block px-3.5 py-2.5 transition-colors hover:bg-ink-2",
+                  "block px-3.5 py-2.5 text-start transition-colors hover:bg-ink-2",
                   active && "bg-ink-2",
                 )}
               >
@@ -102,6 +109,8 @@ function NavDropdown({
 
 export function Header() {
   const pathname = usePathname();
+  const locale = useLocale() as Locale;
+  const rtl = isRtl(locale);
   const { theme, setTheme } = useTheme();
   const { direction, scrolled, atTop } = useScrollDirection();
   const tSite = useTranslations("site");
@@ -194,15 +203,20 @@ export function Header() {
               }
               className={cn(
                 headerControl,
-                "hidden w-32 justify-between gap-3 px-3 text-left xl:inline-flex",
+                "hidden w-32 gap-3 px-3 xl:inline-flex",
+                "justify-between text-start",
               )}
-              aria-label="Search"
+              aria-label={tNav("search")}
+              dir={rtl ? "rtl" : "ltr"}
             >
-              <span className="flex min-w-0 items-center gap-2 text-paper-mute">
+              <span className="flex min-w-0 flex-1 items-center gap-2 text-paper-mute">
                 <Search className="h-3.5 w-3.5 shrink-0" />
-                <span className="truncate text-[13px]">Search</span>
+                <span className="truncate text-[13px]">{tNav("search")}</span>
               </span>
-              <span className="border border-ink-4 bg-ink-0/40 px-1.5 py-px font-mono text-[10px] text-paper-faint">
+              <span
+                dir="ltr"
+                className="border border-ink-4 bg-ink-0/40 px-1.5 py-px font-mono text-[10px] text-paper-faint"
+              >
                 ⌘K
               </span>
             </button>

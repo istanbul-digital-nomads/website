@@ -10,6 +10,7 @@
     "explore": "Explore",
     "community": "Community",
     "contact": "Contact",
+    "search": "Search",
     "joinTelegram": "Join on Telegram",
     "theme": {
       "ariaLabel": "Switch theme (current: {theme})"
@@ -2693,6 +2694,8 @@
   "commandMenu": {
     "ariaLabel": "Search and navigate",
     "placeholder": "Search neighborhoods, guides, events...",
+    "close": "Close search",
+    "openHint": "enter to open",
     "empty": "Nothing matches. Try a different word.",
     "footnote": "↑↓ to navigate · ↵ to open",
     "groups": {

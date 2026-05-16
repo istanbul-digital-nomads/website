@@ -152,7 +152,7 @@ export function AuthButton() {
             </div>
           )}
           {!onboardingComplete && (
-            <span className="absolute right-1 top-1 h-2.5 w-2.5 animate-pulse rounded-full bg-terracotta ring-2 ring-ink-1" />
+            <span className="absolute end-1 top-1 h-2.5 w-2.5 animate-pulse rounded-full bg-terracotta ring-2 ring-ink-1" />
           )}
         </Link>
       </div>

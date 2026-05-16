@@ -10,6 +10,7 @@
     "explore": "Keşfet",
     "community": "Topluluk",
     "contact": "İletişim",
+    "search": "Ara",
     "joinTelegram": "Telegram'a katıl",
     "theme": {
       "ariaLabel": "Temayı değiştir (mevcut: {theme})"
@@ -2713,6 +2714,8 @@
   "commandMenu": {
     "ariaLabel": "Ara ve gezin",
     "placeholder": "Mahalle, rehber, etkinlik ara...",
+    "close": "Aramayı kapat",
+    "openHint": "açmak için enter",
     "empty": "Eşleşme yok. Başka bir kelime dene.",
     "footnote": "↑↓ gezinmek için · ↵ açmak için",
     "groups": {

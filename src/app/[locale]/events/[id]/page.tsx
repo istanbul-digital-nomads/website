@@ -191,7 +191,7 @@ async function EventDetailContent(props: Props) {
                   {paidCheckoutLive
                     ? t("detail.book")
                     : t("detail.rsvpTelegram")}{" "}
-                  →
+                  <span className="inline-dir-arrow" aria-hidden />
                 </a>
                 <p className="mt-3 font-mono text-[10px] uppercase tracking-wider text-paper-faint">
                   {isPaid && !paidCheckoutLive
@@ -206,9 +206,10 @@ async function EventDetailContent(props: Props) {
         <div className="mt-20 border-t border-ink-3 py-10">
           <Link
             href="/events"
-            className="border-b border-terracotta pb-0.5 text-sm text-terracotta"
+            className="inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta"
           >
-            {t("detail.allEvents")} →
+            {t("detail.allEvents")}{" "}
+            <span className="inline-dir-arrow" aria-hidden />
           </Link>
         </div>
       </Container>

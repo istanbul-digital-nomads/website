@@ -152,7 +152,7 @@ export function BlogListing({ posts, allTags }: BlogListingProps) {
                 </div>
                 <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary-700 transition-colors group-hover:text-primary-600 dark:text-primary-300 dark:group-hover:text-primary-200">
                   {tCommon("readMore")}
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
                 </span>
               </div>
             </Link>

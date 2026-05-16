@@ -144,7 +144,7 @@ export function GuidesListing({ guidesWithContent }: GuidesListingProps) {
                     </p>
                     <span className="mt-5 inline-flex items-center gap-1.5 border-t border-black/5 pt-4 text-sm font-medium text-primary-700 transition-colors group-hover:text-primary-600 dark:border-white/5 dark:text-primary-300 dark:group-hover:text-primary-200">
                       {t("readGuide")}
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
                     </span>
                   </CardContent>
                 </Card>

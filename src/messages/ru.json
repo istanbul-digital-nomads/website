@@ -1227,7 +1227,41 @@
       "sources": "Источники",
       "verified": "(проверено {date})",
       "showLess": "Свернуть",
-      "scoreBreakdown": "Разбор оценки"
+      "scoreBreakdown": "Разбор оценки",
+      "score": {
+        "unverified": "Не проверено",
+        "partial": "Частичная оценка",
+        "nomad": "Nomad Score"
+      },
+      "labels": {
+        "goodForCalls": "Хорошо для звонков",
+        "laptopSafe": "Удобно с ноутбуком",
+        "strongSockets": "Сильные розетки",
+        "rainSafe": "Хорошо в дождь",
+        "openLate": "Открыто допоздна",
+        "budgetAware": "Бюджетно",
+        "socialEnough": "Достаточно социально",
+        "bringHeadphones": "Возьми наушники",
+        "bestBeforeLunch": "Лучше до обеда"
+      },
+      "reasons": {
+        "nomadScore": "Nomad Score {score}",
+        "saferForCalls": "Надёжнее для звонков",
+        "quietProfile": "Тихий профиль",
+        "rainSafeSetup": "Подходит в дождь",
+        "lateOption": "Вариант на поздний час",
+        "budgetAware": "Бюджетно",
+        "easyFirstTry": "Легко попробовать впервые",
+        "socketConfidence": "Надёжные розетки",
+        "coworkingBaseline": "База коворкинга",
+        "worthComparing": "Стоит сравнить"
+      },
+      "cautions": {
+        "wifiLiveCheck": "Скорость wifi ещё нужно проверить на месте.",
+        "noise": "Шум здесь может быть частью опыта.",
+        "earlySeating": "Лучше прийти раньше, пока места не заняты.",
+        "generic": "Проверь актуальные детали перед визитом."
+      }
     },
     "scoreLabels": {
       "wifi": "Wifi",

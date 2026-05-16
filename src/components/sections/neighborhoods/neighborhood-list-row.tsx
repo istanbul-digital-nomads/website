@@ -108,7 +108,7 @@ export function NeighborhoodListRow({
         <div className="col-span-2 mt-3">
           <span className="inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta">
             {tV2("row.open", { name })}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
           </span>
         </div>
       </div>

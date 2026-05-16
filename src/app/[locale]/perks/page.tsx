@@ -85,9 +85,10 @@ export default async function PerksPage({
                   href={socialLinks.telegram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-terracotta px-6 py-3.5 text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim"
+                  className="inline-flex items-center gap-1.5 bg-terracotta px-6 py-3.5 text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim"
                 >
-                  {t("joinTelegram")} →
+                  {t("joinTelegram")}{" "}
+                  <span className="inline-dir-arrow" aria-hidden />
                 </a>
                 <Link
                   href="/circles"

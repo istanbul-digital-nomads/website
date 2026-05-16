@@ -104,9 +104,10 @@ async function DashboardContent({
             {done < fields.length ? (
               <Link
                 href="/onboarding"
-                className="mt-6 inline-block border-b border-terracotta pb-0.5 text-sm text-terracotta"
+                className="mt-6 inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta"
               >
-                {t("completeProfile")} →
+                {t("completeProfile")}{" "}
+                <span className="inline-dir-arrow" aria-hidden />
               </Link>
             ) : null}
           </div>
@@ -124,7 +125,7 @@ async function DashboardContent({
                     className="flex items-center justify-between border-b border-ink-3 py-3 text-sm text-paper transition-colors hover:text-terracotta"
                   >
                     {label}
-                    <span aria-hidden>→</span>
+                    <span className="inline-dir-arrow" aria-hidden />
                   </Link>
                 </li>
               ))}

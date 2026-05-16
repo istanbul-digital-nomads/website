@@ -67,10 +67,23 @@ const modeIcons: Record<FinderMode, typeof BriefcaseBusiness> = {
   "first-visit": Compass,
 };
 
+const reasonKeys: Record<string, string> = {
+  "safer for calls": "saferForCalls",
+  "quiet profile": "quietProfile",
+  "rain-safe setup": "rainSafeSetup",
+  "late option": "lateOption",
+  "budget-aware": "budgetAware",
+  "easy first try": "easyFirstTry",
+  "socket confidence": "socketConfidence",
+  "coworking baseline": "coworkingBaseline",
+  "worth comparing": "worthComparing",
+};
+
 export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
   const t = useTranslations("spacesPage.finder");
   const tModes = useTranslations("spacesPage.finder.modes");
   const tNeeds = useTranslations("spacesPage.finder.needs");
+  const tCard = useTranslations("spacesPage.card");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [filters, setFilters] = useState<SpaceFinderFilters>(defaultFilters);
   const [showMap, setShowMap] = useState(false);
@@ -95,6 +108,26 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
   );
   const selectedModeLabel = tModes(`${selectedMode.value}.label`);
   const selectedModeDescription = tModes(`${selectedMode.value}.description`);
+
+  const reasonForSignal = (reason: string) => {
+    const score = reason.match(/^([\d.]+) Nomad Score$/);
+    if (score) return tCard("reasons.nomadScore", { score: score[1] });
+    const key = reasonKeys[reason];
+    return key ? tCard(`reasons.${key}`) : reason;
+  };
+
+  const reasonsForMatch = (reasons: string[]) =>
+    reasons.map(reasonForSignal).join(" / ");
+
+  const cautionForSignal = (caution?: string | null) => {
+    if (!caution) return null;
+    const cautionKeys: Record<string, string> = {
+      "Wifi speed still needs a live check.": "wifiLiveCheck",
+      "Noise can be part of the deal here.": "noise",
+      "Try it earlier before seating gets tight.": "earlySeating",
+    };
+    return tCard(`cautions.${cautionKeys[caution] ?? "generic"}`);
+  };
 
   function updateFilters(next: Partial<SpaceFinderFilters>) {
     startTransition(() => {
@@ -231,7 +264,7 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
                     </span>
                     <span className="mt-2 block text-sm leading-6 text-white/68">
                       {topMatch.space.neighborhood} /{" "}
-                      {topMatch.matchReasons.join(" / ")}
+                      {reasonsForMatch(topMatch.matchReasons)}
                     </span>
                   </span>
                   <span className="rounded-md bg-primary-300 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[#14110f]">
@@ -273,7 +306,7 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
 
                 {topMatch.signals.caution ? (
                   <span className="mt-4 block rounded-md border border-amber-200/20 bg-amber-100/10 p-3 text-xs leading-5 text-amber-50">
-                    {topMatch.signals.caution}
+                    {cautionForSignal(topMatch.signals.caution)}
                   </span>
                 ) : null}
               </button>
@@ -301,7 +334,7 @@ export function SpacesDirectory({ spaces }: { spaces: NomadSpace[] }) {
                           {space.name}
                         </span>
                         <span className="mt-1 block text-xs leading-5 text-white/62">
-                          {space.neighborhood} / {matchReasons.join(" / ")}
+                          {space.neighborhood} / {reasonsForMatch(matchReasons)}
                         </span>
                       </span>
                       <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/48">

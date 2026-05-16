@@ -1203,7 +1203,41 @@
       "sources": "Sources",
       "verified": "(verified {date})",
       "showLess": "Show less",
-      "scoreBreakdown": "Score breakdown"
+      "scoreBreakdown": "Score breakdown",
+      "score": {
+        "unverified": "Unverified",
+        "partial": "Partial score",
+        "nomad": "Nomad score"
+      },
+      "labels": {
+        "goodForCalls": "Good for calls",
+        "laptopSafe": "Laptop-safe",
+        "strongSockets": "Strong sockets",
+        "rainSafe": "Rain-safe",
+        "openLate": "Open late",
+        "budgetAware": "Budget-aware",
+        "socialEnough": "Social enough",
+        "bringHeadphones": "Bring headphones",
+        "bestBeforeLunch": "Best before lunch"
+      },
+      "reasons": {
+        "nomadScore": "{score} Nomad Score",
+        "saferForCalls": "Safer for calls",
+        "quietProfile": "Quiet profile",
+        "rainSafeSetup": "Rain-safe setup",
+        "lateOption": "Late option",
+        "budgetAware": "Budget-aware",
+        "easyFirstTry": "Easy first try",
+        "socketConfidence": "Socket confidence",
+        "coworkingBaseline": "Coworking baseline",
+        "worthComparing": "Worth comparing"
+      },
+      "cautions": {
+        "wifiLiveCheck": "Wifi speed still needs a live check.",
+        "noise": "Noise can be part of the deal here.",
+        "earlySeating": "Try it earlier before seating gets tight.",
+        "generic": "Check live details before you go."
+      }
     },
     "scoreLabels": {
       "wifi": "Wifi",

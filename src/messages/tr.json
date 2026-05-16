@@ -1223,7 +1223,41 @@
       "sources": "Kaynaklar",
       "verified": "({date} doğrulandı)",
       "showLess": "Daha az göster",
-      "scoreBreakdown": "Skor detayı"
+      "scoreBreakdown": "Skor detayı",
+      "score": {
+        "unverified": "Doğrulanmadı",
+        "partial": "Kısmi puan",
+        "nomad": "Nomad puanı"
+      },
+      "labels": {
+        "goodForCalls": "Aramalar için iyi",
+        "laptopSafe": "Laptop güvenli",
+        "strongSockets": "Güçlü prizler",
+        "rainSafe": "Yağmura güvenli",
+        "openLate": "Geç açık",
+        "budgetAware": "Bütçe dostu",
+        "socialEnough": "Yeterince sosyal",
+        "bringHeadphones": "Kulaklık getir",
+        "bestBeforeLunch": "Öğleden önce iyi"
+      },
+      "reasons": {
+        "nomadScore": "{score} Nomad puanı",
+        "saferForCalls": "Aramalar için daha güvenli",
+        "quietProfile": "Sakin profil",
+        "rainSafeSetup": "Yağmura güvenli kurulum",
+        "lateOption": "Geç saat seçeneği",
+        "budgetAware": "Bütçe dostu",
+        "easyFirstTry": "Kolay ilk deneme",
+        "socketConfidence": "Priz güveni",
+        "coworkingBaseline": "Coworking temeli",
+        "worthComparing": "Karşılaştırmaya değer"
+      },
+      "cautions": {
+        "wifiLiveCheck": "Wifi hızının hâlâ yerinde kontrol edilmesi gerekiyor.",
+        "noise": "Burada gürültü işin parçası olabilir.",
+        "earlySeating": "Oturma sıkışmadan önce daha erken dene.",
+        "generic": "Gitmeden önce canlı detayları kontrol et."
+      }
     },
     "scoreLabels": {
       "wifi": "Wifi",

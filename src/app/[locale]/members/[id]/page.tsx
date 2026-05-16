@@ -89,9 +89,10 @@ async function MemberProfileContent(props: Props) {
                 href={`https://t.me/${member.telegram_handle.replace(/^@/, "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 block bg-terracotta px-5 py-3.5 text-center text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim"
+                className="mt-5 inline-flex w-full items-center justify-center gap-1.5 bg-terracotta px-5 py-3.5 text-center text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim"
               >
-                {t("profile.reachOut")} →
+                {t("profile.reachOut")}{" "}
+                <span className="inline-dir-arrow" aria-hidden />
               </a>
             ) : null}
           </div>
@@ -146,7 +147,8 @@ async function MemberProfileContent(props: Props) {
                   rel="noopener noreferrer"
                   className="border-b border-terracotta pb-0.5 text-sm text-terracotta"
                 >
-                  {member.website.replace(/^https?:\/\//, "")} →
+                  {member.website.replace(/^https?:\/\//, "")}{" "}
+                  <span className="inline-dir-arrow" aria-hidden />
                 </a>
               </p>
             ) : null}

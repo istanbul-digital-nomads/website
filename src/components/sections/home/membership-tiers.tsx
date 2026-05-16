@@ -82,7 +82,7 @@ export async function MembershipTiers({ locale }: { locale: Locale }) {
               className="group mt-8 inline-flex items-center gap-1.5 self-start border border-ink-4 px-5 py-3 text-sm text-paper transition-colors duration-fast hover:border-ink-5"
             >
               {t("free.cta")}
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
             </a>
           </div>
 
@@ -119,7 +119,7 @@ export async function MembershipTiers({ locale }: { locale: Locale }) {
                 className="group inline-flex items-center gap-1.5 bg-terracotta px-5 py-3 text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim"
               >
                 {t("plus.waitlistCta")}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
               </a>
               <Link
                 href="/perks"

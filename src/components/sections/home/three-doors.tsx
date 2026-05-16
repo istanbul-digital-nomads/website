@@ -93,7 +93,7 @@ export function ThreeDoors({ locale }: { locale: Locale }) {
                     className={`inline-flex items-center gap-1.5 border-b border-current pb-0.5 text-sm ${door.tone}`}
                   >
                     {t(`${door.id}.cta`)}
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
                   </span>
                 </div>
               </>

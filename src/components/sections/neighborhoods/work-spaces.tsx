@@ -40,9 +40,10 @@ export function WorkSpaces({
           <SectionEyebrow num="N° 03" label={tV2("work.eyebrow")} />
           <Link
             href="/spaces"
-            className="border-b border-terracotta pb-0.5 text-sm text-terracotta"
+            className="inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta"
           >
-            {tV2("work.allSpaces")} →
+            {tV2("work.allSpaces")}{" "}
+            <span className="inline-dir-arrow" aria-hidden />
           </Link>
         </div>
 

@@ -198,6 +198,14 @@
     --tw-scale-x: 1;
   }
 
+  .inline-dir-arrow::before {
+    content: "→";
+  }
+
+  html[dir="rtl"] .inline-dir-arrow::before {
+    content: "←";
+  }
+
   /* Decorative body gradients - deferred to avoid blocking first paint */
   body::before {
     content: "";

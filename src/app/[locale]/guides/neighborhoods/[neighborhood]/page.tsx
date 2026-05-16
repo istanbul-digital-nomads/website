@@ -184,7 +184,8 @@ async function NeighborhoodDetailContent(props: Props) {
                 href={`/tools/first-week-planner?base=${n.slug}`}
                 className="bg-terracotta px-7 py-4 text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim"
               >
-                {tDetail("planWeekOne")} →
+                {tDetail("planWeekOne")}{" "}
+                <span className="inline-dir-arrow" aria-hidden />
               </Link>
               <a
                 href={socialLinks.telegram}

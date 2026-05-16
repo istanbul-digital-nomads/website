@@ -27,10 +27,16 @@ export function NomadScoreBadge({
   scores,
   size = "md",
   className,
+  unverifiedLabel = "Unverified",
+  partialLabel = "Partial Score",
+  scoreLabel = "Nomad Score",
 }: {
   scores: NomadScores;
   size?: "sm" | "md" | "lg";
   className?: string;
+  unverifiedLabel?: string;
+  partialLabel?: string;
+  scoreLabel?: string;
 }) {
   const score = computeNomadScore(scores);
   const partial = score != null && isPartialScore(scores);
@@ -55,8 +61,8 @@ export function NomadScoreBadge({
           -
         </div>
         {size !== "sm" && (
-          <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-neutral-500 dark:text-[#85929e]">
-            Unverified
+          <span className="text-center font-mono text-[9px] uppercase tracking-[0.18em] text-neutral-500 dark:text-[#85929e]">
+            {unverifiedLabel}
           </span>
         )}
       </div>
@@ -77,8 +83,8 @@ export function NomadScoreBadge({
         {score.toFixed(1)}
       </div>
       {size !== "sm" && (
-        <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-neutral-500 dark:text-[#85929e]">
-          {partial ? "Partial Score" : "Nomad Score"}
+        <span className="text-center font-mono text-[9px] uppercase tracking-[0.18em] text-neutral-500 dark:text-[#85929e]">
+          {partial ? partialLabel : scoreLabel}
         </span>
       )}
     </div>

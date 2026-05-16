@@ -1203,7 +1203,41 @@
       "sources": "منابع",
       "verified": "(تأیید شده {date})",
       "showLess": "نمایش کمتر",
-      "scoreBreakdown": "جزئیات امتیاز"
+      "scoreBreakdown": "جزئیات امتیاز",
+      "score": {
+        "unverified": "تأیید نشده",
+        "partial": "امتیاز ناقص",
+        "nomad": "امتیاز نومد"
+      },
+      "labels": {
+        "goodForCalls": "مناسب تماس",
+        "laptopSafe": "مناسب لپ‌تاپ",
+        "strongSockets": "پریز قوی",
+        "rainSafe": "امن در باران",
+        "openLate": "باز تا دیر",
+        "budgetAware": "به‌صرفه",
+        "socialEnough": "اجتماعی کافی",
+        "bringHeadphones": "هدفون بیاور",
+        "bestBeforeLunch": "بهتر پیش از ظهر"
+      },
+      "reasons": {
+        "nomadScore": "امتیاز نومد {score}",
+        "saferForCalls": "امن‌تر برای تماس",
+        "quietProfile": "پروفایل آرام",
+        "rainSafeSetup": "چیدمان امن در باران",
+        "lateOption": "گزینهٔ دیرهنگام",
+        "budgetAware": "به‌صرفه",
+        "easyFirstTry": "اولین تجربهٔ آسان",
+        "socketConfidence": "اطمینان از پریز",
+        "coworkingBaseline": "پایهٔ فضای کار اشتراکی",
+        "worthComparing": "ارزش مقایسه دارد"
+      },
+      "cautions": {
+        "wifiLiveCheck": "سرعت وای‌فای هنوز نیاز به بررسی حضوری دارد.",
+        "noise": "سروصدا می‌تواند بخشی از تجربهٔ اینجا باشد.",
+        "earlySeating": "زودتر امتحانش کن، قبل از اینکه صندلی‌ها پر شوند.",
+        "generic": "جزئیات زنده را پیش از رفتن بررسی کن."
+      }
     },
     "scoreLabels": {
       "wifi": "وای‌فای",

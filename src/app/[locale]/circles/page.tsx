@@ -79,8 +79,10 @@ export default async function CirclesPage({
               <p className="mt-2 flex-1 text-sm leading-relaxed text-paper-dim">
                 {t(`blurbs.${circle.slug}`)}
               </p>
-              <span className={`mt-4 text-sm ${ACCENT_TEXT[circle.accent]}`}>
-                {t("open")} →
+              <span
+                className={`mt-4 inline-flex items-center gap-1.5 text-sm ${ACCENT_TEXT[circle.accent]}`}
+              >
+                {t("open")} <span className="inline-dir-arrow" aria-hidden />
               </span>
             </Link>
           ))}
@@ -94,9 +96,10 @@ export default async function CirclesPage({
             href={socialLinks.telegram}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-block border-b border-terracotta pb-0.5 text-sm text-terracotta"
+            className="mt-4 inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta"
           >
-            {t("joinTelegram")} →
+            {t("joinTelegram")}{" "}
+            <span className="inline-dir-arrow" aria-hidden />
           </a>
         </div>
       </Container>

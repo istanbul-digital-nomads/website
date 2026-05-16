@@ -62,7 +62,7 @@ export function CirclesStrip({ locale }: { locale: Locale }) {
                 className={`mt-3 inline-flex items-center gap-1.5 text-xs ${ACCENT_TEXT[circle.accent]}`}
               >
                 {t("open")}
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
               </span>
             </Link>
           ))}
@@ -77,7 +77,7 @@ export function CirclesStrip({ locale }: { locale: Locale }) {
             className="group inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta"
           >
             {t("seeAll")}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
           </Link>
         </div>
       </Container>

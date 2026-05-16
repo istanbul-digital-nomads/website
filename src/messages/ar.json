@@ -1211,7 +1211,41 @@
       "sources": "المصادر",
       "verified": "(تم التحقق {date})",
       "showLess": "عرض أقل",
-      "scoreBreakdown": "تفصيل الدرجات"
+      "scoreBreakdown": "تفصيل الدرجات",
+      "score": {
+        "unverified": "غير مؤكّد",
+        "partial": "تقييم جزئي",
+        "nomad": "تقييم الرحّالة"
+      },
+      "labels": {
+        "goodForCalls": "مناسب للمكالمات",
+        "laptopSafe": "مناسب للحاسوب",
+        "strongSockets": "مقابس قوية",
+        "rainSafe": "آمن في المطر",
+        "openLate": "يفتح لوقت متأخر",
+        "budgetAware": "مناسب للميزانية",
+        "socialEnough": "اجتماعي بما يكفي",
+        "bringHeadphones": "أحضر سماعات",
+        "bestBeforeLunch": "أفضل قبل الظهر"
+      },
+      "reasons": {
+        "nomadScore": "تقييم الرحّالة {score}",
+        "saferForCalls": "أكثر أماناً للمكالمات",
+        "quietProfile": "طابع هادئ",
+        "rainSafeSetup": "إعداد مناسب للمطر",
+        "lateOption": "خيار متأخر",
+        "budgetAware": "مناسب للميزانية",
+        "easyFirstTry": "تجربة أولى سهلة",
+        "socketConfidence": "ثقة بالمقابس",
+        "coworkingBaseline": "أساس مساحة عمل مشتركة",
+        "worthComparing": "يستحق المقارنة"
+      },
+      "cautions": {
+        "wifiLiveCheck": "سرعة الواي فاي ما زالت تحتاج فحصاً مباشراً.",
+        "noise": "قد يكون الضجيج جزءاً من التجربة هنا.",
+        "earlySeating": "جرّبه مبكراً قبل أن تضيق المقاعد.",
+        "generic": "تحقق من التفاصيل المباشرة قبل الذهاب."
+      }
     },
     "scoreLabels": {
       "wifi": "واي فاي",

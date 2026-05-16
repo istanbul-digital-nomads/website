@@ -52,6 +52,11 @@ export const blogCoverImages: Record<string, BlogCoverImage> = {
     alt: "A first-week Istanbul setup table with tea, keys, a transit card, notebook, and map",
     credit: generatedCredit,
   },
+  "first-month-neighborhood-pick": {
+    src: "/images/neighborhoods/kadikoy/hero-premium-2026.jpg",
+    alt: "A rainy Kadikoy ferry waterfront with a cafe table, commuters, and Istanbul across the water",
+    credit: generatedCredit,
+  },
   "getting-residence-permit": {
     src: "/images/blog/getting-residence-permit-2026.jpg",
     alt: "A residence permit preparation desk with a blue folder, photos, tea, and appointment papers",

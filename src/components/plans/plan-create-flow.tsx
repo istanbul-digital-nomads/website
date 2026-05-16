@@ -305,44 +305,43 @@ export function PlanCreateFlow() {
             : t("stopCountCaption", { count: stops.length })
         }
       >
-        {/* Header: date + title */}
-        <div className="space-y-3 px-4 py-3">
-          <div className="flex flex-wrap items-center gap-2">
-            <DayChip
-              active={scheduledDate === today}
-              onClick={() => setScheduledDate(today)}
-              label={t("today")}
-            />
-            <DayChip
-              active={scheduledDate === tomorrow}
-              onClick={() => setScheduledDate(tomorrow)}
-              label={t("tomorrow")}
-            />
-            <input
-              type="date"
-              value={scheduledDate}
-              min={today}
-              onChange={(e) => setScheduledDate(e.target.value)}
-              aria-label={t("dateLabel")}
-              className="ms-auto rounded-md border border-ink-4 bg-ink-2 px-2 py-1.5 text-sm text-paper focus-visible:border-terracotta focus-visible:outline-none"
-            />
-          </div>
-          <Input
+        {/* Header: title + date in one compact row */}
+        <div className="flex items-center gap-2 px-4 py-2.5">
+          <input
+            type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder={autoTitle || t("titlePlaceholder")}
             maxLength={80}
             aria-label={t("titleLabel")}
-            className="font-display text-lg"
+            className="min-w-0 flex-1 border-0 bg-transparent p-0 font-display text-base text-paper placeholder:text-paper-faint focus-visible:outline-none"
+          />
+          <DayChip
+            active={scheduledDate === today}
+            onClick={() => setScheduledDate(today)}
+            label={t("today")}
+          />
+          <DayChip
+            active={scheduledDate === tomorrow}
+            onClick={() => setScheduledDate(tomorrow)}
+            label={t("tomorrow")}
+          />
+          <input
+            type="date"
+            value={scheduledDate}
+            min={today}
+            onChange={(e) => setScheduledDate(e.target.value)}
+            aria-label={t("dateLabel")}
+            className="w-9 cursor-pointer rounded-md border border-ink-3 bg-transparent p-1.5 text-xs text-paper focus-visible:border-terracotta focus-visible:outline-none"
           />
         </div>
 
         {/* Stop chips row */}
-        <div className="border-y border-ink-3 bg-ink-2 px-4 py-3">
+        <div className="border-t border-ink-3 px-4 py-2.5">
           <div
             role="tablist"
             aria-label="Plan stops"
-            className="flex gap-2 overflow-x-auto pb-1"
+            className="flex gap-1.5 overflow-x-auto"
           >
             {stops.map((stop, i) => {
               const VibeIcon = VIBE_ICONS[stop.vibe];
@@ -359,17 +358,17 @@ export function PlanCreateFlow() {
                   type="button"
                   onClick={() => handleFocusStop(stop.uid)}
                   className={cn(
-                    "inline-flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
+                    "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
                     active
                       ? "border-terracotta bg-terracotta/15 text-paper"
-                      : "border-ink-4 bg-ink-1 text-paper-mute hover:border-paper",
+                      : "border-ink-3 text-paper-mute hover:border-paper",
                   )}
                 >
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-terracotta font-mono text-[10px] text-ink-0">
+                  <span className="flex h-4 w-4 items-center justify-center rounded-full bg-terracotta font-mono text-[9px] text-ink-0">
                     {i + 1}
                   </span>
                   <span className="max-w-[10ch] truncate">{label}</span>
-                  <VibeIcon className="h-3 w-3 text-terracotta" />
+                  <VibeIcon className="h-3 w-3 text-terracotta" aria-hidden />
                 </button>
               );
             })}
@@ -378,13 +377,13 @@ export function PlanCreateFlow() {
               onClick={startAddPicker}
               aria-label={t("addStop")}
               className={cn(
-                "inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-full border-2 border-dashed px-3 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
+                "inline-flex shrink-0 items-center gap-1 rounded-full border border-dashed px-2.5 py-1.5 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
                 pickerMode && !replacingUid
                   ? "border-terracotta text-paper"
-                  : "border-ink-4 text-paper-mute hover:border-paper hover:text-paper",
+                  : "border-ink-3 text-paper-mute hover:border-paper hover:text-paper",
               )}
             >
-              <Plus className="h-4 w-4" aria-hidden />
+              <Plus className="h-3.5 w-3.5" aria-hidden />
               {stops.length === 0 ? t("addFirstStop") : t("addStop")}
             </button>
           </div>
@@ -411,18 +410,24 @@ export function PlanCreateFlow() {
           )}
         </div>
 
-        {/* Capacity (optional) */}
+        {/* Capacity (optional, inline + minimal) */}
         {stops.length > 0 && (
-          <div className="border-t border-ink-3 px-4 py-4">
-            <Input
-              label={t("capacityLabel")}
+          <div className="flex items-center gap-3 border-t border-ink-3 px-4 py-3">
+            <label
+              htmlFor="plan-capacity"
+              className="font-mono text-[10px] uppercase tracking-wider text-paper-mute"
+            >
+              {t("capacityLabel")}
+            </label>
+            <input
+              id="plan-capacity"
               type="number"
               min={2}
               max={20}
               value={capacity}
               onChange={(e) => setCapacity(e.target.value)}
-              placeholder={t("capacityPlaceholder")}
-              helperText={t("capacityHelp")}
+              placeholder="-"
+              className="w-16 rounded-md border border-ink-3 bg-transparent px-2 py-1 text-sm text-paper placeholder:text-paper-faint focus-visible:border-terracotta focus-visible:outline-none"
             />
           </div>
         )}
@@ -459,10 +464,10 @@ function DayChip({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "inline-flex min-h-[36px] items-center rounded-full border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
+        "inline-flex shrink-0 items-center rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
         active
           ? "border-terracotta bg-terracotta/10 text-paper"
-          : "border-ink-4 text-paper-mute hover:border-paper",
+          : "border-ink-3 text-paper-mute hover:border-paper",
       )}
     >
       {label}

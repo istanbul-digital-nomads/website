@@ -47,108 +47,114 @@ export function PlanStopEditor({
   return (
     <section
       aria-label={`Stop ${index + 1} of ${total}`}
-      className="space-y-4 border-t border-ink-3 px-4 py-5 first:border-t-0"
+      className="space-y-3 px-4 py-3"
     >
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <p className="font-mono text-[10px] uppercase tracking-wider text-terracotta">
-            Stop {index + 1} of {total}
-          </p>
-          <p className="mt-1 truncate font-display text-h3 leading-tight text-paper">
+      {/* Location header: name on left, move + remove icon buttons on right. */}
+      <div className="flex items-center gap-2">
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-base font-medium text-paper">
             {locationLabel}
           </p>
           {space?.neighborhood && (
-            <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+            <p className="truncate font-mono text-[10px] uppercase tracking-wider text-paper-mute">
               {space.neighborhood}
             </p>
           )}
         </div>
         <button
           type="button"
+          onClick={onRequestChangeLocation}
+          aria-label={t("changeLocation")}
+          title={t("changeLocation")}
+          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-paper-mute transition-colors hover:bg-ink-2 hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
+        >
+          <MapPin className="h-4 w-4" aria-hidden />
+        </button>
+        <button
+          type="button"
           onClick={onRemove}
           aria-label={`Remove stop ${index + 1}`}
-          className="rounded-md border border-ink-4 p-2 text-paper-mute transition-colors hover:border-red-500 hover:text-red-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-paper-mute transition-colors hover:bg-ink-2 hover:text-red-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
         >
           <Trash2 className="h-4 w-4" aria-hidden />
         </button>
       </div>
 
-      {/* Change location - always available, prominent */}
-      <button
-        type="button"
-        onClick={onRequestChangeLocation}
-        className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-md border border-terracotta/60 bg-terracotta/5 px-4 py-2.5 text-sm font-medium text-paper transition-colors hover:bg-terracotta/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
-      >
-        <MapPin className="h-4 w-4 text-terracotta" aria-hidden />
-        {t("changeLocation")}
-      </button>
-
-      {/* Custom-location label (only when this is a custom pin) */}
+      {/* Custom pin: inline name field (placeholder-only, no label) */}
       {!stop.space_id && (
-        <Input
-          label={t("customLocation")}
+        <input
+          type="text"
           value={stop.custom_location ?? ""}
           onChange={(e) => patch({ custom_location: e.target.value })}
           placeholder={t("customLocationPlaceholder")}
           maxLength={120}
+          aria-label={t("customLocation")}
+          className="w-full rounded-md border border-ink-3 bg-transparent px-3 py-2 text-sm text-paper placeholder:text-paper-faint focus-visible:border-terracotta focus-visible:outline-none"
         />
       )}
 
-      {/* Time */}
-      <div className="grid grid-cols-2 gap-3">
-        <Input
-          label={t("startTime")}
+      {/* Time + vibe in one row */}
+      <div className="flex items-center gap-2">
+        <input
           type="time"
           value={stop.start_time}
           onChange={(e) => patch({ start_time: e.target.value })}
+          aria-label={t("startTime")}
+          className="min-w-0 flex-1 rounded-md border border-ink-3 bg-transparent px-2.5 py-2 text-sm text-paper focus-visible:border-terracotta focus-visible:outline-none"
         />
-        <Input
-          label={t("endTime")}
+        <span aria-hidden className="text-paper-mute">
+          –
+        </span>
+        <input
           type="time"
           value={stop.end_time}
           onChange={(e) => patch({ end_time: e.target.value })}
+          aria-label={t("endTime")}
+          className="min-w-0 flex-1 rounded-md border border-ink-3 bg-transparent px-2.5 py-2 text-sm text-paper focus-visible:border-terracotta focus-visible:outline-none"
         />
       </div>
 
-      {/* Vibe */}
-      <div>
-        <label className="mb-2 block text-sm font-medium text-paper">
-          {t("vibeLabel")}
-        </label>
-        <div className="flex flex-wrap gap-2">
-          {PLAN_VIBES.map((v) => {
-            const Icon = VIBE_ICONS[v];
-            const active = v === stop.vibe;
-            return (
-              <button
-                key={v}
-                type="button"
-                onClick={() => patch({ vibe: v })}
-                aria-pressed={active}
-                className={cn(
-                  "inline-flex min-h-[44px] items-center gap-1.5 border px-3 py-2 font-mono text-[11px] uppercase tracking-wider transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
-                  active
-                    ? "border-terracotta bg-terracotta/10 text-paper"
-                    : "border-ink-4 text-paper-mute hover:border-ink-5",
-                )}
-              >
-                <Icon className="h-3.5 w-3.5" />
-                {tVibes(v)}
-              </button>
-            );
-          })}
-        </div>
+      {/* Vibe: tight icon row, labels in tooltip + aria */}
+      <div
+        role="radiogroup"
+        aria-label={t("vibeLabel")}
+        className="flex flex-wrap gap-1.5"
+      >
+        {PLAN_VIBES.map((v) => {
+          const Icon = VIBE_ICONS[v];
+          const active = v === stop.vibe;
+          const label = tVibes(v);
+          return (
+            <button
+              key={v}
+              type="button"
+              role="radio"
+              aria-checked={active}
+              aria-label={label}
+              title={label}
+              onClick={() => patch({ vibe: v })}
+              className={cn(
+                "inline-flex h-9 w-9 items-center justify-center rounded-md border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
+                active
+                  ? "border-terracotta bg-terracotta/15 text-paper"
+                  : "border-ink-3 text-paper-mute hover:border-ink-4 hover:text-paper",
+              )}
+            >
+              <Icon className="h-4 w-4" aria-hidden />
+            </button>
+          );
+        })}
       </div>
 
-      {/* Notes */}
-      <Textarea
-        label={t("notesLabel")}
+      {/* Notes: lightweight, no label */}
+      <textarea
         value={stop.notes}
         onChange={(e) => patch({ notes: e.target.value })}
         placeholder={t("notesPlaceholder")}
         maxLength={280}
-        helperText={t("notesHelp")}
-        rows={3}
+        rows={2}
+        aria-label={t("notesLabel")}
+        className="w-full resize-none rounded-md border border-ink-3 bg-transparent px-3 py-2 text-sm text-paper placeholder:text-paper-faint focus-visible:border-terracotta focus-visible:outline-none"
       />
     </section>
   );

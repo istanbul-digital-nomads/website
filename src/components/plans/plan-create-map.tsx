@@ -209,15 +209,15 @@ export function PlanCreateMap({
             >
               <span
                 className={cn(
-                  "flex h-8 w-8 items-center justify-center rounded-full border-2 font-mono text-xs font-semibold shadow-lg",
+                  "flex h-6 w-6 items-center justify-center rounded-full border font-mono text-[10px] font-semibold shadow-md",
                   focusedUid === stop.uid
-                    ? "border-terracotta bg-terracotta text-ink-0 ring-2 ring-terracotta/40 ring-offset-2 ring-offset-ink-0"
+                    ? "border-paper bg-terracotta text-ink-0 ring-2 ring-terracotta/40"
                     : "border-paper bg-terracotta text-ink-0",
                 )}
               >
                 {i + 1}
               </span>
-              <span className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-terracotta" />
+              <span className="absolute -bottom-1 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rotate-45 bg-terracotta" />
             </button>
           </Marker>
         ))}

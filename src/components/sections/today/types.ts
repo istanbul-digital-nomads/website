@@ -11,7 +11,7 @@ export type TodaySlot = "morning" | "afternoon" | "evening";
 export type TodayPlanCard = {
   id: string;
   slot: TodaySlot;
-  startTime: string; // "HH:MM" or "—"
+  startTime: string; // "HH:MM" or "-"
   endTime: string;
   durationLabel: string; // "1h", "1h 30m"
   stops: number;
@@ -51,15 +51,15 @@ function parseHHMM(s: string | null | undefined): number | null {
 }
 
 function fmtHHMM(s: string | null | undefined): string {
-  if (!s) return "—";
+  if (!s) return "-";
   const m = HHMM.exec(s);
-  return m ? `${m[1]}:${m[2]}` : "—";
+  return m ? `${m[1]}:${m[2]}` : "-";
 }
 
 function durationLabel(startMin: number | null, endMin: number | null): string {
-  if (startMin == null || endMin == null) return "—";
+  if (startMin == null || endMin == null) return "-";
   const diff = Math.max(0, endMin - startMin);
-  if (diff === 0) return "—";
+  if (diff === 0) return "-";
   const h = Math.floor(diff / 60);
   const m = diff % 60;
   if (h === 0) return `${m}m`;

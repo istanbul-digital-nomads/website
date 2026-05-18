@@ -1,0 +1,238 @@
+/* Istanbul Nomads — design tokens
+   Harmonized to the Hero map system: deep-water + gold/rose, Instrument
+   Serif + Space Grotesk. The original CSS variable NAMES are preserved
+   so every existing component picks up the new look without edits.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600&display=swap');
+
+:root {
+  /* Surface — deep-water family, lifted from hero map. */
+  --ink-0: #04090f;        /* void, below water */
+  --ink-1: #06101f;        /* canvas — hero deepWater */
+  --ink-2: #0a1a2f;        /* surface — hero water */
+  --ink-3: #13294a;        /* raised — hero waterHi */
+  --ink-4: #1c3554;        /* hairline / border */
+  --ink-5: #284766;        /* muted border */
+
+  /* Text — cream paper. */
+  --paper:       #f6ecd9;        /* cream */
+  --paper-dim:   rgba(246,236,217,0.70);
+  --paper-mute:  rgba(246,236,217,0.50);
+  --paper-faint: rgba(246,236,217,0.32);
+
+  /* Primary — gold. Replaces hagia red. Used for accents, links, marks. */
+  --terracotta:        #f4b860;   /* gold */
+  --terracotta-dim:    #e8a647;   /* goldSoft, pressed */
+  --terracotta-deep:   #c98a3a;   /* deeper gold */
+  --terracotta-bright: #f5c478;   /* highlight */
+
+  /* Secondary — rose. The hero's warm contrast. */
+  --bosphorus:       #e87a5d;   /* rose */
+  --bosphorus-dim:   #c25e44;   /* rose pressed */
+  --bosphorus-deep:  #0a1a2f;   /* deep water — used as a surface in places */
+
+  /* Warm accent — gold (one accent system) */
+  --ferry-yellow: #f4b860;
+  --moss:         #86efac;   /* live / success — the hero pip green */
+
+  /* type */
+  --serif: 'Instrument Serif', 'GT Sectra', 'New York', Georgia, serif;
+  --sans:  'Space Grotesk', 'Inter', 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono:  'Space Grotesk', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --rtl:   'Vazirmatn', system-ui, sans-serif;
+
+  /* scale — generous */
+  --t-mono: 11.5px;
+  --t-cap: 12px;
+  --t-body: 16px;
+  --t-lede: 19px;
+  --t-h6: 18px;
+  --t-h5: 22px;
+  --t-h4: 28px;
+  --t-h3: 38px;
+  --t-h2: 56px;
+  --t-h1: 88px;
+  --t-display: 132px;
+
+  /* spacing — 4px base */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px;
+  --s-9: 96px; --s-10: 128px;
+
+  /* radius — hero is rounder (pills, 10–14px cards) */
+  --r-1: 4px;
+  --r-2: 8px;
+  --r-3: 12px;
+  --r-4: 18px;
+
+  /* motion */
+  --ease: cubic-bezier(.2,.7,.3,1);
+  --t-fast: 140ms;
+  --t-mid: 280ms;
+  --t-slow: 520ms;
+
+  --z-base: 1; --z-sticky: 5; --z-overlay: 50; --z-modal: 80; --z-cmdk: 100;
+}
+
+/* Time-of-day accent system — tinted to gold/rose now */
+.tod-dawn   { --tod-accent: var(--terracotta);   --tod-warm: #0a1a2f; }
+.tod-midday { --tod-accent: #f6ecd9;             --tod-warm: #06101f; }
+.tod-dusk   { --tod-accent: var(--bosphorus);    --tod-warm: #0a1a2f; }
+.tod-night  { --tod-accent: #7dd3fc;             --tod-warm: #04090f; }
+
+/* ferry animation */
+@keyframes ferry-cross {
+  0%   { transform: translateX(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateX(640px); opacity: 0; }
+}
+.ferry-cross { animation: ferry-cross 24s linear infinite; }
+
+@keyframes ferry-wake {
+  0%   { opacity: 0; }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+
+/* live pip blink — borrowed from hero */
+@keyframes in-blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.45; transform: scale(0.85); }
+}
+
+/* base reset within artboards */
+.in-artboard, .in-artboard * { box-sizing: border-box; }
+.in-artboard {
+  font-family: var(--sans);
+  color: var(--paper);
+  background: var(--ink-1);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.in-artboard h1, .in-artboard h2, .in-artboard h3, .in-artboard h4, .in-artboard h5 {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  text-wrap: pretty;
+  margin: 0;
+}
+.in-artboard em, .in-artboard i { font-style: italic; }
+.in-artboard p { margin: 0; text-wrap: pretty; line-height: 1.55; }
+.in-artboard a { color: inherit; text-decoration: none; }
+.in-artboard button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
+
+/* atoms */
+.in-mono {
+  font-family: var(--mono);
+  font-size: var(--t-mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.in-num  { font-family: var(--sans); font-weight: 500; font-variant-numeric: tabular-nums; letter-spacing: -0.005em; }
+.in-rule { height: 1px; background: var(--ink-4); width: 100%; }
+.in-thinrule { height: 1px; background: var(--ink-3); width: 100%; }
+.in-dot  { display:inline-block; width:6px; height:6px; border-radius:50%; background: var(--terracotta); vertical-align:middle; box-shadow: 0 0 8px var(--terracotta); }
+
+.in-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  font-weight: 600;
+}
+
+.in-tag {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--paper-dim);
+  padding: 5px 10px;
+  border: 0.5px solid rgba(246,236,217,0.18);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  background: rgba(246,236,217,0.02);
+}
+
+/* photo placeholders — deep-water + gold/rose, the hero language */
+.in-photo {
+  position: relative;
+  overflow: hidden;
+  border: 0.5px solid rgba(244,184,96,0.18);
+  border-radius: 12px;
+  background:
+    repeating-linear-gradient(90deg, rgba(246,236,217,0.04) 0 1px, transparent 1px 16px),
+    repeating-linear-gradient(0deg,  rgba(246,236,217,0.03) 0 1px, transparent 1px 16px),
+    linear-gradient(135deg, #0a1a2f, #06101f);
+  color: var(--paper-mute);
+}
+.in-photo--dawn { background:
+    repeating-linear-gradient(90deg, rgba(246,236,217,0.04) 0 1px, transparent 1px 16px),
+    repeating-linear-gradient(0deg,  rgba(246,236,217,0.03) 0 1px, transparent 1px 16px),
+    radial-gradient(120% 80% at 75% 90%, rgba(244,184,96,0.45), transparent 60%),
+    linear-gradient(160deg, #06101f 0%, #13294a 40%, #c98a3a 110%);
+}
+.in-photo--dusk { background:
+    repeating-linear-gradient(90deg, rgba(246,236,217,0.04) 0 1px, transparent 1px 16px),
+    repeating-linear-gradient(0deg,  rgba(246,236,217,0.03) 0 1px, transparent 1px 16px),
+    radial-gradient(140% 90% at 30% 80%, rgba(232,122,93,0.55), transparent 60%),
+    linear-gradient(200deg, #06101f 0%, #2a2030 50%, #e87a5d 110%);
+}
+.in-photo--bosphorus { background:
+    repeating-linear-gradient(90deg, rgba(246,236,217,0.04) 0 1px, transparent 1px 16px),
+    repeating-linear-gradient(0deg,  rgba(246,236,217,0.03) 0 1px, transparent 1px 16px),
+    linear-gradient(180deg, #06101f 0%, #13294a 40%, #1c3554 100%);
+}
+.in-photo--interior { background:
+    repeating-linear-gradient(90deg, rgba(246,236,217,0.04) 0 1px, transparent 1px 16px),
+    repeating-linear-gradient(0deg,  rgba(246,236,217,0.03) 0 1px, transparent 1px 16px),
+    radial-gradient(60% 60% at 70% 50%, rgba(244,184,96,0.18), transparent 70%),
+    linear-gradient(145deg, #0a1a2f 0%, #06101f 100%);
+}
+.in-photo--street { background:
+    repeating-linear-gradient(90deg, rgba(246,236,217,0.04) 0 1px, transparent 1px 16px),
+    repeating-linear-gradient(0deg,  rgba(246,236,217,0.03) 0 1px, transparent 1px 16px),
+    radial-gradient(50% 50% at 30% 70%, rgba(232,122,93,0.25), transparent 70%),
+    linear-gradient(180deg, #06101f 0%, #0a1a2f 60%, #13294a 100%);
+}
+.in-photo--mono { background:
+    repeating-linear-gradient(90deg, rgba(246,236,217,0.04) 0 1px, transparent 1px 16px),
+    repeating-linear-gradient(0deg,  rgba(246,236,217,0.03) 0 1px, transparent 1px 16px),
+    linear-gradient(160deg, #06101f 0%, #13294a 100%);
+}
+
+.in-photo__label {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 10px 14px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(246,236,217,0.75);
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(0deg, rgba(6,16,31,0.9), transparent);
+}
+.in-photo__corner {
+  position:absolute; top:10px; left:14px;
+  font-family: var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+  font-weight: 600;
+  color: rgba(244,184,96,0.7);
+}
+
+/* gold accent line used as section markers */
+.in-mark {
+  width: 28px; height: 1px; background: var(--terracotta); display: inline-block; vertical-align: middle;
+  opacity: 0.7;
+}

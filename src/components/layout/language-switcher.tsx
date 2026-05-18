@@ -14,8 +14,8 @@ import {
 import { cn } from "@/lib/utils";
 
 const headerControlStyle = {
-  height: 36,
-  fontSize: 12,
+  height: 32,
+  fontSize: 11,
   lineHeight: "16px",
 } satisfies CSSProperties;
 
@@ -75,18 +75,18 @@ export function LanguageSwitcher() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="header-control inline-flex h-9 items-center justify-center gap-1.5 border border-ink-4 bg-ink-1/55 px-2.5 text-xs font-medium uppercase tracking-wider text-paper-mute transition-colors duration-fast hover:border-ink-5 hover:bg-ink-2 hover:text-paper"
+        className="header-control inline-flex h-8 items-center justify-center gap-1 whitespace-nowrap rounded-full border border-ink-3/70 bg-ink-1/50 px-2.5 text-[11px] font-medium uppercase tracking-wider text-paper-mute transition-all duration-fast hover:border-ink-4 hover:bg-ink-2 hover:text-paper"
         title={t("label")}
         aria-haspopup="listbox"
         aria-expanded={open}
         style={headerControlStyle}
       >
-        <Globe className="h-3.5 w-3.5" aria-hidden="true" />
+        <Globe className="h-3 w-3" aria-hidden="true" />
         <span className="sr-only">{t("label")}:</span>
         <span>{locale}</span>
         <ChevronDown
           className={cn(
-            "h-3 w-3 transition-transform duration-200",
+            "h-2.5 w-2.5 transition-transform duration-200",
             open && "rotate-180",
           )}
           aria-hidden="true"
@@ -96,7 +96,7 @@ export function LanguageSwitcher() {
       {open && (
         <div
           role="listbox"
-          className="absolute end-0 top-full z-50 mt-2 w-40 border border-ink-3 bg-ink-1/95 p-1.5 shadow-[0_16px_42px_rgba(0,0,0,0.35)] backdrop-blur-xl"
+          className="absolute end-0 top-full z-50 mt-2 w-40 overflow-hidden rounded-xl border border-ink-3 bg-ink-1/95 p-1.5 shadow-[0_20px_48px_rgba(0,0,0,0.45)] backdrop-blur-xl"
           dir={rtl ? "rtl" : "ltr"}
         >
           {locales.map((l) => (
@@ -106,10 +106,10 @@ export function LanguageSwitcher() {
               aria-selected={locale === l}
               onClick={() => switchLocale(l)}
               className={cn(
-                "block w-full px-3 py-2 text-start text-sm transition-colors hover:bg-ink-2",
+                "block w-full rounded-lg px-3 py-2 text-start text-sm transition-colors",
                 locale === l
-                  ? "bg-ink-2 font-medium text-paper"
-                  : "text-paper-mute",
+                  ? "bg-ferry-yellow/10 font-medium text-paper"
+                  : "text-paper-mute hover:bg-paper/[0.05] hover:text-paper",
               )}
             >
               {localeNames[l]}

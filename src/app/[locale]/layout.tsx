@@ -3,8 +3,10 @@ import { Suspense } from "react";
 import {
   Fraunces,
   Geist,
+  Instrument_Serif,
   JetBrains_Mono,
   Noto_Sans_Arabic,
+  Space_Grotesk,
 } from "next/font/google";
 import localFont from "next/font/local";
 import Script from "next/script";
@@ -20,8 +22,6 @@ import { getCachedMessages } from "@/lib/i18n/cache-translations";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/layout/theme-provider";
-import { AmbientBar } from "@/components/layout/ambient-bar";
-import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import {
   BottomTabBarIsland,
@@ -56,6 +56,28 @@ const fraunces = Fraunces({
   style: ["normal", "italic"],
   variable: "--font-display",
   preload: true,
+});
+
+// Instrument Serif - cinematic italic editorial face used by HeroLive and
+// the Members directory. Single weight (400) + italic for callouts and
+// editorial headlines. Preload off because it's used on a couple pages.
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-editorial",
+  preload: false,
+});
+
+// Space Grotesk - sans companion to Instrument Serif on the hero / Members
+// surfaces. Body sans elsewhere stays as Geist. Preload off.
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-grotesk",
+  preload: false,
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -269,6 +291,8 @@ export default async function LocaleLayout({
         className={[
           geist.variable,
           fraunces.variable,
+          instrumentSerif.variable,
+          spaceGrotesk.variable,
           jetbrainsMono.variable,
           typedLocale === "fa" ? bon.variable : "",
           typedLocale === "ar" ? notoSansArabic.variable : "",
@@ -298,12 +322,9 @@ export default async function LocaleLayout({
             <Suspense fallback={null}>
               <NavProgressIsland />
             </Suspense>
-            <Suspense fallback={null}>
-              <AmbientBar locale={typedLocale} />
-            </Suspense>
-            <Suspense fallback={null}>
-              <Header />
-            </Suspense>
+            {/* Header is mounted by the (marketing) and (app) route-group
+                layouts; (home) deliberately omits it so the cinematic hero
+                owns the top of the viewport. No is-home shim needed. */}
             <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">
               <Suspense fallback={null}>{children}</Suspense>
             </main>

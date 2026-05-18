@@ -17,9 +17,21 @@ export const socialLinks = {
   email: "hello@istanbulnomads.com",
 } as const;
 
-export type NavItemKey = "about" | "explore" | "community" | "contact";
+// Hybrid nav: 5 workspace-style icon destinations on the left, two rich
+// dropdowns on the right. `countKey` opts a flat item into a count pill;
+// dropdowns get label + description rows for each child.
+export type NavItemKey =
+  | "today"
+  | "map"
+  | "events"
+  | "members"
+  | "perks"
+  | "explore"
+  | "community";
+
 export type NavChildKey =
   | "cityGuides"
+  | "neighborhoods"
   | "pathToIstanbul"
   | "nomadSpaces"
   | "localGuides"
@@ -28,18 +40,34 @@ export type NavChildKey =
   | "members"
   | "circles"
   | "perks"
-  | "plans";
+  | "plans"
+  | "about"
+  | "contact";
 
-export type NavItem =
-  | { key: NavItemKey; href: string }
-  | { key: NavItemKey; children: { key: NavChildKey; href: string }[] };
+export type NavCountKey = "events" | "perks";
+
+export type NavFlatItem = {
+  key: NavItemKey;
+  href: string;
+  countKey?: NavCountKey;
+};
+export type NavDropdownItem = {
+  key: NavItemKey;
+  children: { key: NavChildKey; href: string }[];
+};
+export type NavItem = NavFlatItem | NavDropdownItem;
 
 export const navItems: NavItem[] = [
-  { key: "about", href: "/about" },
+  { key: "today", href: "/today" },
+  { key: "map", href: "/spaces" },
+  { key: "events", href: "/events", countKey: "events" },
+  { key: "members", href: "/members" },
+  { key: "perks", href: "/perks", countKey: "perks" },
   {
     key: "explore",
     children: [
       { key: "cityGuides", href: "/guides" },
+      { key: "neighborhoods", href: "/guides/neighborhoods" },
       { key: "pathToIstanbul", href: "/path-to-istanbul" },
       { key: "nomadSpaces", href: "/spaces" },
       { key: "localGuides", href: "/local-guides" },
@@ -49,14 +77,12 @@ export const navItems: NavItem[] = [
     key: "community",
     children: [
       { key: "plans", href: "/plans" },
-      { key: "events", href: "/events" },
-      { key: "members", href: "/members" },
       { key: "circles", href: "/circles" },
-      { key: "perks", href: "/perks" },
       { key: "blog", href: "/blog" },
+      { key: "about", href: "/about" },
+      { key: "contact", href: "/contact" },
     ],
   },
-  { key: "contact", href: "/contact" },
 ];
 
 export type FooterLinkKey =

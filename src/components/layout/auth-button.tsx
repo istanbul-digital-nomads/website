@@ -8,12 +8,14 @@ import { LogOut, User } from "lucide-react";
 import { showToast } from "@/lib/toast";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 
+// Matches the rounded-pill controls in the new workspace header.
 const headerControl =
-  "header-control inline-flex h-9 items-center justify-center border border-ink-4 bg-ink-1/55 text-sm text-paper-mute transition-colors duration-fast hover:border-ink-5 hover:bg-ink-2 hover:text-paper";
+  "header-control inline-flex h-8 items-center justify-center rounded-full border border-ink-3/70 bg-ink-1/50 text-[12.5px] text-paper-mute transition-all duration-fast hover:border-ink-4 hover:bg-ink-2 hover:text-paper";
 const headerControlStyle = {
-  height: 36,
-  fontSize: 14,
-  lineHeight: "20px",
+  height: 32,
+  fontSize: 12.5,
+  lineHeight: "18px",
+  whiteSpace: "nowrap",
 } satisfies CSSProperties;
 
 export function AuthButton() {
@@ -100,7 +102,7 @@ export function AuthButton() {
         <Link
           href="/dashboard"
           title={t("openDashboard")}
-          className={`${headerControl} hidden gap-2 px-3 font-medium md:inline-flex`}
+          className={`${headerControl} hidden gap-1.5 px-3 text-[12.5px] font-medium md:inline-flex`}
           style={headerControlStyle}
         >
           {avatar ? (
@@ -170,11 +172,11 @@ export function AuthButton() {
   return (
     <Link
       href="/login"
-      className={`${headerControl} hidden w-20 gap-1.5 px-3 font-medium md:inline-flex`}
-      style={{ ...headerControlStyle, width: 80 }}
+      className={`${headerControl} hidden gap-1.5 px-3 text-[12.5px] font-medium md:inline-flex`}
+      style={headerControlStyle}
     >
-      <User className="h-4 w-4" />
-      {t("signIn")}
+      <User className="h-3 w-3" />
+      <span>{t("signIn")}</span>
     </Link>
   );
 }

@@ -4,60 +4,61 @@
 
 @layer base {
   :root {
-    --background: #fafafa;
-    --foreground: #1a1a2e;
+    --background: #f6ecd9;
+    --foreground: #06101f;
     --muted: #5d6d7e;
-    --line: rgba(26, 26, 46, 0.1);
+    --line: rgba(6, 16, 31, 0.1);
 
-    /* Design System v2 - "ink + paper" tokens (light mode).
-       The ink ramp is a warm paper canvas; paper-* is the ink text colour.
-       Accents keep the same hue in both themes. Values are space-separated
-       RGB channels so Tailwind's `/opacity` modifier works (the colors are
-       wired as `rgb(var(--token) / <alpha-value>)` in tailwind.config.ts). */
-    --ink-0: 236 231 219;
-    --ink-1: 244 241 234;
-    --ink-2: 255 255 255;
-    --ink-3: 228 222 208;
-    --ink-4: 212 204 184;
-    --ink-5: 191 181 156;
-    --paper: 31 27 22;
-    --paper-dim: 66 60 50;
-    --paper-mute: 107 100 86;
-    --paper-faint: 148 140 122;
-    --terracotta: 182 85 46;
-    --terracotta-dim: 142 68 36;
-    --bosphorus: 51 96 121;
-    --bosphorus-dim: 42 77 98;
-    --ferry-yellow: 201 143 44;
-    --moss: 92 108 66;
-    --tod-accent: var(--terracotta);
+    /* Design System v3 - cinematic palette (cream + deep-water).
+       Mapped to the hero design's IN_PALETTE: deep-water bg, cream text,
+       gold + rose accents. Light mode inverts to cream bg, deep-water ink.
+       Values are space-separated RGB channels so Tailwind's `/opacity`
+       modifier works (wired as `rgb(var(--token) / <alpha-value>)` in
+       tailwind.config.ts). */
+    --ink-0: 246 236 217;      /* cream - lightest bg */
+    --ink-1: 240 228 205;      /* cream-warm */
+    --ink-2: 255 255 255;      /* white */
+    --ink-3: 222 205 178;      /* border-warm */
+    --ink-4: 192 170 138;      /* subtle */
+    --ink-5: 148 124 92;       /* faintest */
+    --paper: 6 16 31;          /* deep-water ink (text) */
+    --paper-dim: 18 33 56;     /* water */
+    --paper-mute: 60 78 105;
+    --paper-faint: 112 128 152;
+    --terracotta: 232 122 93;  /* rose */
+    --terracotta-dim: 198 91 64;
+    --bosphorus: 19 41 74;     /* waterHi */
+    --bosphorus-dim: 10 26 47;
+    --ferry-yellow: 244 184 96;/* gold */
+    --moss: 134 239 172;       /* live-green */
+    --tod-accent: var(--ferry-yellow);
   }
 
   .dark {
-    --background: #14110f;
-    --foreground: #f2f3f4;
-    --muted: #b7aaa0;
-    --line: rgba(242, 243, 244, 0.1);
+    --background: #06101f;
+    --foreground: #f6ecd9;
+    --muted: #94a3b8;
+    --line: rgba(246, 236, 217, 0.1);
 
-    /* Design System v2 - dark mode (canonical values from tokens.jsx).
-       Space-separated RGB channels - see the :root note above. */
-    --ink-0: 11 14 17;
-    --ink-1: 14 18 22;
-    --ink-2: 20 26 32;
-    --ink-3: 28 35 43;
-    --ink-4: 40 48 56;
-    --ink-5: 58 68 79;
-    --paper: 244 234 215;
+    /* Dark mode = the design's canonical palette.
+       Deep-water canvas, cream text, gold + rose accents. */
+    --ink-0: 6 16 31;          /* deepWater */
+    --ink-1: 10 26 47;         /* water */
+    --ink-2: 19 41 74;         /* waterHi */
+    --ink-3: 30 56 92;         /* border */
+    --ink-4: 48 76 116;        /* subtle */
+    --ink-5: 72 102 142;       /* faint surface */
+    --paper: 246 236 217;      /* cream */
     --paper-dim: 217 207 186;
-    --paper-mute: 163 156 139;
-    --paper-faint: 111 106 94;
-    --terracotta: 196 99 58;
-    --terracotta-dim: 142 68 36;
+    --paper-mute: 168 158 138;
+    --paper-faint: 112 104 90;
+    --terracotta: 232 122 93;  /* rose */
+    --terracotta-dim: 198 91 64;
     --bosphorus: 61 107 138;
     --bosphorus-dim: 47 84 112;
-    --ferry-yellow: 231 176 74;
-    --moss: 107 125 78;
-    --tod-accent: var(--terracotta);
+    --ferry-yellow: 244 184 96;/* gold */
+    --moss: 134 239 172;       /* live-green */
+    --tod-accent: var(--ferry-yellow);
   }
 
   * {

@@ -2,7 +2,7 @@ import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import type { Locale } from "@/lib/i18n/config";
 import { Container } from "@/components/ui/container";
 import { SectionEyebrow } from "@/components/ui/section-eyebrow";
-import { NewsletterForm } from "@/components/newsletter-form";
+import { NewsletterForm } from "@/components/sections/newsletter-form";
 
 /**
  * Design System v2 - "The Sunday letter". The newsletter cadence, with the

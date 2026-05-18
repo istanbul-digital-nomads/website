@@ -1,5 +1,13 @@
 # Roadmap
 
+> ⚠️ **Historical document.** This roadmap describes the MVP-to-platform build
+> plan that took us through v1 and v2. As of v3.7.0 (May 2026) most of these
+> phases shipped or were superseded by the cinematic-hero / workspace-nav /
+> editorial-Members redesign. For *current* product status and tracked
+> follow-ups, read [PRODUCT.md § 11 "Where things stand"](PRODUCT.md#11--where-things-stand-may-2026).
+> The phase-by-phase plan below is kept for context only — don't treat checked
+> boxes here as a reliable inventory of what's in production.
+
 A detailed, implementation-ready plan for building istanbulnomads.com from MVP to full community platform. Each task is scoped small enough to be a single PR.
 
 ## Phase 1 - Foundation & Landing Site (MVP)

@@ -5,7 +5,7 @@ import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import type { Locale } from "@/lib/i18n/config";
 import { Container } from "@/components/ui/container";
 import { footerNav, socialLinks, type FooterLinkKey } from "@/lib/constants";
-import { NewsletterForm } from "@/components/newsletter-form";
+import { NewsletterForm } from "@/components/sections/newsletter-form";
 
 const socialIcons = [
   { href: socialLinks.telegram, icon: Send, key: "telegram" as const },

@@ -6,6 +6,13 @@
     "description": "İstanbul'daki dijital göçebe topluluğu - haftalık ortak çalışma, yerel rehberler ve uzun süre kalanlar için yumuşak bir başlangıç."
   },
   "nav": {
+    "today": "Bugün",
+    "map": "Harita",
+    "events": "Etkinlikler",
+    "members": "Üyeler",
+    "perks": "Avantajlar",
+    "neighborhoods": "Mahalleler",
+    "primaryAria": "Ana navigasyon",
     "about": "Hakkımızda",
     "explore": "Keşfet",
     "community": "Topluluk",
@@ -59,6 +66,18 @@
       "plans": {
         "label": "Bugünün Planları",
         "description": "Aynı gün cowork ve sosyal planlar"
+      },
+      "neighborhoods": {
+        "label": "Mahalleler",
+        "description": "Göçebeler için puanlanmış 10 İstanbul semti"
+      },
+      "about": {
+        "label": "Hakkımızda",
+        "description": "Biz kimiz ve topluluğu nasıl işletiyoruz"
+      },
+      "contact": {
+        "label": "İletişim",
+        "description": "Ekibe, ortaklıklar veya basın için ulaşın"
       }
     }
   },
@@ -918,6 +937,40 @@
           "title": "Galata akşamı",
           "detail": "Şehrin akşam karanlığından sonra nerede işlediğini bilen insanlarla tanış."
         }
+      }
+    },
+    "heroLive": {
+      "livePip": "Şu an 21 göçebe çevrimiçi",
+      "headlineA": "Göçebeler bugün",
+      "headlineB": "ne yapıyor",
+      "headlineC": "İstanbul'da?",
+      "lede": "İstanbul göçebe topluluğunun bu akşam takıldığı kafeler, ortak çalışma alanları, oyun mekanları ve yemekler için canlı bir harita.",
+      "ctaPrimary": "Göçebelerle tanış",
+      "ctaSecondary": "Nasıl çalışır",
+      "nowLive": "Şu anda canlı",
+      "nav": {
+        "map": "Harita",
+        "events": "Etkinlikler",
+        "community": "Topluluk",
+        "about": "Hakkında",
+        "signIn": "Giriş"
+      },
+      "categories": {
+        "cafe": "Kafeler",
+        "bar": "Barlar",
+        "gaming": "Oyun",
+        "events": "Etkinlikler",
+        "restaurant": "Restoranlar",
+        "coworking": "Ortak çalışma",
+        "gallery": "Galeriler"
+      },
+      "tour": {
+        "intro": { "label": "Bu akşam İstanbul", "sub": "Boğaz'ın iki yakasında canlı" },
+        "beyoglu": { "label": "Beyoğlu", "sub": "İstiklal'de gece ortak çalışma" },
+        "kadikoy": { "label": "Kadıköy", "sub": "Bir oyun buluşması şekilleniyor" },
+        "karakoy": { "label": "Karaköy", "sub": "Sahil boyunca akşam yemeği" },
+        "sultanahmet": { "label": "Sultanahmet", "sub": "Eski şehirde galeri gecesi" },
+        "ortakoy": { "label": "Ortaköy", "sub": "Boğaz manzaralı kahvaltı" }
       }
     },
     "firstWeekTool": {
@@ -2657,6 +2710,26 @@
     "title": "Kimler burada,",
     "titleItalic": "ve neyin peşindeler.",
     "lede": "Listede yer almayı kendi seçen üyelerin isteğe bağlı rehberi. Telegram üzerinden ulaş - site üzerinden mesajlaşmıyoruz.",
+    "livePip": "{count, plural, =0 {Henüz herkese açık profil yok} one {Rehberde # üye} other {Rehberde # üye}}",
+    "headlineA": "Buradaki",
+    "headlineB": "insanlar",
+    "headlineC": "evden çıktıkları sokağa göre.",
+    "publicLabel": "herkese açık",
+    "hoodsLabel": "semt",
+    "recentEyebrow": "Yeni katılanlar",
+    "recentLede": "Listeye en son eklenen üyeler. Profillerini görmek için adlarına dokun.",
+    "noLocation": "Konum gizli",
+    "howEyebrow": "Nasıl çalışır",
+    "howBody": "Telegram üzerinden ulaş - site üzerinden mesajlaşmıyoruz. Rehber isteğe bağlı; gördüğün herkes listede olmayı kendi seçti.",
+    "personCount": "{count} kişi",
+    "singlePerson": "1 kişi",
+    "elsewhereLabel": "İstanbul genelinde",
+    "ctaEyebrow": "Üye · sen",
+    "ctaHeadlineA": "Kendini ekle.",
+    "ctaHeadlineB": "Ya da ekleme.",
+    "ctaLede": "Yukarıdaki liste isteğe bağlı. Bir ad, kısa bir biyografi, bir Telegram kullanıcı adı. İstediğin zaman düzenle. İstediğin zaman gizle.",
+    "ctaPrimary": "Profilimi oluştur",
+    "ctaSecondary": "Ne herkese açık, ne değil",
     "emptyEyebrow": "Rehber açılıyor",
     "emptyTitle": "Henüz herkese açık profil yok. Üyeler tek tek katılıyor - yakında tekrar uğra.",
     "profile": {
@@ -2948,5 +3021,64 @@
       "errorTitle": "Telegram açılamadı",
       "notConfigured": "Telegram botu henüz ayarlanmadı."
     }
+  },
+  "today": {
+    "meta": {
+      "title": "Bugünün planları · Istanbul Nomads",
+      "description": "Bugün etrafındaki göçebelerin paylaştığı planlar. Ücretsiz, şeffaf, uğra-gel."
+    },
+    "livePip": "{count, plural, =0 {Henüz planda hiçbir şey yok} one {Panoda # plan · canlı} other {Panoda # plan · canlı}}",
+    "dateRibbon": "Bugünün planları · yerel saat",
+    "headlineA": "Bugün panoda",
+    "headlineB": "ne",
+    "headlineC": "var.",
+    "lede": "Etrafındaki göçebelerin paylaştığı planlar. Göçebe planları, şeffaf bütçeli akran buluşmaları. Uğra, yürüyerek gel, merhaba de.",
+    "stats": {
+      "total": "Panodaki planlar",
+      "totalSub": "yalnızca bugün",
+      "open": "Açık koltuk",
+      "openSub": "{hoods} semt boyunca",
+      "mine": "Senin planın",
+      "mineSub": "{filled}/{seats} katıldı",
+      "mineNone": "—",
+      "mineNoneSub": "sağ taraftan paylaş",
+      "hoods": "Semt",
+      "hoodsSub": "bugün plan olan"
+    },
+    "groups": {
+      "morning": {
+        "label": "Sabah · N° 01",
+        "kickerLead": "İkinci kahveden önce.",
+        "kickerRest": "",
+        "range": "06:00 → 12:00 · {count, plural, one {# plan} other {# plan}}"
+      },
+      "afternoon": {
+        "label": "Öğleden sonra · N° 02",
+        "kickerLead": "Uzun süre.",
+        "kickerRest": "İki vapur, belki bir yürüyüş.",
+        "range": "12:00 → 18:00 · {count, plural, one {# plan} other {# plan}}"
+      },
+      "evening": {
+        "label": "Akşam · N° 03",
+        "kickerLead": "İstanbul'un en iyi yaptığı saat.",
+        "kickerRest": "",
+        "range": "18:00 → 00:00 · {count, plural, one {# plan} other {# plan}}"
+      }
+    },
+    "composer": {
+      "eyebrow": "+ plan paylaş",
+      "placeholder": "Ne yapacağına dair tek cümle…",
+      "hint": "Göçebe olarak paylaşıyor"
+    },
+    "rail": {
+      "title": "Üyeler · yeni katılanlar",
+      "cta": "Dizini gör",
+      "empty": "Henüz herkese açık profil yok."
+    },
+    "legend": {
+      "nomad": "Göçebe planları · ücretsiz, bütçe önceden belli",
+      "shortcut": "⌘K · herhangi bir gün veya semt için ara"
+    },
+    "emptyBoard": "Bugün panoda plan yok. Sen paylaş ya da yarına bak."
   }
 }

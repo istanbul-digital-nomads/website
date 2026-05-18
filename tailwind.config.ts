@@ -85,10 +85,19 @@ const config: Config = {
         moss: "rgb(var(--moss) / <alpha-value>)",
         // Time-of-day accent, set by the `tod-*` class on <html>.
         tod: "rgb(var(--tod-accent) / <alpha-value>)",
+        // Cinematic-palette semantic aliases (used by HeroLive).
+        // Resolve to ink-0 (dark) / paper / ferry-yellow / terracotta so
+        // they flip with theme like everything else.
+        "deep-water": "rgb(var(--ink-0) / <alpha-value>)",
+        cream: "rgb(var(--paper) / <alpha-value>)",
+        gold: "rgb(var(--ferry-yellow) / <alpha-value>)",
+        rose: "rgb(var(--terracotta) / <alpha-value>)",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
         display: ["var(--font-display)", "Georgia", "serif"],
+        editorial: ["var(--font-editorial)", "Georgia", "serif"],
+        grotesk: ["var(--font-grotesk)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       fontSize: {

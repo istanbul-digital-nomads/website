@@ -4,6 +4,99 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.8.0] - 2026-05-19
+
+**Route-group scaffold + components reorg + canonical PRODUCT doc.** The `[locale]` tree is now carved into three Next.js route groups - `(home)`, `(marketing)`, `(app)` - each with its own layout. The homepage naturally has no global Header (the hero brand bar owns the top), marketing and app routes mount `HeaderWithCounts` from their own group layout, and the `is-home` pre-hydration script + `IsHomeMarker` client island + `hero-home-hide` CSS shim are all gone. Components moved from `src/components/{plans,today}/` to `src/components/sections/{plans,today}/` so every page-section component lives under a single roof. New `PRODUCT.md` is now the canonical product reference; README / DESIGN / ROADMAP / ARCHITECTURE updated to point at it.
+
+### Changed
+
+- **Route groups** (`src/app/[locale]/(home|marketing|app)/`) - 1 + 15 + 4 routes redistributed without changing a single URL. `(marketing)/layout.tsx` and `(app)/layout.tsx` each mount `<HeaderWithCounts />`; `(home)` deliberately omits it. The shell `[locale]/layout.tsx` keeps providers, fonts, footer, command menu, and universal islands.
+- **Components consolidated** - `src/components/plans/*` → `src/components/sections/plans/*`, `src/components/today/*` → `src/components/sections/today/*`, `newsletter-form.tsx` → `sections/newsletter-form.tsx`, `web-mcp-register.tsx` → `layout/web-mcp-register.tsx`. All import paths rewritten.
+- **DESIGN.md** rewritten to match the shipped cinematic palette (deep-water / cream / gold / rose) and the Instrument Serif + Space Grotesk + Fraunces + Geist + JetBrains Mono stack actually loaded in `layout.tsx`.
+- **README.md** bumped Next 14 → 16, version pointer → 3.8.0, routes table corrected; points at `PRODUCT.md` for the canonical product spec.
+- **ROADMAP.md** + **ARCHITECTURE.md** tagged with historical-document headers pointing at `PRODUCT.md`.
+
+### Removed
+
+- `src/components/layout/is-home-marker.tsx` and the pre-hydration `is-home` script in `[locale]/layout.tsx`. Route groups replace the client-side route detection shim.
+- `html.is-home .hero-home-hide { display: none }` block in `globals.css`.
+
+### Added
+
+- **PRODUCT.md** - canonical 12-section product reference (audience, product loop, surfaces, data entities, brand voice, tech stack, boundaries). New entry point for new contributors and AI agents.
+
+## [3.7.0] - 2026-05-18
+
+**Workspace nav + editorial Members and Plans + hero hardening.** Delivery round against the [Members + Profile handoff](docs/plan/design/files/members/CHANGES.md) dated 2026-05-18. The global Header is now a workspace-style nav with five real destinations (Map / Events / Members / Perks) plus Explore + Community dropdowns, gold-tinted active state with `aria-current="page"`, count pills on Events + Perks fed by a cached Supabase query, and a fully harmonized rounded-pill right cluster (⌘K · EN · Sign in). The Members directory and the Plans landing page were reskinned in the cinematic editorial language (deep-water canvas, Instrument Serif headlines with italic-gold accents, Space Grotesk body, moss-green live pips, rounded-full CTAs). The MapLibre hero gained crash guards so client-side navigation in and out of the homepage no longer trips the layout-level error boundary, and switched to CartoCDN raster tiles for resilience in backgrounded tabs.
+
+### Delivered against the Members + Profile handoff (`docs/plan/design/files/members/CHANGES.md`)
+
+| Handoff artboard / asset                    | Status       | Where it lives                                                                                |
+| ------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------- |
+| `directory-list` (`MembersListPage`)        | **Done**     | [members-editorial.tsx](src/components/sections/members/members-editorial.tsx) on `/members`  |
+| `directory-map` (`MembersMapPage`)          | Deferred     | needs a Bosphorus SVG + lat/lng-pinned member chips                                            |
+| `profile-editorial` (`ProfileEditorialPage`)| Deferred     | `/members/[id]` still uses the previous card profile                                            |
+| `profile-quiet` (`ProfileQuietPage`)        | Deferred     | will be the default for own-profile / `/me`                                                    |
+| Plans landing (`today.jsx`-aligned chrome)  | **Done**     | [hero.tsx](src/components/plans/landing/hero.tsx) + counter + how-it-works + tone-disclaimer  |
+| `today.jsx` page at `/today`                | Deferred     | route doesn't exist yet; nearest equivalent is `/plans`                                        |
+| Global re-skin to deep-water + Instrument Serif + Space Grotesk | **Partial**  | tokens already remapped in 3.6.0; Space Grotesk loaded as `--font-grotesk` (preload off); applied to Hero, Members, Plans surfaces. Other pages still inherit the token shift via Geist + Fraunces. |
+| Hero map system (already-shipped)           | **Hardened** | see "Hero map crash fix" + "raster tiles" + "deferred mount" below                            |
+
+### Added
+
+- **Workspace navbar** ([src/components/layout/header.tsx](src/components/layout/header.tsx)) - five flat icon destinations (Map → `/spaces`, Events, Members, Perks, with Lucide glyphs) + two restored rich dropdowns (Explore ▾, Community ▾) that show a label + description per item and gain the gold-tint active state when any of their children is current. `aria-current="page"`, keyboard-friendly, click-outside close.
+- **Header counts** ([src/lib/nav-counts.ts](src/lib/nav-counts.ts) + [src/components/layout/header-with-counts.tsx](src/components/layout/header-with-counts.tsx)) - server-side `getNavCounts()` composes the already-cached `getEventsPublic` + `getPerksPublic` queries inside a `"use cache"` boundary (cacheLife `"minutes"`); upcoming-7-day events + active perks render as count pills next to the matching destination, hidden at 0, capped at `99+`.
+- **`is-home` route flag** - pre-hydration script in [layout.tsx](src/app/[locale]/layout.tsx) sets `html.is-home` based on `location.pathname` so the homepage paints without flicker, plus [is-home-marker.tsx](src/components/layout/is-home-marker.tsx) client island that keeps the flag in sync across client-side navigations. Hides both `AmbientBar` and the global `Header` on `/` via a single CSS rule, replacing the previous client-side gate that caused hydration mismatches.
+- **MembersEditorial section** ([src/components/sections/members/members-editorial.tsx](src/components/sections/members/members-editorial.tsx)) - new full-page layout for `/members`: deep-water canvas with subtle gold/rose gradient wash, moss-green live pip with real member count, Instrument Serif headline "The people *here*, by the street they leave the house in." (italic gold accent), counts strip (public / hoods), two-column split with a recently-joined sidebar and a neighborhood-grouped right column, stable hue-per-name avatar fallback for members without photos, CTA block at the bottom. Works on real `MemberPublic` data; "Across Istanbul" bucket catches members without a `location`.
+- **Plans editorial reskin** - [hero.tsx](src/components/plans/landing/hero.tsx) + [plans-today-counter.tsx](src/components/plans/plans-today-counter.tsx) + [how-it-works.tsx](src/components/plans/landing/how-it-works.tsx) + [tone-disclaimer.tsx](src/components/plans/landing/tone-disclaimer.tsx) + the authed range header inside [plans/page.tsx](src/app/[locale]/plans/page.tsx). All now share the deep-water canvas, italic-gold serif numerals (01/02/03), rounded-full gold/ghost CTAs, gold-bordered counter card with massive Instrument Serif number.
+- **Space Grotesk** loaded via `next/font/google` ([layout.tsx](src/app/[locale]/layout.tsx)) as `--font-grotesk` + Tailwind `font-grotesk` family. Preload off (only used on Members + Plans editorial surfaces).
+- **HeroErrorBoundary** ([src/components/sections/home/hero-live/hero-error-boundary.tsx](src/components/sections/home/hero-live/hero-error-boundary.tsx)) - local class-based boundary that catches MapLibre / react-map-gl render errors from rapid mount/unmount races so they don't bubble up to the layout-level `error.tsx`. Auto-recovers on `resetKey` change.
+- **i18n keys** - all 5 locales got new `nav.{map,events,members,perks,primaryAria}`, dropdown child rows under `nav.items.{neighborhoods,about,contact}.{label,description}`, and a substantial `membersV2.*` block (`livePip` with plural rules, `headlineA/B/C`, `recentEyebrow`, `recentLede`, `howEyebrow`, `howBody`, `personCount`/`singlePerson`, `elsewhereLabel`, full CTA copy, `publicLabel`, `hoodsLabel`).
+
+### Changed
+
+- **Right cluster harmony** ([auth-button.tsx](src/components/layout/auth-button.tsx), [language-switcher.tsx](src/components/layout/language-switcher.tsx)) - LanguageSwitcher, AuthButton, and the ⌘K search button all use the same `rounded-full border-ink-3/70 bg-ink-1/50` pill style + matching hover. Dropdown panels gained `rounded-xl` corners and a gold-tint selected state.
+- **Workspace destinations replace dropdown-only nav** ([src/lib/constants.ts](src/lib/constants.ts)) - `navItems` keeps the dropdown variant for Explore + Community but the primary nav is now flat icon-led: Map / Events / Members / Perks. Mobile menu overlay flattens dropdown children into a single tap layer.
+- **Hero map crash fix** ([hero-cinematic.tsx](src/components/sections/home/hero-live/hero-cinematic.tsx)) - all async paths that touch the MapLibre instance (`buildGlyphImage().then`, the resize-retry `setTimeout`s, the `flyTo` effect) now guard on a `mountedRef` and wrap in try/catch; pending timeouts are tracked and cleared on unmount; children gated on a `mapLoaded` flag that also flips when `map.isStyleLoaded()` returns true (so a backgrounded tab doesn't starve the children of style data).
+- **Hero raster tiles** - switched from the CartoCDN vector style to an inline raster style (`dark_nolabels` + `dark_only_labels` PNGs) so basemap tiles paint without depending on the WebGL animation loop staying active.
+- **Hero deferred mount** ([hero-live.client.tsx](src/components/sections/home/hero-live/hero-live.client.tsx)) - HeroCinematic mounts one tick after the section to let any leftover WebGL state from a previous navigation tear down cleanly; the section also got a `minHeight: 640` fallback so it never collapses to 0 height when `100vh` reports 0 in a transient layout state.
+- **In-hero brand bar** ([hero-frame.tsx](src/components/sections/home/hero-live/hero-frame.tsx)) - swapped the invented `iN` gold-gradient monogram for the real `/images/logo-dark.png`; brand wordmark + tagline match the global Header; uses next-intl's `Link` so child route prefetch works under `localePrefix: "as-needed"`; headline block now vertically centered (`top-1/2 -translate-y-1/2`).
+- **Hero brand bar nav links** - the in-hero brand bar reuses the global `navItems`; dropdown items resolve to their first child's href so each chip still leads somewhere meaningful.
+
+### Removed
+
+- **`HeaderGate` + `AmbientBarGate` client islands** - replaced by the pre-hydration script + `IsHomeMarker` + CSS `html.is-home .hero-home-hide { display: none }`. No more client-side branch that flipped after hydration.
+- **"Join on Telegram" button** from the global Header and the unused `socialLinks` import - made way for the harmonized right cluster.
+- **Tagline ("Remote life, local rhythm") from the brand lockup** - workspace nav has no room for it; tagline lives on the in-hero brand bar (homepage) and the footer instead.
+- **Theme toggle from the Header** - per the workspace-nav spec; will be folded into a user menu when one exists.
+- **Old dropdown labels for top-level routes** - About and Contact moved into the Community dropdown; the standalone About / Contact entries are gone from the global nav.
+
+## [3.6.0] - 2026-05-17
+
+**Cinematic live-map homepage hero.** The editorial photo hero is replaced by a full-bleed MapLibre map of Istanbul that auto-tours through Beyoğlu → Kadıköy → Karaköy → Sultanahmet → Ortaköy on an 11-second loop. Photo nomad avatars and category-coded venue dots stay glued to their geographic coordinates while the camera flies. A floating "Now Live" callout updates with each stop. Site-wide palette migrated to the cinematic deep-water / gold / cream / rose system.
+
+### Added
+
+- **HeroLive section** at [src/components/sections/home/hero-live/](src/components/sections/home/hero-live/) - cinematic MapLibre tour driven by [hero-cinematic.tsx](src/components/sections/home/hero-live/hero-cinematic.tsx) (8s `flyTo` per stop, smoothstep easing, multi-step resize retries to handle hydration races). Venue dots rendered as a single GeoJSON `<Source>` + circle `<Layer>` for performance; 21 nomad avatars rendered as `<Marker>` with per-instance CSS drift animation. Spotlight ring follows the focused hood. Honours `prefers-reduced-motion` (pauses tour, snaps camera).
+- **Hero frame chrome** ([hero-frame.tsx](src/components/sections/home/hero-live/hero-frame.tsx)) - in-hero brand bar (iN monogram + nav + Sign in), italic Instrument Serif headline, lede, two CTAs, category legend, coords readout. Left-side gradient mask for headline contrast.
+- **Now-Live tour callout** ([tour-callout.tsx](src/components/sections/home/hero-live/tour-callout.tsx)) - floating panel top-right with current stop label, sub-text, and a 6-segment progress strip. Re-keys on stop change for entrance animation.
+- **HeaderGate** ([src/components/layout/header-gate.tsx](src/components/layout/header-gate.tsx)) - tiny client island that hides the global `<Header />` on the homepage route so the hero's brand bar is the only top chrome there. Other pages unaffected.
+- **Hero fixture data** at [src/lib/hero-data.ts](src/lib/hero-data.ts) - 7 categories, 9 neighborhoods, 29 venues, 21 nomads, 6 tour stops. Ports the design's `IN_*` constants. Real Supabase member wiring tracked as a follow-up.
+- **Self-hosted avatars** at [public/hero/avatars/](public/hero/avatars/) - 21 placeholder JPGs (~120 KB total) so we don't depend on an external host or need to allowlist a new domain in `next.config.mjs`.
+- **Instrument Serif** loaded via `next/font/google` ([src/app/[locale]/layout.tsx](src/app/[locale]/layout.tsx)) as `--font-editorial`. Preload off (hero-only use).
+- **i18n keys** `home.heroLive.*` in all 5 locales (en, tr, fa, ar, ru) covering live pip, headline, lede, CTAs, nav, categories, and the 6 tour stop labels + sub-texts.
+
+### Changed
+
+- **Palette migration site-wide** ([src/styles/globals.css](src/styles/globals.css)) - the `--ink-*`, `--paper`, `--terracotta`, `--ferry-yellow` tokens now resolve to the cinematic palette (deep-water `#06101f`, cream `#f6ecd9`, gold `#f4b860`, rose `#e87a5d`) in both light and dark modes. Token names preserved so existing components shift automatically.
+- **Tailwind config** ([tailwind.config.ts](tailwind.config.ts)) - added semantic aliases `bg-deep-water`, `text-cream`, `text-gold`, `text-rose`, and a `font-editorial` family that maps to `--font-editorial`.
+- **Homepage** ([src/app/[locale]/page.tsx](src/app/[locale]/page.tsx)) - `<HeroIssue />` swapped for `<HeroLive />`. Rest of the homepage sections unchanged.
+
+### Removed
+
+- `src/components/sections/home/hero-issue.tsx` - editorial photo hero replaced by the live map.
+- `docs/plan/design/files/hero/` - design source prototypes (Leaflet-based) no longer needed once ported to MapLibre.
+
 ## [3.5.0] - 2026-05-17
 
 **Multi-stop plans + map-first create flow.** A plan is now a *day* with one or more *stops* on it (cowork at Kolektif 10-2, beer at Karga at 6), each pinned visually on a map. The create flow is rewritten as a mobile-first full-bleed map with a swipeable bottom sheet - tap a verified space pin or tap anywhere to drop a custom pin, then fill in time / vibe / notes per stop. Member profiles now surface a member's upcoming plans inline. Onboarding wizard gets a mobile-first chrome refresh with a sticky footer, auto-save between steps, and an a11y baseline.

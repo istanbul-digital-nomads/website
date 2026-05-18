@@ -15,22 +15,22 @@
        Values are space-separated RGB channels so Tailwind's `/opacity`
        modifier works (wired as `rgb(var(--token) / <alpha-value>)` in
        tailwind.config.ts). */
-    --ink-0: 246 236 217;      /* cream - lightest bg */
-    --ink-1: 240 228 205;      /* cream-warm */
-    --ink-2: 255 255 255;      /* white */
-    --ink-3: 222 205 178;      /* border-warm */
-    --ink-4: 192 170 138;      /* subtle */
-    --ink-5: 148 124 92;       /* faintest */
-    --paper: 6 16 31;          /* deep-water ink (text) */
-    --paper-dim: 18 33 56;     /* water */
+    --ink-0: 246 236 217; /* cream - lightest bg */
+    --ink-1: 240 228 205; /* cream-warm */
+    --ink-2: 255 255 255; /* white */
+    --ink-3: 222 205 178; /* border-warm */
+    --ink-4: 192 170 138; /* subtle */
+    --ink-5: 148 124 92; /* faintest */
+    --paper: 6 16 31; /* deep-water ink (text) */
+    --paper-dim: 18 33 56; /* water */
     --paper-mute: 60 78 105;
     --paper-faint: 112 128 152;
-    --terracotta: 232 122 93;  /* rose */
+    --terracotta: 232 122 93; /* rose */
     --terracotta-dim: 198 91 64;
-    --bosphorus: 19 41 74;     /* waterHi */
+    --bosphorus: 19 41 74; /* waterHi */
     --bosphorus-dim: 10 26 47;
-    --ferry-yellow: 244 184 96;/* gold */
-    --moss: 134 239 172;       /* live-green */
+    --ferry-yellow: 244 184 96; /* gold */
+    --moss: 134 239 172; /* live-green */
     --tod-accent: var(--ferry-yellow);
   }
 
@@ -42,22 +42,22 @@
 
     /* Dark mode = the design's canonical palette.
        Deep-water canvas, cream text, gold + rose accents. */
-    --ink-0: 6 16 31;          /* deepWater */
-    --ink-1: 10 26 47;         /* water */
-    --ink-2: 19 41 74;         /* waterHi */
-    --ink-3: 30 56 92;         /* border */
-    --ink-4: 48 76 116;        /* subtle */
-    --ink-5: 72 102 142;       /* faint surface */
-    --paper: 246 236 217;      /* cream */
+    --ink-0: 6 16 31; /* deepWater */
+    --ink-1: 10 26 47; /* water */
+    --ink-2: 19 41 74; /* waterHi */
+    --ink-3: 30 56 92; /* border */
+    --ink-4: 48 76 116; /* subtle */
+    --ink-5: 72 102 142; /* faint surface */
+    --paper: 246 236 217; /* cream */
     --paper-dim: 217 207 186;
     --paper-mute: 168 158 138;
     --paper-faint: 112 104 90;
-    --terracotta: 232 122 93;  /* rose */
+    --terracotta: 232 122 93; /* rose */
     --terracotta-dim: 198 91 64;
     --bosphorus: 61 107 138;
     --bosphorus-dim: 47 84 112;
-    --ferry-yellow: 244 184 96;/* gold */
-    --moss: 134 239 172;       /* live-green */
+    --ferry-yellow: 244 184 96; /* gold */
+    --moss: 134 239 172; /* live-green */
     --tod-accent: var(--ferry-yellow);
   }
 

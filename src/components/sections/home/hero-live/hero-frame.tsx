@@ -62,12 +62,16 @@ export function HeroFrame(_props: Props) {
               style={{
                 width: 22,
                 height: "auto",
-                filter: "brightness(0) saturate(100%) invert(7%) sepia(50%) saturate(2200%) hue-rotate(195deg) brightness(95%) contrast(98%)",
+                filter:
+                  "brightness(0) saturate(100%) invert(7%) sepia(50%) saturate(2200%) hue-rotate(195deg) brightness(95%) contrast(98%)",
               }}
               priority
             />
           </span>
-          <span className="font-editorial leading-none tracking-tight text-cream" style={{ fontSize: 18, letterSpacing: "-0.01em" }}>
+          <span
+            className="font-editorial leading-none tracking-tight text-cream"
+            style={{ fontSize: 18, letterSpacing: "-0.01em" }}
+          >
             Istanbul <em className="italic text-gold">Nomads</em>
           </span>
         </Link>
@@ -99,9 +103,7 @@ export function HeroFrame(_props: Props) {
 
       {/* Headline block - left side, vertically centered. */}
       <div className="absolute left-6 top-1/2 z-[1100] w-[min(540px,calc(100%-3rem))] -translate-y-1/2 md:left-11">
-        <div
-          className="mb-5 inline-flex items-center gap-2 rounded-full border border-moss/35 bg-moss/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-moss"
-        >
+        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-moss/35 bg-moss/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-moss">
           <span
             className="hero-live-pip inline-block h-1.5 w-1.5 rounded-full bg-moss"
             style={{ boxShadow: "0 0 8px rgb(134, 239, 172)" }}
@@ -119,14 +121,13 @@ export function HeroFrame(_props: Props) {
           }}
         >
           <span className="block">
-            {t("headlineA")} <em className="italic text-gold">{t("headlineB")}</em>
+            {t("headlineA")}{" "}
+            <em className="italic text-gold">{t("headlineB")}</em>
           </span>
           <span className="block">{t("headlineC")}</span>
         </h1>
 
-        <p
-          className="mb-7 max-w-[420px] text-[15.5px] leading-[1.55] text-cream/70"
-        >
+        <p className="mb-7 max-w-[420px] text-[15.5px] leading-[1.55] text-cream/70">
           {t("lede")}
         </p>
 
@@ -149,7 +150,6 @@ export function HeroFrame(_props: Props) {
           </Link>
         </div>
       </div>
-
     </>
   );
 }
@@ -196,7 +196,8 @@ function HeroDropdown({ item }: { item: NavDropdownItem }) {
 
   useEffect(() => {
     function onClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      if (ref.current && !ref.current.contains(e.target as Node))
+        setOpen(false);
     }
     document.addEventListener("mousedown", onClick);
     return () => document.removeEventListener("mousedown", onClick);

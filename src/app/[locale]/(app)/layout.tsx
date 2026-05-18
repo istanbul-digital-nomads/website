@@ -7,11 +7,7 @@ import { HeaderWithCounts } from "@/components/layout/header-with-counts";
  * isolated so we can diverge later (auth redirect at the layout level,
  * a thinner workspace nav, an authed-user menu).
  */
-export default function AppLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Suspense fallback={null}>

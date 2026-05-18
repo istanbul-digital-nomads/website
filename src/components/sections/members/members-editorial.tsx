@@ -121,10 +121,7 @@ export function MembersEditorial({ locale, members, hoodOrder }: Props) {
   // Sidebar: most-recently-joined (proxy for "fresh activity"). Caps at 6.
   // We don't have an "open to coffee" boolean yet, so the sidebar honestly
   // shows what we do have: who joined most recently.
-  const recent = [...members]
-    .slice()
-    .reverse()
-    .slice(0, 6);
+  const recent = [...members].slice().reverse().slice(0, 6);
 
   const totalPublic = members.length;
   const totalHoods = orderedHoods.length;
@@ -184,7 +181,8 @@ export function MembersEditorial({ locale, members, hoodOrder }: Props) {
             </p>
             <div className="mt-6 flex gap-8 text-[11px] font-semibold uppercase tracking-[0.18em] text-gold/55">
               <span>
-                <span className="text-gold">{totalPublic}</span> {t("publicLabel")}
+                <span className="text-gold">{totalPublic}</span>{" "}
+                {t("publicLabel")}
               </span>
               <span>
                 <span className="text-gold">{totalHoods}</span>{" "}
@@ -218,9 +216,7 @@ export function MembersEditorial({ locale, members, hoodOrder }: Props) {
                   className="grid grid-cols-[40px_1fr_auto] items-center gap-3 px-4 py-3.5 transition-colors hover:bg-gold/[0.05]"
                   style={{
                     borderTop:
-                      i === 0
-                        ? "none"
-                        : "0.5px solid rgba(246,236,217,0.06)",
+                      i === 0 ? "none" : "0.5px solid rgba(246,236,217,0.06)",
                   }}
                 >
                   <AvatarCircle member={m} size={36} />
@@ -291,8 +287,7 @@ export function MembersEditorial({ locale, members, hoodOrder }: Props) {
                         href={`/members/${m.id}`}
                         className="grid items-center gap-4 px-1 py-4 transition-colors hover:bg-gold/[0.03]"
                         style={{
-                          gridTemplateColumns:
-                            "48px 1.4fr 1.2fr 1fr 24px",
+                          gridTemplateColumns: "48px 1.4fr 1.2fr 1fr 24px",
                           borderBottom: "0.5px solid rgba(246,236,217,0.06)",
                         }}
                       >

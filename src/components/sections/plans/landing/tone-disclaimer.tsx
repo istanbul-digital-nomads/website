@@ -26,8 +26,7 @@ export async function PlansToneDisclaimer() {
               fontWeight: 400,
             }}
           >
-            {t("line1")}{" "}
-            <span className="italic text-gold">{t("line2")}</span>
+            {t("line1")} <span className="italic text-gold">{t("line2")}</span>
           </p>
           <p className="mt-6 text-sm leading-relaxed text-cream/70">
             {t("body")}

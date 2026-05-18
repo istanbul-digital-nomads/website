@@ -35,9 +35,7 @@ export function Chip({
         className,
       )}
       style={{
-        borderColor: active
-          ? `rgba(${rgb}, 1)`
-          : "rgba(246, 236, 217, 0.10)",
+        borderColor: active ? `rgba(${rgb}, 1)` : "rgba(246, 236, 217, 0.10)",
         background: active ? `rgba(${rgb}, 0.10)` : "transparent",
         color: active ? `rgb(${rgb})` : undefined,
       }}

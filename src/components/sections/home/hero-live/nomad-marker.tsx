@@ -14,9 +14,20 @@ type Props = {
   inFocus: boolean;
 };
 
-const DRIFT_CLASSES = ["hero-drift-a", "hero-drift-b", "hero-drift-c", "hero-drift-d"];
+const DRIFT_CLASSES = [
+  "hero-drift-a",
+  "hero-drift-b",
+  "hero-drift-c",
+  "hero-drift-d",
+];
 
-export function NomadMarker({ nomad, venue, index, clusterOffsetPx, inFocus }: Props) {
+export function NomadMarker({
+  nomad,
+  venue,
+  index,
+  clusterOffsetPx,
+  inFocus,
+}: Props) {
   const driftClass = DRIFT_CLASSES[index % DRIFT_CLASSES.length];
   const size = inFocus ? 44 : 32;
   const ring = inFocus ? 2 : 1;

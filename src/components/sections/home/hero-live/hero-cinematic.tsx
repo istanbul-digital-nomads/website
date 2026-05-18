@@ -1,12 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import Map, {
-  Layer,
-  Marker,
-  Source,
-  type MapRef,
-} from "react-map-gl/maplibre";
+import Map, { Layer, Marker, Source, type MapRef } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 
 import {
@@ -67,7 +62,11 @@ const MAP_STYLE = {
     },
   },
   layers: [
-    { id: "bg", type: "background" as const, paint: { "background-color": "#06101f" } },
+    {
+      id: "bg",
+      type: "background" as const,
+      paint: { "background-color": "#06101f" },
+    },
     { id: "carto-dark-layer", type: "raster" as const, source: "carto-dark" },
     {
       id: "carto-labels-layer",
@@ -201,7 +200,8 @@ export function HeroCinematic({ onStopChange }: Props) {
   const focusedHood = stop.id;
 
   const focusedHoodData = useMemo(
-    () => (focusedHood ? HERO_NEIGHBORHOODS.find((h) => h.id === focusedHood) : null),
+    () =>
+      focusedHood ? HERO_NEIGHBORHOODS.find((h) => h.id === focusedHood) : null,
     [focusedHood],
   );
 
@@ -321,9 +321,12 @@ export function HeroCinematic({ onStopChange }: Props) {
                       "interpolate",
                       ["linear"],
                       ["zoom"],
-                      11, 30,
-                      13, 80,
-                      15, 160,
+                      11,
+                      30,
+                      13,
+                      80,
+                      15,
+                      160,
                     ],
                     "circle-color": "rgba(0,0,0,0)",
                     "circle-stroke-color": "#f4b860",
@@ -357,7 +360,8 @@ export function HeroCinematic({ onStopChange }: Props) {
             {Object.entries(clusters).map(([venueId, group]) => {
               const venue = venueById[venueId];
               if (!venue) return null;
-              const inFocus = focusedHood === null || venue.hood === focusedHood;
+              const inFocus =
+                focusedHood === null || venue.hood === focusedHood;
               return group.map((nomad, i) => {
                 // Spread clustered avatars left/right across the venue point.
                 const clusterOffsetPx = (i - (group.length - 1) / 2) * 34;

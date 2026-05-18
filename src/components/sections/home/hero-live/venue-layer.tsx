@@ -40,17 +40,15 @@ export function VenueLayer({ venues, focusedHood }: Props) {
             "interpolate",
             ["linear"],
             ["zoom"],
-            10, 14,
-            13, 26,
-            15, 36,
+            10,
+            14,
+            13,
+            26,
+            15,
+            36,
           ],
           "circle-color": ["get", "color"],
-          "circle-opacity": [
-            "case",
-            ["==", ["get", "inFocus"], 1],
-            0.22,
-            0.05,
-          ],
+          "circle-opacity": ["case", ["==", ["get", "inFocus"], 1], 0.22, 0.05],
           "circle-blur": 1.2,
         }}
       />
@@ -62,19 +60,17 @@ export function VenueLayer({ venues, focusedHood }: Props) {
             "interpolate",
             ["linear"],
             ["zoom"],
-            10, 7,
-            13, 13,
-            15, 18,
+            10,
+            7,
+            13,
+            13,
+            15,
+            18,
           ],
           "circle-color": ["get", "color"],
           "circle-stroke-color": "#06101f",
           "circle-stroke-width": 2,
-          "circle-opacity": [
-            "case",
-            ["==", ["get", "inFocus"], 1],
-            1,
-            0.32,
-          ],
+          "circle-opacity": ["case", ["==", ["get", "inFocus"], 1], 1, 0.32],
           "circle-opacity-transition": { duration: 600 },
         }}
       />
@@ -89,18 +85,16 @@ export function VenueLayer({ venues, focusedHood }: Props) {
             "interpolate",
             ["linear"],
             ["zoom"],
-            10, 0.55,
-            13, 0.85,
-            15, 1.1,
+            10,
+            0.55,
+            13,
+            0.85,
+            15,
+            1.1,
           ],
         }}
         paint={{
-          "icon-opacity": [
-            "case",
-            ["==", ["get", "inFocus"], 1],
-            1,
-            0.32,
-          ],
+          "icon-opacity": ["case", ["==", ["get", "inFocus"], 1], 1, 0.32],
         }}
       />
     </Source>

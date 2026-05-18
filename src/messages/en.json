@@ -945,11 +945,20 @@
         "gallery": "Galleries"
       },
       "tour": {
-        "intro": { "label": "Tonight in Istanbul", "sub": "Live across the Bosphorus" },
-        "beyoglu": { "label": "Beyoğlu", "sub": "Late-night coworking on İstiklal" },
+        "intro": {
+          "label": "Tonight in Istanbul",
+          "sub": "Live across the Bosphorus"
+        },
+        "beyoglu": {
+          "label": "Beyoğlu",
+          "sub": "Late-night coworking on İstiklal"
+        },
         "kadikoy": { "label": "Kadıköy", "sub": "A gaming meetup is forming" },
         "karakoy": { "label": "Karaköy", "sub": "Dinner along the waterfront" },
-        "sultanahmet": { "label": "Sultanahmet", "sub": "Gallery night in the old city" },
+        "sultanahmet": {
+          "label": "Sultanahmet",
+          "sub": "Gallery night in the old city"
+        },
         "ortakoy": { "label": "Ortaköy", "sub": "Bosphorus-side breakfast" }
       }
     },

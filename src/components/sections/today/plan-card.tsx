@@ -26,7 +26,7 @@ const TONE: Record<string, string> = {
 export function PlanCard({ plan }: Props) {
   const [expanded, setExpanded] = useState(plan.stops > 1);
 
-  const tone = plan.vibeLabel ? TONE[plan.vibeLabel] ?? "#f4b860" : "#f4b860";
+  const tone = plan.vibeLabel ? (TONE[plan.vibeLabel] ?? "#f4b860") : "#f4b860";
   const isMine = plan.mine;
   const isGuide = plan.host?.type === "guide";
   const seatsOpen =

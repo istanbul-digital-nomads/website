@@ -11,9 +11,7 @@ export function TourCallout({ stopIdx }: Props) {
   const labelKey = stop.id ?? "intro";
 
   return (
-    <div
-      className="pointer-events-none absolute right-4 top-24 z-[1200] hidden w-[280px] rounded-xl border border-gold/30 bg-deep-water/80 p-4 backdrop-blur-md md:block"
-    >
+    <div className="pointer-events-none absolute right-4 top-24 z-[1200] hidden w-[280px] rounded-xl border border-gold/30 bg-deep-water/80 p-4 backdrop-blur-md md:block">
       <div className="mb-1.5 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold/80">
         <span
           className="hero-live-pip inline-block h-1.5 w-1.5 rounded-full bg-moss"

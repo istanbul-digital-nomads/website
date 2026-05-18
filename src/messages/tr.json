@@ -965,11 +965,23 @@
         "gallery": "Galeriler"
       },
       "tour": {
-        "intro": { "label": "Bu akşam İstanbul", "sub": "Boğaz'ın iki yakasında canlı" },
-        "beyoglu": { "label": "Beyoğlu", "sub": "İstiklal'de gece ortak çalışma" },
-        "kadikoy": { "label": "Kadıköy", "sub": "Bir oyun buluşması şekilleniyor" },
+        "intro": {
+          "label": "Bu akşam İstanbul",
+          "sub": "Boğaz'ın iki yakasında canlı"
+        },
+        "beyoglu": {
+          "label": "Beyoğlu",
+          "sub": "İstiklal'de gece ortak çalışma"
+        },
+        "kadikoy": {
+          "label": "Kadıköy",
+          "sub": "Bir oyun buluşması şekilleniyor"
+        },
         "karakoy": { "label": "Karaköy", "sub": "Sahil boyunca akşam yemeği" },
-        "sultanahmet": { "label": "Sultanahmet", "sub": "Eski şehirde galeri gecesi" },
+        "sultanahmet": {
+          "label": "Sultanahmet",
+          "sub": "Eski şehirde galeri gecesi"
+        },
         "ortakoy": { "label": "Ortaköy", "sub": "Boğaz manzaralı kahvaltı" }
       }
     },

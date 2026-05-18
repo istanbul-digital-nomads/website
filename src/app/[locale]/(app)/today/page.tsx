@@ -2,10 +2,7 @@ import type { Metadata } from "next";
 import { Link } from "@/lib/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import { ArrowRight, Plus } from "lucide-react";
-import {
-  getCurrentMember,
-  getMembersPublic,
-} from "@/lib/supabase/queries";
+import { getCurrentMember, getMembersPublic } from "@/lib/supabase/queries";
 import { getPlansForFeed } from "@/lib/plans/queries";
 import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/config";
 import { alternatesFor, localeUrl } from "@/lib/seo";
@@ -68,7 +65,9 @@ export default async function TodayPage({
     getMembersPublic(),
   ]);
 
-  const cards = (plansRaw ?? []).map((p) => adaptPlanToCard(p, member?.id ?? null));
+  const cards = (plansRaw ?? []).map((p) =>
+    adaptPlanToCard(p, member?.id ?? null),
+  );
   const grouped = groupBySlot(cards);
   const stats = statsFor(cards);
   const mine = cards.find((c) => c.mine);
@@ -267,11 +266,13 @@ export default async function TodayPage({
                   ⌘N
                 </span>
               </div>
-              <div className="mt-3.5 flex items-center justify-between gap-3 rounded-xl border px-3.5 py-3 font-editorial text-[14px] text-cream/55"
-                   style={{
-                     background: "#0a1a2f",
-                     borderColor: "rgba(246, 236, 217, 0.10)",
-                   }}>
+              <div
+                className="mt-3.5 flex items-center justify-between gap-3 rounded-xl border px-3.5 py-3 font-editorial text-[14px] text-cream/55"
+                style={{
+                  background: "#0a1a2f",
+                  borderColor: "rgba(246, 236, 217, 0.10)",
+                }}
+              >
                 <span>{t("composer.placeholder")}</span>
                 <Plus className="h-3.5 w-3.5 text-gold" />
               </div>
@@ -319,8 +320,7 @@ export default async function TodayPage({
                   <span
                     className="grid h-8 w-8 place-items-center rounded-full font-grotesk text-[11px] font-semibold text-deep-water"
                     style={{
-                      background:
-                        "linear-gradient(135deg, #f4b860, #e87a5d)",
+                      background: "linear-gradient(135deg, #f4b860, #e87a5d)",
                     }}
                   >
                     {(m.display_name ?? "?")

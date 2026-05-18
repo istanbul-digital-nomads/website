@@ -34,7 +34,10 @@ import { LanguageSwitcher } from "./language-switcher";
 // Lucide icons rendered at 14px / 1.5 stroke - consistent visual weight
 // across the destinations bar. One glyph per top-level route + a glyph
 // per dropdown trigger so the bar reads as a single row of icons.
-const NAV_ICONS: Record<NavItemKey, React.ComponentType<{ className?: string }>> = {
+const NAV_ICONS: Record<
+  NavItemKey,
+  React.ComponentType<{ className?: string }>
+> = {
   today: CalendarDays,
   map: MapPin,
   events: Calendar,
@@ -154,10 +157,7 @@ export function Header({ counts = {} }: Props) {
           {/* 3 · Right cluster - polished pill controls with a subtle
               divider, the ⌘K search trigger, language switcher, and
               auth/CTA. */}
-          <div
-            data-header-actions
-            className="flex shrink-0 items-center gap-2"
-          >
+          <div data-header-actions className="flex shrink-0 items-center gap-2">
             <button
               type="button"
               onClick={() =>
@@ -232,10 +232,7 @@ function FlatNavLink({
       )}
     >
       <Icon
-        className={cn(
-          "h-3 w-3 shrink-0",
-          active && "text-ferry-yellow",
-        )}
+        className={cn("h-3 w-3 shrink-0", active && "text-ferry-yellow")}
         aria-hidden
       />
       <span className="whitespace-nowrap">{tNav(item.key)}</span>
@@ -294,10 +291,7 @@ function NavDropdown({
         dir={rtl ? "rtl" : "ltr"}
       >
         <Icon
-          className={cn(
-            "h-3 w-3 shrink-0",
-            childActive && "text-ferry-yellow",
-          )}
+          className={cn("h-3 w-3 shrink-0", childActive && "text-ferry-yellow")}
           aria-hidden
         />
         <span className="whitespace-nowrap">{tNav(item.key)}</span>
@@ -328,9 +322,7 @@ function NavDropdown({
                 role="menuitem"
                 className={cn(
                   "block rounded-lg px-3 py-2.5 text-start transition-colors",
-                  active
-                    ? "bg-ferry-yellow/10"
-                    : "hover:bg-paper/[0.05]",
+                  active ? "bg-ferry-yellow/10" : "hover:bg-paper/[0.05]",
                 )}
               >
                 <div

@@ -59,6 +59,9 @@ export interface Database {
           move_in_date: string | null;
           planned_move_out_date: string | null;
           favorite_spots: string[] | null;
+          payout_iban: string | null;
+          payout_name: string | null;
+          iyzico_submerchant_key: string | null;
           activity_interests: string[] | null;
           event_frequency: string | null;
           looking_for: string[] | null;

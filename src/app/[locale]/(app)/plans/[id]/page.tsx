@@ -16,6 +16,7 @@ import { PlanVibeIcon } from "@/components/sections/plans/plan-vibe-icon";
 import { PlanAttendeeStack } from "@/components/sections/plans/plan-attendee-stack";
 import { PlanComments } from "@/components/sections/plans/plan-comments";
 import { JoinLeaveButton } from "@/components/sections/plans/join-leave-button";
+import { TicketCheckoutButton } from "@/components/sections/plans/ticket-checkout-button";
 import { PlanDetailMap } from "@/components/sections/plans/plan-detail-map";
 import { TRANSPORT_ICONS } from "@/lib/plans/transport";
 import { getPlanById, type PlanStop } from "@/lib/plans/queries";
@@ -204,15 +205,25 @@ async function Content({
                   <Pencil className="h-4 w-4" aria-hidden />
                 </Link>
               )}
-              <JoinLeaveButton
-                planId={plan.id}
-                initialJoined={
-                  plan.attendees.some((a) => a.member_id === member.id) ||
-                  isHost
-                }
-                isHost={isHost}
-                isFull={isFull}
-              />
+              {plan.is_ticketed &&
+              !isHost &&
+              !isAttendee &&
+              plan.entry_fee_cents != null ? (
+                <TicketCheckoutButton
+                  planId={plan.id}
+                  priceLabel={`${(plan.entry_fee_cents / 100).toLocaleString(locale)} TL`}
+                />
+              ) : (
+                <JoinLeaveButton
+                  planId={plan.id}
+                  initialJoined={
+                    plan.attendees.some((a) => a.member_id === member.id) ||
+                    isHost
+                  }
+                  isHost={isHost}
+                  isFull={isFull}
+                />
+              )}
             </div>
           </div>
 

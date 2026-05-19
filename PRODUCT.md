@@ -6,6 +6,7 @@
 > updated.
 >
 > Companion docs (more granular, sometimes older):
+> [Product Plan](docs/product-plan.md) (phased build order) ·
 > [README](README.md) (dev setup) ·
 > [DESIGN](DESIGN.md) (visual system) ·
 > [CHANGELOG](CHANGELOG.md) (release history) ·
@@ -32,7 +33,7 @@ with a real-money plan marketplace underneath.
 |---|---|---|
 | **Pre-arrival** (next 30 days) | Picking a neighborhood, sorting visas, costing it out | `/guides`, `/guides/neighborhoods`, `/path-to-istanbul`, `/spaces`, `/relocation-agent` |
 | **First week here** | Wifi, SIM, ferry, where to work today | `/today`, `/tools/first-week-planner`, `/spaces`, `/events` |
-| **Settled for 1-6 months** | Finding people, joining a thing tonight, hosting | `/today`, `/plans`, `/members`, `/circles`, `/events`, `/perks` |
+| **Settled for 1-6 months** | Finding people, joining a thing tonight, hosting | `/today`, `/plans`, `/members`, `/circles`, `/events` |
 | **Long-term remote-workers** | Professional network, recurring routine, hosting cowork plans | `/today`, `/plans`, `/members`, dedicated remote-worker CTAs |
 | **Locals who host** | Walks, dinners, hiking, concert nights, paid experiences | `/local-guides`, `/plans/new` as a verified guide |
 
@@ -152,9 +153,8 @@ other; a few (the homepage, /spaces) serve both.
 ```
 
 Loop A's job: **be the most trustworthy "should I move to Istanbul as a
-nomad?" answer on the internet.** It pays for itself in two ways: (1) it's
-the top-of-funnel for Loop B sign-ups, (2) future Nomad+ tier will unlock
-deeper relocation tooling.
+nomad?" answer on the internet.** It pays for itself by being the
+top-of-funnel for Loop B sign-ups.
 
 ### Loop B · Community planner (in-Istanbul, daily engagement)
 
@@ -199,8 +199,11 @@ compete for hero attention.
 
 ## 6 · Monetisation
 
-We have one revenue stream today and one coming. Nomad+ stays parked until
-brand credit is higher.
+Two revenue streams in scope: ticket fees on paid plans (the priority), and
+guide subscriptions for plan-volume above the free tier. A consumer-side
+premium tier (`Nomad+`, `/perks` partner-offer vault) is **not in scope**
+for the current build - both were pulled in 3.8.2 so we can focus on the
+core registration → profile → plan → ticket loop.
 
 ### Revenue stream 1 · Guide plan ticket fees (active path to live)
 
@@ -231,12 +234,6 @@ get a take-rate discount (loyalty mechanic, post-launch decision).
 
 Budget-only plans (`nomad` + `remote_worker` hosted) **do not count** toward
 the monthly quota - they're free to post, no money moves, no take.
-
-### Revenue stream 3 · Nomad+ (parked)
-
-Member-paid premium tier for nomads themselves. Will unlock things like deep
-relocation tooling, members-only events, perks vault. **Will not ship until
-brand credit + member base justify charging the audience side.** No date.
 
 ### Payment infrastructure
 
@@ -293,7 +290,6 @@ brand credit + member base justify charging the audience side.** No date.
 | Route | Source | What it does |
 |---|---|---|
 | `/circles` | `(marketing)/circles/page.tsx` | Sub-communities (smaller rooms inside the community). |
-| `/perks` | `(marketing)/perks/page.tsx` | Partner offers vault. Free for members today; will become a Nomad+ benefit later. |
 | `/tools/first-week-planner` | `(marketing)/tools/first-week-planner/` | Seven-day arrival builder, shareable output. |
 
 ### D · Legal + utility (gaps to close)
@@ -406,8 +402,8 @@ Schema is `members.xp INTEGER NOT NULL DEFAULT 0`.
 | Regular | 5 plans posted or attended | Profile flair |
 | Veteran | 15 plans posted or attended | Profile flair + ticket priority on capped plans |
 | One year in Istanbul | 365 days since first plan attended | **Physical bracelet** mailed to user |
-| Best nomad of the year | Editorial pick + community vote | Recognition + perks credit |
-| Top host of the year | Highest-rated guide, calendar year | Recognition + perks credit |
+| Best nomad of the year | Editorial pick + community vote | Recognition + ticket credit |
+| Top host of the year | Highest-rated guide, calendar year | Recognition + ticket credit |
 
 The bracelets / "best of year" track is the carrot that makes XP feel real
 without becoming a loyalty-program grind. We will not ship XP without at
@@ -538,8 +534,10 @@ Codepath highlights worth knowing:
   bid.
 - **No ticket take on budget-only plans.** The 13% only applies to plans a
   Blue/Gold guide explicitly priced.
-- **No Nomad+ launch before brand credit is earned.** Charging the audience
-  side requires having an audience that loves us. We're not there yet.
+- **No consumer-side premium tier (`Nomad+`) and no partner perks vault
+  (`/perks`) in scope for the current build.** Both were pulled in 3.8.2.
+  We may revisit either after the registration → profile → plan → ticket
+  loop is real and profitable.
 
 ---
 
@@ -548,13 +546,18 @@ Codepath highlights worth knowing:
 Shipped and live:
 
 - Cinematic live-map homepage hero (auto-tour through 6 neighborhoods)
-- Workspace navbar (Today · Map · Events · Members · Perks + Explore ▾ +
-  Community ▾) consistent across hero brand bar and global Header
+- Workspace navbar (Today · Map · Events · Members + Explore ▾ + Community
+  ▾) consistent across hero brand bar and global Header. Perks pulled in
+  3.8.2.
 - Members editorial directory (`/members`) with real data, grouped by hood
 - Plans editorial landing (`/plans`) and Today board (`/today`) with mock
   seed data for development; real plans flow through `/plans/new`
 - All 5 locales kept in sync per release
 - Route-group scaffold landed in 3.8.0; `(home)` / `(marketing)` / `(app)`
+
+**Full phased build order: [docs/product-plan.md](docs/product-plan.md).**
+The list below is the punch list summary - the build order, dependencies,
+and per-phase scope live in the product plan doc.
 
 Tracked follow-ups required before paid-plan launch:
 
@@ -587,7 +590,6 @@ Tracked follow-ups required before paid-plan launch:
 
 Tracked but no commitment date:
 
-- **Nomad+** premium tier (parked until brand credit is higher).
 - **Take-rate discount** for Pro-tier subscribers (post-launch loyalty
   mechanic).
 - **Sworn Turkish translation** of legal copy if KVKK review requires it.

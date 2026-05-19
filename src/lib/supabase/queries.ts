@@ -174,38 +174,6 @@ export async function getUserRSVP(eventId: string) {
   return { data: data as RSVP | null, error };
 }
 
-// --- Perks ---
-
-export type PerkPublic = {
-  id: string;
-  brand: string;
-  kind: string;
-  offer: string;
-  cap: string | null;
-  city: string | null;
-  story: string | null;
-};
-
-// Public perks vault. The `perks` table lands with migration 013 and isn't
-// applied yet, so this is fully guarded - a missing table just yields an
-// empty vault, and the page shows an honest "being built" state.
-export async function getPerksPublic() {
-  "use cache";
-  cacheLife("hours");
-  cacheTag("perks");
-  try {
-    const supabase = createPublicClient();
-    const { data, error } = await supabase
-      .from("perks" as never)
-      .select("id, brand, kind, offer, cap, city, story")
-      .eq("is_active", true);
-    if (error) return { data: [] as PerkPublic[], error: null };
-    return { data: (data ?? []) as unknown as PerkPublic[], error: null };
-  } catch {
-    return { data: [] as PerkPublic[], error: null };
-  }
-}
-
 // --- Members ---
 
 export async function getMembers() {

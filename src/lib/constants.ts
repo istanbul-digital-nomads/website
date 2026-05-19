@@ -25,7 +25,6 @@ export type NavItemKey =
   | "map"
   | "events"
   | "members"
-  | "perks"
   | "explore"
   | "community";
 
@@ -39,12 +38,11 @@ export type NavChildKey =
   | "blog"
   | "members"
   | "circles"
-  | "perks"
   | "plans"
   | "about"
   | "contact";
 
-export type NavCountKey = "events" | "perks";
+export type NavCountKey = "events";
 
 export type NavFlatItem = {
   key: NavItemKey;
@@ -62,7 +60,6 @@ export const navItems: NavItem[] = [
   { key: "map", href: "/spaces" },
   { key: "events", href: "/events", countKey: "events" },
   { key: "members", href: "/members" },
-  { key: "perks", href: "/perks", countKey: "perks" },
   {
     key: "explore",
     children: [
@@ -106,7 +103,6 @@ export type FooterLinkKey =
   | "llmsTxt"
   | "members"
   | "circles"
-  | "perks"
   | "plans";
 
 export const footerNav: Record<
@@ -119,7 +115,6 @@ export const footerNav: Record<
     { key: "events", href: "/events" },
     { key: "members", href: "/members" },
     { key: "circles", href: "/circles" },
-    { key: "perks", href: "/perks" },
     { key: "localGuides", href: "/local-guides" },
     { key: "blog", href: "/blog" },
     { key: "contact", href: "/contact" },

@@ -4,6 +4,36 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.8.2] - 2026-05-19
+
+**Focus the surface: Perks and Nomad+ pulled. Phased product plan added.** Clears the deck for the registration → profile → plan → ticket loop that the next several releases will build. `/perks` 301s to `/`; nav and homepage no longer show the Perks entry or the Membership Tiers (Nomad+) section.
+
+### Removed
+
+- **Workspace navbar** no longer shows `Perks`. Both the global Header and the hero brand bar read from the same `navItems` source of truth in [src/lib/constants.ts](src/lib/constants.ts); the entry is gone and so is the `perks` value from `NavItemKey` + `NavChildKey` + `NavCountKey` types.
+- **Homepage scroll** no longer shows the `MembershipTiers` (Nomad+) section. Component file deleted ([src/components/sections/home/membership-tiers.tsx](src/components/sections/home/membership-tiers.tsx) - gone).
+- **Footer** no longer links to `/perks`.
+- **CommandMenu / search** no longer indexes `/perks`.
+- **`(marketing)/perks/` route deleted.** Inbound links 301 to `/` (and locale prefixes to `/:locale`) via new `redirects()` block in [next.config.mjs](next.config.mjs).
+- **`getPerksPublic` + `PerkPublic` removed** from [src/lib/supabase/queries.ts](src/lib/supabase/queries.ts) - no remaining callers. The underlying `perks` Supabase table is left intact in case we revisit.
+- **`getNavCounts`** now only fetches events; the perks branch is gone.
+
+### Added
+
+- **[docs/product-plan.md](docs/product-plan.md)** - phased build plan from current production state to working ticketed-plan marketplace. 10 phases (Phase 0 = this PR; Phase 1 = role expansion + lightweight profile; Phase 4 = paid plans live in closed beta). Each phase has scope, schema deltas, UI changes, and an explicit "what's NOT in this phase". Out-of-scope list at the bottom captures the deliberate Nomad+, /perks, in-site DMs, multi-city, native-app exclusions.
+- **PRODUCT.md §14** points at the product plan as the source of truth for phase ordering and dependencies.
+
+### Changed
+
+- **PRODUCT.md §6 (Monetisation)** reframed - only two revenue streams in scope: ticket fees on paid plans + guide subscriptions. The previous "Revenue stream 3 · Nomad+ (parked)" subsection is gone.
+- **PRODUCT.md §13 (Boundaries)** - the "No public Agent presence" + "No Nomad+ launch before brand credit is earned" entries replaced with a single explicit "No consumer-side premium tier and no partner perks vault in scope for the current build" entry that names 3.8.2 as the pull-out point.
+- **PRODUCT.md §9 (XP + badges)** - "Recognition + perks credit" reward language replaced with "Recognition + ticket credit" (no /perks page to redeem against any more).
+
+### Migration notes
+
+- No DB migration in 3.8.2. The `perks` table is untouched. Same for `MembershipTiers`-related i18n keys in `src/messages/*.json` - they're orphaned but not deleted, so the translation pipeline doesn't have to flush 5 locales for a strategic decision that may reverse.
+- Any external SEO links to `/perks` are preserved via the 301 redirect for the foreseeable future.
+
 ## [3.8.1] - 2026-05-19
 
 **PRODUCT.md rewritten with full strategy: monetisation, member roles, verification ladder, XP + badges. Legal-doc drafts landed (T&C, Community Guidelines, Plan Disclaimers).** Docs-only patch. No code changes yet; the new doc is the spec that subsequent migrations and features will implement against.

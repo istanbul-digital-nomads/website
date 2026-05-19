@@ -19,7 +19,6 @@ import { WeekShape } from "@/components/sections/home/week-shape";
 import { GuidesShelf } from "@/components/sections/home/guides-shelf";
 import { NeighborhoodRhythmMatcher } from "@/components/sections/neighborhood-rhythm-matcher";
 import { EventsStrip } from "@/components/sections/home/events-strip";
-import { MembershipTiers } from "@/components/sections/home/membership-tiers";
 import { CirclesStrip } from "@/components/sections/home/circles-strip";
 import { SundayLetterPreview } from "@/components/sections/home/sunday-letter-preview";
 import { QuietCta } from "@/components/sections/home/quiet-cta";
@@ -95,7 +94,6 @@ async function HomePageContent({ locale }: { locale: Locale }) {
       <GuidesShelf locale={locale} />
       <NeighborhoodRhythmMatcher eyebrowNum="N° 05" />
       <EventsStrip locale={locale} />
-      <MembershipTiers locale={locale} />
       <CirclesStrip locale={locale} />
       <SundayLetterPreview locale={locale} />
       <QuietCta locale={locale} />

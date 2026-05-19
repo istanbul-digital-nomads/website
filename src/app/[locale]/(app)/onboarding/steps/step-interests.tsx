@@ -1,8 +1,10 @@
 "use client";
 
+import { useState, type KeyboardEvent } from "react";
 import { useTranslations } from "next-intl";
 import type { OnboardingData, FieldErrors } from "../onboarding-wizard";
 import { MEMBER_ROLES, type MemberRole } from "@/lib/member-roles";
+import { CURRENT_STATUS_OPTIONS } from "@/lib/member-profile";
 
 interface StepProps {
   data: OnboardingData;
@@ -104,6 +106,82 @@ function RadioGroup({
   );
 }
 
+// Free-text chip input. Press Enter (or comma) to add. Click chip to
+// remove. Stores values as a string[] in the form state.
+function ChipInput({
+  label,
+  hint,
+  value,
+  onChange,
+  max,
+}: {
+  label: string;
+  hint: string;
+  value: string[];
+  onChange: (next: string[]) => void;
+  max: number;
+}) {
+  const t = useTranslations("onboardingPage.steps.interests");
+  const [draft, setDraft] = useState("");
+
+  function commit() {
+    const trimmed = draft.trim();
+    if (!trimmed) return;
+    if (value.length >= max) return;
+    if (value.includes(trimmed)) {
+      setDraft("");
+      return;
+    }
+    onChange([...value, trimmed]);
+    setDraft("");
+  }
+
+  function handleKey(e: KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+      commit();
+    } else if (e.key === "Backspace" && draft === "" && value.length > 0) {
+      onChange(value.slice(0, -1));
+    }
+  }
+
+  return (
+    <div>
+      <label className="block text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]">
+        {label}
+      </label>
+      <p className="mt-1 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">{hint}</p>
+      <div className="mt-2 flex flex-wrap items-center gap-2 rounded-xl border border-black/5 bg-white/70 px-2.5 py-2 dark:border-white/5 dark:bg-[#1e2130]">
+        {value.map((v) => (
+          <button
+            key={v}
+            type="button"
+            onClick={() => onChange(value.filter((x) => x !== v))}
+            aria-label={`${t("chipRemove")}: ${v}`}
+            className="group inline-flex items-center gap-1 rounded-full bg-primary-100 px-2.5 py-1 text-xs font-medium text-primary-800 transition-colors hover:bg-red-100 hover:text-red-700 dark:bg-primary-950/40 dark:text-primary-200 dark:hover:bg-red-950/40 dark:hover:text-red-300"
+          >
+            {v}
+            <span className="opacity-50 group-hover:opacity-100" aria-hidden>
+              ×
+            </span>
+          </button>
+        ))}
+        <input
+          type="text"
+          value={draft}
+          onChange={(e) => setDraft(e.target.value)}
+          onKeyDown={handleKey}
+          onBlur={commit}
+          placeholder={value.length === 0 ? t("chipPlaceholder") : ""}
+          maxLength={60}
+          disabled={value.length >= max}
+          className="min-w-[120px] flex-1 bg-transparent text-sm text-[#1a1a2e] placeholder:text-[#5d6d7e]/60 focus:outline-none disabled:opacity-50 dark:text-[#f2f3f4] dark:placeholder:text-[#99a3ad]/60"
+        />
+      </div>
+    </div>
+  );
+}
+
 function CheckboxGroup({
   label,
   options,
@@ -160,6 +238,9 @@ export function StepInterests({ data, updateField, errors }: StepProps) {
   );
   const tMemberDesc = useTranslations(
     "onboardingPage.steps.interests.memberTypeDescriptions",
+  );
+  const tStatus = useTranslations(
+    "onboardingPage.steps.interests.currentStatusOptions",
   );
   const tActivity = useTranslations(
     "onboardingPage.steps.interests.activityOptions",
@@ -271,6 +352,57 @@ export function StepInterests({ data, updateField, errors }: StepProps) {
           </p>
         </div>
       )}
+
+      {/* Phase 4 (3.12.0): current vibe + free-text chip fields. */}
+      <div data-field="current_status">
+        <label className="block text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]">
+          {t("currentStatusLabel")}
+        </label>
+        <p className="mt-1 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
+          {t("currentStatusHint")}
+        </p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {CURRENT_STATUS_OPTIONS.map((status) => {
+            const selected = data.current_status === status;
+            return (
+              <button
+                key={status}
+                type="button"
+                onClick={() => updateField("current_status", status)}
+                className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                  selected
+                    ? "bg-primary-600 text-white"
+                    : "bg-white/70 text-[#5d6d7e] ring-1 ring-black/5 hover:bg-primary-50 dark:bg-[#1e2130] dark:text-[#99a3ad] dark:ring-white/5"
+                }`}
+              >
+                {tStatus(status)}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <ChipInput
+        label={t("workingOnLabel")}
+        hint={t("workingOnHint")}
+        value={(data.working_on as string[]) || []}
+        onChange={(v) => updateField("working_on", v)}
+        max={8}
+      />
+      <ChipInput
+        label={t("wantsToTalkLabel")}
+        hint={t("wantsToTalkHint")}
+        value={(data.wants_to_talk_about as string[]) || []}
+        onChange={(v) => updateField("wants_to_talk_about", v)}
+        max={8}
+      />
+      <ChipInput
+        label={t("hobbiesLabel")}
+        hint={t("hobbiesHint")}
+        value={(data.hobbies as string[]) || []}
+        onChange={(v) => updateField("hobbies", v)}
+        max={12}
+      />
 
       {/* Phase 2: is_agent capability toggle. Independent of role -
           any role can also offer paperwork services. */}

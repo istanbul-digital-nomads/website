@@ -149,6 +149,16 @@ without enabling ticket purchase yet.
 
 ---
 
+## Phase 4 · Rich member profiles (shipped in 3.12.0 ✓ - inserted ahead of paid-plans)
+
+User-requested: nomads.com-style profile depth with categorized UI.
+Four new fields: `current_status`, `working_on[]`, `wants_to_talk_about[]`,
+`hobbies[]`. Editorial multi-section `/members/[id]` rebuild. Onboarding
+wizard captures all four via a new ChipInput. Status dot on directory
+cards. 5-locale i18n. Phase 4 (paid plans / iyzico) moves to Phase 5.
+
+---
+
 ## Phase 3 · Verification ladder + Blue/Gold badges (shipped in 3.11.0 ✓)
 
 **Scope note vs original plan**: Phase 3 v1 ships the schema + manual

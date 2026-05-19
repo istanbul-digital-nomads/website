@@ -45,6 +45,17 @@ export interface Database {
           verification_level: "basic" | "verified" | "trusted";
           verified_at: string | null;
           verified_by: string | null;
+          current_status:
+            | "deep_work"
+            | "open_to_meet"
+            | "exploring"
+            | "settling_in"
+            | "hosting"
+            | "hibernating"
+            | null;
+          working_on: string[] | null;
+          wants_to_talk_about: string[] | null;
+          hobbies: string[] | null;
           activity_interests: string[] | null;
           event_frequency: string | null;
           looking_for: string[] | null;

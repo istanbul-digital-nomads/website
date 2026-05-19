@@ -54,6 +54,7 @@ export type MemberPublic = Pick<
   | "member_type"
   | "is_agent"
   | "verification_level"
+  | "current_status"
 >;
 
 // Extended public shape for the member profile page (Design System v2
@@ -66,6 +67,11 @@ export type MemberPublicProfile = MemberPublic &
     | "member_type"
     | "professional_role"
     | "tour_guide_license_no"
+    | "working_on"
+    | "wants_to_talk_about"
+    | "hobbies"
+    | "activity_interests"
+    | "looking_for"
   >;
 
 // --- Static Content Types ---

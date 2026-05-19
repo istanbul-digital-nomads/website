@@ -3,20 +3,11 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   content: ["./src/**/*.{ts,tsx,mdx}"],
   darkMode: "class",
-  // Lucide React applies class names like `lucide-arrow-right` at render
-  // time, so Tailwind's content scanner doesn't see them in source. Safelist
-  // the directional icon classes that our RTL CSS rule targets so the rule
-  // survives PostCSS purging.
-  safelist: [
-    { pattern: /^lucide-(arrow|chevron|move-up|move-down|corner-up|corner-down|circle-arrow|circle-chevron|square-arrow|square-chevron)-(left|right)$/ },
-    "lucide-move-up-right",
-    "lucide-move-down-right",
-    "lucide-corner-down-right",
-    "lucide-corner-up-right",
-    "lucide-arrow-up-right",
-    "lucide-arrow-down-right",
-    "rtl-keep",
-  ],
+  // No Tailwind safelist needed for the RTL arrow-flip selectors in
+  // globals.css - they're plain CSS targeting Lucide's runtime class
+  // names (e.g. `.lucide-arrow-right`), which Tailwind never generates
+  // and never purges. Earlier safelist entries here matched zero
+  // Tailwind utilities and produced a build warning every dev start.
   theme: {
     extend: {
       colors: {

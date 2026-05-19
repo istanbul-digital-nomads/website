@@ -84,15 +84,9 @@ const nextConfig = {
           },
         ],
       },
-      {
-        source: "/_next/static/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
+      // /_next/static/:path* is already served with long-lived
+      // immutable headers by Next 16 (and Vercel's CDN). Overriding
+      // here would only trip the "custom Cache-Control" dev warning.
     ];
   },
 };

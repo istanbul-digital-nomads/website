@@ -28,6 +28,8 @@ function LazyMap() {
 
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") {
+      // SSR / unsupported environment fallback - load eagerly.
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- one-shot SSR fallback
       setShouldLoad(true);
       return;
     }

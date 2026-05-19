@@ -67,7 +67,9 @@ export function LanguageSwitcher() {
     if (target === locale) return;
     // Persist the choice the same way next-intl's middleware would, so the
     // next visit lands on the user's locale even from a non-prefixed URL.
+    // eslint-disable-next-line react-hooks/immutability -- click-handler side effects on document/window are intentional
     document.cookie = `NEXT_LOCALE=${target}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`;
+    // eslint-disable-next-line react-hooks/immutability -- click-handler navigation; full reload re-runs middleware
     window.location.href = buildHref(target);
   }
 

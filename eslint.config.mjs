@@ -87,6 +87,12 @@ export default defineConfig([
     rules: {
       "react/jsx-no-undef": "off",
       "react/no-unescaped-entities": "off",
+      // Figma-canvas prototypes run through a custom harness that doesn't
+      // honour the React Compiler advisories. Their warnings are noise.
+      "react-hooks/exhaustive-deps": "off",
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/static-components": "off",
+      "react-hooks/memoized-effect-dependencies": "off",
     },
   },
 ]);

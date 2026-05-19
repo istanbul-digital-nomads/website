@@ -149,6 +149,11 @@ export function HeroCinematic({ onStopChange }: Props) {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    // Subscribe to OS reduced-motion. setState here mirrors an external
+    // store; useSyncExternalStore would be the textbook fix, but the
+    // matchMedia listener pattern is well-understood and this code is
+    // hot. Suppressing the React Compiler advisory.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- matchMedia subscription, initial value sync
     setReduceMotion(mq.matches);
     const handler = () => setReduceMotion(mq.matches);
     mq.addEventListener("change", handler);

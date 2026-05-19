@@ -3,7 +3,13 @@ import { Suspense } from "react";
 import Image from "next/image";
 import { redirect, notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { ExternalLink, MapPin, Pencil, Users } from "lucide-react";
+import {
+  CircleDollarSign,
+  ExternalLink,
+  MapPin,
+  Pencil,
+  Users,
+} from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import { Container } from "@/components/ui/container";
 import { PlanVibeIcon } from "@/components/sections/plans/plan-vibe-icon";
@@ -30,6 +36,53 @@ export default function PlanDetailPage(props: {
       <Content {...props} />
     </Suspense>
   );
+}
+
+async function PlanMoneyChip({
+  plan,
+  locale,
+}: {
+  plan: {
+    is_ticketed: boolean;
+    entry_fee_cents: number | null;
+    budget_per_person_min_cents: number | null;
+    budget_per_person_max_cents: number | null;
+  };
+  locale: string;
+}) {
+  const t = await getTranslations({ locale, namespace: "plans.money" });
+  const liraOf = (cents: number) => (cents / 100).toLocaleString(locale);
+
+  if (plan.is_ticketed && plan.entry_fee_cents != null) {
+    return (
+      <span className="inline-flex items-center gap-2">
+        <CircleDollarSign className="h-4 w-4 text-ferry-yellow" aria-hidden />
+        {t("entryFeeDisplay", { amount: liraOf(plan.entry_fee_cents) })}
+        <span className="font-mono text-[10px] uppercase tracking-wider text-paper-faint">
+          · {t("checkoutComingSoon")}
+        </span>
+      </span>
+    );
+  }
+  const min = plan.budget_per_person_min_cents;
+  const max = plan.budget_per_person_max_cents;
+  if (min != null && max != null && max > min) {
+    return (
+      <span className="inline-flex items-center gap-2">
+        <CircleDollarSign className="h-4 w-4 text-paper-mute" aria-hidden />
+        {t("budgetDisplay", { min: liraOf(min), max: liraOf(max) })}
+      </span>
+    );
+  }
+  if (min != null || max != null) {
+    return (
+      <span className="inline-flex items-center gap-2">
+        <CircleDollarSign className="h-4 w-4 text-paper-mute" aria-hidden />
+        {t("budgetDisplayApprox", { amount: liraOf((max ?? min)!) })}
+      </span>
+    );
+  }
+  return null;
 }
 
 function stopLocationName(stop: PlanStop): string {
@@ -94,6 +147,7 @@ async function Content({
                 ? `${plan.attendee_count}/${plan.capacity}`
                 : `${plan.attendee_count} ${t("capacity.going")}`}
             </span>
+            <PlanMoneyChip plan={plan} locale={locale} />
           </div>
 
           {/* Host card */}

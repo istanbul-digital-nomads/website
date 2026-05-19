@@ -4,6 +4,47 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.10.0] - 2026-05-19
+
+**Phase 2 of the product plan: Plans v2 + `/paperwork` surface + agent capability flag.** Plans gain a budget vs entry-fee field split, `culture` vibe lands, and agents move from being a primary role to a capability flag (`is_agent`) so the same account can be both a `nomad` AND offer paperwork services. New `/paperwork` directory + detail + creation surfaces serve agent-hosted services (visa, ikamet, residency permit, bank account, notary, GBT, tax office). All migration plumbing applied to production; payments still gated by Phase 3 verification.
+
+### Schema (migration 018)
+
+- **`members.member_type`** CHECK constraint reduced from 5 to **4 values**: `nomad`, `remote_worker`, `local_guide`, `tour_guide`. `agent` is no longer a primary role.
+- **New `members.is_agent`** BOOLEAN NOT NULL DEFAULT FALSE. Capability flag - any role can also be flagged as offering paperwork services. Partial index on `(is_agent)` filtered to visible onboarded members.
+- **`plan_stops.vibe`** CHECK extended with `culture` (concerts, gallery walks, neighborhood tours). **No `admin` or `paperwork` value** - paperwork is a separate surface, not a plan-stop type.
+- **`plans` money fields** (per-plan, not per-stop): `is_ticketed` BOOLEAN, `entry_fee_cents`, `budget_per_person_min_cents`, `budget_per_person_max_cents`, `currency` (TRY-only for v1). CHECK constraint enforces mutual exclusion - ticketed plans have entry fee, budget plans have the range, never both.
+- **`plans` host snapshots**: `host_role_at_creation` (frozen at insert), `host_badge_at_creation` (`basic` until Phase 3). Existing plans backfilled from `members.member_type`.
+- **New table `paperwork_services`**: `host_id`, `service_type` enum (visa / ikamet / residency_permit / bank_account / notary / gbt / tax_office / other), `title`, `description`, `languages[]`, `neighborhoods[]`, `price_cents`, `currency` (TRY), `duration_estimate_minutes`, `is_active`. Public-read RLS, host-write RLS, trigger enforces `host_id` belongs to an `is_agent=true` member.
+
+### Added
+
+- **`/paperwork`** directory at `(marketing)/paperwork/page.tsx` - service-type filter chips, grouped grid, per-card host badge. Filter by service type or by host (`?type=visa`, `?host=<id>`).
+- **`/paperwork/[id]`** detail page - service description, languages spoken, neighborhoods covered, duration estimate, price, Telegram CTA to the host. Disclaimer at the bottom.
+- **`/paperwork/new`** creation page at `(app)/paperwork/new/page.tsx` - gated to `is_agent=true` members. Form covers service type, title, description, comma-separated languages + neighborhoods, price in TL, optional duration.
+- **`POST /api/paperwork`** creates a service (rate-limited 10/hr per member, RLS + trigger enforce `is_agent`).
+- **"Also offer paperwork services?" toggle** on the onboarding wizard's interests step - wires `is_agent` for any role.
+- **"Agent" badge** on `/members/[id]` profiles - linked to `/paperwork?host=<id>`.
+- **"Paperwork" filter chip** on `/members` - `?agent=1` toggles the directory to show only `is_agent=true` members.
+- **"Paperwork" nav destination** in the workspace navbar (`/paperwork`) - icon: `FileText`.
+- **Plan creation money block** in `plan-create-flow.tsx` - budget min/max OR entry fee + currency. Entry-fee mode shown only for `local_guide` + `tour_guide` hosts and currently disabled with a "Verification required - unlocks in Phase 3" tooltip. Other roles only see budget mode.
+- **`PlanMoneyChip`** on `/plans/[id]` - shows "Expect 200-400 TL per person" for budget plans or "Entry fee: 350 TL · Checkout opens in Phase 4" for ticketed plans.
+
+### Changed
+
+- **`member-roles.ts`** dropped `agent` from `MEMBER_ROLES`; `HOST_ROLES` is now `[local_guide, tour_guide]` (the gold-star plan hosts); added `AGENT_TONE` for the secondary capability chip.
+- **`today/types.ts` host-type collapse** still maps `local_guide` + `tour_guide` to `"guide"`; everyone else → `"nomad"`. Agents on community plans render with their primary role (nomad or local_guide), not as a separate "agent" badge.
+- **`PLAN_VIBES`** in `src/lib/plans/vibes.ts` extended with `culture` (icon: `Music`).
+- **`planCreateSchema`** in `src/lib/plans/schema.ts` gained money fields with cross-field refines (ticketed needs entry_fee; budget min <= max).
+- **`createPlan` mutation** captures `host_role_at_creation` + `host_badge_at_creation` at insert time, server-side gates `is_ticketed=true` to host roles even if the client tries to bypass.
+
+### Migration / deploy notes
+
+- Migration 018 applied to production Supabase via Management API before this release.
+- No data loss: previously no member had `member_type='agent'` in prod, so the constraint tightening was a pure schema change.
+- Pre-migration deploys remain safe via the existing two-pass `getMemberByIdPublic` (no change needed there).
+- The `paperwork_services` table is empty at launch; agents must be onboarded with `is_agent=true` and publish services before `/paperwork` shows entries. The directory's empty state guides new users to Telegram.
+
 ## [3.9.0] - 2026-05-19
 
 **Phase 1 of the product plan: member roles + lightweight profile.** Five operational roles land (`nomad`, `remote_worker`, `local_guide`, `tour_guide`, `agent`). New profile-aware sections, role-filtered `/members` directory, conditional onboarding fields for the host roles, full 5-locale i18n coverage. **No verification yet, no payments yet** - this is the foundation. See [docs/product-plan.md](docs/product-plan.md) for what Phase 2-4 build on top.

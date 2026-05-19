@@ -50,15 +50,24 @@ Every signed-in user has a `member_type` and a `verification_level`. Roles
 shape **what they can do**; verification badges shape **what other members
 see**.
 
-### Roles (5 total)
+### Roles (4 + 1 capability flag)
 
-| Role | Public on site? | Can host paid plans? | Profile angle |
+| Role | Public on site? | Can host plans? | Profile angle |
 |---|---|---|---|
-| `nomad` | Yes | No (budget-only plans) | Traveling, here for 1-6 months |
-| `remote_worker` | Yes | No (budget-only plans) | Settled longer-term, professional-network framing, gets dedicated marketing surfaces and CTAs |
-| `local_guide` | Yes | Yes (ticketed plans, subscription-gated volume) | Knows the city, hosts hobby + experience plans |
-| `tour_guide` | Yes | Yes (ticketed plans, subscription-gated volume) | Licensed Turkish tour guide; same plumbing as `local_guide` with a credential field |
-| `agent` | Yes | Yes (admin-vibe plans, typically ticketed) | Visa, govt-office, ikamet, residency-permit specialist. Listed in `/members` (filterable by role), eligible for `/local-guides` if they want a richer surface, and their plans surface in `/today` like any other host's. Posts default to `vibe='admin'`. Distinguished from `local_guide` by service type, not by visibility. |
+| `nomad` | Yes | Yes (budget-only) | Traveling, here for 1-6 months |
+| `remote_worker` | Yes | Yes (budget-only) | Settled longer-term, professional-network framing, gets dedicated marketing surfaces and CTAs |
+| `local_guide` | Yes | Yes (budget or ticketed) | Knows the city, hosts hobby + experience plans. Paid plans gated by verification ladder + subscription tier (Phase 3/4). |
+| `tour_guide` | Yes | Yes (budget or ticketed) | Licensed Turkish tour guide; same plumbing as `local_guide` plus a credential field |
+
+**`is_agent` capability flag** (Phase 2, 3.10.0): any role can also be
+flagged `is_agent = true` to offer **paperwork services** (visa, ikamet,
+residency permit, bank account opening, notary, govt offices) on the
+separate `/paperwork` surface. Paperwork lives in its own table
+(`paperwork_services`) with different shape from `plans` - service type
+instead of vibe, hourly/flat price instead of attendance fee, inquiry
+flow instead of RSVP. An agent who is also a `nomad` hosts plans like
+any other nomad **and** sells paperwork services - one account, two
+products.
 
 `nomad` and `remote_worker` share the same database schema, RLS rules, and
 plan-creation rights. They differ only in **profile copy, CTA surfaces, and
@@ -266,7 +275,8 @@ the monthly quota - they're free to post, no money moves, no take.
 | `/plans` | `(app)/plans/page.tsx` | Marketing landing for the plans concept + an authed feed (today/tomorrow/week with neighborhood + vibe + host-type filters). |
 | `/plans/new` | `(app)/plans/new/page.tsx` | Map-first plan creation. Drop pins on verified spaces or anywhere, fill in time + vibe + notes + budget OR entry-fee per stop. Entry-fee field is **hidden for non-Blue/Gold roles**. |
 | `/plans/[id]` | `(app)/plans/[id]/page.tsx` | Plan detail with stop timeline, join/leave, comments, ticket purchase for paid plans, host badge color, full disclaimers. |
-| `/members` | `(marketing)/members/page.tsx` → [members-editorial.tsx](src/components/sections/members/members-editorial.tsx) | Editorial directory grouped by neighborhood. Filterable by role (`nomad`, `remote_worker`, `local_guide`, `tour_guide`, `agent`). Opt-in only. |
+| `/members` | `(marketing)/members/page.tsx` → [members-editorial.tsx](src/components/sections/members/members-editorial.tsx) | Editorial directory grouped by neighborhood. Filterable by role (`nomad`, `remote_worker`, `local_guide`, `tour_guide`) and by `is_agent=true` (Paperwork chip). Opt-in only. |
+| `/paperwork` | `(marketing)/paperwork/page.tsx` | Directory of agent-hosted paperwork services (visa, ikamet, residency permit, bank account, notary, GBT, tax office). Service-type filter chips, per-service detail at `/paperwork/[id]`. Only `is_agent=true` members can publish here (route at `/paperwork/new`). Contact via Telegram for v1; checkout opens in Phase 4. |
 | `/members/[id]` | `(marketing)/members/[id]/page.tsx` | Public profile: bio, skills, location, Telegram handle, upcoming plans, badges earned. Role-specific layout (remote-worker profile differs from nomad in tone + sections). |
 | `/onboarding` | `(app)/onboarding/page.tsx` | Sticky-footer wizard: display name, neighborhood, role (`nomad` / `remote_worker` only - guide role applied via separate review), profile preferences. Saves between steps. |
 | `/login` | `(marketing)/login/page.tsx` | Supabase auth (magic link + OAuth). |
@@ -324,11 +334,12 @@ service-role only on seed/admin scripts.
 
 | Table | Purpose | Notable columns |
 |---|---|---|
-| `members` | Community profiles, opt-in visible | `display_name`, `bio`, `avatar_url`, `location`, `skills[]`, `telegram_handle`, `member_type` (`nomad` \| `remote_worker` \| `local_guide` \| `tour_guide` \| `agent`), `professional_role` (free text - for `remote_worker` framing), `verification_level` (`basic` \| `verified` \| `trusted`), `is_visible` (member-controlled, defaults to `true` after onboarding for every role), `onboarding_completed`, `xp` (int, default 0), `tour_guide_license_no` (nullable, `tour_guide` only) |
+| `members` | Community profiles, opt-in visible | `display_name`, `bio`, `avatar_url`, `location`, `skills[]`, `telegram_handle`, `member_type` (`nomad` \| `remote_worker` \| `local_guide` \| `tour_guide`), `is_agent` (boolean capability flag - 3.10.0), `professional_role` (free text - for `remote_worker` framing), `verification_level` (`basic` \| `verified` \| `trusted`), `is_visible` (member-controlled, defaults to `true` after onboarding), `onboarding_completed`, `xp` (int, default 0), `tour_guide_license_no` (nullable, `tour_guide` only) |
 | `member_badges` | Earned badges | `(member_id, badge_slug)`, `earned_at`, `threshold_value` (e.g. 5 plans hosted) |
 | `member_subscriptions` | Guide subscription state | `member_id`, `tier` (`free` \| `standard` \| `pro`), `period_start`, `period_end`, `plans_used_this_period`, `payment_provider` (`iyzico` \| `stripe`), `external_subscription_id` |
-| `plans` | Daily plans hosted by members | `creator_id`, `title`, `capacity`, `scheduled_date`, `expires_at`, `status`, `is_ticketed` (bool), `host_role_at_creation` (snapshot - so a downgraded guide's old plans still display correctly), `host_badge_at_creation` |
-| `plan_stops` | One-or-more stops per plan | `ordinal`, `start_time`, `end_time`, `vibe` (`focus`\|`cowork`\|`social`\|`meal`\|`after-work`\|`outdoor`\|`culture`\|`admin`), `neighborhood_slug`, `space_id` \| `custom_location`, `transport_mode`, `transport_price_min/max`, `budget_per_person_min/max` (for budget plans), `entry_fee_cents` + `currency` (for ticketed plans, only set when host is Blue/Gold) |
+| `plans` | Daily plans hosted by members | `creator_id`, `title`, `capacity`, `scheduled_date`, `expires_at`, `status`, **`is_ticketed`** (bool, 3.10.0), **`entry_fee_cents`** + **`currency`** ('TRY') for ticketed plans, **`budget_per_person_min/max_cents`** for budget plans (mutually exclusive, CHECK-enforced), **`host_role_at_creation`** (snapshot so a downgraded guide's older plans display correctly), **`host_badge_at_creation`** ('basic' until Phase 3) |
+| `plan_stops` | One-or-more stops per plan | `ordinal`, `start_time`, `end_time`, `vibe` (`focus`\|`cowork`\|`social`\|`meal`\|`after-work`\|`outdoor`\|`culture`), `neighborhood_slug`, `space_id` \| `custom_location`, `transport_mode`, `transport_price_min/max`. **No paperwork vibe** - paperwork is a separate surface (`paperwork_services`), not a plan-stop type. |
+| `paperwork_services` | Agent-hosted paperwork services. Distinct from `plans` - own table, own UI, own creation flow. | `host_id` (must be `is_agent=true`, enforced by trigger + RLS), `service_type` (`visa` \| `ikamet` \| `residency_permit` \| `bank_account` \| `notary` \| `gbt` \| `tax_office` \| `other`), `title`, `description`, `languages[]`, `neighborhoods[]`, `price_cents`, `currency` ('TRY'), `duration_estimate_minutes`, `is_active` |
 | `plan_attendees` | Who's joining a plan | `(plan_id, member_id)`, `status` (`requested`\|`confirmed`\|`waitlisted`\|`cancelled`\|`no_show`) |
 | `plan_tickets` | Money flow for ticketed plans | `(plan_id, attendee_id)`, `gross_cents`, `platform_fee_cents`, `processor_fee_cents`, `net_to_host_cents`, `currency`, `status` (`held`\|`released`\|`refunded`\|`disputed`), `payment_intent_id` (iyzico/stripe), `paid_at`, `released_at` |
 | `plan_comments` | Plan-thread discussion | |
@@ -579,8 +590,8 @@ Tracked follow-ups required before paid-plan launch:
    floor.
 8. **Neighborhood connective-tissue counts** on `/guides/neighborhoods/[slug]`
    ("{n} nomads here · {m} local guides hosting this month").
-9. **`vibe='admin'` plan value** + role-gated entry-fee field so agents and
-   admin-service guides have native plumbing.
+9. **Paperwork-service detail enrichment** beyond Phase 2 v1: reviews,
+   per-host bundling, real booking flow.
 10. **Profile-editorial layout** for `/members/[id]` (magazine cover + pull
     quote + stats) - designed, not built.
 11. **Plans map view** at `/today?view=map` and `/plans?view=map`.

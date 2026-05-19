@@ -37,8 +37,8 @@ export interface Database {
             | "remote_worker"
             | "local_guide"
             | "tour_guide"
-            | "agent"
             | null;
+          is_agent: boolean;
           professional_role: string | null;
           tour_guide_license_no: string | null;
           xp: number;
@@ -427,6 +427,19 @@ export interface Database {
           reminder_sent_at: string | null;
           expires_at: string;
           language: string | null;
+          // Phase 2 - plans v2 money fields.
+          is_ticketed: boolean;
+          entry_fee_cents: number | null;
+          budget_per_person_min_cents: number | null;
+          budget_per_person_max_cents: number | null;
+          currency: "TRY" | null;
+          host_role_at_creation:
+            | "nomad"
+            | "remote_worker"
+            | "local_guide"
+            | "tour_guide"
+            | null;
+          host_badge_at_creation: "basic" | "verified" | "trusted" | null;
           created_at: string;
           updated_at: string;
         };
@@ -440,6 +453,56 @@ export interface Database {
           reminder_sent_at?: string | null;
           expires_at: string;
           language?: string | null;
+          is_ticketed?: boolean;
+          entry_fee_cents?: number | null;
+          budget_per_person_min_cents?: number | null;
+          budget_per_person_max_cents?: number | null;
+          currency?: "TRY" | null;
+          host_role_at_creation?: string | null;
+          host_badge_at_creation?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          [key: string]: unknown;
+        };
+      };
+      paperwork_services: {
+        Row: {
+          id: string;
+          host_id: string;
+          service_type:
+            | "visa"
+            | "ikamet"
+            | "residency_permit"
+            | "bank_account"
+            | "notary"
+            | "gbt"
+            | "tax_office"
+            | "other";
+          title: string;
+          description: string | null;
+          languages: string[];
+          neighborhoods: string[];
+          price_cents: number;
+          currency: "TRY";
+          duration_estimate_minutes: number | null;
+          is_active: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          host_id: string;
+          service_type: string;
+          title: string;
+          description?: string | null;
+          languages?: string[];
+          neighborhoods?: string[];
+          price_cents: number;
+          currency?: "TRY";
+          duration_estimate_minutes?: number | null;
+          is_active?: boolean;
           created_at?: string;
           updated_at?: string;
         };
@@ -465,7 +528,8 @@ export interface Database {
             | "social"
             | "meal"
             | "after-work"
-            | "outdoor";
+            | "outdoor"
+            | "culture";
           notes: string | null;
           // How the host gets to THIS stop from the previous one.
           // Null on ordinal=1 (no previous stop).
@@ -501,7 +565,8 @@ export interface Database {
             | "social"
             | "meal"
             | "after-work"
-            | "outdoor";
+            | "outdoor"
+            | "culture";
           notes?: string | null;
           transport_mode?:
             | "ferry"

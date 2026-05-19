@@ -10,6 +10,7 @@ import {
   CalendarDays,
   ChevronDown,
   Compass,
+  FileText,
   MapPin,
   Search,
   Users,
@@ -41,6 +42,7 @@ const NAV_ICONS: Record<
   map: MapPin,
   events: Calendar,
   members: Users,
+  paperwork: FileText,
   explore: Compass,
   community: UsersRound,
 };

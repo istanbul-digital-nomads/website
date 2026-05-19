@@ -10,6 +10,7 @@
     "map": "Map",
     "events": "Events",
     "members": "Members",
+    "paperwork": "Paperwork",
     "perks": "Perks",
     "neighborhoods": "Neighborhoods",
     "primaryAria": "Primary navigation",
@@ -1809,16 +1810,16 @@
           "nomad": "Nomad",
           "remote_worker": "Remote worker",
           "local_guide": "Local guide",
-          "tour_guide": "Tour guide",
-          "agent": "Agent"
+          "tour_guide": "Tour guide"
         },
         "memberTypeDescriptions": {
           "nomad": "Traveling through Istanbul, here for one to six months. Join plans and post free budget plans.",
           "remote_worker": "Settled longer-term. Building a routine, looking for a professional crowd and coworking rhythm.",
           "local_guide": "Knows the city, wants to host walks, hikes, dinners, or coworking days. Paid plans unlock after verification.",
-          "tour_guide": "Licensed Turkish tour guide. Same as local guide plus a credential field. Paid plans unlock after verification.",
-          "agent": "Specialist who helps with visas, residency permits, government offices, banking. Paid services unlock after verification."
+          "tour_guide": "Licensed Turkish tour guide. Same as local guide plus a credential field. Paid plans unlock after verification."
         },
+        "isAgentLabel": "I also offer paperwork services",
+        "isAgentHint": "Tick this if you help others with visa, ikamet, bank account opening, notary, or govt-office paperwork. Your services will appear on /paperwork after verification.",
         "professionalRoleLabel": "What do you do for work?",
         "professionalRolePlaceholder": "Software engineer, designer, founder...",
         "tourGuideLicenseLabel": "Tourism guide license number",
@@ -2703,6 +2704,58 @@
       "allEvents": "All events"
     }
   },
+  "paperworkPage": {
+    "metaTitle": "Paperwork help in Istanbul",
+    "metaDescription": "Verified agents who help nomads with visas, ikamet, residency permits, bank accounts, notary, and govt offices in Istanbul.",
+    "eyebrow": "Paperwork",
+    "headlineA": "Real help with",
+    "headlineB": "Turkish bureaucracy.",
+    "lede": "Verified agents who navigate visa offices, ikamet, banks, notaries and the rest, so you don't have to figure it out alone.",
+    "filterAria": "Filter paperwork services by type",
+    "filterAll": "All",
+    "emptyTitle": "No services yet",
+    "emptyBody": "We're onboarding our first agents. Check back soon, or join the community on Telegram and we'll match you with someone we trust.",
+    "serviceTypes": {
+      "visa": "Visa",
+      "ikamet": "Ikamet",
+      "residency_permit": "Residency permit",
+      "bank_account": "Bank account",
+      "notary": "Notary",
+      "gbt": "GBT / address",
+      "tax_office": "Tax office",
+      "other": "Other"
+    },
+    "languagesLabel": "Languages",
+    "neighborhoodsLabel": "Neighborhoods",
+    "durationLabel": "Duration estimate",
+    "minutesShort": "min",
+    "viewProfile": "View profile",
+    "contactCta": "Contact on Telegram",
+    "disclaimer": "Disclaimer: paperwork services are facilitated by independent agents. Istanbul Nomads doesn't provide legal advice. Hosts can't guarantee approval, office hours, or queue length. Bring your own documents and cash for fees."
+  },
+  "paperworkCreate": {
+    "eyebrow": "New paperwork service",
+    "title": "Offer a paperwork service",
+    "intro": "Pick the type, give it a clear title, and tell nomads what's included. Be honest about what you can and can't do.",
+    "serviceTypeLabel": "Service type",
+    "titleLabel": "Title",
+    "titlePlaceholder": "e.g. Ikamet application walkthrough in Kadikoy",
+    "descriptionLabel": "What's included",
+    "descriptionPlaceholder": "Document checklist, meeting point, what happens on the day, what's NOT included...",
+    "languagesLabel": "Languages spoken",
+    "languagesPlaceholder": "English, Turkish, Russian",
+    "neighborhoodsLabel": "Neighborhoods you cover",
+    "neighborhoodsPlaceholder": "Kadikoy, Besiktas, Sisli",
+    "commaSeparatedHint": "Comma-separated",
+    "priceLabel": "Price (TL)",
+    "durationLabel": "Duration (minutes)",
+    "submit": "Publish service",
+    "submitting": "Publishing...",
+    "successTitle": "Service published",
+    "errorTitle": "Couldn't publish",
+    "errorBody": "Something went wrong. Try again or contact support.",
+    "disclaimer": "By publishing, you agree to the Community Guidelines and confirm you're qualified to provide this service. Paid checkout opens in Phase 4 - until then, attendees contact you on Telegram."
+  },
   "membersV2": {
     "metaTitle": "Members",
     "metaDescription": "The opt-in directory of Istanbul Nomads members - the people on the ground.",
@@ -2718,6 +2771,8 @@
     "hoodsLabel": "hoods",
     "roleFilterAria": "Filter members by role",
     "roleFilterAll": "All",
+    "roleFilterAgent": "Paperwork",
+    "agentBadge": "Agent",
     "recentEyebrow": "Recently joined",
     "recentLede": "The newest members to opt in. Tap a name for their public profile.",
     "noLocation": "Location private",
@@ -2922,7 +2977,8 @@
       "social": "Social",
       "meal": "Meal",
       "after-work": "After work",
-      "outdoor": "Outdoor"
+      "outdoor": "Outdoor",
+      "culture": "Culture"
     },
     "empty": {
       "title": "No plans yet for this view",
@@ -2931,6 +2987,19 @@
     "capacity": {
       "open": "Open",
       "going": "going"
+    },
+    "money": {
+      "sectionLabel": "Money",
+      "ticketedToggleLabel": "Charge an entry fee",
+      "verificationRequiredHint": "Verification required - unlocks in Phase 3",
+      "verificationLockedTag": "Locked",
+      "budgetMinLabel": "Min budget (TL)",
+      "budgetMaxLabel": "Max budget (TL)",
+      "entryFeeLabel": "Entry fee per attendee (TL)",
+      "budgetDisplay": "Expect {min}-{max} TL per person",
+      "budgetDisplayApprox": "Around {amount} TL per person",
+      "entryFeeDisplay": "Entry fee: {amount} TL",
+      "checkoutComingSoon": "Checkout opens in Phase 4"
     },
     "create": {
       "eyebrow": "New plan",

@@ -25,6 +25,7 @@ export type NavItemKey =
   | "map"
   | "events"
   | "members"
+  | "paperwork"
   | "explore"
   | "community";
 
@@ -39,6 +40,7 @@ export type NavChildKey =
   | "members"
   | "circles"
   | "plans"
+  | "paperwork"
   | "about"
   | "contact";
 
@@ -60,6 +62,7 @@ export const navItems: NavItem[] = [
   { key: "map", href: "/spaces" },
   { key: "events", href: "/events", countKey: "events" },
   { key: "members", href: "/members" },
+  { key: "paperwork", href: "/paperwork" },
   {
     key: "explore",
     children: [

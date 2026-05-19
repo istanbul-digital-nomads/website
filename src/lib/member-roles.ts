@@ -1,16 +1,22 @@
-// Single source of truth for the 5 member roles. Every onboarding step,
-// profile view, /members filter, and admin tool reads from this module so
-// adding a new role (or renaming one) doesn't drift across the codebase.
+// Single source of truth for the 4 member roles + the is_agent
+// capability flag. Every onboarding step, profile view, /members
+// filter, and admin tool reads from this module so adding a new role
+// (or renaming one) doesn't drift across the codebase.
 //
-// Schema-side enum lives in supabase/migrations/017_member_roles.sql.
-// PRODUCT.md §3 is the strategy doc; this is its TS counterpart.
+// Phase 2 (3.10.0): `agent` was demoted from a primary role to a
+// capability flag (`members.is_agent`). Any role can ALSO offer
+// paperwork services - an is_agent nomad is a perfectly valid combo.
+//
+// Schema-side enum + flag live in
+// supabase/migrations/017_member_roles.sql +
+// supabase/migrations/018_phase2_paperwork.sql. PRODUCT.md §3 is the
+// strategy doc; this is its TS counterpart.
 
 export const MEMBER_ROLES = [
   "nomad",
   "remote_worker",
   "local_guide",
   "tour_guide",
-  "agent",
 ] as const;
 
 export type MemberRole = (typeof MEMBER_ROLES)[number];
@@ -22,12 +28,12 @@ export function isMemberRole(value: unknown): value is MemberRole {
   );
 }
 
-// Roles that can host plans with a real entry fee (gated further by the
-// verification ladder in Phase 3 - this only checks role, not badge).
+// Roles that can host plans with a real entry fee (gated further by
+// the verification ladder in Phase 3 - this only checks role, not
+// badge). Nomads + remote workers post budget plans only.
 export const HOST_ROLES: ReadonlyArray<MemberRole> = [
   "local_guide",
   "tour_guide",
-  "agent",
 ];
 
 export function isHostRole(role: MemberRole | null | undefined): boolean {
@@ -42,5 +48,12 @@ export const ROLE_TONE: Record<MemberRole, { bg: string; text: string }> = {
   remote_worker: { bg: "bg-ferry-yellow/15", text: "text-ferry-yellow" },
   local_guide: { bg: "bg-terracotta/20", text: "text-terracotta" },
   tour_guide: { bg: "bg-terracotta/30", text: "text-terracotta" },
-  agent: { bg: "bg-ink-2/70", text: "text-paper-dim" },
+};
+
+// Agent capability lives next to roles but is independent. Tone is
+// distinct from any role tone so the secondary chip reads as "this
+// is a different dimension."
+export const AGENT_TONE = {
+  bg: "bg-moss/15",
+  text: "text-moss",
 };

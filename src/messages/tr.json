@@ -10,6 +10,7 @@
     "map": "Harita",
     "events": "Etkinlikler",
     "members": "Üyeler",
+    "paperwork": "Evrak",
     "perks": "Avantajlar",
     "neighborhoods": "Mahalleler",
     "primaryAria": "Ana navigasyon",
@@ -1832,16 +1833,16 @@
           "nomad": "Göçebe",
           "remote_worker": "Uzaktan çalışan",
           "local_guide": "Yerel rehber",
-          "tour_guide": "Tur rehberi",
-          "agent": "Acente"
+          "tour_guide": "Tur rehberi"
         },
         "memberTypeDescriptions": {
           "nomad": "İstanbul'dan geçiyorsun, bir ila altı ay buradasın. Plana katıl ve ücretsiz bütçe planları paylaş.",
           "remote_worker": "Uzun süreliğine yerleştin. Bir rutin kuruyorsun, profesyonel bir çevre ve coworking ritmi arıyorsun.",
-          "local_guide": "Şehri tanıyorsun, yürüyüş, dinner, kahve günü yöneticisi olmak istiyorsun. Doğrulamadan sonra ücretli planlar açılır.",
-          "tour_guide": "Lisanslı Türk tur rehberi. Yerel rehber gibi ama lisans alanı eklenir. Doğrulamadan sonra ücretli planlar açılır.",
-          "agent": "Vize, ikamet, devlet daireleri, bankacılık konusunda uzmansın. Doğrulamadan sonra ücretli hizmetler açılır."
+          "local_guide": "Şehri tanıyorsun, yürüyüş, yemek veya kahve günü yöneticisi olmak istiyorsun. Doğrulamadan sonra ücretli planlar açılır.",
+          "tour_guide": "Lisanslı Türk tur rehberi. Yerel rehber gibi ama lisans alanı eklenir. Doğrulamadan sonra ücretli planlar açılır."
         },
+        "isAgentLabel": "Ayrıca evrak işlerinde de yardımcı oluyorum",
+        "isAgentHint": "Başkalarına vize, ikamet, banka hesabı açma, noter veya devlet dairesi süreçlerinde yardım ediyorsan bunu işaretle. Hizmetlerin doğrulamadan sonra /paperwork'te görünür.",
         "professionalRoleLabel": "Mesleğin ne?",
         "professionalRolePlaceholder": "Yazılımcı, tasarımcı, kurucu...",
         "tourGuideLicenseLabel": "Tur rehberi lisans numarası",
@@ -2726,6 +2727,58 @@
       "allEvents": "Tüm etkinlikler"
     }
   },
+  "paperworkPage": {
+    "metaTitle": "İstanbul'da evrak desteği",
+    "metaDescription": "İstanbul'da vize, ikamet, oturma izni, banka hesabı, noter ve devlet daireleri için doğrulanmış acenteler.",
+    "eyebrow": "Evrak",
+    "headlineA": "Türk bürokrasisinde",
+    "headlineB": "gerçek yardım.",
+    "lede": "Vize ofisleri, ikamet, bankalar, noterler ve gerisini birlikte halleden doğrulanmış acenteler. Yalnız uğraşma.",
+    "filterAria": "Hizmetleri türe göre filtrele",
+    "filterAll": "Tümü",
+    "emptyTitle": "Henüz hizmet yok",
+    "emptyBody": "İlk acentelerimizi onboard ediyoruz. Yakında tekrar bak veya Telegram topluluğuna gel; güvendiğimiz biriyle seni eşleştirelim.",
+    "serviceTypes": {
+      "visa": "Vize",
+      "ikamet": "İkamet",
+      "residency_permit": "Oturma izni",
+      "bank_account": "Banka hesabı",
+      "notary": "Noter",
+      "gbt": "GBT / adres",
+      "tax_office": "Vergi dairesi",
+      "other": "Diğer"
+    },
+    "languagesLabel": "Diller",
+    "neighborhoodsLabel": "Semtler",
+    "durationLabel": "Tahmini süre",
+    "minutesShort": "dk",
+    "viewProfile": "Profili gör",
+    "contactCta": "Telegram'dan iletişime geç",
+    "disclaimer": "Sorumluluk reddi: evrak hizmetleri bağımsız acenteler tarafından sağlanır. Istanbul Nomads hukuki danışmanlık vermez. Acenteler onay, mesai saati veya kuyruk süresi garanti edemez. Kendi evrakını ve ücretler için nakit getir."
+  },
+  "paperworkCreate": {
+    "eyebrow": "Yeni evrak hizmeti",
+    "title": "Bir evrak hizmeti sun",
+    "intro": "Türü seç, net bir başlık ver ve göçebelere nelerin dahil olduğunu anlat. Yapabileceklerin ve yapamayacakların konusunda dürüst ol.",
+    "serviceTypeLabel": "Hizmet türü",
+    "titleLabel": "Başlık",
+    "titlePlaceholder": "örn. Kadıköy'de ikamet başvuru rehberi",
+    "descriptionLabel": "Neler dahil",
+    "descriptionPlaceholder": "Evrak listesi, buluşma noktası, gün içinde olacaklar, dahil OLMAYANLAR...",
+    "languagesLabel": "Konuşulan diller",
+    "languagesPlaceholder": "Türkçe, İngilizce, Rusça",
+    "neighborhoodsLabel": "Hizmet verdiğin semtler",
+    "neighborhoodsPlaceholder": "Kadıköy, Beşiktaş, Şişli",
+    "commaSeparatedHint": "Virgülle ayır",
+    "priceLabel": "Fiyat (TL)",
+    "durationLabel": "Süre (dk)",
+    "submit": "Hizmeti yayınla",
+    "submitting": "Yayınlanıyor...",
+    "successTitle": "Hizmet yayınlandı",
+    "errorTitle": "Yayınlanamadı",
+    "errorBody": "Bir şeyler ters gitti. Tekrar dene veya bizimle iletişime geç.",
+    "disclaimer": "Yayınlayarak Topluluk Kurallarını kabul etmiş olur ve bu hizmeti vermek için yetkin olduğunu onaylarsın. Ücretli ödeme Faz 4'te açılır - o zamana kadar katılımcılar seninle Telegram üzerinden iletişime geçer."
+  },
   "membersV2": {
     "metaTitle": "Üyeler",
     "metaDescription": "Istanbul Nomads üyelerinin isteğe bağlı rehberi - sahadaki insanlar.",
@@ -2741,6 +2794,8 @@
     "hoodsLabel": "semt",
     "roleFilterAria": "Üyeleri role göre filtrele",
     "roleFilterAll": "Tümü",
+    "roleFilterAgent": "Evrak",
+    "agentBadge": "Acente",
     "recentEyebrow": "Yeni katılanlar",
     "recentLede": "Listeye en son eklenen üyeler. Profillerini görmek için adlarına dokun.",
     "noLocation": "Konum gizli",
@@ -2945,7 +3000,8 @@
       "social": "Sosyal",
       "meal": "Yemek",
       "after-work": "İş sonrası",
-      "outdoor": "Açık hava"
+      "outdoor": "Açık hava",
+      "culture": "Kültür"
     },
     "empty": {
       "title": "Bu görünüm için henüz plan yok",
@@ -2954,6 +3010,19 @@
     "capacity": {
       "open": "Açık",
       "going": "katılıyor"
+    },
+    "money": {
+      "sectionLabel": "Para",
+      "ticketedToggleLabel": "Giriş ücreti al",
+      "verificationRequiredHint": "Doğrulama gerekiyor - Faz 3'te açılır",
+      "verificationLockedTag": "Kilitli",
+      "budgetMinLabel": "Min bütçe (TL)",
+      "budgetMaxLabel": "Maks bütçe (TL)",
+      "entryFeeLabel": "Kişi başı giriş ücreti (TL)",
+      "budgetDisplay": "Kişi başı {min}-{max} TL bekleyin",
+      "budgetDisplayApprox": "Kişi başı yaklaşık {amount} TL",
+      "entryFeeDisplay": "Giriş ücreti: {amount} TL",
+      "checkoutComingSoon": "Ödeme Faz 4'te açılır"
     },
     "create": {
       "eyebrow": "Yeni plan",

@@ -181,7 +181,7 @@ export async function getMembers() {
   const { data, error } = await supabase
     .from("members")
     .select(
-      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle, member_type",
+      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle, member_type, is_agent",
     )
     .eq("is_visible", true)
     .order("created_at", { ascending: false });
@@ -199,7 +199,7 @@ export async function getMembersPublic() {
   const { data, error } = await supabase
     .from("members")
     .select(
-      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle, member_type",
+      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle, member_type, is_agent",
     )
     .eq("is_visible", true)
     .order("created_at", { ascending: false });
@@ -220,7 +220,7 @@ export async function getMemberByIdPublic(id: string) {
   const { data, error } = await supabase
     .from("members")
     .select(
-      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle, profession, languages, member_type",
+      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle, profession, languages, member_type, is_agent",
     )
     .eq("id", id)
     .eq("is_visible", true)
@@ -385,4 +385,66 @@ export async function getWaitlistSummary(): Promise<{
     },
     error: null,
   };
+}
+
+// --- Paperwork services (Phase 2) ---
+
+export type PaperworkServicePublic = {
+  id: string;
+  host_id: string;
+  service_type: string;
+  title: string;
+  description: string | null;
+  languages: string[];
+  neighborhoods: string[];
+  price_cents: number;
+  currency: string;
+  duration_estimate_minutes: number | null;
+  host: {
+    id: string;
+    display_name: string;
+    avatar_url: string | null;
+    telegram_handle: string | null;
+    member_type: string | null;
+  } | null;
+};
+
+export async function getPaperworkServicesPublic(filters?: {
+  service_type?: string;
+  host_id?: string;
+}) {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("paperwork_services");
+  const supabase = createPublicClient();
+  let q = (supabase as any)
+    .from("paperwork_services")
+    .select(
+      "id, host_id, service_type, title, description, languages, neighborhoods, price_cents, currency, duration_estimate_minutes, host:members!paperwork_services_host_id_fkey (id, display_name, avatar_url, telegram_handle, member_type)",
+    )
+    .eq("is_active", true)
+    .order("created_at", { ascending: false });
+  if (filters?.service_type) q = q.eq("service_type", filters.service_type);
+  if (filters?.host_id) q = q.eq("host_id", filters.host_id);
+  const { data, error } = await q;
+  return {
+    data: (data as PaperworkServicePublic[] | null) ?? [],
+    error,
+  };
+}
+
+export async function getPaperworkServiceById(id: string) {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("paperwork_services");
+  const supabase = createPublicClient();
+  const { data, error } = await (supabase as any)
+    .from("paperwork_services")
+    .select(
+      "id, host_id, service_type, title, description, languages, neighborhoods, price_cents, currency, duration_estimate_minutes, host:members!paperwork_services_host_id_fkey (id, display_name, avatar_url, telegram_handle, member_type)",
+    )
+    .eq("id", id)
+    .eq("is_active", true)
+    .maybeSingle();
+  return { data: data as PaperworkServicePublic | null, error };
 }

@@ -1,6 +1,7 @@
 import {
   Coffee,
   Focus,
+  Music,
   Sunset,
   TreePine,
   Users,
@@ -15,6 +16,7 @@ export const PLAN_VIBES = [
   "meal",
   "after-work",
   "outdoor",
+  "culture",
 ] as const;
 
 export type PlanVibe = (typeof PLAN_VIBES)[number];
@@ -26,6 +28,7 @@ export const VIBE_ICONS: Record<PlanVibe, LucideIcon> = {
   meal: Utensils,
   "after-work": Sunset,
   outdoor: TreePine,
+  culture: Music,
 };
 
 export function isPlanVibe(value: unknown): value is PlanVibe {

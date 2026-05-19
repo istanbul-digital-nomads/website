@@ -52,6 +52,25 @@ export async function createPlan(
     input.stops.map((s) => s.end_time ?? null),
   );
 
+  // Phase 2 host snapshot. Lock in role + badge at the moment of
+  // creation so a downgraded guide's older plans still display
+  // correctly. badge stays 'basic' until Phase 3 ships verification.
+  const { data: hostRow } = await sb
+    .from("members")
+    .select("member_type")
+    .eq("id", userId)
+    .maybeSingle();
+  const host_role_at_creation =
+    (hostRow as { member_type: string | null } | null)?.member_type ?? null;
+  const canTicket =
+    host_role_at_creation === "local_guide" ||
+    host_role_at_creation === "tour_guide";
+
+  // Server-side guard: even if the client form somehow posts a
+  // ticketed flag for a non-host role, drop it on the floor here.
+  // Phase 3 will further restrict to Blue+ verified hosts.
+  const isTicketed = Boolean(input.is_ticketed) && canTicket;
+
   const { data, error } = await sb
     .from("plans")
     .insert({
@@ -61,6 +80,17 @@ export async function createPlan(
       capacity: input.capacity ?? null,
       language: input.language ?? "en",
       expires_at,
+      is_ticketed: isTicketed,
+      entry_fee_cents: isTicketed ? (input.entry_fee_cents ?? null) : null,
+      budget_per_person_min_cents: isTicketed
+        ? null
+        : (input.budget_per_person_min_cents ?? null),
+      budget_per_person_max_cents: isTicketed
+        ? null
+        : (input.budget_per_person_max_cents ?? null),
+      currency: "TRY",
+      host_role_at_creation,
+      host_badge_at_creation: "basic",
     })
     .select("*")
     .single();

@@ -1,241 +1,228 @@
 # Design System
 
-The visual identity and design guidelines for the Istanbul Digital Nomads website. Modern, minimal, and welcoming.
+The visual identity for the Istanbul Nomads website. Editorial · cinematic ·
+warm. Reads like a magazine that happens to be a community platform.
+
+> Product context for these choices lives in [PRODUCT.md](PRODUCT.md).
+> Brand voice and writing rules live in [CLAUDE.md](CLAUDE.md). Image rules
+> live in [docs/visual-identity.md](docs/visual-identity.md).
+
+---
 
 ## Design Principles
 
-1. **Clean over cluttered** - Every element earns its place. Generous whitespace. No decoration for decoration's sake.
-2. **Content first** - The design serves the content, not the other way around.
-3. **Accessible by default** - High contrast, readable fonts, keyboard navigable, screen reader friendly.
-4. **Consistently warm** - Minimal doesn't mean cold. Subtle warmth through color accents and friendly copy.
-5. **Fast and light** - No heavy animations or large assets. Performance is a feature.
+1. **Editorial over template.** Italic serif accents, hairline rules,
+   numbered eyebrows. The site looks like an issue, not a SaaS dashboard.
+2. **Place-first.** The city is the picture. Map textures, hood names,
+   coords (where they actually mean something) all anchor copy to Istanbul.
+3. **One accent at a time.** Gold is the live/active colour. Rose is the
+   secondary accent. Moss-green only for "alive" / "online". Never all
+   three competing in the same eyeshot.
+4. **Quiet chrome, loud content.** Nav and footer go grey-mute; headlines
+   and the live pip get the typography budget.
+5. **Honest data.** Empty states say "no plans yet" or render `—`. We
+   don't pad with fake counts.
+
+---
 
 ## Color Palette
 
-### Primary Colors
-```
---color-primary-50:   #f0f7ff    (lightest blue tint)
---color-primary-100:  #dbeafe
---color-primary-200:  #bfdbfe
---color-primary-300:  #93c5fd
---color-primary-400:  #60a5fa
---color-primary-500:  #3b82f6    (primary blue)
---color-primary-600:  #2563eb    (primary hover)
---color-primary-700:  #1d4ed8
---color-primary-800:  #1e40af
---color-primary-900:  #1e3a8a    (darkest blue)
+Backed by CSS custom properties in
+[src/styles/globals.css](src/styles/globals.css). Stored as space-separated
+RGB channels so Tailwind's `/<alpha-value>` modifier works
+(`bg-deep-water/50`, `text-gold/70`, etc.). Token names are stable; flipping
+between dark and light modes swaps the values, not the references.
+
+### Cinematic palette (canonical)
+
+| Token | Hex (dark mode) | Hex (light mode) | Role |
+|---|---|---|---|
+| `--ink-0` / `bg-deep-water` | `#06101f` | `#f6ecd9` | Canvas |
+| `--ink-1` | `#0a1a2f` | `#f0e4cd` | Surface |
+| `--ink-2` | `#13294a` | `#ffffff` | Raised surface |
+| `--ink-3` | `#1e385c` | `#decdb2` | Border |
+| `--paper` / `text-cream` | `#f6ecd9` | `#06101f` | Primary text |
+| `--paper-dim` | `#d9cfba` | `#12213b` | Secondary text |
+| `--paper-mute` | `#a89e8a` | `#3c4e69` | Muted text |
+| `--paper-faint` | `#70685a` | `#708098` | Faint text |
+| `--ferry-yellow` / `text-gold` / `bg-gold` | `#f4b860` | `#f4b860` | **Live · active · primary CTA** |
+| `--terracotta` / `text-rose` / `bg-rose` | `#e87a5d` | `#e87a5d` | Secondary accent, focused-hood ring |
+| `--moss` / `text-moss` | `#86efac` | `#86efac` | "Live" / "online" / "open seat" only |
+
+### Semantic aliases (use these in JSX)
+
+Wired in [tailwind.config.ts](tailwind.config.ts). Always prefer the alias
+over a raw hex — that way the dark/light swap stays automatic.
+
+```html
+<div class="bg-deep-water text-cream">
+  <h1 class="font-editorial">
+    Welcome <em class="italic text-gold">back</em>
+  </h1>
+  <button class="bg-gold text-deep-water">Sign in</button>
+  <span class="text-rose">Live</span>
+</div>
 ```
 
-### Accent Colors
-```
---color-accent-warm:  #f59e0b    (amber - Istanbul-inspired warmth)
---color-accent-coral: #f43f5e    (coral - for highlights and badges)
---color-accent-green: #10b981    (emerald - success states)
-```
+### What's gone
 
-### Neutrals
-```
---color-neutral-50:   #fafafa
---color-neutral-100:  #f5f5f5
---color-neutral-200:  #e5e5e5
---color-neutral-300:  #d4d4d4
---color-neutral-400:  #a3a3a3
---color-neutral-500:  #737373
---color-neutral-600:  #525252
---color-neutral-700:  #404040
---color-neutral-800:  #262626
---color-neutral-900:  #171717    (text on light backgrounds)
---color-neutral-950:  #0a0a0a    (darkest)
-```
+The old `primary` blue ramp (`#3b82f6` → `#1e3a8a`), the warm-dusk
+terracotta `#c0392b`, and the slate `bosphorus` `#526e89` were replaced in
+the v3.6.0 palette migration. The token *names* `terracotta` and
+`bosphorus` still exist (so old components don't break), but they now
+resolve to the cinematic palette values above. Treat the legacy names as
+deprecated; new code should use `gold` / `rose` / `deep-water` / `cream`.
 
-### Dark Mode
-```
-Background:    #0a0a0a (neutral-950)
-Surface:       #171717 (neutral-900)
-Surface hover: #262626 (neutral-800)
-Border:        #404040 (neutral-700)
-Text primary:  #fafafa (neutral-50)
-Text secondary:#a3a3a3 (neutral-400)
-```
-
-### Light Mode
-```
-Background:    #ffffff
-Surface:       #fafafa (neutral-50)
-Surface hover: #f5f5f5 (neutral-100)
-Border:        #e5e5e5 (neutral-200)
-Text primary:  #171717 (neutral-900)
-Text secondary:#737373 (neutral-500)
-```
+---
 
 ## Typography
 
-### Font Stack
-```
---font-sans:  "Inter", system-ui, -apple-system, sans-serif
---font-mono:  "JetBrains Mono", "Fira Code", monospace
-```
+Backed by `next/font/google` in
+[src/app/[locale]/layout.tsx](src/app/[locale]/layout.tsx). All families are
+loaded with `display: "optional"` (or `"swap"` for the editorial faces) so
+LCP never regresses from a font swap.
 
-**Inter** is our primary typeface. Clean, modern, excellent readability at all sizes. Load weights 400, 500, 600, and 700 from Google Fonts.
+| Family | CSS var | Tailwind class | When to use |
+|---|---|---|---|
+| **Instrument Serif** | `--font-editorial` | `font-editorial` | Headlines, italic-gold accents, "Now Live" callouts. Single weight 400 + italic. |
+| **Space Grotesk** | `--font-grotesk` | `font-grotesk` | Body sans on Members + Today + Plans editorial surfaces. Weights 400/500/600/700. |
+| **Fraunces** | `--font-display` | `font-display` | Legacy display serif (homepage Three Doors, About, Footer headlines). Weights 300/400/500. |
+| **Geist** | `--font-sans` | `font-sans` | Default body sans on all non-editorial surfaces. |
+| **JetBrains Mono** | `--font-mono` | `font-mono` | Eyebrows ("N° 01"), kbd hints (⌘K), tabular numbers, coords. |
+| **Bon (Pro)** | `--font-fa` | (auto via `lang^="fa"`) | Persian-optimised display, self-hosted. |
+| **Noto Sans Arabic** | `--font-ar` | (auto via `lang^="ar"`) | Arabic display. |
 
-### Type Scale
-```
-text-xs:    0.75rem  / 1rem      (12px - captions, badges)
-text-sm:    0.875rem / 1.25rem   (14px - secondary text, metadata)
-text-base:  1rem     / 1.5rem    (16px - body text)
-text-lg:    1.125rem / 1.75rem   (18px - lead paragraphs)
-text-xl:    1.25rem  / 1.75rem   (20px - card titles)
-text-2xl:   1.5rem   / 2rem      (24px - section headers)
-text-3xl:   1.875rem / 2.25rem   (30px - page titles)
-text-4xl:   2.25rem  / 2.5rem    (36px - hero subheading)
-text-5xl:   3rem     / 1          (48px - hero heading)
-text-6xl:   3.75rem  / 1          (60px - hero heading large screens)
-```
+### Why the editorial-vs-default split
 
-### Usage Guidelines
-- **Headings**: font-semibold (600) or font-bold (700)
-- **Body text**: font-normal (400)
-- **Labels/UI**: font-medium (500)
-- **Max line length**: 65–75 characters for body text (max-w-prose)
-- **Paragraph spacing**: 1.5rem between paragraphs
+- The **hero**, the **Members directory** (`/members`), the **Today board**
+  (`/today`), and the **Plans landing** (`/plans`) lean on the editorial
+  pair (Instrument Serif + Space Grotesk) because they're the engagement
+  surfaces and the magazine cover feeling matters.
+- Every other page uses Fraunces + Geist — same product, more utility.
 
-## Spacing
+Don't change a page's font stack without good reason; flipping between the
+two register reads as inconsistency.
 
-Use Tailwind's default spacing scale. Key values:
+### Type scale
 
-```
-4px   (1)   - Tight spacing (between icon and label)
-8px   (2)   - Compact spacing (between related items)
-12px  (3)   - Default inner padding
-16px  (4)   - Standard padding
-24px  (6)   - Section inner padding
-32px  (8)   - Card padding
-48px  (12)  - Between sections (mobile)
-64px  (16)  - Between sections (desktop)
-96px  (24)  - Page top/bottom padding
-128px (32)  - Hero section padding
-```
+Lives in `theme.extend.fontSize` in
+[tailwind.config.ts](tailwind.config.ts). Highlights:
 
-## Border Radius
+| Token | Size | Used on |
+|---|---|---|
+| `text-display-2xl` | 9.25rem / 300 | Hero pages where the page IS the headline |
+| `text-display-xl` | 6.75rem / 300 | "Today's plans" page hero |
+| `text-display-lg` | 5rem / 300 | Section heroes |
+| `text-h1` | 3.5rem / 400 | Page titles |
+| `text-h2` | 2.375rem / 400 | Section heads |
+| `text-h3` | 1.75rem / 400 | Card titles |
+| `text-h4` | 1.375rem / 500 | Sub-section |
+| `text-lede` | 1.1875rem | Lede paragraphs |
+| `text-body` | 1rem | Body |
+| `text-meta` | 0.8125rem | Meta info |
+| `text-eyebrow` | 0.6875rem / 500 / `0.35em` tracking | Numbered eyebrows ("N° 04 · MEMBERS") |
 
-```
-rounded-sm:   0.125rem  (2px)   - Badges, tags
-rounded:      0.25rem   (4px)   - Inputs, small buttons
-rounded-md:   0.375rem  (6px)   - Default for most elements
-rounded-lg:   0.5rem    (8px)   - Cards
-rounded-xl:   0.75rem   (12px)  - Modals, large cards
-rounded-2xl:  1rem      (16px)  - Hero cards, feature blocks
-rounded-full: 9999px             - Avatars, pills
-```
+Italic-gold accent rule: when an Instrument Serif headline has a
+two-or-three-word noun phrase that ties the sentence together (e.g. "What
+are nomads *up to* in Istanbul today?"), wrap the noun phrase in
+`<em class="italic text-gold">`. This is the brand's signature.
 
-## Shadows
+---
 
-Minimal shadow usage. Only for elevated elements:
+## Spacing & Radii
 
-```
-shadow-sm:    0 1px 2px rgba(0,0,0,0.05)       - Subtle lift (cards on hover)
-shadow:       0 1px 3px rgba(0,0,0,0.1)         - Cards
-shadow-lg:    0 10px 15px rgba(0,0,0,0.1)       - Modals, dropdowns
-```
+| Token | Value | Use |
+|---|---|---|
+| Section vertical padding (md+) | `py-20` to `py-28` | Page sections |
+| Card padding | `p-5` to `p-8` | Plan cards, member rows, perks |
+| Container max-width | 1320–1360px | Header, footer, page sections |
+| Container inline padding | `clamp(16px, 2.5vw, 32px)` | Page edges |
+| Rounded utility | `rounded-md` (6px), `rounded-lg` (8px), `rounded-xl` (12px), `rounded-2xl` (16px), `rounded-full` (pills) | Match radius to scale: nav chips `rounded-md`, cards `rounded-2xl`, all buttons + pills `rounded-full` |
+| Hairline | `0.5px solid rgba(246, 236, 217, 0.10)` | Dividers between editorial blocks. |
 
-In dark mode, use border outlines instead of shadows.
+No drop shadows on dark surfaces — use hairline borders + backdrop blur
+instead. Drop shadows are reserved for dropdown panels and modals.
 
-## Components
+---
 
-### Button Variants
-```
-Primary:     bg-primary-600 text-white hover:bg-primary-700
-Secondary:   bg-neutral-100 text-neutral-900 hover:bg-neutral-200
-Ghost:       text-neutral-600 hover:bg-neutral-100
-Danger:      bg-red-600 text-white hover:bg-red-700
-```
+## Shared UI atoms
 
-Sizes: `sm` (h-8 px-3 text-sm), `md` (h-10 px-4 text-sm), `lg` (h-12 px-6 text-base)
+Live in [src/components/ui/](src/components/ui/). Use these — don't redo them.
 
-### Card Pattern
-```
-bg-white dark:bg-neutral-900
-border border-neutral-200 dark:border-neutral-800
-rounded-lg
-p-6
-hover:shadow-sm transition-shadow
-```
+| Atom | File | What it does |
+|---|---|---|
+| `Avatar` / `AvatarStack` | [avatar.tsx](src/components/ui/avatar.tsx) | Gradient-backed circle with optional photo + live dot. Stable hue-per-name fallback. |
+| `Eyebrow` | [eyebrow.tsx](src/components/ui/eyebrow.tsx) | Hairline + uppercase label + optional kicker. Used on every editorial surface. |
+| `Chip` | [chip.tsx](src/components/ui/chip.tsx) | Pill-shape filter chip. `active` flips to colored variant. |
+| `LivePip` | [live-pip.tsx](src/components/ui/live-pip.tsx) | "● 13 plans on the board · live" pip — pulses subtly via CSS keyframes. |
+| `Container` | [container.tsx](src/components/ui/container.tsx) | Page-edge container. |
+| `SectionEyebrow` | [section-eyebrow.tsx](src/components/ui/section-eyebrow.tsx) | Numbered section eyebrow ("N° 04 · MEMBERS"). |
 
-### Input Pattern
-```
-bg-white dark:bg-neutral-900
-border border-neutral-300 dark:border-neutral-700
-rounded-md
-px-3 py-2
-text-sm
-focus:ring-2 focus:ring-primary-500 focus:border-transparent
-placeholder:text-neutral-400
-```
+---
 
-### Badge Pattern
-```
-Types:
-  meetup     → bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400
-  coworking  → bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400
-  workshop   → bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400
-  social     → bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400
-```
+## Nav system
 
-## Layout
+Two surfaces share a single source of truth in
+[src/lib/constants.ts](src/lib/constants.ts) (`navItems` array). Both
+render the same items in the same order with the same hrefs:
 
-### Container
-```
-max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
-```
+- **Global Header** [src/components/layout/header.tsx](src/components/layout/header.tsx)
+  — sticky, on every non-home route.
+- **Hero brand bar** [src/components/sections/home/hero-live/hero-frame.tsx](src/components/sections/home/hero-live/hero-frame.tsx)
+  — on `/` only, overlaid on the cinematic map.
 
-### Grid
-```
-Homepage:    Single column, full-width sections
-Events:      grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6
-Resources:   grid grid-cols-1 md:grid-cols-2 gap-6
-Blog:        grid grid-cols-1 lg:grid-cols-3 gap-8 (main + sidebar)
-```
+Items: **Today · Map · Events · Members · Perks** (flat icon destinations)
++ **Explore ▾ · Community ▾** (rich dropdowns with label + description per
+child).
 
-### Breakpoints (Tailwind defaults)
-```
-sm:   640px    (large phones)
-md:   768px    (tablets)
-lg:   1024px   (laptops)
-xl:   1280px   (desktops)
-2xl:  1536px   (large screens)
-```
+Active state: gold-tint background + gold-coloured icon in the global
+Header; glowing gold dot under the label on the hero brand bar.
+`aria-current="page"` on the active link. Count pills on Events + Perks
+(hidden at 0, capped at 99+) are server-fetched via `getNavCounts()`.
 
-## Animation
+The hero brand bar drops the ⌘K search pill (the hero already has its own
+primary CTAs) but otherwise matches the Header's content + interaction.
 
-Keep animations subtle and purposeful:
+---
 
-```
-transition-colors duration-150   - Color changes (hover states)
-transition-shadow duration-200   - Shadow changes (card hover)
-transition-transform duration-200 - Scale changes
-transition-opacity duration-300   - Fade in/out
-```
+## Accessibility
 
-No scroll-triggered animations. No parallax. No bouncing elements.
+- All interactive elements have a visible focus ring
+  (`focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none`).
+- `prefers-reduced-motion: reduce` pauses the hero camera tour, the live
+  pip blink, and the nomad-avatar drift animations.
+- All text on `bg-deep-water` clears WCAG AA at minimum.
+- RTL (Arabic, Persian) is supported via `dir="rtl"` on `<html>` +
+  logical-property utilities (`ps-*`, `pe-*`, `me-*`) where layout direction
+  matters. Lucide icons that are directional (`arrow-right`, etc.) get
+  flipped via a safelisted CSS rule in
+  [globals.css](src/styles/globals.css).
 
-Entry animations for page content: simple fade-up with 200ms duration and staggered delays.
+---
 
-## Iconography
+## Image rules (summary)
 
-Use **Lucide React** icons throughout. Consistent sizing:
-- Inline with text: 16px (w-4 h-4)
-- Buttons: 20px (w-5 h-5)
-- Feature blocks: 24px (w-6 h-6)
-- Hero/empty states: 48px (w-12 h-12)
+Full visual identity bible: [docs/visual-identity.md](docs/visual-identity.md).
+Short version:
 
-Stroke width: 1.5 (Lucide default) for a lighter, modern feel.
+- One accent colour per frame (gold or rose, not both)
+- Golden-hour light only — no cold blue-grey
+- No baked text on images (the typography is the text)
+- Anonymous humans, lived-in interiors
+- Real Istanbul, not stock skyline
 
-## Image Guidelines
+---
 
-- Hero images: 1920×1080, WebP format, compressed
-- Event covers: 800×450 (16:9 ratio), WebP
-- Avatars: 256×256, circular crop
-- Guide thumbnails: 600×400, WebP
-- Always provide alt text
-- Use next/image for automatic optimization
-- Lazy load all images below the fold
+## What changed and when
+
+- **v3.6.0** (2026-05-17) — palette migrated site-wide from warm-dusk
+  (terracotta + bosphorus + ferry-yellow) to cinematic deep-water + cream
+  + gold + rose. Token names stayed stable so existing components shifted
+  automatically.
+- **v3.7.0** (2026-05-18) — Instrument Serif (editorial display) and
+  Space Grotesk (Members + Today body) joined the font stack. Workspace
+  nav replaced the previous About/Explore/Community/Contact mix. AmbientBar
+  removed, hero category legend + coords removed, ⌘K Search pill kept on
+  Header only.
+
+See [CHANGELOG.md](CHANGELOG.md) for the full per-release detail.

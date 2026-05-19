@@ -1,12 +1,12 @@
 export const siteConfig = {
-  name: "Istanbul Digital Nomads",
-  shortName: "Istanbul Digital Nomads",
+  name: "Istanbul Nomads",
+  shortName: "Istanbul Nomads",
   description:
     "Digital nomad community in Istanbul with weekly coworking, local guides, and a softer landing for people staying longer.",
   url: "https://istanbulnomads.com",
   ogImage: "https://istanbulnomads.com/og.png",
   locale: "en_US",
-  creator: "Istanbul Digital Nomads",
+  creator: "Istanbul Nomads",
 } as const;
 
 export const socialLinks = {
@@ -17,40 +17,72 @@ export const socialLinks = {
   email: "hello@istanbulnomads.com",
 } as const;
 
-export type NavItemKey = "about" | "explore" | "community" | "contact";
+// Hybrid nav: 5 workspace-style icon destinations on the left, two rich
+// dropdowns on the right. `countKey` opts a flat item into a count pill;
+// dropdowns get label + description rows for each child.
+export type NavItemKey =
+  | "today"
+  | "map"
+  | "events"
+  | "members"
+  | "perks"
+  | "explore"
+  | "community";
+
 export type NavChildKey =
   | "cityGuides"
+  | "neighborhoods"
   | "pathToIstanbul"
   | "nomadSpaces"
-  | "firstWeekPlanner"
   | "localGuides"
   | "events"
-  | "blog";
+  | "blog"
+  | "members"
+  | "circles"
+  | "perks"
+  | "plans"
+  | "about"
+  | "contact";
 
-export type NavItem =
-  | { key: NavItemKey; href: string }
-  | { key: NavItemKey; children: { key: NavChildKey; href: string }[] };
+export type NavCountKey = "events" | "perks";
+
+export type NavFlatItem = {
+  key: NavItemKey;
+  href: string;
+  countKey?: NavCountKey;
+};
+export type NavDropdownItem = {
+  key: NavItemKey;
+  children: { key: NavChildKey; href: string }[];
+};
+export type NavItem = NavFlatItem | NavDropdownItem;
 
 export const navItems: NavItem[] = [
-  { key: "about", href: "/about" },
+  { key: "today", href: "/today" },
+  { key: "map", href: "/spaces" },
+  { key: "events", href: "/events", countKey: "events" },
+  { key: "members", href: "/members" },
+  { key: "perks", href: "/perks", countKey: "perks" },
   {
     key: "explore",
     children: [
       { key: "cityGuides", href: "/guides" },
+      { key: "neighborhoods", href: "/guides/neighborhoods" },
       { key: "pathToIstanbul", href: "/path-to-istanbul" },
       { key: "nomadSpaces", href: "/spaces" },
-      { key: "firstWeekPlanner", href: "/tools/first-week-planner" },
       { key: "localGuides", href: "/local-guides" },
     ],
   },
   {
     key: "community",
     children: [
-      { key: "events", href: "/events" },
+      { key: "plans", href: "/plans" },
+      { key: "circles", href: "/circles" },
       { key: "blog", href: "/blog" },
+      { key: "about", href: "/about" },
+      { key: "contact", href: "/contact" },
     ],
   },
-  { key: "contact", href: "/contact" },
 ];
 
 export type FooterLinkKey =
@@ -62,7 +94,6 @@ export type FooterLinkKey =
   | "nomadSpaces"
   | "cityGuides"
   | "pathToIstanbul"
-  | "firstWeekPlanner"
   | "neighborhoods"
   | "costOfLiving"
   | "photoCredits"
@@ -72,7 +103,11 @@ export type FooterLinkKey =
   | "instagram"
   | "email"
   | "openapi"
-  | "llmsTxt";
+  | "llmsTxt"
+  | "members"
+  | "circles"
+  | "perks"
+  | "plans";
 
 export const footerNav: Record<
   "community" | "resources" | "connect" | "legal",
@@ -80,8 +115,12 @@ export const footerNav: Record<
 > = {
   community: [
     { key: "aboutUs", href: "/about" },
-    { key: "localGuides", href: "/local-guides" },
+    { key: "plans", href: "/plans" },
     { key: "events", href: "/events" },
+    { key: "members", href: "/members" },
+    { key: "circles", href: "/circles" },
+    { key: "perks", href: "/perks" },
+    { key: "localGuides", href: "/local-guides" },
     { key: "blog", href: "/blog" },
     { key: "contact", href: "/contact" },
   ],
@@ -89,7 +128,6 @@ export const footerNav: Record<
     { key: "nomadSpaces", href: "/spaces" },
     { key: "cityGuides", href: "/guides" },
     { key: "pathToIstanbul", href: "/path-to-istanbul" },
-    { key: "firstWeekPlanner", href: "/tools/first-week-planner" },
     { key: "neighborhoods", href: "/guides/neighborhoods" },
     { key: "costOfLiving", href: "/guides/cost-of-living" },
     { key: "photoCredits", href: "/credits" },

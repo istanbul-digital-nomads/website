@@ -1,10 +1,11 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type CSSProperties } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { ChevronDown, Globe } from "lucide-react";
 import {
+  isRtl,
   locales,
   localeNames,
   defaultLocale,
@@ -12,8 +13,15 @@ import {
 } from "@/lib/i18n/config";
 import { cn } from "@/lib/utils";
 
+const headerControlStyle = {
+  height: 32,
+  fontSize: 11,
+  lineHeight: "16px",
+} satisfies CSSProperties;
+
 export function LanguageSwitcher() {
   const locale = useLocale() as Locale;
+  const rtl = isRtl(locale);
   const t = useTranslations("languageSwitcher");
   const browserPathname = usePathname();
   const browserSearch = useSearchParams();
@@ -67,17 +75,18 @@ export function LanguageSwitcher() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 rounded-full border border-black/5 px-2.5 py-1.5 text-xs font-medium uppercase tracking-wider text-neutral-600 transition-colors hover:bg-black/5 dark:border-white/10 dark:text-[#99a3ad] dark:hover:bg-white/10"
+        className="header-control inline-flex h-8 items-center justify-center gap-1 whitespace-nowrap rounded-full border border-ink-3/70 bg-ink-1/50 px-2.5 text-[11px] font-medium uppercase tracking-wider text-paper-mute transition-all duration-fast hover:border-ink-4 hover:bg-ink-2 hover:text-paper"
         title={t("label")}
         aria-haspopup="listbox"
         aria-expanded={open}
+        style={headerControlStyle}
       >
-        <Globe className="h-3.5 w-3.5" aria-hidden="true" />
+        <Globe className="h-3 w-3" aria-hidden="true" />
         <span className="sr-only">{t("label")}:</span>
         <span>{locale}</span>
         <ChevronDown
           className={cn(
-            "h-3 w-3 transition-transform duration-200",
+            "h-2.5 w-2.5 transition-transform duration-200",
             open && "rotate-180",
           )}
           aria-hidden="true"
@@ -87,7 +96,8 @@ export function LanguageSwitcher() {
       {open && (
         <div
           role="listbox"
-          className="absolute right-0 top-full z-50 mt-2 w-40 rounded-xl border border-black/10 bg-white/95 p-1.5 shadow-[0_16px_42px_rgba(20,17,15,0.1)] backdrop-blur-xl dark:border-white/10 dark:bg-[#1a1612]/95 dark:shadow-[0_16px_42px_rgba(0,0,0,0.35)]"
+          className="absolute end-0 top-full z-50 mt-2 w-40 overflow-hidden rounded-xl border border-ink-3 bg-ink-1/95 p-1.5 shadow-[0_20px_48px_rgba(0,0,0,0.45)] backdrop-blur-xl"
+          dir={rtl ? "rtl" : "ltr"}
         >
           {locales.map((l) => (
             <button
@@ -96,10 +106,10 @@ export function LanguageSwitcher() {
               aria-selected={locale === l}
               onClick={() => switchLocale(l)}
               className={cn(
-                "block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors hover:bg-black/5 dark:hover:bg-white/5",
+                "block w-full rounded-lg px-3 py-2 text-start text-sm transition-colors",
                 locale === l
-                  ? "bg-primary-50/80 font-medium text-primary-700 dark:bg-primary-900/20 dark:text-primary-200"
-                  : "text-neutral-700 dark:text-[#d4d7da]",
+                  ? "bg-ferry-yellow/10 font-medium text-paper"
+                  : "text-paper-mute hover:bg-paper/[0.05] hover:text-paper",
               )}
             >
               {localeNames[l]}

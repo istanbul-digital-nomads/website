@@ -10,7 +10,7 @@ export async function GET() {
   const blogPosts = getAllBlogPosts();
   const countries = getSupportedCountries();
 
-  const body = `# Istanbul Digital Nomads
+  const body = `# Istanbul Nomads
 
 > The community hub for digital nomads living and working in Istanbul. Verified coworking spaces, neighborhood guides, visa and residency info, a weekly event calendar, and country-specific relocation playbooks. Content is available in English (default), Turkish (\`/tr\`), Persian (\`/fa\`), Arabic (\`/ar\`), and Russian (\`/ru\`).
 
@@ -25,7 +25,7 @@ Every HTML page on this site has a markdown equivalent. Append \`.md\` to any pa
 - Path to Istanbul (country-specific relocation playbooks): ${SITE}/path-to-istanbul
 - Nomad Spaces (verified coworking + cafe directory): ${SITE}/spaces
 - Events (weekly community calendar): ${SITE}/events
-- First Week Planner (interactive 7-day plan): ${SITE}/tools/first-week-planner
+- Plans (members-only same-day cowork/social plans): ${SITE}/plans
 - Local Guides (vetted human guides directory): ${SITE}/local-guides
 - About: ${SITE}/about
 - Contact: ${SITE}/contact

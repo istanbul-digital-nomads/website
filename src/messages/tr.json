@@ -1,15 +1,23 @@
 {
   "site": {
-    "name": "Istanbul Digital Nomads",
-    "shortName": "Istanbul Digital Nomads",
+    "name": "Istanbul Nomads",
+    "shortName": "Istanbul Nomads",
     "tagline": "Uzaktan yaşam, yerel ritim",
     "description": "İstanbul'daki dijital göçebe topluluğu - haftalık ortak çalışma, yerel rehberler ve uzun süre kalanlar için yumuşak bir başlangıç."
   },
   "nav": {
+    "today": "Bugün",
+    "map": "Harita",
+    "events": "Etkinlikler",
+    "members": "Üyeler",
+    "perks": "Avantajlar",
+    "neighborhoods": "Mahalleler",
+    "primaryAria": "Ana navigasyon",
     "about": "Hakkımızda",
     "explore": "Keşfet",
     "community": "Topluluk",
     "contact": "İletişim",
+    "search": "Ara",
     "joinTelegram": "Telegram'a katıl",
     "theme": {
       "ariaLabel": "Temayı değiştir (mevcut: {theme})"
@@ -42,6 +50,34 @@
       "blog": {
         "label": "Blog",
         "description": "Topluluktan hikayeler ve ipuçları"
+      },
+      "members": {
+        "label": "Üye Rehberi",
+        "description": "Sahadaki insanların isteğe bağlı profilleri"
+      },
+      "circles": {
+        "label": "Circles",
+        "description": "Topluluğun içindeki altı küçük oda"
+      },
+      "perks": {
+        "label": "Perks Kasası",
+        "description": "Partner avantajları, bir Nomad+ ayrıcalığı"
+      },
+      "plans": {
+        "label": "Bugünün Planları",
+        "description": "Aynı gün cowork ve sosyal planlar"
+      },
+      "neighborhoods": {
+        "label": "Mahalleler",
+        "description": "Göçebeler için puanlanmış 10 İstanbul semti"
+      },
+      "about": {
+        "label": "Hakkımızda",
+        "description": "Biz kimiz ve topluluğu nasıl işletiyoruz"
+      },
+      "contact": {
+        "label": "İletişim",
+        "description": "Ekibe, ortaklıklar veya basın için ulaşın"
       }
     }
   },
@@ -104,7 +140,11 @@
       "twitter": "Twitter",
       "email": "E-posta",
       "openapi": "OpenAPI",
-      "llmsTxt": "LLMs.txt"
+      "llmsTxt": "LLMs.txt",
+      "members": "Üye rehberi",
+      "circles": "Circles",
+      "perks": "Perks kasası",
+      "plans": "Bugünün planları"
     }
   },
   "auth": {
@@ -112,7 +152,8 @@
     "signOut": "Çıkış yap",
     "signedOut": "Çıkış yapıldı",
     "completeProfile": "Profili tamamla",
-    "memberFallback": "Üye"
+    "memberFallback": "Üye",
+    "openDashboard": "Paneli aç"
   },
   "newsletter": {
     "placeholder": "siz@ornek.com",
@@ -898,6 +939,52 @@
         }
       }
     },
+    "heroLive": {
+      "livePip": "Şu an 21 göçebe çevrimiçi",
+      "headlineA": "Göçebeler bugün",
+      "headlineB": "ne yapıyor",
+      "headlineC": "İstanbul'da?",
+      "lede": "İstanbul göçebe topluluğunun bu akşam takıldığı kafeler, ortak çalışma alanları, oyun mekanları ve yemekler için canlı bir harita.",
+      "ctaPrimary": "Göçebelerle tanış",
+      "ctaSecondary": "Nasıl çalışır",
+      "nowLive": "Şu anda canlı",
+      "nav": {
+        "map": "Harita",
+        "events": "Etkinlikler",
+        "community": "Topluluk",
+        "about": "Hakkında",
+        "signIn": "Giriş"
+      },
+      "categories": {
+        "cafe": "Kafeler",
+        "bar": "Barlar",
+        "gaming": "Oyun",
+        "events": "Etkinlikler",
+        "restaurant": "Restoranlar",
+        "coworking": "Ortak çalışma",
+        "gallery": "Galeriler"
+      },
+      "tour": {
+        "intro": {
+          "label": "Bu akşam İstanbul",
+          "sub": "Boğaz'ın iki yakasında canlı"
+        },
+        "beyoglu": {
+          "label": "Beyoğlu",
+          "sub": "İstiklal'de gece ortak çalışma"
+        },
+        "kadikoy": {
+          "label": "Kadıköy",
+          "sub": "Bir oyun buluşması şekilleniyor"
+        },
+        "karakoy": { "label": "Karaköy", "sub": "Sahil boyunca akşam yemeği" },
+        "sultanahmet": {
+          "label": "Sultanahmet",
+          "sub": "Eski şehirde galeri gecesi"
+        },
+        "ortakoy": { "label": "Ortaköy", "sub": "Boğaz manzaralı kahvaltı" }
+      }
+    },
     "firstWeekTool": {
       "eyebrow": "Yeni gelene araç",
       "title": "İlk haftanı gerçek bir İstanbul rutinine çevir.",
@@ -1206,7 +1293,41 @@
       "sources": "Kaynaklar",
       "verified": "({date} doğrulandı)",
       "showLess": "Daha az göster",
-      "scoreBreakdown": "Skor detayı"
+      "scoreBreakdown": "Skor detayı",
+      "score": {
+        "unverified": "Doğrulanmadı",
+        "partial": "Kısmi puan",
+        "nomad": "Nomad puanı"
+      },
+      "labels": {
+        "goodForCalls": "Aramalar için iyi",
+        "laptopSafe": "Laptop güvenli",
+        "strongSockets": "Güçlü prizler",
+        "rainSafe": "Yağmura güvenli",
+        "openLate": "Geç açık",
+        "budgetAware": "Bütçe dostu",
+        "socialEnough": "Yeterince sosyal",
+        "bringHeadphones": "Kulaklık getir",
+        "bestBeforeLunch": "Öğleden önce iyi"
+      },
+      "reasons": {
+        "nomadScore": "{score} Nomad puanı",
+        "saferForCalls": "Aramalar için daha güvenli",
+        "quietProfile": "Sakin profil",
+        "rainSafeSetup": "Yağmura güvenli kurulum",
+        "lateOption": "Geç saat seçeneği",
+        "budgetAware": "Bütçe dostu",
+        "easyFirstTry": "Kolay ilk deneme",
+        "socketConfidence": "Priz güveni",
+        "coworkingBaseline": "Coworking temeli",
+        "worthComparing": "Karşılaştırmaya değer"
+      },
+      "cautions": {
+        "wifiLiveCheck": "Wifi hızının hâlâ yerinde kontrol edilmesi gerekiyor.",
+        "noise": "Burada gürültü işin parçası olabilir.",
+        "earlySeating": "Oturma sıkışmadan önce daha erken dene.",
+        "generic": "Gitmeden önce canlı detayları kontrol et."
+      }
     },
     "scoreLabels": {
       "wifi": "Wifi",
@@ -1561,15 +1682,18 @@
       "yearsShort": " yıl İstanbul'da"
     },
     "map": {
+      "turkeyName": "Türkiye",
+      "istanbulName": "İstanbul",
       "turkeyLabel": "Türkiye - varış ülken",
       "istanbulLabel": "İstanbul - varış noktan",
+      "loadingPath": "İstanbul yolu yükleniyor...",
       "openGuideForCountry": "{country} için rehberi aç",
       "countryComingSoon": "{country} - yakında"
     }
   },
   "countryPage": {
     "meta": {
-      "titleTemplate": "{country}'dan İstanbul'a (2026): Vize, Maliyet, Topluluk",
+      "titleTemplate": "{country} → İstanbul (2026): Vize, Maliyet, Topluluk",
       "fallbackDescription": "Gerçek vize kuralları, bankacılık, aylık maliyetler ve İstanbul'daki {country} topluluğu. Bu yolu yapan göçebelerin yazdığı rehber."
     },
     "breadcrumb": {
@@ -1640,7 +1764,10 @@
       "submitError": "Bir şeyler ters gitti. Lütfen tekrar dene.",
       "saveError": "Profilin kaydedilemedi",
       "signInAgain": "Lütfen tekrar giriş yap",
-      "welcome": "Istanbul Digital Nomads'a hoş geldin!"
+      "welcome": "Istanbul Digital Nomads'a hoş geldin!",
+      "profileUpdated": "Profil güncellendi",
+      "saveChanges": "Değişiklikleri kaydet",
+      "hasErrors": "Devam etmeden önce vurgulanan alanları düzelt."
     },
     "validation": {
       "displayName": "İsmini girmen gerekiyor.",
@@ -2365,5 +2492,605 @@
       "philippines": "Filipinler",
       "bangladesh": "Bangladeş"
     }
+  },
+  "ambient": {
+    "liveFrom": "Canlı: Kadıköy",
+    "ferry": "Vapur",
+    "members": "üye",
+    "tod": {
+      "dawn": "Şafak",
+      "midday": "Öğle",
+      "dusk": "Akşam",
+      "night": "Gece"
+    }
+  },
+  "homeV2": {
+    "hero": {
+      "photoCaption": "Kadıköy iskelesi, şafak",
+      "masthead": "Made in Kadıköy · Est. 2023",
+      "membersLabel": "üye",
+      "eyebrowNum": "N° 01",
+      "eyebrowLabel": "Varış",
+      "eyebrowMeta": "Asya'da üs. Vapurla sıfırlanma. Akşam sofrası.",
+      "headline": "İstanbul, uzaktan çalışan ve bir süre kalmak isteyenler için.",
+      "lede": "İstanbul'un bir-altı aylık hali için bir yayın ve bir topluluk. Kadıköy'de, burada gerçekten yaşayanlar tarafından yapıldı.",
+      "ctaPrimary": "İlk haftanı planla",
+      "ctaSecondary": "Önce oku"
+    },
+    "doors": {
+      "eyebrow": "Üç kapı · birini seç",
+      "planner": {
+        "title": "Haftanı planla",
+        "italic": "yedi dakikada",
+        "body": "Altı soru gir, Pazartesi'den Pazar'a bir program çıksın. Adresler, vapur saatleri, 09:00'dan önce açık olan o tek kafe.",
+        "photoCaption": "Walter's, Yeldeğirmeni · 10:30",
+        "cta": "Planlayıcıyı aç"
+      },
+      "matcher": {
+        "title": "Bir mahalle bul",
+        "italic": "kartpostala değil, sana uyanı",
+        "body": "Gerçekten ihtiyacın olana göre puanlanmış on mahalle. Kişilik testi değil. Daha çok, görüşleri olan bir tablo.",
+        "photoCaption": "Cihangir'de teras · gün batımı",
+        "cta": "Eşleştiriciyi dene"
+      },
+      "community": {
+        "title": "Topluluğa katıl",
+        "italic": "ya da önce sadece oku",
+        "body": "Burada gerçekten yaşayan uzaktan çalışanların olduğu bir Telegram, haftalık yemekler ve sahadaki insanların yazdığı rehberler. İşe alımcı yok.",
+        "photoCaption": "Cuma yemeği · Çiya",
+        "cta": "Telegram'ı aç"
+      }
+    },
+    "week": {
+      "eyebrow": "Bir haftanın şekli · verimlilik sistemi değil",
+      "line1": "Asya'da üs.",
+      "line2": "Vapurla sıfırlanma.",
+      "line3": "Akşam sofrası.",
+      "body1": "Günde üç görüşme, iki kahve, bir vapur. Şehir bir yol, yol da şehir. Çoğu hafta, burada çalışıyorum ile burada yaşıyorum arasında bir yere oturan bir ritme kavuşuyor.",
+      "body2": "Siteyi o ritme göre düzenliyoruz. İstanbul'un büyüsünü keşfet diye değil. Sadece - Salı 14:00'te kafenin wifi'si gitti, başka nerede pencere kenarı var.",
+      "timeline": {
+        "t1": "İskelede kahve. Pencere açık. Telefon yok.",
+        "t2": "Kafede pencere kenarı. İki görüşme.",
+        "t3": "Lokantada öğle yemeği. Üç tabak, İngilizce gerekmiyor.",
+        "t4": "Karşı yakaya vapur. Güvertede çay.",
+        "t5": "Son iyi vapurla dönüş. Gece yarısına kadar uyku."
+      }
+    },
+    "guidesShelf": {
+      "eyebrow": "Rehberler · rafta",
+      "title": "Sitenin uzun soluklu kısımları -",
+      "titleItalic": "yazıldı, düzenlendi, tarihlendi, imzalandı.",
+      "readLabel": "Oku · {num}",
+      "allGuides": "Tüm rehberler"
+    },
+    "events": {
+      "eyebrow": "Yaklaşan · önümüzdeki iki hafta",
+      "title": "Takvimde neler var",
+      "titleItalic": "önümüzdeki iki hafta.",
+      "rsvp": "Katılacağım",
+      "emptyEyebrow": "Tarihler yakında belli olacak",
+      "emptyTitle": "Şu an takvimde halka açık etkinlik yok - neler planlandığını görmek için Telegram'a bak.",
+      "note": "↳ Telegram üzerinden otomatik katılım. Sen istemedikçe sana e-posta göndermiyoruz.",
+      "allEvents": "Tüm yaklaşan etkinlikler"
+    },
+    "letter": {
+      "eyebrow": "Pazar mektubu",
+      "title": "Tek mektup,",
+      "titleItalic": "Pazarları, 09:00 yerel saat.",
+      "body": "Bu hafta İstanbul üzerine kısa bir okuma - bilmen gereken birkaç şey, gidilecek bir yer, beğendiğimiz bir yazı. Takip pikseli yok. Abonelikten çıkmak kolay.",
+      "cardEyebrow": "Mektupta",
+      "card": {
+        "item1": "Bu hafta şehir hakkında bilmeye değer üç şey.",
+        "item2": "Gidilecek bir yer - bir kafe, bir pazar, bir yürüyüş.",
+        "item3": "Topluluktan beğendiğimiz bir yazı."
+      },
+      "cardFoot": "Kısa. Dürüst. Takip yok."
+    },
+    "cta": {
+      "kicker": "Son bir şey",
+      "line1": "Vapur kalkıyor",
+      "line2": "her yirmi dakikada bir.",
+      "line3": "Yarın o vapurda olabilirsin.",
+      "primary": "İlk haftanı planla",
+      "secondary": "Önce oku"
+    },
+    "membership": {
+      "eyebrow": "Üyelik · ait olmanın iki yolu",
+      "title": "Ait olmanın",
+      "titleItalic": "iki yolu.",
+      "body": "Siteyi okumak ücretsiz. Telegram'a katılmak ücretsiz. Ücretli kademe (Nomad+) işin az romantik kısmı için - avantajlar, küçük deneyimlerde öncelik, herkese açık profil, Pazar mektubunun üye sürümü.",
+      "rule1": "↳ Rehberlerde paywall yok",
+      "rule2": "↳ Akışta reklam yok",
+      "rule3": "↳ İşe alımcı yok, asla",
+      "members": "üye",
+      "free": {
+        "title": "Ücretsiz",
+        "priceLabel": "Sonsuza dek · kart yok",
+        "bullets": {
+          "b1": "Tüm rehberler ve mahalleler",
+          "b2": "İlk Hafta Planlayıcı ve Mahalle Eşleştirici",
+          "b3": "Telegram kanalına erişim",
+          "b4": "Ücretsiz etkinliklere RSVP",
+          "b5": "Üye rehberi · sadece okuma"
+        },
+        "cta": "Telegram'a katıl"
+      },
+      "plus": {
+        "tag": "Yakında · bekleme listesi açık",
+        "priceTbd": "Belirsiz",
+        "priceLabel": "/ ay · erken erişim için bekleme listesi",
+        "bullets": {
+          "b1": "Ücretsizdeki her şey",
+          "b2": "Perks kasası · partner avantajları geldikçe",
+          "b3": "Ücretli deneyimlerde öncelik",
+          "b4": "Üye rehberinde herkese açık profil",
+          "b5": "Pazar mektubu · üye sürümü",
+          "b6": "İstersen 'kahveye açık' olarak listelen"
+        },
+        "waitlistCta": "Bekleme listesine yazıl",
+        "previewCta": "Neler planlandığını gör"
+      }
+    },
+    "circles": {
+      "eyebrow": "Circles · büyük odanın içindeki küçük odalar",
+      "title": "Altı küçük oda,",
+      "titleItalic": "Telegram sana fazla kalabalık geliyorsa.",
+      "open": "Aç",
+      "footnote": "Circles'a giriş kapısı yok. Hepsi aynı Telegram'ın içinde - bir circle'a, başlığına katılarak girersin.",
+      "seeAll": "Tüm circles"
+    }
+  },
+  "neighborhoodsV2": {
+    "index": {
+      "eyebrow": "Mahalleler · bir mevsim değecek on tanesi",
+      "title": "On mahalle,",
+      "titleItalic": "bilerek taraflı seçildi.",
+      "lede": "Her posta kodunu sıralamıyoruz. Uzaktan çalışan birinin bir ila altı ay gerçekten yaşayabileceği on yeri sıralıyoruz - ve buraların sadece cumartesi öğleden sonra değil, 07:00 ve 22:30'da nasıl olduğunu anlatıyoruz.",
+      "schematicLabel": "Bosphorus · şema",
+      "guideEyebrow": "Uzun yazı"
+    },
+    "row": {
+      "rent": "1+1 aralığı",
+      "side": "Yaka",
+      "noise": "Gürültü",
+      "spaces": "Takip edilen mekan",
+      "open": "{name} mahallesini aç"
+    },
+    "glance": {
+      "eyebrow": "Bir bakışta",
+      "kicker": "sadece gerçek rakamlar",
+      "rentUsd": "Kira · 1+1 (USD)",
+      "rentTl": "Kira · 1+1 (TRY)",
+      "perMonth": "aylık",
+      "side": "Şehrin yakası",
+      "noise": "Gece gürültüsü",
+      "spaces": "Takip edilen mekan",
+      "spacesSub": "doğrulanmış kafe + coworking",
+      "coords": "Koordinatlar"
+    },
+    "work": {
+      "eyebrow": "Nerede çalışılır",
+      "allSpaces": "Tüm mekanlar",
+      "title": "Doğrulanmış kafeler ve coworking, önemli şeylere göre puanlandı.",
+      "coworking": "Coworking",
+      "cafes": "Kafeler",
+      "laptopReady": "Laptopa uygun"
+    },
+    "similar": {
+      "eyebrow": "{name} hoşuna gittiyse",
+      "kicker": "bunları da beğenebilirsin"
+    },
+    "detail": {
+      "leadPhoto": "Kapak fotoğrafı",
+      "detailPhoto": "Detay",
+      "ledeEyebrow": "Giriş"
+    }
+  },
+  "eventsV2": {
+    "eyebrow": "Etkinlikler · neler oluyor",
+    "title": "Takvim:",
+    "titleItalic": "önümüzdeki iki hafta ve geçen iki hafta.",
+    "lede": "Haftalık yemekler, vapurda coworking, yürüyüşler ve arada bir tekne turu. Ücretsiz etkinliklere Telegram'dan RSVP yap; ücretli deneyimlerde yerin tutulur.",
+    "note": "↳ Telegram üzerinden otomatik RSVP. Sen istemedikçe sana e-posta atmıyoruz.",
+    "free": "Ücretsiz",
+    "rsvp": "RSVP",
+    "recap": "Özet",
+    "detail": {
+      "metaPrefix": "{title} · Istanbul Nomads etkinliği",
+      "date": "Tarih",
+      "time": "Saat",
+      "location": "Yer",
+      "price": "Fiyat",
+      "seats": "Kontenjan",
+      "openSeats": "Boş",
+      "aboutEyebrow": "Bu etkinlik hakkında",
+      "bookEyebrow": "Yer ayır",
+      "rsvpEyebrow": "RSVP",
+      "book": "Yer ayır",
+      "rsvpTelegram": "Telegram'dan RSVP yap",
+      "rsvpNote": "RSVP, Telegram grubunda yapılıyor. Burada hesap açmana gerek yok.",
+      "paidFallbackNote": "Bu ücretli bir etkinlik. Kartla ödeme henüz aktif değil - yerini tutmak için bize Telegram'dan yaz.",
+      "pastTag": "Geçmiş",
+      "pastNote": "Bu etkinlik çoktan oldu. Sıradakiler için yaklaşan etkinlikler listesine bak.",
+      "allEvents": "Tüm etkinlikler"
+    }
+  },
+  "membersV2": {
+    "metaTitle": "Üyeler",
+    "metaDescription": "Istanbul Nomads üyelerinin isteğe bağlı rehberi - sahadaki insanlar.",
+    "eyebrow": "Üyeler · sahadaki insanlar",
+    "title": "Kimler burada,",
+    "titleItalic": "ve neyin peşindeler.",
+    "lede": "Listede yer almayı kendi seçen üyelerin isteğe bağlı rehberi. Telegram üzerinden ulaş - site üzerinden mesajlaşmıyoruz.",
+    "livePip": "{count, plural, =0 {Henüz herkese açık profil yok} one {Rehberde # üye} other {Rehberde # üye}}",
+    "headlineA": "Buradaki",
+    "headlineB": "insanlar",
+    "headlineC": "evden çıktıkları sokağa göre.",
+    "publicLabel": "herkese açık",
+    "hoodsLabel": "semt",
+    "recentEyebrow": "Yeni katılanlar",
+    "recentLede": "Listeye en son eklenen üyeler. Profillerini görmek için adlarına dokun.",
+    "noLocation": "Konum gizli",
+    "howEyebrow": "Nasıl çalışır",
+    "howBody": "Telegram üzerinden ulaş - site üzerinden mesajlaşmıyoruz. Rehber isteğe bağlı; gördüğün herkes listede olmayı kendi seçti.",
+    "personCount": "{count} kişi",
+    "singlePerson": "1 kişi",
+    "elsewhereLabel": "İstanbul genelinde",
+    "ctaEyebrow": "Üye · sen",
+    "ctaHeadlineA": "Kendini ekle.",
+    "ctaHeadlineB": "Ya da ekleme.",
+    "ctaLede": "Yukarıdaki liste isteğe bağlı. Bir ad, kısa bir biyografi, bir Telegram kullanıcı adı. İstediğin zaman düzenle. İstediğin zaman gizle.",
+    "ctaPrimary": "Profilimi oluştur",
+    "ctaSecondary": "Ne herkese açık, ne değil",
+    "emptyEyebrow": "Rehber açılıyor",
+    "emptyTitle": "Henüz herkese açık profil yok. Üyeler tek tek katılıyor - yakında tekrar uğra.",
+    "profile": {
+      "location": "Konum",
+      "profession": "Meslek",
+      "type": "Üye tipi",
+      "reachOut": "Telegram'dan ulaş",
+      "aboutEyebrow": "Hakkında",
+      "noBio": "Bu üye henüz bir biyografi yazmamış.",
+      "skills": "Yetenekler",
+      "languages": "Diller"
+    },
+    "dashboard": {
+      "eyebrow": "Panelin",
+      "greeting": "Tekrar hoş geldin, {name}.",
+      "noMeta": "Profiline meslek ve konum ekle.",
+      "profileEyebrow": "Profilin",
+      "done": "Tamam",
+      "todo": "Yapılacak",
+      "completeProfile": "Profilini tamamla",
+      "linksEyebrow": "Hızlı bağlantılar",
+      "fields": {
+        "bio": "Biyografi",
+        "location": "Konum",
+        "profession": "Meslek",
+        "skills": "Yetenekler",
+        "languages": "Diller",
+        "visible": "Rehberde listeleniyor"
+      },
+      "links": {
+        "plans": "Bugünün planları",
+        "directory": "Üye rehberi",
+        "profile": "Herkese açık profilini gör",
+        "events": "Yaklaşan etkinlikler",
+        "editProfile": "Profilini düzenle"
+      }
+    }
+  },
+  "circlesV2": {
+    "metaTitle": "Circles",
+    "metaDescription": "Istanbul Nomads topluluğunun içindeki altı küçük oda.",
+    "eyebrow": "Circles · büyük odanın içindeki küçük odalar",
+    "title": "Altı küçük oda,",
+    "titleItalic": "Telegram sana fazla kalabalık geliyorsa.",
+    "lede": "Ana Telegram herkes demek. Circles ise alt gruplar - aynı cumartesiyi, aynı tekneyi, aynı fotoğraf yürüyüşünü isteyenler için daha küçük başlıklar.",
+    "open": "Aç",
+    "footnote": "Circles'a giriş kapısı yok. Hepsi aynı Telegram'ın içinde - bir circle'a, başlığına katılarak girersin; başvuru yok, ücret yok.",
+    "joinTelegram": "Telegram'da katıl",
+    "circleEyebrow": "Circle",
+    "rhythmEyebrow": "Ritim",
+    "joinEyebrow": "Bu circle'a katıl",
+    "joinBody": "Circles ana Telegram'ın içinde yaşıyor. Gruba katıl, sonra circle'ın başlığını iste - biri seni ekler.",
+    "otherEyebrow": "Diğer circle'lar",
+    "names": {
+      "coworking": "Coworking",
+      "hiking": "Doğa Yürüyüşü",
+      "sailing": "Yelken",
+      "photography": "Fotoğraf",
+      "wine": "Şarap",
+      "founders": "Founders"
+    },
+    "blurbs": {
+      "coworking": "Salı günü wifi'nin çalıştığı yer.",
+      "hiking": "Belgrad Ormanı, Aydos Dağı, çoğu cumartesi.",
+      "sailing": "Bostancı'dan kalkan tekne günleri.",
+      "photography": "Kameralar elde, sakin yürüyüşler.",
+      "wine": "Anadolu şişeleri, puanlama yok.",
+      "founders": "İki haftada bir perşembe ofis saatleri."
+    },
+    "descriptions": {
+      "coworking": "Üyelerin çoğu için varsayılan circle. Hangi kafede boş pencere kenarı var, kimin wifi'si gitti, bu hafta sakin masalar nerede - hepsinin konuşulduğu sürekli bir başlık. Rezervasyon yok, ayrılacak masa yok - sadece aynı birkaç mekândan çalışıp not paylaşan insanlar.",
+      "hiking": "Hafta sonları şehir dışına. Sıcakta Belgrad Ormanı, hava açıkken Anadolu yakasının sırtları, ara sıra daha uzun bir gezi. Tempo yarış değil sohbet temposu - mesele kilometre değil, yürüyüşün ve insanların kendisi.",
+      "sailing": "Rüzgâr el verdiğinde Marmara'da gün batımına kadar yelken, Bostancı ve Kalamış'tan kalkışlı. Bazı üyelerin ehliyeti var, çoğunun yok - tayfa olarak öğreniyorsun. Masraflar tekne başına bölüşülür, her gezinin öncesinde paylaşılır.",
+      "photography": "Kameralarla mahalleler arasında yavaş yürüyüşler - Balat, salı pazarı, alacakaranlıkta vapurlar. Her kamera, her seviye. Yürüyüşler aynı zamanda bir mahalleyi adam gibi tanımanın iyi bir yolu.",
+      "wine": "Çoğunlukla Anadolu şarabı - yerli üzümler iyi ve hak ettiği değeri görmüyor. Birinin evinde ya da Cihangir'de bir şarap barında resmi olmayan tadımlar. Puanlama yok, snobluk yok, sadece tanımaya değer şişeler.",
+      "founders": "Bir şeyler kuran üyeler için - tek başına kurucular, büyümekte olan serbest çalışanlar, küçük uzaktan ekipler. İki haftada bir perşembe ofis saatleri: bir sorun getir, onu daha önce yaşamış bir oda dolusu insan bul."
+    },
+    "rhythms": {
+      "coworking": "Gün boyu sohbet, her perşembe sabit bir cowork oturumu.",
+      "hiking": "Çoğu hafta bir cumartesi yürüyüşü, birkaç gün önceden paylaşılır.",
+      "sailing": "Havaya bağlı. Geziler hava durumu iyi olduğunda paylaşılır.",
+      "photography": "İki haftada bir fotoğraf yürüyüşü.",
+      "wine": "Aşağı yukarı ayda bir tadım.",
+      "founders": "İki haftada bir perşembe ofis saatleri."
+    }
+  },
+  "perksV2": {
+    "metaTitle": "Perks",
+    "metaDescription": "Istanbul Nomads partner avantajları kasası - bir Nomad+ ayrıcalığı.",
+    "eyebrow": "Perks · kasa",
+    "kicker": "bir Nomad+ ayrıcalığı",
+    "title": "Partner avantajları,",
+    "titleItalic": "gerçekten burada yaşayanlar için.",
+    "lede": "Kafelerden, coworking mekânlarından ve yerel işletmelerden gelen sabit tekliflerin olduğu bir kasa - sokaktan girerek değil, topluluğun parçası olarak elde ettiğin türden.",
+    "emptyEyebrow": "Kasa hazırlanıyor",
+    "emptyTitle": "Avantajlar kasası kuruluyor - partner partner, dolgu malzemesi yok.",
+    "emptyBody": "Sayfayı şişirmek yerine gerçek tekliflerle gerçek partnerler imzalıyoruz. Nomad+ kademesi ile ilk avantajlar birlikte geliyor. O zamana kadar topluluğun kendisi zaten avantaj.",
+    "joinTelegram": "Telegram'da katıl",
+    "seeCircles": "Circle'lara göz at"
+  },
+  "commandMenu": {
+    "ariaLabel": "Ara ve gezin",
+    "placeholder": "Mahalle, rehber, etkinlik ara...",
+    "close": "Aramayı kapat",
+    "openHint": "açmak için enter",
+    "empty": "Eşleşme yok. Başka bir kelime dene.",
+    "footnote": "↑↓ gezinmek için · ↵ açmak için",
+    "groups": {
+      "pages": "Sayfalar",
+      "guides": "Rehberler",
+      "neighborhoods": "Mahalleler",
+      "circles": "Circles",
+      "events": "Etkinlikler"
+    },
+    "pages": {
+      "home": "Ana sayfa",
+      "about": "Hakkımızda",
+      "contact": "İletişim",
+      "events": "Etkinlikler",
+      "guides": "Tüm rehberler",
+      "blog": "Blog",
+      "spaces": "Göçebe mekanları",
+      "members": "Üye rehberi",
+      "circles": "Circles",
+      "perks": "Perks kasası",
+      "planner": "İlk Hafta Planlayıcı",
+      "pathToIstanbul": "İstanbul'a Yol",
+      "dashboard": "Panelin"
+    }
+  },
+  "plans": {
+    "meta": {
+      "title": "Bugünün planları - Istanbul Nomads",
+      "description": "İstanbul'daki nomadlardan günü gününe planlar. Kim nereden çalışıyor, kim akşam yemeğine çıkıyor, kim sonrasında bira içmeye gidiyor."
+    },
+    "landing": {
+      "eyebrowLabel": "Bugünün planları",
+      "eyebrowMeta": "Sadece üyelere",
+      "headline": "İstanbul'daki nomadlar bugün ne yapıyor?",
+      "lede": "Etkinlik planlama yükünü atla. Sadece nerede ve ne zaman olacağını söyle. Diğer nomadlar katılabilir ya da yan masadan el sallar.",
+      "ctaShare": "Plan paylaş",
+      "ctaSignIn": "Planları görmek için giriş yap",
+      "ctaTelegram": "Telegram'a katıl"
+    },
+    "counter": {
+      "eyebrow": "Anlık sayım",
+      "activeAcross": "{hoods} mahallede aktif plan var"
+    },
+    "howItWorks": {
+      "eyebrow": "Nasıl çalışır",
+      "title": "Plan, etkinlik değil.",
+      "steps": {
+        "share": {
+          "title": "Nerede olacağını paylaş",
+          "body": "Bir kafe ya da ortak çalışma mekanı seç, saat belirle, tek satırlık not ekle. 30 saniye sürer."
+        },
+        "join": {
+          "title": "Biri katılmak istiyor mu?",
+          "body": "Üyeler 'Ben varım' diyor. Sana Telegram'dan haber gelir. Kullanıcı adını görürler. Gerisi yüz yüze."
+        },
+        "show": {
+          "title": "Sadece gel",
+          "body": "RSVP baskısı yok, geri sayım yok, asgari katılım yok. Fikrini değiştirirsen tek dokunuşla iptal et."
+        }
+      }
+    },
+    "tone": {
+      "kicker": "Bu ne değil",
+      "line1": "Bir meetup panosu değil.",
+      "line2": "Sadece planlar.",
+      "body": "Düzenli buluşmalar için zaten etkinliklerimiz var - ortak çalışma seansları, yemekler, atölyeler. Planlar arada kalan kısım için: 'Saat 3'ten itibaren Karga'dayım, uğra'. RSVP edilecek bir şey yok, organize edecek bir şey yok."
+    },
+    "feed": {
+      "subtitle": "Bir plana dokunup hostu görüp katıl."
+    },
+    "range": {
+      "today": "Bugün",
+      "tomorrow": "Yarın",
+      "week": "Bu hafta"
+    },
+    "filters": {
+      "all": "Hepsi"
+    },
+    "vibes": {
+      "focus": "Odaklan",
+      "cowork": "Cowork",
+      "social": "Sosyal",
+      "meal": "Yemek",
+      "after-work": "İş sonrası",
+      "outdoor": "Açık hava"
+    },
+    "empty": {
+      "title": "Bu görünüm için henüz plan yok",
+      "body": "İlk paylaşan sen ol - diğer nomadlar bu sayfayı her gün kontrol ediyor."
+    },
+    "capacity": {
+      "open": "Açık",
+      "going": "katılıyor"
+    },
+    "create": {
+      "eyebrow": "Yeni plan",
+      "title": "Ne yapacağını paylaş",
+      "intro": "Rahat tut. İnsanlara nerede ve ne zaman olacağını söyle. Gerisi gelmek.",
+      "today": "Bugün",
+      "tomorrow": "Yarın",
+      "dateLabel": "Tarih",
+      "startTime": "Başlangıç",
+      "endTime": "Bitiş",
+      "customLocation": "Mekanın adı ne?",
+      "customLocationPlaceholder": "ör. Moda sahil, kedilerin yanı",
+      "titleLabel": "Plan başlığı",
+      "titlePlaceholder": "ör. Kolektif'te cowork sonra bira",
+      "vibeLabel": "Mod",
+      "notesLabel": "Notlar (opsiyonel)",
+      "notesPlaceholder": "Başka bir şey? 'Arka masada', 'laptop getir'...",
+      "notesHelp": "En fazla 280 karakter.",
+      "capacityLabel": "Maks katılımcı (opsiyonel)",
+      "capacityPlaceholder": "ör. 4",
+      "capacityHelp": "Sınırsız için boş bırak. Aralık 2-20.",
+      "addFirstStop": "İlk durağını ekle",
+      "addStop": "Durak ekle",
+      "changeLocation": "Konumu değiştir",
+      "cancelPicker": "İptal",
+      "stopCountCaption": "{count, plural, =1 {1 durak} other {# durak}}",
+      "transportEyebrow": "Buraya nasıl gelinir",
+      "transportLabel": "Ulaşım",
+      "priceMinLabel": "Min fiyat",
+      "priceMaxLabel": "Maks fiyat",
+      "priceMinPlaceholder": "Min",
+      "priceMaxPlaceholder": "Maks",
+      "priceHint": "TL, opsiyonel",
+      "pickerHint": "Bir mekana dokun ya da haritada herhangi bir yere dokunarak pin bırak.",
+      "tapAStopHint": "Düzenlemek için yukarıdaki bir durağa dokun.",
+      "noStops": "Plan paylaşmak için en az bir durak ekle.",
+      "submit": "Planı paylaş",
+      "updateSubmit": "Değişiklikleri kaydet",
+      "successTitle": "Plan paylaşıldı",
+      "updateSuccess": "Plan güncellendi",
+      "errorTitle": "Paylaşılamadı",
+      "errorBody": "Bir şeyler ters gitti. Birazdan tekrar dene."
+    },
+    "stops": "{count} durak",
+    "transport": {
+      "ferry": "Vapur",
+      "metro": "Metro",
+      "tram": "Tramvay",
+      "bus": "Otobüs",
+      "minibus": "Dolmuş",
+      "taxi": "Taksi",
+      "shared_uber": "Ortak Uber",
+      "walk": "Yürüyüş",
+      "bike": "Bisiklet"
+    },
+    "memberSurface": {
+      "title": "Bugünün planları",
+      "subtitle": "Bu üye önümüzdeki 7 günde nerede olacak. Katılmak için dokun."
+    },
+    "detail": {
+      "host": "Host",
+      "attendees": "{count} katılıyor",
+      "join": "Ben varım",
+      "leave": "Plandan ayrıl",
+      "full": "Plan dolu",
+      "youHost": "Sen host'sun",
+      "edit": "Planı düzenle",
+      "openTelegram": "Telegram'dan {name} kişisine yaz",
+      "errorTitle": "İşlem başarısız",
+      "errorBody": "Güncellenemedi. Tekrar dene."
+    },
+    "comments": {
+      "title": "Sohbet ({count})",
+      "empty": "Henüz mesaj yok. Selam ver.",
+      "placeholder": "Grup için kısa bir not...",
+      "submit": "Gönder",
+      "errorTitle": "Gönderilemedi"
+    },
+    "edit": {
+      "eyebrow": "Düzenle",
+      "intro": "Bu planı iptal edebilirsin. Zaman ve konum düzenlemesi yakında.",
+      "editComingSoon": "Tam düzenleme bir sonraki sürümde.",
+      "editComingSoonHint": "Şimdilik, zaman veya yer değiştirmen gerekirse iptal et ve yeniden paylaş.",
+      "back": "Plana dön",
+      "cancelPlan": "Planı iptal et"
+    },
+    "telegram": {
+      "connect": "Bildirimler için Telegram bağla",
+      "openedTitle": "Telegram açıldı",
+      "openedBody": "Bağlantıyı tamamlamak için sohbette Start'a dokun.",
+      "errorTitle": "Telegram açılamadı",
+      "notConfigured": "Telegram botu henüz ayarlanmadı."
+    }
+  },
+  "today": {
+    "meta": {
+      "title": "Bugünün planları · Istanbul Nomads",
+      "description": "Bugün etrafındaki göçebelerin paylaştığı planlar. Ücretsiz, şeffaf, uğra-gel."
+    },
+    "livePip": "{count, plural, =0 {Henüz planda hiçbir şey yok} one {Panoda # plan · canlı} other {Panoda # plan · canlı}}",
+    "dateRibbon": "Bugünün planları · yerel saat",
+    "headlineA": "Bugün panoda",
+    "headlineB": "ne",
+    "headlineC": "var.",
+    "lede": "Etrafındaki göçebelerin paylaştığı planlar. Göçebe planları, şeffaf bütçeli akran buluşmaları. Uğra, yürüyerek gel, merhaba de.",
+    "stats": {
+      "total": "Panodaki planlar",
+      "totalSub": "yalnızca bugün",
+      "open": "Açık koltuk",
+      "openSub": "{hoods} semt boyunca",
+      "mine": "Senin planın",
+      "mineSub": "{filled}/{seats} katıldı",
+      "mineNone": "—",
+      "mineNoneSub": "sağ taraftan paylaş",
+      "hoods": "Semt",
+      "hoodsSub": "bugün plan olan"
+    },
+    "groups": {
+      "morning": {
+        "label": "Sabah · N° 01",
+        "kickerLead": "İkinci kahveden önce.",
+        "kickerRest": "",
+        "range": "06:00 → 12:00 · {count, plural, one {# plan} other {# plan}}"
+      },
+      "afternoon": {
+        "label": "Öğleden sonra · N° 02",
+        "kickerLead": "Uzun süre.",
+        "kickerRest": "İki vapur, belki bir yürüyüş.",
+        "range": "12:00 → 18:00 · {count, plural, one {# plan} other {# plan}}"
+      },
+      "evening": {
+        "label": "Akşam · N° 03",
+        "kickerLead": "İstanbul'un en iyi yaptığı saat.",
+        "kickerRest": "",
+        "range": "18:00 → 00:00 · {count, plural, one {# plan} other {# plan}}"
+      }
+    },
+    "composer": {
+      "eyebrow": "+ plan paylaş",
+      "placeholder": "Ne yapacağına dair tek cümle…",
+      "hint": "Göçebe olarak paylaşıyor"
+    },
+    "rail": {
+      "title": "Üyeler · yeni katılanlar",
+      "cta": "Dizini gör",
+      "empty": "Henüz herkese açık profil yok."
+    },
+    "legend": {
+      "nomad": "Göçebe planları · ücretsiz, bütçe önceden belli",
+      "shortcut": "⌘K · herhangi bir gün veya semt için ara"
+    },
+    "emptyBoard": "Bugün panoda plan yok. Sen paylaş ya da yarına bak."
   }
 }

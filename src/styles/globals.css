@@ -4,17 +4,61 @@
 
 @layer base {
   :root {
-    --background: #fafafa;
-    --foreground: #1a1a2e;
+    --background: #f6ecd9;
+    --foreground: #06101f;
     --muted: #5d6d7e;
-    --line: rgba(26, 26, 46, 0.1);
+    --line: rgba(6, 16, 31, 0.1);
+
+    /* Design System v3 - cinematic palette (cream + deep-water).
+       Mapped to the hero design's IN_PALETTE: deep-water bg, cream text,
+       gold + rose accents. Light mode inverts to cream bg, deep-water ink.
+       Values are space-separated RGB channels so Tailwind's `/opacity`
+       modifier works (wired as `rgb(var(--token) / <alpha-value>)` in
+       tailwind.config.ts). */
+    --ink-0: 246 236 217; /* cream - lightest bg */
+    --ink-1: 240 228 205; /* cream-warm */
+    --ink-2: 255 255 255; /* white */
+    --ink-3: 222 205 178; /* border-warm */
+    --ink-4: 192 170 138; /* subtle */
+    --ink-5: 148 124 92; /* faintest */
+    --paper: 6 16 31; /* deep-water ink (text) */
+    --paper-dim: 18 33 56; /* water */
+    --paper-mute: 60 78 105;
+    --paper-faint: 112 128 152;
+    --terracotta: 232 122 93; /* rose */
+    --terracotta-dim: 198 91 64;
+    --bosphorus: 19 41 74; /* waterHi */
+    --bosphorus-dim: 10 26 47;
+    --ferry-yellow: 244 184 96; /* gold */
+    --moss: 134 239 172; /* live-green */
+    --tod-accent: var(--ferry-yellow);
   }
 
   .dark {
-    --background: #14110f;
-    --foreground: #f2f3f4;
-    --muted: #b7aaa0;
-    --line: rgba(242, 243, 244, 0.1);
+    --background: #06101f;
+    --foreground: #f6ecd9;
+    --muted: #94a3b8;
+    --line: rgba(246, 236, 217, 0.1);
+
+    /* Dark mode = the design's canonical palette.
+       Deep-water canvas, cream text, gold + rose accents. */
+    --ink-0: 6 16 31; /* deepWater */
+    --ink-1: 10 26 47; /* water */
+    --ink-2: 19 41 74; /* waterHi */
+    --ink-3: 30 56 92; /* border */
+    --ink-4: 48 76 116; /* subtle */
+    --ink-5: 72 102 142; /* faint surface */
+    --paper: 246 236 217; /* cream */
+    --paper-dim: 217 207 186;
+    --paper-mute: 168 158 138;
+    --paper-faint: 112 104 90;
+    --terracotta: 232 122 93; /* rose */
+    --terracotta-dim: 198 91 64;
+    --bosphorus: 61 107 138;
+    --bosphorus-dim: 47 84 112;
+    --ferry-yellow: 244 184 96; /* gold */
+    --moss: 134 239 172; /* live-green */
+    --tod-accent: var(--ferry-yellow);
   }
 
   * {
@@ -155,6 +199,14 @@
     --tw-scale-x: 1;
   }
 
+  .inline-dir-arrow::before {
+    content: "→";
+  }
+
+  html[dir="rtl"] .inline-dir-arrow::before {
+    content: "←";
+  }
+
   /* Decorative body gradients - deferred to avoid blocking first paint */
   body::before {
     content: "";
@@ -182,15 +234,24 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-display), var(--font-sans), sans-serif;
-    font-weight: 800;
-    letter-spacing: 0;
+    font-family: var(--font-display), Georgia, serif;
+    /* Design System v2: Fraunces is an editorial serif loaded at 300/400/500.
+       Headings default to regular; utility classes (text-display-*, text-h*)
+       set their own lighter or heavier weight. */
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    text-wrap: pretty;
   }
 
   code,
   pre,
   .font-mono {
     font-family: var(--font-mono), monospace;
+  }
+
+  /* Mono numbers (timestamps, FX, scores) line up in columns. */
+  .font-mono {
+    font-variant-numeric: tabular-nums;
   }
 }
 
@@ -876,6 +937,118 @@
   animation: istanbul-city-light 3.8s ease-in-out infinite;
 }
 
+.site-header [data-header-inner] {
+  height: 64px !important;
+}
+
+.site-header.is-scrolled [data-header-inner] {
+  height: 56px !important;
+}
+
+.site-header .header-control {
+  height: 36px !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+}
+
+.site-header [data-header-brand] {
+  width: 220px !important;
+}
+
+.site-header .header-nav-link,
+.site-header .header-nav-dropdown {
+  font-size: 14px !important;
+  line-height: 20px !important;
+  padding: 8px 12px !important;
+}
+
+@media (min-width: 1280px) {
+  .header-nav {
+    min-width: 508px !important;
+  }
+
+  .header-nav-link {
+    width: 104px !important;
+  }
+
+  .header-nav-dropdown {
+    width: 128px !important;
+  }
+}
+
+/* Design System v2 - time-of-day accent. The <html> element gets one of
+   these classes from the server (getTimeOfDay in src/lib/ambient.ts). Kept
+   as plain top-level CSS - rules placed in @layer base get tree-shaken by
+   Tailwind because the `tod-${tod}` class name is computed at runtime. */
+/* `html.` prefix lifts specificity to (0,1,1) so the tod accent reliably
+   beats the `--tod-accent` default set in the `:root` / `.dark` blocks. */
+html.tod-dawn {
+  --tod-accent: var(--ferry-yellow);
+}
+html.tod-midday {
+  --tod-accent: var(--paper);
+}
+html.tod-dusk {
+  --tod-accent: var(--terracotta);
+}
+html.tod-night {
+  --tod-accent: var(--bosphorus);
+}
+
+/* Design System v2 - the one moving signal: a ferry crossing the
+   Bosphorus header strip and back, indefinitely. One per page, no
+   parallax.
+
+   `left` is animated (not `transform: translateX`) because percentages
+   in translateX resolve against the element's own width, while `left`
+   resolves against the positioned parent - the strait container.
+   `--ferry-start` / `--ferry-end` align the ferry with the dock dots
+   on each side.
+
+   The ferry sails Europe -> Asia, briefly docks and flips
+   (transform: scaleX(-1)) so its bow points back the way it came,
+   sails Asia -> Europe, flips again, and repeats. The flip is the only
+   way the SVG (which has a fixed right-facing bow) can plausibly do
+   a return leg without looking like it's drifting backwards. */
+.ferry-cross {
+  animation: ferry-cross 30s ease-in-out infinite;
+}
+
+@keyframes ferry-cross {
+  /* Forward leg: Europe -> Asia, bow right */
+  0% {
+    left: var(--ferry-start, 0);
+    transform: scaleX(1);
+    opacity: 0;
+  }
+  4% {
+    opacity: 1;
+  }
+  46% {
+    left: var(--ferry-end, calc(100% - var(--ferry-width, 1.25rem)));
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  /* Brief dock at Asia, ferry turns around */
+  50% {
+    left: var(--ferry-end, calc(100% - var(--ferry-width, 1.25rem)));
+    transform: scaleX(-1);
+    opacity: 1;
+  }
+  /* Return leg: Asia -> Europe, bow left */
+  96% {
+    left: var(--ferry-start, 0);
+    transform: scaleX(-1);
+    opacity: 1;
+  }
+  /* Brief dock at Europe, ferry turns around for the next loop */
+  100% {
+    left: var(--ferry-start, 0);
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+
 @keyframes istanbul-rain-fall {
   from {
     transform: translate3d(0, -32px, 0) rotate(12deg);
@@ -1046,5 +1219,10 @@
   .istanbul-haze,
   .istanbul-city-light {
     animation: none;
+  }
+
+  .ferry-cross {
+    animation: none;
+    opacity: 0.4;
   }
 }

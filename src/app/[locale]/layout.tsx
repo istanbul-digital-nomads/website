@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import {
-  IBM_Plex_Mono,
-  Inter,
-  Manrope,
+  Fraunces,
+  Geist,
+  Instrument_Serif,
+  JetBrains_Mono,
   Noto_Sans_Arabic,
+  Space_Grotesk,
 } from "next/font/google";
 import localFont from "next/font/local";
 import Script from "next/script";
@@ -20,7 +22,6 @@ import { getCachedMessages } from "@/lib/i18n/cache-translations";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/layout/theme-provider";
-import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import {
   BottomTabBarIsland,
@@ -30,32 +31,56 @@ import {
 } from "@/components/layout/client-islands";
 import { routing } from "@/lib/i18n/routing";
 import { bcp47, isRtl, type Locale } from "@/lib/i18n/config";
+import { getTimeOfDay } from "@/lib/ambient";
+import { getSearchItems } from "@/lib/search";
+import { CommandMenu } from "@/components/ui/command-menu";
 import "@/styles/globals.css";
 
-const inter = Inter({
+// Design System v2 font stack: Geist (UI/body), Fraunces (editorial display
+// serif), JetBrains Mono (numbers/metadata). The CSS variable names are kept
+// (`--font-sans` / `--font-display` / `--font-mono`) so nothing downstream
+// breaks. `display: "optional"` is retained throughout - it prevents the
+// post-FCP font swap that Lighthouse mobile latches onto as a new LCP
+// candidate (next/font's metric-matched fallback keeps layout stable).
+const geist = Geist({
   subsets: ["latin"],
-  // Same reasoning as Manrope below: `optional` prevents the post-FCP font
-  // swap that Lighthouse mobile latched onto as a new LCP candidate.
   display: "optional",
   variable: "--font-sans",
   preload: true,
 });
 
-const manrope = Manrope({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  // `optional` gives the browser ~100 ms to download the font; if it isn't
-  // ready, the fallback is used permanently. `swap` was triggering a paint
-  // when Manrope arrived 1-3 s in, which Lighthouse mobile latched onto as
-  // the LCP event for the H1 - inflating LCP from ~1.4 s to ~3.8 s. The
-  // next/font fallback uses ascent-override + size-adjust to match Manrope's
-  // metrics, so the layout doesn't shift either way.
   display: "optional",
-  weight: ["600", "700", "800"],
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
   variable: "--font-display",
   preload: true,
 });
 
-const ibmPlexMono = IBM_Plex_Mono({
+// Instrument Serif - cinematic italic editorial face used by HeroLive and
+// the Members directory. Single weight (400) + italic for callouts and
+// editorial headlines. Preload off because it's used on a couple pages.
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-editorial",
+  preload: false,
+});
+
+// Space Grotesk - sans companion to Instrument Serif on the hero / Members
+// surfaces. Body sans elsewhere stays as Geist. Preload off.
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-grotesk",
+  preload: false,
+});
+
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   // Mono font is only used for small eyebrows / labels - `optional` avoids
   // a font swap shifting LCP candidates.
@@ -152,12 +177,13 @@ export async function generateMetadata({
     .map(ogLocaleFor);
   return {
     title: {
-      default: "Istanbul Digital Nomads",
-      template: "%s | Istanbul Digital Nomads",
+      default: "Istanbul Nomads",
+      template: "%s | Istanbul Nomads",
     },
     description,
     keywords: [
-      "digital nomad",
+      "istanbul nomads",
+      "digital nomad istanbul",
       "istanbul",
       "remote work",
       "coworking",
@@ -167,17 +193,17 @@ export async function generateMetadata({
     ],
     metadataBase: new URL("https://istanbulnomads.com"),
     openGraph: {
-      title: "Istanbul Digital Nomads",
+      title: "Istanbul Nomads",
       description,
       url: "https://istanbulnomads.com",
-      siteName: "Istanbul Digital Nomads",
+      siteName: "Istanbul Nomads",
       locale: ogLocaleTag,
       alternateLocale: alternateLocales,
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: "Istanbul Digital Nomads",
+      title: "Istanbul Nomads",
       description,
     },
     robots: {
@@ -216,11 +242,22 @@ export default async function LocaleLayout({
     ),
   ) as typeof messages;
 
+  // Design System v2: time-of-day accent class. `getTimeOfDay` is a
+  // `use cache` function (cacheLife "minutes"), so this stays prerenderable
+  // and the accent catches up within a few minutes of each tod boundary.
+  const tod = await getTimeOfDay();
+
+  // Design System v2 Phase 6: Command-K dataset, prebuilt server-side per
+  // locale. All sources are either static (pages/guides/neighborhoods/
+  // circles) or `use cache` (events), so this stays prerenderable.
+  const searchItems = await getSearchItems(typedLocale);
+
   return (
     <html
       lang={bcp47[typedLocale]}
       dir={isRtl(typedLocale) ? "rtl" : "ltr"}
       translate="no"
+      className={`tod-${tod}`}
       suppressHydrationWarning
     >
       <head>
@@ -252,9 +289,11 @@ export default async function LocaleLayout({
       </head>
       <body
         className={[
-          inter.variable,
-          manrope.variable,
-          ibmPlexMono.variable,
+          geist.variable,
+          fraunces.variable,
+          instrumentSerif.variable,
+          spaceGrotesk.variable,
+          jetbrainsMono.variable,
           typedLocale === "fa" ? bon.variable : "",
           typedLocale === "ar" ? notoSansArabic.variable : "",
         ]
@@ -276,17 +315,26 @@ export default async function LocaleLayout({
           now={new Date(0)}
         >
           <ThemeProvider>
-            <NavProgressIsland />
+            {/* NavProgress + BottomTabBar read usePathname, which is
+                dynamic data on fully-dynamic routes (e.g. /events/[id]).
+                Wrapped in Suspense so they don't trip cacheComponents'
+                "uncached data outside Suspense" guard. */}
             <Suspense fallback={null}>
-              <Header />
+              <NavProgressIsland />
             </Suspense>
+            {/* Header is mounted by the (marketing) and (app) route-group
+                layouts; (home) deliberately omits it so the cinematic hero
+                owns the top of the viewport. No is-home shim needed. */}
             <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">
               <Suspense fallback={null}>{children}</Suspense>
             </main>
             <Suspense fallback={null}>
               <Footer locale={typedLocale} />
             </Suspense>
-            <BottomTabBarIsland />
+            <Suspense fallback={null}>
+              <BottomTabBarIsland />
+            </Suspense>
+            <CommandMenu items={searchItems} />
           </ThemeProvider>
           <ToasterIsland />
           <WebMcpRegisterIsland />

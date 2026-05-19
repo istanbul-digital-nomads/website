@@ -1,13 +1,15 @@
 ![CI](https://github.com/istanbul-digital-nomads/website/actions/workflows/ci.yml/badge.svg?branch=develop)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue?logo=typescript&logoColor=white)
-![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=nextdotjs&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs&logoColor=white)
 ![License](https://img.shields.io/badge/License-Proprietary-red)
 
-# Istanbul Digital Nomads - Website
+# Istanbul Nomads - Website
 
-The official website and community platform for Istanbul's digital nomad community. A full-stack web application built with **Next.js 14**, **Tailwind CSS**, **TypeScript**, and **Supabase**.
+The official website and community platform for Istanbul's digital nomad community. A full-stack web application built with **Next.js 16** (App Router, React 19), **Tailwind CSS**, **TypeScript**, **Supabase**, and **MapLibre**.
 
 > **This is a private repo.** The website source code is maintained by core contributors. If you'd like to contribute, reach out in the [community repo](https://github.com/istanbul-digital-nomads/community).
+
+> 📘 **Looking for the product story, the user loop, and what every route does?** Read **[PRODUCT.md](PRODUCT.md)** first. It's the canonical source of truth for what this product *is*; the README below covers how to run and develop it.
 
 ## Live Site
 
@@ -15,53 +17,50 @@ The official website and community platform for Istanbul's digital nomad communi
 
 ## What We're Building
 
-Istanbul Nomads is more than a landing page - it's a full community platform. Here's every service the domain will cover:
+Istanbul Nomads is a place-based community platform for people working remotely from Istanbul for the one-to-six-month version of their stay. Made in Kadıköy. The full product story, audience, and the engagement loop live in [PRODUCT.md](PRODUCT.md).
 
 ### Current Release
 
-- **Version:** `1.20.0`
-- **Multi-language support:** English (root), Turkish (`/tr`), Farsi (`/fa`), Arabic (`/ar`), and Russian (`/ru`) with proper hreflang, locale-aware sitemap, RTL for Arabic and Farsi, and a language switcher in the header. Backed by four native-fluent audit agents that enforce grammar, brand voice, locale SEO, and AI engine optimization
-- **Neighborhood coverage:** 10 full Istanbul neighborhood guides with photos, rent ranges, transport notes, coworking context, markdown endpoints, and relocation-agent scoring
-- **First Week Planner:** Shareable seven-day landing plans turn arrival profile, base neighborhood, work rhythm, social appetite, and budget comfort into a practical Istanbul week-one itinerary
-- **Nomad Spaces finder:** Same-day work modes and combinable filters help visitors find calls-friendly, quiet, rain-safe, late, budget, and first-visit work spots
-- **Neighborhood decision layer:** Interactive rhythm matcher, structured badges, and first-base guidance help visitors choose a neighborhood by actual daily routine instead of a generic top-ten list
-- **Istanbul Today:** Live weather widget with current Istanbul mood, nomad-specific day planning, and a generated photoreal Bosphorus rain scene
-- **Broader area coverage:** 25+ Istanbul areas covered through tiered guidance, including "worth considering" and "usually not a first base" sections
-- **Content rendering:** MDX guides and posts support GitHub-flavored markdown tables via `remark-gfm`, with responsive table styling for mobile
+- **Version:** `3.7.0` (see [CHANGELOG.md](CHANGELOG.md))
+- **Cinematic live-map homepage hero:** full-bleed MapLibre map auto-touring 6 Istanbul neighborhoods (Beyoğlu → Kadıköy → Karaköy → Sultanahmet → Ortaköy), with nomad photo avatars glued to lat/lng and a floating "Now Live" callout
+- **Today board** at `/today`: editorial daily plans grouped morning/afternoon/evening, with gold "★ Local guide" tag for guide-hosted plans
+- **Members editorial directory** at `/members`: deep-water canvas, neighborhood-grouped, recently-joined sidebar, real Supabase data
+- **Workspace navbar:** five real product destinations (Today · Map · Events · Members · Perks) + rich Explore ▾ / Community ▾ dropdowns, gold-tinted active state, count pills on Events + Perks fed by a cached Supabase query, consistent across the hero brand bar and the global Header
+- **Multi-language support:** English (root), Turkish (`/tr`), Farsi (`/fa`), Arabic (`/ar`), and Russian (`/ru`) with proper hreflang, locale-aware sitemap, RTL for Arabic and Farsi
+- **Neighborhood coverage:** 10 full Istanbul neighborhood guides with photos, rent ranges, transport notes
+- **Plans:** multi-stop daily plans (`/plans`, `/plans/new`, `/plans/[id]`) with map-first creation, swipeable bottom sheet on mobile, Telegram-only outbound contact
+- **Nomad Spaces finder** at `/spaces`: nomad-scored cafés + coworking with same-day work modes and combinable filters
+- **Relocation agent** at `/relocation-agent`: Claude-powered intake → personal plan with neighborhood scores
+- **Editorial typography:** Instrument Serif for headlines (italic-gold accents), Space Grotesk for Members + Today body, deep-water + gold/rose palette
 
-### Core Services
+### Routes — what each one actually does
 
-| Service                | Description                                                                                                    | Route                                                               |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| **Homepage**           | Hero, community stats, featured events, social proof, join CTA                                                 | `/`                                                                 |
-| **About**              | Our story, values, organizer team, community timeline                                                          | `/about`                                                            |
-| **City Guides**        | Practical guides, including the expanded Istanbul neighborhoods guide with 10 full pages and 25+ covered areas | `/guides`, `/guides/[slug]`, `/guides/neighborhoods/[neighborhood]` |
-| **Path to Istanbul**   | Country-specific relocation playbooks with interactive world map (Iran, India, Russia, Pakistan, Nigeria)      | `/path-to-istanbul`, `/path-to-istanbul/[country]`                  |
-| **Nomad Spaces**       | Wifi-tested cafes and coworking spots with scores, map, and filters                                            | `/spaces`                                                           |
-| **First Week Planner** | Seven-day Istanbul landing plans based on neighborhood, work setup, social pace, and budget comfort            | `/tools/first-week-planner`                                         |
-| **Local Guides**       | People who help newcomers settle in, filterable by specialization and neighborhood                             | `/local-guides`, `/local-guides/join`                               |
-| **Events**             | Upcoming meetups, coworking sessions, workshops, past events archive                                           | `/events`, `/events/[id]`                                           |
-| **Blog**               | Community stories, Istanbul tips, nomad interviews, remote work insights                                       | `/blog`, `/blog/[slug]`                                             |
-| **Contact**            | Reach us form, Telegram link, email, social links                                                              | `/contact`                                                          |
+Full per-route description, the user loop, and which surfaces are auth-required live in [PRODUCT.md](PRODUCT.md). Quick reference:
 
-### Member Platform (Authenticated)
-
-| Service              | Description                                                  | Route                                   |
-| -------------------- | ------------------------------------------------------------ | --------------------------------------- |
-| **Dashboard**        | Personal hub - upcoming RSVPs, activity feed, quick actions  | `/dashboard`                            |
-| **Member Directory** | Searchable, filterable list of community members (opt-in)    | `/members`                              |
-| **Profiles**         | Member profiles with bio, skills, neighborhood, links        | `/members/[username]`                   |
-| **Event Management** | Create, edit, and manage community events                    | `/events/create`, `/events/[id]/manage` |
-| **Settings**         | Account settings, notification preferences, privacy controls | `/settings`                             |
-
-### Interactive Tools
-
-| Tool                          | Description                                                            | Route                       |
-| ----------------------------- | ---------------------------------------------------------------------- | --------------------------- |
-| **First Week Planner**        | Seven-day newcomer itinerary with shareable query params               | `/tools/first-week-planner` |
-| **Neighborhood Quiz**         | "Which Istanbul neighborhood is right for you?" personality-style quiz | `/tools/neighborhood-quiz`  |
-| **Cost of Living Calculator** | Interactive lifestyle-based calculator with real Istanbul data         | `/tools/cost-calculator`    |
-| **Coworking Buddy Finder**    | Match with nomads in the same neighborhood or shared interests         | `/tools/buddy-finder`       |
+| Route | Auth | Purpose |
+|---|---|---|
+| `/` | public | Cinematic live-map hero + the homepage scroll (Three Doors, Week Shape, Guides Shelf, Rhythm Matcher, Events Strip, Memberships, Circles, Sunday Letter, Quiet CTA) |
+| `/today` | **members** | The daily plans board grouped morning/afternoon/evening |
+| `/plans` | public landing, **members** for feed | Marketing landing + authed today/tomorrow/week feed |
+| `/plans/new` | **members** | Map-first plan creation flow |
+| `/plans/[id]` | public | Plan detail with stops + join/leave + comments |
+| `/members` | public | Editorial directory, neighborhood-grouped |
+| `/members/[id]` | public | Public member profile |
+| `/spaces` | public | Verified coworking + cafés with nomad-score and map (the "Map" nav target) |
+| `/events` + `/events/[id]` | public | Scheduled meetups + RSVPs |
+| `/guides` + `/guides/[slug]` | public | Indexed guides (housing, transport, SIM, banking, etc.) |
+| `/guides/neighborhoods` + `/guides/neighborhoods/[slug]` | public | 10 full neighborhood pages |
+| `/path-to-istanbul` + `/path-to-istanbul/[country]` | public | Relocation playbooks (Iran, India, Russia, Pakistan, Nigeria) |
+| `/relocation-agent` | public | AI move planner (Claude + RAG) |
+| `/local-guides` + `/local-guides/join` | public | Verified hosts directory + application |
+| `/perks` | public listing, member-gated offers | Partner offers vault |
+| `/circles` | public | Sub-community rooms |
+| `/blog` + `/blog/[slug]` | public | MDX long-form |
+| `/about`, `/contact`, `/credits` | public | Story, contact form, photo attribution |
+| `/onboarding` | **after sign-up** | Profile setup wizard |
+| `/login` | public | Supabase auth (magic link + OAuth) |
+| `/dashboard` | **members** | Member home: your plans, RSVPs, profile completion |
+| `/tools/first-week-planner` | public | Seven-day arrival itinerary builder |
 
 ### API & Integrations
 

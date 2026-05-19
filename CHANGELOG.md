@@ -1,8 +1,244 @@
 # Changelog
 
-All notable changes to the Istanbul Digital Nomads website will be documented in this file.
+All notable changes to the Istanbul Nomads website will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [3.8.0] - 2026-05-19
+
+**Route-group scaffold + components reorg + canonical PRODUCT doc.** The `[locale]` tree is now carved into three Next.js route groups - `(home)`, `(marketing)`, `(app)` - each with its own layout. The homepage naturally has no global Header (the hero brand bar owns the top), marketing and app routes mount `HeaderWithCounts` from their own group layout, and the `is-home` pre-hydration script + `IsHomeMarker` client island + `hero-home-hide` CSS shim are all gone. Components moved from `src/components/{plans,today}/` to `src/components/sections/{plans,today}/` so every page-section component lives under a single roof. New `PRODUCT.md` is now the canonical product reference; README / DESIGN / ROADMAP / ARCHITECTURE updated to point at it.
+
+### Changed
+
+- **Route groups** (`src/app/[locale]/(home|marketing|app)/`) - 1 + 15 + 4 routes redistributed without changing a single URL. `(marketing)/layout.tsx` and `(app)/layout.tsx` each mount `<HeaderWithCounts />`; `(home)` deliberately omits it. The shell `[locale]/layout.tsx` keeps providers, fonts, footer, command menu, and universal islands.
+- **Components consolidated** - `src/components/plans/*` → `src/components/sections/plans/*`, `src/components/today/*` → `src/components/sections/today/*`, `newsletter-form.tsx` → `sections/newsletter-form.tsx`, `web-mcp-register.tsx` → `layout/web-mcp-register.tsx`. All import paths rewritten.
+- **DESIGN.md** rewritten to match the shipped cinematic palette (deep-water / cream / gold / rose) and the Instrument Serif + Space Grotesk + Fraunces + Geist + JetBrains Mono stack actually loaded in `layout.tsx`.
+- **README.md** bumped Next 14 → 16, version pointer → 3.8.0, routes table corrected; points at `PRODUCT.md` for the canonical product spec.
+- **ROADMAP.md** + **ARCHITECTURE.md** tagged with historical-document headers pointing at `PRODUCT.md`.
+
+### Removed
+
+- `src/components/layout/is-home-marker.tsx` and the pre-hydration `is-home` script in `[locale]/layout.tsx`. Route groups replace the client-side route detection shim.
+- `html.is-home .hero-home-hide { display: none }` block in `globals.css`.
+
+### Added
+
+- **PRODUCT.md** - canonical 12-section product reference (audience, product loop, surfaces, data entities, brand voice, tech stack, boundaries). New entry point for new contributors and AI agents.
+
+## [3.7.0] - 2026-05-18
+
+**Workspace nav + editorial Members and Plans + hero hardening.** Delivery round against the [Members + Profile handoff](docs/plan/design/files/members/CHANGES.md) dated 2026-05-18. The global Header is now a workspace-style nav with five real destinations (Map / Events / Members / Perks) plus Explore + Community dropdowns, gold-tinted active state with `aria-current="page"`, count pills on Events + Perks fed by a cached Supabase query, and a fully harmonized rounded-pill right cluster (⌘K · EN · Sign in). The Members directory and the Plans landing page were reskinned in the cinematic editorial language (deep-water canvas, Instrument Serif headlines with italic-gold accents, Space Grotesk body, moss-green live pips, rounded-full CTAs). The MapLibre hero gained crash guards so client-side navigation in and out of the homepage no longer trips the layout-level error boundary, and switched to CartoCDN raster tiles for resilience in backgrounded tabs.
+
+### Delivered against the Members + Profile handoff (`docs/plan/design/files/members/CHANGES.md`)
+
+| Handoff artboard / asset                    | Status       | Where it lives                                                                                |
+| ------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------- |
+| `directory-list` (`MembersListPage`)        | **Done**     | [members-editorial.tsx](src/components/sections/members/members-editorial.tsx) on `/members`  |
+| `directory-map` (`MembersMapPage`)          | Deferred     | needs a Bosphorus SVG + lat/lng-pinned member chips                                            |
+| `profile-editorial` (`ProfileEditorialPage`)| Deferred     | `/members/[id]` still uses the previous card profile                                            |
+| `profile-quiet` (`ProfileQuietPage`)        | Deferred     | will be the default for own-profile / `/me`                                                    |
+| Plans landing (`today.jsx`-aligned chrome)  | **Done**     | [hero.tsx](src/components/plans/landing/hero.tsx) + counter + how-it-works + tone-disclaimer  |
+| `today.jsx` page at `/today`                | Deferred     | route doesn't exist yet; nearest equivalent is `/plans`                                        |
+| Global re-skin to deep-water + Instrument Serif + Space Grotesk | **Partial**  | tokens already remapped in 3.6.0; Space Grotesk loaded as `--font-grotesk` (preload off); applied to Hero, Members, Plans surfaces. Other pages still inherit the token shift via Geist + Fraunces. |
+| Hero map system (already-shipped)           | **Hardened** | see "Hero map crash fix" + "raster tiles" + "deferred mount" below                            |
+
+### Added
+
+- **Workspace navbar** ([src/components/layout/header.tsx](src/components/layout/header.tsx)) - five flat icon destinations (Map → `/spaces`, Events, Members, Perks, with Lucide glyphs) + two restored rich dropdowns (Explore ▾, Community ▾) that show a label + description per item and gain the gold-tint active state when any of their children is current. `aria-current="page"`, keyboard-friendly, click-outside close.
+- **Header counts** ([src/lib/nav-counts.ts](src/lib/nav-counts.ts) + [src/components/layout/header-with-counts.tsx](src/components/layout/header-with-counts.tsx)) - server-side `getNavCounts()` composes the already-cached `getEventsPublic` + `getPerksPublic` queries inside a `"use cache"` boundary (cacheLife `"minutes"`); upcoming-7-day events + active perks render as count pills next to the matching destination, hidden at 0, capped at `99+`.
+- **`is-home` route flag** - pre-hydration script in [layout.tsx](src/app/[locale]/layout.tsx) sets `html.is-home` based on `location.pathname` so the homepage paints without flicker, plus [is-home-marker.tsx](src/components/layout/is-home-marker.tsx) client island that keeps the flag in sync across client-side navigations. Hides both `AmbientBar` and the global `Header` on `/` via a single CSS rule, replacing the previous client-side gate that caused hydration mismatches.
+- **MembersEditorial section** ([src/components/sections/members/members-editorial.tsx](src/components/sections/members/members-editorial.tsx)) - new full-page layout for `/members`: deep-water canvas with subtle gold/rose gradient wash, moss-green live pip with real member count, Instrument Serif headline "The people *here*, by the street they leave the house in." (italic gold accent), counts strip (public / hoods), two-column split with a recently-joined sidebar and a neighborhood-grouped right column, stable hue-per-name avatar fallback for members without photos, CTA block at the bottom. Works on real `MemberPublic` data; "Across Istanbul" bucket catches members without a `location`.
+- **Plans editorial reskin** - [hero.tsx](src/components/plans/landing/hero.tsx) + [plans-today-counter.tsx](src/components/plans/plans-today-counter.tsx) + [how-it-works.tsx](src/components/plans/landing/how-it-works.tsx) + [tone-disclaimer.tsx](src/components/plans/landing/tone-disclaimer.tsx) + the authed range header inside [plans/page.tsx](src/app/[locale]/plans/page.tsx). All now share the deep-water canvas, italic-gold serif numerals (01/02/03), rounded-full gold/ghost CTAs, gold-bordered counter card with massive Instrument Serif number.
+- **Space Grotesk** loaded via `next/font/google` ([layout.tsx](src/app/[locale]/layout.tsx)) as `--font-grotesk` + Tailwind `font-grotesk` family. Preload off (only used on Members + Plans editorial surfaces).
+- **HeroErrorBoundary** ([src/components/sections/home/hero-live/hero-error-boundary.tsx](src/components/sections/home/hero-live/hero-error-boundary.tsx)) - local class-based boundary that catches MapLibre / react-map-gl render errors from rapid mount/unmount races so they don't bubble up to the layout-level `error.tsx`. Auto-recovers on `resetKey` change.
+- **i18n keys** - all 5 locales got new `nav.{map,events,members,perks,primaryAria}`, dropdown child rows under `nav.items.{neighborhoods,about,contact}.{label,description}`, and a substantial `membersV2.*` block (`livePip` with plural rules, `headlineA/B/C`, `recentEyebrow`, `recentLede`, `howEyebrow`, `howBody`, `personCount`/`singlePerson`, `elsewhereLabel`, full CTA copy, `publicLabel`, `hoodsLabel`).
+
+### Changed
+
+- **Right cluster harmony** ([auth-button.tsx](src/components/layout/auth-button.tsx), [language-switcher.tsx](src/components/layout/language-switcher.tsx)) - LanguageSwitcher, AuthButton, and the ⌘K search button all use the same `rounded-full border-ink-3/70 bg-ink-1/50` pill style + matching hover. Dropdown panels gained `rounded-xl` corners and a gold-tint selected state.
+- **Workspace destinations replace dropdown-only nav** ([src/lib/constants.ts](src/lib/constants.ts)) - `navItems` keeps the dropdown variant for Explore + Community but the primary nav is now flat icon-led: Map / Events / Members / Perks. Mobile menu overlay flattens dropdown children into a single tap layer.
+- **Hero map crash fix** ([hero-cinematic.tsx](src/components/sections/home/hero-live/hero-cinematic.tsx)) - all async paths that touch the MapLibre instance (`buildGlyphImage().then`, the resize-retry `setTimeout`s, the `flyTo` effect) now guard on a `mountedRef` and wrap in try/catch; pending timeouts are tracked and cleared on unmount; children gated on a `mapLoaded` flag that also flips when `map.isStyleLoaded()` returns true (so a backgrounded tab doesn't starve the children of style data).
+- **Hero raster tiles** - switched from the CartoCDN vector style to an inline raster style (`dark_nolabels` + `dark_only_labels` PNGs) so basemap tiles paint without depending on the WebGL animation loop staying active.
+- **Hero deferred mount** ([hero-live.client.tsx](src/components/sections/home/hero-live/hero-live.client.tsx)) - HeroCinematic mounts one tick after the section to let any leftover WebGL state from a previous navigation tear down cleanly; the section also got a `minHeight: 640` fallback so it never collapses to 0 height when `100vh` reports 0 in a transient layout state.
+- **In-hero brand bar** ([hero-frame.tsx](src/components/sections/home/hero-live/hero-frame.tsx)) - swapped the invented `iN` gold-gradient monogram for the real `/images/logo-dark.png`; brand wordmark + tagline match the global Header; uses next-intl's `Link` so child route prefetch works under `localePrefix: "as-needed"`; headline block now vertically centered (`top-1/2 -translate-y-1/2`).
+- **Hero brand bar nav links** - the in-hero brand bar reuses the global `navItems`; dropdown items resolve to their first child's href so each chip still leads somewhere meaningful.
+
+### Removed
+
+- **`HeaderGate` + `AmbientBarGate` client islands** - replaced by the pre-hydration script + `IsHomeMarker` + CSS `html.is-home .hero-home-hide { display: none }`. No more client-side branch that flipped after hydration.
+- **"Join on Telegram" button** from the global Header and the unused `socialLinks` import - made way for the harmonized right cluster.
+- **Tagline ("Remote life, local rhythm") from the brand lockup** - workspace nav has no room for it; tagline lives on the in-hero brand bar (homepage) and the footer instead.
+- **Theme toggle from the Header** - per the workspace-nav spec; will be folded into a user menu when one exists.
+- **Old dropdown labels for top-level routes** - About and Contact moved into the Community dropdown; the standalone About / Contact entries are gone from the global nav.
+
+## [3.6.0] - 2026-05-17
+
+**Cinematic live-map homepage hero.** The editorial photo hero is replaced by a full-bleed MapLibre map of Istanbul that auto-tours through Beyoğlu → Kadıköy → Karaköy → Sultanahmet → Ortaköy on an 11-second loop. Photo nomad avatars and category-coded venue dots stay glued to their geographic coordinates while the camera flies. A floating "Now Live" callout updates with each stop. Site-wide palette migrated to the cinematic deep-water / gold / cream / rose system.
+
+### Added
+
+- **HeroLive section** at [src/components/sections/home/hero-live/](src/components/sections/home/hero-live/) - cinematic MapLibre tour driven by [hero-cinematic.tsx](src/components/sections/home/hero-live/hero-cinematic.tsx) (8s `flyTo` per stop, smoothstep easing, multi-step resize retries to handle hydration races). Venue dots rendered as a single GeoJSON `<Source>` + circle `<Layer>` for performance; 21 nomad avatars rendered as `<Marker>` with per-instance CSS drift animation. Spotlight ring follows the focused hood. Honours `prefers-reduced-motion` (pauses tour, snaps camera).
+- **Hero frame chrome** ([hero-frame.tsx](src/components/sections/home/hero-live/hero-frame.tsx)) - in-hero brand bar (iN monogram + nav + Sign in), italic Instrument Serif headline, lede, two CTAs, category legend, coords readout. Left-side gradient mask for headline contrast.
+- **Now-Live tour callout** ([tour-callout.tsx](src/components/sections/home/hero-live/tour-callout.tsx)) - floating panel top-right with current stop label, sub-text, and a 6-segment progress strip. Re-keys on stop change for entrance animation.
+- **HeaderGate** ([src/components/layout/header-gate.tsx](src/components/layout/header-gate.tsx)) - tiny client island that hides the global `<Header />` on the homepage route so the hero's brand bar is the only top chrome there. Other pages unaffected.
+- **Hero fixture data** at [src/lib/hero-data.ts](src/lib/hero-data.ts) - 7 categories, 9 neighborhoods, 29 venues, 21 nomads, 6 tour stops. Ports the design's `IN_*` constants. Real Supabase member wiring tracked as a follow-up.
+- **Self-hosted avatars** at [public/hero/avatars/](public/hero/avatars/) - 21 placeholder JPGs (~120 KB total) so we don't depend on an external host or need to allowlist a new domain in `next.config.mjs`.
+- **Instrument Serif** loaded via `next/font/google` ([src/app/[locale]/layout.tsx](src/app/[locale]/layout.tsx)) as `--font-editorial`. Preload off (hero-only use).
+- **i18n keys** `home.heroLive.*` in all 5 locales (en, tr, fa, ar, ru) covering live pip, headline, lede, CTAs, nav, categories, and the 6 tour stop labels + sub-texts.
+
+### Changed
+
+- **Palette migration site-wide** ([src/styles/globals.css](src/styles/globals.css)) - the `--ink-*`, `--paper`, `--terracotta`, `--ferry-yellow` tokens now resolve to the cinematic palette (deep-water `#06101f`, cream `#f6ecd9`, gold `#f4b860`, rose `#e87a5d`) in both light and dark modes. Token names preserved so existing components shift automatically.
+- **Tailwind config** ([tailwind.config.ts](tailwind.config.ts)) - added semantic aliases `bg-deep-water`, `text-cream`, `text-gold`, `text-rose`, and a `font-editorial` family that maps to `--font-editorial`.
+- **Homepage** ([src/app/[locale]/page.tsx](src/app/[locale]/page.tsx)) - `<HeroIssue />` swapped for `<HeroLive />`. Rest of the homepage sections unchanged.
+
+### Removed
+
+- `src/components/sections/home/hero-issue.tsx` - editorial photo hero replaced by the live map.
+- `docs/plan/design/files/hero/` - design source prototypes (Leaflet-based) no longer needed once ported to MapLibre.
+
+## [3.5.0] - 2026-05-17
+
+**Multi-stop plans + map-first create flow.** A plan is now a *day* with one or more *stops* on it (cowork at Kolektif 10-2, beer at Karga at 6), each pinned visually on a map. The create flow is rewritten as a mobile-first full-bleed map with a swipeable bottom sheet - tap a verified space pin or tap anywhere to drop a custom pin, then fill in time / vibe / notes per stop. Member profiles now surface a member's upcoming plans inline. Onboarding wizard gets a mobile-first chrome refresh with a sticky footer, auto-save between steps, and an a11y baseline.
+
+### Added
+
+- **Map-first create flow** at [src/app/[locale]/plans/new/page.tsx](src/app/[locale]/plans/new/page.tsx) - full-bleed [PlanCreateMap](src/components/plans/plan-create-map.tsx) (maplibre + CartoCDN tiles, 19 verified space pins always visible) with a three-snap-height [BottomSheet](src/components/ui/bottom-sheet.tsx) (peek 22vh / half 50vh / full 90vh, touch-draggable on mobile, tap-to-cycle for keyboard). Stops appear as numbered terracotta pins (1, 2, 3) connected by a dashed line. Tap a space pin = picked. Tap anywhere on the map = custom pin (with a typed label + nearest-neighborhood inference). Per-stop editor [PlanStopEditor](src/components/plans/plan-stop-editor.tsx) handles time pickers (native `<input type="time">` for OS-native mobile UX), 6-vibe icon row, notes, and remove. Auto-generates plan title from the first two stop names when blank.
+- **Supabase migration 014_plans → 015** ([supabase/migrations/015_plan_stops.sql](supabase/migrations/015_plan_stops.sql)) - new `plan_stops` table with `(plan_id, ordinal, space_id, custom_location, neighborhood_slug, lat, lng, start_time, end_time, vibe, notes)`. RLS scoped via the parent `plans.creator_id`. The per-stop columns are dropped from `plans` (which becomes a clean day-level row: date, title, capacity, expiry). `plans_today_by_neighborhood` view rewritten to count distinct plans per neighborhood across all stops. **Already applied to production Supabase.**
+- **Today's plans by this member** on the profile page ([src/components/plans/member-plans-today.tsx](src/components/plans/member-plans-today.tsx)) - up to N upcoming plans hosted by the member, rendered as `PlanCard`s in a 2-col grid. Hidden entirely when the member has no upcoming plans.
+- **`getMemberPlansToday`** query in [src/lib/plans/queries.ts](src/lib/plans/queries.ts).
+- **A11y baseline** across new components - 44px min tap targets, `aria-pressed` on toggle chips, `aria-label` on map markers (`"${space} (${type})"` / `"Stop N of M"`), focus rings on every interactive element, `role="region"` + `aria-label` on the bottom sheet, `aria-live="polite"` for picker mode hints and form errors, focus-on-step-change in the onboarding wizard, `prefers-reduced-motion` respected on sheet height transitions.
+
+### Changed
+
+- **Onboarding wizard** ([src/app/[locale]/onboarding/onboarding-wizard.tsx](src/app/[locale]/onboarding/onboarding-wizard.tsx)) - chrome rebuilt on the new ink/paper/terracotta design tokens; sticky mobile footer with full-width Next button (48px min height); progress strip uses terracotta fill on completed steps; focus moves to the step heading on transition so screen readers announce it; auto-save partial profile to Supabase between steps so members can bounce mid-flow and resume; `aria-live` error announcement region; step components themselves unchanged (they keep all the existing form logic - a per-step visual refresh is a follow-up).
+- **PlanCard** ([src/components/plans/plan-card.tsx](src/components/plans/plan-card.tsx)) - now renders a stop timeline (up to 3 stops visible, "+N more" when over). Vibe icon comes from the first stop. `aria-label` summarises the plan.
+- **PlanDetail page** ([src/app/[locale]/plans/[id]/page.tsx](src/app/[locale]/plans/[id]/page.tsx)) - vertical numbered stop list with each stop's vibe, neighborhood, time range, and notes. Header strip simplified now that vibe/time are per-stop.
+- **Mutations API** ([src/lib/plans/mutations.ts](src/lib/plans/mutations.ts)) - `createPlan` inserts the plan, then the stops as a batch, rolls back the plan on stops insert failure. New `updatePlanStops` replaces a plan's stops wholesale. `cancelPlan` and `joinPlan` unchanged in behaviour.
+- **Expiry calculator** ([src/lib/plans/expiry.ts](src/lib/plans/expiry.ts)) - now takes an array of end_times and uses the latest. Tests updated; 10/10 pass.
+- **PATCH /api/plans/[id]** accepts an optional `stops` array; when present, replaces stops via `updatePlanStops` and recomputes `expires_at`. Title/capacity/scheduled_date updates supported independently.
+- **Cron `/api/cron/plan-reminders`** queries the earliest stop's `start_time` per plan instead of the (now-removed) plan-level `start_time`.
+
+### Removed
+
+- Plan-level `space_id`, `custom_location`, `neighborhood_slug`, `start_time`, `end_time`, `vibe`, `notes` columns - all moved to `plan_stops`. No production data was lost (no plans had been created on the prior schema).
+- The single-stop stacked-form `PlanCreateForm` component - replaced by the map+sheet flow.
+
+## [3.4.0] - 2026-05-16
+
+**Daily Plans** - a deliberately lighter sibling of events for casual same-day "I'll be at X cafe Monday 2pm, drop by" coordination. Members-only feed with a public counter on the landing, Strava-inspired card UI, Telegram bot for notifications while all plan state stays in-app. First Week Planner deprioritised from all UI entry points.
+
+### Added
+
+- **`/plans` landing + members feed** ([src/app/[locale]/plans/](src/app/[locale]/plans/)) - editorial hero ("What are nomads up to in Istanbul today?"), live public counter (`plans running across N neighborhoods`), "How it works" 3-step explainer, "Not a meetup board, just plans" tone disclaimer. Logged-in members get a Today / Tomorrow / This week feed below the fold with neighborhood + vibe filters. Sign-in CTA for anon.
+- **`/plans/new`** ([src/app/[locale]/plans/new/page.tsx](src/app/[locale]/plans/new/page.tsx)) - single-page create flow: When (today / tomorrow / date + optional times), Where (pick from `nomadSpaces` or write a custom location), What (title, vibe, notes), Who (optional capacity 2-20).
+- **`/plans/[id]`** ([src/app/[locale]/plans/[id]/page.tsx](src/app/[locale]/plans/[id]/page.tsx)) - plan detail with host card, attendee stack, join/leave button, host's Telegram deep-link revealed after joining, in-app comments thread.
+- **`/plans/[id]/edit`** - cancel-only for v1 (full edit deferred to v1.1).
+- **Supabase migration 014** ([supabase/migrations/014_plans.sql](supabase/migrations/014_plans.sql)) - tables `plans`, `plan_attendees`, `plan_comments`, `telegram_subscriptions`; public views `plans_today_count` + `plans_today_by_neighborhood` granted to `anon`; RLS policies (authed read for plans/attendees/comments, write own, host can delete own plan or its comments); 6 indexes; `updated_at` trigger.
+- **`src/lib/plans/`** - `vibes.ts` (focus/cowork/social/meal/after-work/outdoor + lucide icon map), `schema.ts` (zod validators matching DB constraints), `expiry.ts` (Istanbul-TZ-aware lifecycle: end-of-day for day-only plans, end_time + 1h grace for timed plans), `telegram.ts` (Bot API client with no-op fallback when `TELEGRAM_BOT_TOKEN` is unset), `queries.ts` (`getPlansForFeed`, `getPlanById`, `getPlansTodayCount`), `mutations.ts` (`createPlan`, `joinPlan`, `cancelPlan`, ...) with side-effect Telegram notifications.
+- **API routes** under [src/app/api/plans/](src/app/api/plans/), [src/app/api/telegram/](src/app/api/telegram/), [src/app/api/cron/](src/app/api/cron/) - rate-limited via existing `@upstash/ratelimit`, cron routes gated by `CRON_SECRET` bearer.
+- **Telegram bot integration** - `/start <token>` deep-link captures the user's `chat_id` into `telegram_subscriptions` (token issued via `/api/telegram/link`, stored in Upstash with 10-min TTL). Notifications: host pinged on join, all attendees pinged 1h before start, cancellations broadcast.
+- **Vercel Cron** ([vercel.json](vercel.json)) - daily 00:05 Istanbul (`5 21 * * *` UTC) for `/api/cron/expire-plans`. The pre-start reminder route exists but isn't scheduled on Hobby (every-15-min crons require Pro); re-add the entry to `vercel.json` after upgrading.
+- **i18n** - new `plans` namespace in all 5 locales (`en`, `tr`, `ar`, `fa`, `ru`) plus a `plans` entry in `nav.items`, `footer.links`, and `commandMenu.pages`. Non-English copy is acceptable for v1 but worth a polish pass from the `nomad-{tr,ar,fa,ru}-editor` agents.
+- **9 timezone tests** ([src/lib/plans/expiry.test.ts](src/lib/plans/expiry.test.ts)) covering DST-stable Istanbul (UTC+3 year-round), midnight boundaries, month/year rollover.
+
+### Changed
+
+- **First Week Planner hidden from all UI entry points** - header dropdown ([src/lib/constants.ts](src/lib/constants.ts)), footer resources column, homepage hero ([src/components/sections/home/hero-issue.tsx](src/components/sections/home/hero-issue.tsx)), quiet CTA ([src/components/sections/home/quiet-cta.tsx](src/components/sections/home/quiet-cta.tsx)), three-doors grid ([src/components/sections/home/three-doors.tsx](src/components/sections/home/three-doors.tsx)), neighborhood matcher ([src/components/sections/neighborhood-rhythm-matcher.tsx](src/components/sections/neighborhood-rhythm-matcher.tsx)), spaces page, neighborhood detail, sitemap, llms.txt, command-menu search. All previously planner-pointing CTAs now route to `/plans` (or `/plans?neighborhood=...`). The `/tools/first-week-planner` route still resolves so external links don't 404.
+- **Community nav** now leads with "Today's Plans" - it's the new front door for the membership.
+
+## [3.3.0] - 2026-05-14
+
+Design System v2 - "Ambient Tech with Istanbul Soul". An editorial-first, dark-native visual identity (see `docs/plan/design/`). Shipping in phases; this entry grows as phases land.
+
+### Phase 0 - Foundations
+
+- **Font stack swap** ([src/app/[locale]/layout.tsx](src/app/[locale]/layout.tsx)) - Inter -> **Geist** (UI/body), Manrope -> **Fraunces** (editorial display serif, weights 300/400/500 + italic), IBM Plex Mono -> **JetBrains Mono** (numbers/metadata). CSS variable names (`--font-sans` / `--font-display` / `--font-mono`) and the `display: "optional"` LCP optimisation are unchanged. The Persian (Bon Pro) and Arabic (Noto Sans Arabic) RTL fonts and their 82% scaling are untouched.
+- **"Ink + paper" design tokens** ([tailwind.config.ts](tailwind.config.ts), [src/styles/globals.css](src/styles/globals.css)) - a 6-step `ink` surface ramp, 4-step `paper` text ramp, and accent set (`terracotta`, `bosphorus`, `ferry-yellow`, `moss` + dim variants). Implemented as CSS custom properties that flip between light and dark, so every redesigned surface is theme-aware. Dark values are canonical (from the design reference); light values are new.
+- **Type scale** - `display-2xl/xl/lg`, `h1-h4`, `lede`, `body`, `meta`, `mono` keys with the v2 weights and tracking. Base `h1-h6` reweighted to Fraunces 400. Legacy keys kept for not-yet-redesigned pages.
+- **Time-of-day accent** - `<html>` gets a `tod-{dawn|midday|dusk|night}` class from the server (`getTimeOfDay` in [src/lib/ambient.ts](src/lib/ambient.ts), a `use cache` function), driving a `--tod-accent` CSS variable.
+- **Motion** - `ease-soft` timing function, `fast/mid/slow` durations, the `ferry-cross` keyframe (the one moving signal, frozen under `prefers-reduced-motion`), and tabular numerals on `.font-mono`.
+
+### Phase 1 - Shared chrome
+
+- **AmbientBar** ([src/components/layout/ambient-bar.tsx](src/components/layout/ambient-bar.tsx)) - a thin monospace strip across the top of every page carrying the city's living signals: Istanbul local time, weather + time-of-day, the next Kadıköy ferry, the USD/TRY rate, and the opted-in member count. Server-rendered; sits above the header in normal flow.
+- **`src/lib/ambient.ts`** - the signal fetchers (`getIstanbulTime`, `getWeather` via Open-Meteo, `getFxRate` via Frankfurter, `getFerryStatus` from a static schedule, `getMemberCount` from Supabase). Each is a `use cache` function with a short `cacheLife` and a static fallback - the bar renders on every page and must never block or throw.
+- **New atoms** - `SectionEyebrow`, `PhotoSlot` (atmospheric placeholder until real photography), `Tag`, and brand `Mark` SVGs (ferry, Bosphorus wave, logo roundel) under `src/components/ui/`.
+- **Header + Footer restyled** to the ink/paper tokens - translucent blurred header with a terracotta active-nav dot and a `⌘K` search affordance (visual only for now), editorial footer with a serif masthead and a mono coordinate block.
+- **Token mechanism** - the ink/paper/accent CSS variables are space-separated RGB channels wired as `rgb(var(--token) / <alpha-value>)`, so Tailwind's `/opacity` modifier works on every themed colour.
+- **i18n** - new `ambient` namespace added to all five locale message files; translated into Turkish, Persian, Arabic, and Russian.
+
+### Phase 2 - Homepage
+
+- **Homepage rewritten** ([src/app/[locale]/page.tsx](src/app/[locale]/page.tsx)) as eight editorial sections under `src/components/sections/home/`: the issue-style hero (full-bleed photo slot + the moving Bosphorus ferry strip), "three doors" (Planner / Matcher / Telegram), "the shape of a week" with an annotated timeline, the guides shelf, the neighborhood matcher, the upcoming-events strip, the Sunday-letter signup, and the closing CTA.
+- **Matcher restyled** - `NeighborhoodRhythmMatcher` (shared with the neighborhoods index) re-skinned to the ink/paper tokens with a `SectionEyebrow` header; all matching logic untouched.
+- **Real data, honest placeholders** - the events strip pulls live from Supabase with a calm empty state; the guides shelf and matcher use existing content; image slots are `PhotoSlot` placeholders until real photography. The `MembershipTiers` and `CirclesStrip` sections from the design reference are intentionally **deferred** - they advertise products (Nomad+, Circles) that don't exist yet, and a fake pricing table is a lie, not a placeholder.
+- **i18n** - new `homeV2` namespace with all the new editorial copy, translated into Turkish, Persian, Arabic, and Russian.
+
+### Phase 3 - Neighborhoods index + detail
+
+- **Neighborhoods index rewritten** ([src/app/[locale]/guides/neighborhoods/page.tsx](src/app/[locale]/guides/neighborhoods/page.tsx)) as an editorial list - big numbered rows (photo slot + name + blurb + a four-cell data grid), a not-to-scale `BosphorusSchematic` orientation map, the restyled matcher, and the existing long-form guide wrapped in the new chrome.
+- **Neighborhood detail rewritten** ([src/app/[locale]/guides/neighborhoods/[neighborhood]/page.tsx](src/app/[locale]/guides/neighborhoods/[neighborhood]/page.tsx)) - a breadcrumb + giant serif name hero with a photo cluster and lede, an "at a glance" data table, a "where to work" section, a "similar neighborhoods" closer, and a CTA. Works for all ten neighborhoods.
+- **Real data only** - rent ranges, side, noise, coordinates, and tracked-space counts come straight off `src/lib/neighborhoods.ts` and `src/lib/spaces.ts`; space scores use `computeNomadScore` and stay blank when unverified. Per the brand's no-fabrication rule, the design reference's invented wifi/walkability survey scores were **not** added.
+- **Deferred** - the content-heavy editorial sections from the design reference (day-in-the-life timeline, eat/drink/supply, "what to know") need new, hand-written editorial copy per neighborhood that doesn't exist yet. They're a content follow-up, not shipped here - a placeholder with no real content would be a lie.
+- **i18n** - new `neighborhoodsV2` namespace, translated into Turkish, Persian, Arabic, and Russian.
+
+### Phase 4 - Events
+
+- **Events index rewritten** ([src/app/[locale]/events/page.tsx](src/app/[locale]/events/page.tsx)) as an editorial board - a serif headline, an upcoming/past tab + type-filter `EventsBoard` over a row-list (the row is the unit, not a card), and the existing surprise-event waitlist. The map-first view and its `events-map`/`events-view`/`events-list` components were removed.
+- **Event detail page** ([src/app/[locale]/events/[id]/page.tsx](src/app/[locale]/events/[id]/page.tsx)) - new. Breadcrumb + serif title hero, photo slot, description, and a sticky booking panel. Resolves by `slug` then falls back to the uuid `id`.
+- **Ticketing groundwork** - migration `012_event_ticketing.sql` adds optional `slug` / `price_try` / `price_usd` / `kind` / `waitlist_count` columns to `events`. `src/lib/stripe.ts` is an env-gated Stripe stub: `STRIPE_SECRET_KEY` isn't wired up, so paid events fall back to the free Telegram RSVP path with an honest note rather than a dead paywall. **Migration 012 is now applied to production Supabase** (2026-05-15).
+- **Caching** - `getEventsPublic` / `getEventByIdPublic` are now `use cache` (cacheLife "minutes", tag "events") so they're callable from uncached server components and `generateMetadata` under cacheComponents. The layout's `usePathname` client islands are now Suspense-wrapped so fully-dynamic routes don't trip the "uncached data outside Suspense" guard.
+- **i18n** - new `eventsV2` namespace, translated into Turkish, Persian, Arabic, and Russian.
+
+### Phase 5a - Member surfaces
+
+- **Member directory** ([src/app/[locale]/members/page.tsx](src/app/[locale]/members/page.tsx)) - new. An opt-in grid of `is_visible` members; cards show avatar (real photo or a tinted initial block - no fake faces), name, location, bio, and skill tags.
+- **Member profile** ([src/app/[locale]/members/[id]/page.tsx](src/app/[locale]/members/[id]/page.tsx)) - new. Avatar + facts sidebar, bio, skills, languages, website, and a Telegram reach-out CTA. Reach-out goes through Telegram, not on-site DMs.
+- **Member dashboard** ([src/app/[locale]/dashboard/page.tsx](src/app/[locale]/dashboard/page.tsx)) - new, auth-gated (redirects to `/login?next=/dashboard` when signed out). A masthead, a real-fields-only profile-completeness panel, and quick links. No fabricated "activity ledger" - just what the `members` row actually contains.
+- **Queries** - `getMembersPublic` / `getMemberByIdPublic` added (`use cache`, cookie-less, opt-in fields only); new `MemberPublicProfile` type.
+- **i18n** - new `membersV2` namespace, translated into Turkish, Persian, Arabic, and Russian.
+
+### Phase 5b - Circles + perks vault
+
+- **Circles** - six "small rooms inside the big room" (Coworking, Hiking, Sailing, Photography, Wine, Founders). Defined as static editorial data in [src/lib/circles.ts](src/lib/circles.ts) - real, not invented. New `/circles` index ([src/app/[locale]/circles/page.tsx](src/app/[locale]/circles/page.tsx)) and `/circles/[slug]` detail ([src/app/[locale]/circles/[slug]/page.tsx](src/app/[locale]/circles/[slug]/page.tsx)) with `generateStaticParams` over the six slugs. Each card carries the circle's accent colour (terracotta / bosphorus / ferry-yellow / moss / their dim variants). Joining is honest: the circles live inside the main Telegram, not a separate gated thing.
+- **Perks vault** ([src/app/[locale]/perks/page.tsx](src/app/[locale]/perks/page.tsx)) - new. Reads from a `perks` table that lands with migration 013 and isn't applied yet, so the page degrades to an honest "vault in progress" state rather than fabricating partner offers.
+- **Migration `013_circles_perks.sql`** - adds `circle_members`, `perks`, `perk_claims` tables plus `is_nomad_plus` / `nomad_plus_since` / `last_seen_at` / `open_to_coffee` columns to `members`. RLS: perks public-read, claims and circle memberships member-scoped. Reading code (`getPerksPublic`) is fully guarded against missing tables. **Migration 013 is now applied to production Supabase** (2026-05-15). The `perks` table is empty until partner offers are seeded.
+- **i18n** - new `circlesV2` and `perksV2` namespaces, translated into Turkish, Persian, Arabic, and Russian.
+
+### Phase 6 - Command-K menu
+
+- **Global `⌘K` overlay** ([src/components/ui/command-menu.tsx](src/components/ui/command-menu.tsx)) - built on `cmdk` 1.1. Opens on `Cmd/Ctrl+K` from anywhere; the existing `⌘K` button in the header now dispatches an `open-command-menu` window event that the menu listens for, no shared store needed. Selecting a row navigates via `next/navigation`.
+- **Search dataset** ([src/lib/search.ts](src/lib/search.ts)) - prebuilt server-side per locale and passed as a serializable list (`SearchItem[]`) into the client component, so per-keystroke filtering is fully in-memory. Sources: thirteen static pages, all guides, neighborhoods, circles, and up to 25 upcoming events from Supabase. Events failure is swallowed - the rest of the index keeps working.
+- **i18n** - new `commandMenu` namespace (placeholder, group headings, page labels, ARIA strings), translated into Turkish, Persian, Arabic, and Russian.
+
+### Phase 7 - Photography (asset-blocked, swap path ready)
+
+Real Istanbul photography can't be fabricated, so the `PhotoSlot` placeholders shipped in Phases 1-5 stand. What's done here is the swap path: `PhotoSlot` now optionally accepts `src` + `alt` (and `priority` / `sizes` / `credit` pass-throughs) and renders `next/image` with the same chrome (corner mark + caption strip) when set. Every existing `<PhotoSlot kind="..." />` call site upgrades by adding `src` and `alt` - no refactor, no rewrite. The actual photos are the missing input.
+
+### Phase 8 - Member-area wiring + previously deferred homepage sections
+
+- **Auth callback default** ([src/app/auth/callback/route.ts](src/app/auth/callback/route.ts)) - signing in now lands on `/dashboard` by default. Explicit `?next=` (used by gated routes that redirect through `/login`) still overrides.
+- **Onboarding completion redirect** ([src/app/[locale]/onboarding/onboarding-wizard.tsx](src/app/[locale]/onboarding/onboarding-wizard.tsx)) - newly-onboarded members land on `/dashboard` instead of `/`.
+- **AuthButton rewired** ([src/components/layout/auth-button.tsx](src/components/layout/auth-button.tsx)) - the name/avatar button now opens `/dashboard` (previously signed the user out); a separate `LogOut` icon sits next to it for sign-out. The "complete profile" nudge stays. Restyled to the ink/paper tokens.
+- **Navigation surfaces** ([src/lib/constants.ts](src/lib/constants.ts)) - `Community` dropdown gains Member Directory, Circles, and Perks Vault. Footer's community column picks up the same three. The header `⌘K` button + the dashboard tile route there directly. New nav labels translated to all five locales.
+- **Homepage MembershipTiers section** ([src/components/sections/home/membership-tiers.tsx](src/components/sections/home/membership-tiers.tsx)) - the previously deferred "two ways to belong" panel. Free tier shows the real `is_visible` member count; Nomad+ is marked "Coming soon · waitlist open" with price as TBD (no fabricated price - Stripe isn't wired, so the CTA goes to the Telegram waitlist).
+- **Homepage CirclesStrip section** ([src/components/sections/home/circles-strip.tsx](src/components/sections/home/circles-strip.tsx)) - the six circles in a strip on the homepage, real data from `src/lib/circles.ts`, each linking to its detail page.
+- **i18n** - new `homeV2.membership` and `homeV2.circles` blocks, plus `auth.openDashboard` and three new nav.items / footer.links entries (`members`, `circles`, `perks`), all translated into Turkish, Persian, Arabic, and Russian.
+- **Version bumped to 3.3.0** in [package.json](package.json) to match the changelog section.
+
+## [3.2.0] - 2026-05-14
+
+### Changed
+
+- **Brand rename: "Istanbul Digital Nomads" → "Istanbul Nomads"** across every code-level surface. Title template, OpenGraph metadata, Twitter cards, schema.org organization name, OpenAPI spec, MCP server card, OAuth resource name, llms.txt, OG image alt text, and the brand-label fields (`name`, `shortName`) in all five locale message files. The English brand is used consistently across all locales, matching the existing pattern. Aligns the brand with the domain (`istanbulnomads.com`) and with what people actually search - Google Trends shows steady search volume for "istanbul nomads" and near-zero for "istanbul digital nomads".
+- **Title template suffix** ([src/app/[locale]/layout.tsx](src/app/[locale]/layout.tsx)) - now `"%s | Istanbul Nomads"` instead of `"%s | Istanbul Digital Nomads"`. Every page title is ~15 characters shorter, leaving more room for keywords before Google's truncation threshold.
+- **SEO keywords** ([src/app/[locale]/layout.tsx](src/app/[locale]/layout.tsx)) - added `"istanbul nomads"` and `"digital nomad istanbul"` to the meta keywords array. The former matches the brand and current search trends; the latter captures the long-tail variant.
+- **Path-to-Istanbul title templates** - rewrote Russian and Turkish templates ([src/messages/ru.json](src/messages/ru.json), [src/messages/tr.json](src/messages/tr.json)) to use an arrow pattern (`{country} → Стамбул`, `{country} → İstanbul`). The previous Russian template `"Из {country} в Стамбул"` broke grammar (genitive case required after "Из", but country names are stored in nominative). The previous Turkish suffix `"{country}'dan İstanbul'a"` broke vowel-harmony for back-vowel countries (İngiltere needs `'den`, not `'dan`). The arrow pattern is grammatically agnostic and reads cleanly in all 5 locales.
+
+### Not included in this release
+
+Body prose in MDX content files (`/content/`) and narrative paragraphs in message JSON (About story, mission statements) still reference "Istanbul Digital Nomads" mid-sentence. Those need careful sentence-by-sentence review and ship in a follow-up pass.
 
 ## [3.1.8] - 2026-05-14
 

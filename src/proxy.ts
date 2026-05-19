@@ -24,8 +24,9 @@ export async function proxy(request: NextRequest) {
   // http://www.istanbulnomads.com) which split link equity and confused
   // rankings. Redirect any non-canonical host to https://istanbulnomads.com
   // with a permanent 301 so search engines consolidate the signals.
-  // Pass through during local dev (localhost / 127.0.0.1) and on Vercel
-  // preview deployments (*.vercel.app) so dev and PR previews keep working.
+  // Pass through during local dev (localhost / 127.0.0.1), on Vercel
+  // preview deployments (*.vercel.app), and on the dev environment
+  // (dev.istanbulnomads.com) so dev and PR previews keep working.
   const host = request.headers.get("host") || "";
   const proto =
     request.headers.get("x-forwarded-proto") ||
@@ -33,9 +34,11 @@ export async function proxy(request: NextRequest) {
   const isLocalHost =
     host.startsWith("localhost") || host.startsWith("127.0.0.1");
   const isVercelPreview = host.endsWith(".vercel.app");
+  const isDevHost = host === "dev.istanbulnomads.com";
   if (
     !isLocalHost &&
     !isVercelPreview &&
+    !isDevHost &&
     (host !== CANONICAL_HOST || proto !== "https")
   ) {
     const target = new URL(request.nextUrl.toString());
@@ -52,6 +55,7 @@ export async function proxy(request: NextRequest) {
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
+    pathname.startsWith("/auth") ||
     pathname.startsWith("/.well-known") ||
     pathname === "/icon" ||
     pathname === "/apple-icon" ||

@@ -3,7 +3,7 @@ import { type NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const title = searchParams.get("title") || "Istanbul Digital Nomads";
+  const title = searchParams.get("title") || "Istanbul Nomads";
   const description =
     searchParams.get("description") ||
     "Build a real digital life in Istanbul with weekly coworking, local guides, and fast local answers.";

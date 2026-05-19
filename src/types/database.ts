@@ -94,6 +94,13 @@ export interface Database {
           is_published: boolean;
           created_at: string;
           updated_at: string;
+          // Added in migration 012_event_ticketing.sql. Nullable so existing
+          // rows and the free-RSVP flow are unaffected.
+          slug: string | null;
+          price_try: number | null;
+          price_usd: number | null;
+          kind: string | null;
+          waitlist_count: number;
         };
         Insert: {
           id?: string;
@@ -400,8 +407,172 @@ export interface Database {
           created_at?: string;
         };
       };
+      plans: {
+        Row: {
+          id: string;
+          creator_id: string;
+          scheduled_date: string;
+          title: string;
+          capacity: number | null;
+          status: "active" | "cancelled" | "expired";
+          reminder_sent_at: string | null;
+          expires_at: string;
+          language: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          creator_id: string;
+          scheduled_date: string;
+          title: string;
+          capacity?: number | null;
+          status?: "active" | "cancelled" | "expired";
+          reminder_sent_at?: string | null;
+          expires_at: string;
+          language?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          [key: string]: unknown;
+        };
+      };
+      plan_stops: {
+        Row: {
+          id: string;
+          plan_id: string;
+          ordinal: number;
+          space_id: string | null;
+          custom_location: string | null;
+          neighborhood_slug: string | null;
+          lat: number | null;
+          lng: number | null;
+          start_time: string | null;
+          end_time: string | null;
+          vibe:
+            | "focus"
+            | "cowork"
+            | "social"
+            | "meal"
+            | "after-work"
+            | "outdoor";
+          notes: string | null;
+          // How the host gets to THIS stop from the previous one.
+          // Null on ordinal=1 (no previous stop).
+          transport_mode:
+            | "ferry"
+            | "metro"
+            | "bus"
+            | "taxi"
+            | "shared_uber"
+            | "walk"
+            | "bike"
+            | "tram"
+            | "minibus"
+            | null;
+          transport_price_min: number | null;
+          transport_price_max: number | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          plan_id: string;
+          ordinal: number;
+          space_id?: string | null;
+          custom_location?: string | null;
+          neighborhood_slug?: string | null;
+          lat?: number | null;
+          lng?: number | null;
+          start_time?: string | null;
+          end_time?: string | null;
+          vibe:
+            | "focus"
+            | "cowork"
+            | "social"
+            | "meal"
+            | "after-work"
+            | "outdoor";
+          notes?: string | null;
+          transport_mode?:
+            | "ferry"
+            | "metro"
+            | "bus"
+            | "taxi"
+            | "shared_uber"
+            | "walk"
+            | "bike"
+            | "tram"
+            | "minibus"
+            | null;
+          transport_price_min?: number | null;
+          transport_price_max?: number | null;
+          created_at?: string;
+        };
+        Update: {
+          [key: string]: unknown;
+        };
+      };
+      plan_attendees: {
+        Row: {
+          plan_id: string;
+          member_id: string;
+          status: "going" | "left";
+          joined_at: string;
+        };
+        Insert: {
+          plan_id: string;
+          member_id: string;
+          status?: "going" | "left";
+          joined_at?: string;
+        };
+        Update: {
+          status?: "going" | "left";
+        };
+      };
+      plan_comments: {
+        Row: {
+          id: string;
+          plan_id: string;
+          author_id: string;
+          body: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          plan_id: string;
+          author_id: string;
+          body: string;
+          created_at?: string;
+        };
+        Update: {
+          body?: string;
+        };
+      };
+      telegram_subscriptions: {
+        Row: {
+          member_id: string;
+          telegram_chat_id: number;
+          linked_at: string;
+        };
+        Insert: {
+          member_id: string;
+          telegram_chat_id: number;
+          linked_at?: string;
+        };
+        Update: {
+          telegram_chat_id?: number;
+        };
+      };
     };
-    Views: Record<string, never>;
+    Views: {
+      plans_today_count: {
+        Row: { count: number };
+      };
+      plans_today_by_neighborhood: {
+        Row: { neighborhood_slug: string; count: number };
+      };
+    };
     Functions: {
       match_corpus_chunks: {
         Args: {
@@ -423,6 +594,14 @@ export interface Database {
     Enums: {
       event_type: "meetup" | "coworking" | "workshop" | "social";
       rsvp_status: "going" | "maybe" | "not_going";
+      plan_vibe:
+        | "focus"
+        | "cowork"
+        | "social"
+        | "meal"
+        | "after-work"
+        | "outdoor";
+      plan_status: "active" | "cancelled" | "expired";
     };
   };
 }

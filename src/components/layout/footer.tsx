@@ -5,7 +5,7 @@ import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import type { Locale } from "@/lib/i18n/config";
 import { Container } from "@/components/ui/container";
 import { footerNav, socialLinks, type FooterLinkKey } from "@/lib/constants";
-import { NewsletterForm } from "@/components/newsletter-form";
+import { NewsletterForm } from "@/components/sections/newsletter-form";
 
 const socialIcons = [
   { href: socialLinks.telegram, icon: Send, key: "telegram" as const },
@@ -23,27 +23,26 @@ export async function Footer({ locale }: { locale: Locale }) {
   const tLinks = getCachedTranslations(locale, "footer.links");
 
   return (
-    <footer className="relative overflow-hidden border-t border-black/10 bg-[#f6f1ea] text-neutral-950 dark:border-white/10 dark:bg-[#14110f] dark:text-[#f2f3f4]">
-      <div className="pointer-events-none absolute inset-0 bg-[url('/images/neighborhoods/kadikoy/hero-premium-2026.jpg')] bg-cover bg-center opacity-[0.08] dark:opacity-[0.1]" />
-      <div className="pointer-events-none absolute inset-0 bg-[#f6f1ea]/88 dark:bg-[#14110f]/88" />
-
-      <Container className="relative">
-        <div className="grid gap-5 border-b border-black/10 py-7 md:grid-cols-[minmax(0,1fr)_minmax(320px,420px)] md:items-end dark:border-white/10">
+    <footer className="border-t border-ink-3 bg-ink-1 text-paper">
+      <Container>
+        {/* Newsletter */}
+        <div className="grid gap-5 border-b border-ink-3 py-9 md:grid-cols-[minmax(0,1fr)_minmax(320px,420px)] md:items-end">
           <div>
-            <p className="eyebrow text-primary-700 dark:text-primary-200">
+            <p className="font-mono text-[11px] uppercase tracking-wider text-terracotta">
               {tFooter("newsletterEyebrow")}
             </p>
-            <h2 className="mt-2 max-w-2xl font-display text-h3 text-neutral-950 dark:text-[#f2f3f4]">
+            <h2 className="mt-3 max-w-2xl font-display text-h3 text-paper">
               {tFooter("newsletterTitle")}
             </h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-[#5d6d7e] dark:text-[#b7aaa0] sm:text-base sm:leading-7">
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-paper-mute">
               {tFooter("newsletterBody")}
             </p>
           </div>
           <NewsletterForm variant="footer" />
         </div>
 
-        <div className="grid gap-10 border-b border-black/10 py-9 lg:grid-cols-[1.1fr_2.4fr] dark:border-white/10">
+        {/* Masthead + link columns */}
+        <div className="grid gap-10 border-b border-ink-3 py-12 lg:grid-cols-[1.4fr_2.4fr]">
           <div>
             <Link href="/" className="inline-flex items-center gap-3">
               <Image
@@ -62,13 +61,17 @@ export async function Footer({ locale }: { locale: Locale }) {
                 className="hidden dark:block"
                 style={{ width: 28, height: "auto" }}
               />
-              <span className="max-w-48 text-sm font-semibold uppercase tracking-[0.2em] text-primary-900 dark:text-primary-100">
+              <span className="font-display text-base tracking-tight text-paper">
                 {tSite("name")}
               </span>
             </Link>
-            <p className="mt-4 max-w-xs text-sm italic leading-7 text-[#6b6257] dark:text-[#b7aaa0]">
+            <p className="mt-5 max-w-sm font-display text-2xl leading-snug tracking-tight text-paper-dim">
               {tFooter("tagline")}
             </p>
+            <div className="mt-6 font-mono text-[11px] uppercase leading-relaxed tracking-wider text-paper-mute">
+              <div>Istanbul · 41°00′N 28°58′E</div>
+              <div>UTC+3 · TRY ₺ · EN / TR / FA / AR / RU</div>
+            </div>
           </div>
 
           <div className="grid gap-8 min-[480px]:grid-cols-2 md:grid-cols-4">
@@ -95,14 +98,15 @@ export async function Footer({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 border-b border-black/10 py-5 dark:border-white/10">
+        {/* Social */}
+        <div className="flex flex-wrap items-center gap-2 border-b border-ink-3 py-5">
           {socialIcons.map(({ href, icon: Icon, key }) => (
             <a
               key={key}
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="tap-highlight inline-flex h-10 w-10 items-center justify-center rounded-lg border border-black/10 bg-white/35 text-[#5d4a3e] transition-colors hover:border-primary-500/40 hover:text-primary-700 dark:border-white/10 dark:bg-white/[0.04] dark:text-[#b7aaa0] dark:hover:border-primary-400/40 dark:hover:text-primary-200"
+              className="inline-flex h-10 w-10 items-center justify-center border border-ink-4 text-paper-mute transition-colors hover:border-ink-5 hover:text-paper"
               aria-label={tLinks(key)}
               title={tLinks(key)}
             >
@@ -111,7 +115,8 @@ export async function Footer({ locale }: { locale: Locale }) {
           ))}
         </div>
 
-        <div className="flex flex-col gap-2 py-5 pb-20 font-mono text-[11px] uppercase leading-5 tracking-[0.24em] text-[#7a6b60] md:flex-row md:items-center md:justify-between md:pb-5 dark:text-[#94877d]">
+        {/* Colophon */}
+        <div className="flex flex-col gap-2 py-6 pb-20 font-mono text-[11px] uppercase leading-5 tracking-wider text-paper-faint md:flex-row md:items-center md:justify-between md:pb-6">
           <p>
             {tFooter("copyright", {
               year: new Date().getFullYear(),
@@ -140,7 +145,7 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h3 className="font-mono text-[11px] font-medium uppercase tracking-[0.32em] text-primary-700 dark:text-primary-200">
+      <h3 className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
         {title}
       </h3>
       <ul className="mt-4 space-y-2.5">
@@ -151,14 +156,14 @@ function FooterColumn({
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm leading-6 text-[#5d6d7e] transition-colors hover:text-primary-600 dark:text-[#b7aaa0] dark:hover:text-primary-300"
+                className="text-sm leading-6 text-paper-dim transition-colors hover:text-terracotta"
               >
                 {labelFor(link.key)}
               </a>
             ) : (
               <Link
                 href={link.href}
-                className="text-sm leading-6 text-[#5d6d7e] transition-colors hover:text-primary-600 dark:text-[#b7aaa0] dark:hover:text-primary-300"
+                className="text-sm leading-6 text-paper-dim transition-colors hover:text-terracotta"
               >
                 {labelFor(link.key)}
               </Link>

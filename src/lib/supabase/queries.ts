@@ -1,9 +1,11 @@
+import { cacheLife, cacheTag } from "next/cache";
 import { createClient, createPublicClient } from "./server";
 import type {
   Event,
   EventWithRSVPCount,
   Member,
   MemberPublic,
+  MemberPublicProfile,
   BlogPost,
   BlogPostWithAuthor,
   RSVP,
@@ -15,13 +17,18 @@ type LocalGuideRow = Database["public"]["Tables"]["local_guides"]["Row"];
 
 // --- Events ---
 
-// Public (cookie-less) events query. Safe for ISR/SSG pages where we don't
-// want the route bailed out to dynamic rendering by `cookies()`.
+// Public (cookie-less) events query. `use cache` so it can be called from
+// uncached server components (the events index, generateMetadata) without
+// bailing the route to fully-dynamic or tripping the "uncached data
+// outside Suspense" guard under cacheComponents.
 export async function getEventsPublic(options?: {
   type?: string;
   past?: boolean;
   limit?: number;
 }) {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("events");
   const supabase = createPublicClient();
   let query = supabase
     .from("events")
@@ -93,6 +100,50 @@ export async function getEventById(id: string) {
   };
 }
 
+// Public (cookie-less) single-event fetch by id or slug. ISR/SSG-safe -
+// used by the event detail page. Tries `slug` first, falls back to `id`.
+export async function getEventByIdPublic(idOrSlug: string) {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("events");
+  const supabase = createPublicClient();
+  const bySlug = await supabase
+    .from("events")
+    .select("*")
+    .eq("slug", idOrSlug)
+    .eq("is_published", true)
+    .maybeSingle();
+
+  const result = bySlug.data
+    ? bySlug
+    : await supabase
+        .from("events")
+        .select("*")
+        .eq("id", idOrSlug)
+        .eq("is_published", true)
+        .maybeSingle();
+
+  // Cast: the two maybeSingle() results are structurally identical, but
+  // TS unions their builder types into `never` for `.data`.
+  const event = result.data as Event | null;
+  if (result.error || !event) {
+    return { data: null, error: result.error };
+  }
+
+  const { count } = await supabase
+    .from("rsvps")
+    .select("*", { count: "exact", head: true })
+    .eq("event_id", event.id)
+    .eq("status", "going");
+
+  return {
+    data: Object.assign({}, event, {
+      rsvp_count: count ?? 0,
+    }) as EventWithRSVPCount,
+    error: null,
+  };
+}
+
 // --- RSVPs ---
 
 export async function getRSVPsForEvent(eventId: string) {
@@ -123,6 +174,38 @@ export async function getUserRSVP(eventId: string) {
   return { data: data as RSVP | null, error };
 }
 
+// --- Perks ---
+
+export type PerkPublic = {
+  id: string;
+  brand: string;
+  kind: string;
+  offer: string;
+  cap: string | null;
+  city: string | null;
+  story: string | null;
+};
+
+// Public perks vault. The `perks` table lands with migration 013 and isn't
+// applied yet, so this is fully guarded - a missing table just yields an
+// empty vault, and the page shows an honest "being built" state.
+export async function getPerksPublic() {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("perks");
+  try {
+    const supabase = createPublicClient();
+    const { data, error } = await supabase
+      .from("perks" as never)
+      .select("id, brand, kind, offer, cap, city, story")
+      .eq("is_active", true);
+    if (error) return { data: [] as PerkPublic[], error: null };
+    return { data: (data ?? []) as unknown as PerkPublic[], error: null };
+  } catch {
+    return { data: [] as PerkPublic[], error: null };
+  }
+}
+
 // --- Members ---
 
 export async function getMembers() {
@@ -136,6 +219,39 @@ export async function getMembers() {
     .order("created_at", { ascending: false });
 
   return { data: data as MemberPublic[] | null, error };
+}
+
+// Public (cookie-less) opt-in member directory. `use cache` so the
+// directory and profile pages stay prerenderable under cacheComponents.
+export async function getMembersPublic() {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("members");
+  const supabase = createPublicClient();
+  const { data, error } = await supabase
+    .from("members")
+    .select(
+      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle",
+    )
+    .eq("is_visible", true)
+    .order("created_at", { ascending: false });
+  return { data: data as MemberPublic[] | null, error };
+}
+
+export async function getMemberByIdPublic(id: string) {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("members");
+  const supabase = createPublicClient();
+  const { data, error } = await supabase
+    .from("members")
+    .select(
+      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle, profession, languages, member_type",
+    )
+    .eq("id", id)
+    .eq("is_visible", true)
+    .maybeSingle();
+  return { data: data as MemberPublicProfile | null, error };
 }
 
 export async function getCurrentMember() {

@@ -48,7 +48,7 @@ export async function NeighborhoodCardsSection({ locale }: { locale: Locale }) {
                 <Link
                   href={`/guides/neighborhoods/${n.slug}`}
                   prefetch
-                  className="group block min-w-[82vw] snap-start overflow-hidden rounded-md border border-black/10 bg-white/50 transition-all hover:-translate-y-0.5 hover:border-primary-500/35 hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:border-primary-400/35 dark:hover:bg-white/10 sm:min-w-0"
+                  className="group flex h-full min-w-[82vw] snap-start flex-col overflow-hidden rounded-md border border-black/10 bg-white/50 transition-[border-color,background-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary-500/35 hover:bg-white/80 hover:shadow-[0_18px_48px_rgba(20,17,15,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fbfaf8] dark:border-white/10 dark:bg-white/5 dark:hover:border-primary-400/35 dark:hover:bg-white/10 dark:hover:shadow-none dark:focus-visible:ring-offset-[#14110f] sm:min-w-0"
                 >
                   <div className="relative aspect-[3/2] w-full overflow-hidden bg-primary-50/30 dark:bg-primary-950/20">
                     <Image
@@ -58,20 +58,20 @@ export async function NeighborhoodCardsSection({ locale }: { locale: Locale }) {
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
                       className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                     />
-                    <div className="absolute left-4 top-4 flex items-center gap-2 rounded-md bg-white/85 px-3 py-1.5 text-xs font-medium text-[#1a1a2e] backdrop-blur dark:bg-[#1a1612]/85 dark:text-[#f2f3f4]">
+                    <div className="absolute start-4 top-4 flex items-center gap-2 rounded-md bg-white/85 px-3 py-1.5 text-xs font-medium text-[#1a1a2e] backdrop-blur dark:bg-[#1a1612]/85 dark:text-[#f2f3f4]">
                       <MapPin className="h-3.5 w-3.5 text-primary-600 dark:text-primary-400" />
                       {sideLabel}
                     </div>
-                    <div className="absolute bottom-4 right-4 rounded-md bg-[#1a1a2e]/85 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.24em] text-white backdrop-blur">
+                    <div className="absolute bottom-4 end-4 rounded-md bg-[#1a1a2e]/85 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.24em] text-white backdrop-blur">
                       <bdi dir="ltr">{formatRentRange(n)}</bdi>
                     </div>
                   </div>
 
-                  <div className="p-6">
+                  <div className="flex flex-1 flex-col p-5">
                     <h3 className="font-display text-2xl font-extrabold text-[#1a1a2e] dark:text-[#f2f3f4]">
                       {tList(`${n.slug}.name`)}
                     </h3>
-                    <p className="mt-3 text-sm leading-7 text-[#5d6d7e] dark:text-[#b7aaa0]">
+                    <p className="mt-3 line-clamp-3 flex-1 text-sm leading-7 text-[#5d6d7e] dark:text-[#b7aaa0]">
                       {tList(`${n.slug}.oneLiner`)}
                     </p>
 
@@ -86,7 +86,7 @@ export async function NeighborhoodCardsSection({ locale }: { locale: Locale }) {
                       ))}
                     </div>
 
-                    <div className="mt-5 flex items-center justify-between border-t border-black/5 pt-4 dark:border-white/5">
+                    <div className="mt-5 flex items-center justify-between gap-3 border-t border-black/5 pt-4 dark:border-white/5">
                       <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-500 dark:text-[#85929e]">
                         {count > 0
                           ? t("spacesTracked", { count })
@@ -107,10 +107,10 @@ export async function NeighborhoodCardsSection({ locale }: { locale: Locale }) {
         <Reveal delay={4} className="mt-10 flex justify-center">
           <Link
             href="/guides/neighborhoods"
-            className="inline-flex items-center gap-2 text-sm font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-[#f2f3f4] dark:hover:text-primary-400"
+            className="group inline-flex items-center gap-2 text-sm font-medium text-neutral-950 transition-colors hover:text-primary-600 dark:text-[#f2f3f4] dark:hover:text-primary-400"
           >
             {t("compareAll")}
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
           </Link>
         </Reveal>
       </Container>

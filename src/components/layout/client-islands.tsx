@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { BottomTabBar } from "@/components/layout/bottom-tab-bar";
 import { NavigationProgress } from "@/components/ui/navigation-progress";
-import { WebMcpRegister } from "@/components/web-mcp-register";
+import { WebMcpRegister } from "@/components/layout/web-mcp-register";
 
 // Sonner's Toaster calls `useState(document.hidden)` at render time. On a
 // server render `document` is undefined, which throws and shows up as React

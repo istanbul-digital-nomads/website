@@ -15,7 +15,7 @@ export async function GET() {
     scopes_supported: ["openid", "email", "profile"],
     bearer_methods_supported: ["header"],
     resource_documentation: `${SITE}/openapi.json`,
-    resource_name: "Istanbul Digital Nomads",
+    resource_name: "Istanbul Nomads",
     resource_policy_uri: `${SITE}/robots.txt`,
   };
 

@@ -1,15 +1,23 @@
 {
   "site": {
-    "name": "Istanbul Digital Nomads",
-    "shortName": "Istanbul Digital Nomads",
+    "name": "Istanbul Nomads",
+    "shortName": "Istanbul Nomads",
     "tagline": "Remote life, local rhythm",
     "description": "Digital nomad community in Istanbul with weekly coworking, local guides, and a softer landing for people staying longer."
   },
   "nav": {
+    "today": "Today",
+    "map": "Map",
+    "events": "Events",
+    "members": "Members",
+    "perks": "Perks",
+    "neighborhoods": "Neighborhoods",
+    "primaryAria": "Primary navigation",
     "about": "About",
     "explore": "Explore",
     "community": "Community",
     "contact": "Contact",
+    "search": "Search",
     "joinTelegram": "Join on Telegram",
     "theme": {
       "ariaLabel": "Switch theme (current: {theme})"
@@ -42,6 +50,34 @@
       "blog": {
         "label": "Blog",
         "description": "Stories and tips from the community"
+      },
+      "members": {
+        "label": "Member Directory",
+        "description": "Opt-in profiles from people on the ground"
+      },
+      "circles": {
+        "label": "Circles",
+        "description": "Six smaller rooms inside the community"
+      },
+      "perks": {
+        "label": "Perks Vault",
+        "description": "Partner offers, a Nomad+ benefit"
+      },
+      "plans": {
+        "label": "Today's Plans",
+        "description": "Casual same-day cowork and social plans"
+      },
+      "neighborhoods": {
+        "label": "Neighborhoods",
+        "description": "Ten Istanbul areas scored for nomads"
+      },
+      "about": {
+        "label": "About",
+        "description": "Who we are and how the community runs"
+      },
+      "contact": {
+        "label": "Contact",
+        "description": "Reach the team, partnerships, or press"
       }
     }
   },
@@ -104,7 +140,11 @@
       "twitter": "Twitter",
       "email": "Email",
       "openapi": "OpenAPI",
-      "llmsTxt": "LLMs.txt"
+      "llmsTxt": "LLMs.txt",
+      "members": "Member directory",
+      "circles": "Circles",
+      "perks": "Perks vault",
+      "plans": "Today's plans"
     }
   },
   "auth": {
@@ -112,7 +152,8 @@
     "signOut": "Sign out",
     "signedOut": "Signed out",
     "completeProfile": "Complete profile",
-    "memberFallback": "Member"
+    "memberFallback": "Member",
+    "openDashboard": "Open dashboard"
   },
   "newsletter": {
     "placeholder": "you@example.com",
@@ -878,6 +919,49 @@
         }
       }
     },
+    "heroLive": {
+      "livePip": "21 nomads online right now",
+      "headlineA": "What are nomads",
+      "headlineB": "up to",
+      "headlineC": "in Istanbul today?",
+      "lede": "A live map of the cafes, coworking spots, gaming dens and dinners where the Istanbul nomad community is hanging out tonight.",
+      "ctaPrimary": "Let's connect nomads",
+      "ctaSecondary": "How it works",
+      "nowLive": "Now live",
+      "nav": {
+        "map": "Map",
+        "events": "Events",
+        "community": "Community",
+        "about": "About",
+        "signIn": "Sign in"
+      },
+      "categories": {
+        "cafe": "Cafes",
+        "bar": "Bars",
+        "gaming": "Gaming",
+        "events": "Events",
+        "restaurant": "Restaurants",
+        "coworking": "Coworking",
+        "gallery": "Galleries"
+      },
+      "tour": {
+        "intro": {
+          "label": "Tonight in Istanbul",
+          "sub": "Live across the Bosphorus"
+        },
+        "beyoglu": {
+          "label": "Beyoğlu",
+          "sub": "Late-night coworking on İstiklal"
+        },
+        "kadikoy": { "label": "Kadıköy", "sub": "A gaming meetup is forming" },
+        "karakoy": { "label": "Karaköy", "sub": "Dinner along the waterfront" },
+        "sultanahmet": {
+          "label": "Sultanahmet",
+          "sub": "Gallery night in the old city"
+        },
+        "ortakoy": { "label": "Ortaköy", "sub": "Bosphorus-side breakfast" }
+      }
+    },
     "firstWeekTool": {
       "eyebrow": "New arrival tool",
       "title": "Turn your first week into a real Istanbul routine.",
@@ -1186,7 +1270,41 @@
       "sources": "Sources",
       "verified": "(verified {date})",
       "showLess": "Show less",
-      "scoreBreakdown": "Score breakdown"
+      "scoreBreakdown": "Score breakdown",
+      "score": {
+        "unverified": "Unverified",
+        "partial": "Partial score",
+        "nomad": "Nomad score"
+      },
+      "labels": {
+        "goodForCalls": "Good for calls",
+        "laptopSafe": "Laptop-safe",
+        "strongSockets": "Strong sockets",
+        "rainSafe": "Rain-safe",
+        "openLate": "Open late",
+        "budgetAware": "Budget-aware",
+        "socialEnough": "Social enough",
+        "bringHeadphones": "Bring headphones",
+        "bestBeforeLunch": "Best before lunch"
+      },
+      "reasons": {
+        "nomadScore": "{score} Nomad Score",
+        "saferForCalls": "Safer for calls",
+        "quietProfile": "Quiet profile",
+        "rainSafeSetup": "Rain-safe setup",
+        "lateOption": "Late option",
+        "budgetAware": "Budget-aware",
+        "easyFirstTry": "Easy first try",
+        "socketConfidence": "Socket confidence",
+        "coworkingBaseline": "Coworking baseline",
+        "worthComparing": "Worth comparing"
+      },
+      "cautions": {
+        "wifiLiveCheck": "Wifi speed still needs a live check.",
+        "noise": "Noise can be part of the deal here.",
+        "earlySeating": "Try it earlier before seating gets tight.",
+        "generic": "Check live details before you go."
+      }
     },
     "scoreLabels": {
       "wifi": "Wifi",
@@ -1541,8 +1659,11 @@
       "yearsShort": "y in Istanbul"
     },
     "map": {
+      "turkeyName": "Turkey",
+      "istanbulName": "Istanbul",
       "turkeyLabel": "Turkey - your destination country",
       "istanbulLabel": "Istanbul - your destination",
+      "loadingPath": "Loading path to Istanbul...",
       "openGuideForCountry": "Open guide for {country}",
       "countryComingSoon": "{country} - coming soon"
     }
@@ -1620,7 +1741,10 @@
       "submitError": "Something went wrong. Please try again.",
       "saveError": "Couldn't save your profile",
       "signInAgain": "Please sign in again",
-      "welcome": "Welcome to Istanbul Digital Nomads!"
+      "welcome": "Welcome to Istanbul Digital Nomads!",
+      "profileUpdated": "Profile updated",
+      "saveChanges": "Save changes",
+      "hasErrors": "Please fix the highlighted fields before continuing."
     },
     "validation": {
       "displayName": "Your name is required.",
@@ -2345,5 +2469,605 @@
       "philippines": "Philippines",
       "bangladesh": "Bangladesh"
     }
+  },
+  "ambient": {
+    "liveFrom": "Live from Kadıköy",
+    "ferry": "Ferry",
+    "members": "members",
+    "tod": {
+      "dawn": "Dawn",
+      "midday": "Midday",
+      "dusk": "Dusk",
+      "night": "Night"
+    }
+  },
+  "homeV2": {
+    "hero": {
+      "photoCaption": "Kadıköy pier, dawn",
+      "masthead": "Made in Kadıköy · Est. 2023",
+      "membersLabel": "members",
+      "eyebrowNum": "N° 01",
+      "eyebrowLabel": "Arrival",
+      "eyebrowMeta": "Asia base. Ferry reset. Evening table.",
+      "headline": "Istanbul, for people who work remotely and want to stay a while.",
+      "lede": "A publication and a community for the one-to-six-month version of Istanbul. Made in Kadıköy by people who actually live here.",
+      "ctaPrimary": "Plan your first week",
+      "ctaSecondary": "Read first"
+    },
+    "doors": {
+      "eyebrow": "Three doors · pick one",
+      "planner": {
+        "title": "Plan your week",
+        "italic": "in seven minutes",
+        "body": "Six questions in, a Monday-to-Sunday schedule out. Addresses, ferry times, the one café open before 09:00.",
+        "photoCaption": "Walter's, Yeldeğirmeni · 10:30",
+        "cta": "Open the planner"
+      },
+      "matcher": {
+        "title": "Find a neighborhood",
+        "italic": "that fits you, not the postcard",
+        "body": "Ten neighborhoods scored on what you actually need. Not a personality test. Mostly a spreadsheet with opinions.",
+        "photoCaption": "Cihangir rooftop · dusk",
+        "cta": "Take the matcher"
+      },
+      "community": {
+        "title": "Join the community",
+        "italic": "or just read first",
+        "body": "A Telegram of remote workers who actually live here, weekly dinners, and guides written by people on the ground. No recruiters.",
+        "photoCaption": "Friday dinner · Çiya",
+        "cta": "Open Telegram"
+      }
+    },
+    "week": {
+      "eyebrow": "The shape of a week · not a productivity system",
+      "line1": "Asia base.",
+      "line2": "Ferry reset.",
+      "line3": "Evening table.",
+      "body1": "Three calls a day, two coffees, one ferry. The city is a commute and the commute is the city. Most weeks settle into a rhythm somewhere between this is where I work and this is where I live.",
+      "body2": "We sort the site around that rhythm. Not discover the magic of Istanbul. Just - Tuesday at 14:00, the wifi at your café dropped, where else has a window seat.",
+      "timeline": {
+        "t1": "Pier coffee. Window open. No phone.",
+        "t2": "Window seat at the café. Two calls.",
+        "t3": "Lokanta lunch. Three plates, no English required.",
+        "t4": "Ferry to the other side. Tea on deck.",
+        "t5": "Last good ferry back. Lights out by midnight."
+      }
+    },
+    "guidesShelf": {
+      "eyebrow": "Guides · on the shelf",
+      "title": "The long-form parts of the site -",
+      "titleItalic": "written, edited, dated, signed.",
+      "readLabel": "Read · {num}",
+      "allGuides": "All guides"
+    },
+    "events": {
+      "eyebrow": "Upcoming · the next fortnight",
+      "title": "What's on the calendar",
+      "titleItalic": "this fortnight.",
+      "rsvp": "RSVP",
+      "emptyEyebrow": "Dates scheduled soon",
+      "emptyTitle": "No public events on the calendar right now - check the Telegram for what's being planned.",
+      "note": "↳ Auto-RSVP via Telegram. We don't email you unless you ask.",
+      "allEvents": "All upcoming events"
+    },
+    "letter": {
+      "eyebrow": "Sunday letter",
+      "title": "One letter,",
+      "titleItalic": "Sundays, 09:00 local.",
+      "body": "A short read about Istanbul this week - a few things to know, one place to go, one piece of writing we liked. No tracking pixels. Easy to unsubscribe.",
+      "cardEyebrow": "In the letter",
+      "card": {
+        "item1": "Three things worth knowing about the city this week.",
+        "item2": "One place to go - a café, a market, a walk.",
+        "item3": "One piece of writing from the community we liked."
+      },
+      "cardFoot": "Short. Honest. No tracking."
+    },
+    "cta": {
+      "kicker": "One last thing",
+      "line1": "The ferry leaves",
+      "line2": "every twenty minutes.",
+      "line3": "You can be on it tomorrow.",
+      "primary": "Plan your first week",
+      "secondary": "Read first"
+    },
+    "membership": {
+      "eyebrow": "Membership · two ways to belong",
+      "title": "Two ways",
+      "titleItalic": "to belong.",
+      "body": "Reading the site is free. Joining the Telegram is free. The paid tier (Nomad+) is for the unromantic parts - perks, priority on small experiences, a public profile, the Sunday letter members edition.",
+      "rule1": "↳ No paywalls on guides",
+      "rule2": "↳ No ads in the feed",
+      "rule3": "↳ No recruiters, ever",
+      "members": "members",
+      "free": {
+        "title": "Free",
+        "priceLabel": "Forever · no card",
+        "bullets": {
+          "b1": "All guides and neighborhoods",
+          "b2": "The First Week Planner and the Neighborhood Matcher",
+          "b3": "Telegram channel access",
+          "b4": "RSVP to free events",
+          "b5": "Member directory · read-only"
+        },
+        "cta": "Join Telegram"
+      },
+      "plus": {
+        "tag": "Coming soon · waitlist open",
+        "priceTbd": "TBD",
+        "priceLabel": "/ mo · waitlist for early access",
+        "bullets": {
+          "b1": "Everything in Free",
+          "b2": "Perks vault · partner offers as they land",
+          "b3": "Priority on paid experiences",
+          "b4": "Public profile in the member directory",
+          "b5": "Sunday letter · members edition",
+          "b6": "Listed as open-to-coffee if you want"
+        },
+        "waitlistCta": "Ask to join the waitlist",
+        "previewCta": "See what is planned"
+      }
+    },
+    "circles": {
+      "eyebrow": "Circles · small rooms inside the big room",
+      "title": "Six smaller rooms",
+      "titleItalic": "if Telegram is too many people.",
+      "open": "Open",
+      "footnote": "Circles aren’t gated. They run inside the same Telegram - you join one by joining its thread.",
+      "seeAll": "All circles"
+    }
+  },
+  "neighborhoodsV2": {
+    "index": {
+      "eyebrow": "Neighborhoods · ten worth a season",
+      "title": "Ten neighborhoods,",
+      "titleItalic": "opinionated on purpose.",
+      "lede": "We don't list every postcode. We list the ten places a remote worker can actually live for one to six months - and we tell you what they're like at 07:00 and 22:30, not just on a Saturday afternoon.",
+      "schematicLabel": "Bosphorus · schematic",
+      "guideEyebrow": "The long read"
+    },
+    "row": {
+      "rent": "1BR range",
+      "side": "Side",
+      "noise": "Noise",
+      "spaces": "Spaces tracked",
+      "open": "Open {name}"
+    },
+    "glance": {
+      "eyebrow": "At a glance",
+      "kicker": "real numbers only",
+      "rentUsd": "Rent · 1BR (USD)",
+      "rentTl": "Rent · 1BR (TRY)",
+      "perMonth": "per month",
+      "side": "Side of the city",
+      "noise": "Noise at night",
+      "spaces": "Spaces tracked",
+      "spacesSub": "verified cafes + coworking",
+      "coords": "Coordinates"
+    },
+    "work": {
+      "eyebrow": "Where to work",
+      "allSpaces": "All spaces",
+      "title": "Verified cafes and coworking, scored on what matters.",
+      "coworking": "Coworking",
+      "cafes": "Cafes",
+      "laptopReady": "Laptop-ready"
+    },
+    "similar": {
+      "eyebrow": "If you like {name}",
+      "kicker": "you may also like"
+    },
+    "detail": {
+      "leadPhoto": "Lead photo",
+      "detailPhoto": "Detail",
+      "ledeEyebrow": "The lede"
+    }
+  },
+  "eventsV2": {
+    "eyebrow": "Events · what's on",
+    "title": "The calendar,",
+    "titleItalic": "the next fortnight and the last.",
+    "lede": "Weekly dinners, ferry coworking, walks, and the occasional sail. Free events RSVP through Telegram; paid experiences hold your seat.",
+    "note": "↳ Auto-RSVP via Telegram. We don't email you unless you ask.",
+    "free": "Free",
+    "rsvp": "RSVP",
+    "recap": "Recap",
+    "detail": {
+      "metaPrefix": "{title} · Istanbul Nomads event",
+      "date": "Date",
+      "time": "Time",
+      "location": "Location",
+      "price": "Price",
+      "seats": "Seats",
+      "openSeats": "Open",
+      "aboutEyebrow": "About this one",
+      "bookEyebrow": "Book a seat",
+      "rsvpEyebrow": "RSVP",
+      "book": "Book a seat",
+      "rsvpTelegram": "RSVP on Telegram",
+      "rsvpNote": "RSVP happens in the Telegram group. No account needed here.",
+      "paidFallbackNote": "This is a paid event. Card checkout isn't live yet - message us on Telegram to hold a seat.",
+      "pastTag": "Past",
+      "pastNote": "This one already happened. Check the upcoming list for what's next.",
+      "allEvents": "All events"
+    }
+  },
+  "membersV2": {
+    "metaTitle": "Members",
+    "metaDescription": "The opt-in directory of Istanbul Nomads members - the people on the ground.",
+    "eyebrow": "Members · the people on the ground",
+    "title": "Who's here,",
+    "titleItalic": "and what they're up to.",
+    "lede": "An opt-in directory of members who chose to be listed. Reach out through Telegram - we don't do DMs through the site.",
+    "livePip": "{count, plural, =0 {No public profiles yet} one {# member in the directory} other {# members in the directory}}",
+    "headlineA": "The people",
+    "headlineB": "here",
+    "headlineC": "by the street they leave the house in.",
+    "publicLabel": "public",
+    "hoodsLabel": "hoods",
+    "recentEyebrow": "Recently joined",
+    "recentLede": "The newest members to opt in. Tap a name for their public profile.",
+    "noLocation": "Location private",
+    "howEyebrow": "How this works",
+    "howBody": "Reach out on Telegram - we don't do DMs through the site. The directory is opt-in, so the people you see chose to be listed.",
+    "personCount": "{count} people",
+    "singlePerson": "1 person",
+    "elsewhereLabel": "Across Istanbul",
+    "ctaEyebrow": "Member · you",
+    "ctaHeadlineA": "Add yourself.",
+    "ctaHeadlineB": "Or don't.",
+    "ctaLede": "The list above is opt-in. A name, a bio, a Telegram handle. Edit any time. Hide any time.",
+    "ctaPrimary": "Create my profile",
+    "ctaSecondary": "What's public, what isn't",
+    "emptyEyebrow": "Directory opening up",
+    "emptyTitle": "No public profiles yet. Members opt in one by one - check back soon.",
+    "profile": {
+      "location": "Location",
+      "profession": "Profession",
+      "type": "Member type",
+      "reachOut": "Reach out on Telegram",
+      "aboutEyebrow": "About",
+      "noBio": "This member hasn't written a bio yet.",
+      "skills": "Skills",
+      "languages": "Languages"
+    },
+    "dashboard": {
+      "eyebrow": "Your dashboard",
+      "greeting": "Welcome back, {name}.",
+      "noMeta": "Add a profession and location to your profile.",
+      "profileEyebrow": "Your profile",
+      "done": "Done",
+      "todo": "To do",
+      "completeProfile": "Complete your profile",
+      "linksEyebrow": "Quick links",
+      "fields": {
+        "bio": "Bio",
+        "location": "Location",
+        "profession": "Profession",
+        "skills": "Skills",
+        "languages": "Languages",
+        "visible": "Listed in directory"
+      },
+      "links": {
+        "plans": "Today's plans",
+        "directory": "Member directory",
+        "profile": "View your public profile",
+        "events": "Upcoming events",
+        "editProfile": "Edit your profile"
+      }
+    }
+  },
+  "circlesV2": {
+    "metaTitle": "Circles",
+    "metaDescription": "Six smaller rooms inside the Istanbul Nomads community.",
+    "eyebrow": "Circles · small rooms inside the big room",
+    "title": "Six smaller rooms",
+    "titleItalic": "if Telegram is too many people.",
+    "lede": "The main Telegram is everyone. Circles are the subsets - smaller threads for people who want the same Saturday, the same boat, the same camera walk.",
+    "open": "Open",
+    "footnote": "Circles aren't gated. They run inside the same Telegram - you join a circle by joining its thread, no application, no fee.",
+    "joinTelegram": "Join on Telegram",
+    "circleEyebrow": "The circle",
+    "rhythmEyebrow": "The rhythm",
+    "joinEyebrow": "Join this circle",
+    "joinBody": "Circles live inside the main Telegram. Join the group, then ask for the circle's thread - someone will add you.",
+    "otherEyebrow": "The other circles",
+    "names": {
+      "coworking": "Coworking",
+      "hiking": "Hiking",
+      "sailing": "Sailing",
+      "photography": "Photography",
+      "wine": "Wine",
+      "founders": "Founders"
+    },
+    "blurbs": {
+      "coworking": "Where the wifi works on a Tuesday.",
+      "hiking": "Belgrad Forest, Mt. Aydos, most Saturdays.",
+      "sailing": "Bareboat days out of Bostanci.",
+      "photography": "Quiet walks with cameras out.",
+      "wine": "Anatolian bottles, no scoring.",
+      "founders": "Office hours every other Thursday."
+    },
+    "descriptions": {
+      "coworking": "The default circle for most members. A running thread of which cafe has a free window seat, whose wifi dropped, and where the quiet tables are this week. No bookings, no desks to reserve - just people who work from the same handful of rooms comparing notes.",
+      "hiking": "Out of the city on weekends. Belgrad Forest when it's hot, the Asian-side ridges when it's clear, the occasional bigger trip. Pace is conversational, not competitive - the point is the walk and the people, not the kilometres.",
+      "sailing": "Day sails on the Marmara when the wind cooperates, out of Bostanci and Kalamis. Some members have licences, most don't - you learn by crewing. Costs are split per boat, posted before each trip.",
+      "photography": "Slow walks through neighborhoods with cameras - Balat, the Tuesday market, the ferries at dusk. Any camera, any level. The walks double as a good way to learn a neighborhood properly.",
+      "wine": "Anatolian wine, mostly - the local grapes are good and underrated. Informal tastings at someone's flat or a wine bar in Cihangir. No scoring, no snobbery, just bottles worth knowing about.",
+      "founders": "For members building something - solo founders, freelancers scaling up, small remote teams. Office hours every other Thursday: bring a problem, get a room of people who've hit it before."
+    },
+    "rhythms": {
+      "coworking": "Daily chatter, a standing Thursday cowork session.",
+      "hiking": "A Saturday walk most weeks, posted a few days ahead.",
+      "sailing": "Weather-dependent. Trips posted when the forecast is good.",
+      "photography": "A photo walk every couple of weeks.",
+      "wine": "A tasting roughly monthly.",
+      "founders": "Office hours every other Thursday."
+    }
+  },
+  "perksV2": {
+    "metaTitle": "Perks",
+    "metaDescription": "The Istanbul Nomads partner perks vault - a Nomad+ benefit.",
+    "eyebrow": "Perks · the vault",
+    "kicker": "a Nomad+ benefit",
+    "title": "Partner perks,",
+    "titleItalic": "for the people who actually live here.",
+    "lede": "A vault of standing offers from cafes, coworking spaces, and local businesses - the kind you only get by being part of the community, not by walking in off the street.",
+    "emptyEyebrow": "Vault in progress",
+    "emptyTitle": "The perks vault is being built - partner by partner, no filler.",
+    "emptyBody": "We're signing real partners with real offers rather than padding the page. The Nomad+ tier and the first perks land together. Until then, the community itself is the perk.",
+    "joinTelegram": "Join on Telegram",
+    "seeCircles": "See the circles"
+  },
+  "commandMenu": {
+    "ariaLabel": "Search and navigate",
+    "placeholder": "Search neighborhoods, guides, events...",
+    "close": "Close search",
+    "openHint": "enter to open",
+    "empty": "Nothing matches. Try a different word.",
+    "footnote": "↑↓ to navigate · ↵ to open",
+    "groups": {
+      "pages": "Pages",
+      "guides": "Guides",
+      "neighborhoods": "Neighborhoods",
+      "circles": "Circles",
+      "events": "Events"
+    },
+    "pages": {
+      "home": "Home",
+      "about": "About",
+      "contact": "Contact",
+      "events": "Events",
+      "guides": "All guides",
+      "blog": "Blog",
+      "spaces": "Nomad spaces",
+      "members": "Member directory",
+      "circles": "Circles",
+      "perks": "Perks vault",
+      "planner": "First Week Planner",
+      "pathToIstanbul": "Path to Istanbul",
+      "dashboard": "Your dashboard"
+    }
+  },
+  "plans": {
+    "meta": {
+      "title": "Today's plans - Istanbul Nomads",
+      "description": "Casual same-day plans from nomads in Istanbul. See who's working from where, who's grabbing dinner, who's down for a beer after."
+    },
+    "landing": {
+      "eyebrowLabel": "Today's plans",
+      "eyebrowMeta": "Members only",
+      "headline": "What are nomads up to in Istanbul today?",
+      "lede": "Skip the event-planning overhead. Just say where you'll be and when. Other nomads can join, or just wave from the next table.",
+      "ctaShare": "Share a plan",
+      "ctaSignIn": "Sign in to see plans",
+      "ctaTelegram": "Join on Telegram"
+    },
+    "counter": {
+      "eyebrow": "Live count",
+      "activeAcross": "plans running across {hoods} neighborhoods"
+    },
+    "howItWorks": {
+      "eyebrow": "How it works",
+      "title": "Plans, not events.",
+      "steps": {
+        "share": {
+          "title": "Share where you'll be",
+          "body": "Pick a cafe or coworking spot, set a time, add a one-liner. Takes 30 seconds."
+        },
+        "join": {
+          "title": "Someone wants to join?",
+          "body": "Members tap 'I'm in'. You get a Telegram ping. They see your handle. The rest happens in person."
+        },
+        "show": {
+          "title": "Just show up",
+          "body": "No RSVP guilt, no countdown clock, no minimum attendance. Change your mind, cancel with one tap."
+        }
+      }
+    },
+    "tone": {
+      "kicker": "What this isn't",
+      "line1": "Not a meetup board.",
+      "line2": "Just plans.",
+      "body": "We already have events for organised meetups - cowork sessions, dinners, workshops. Plans are for the in-between: 'I'm at Karga from 3, drop by'. Nothing to RSVP for, nothing to host."
+    },
+    "feed": {
+      "subtitle": "Tap a plan to see the host and join."
+    },
+    "range": {
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "week": "This week"
+    },
+    "filters": {
+      "all": "All"
+    },
+    "vibes": {
+      "focus": "Focus",
+      "cowork": "Cowork",
+      "social": "Social",
+      "meal": "Meal",
+      "after-work": "After work",
+      "outdoor": "Outdoor"
+    },
+    "empty": {
+      "title": "No plans yet for this view",
+      "body": "Be the first to share one - other nomads check this page every day."
+    },
+    "capacity": {
+      "open": "Open",
+      "going": "going"
+    },
+    "create": {
+      "eyebrow": "New plan",
+      "title": "Share what you're up to",
+      "intro": "Keep it casual. Tell people where you'll be and when. The rest is just turning up.",
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "dateLabel": "Date",
+      "startTime": "Start",
+      "endTime": "End",
+      "customLocation": "What's the spot called?",
+      "customLocationPlaceholder": "e.g. Moda sahil, near the cats",
+      "titleLabel": "Plan title",
+      "titlePlaceholder": "e.g. Cowork at Kolektif then beer",
+      "vibeLabel": "Vibe",
+      "notesLabel": "Notes (optional)",
+      "notesPlaceholder": "Anything else? 'Back table', 'bring a laptop'...",
+      "notesHelp": "280 characters max.",
+      "capacityLabel": "Max attendees (optional)",
+      "capacityPlaceholder": "e.g. 4",
+      "capacityHelp": "Leave blank for no limit. Range 2-20.",
+      "addFirstStop": "Add your first stop",
+      "addStop": "Add stop",
+      "changeLocation": "Change location",
+      "cancelPicker": "Cancel",
+      "stopCountCaption": "{count, plural, =1 {1 stop} other {# stops}}",
+      "transportEyebrow": "Getting here",
+      "transportLabel": "Transport",
+      "priceMinLabel": "Min price",
+      "priceMaxLabel": "Max price",
+      "priceMinPlaceholder": "Min",
+      "priceMaxPlaceholder": "Max",
+      "priceHint": "TRY, optional",
+      "pickerHint": "Tap a space, or tap anywhere on the map to drop a pin.",
+      "tapAStopHint": "Tap a stop chip above to edit it.",
+      "noStops": "Add at least one stop to share a plan.",
+      "submit": "Share plan",
+      "updateSubmit": "Save changes",
+      "successTitle": "Plan shared",
+      "updateSuccess": "Plan updated",
+      "errorTitle": "Couldn't share",
+      "errorBody": "Something went wrong. Try again in a moment."
+    },
+    "stops": "{count} stops",
+    "transport": {
+      "ferry": "Ferry",
+      "metro": "Metro",
+      "tram": "Tram",
+      "bus": "Bus",
+      "minibus": "Minibus",
+      "taxi": "Taxi",
+      "shared_uber": "Shared ride",
+      "walk": "Walk",
+      "bike": "Bike"
+    },
+    "memberSurface": {
+      "title": "Today's plans",
+      "subtitle": "Where this member will be in the next 7 days. Tap to join."
+    },
+    "detail": {
+      "host": "Host",
+      "attendees": "{count} going",
+      "join": "I'm in",
+      "leave": "Leave plan",
+      "full": "Plan is full",
+      "youHost": "You're hosting",
+      "edit": "Edit plan",
+      "openTelegram": "Message {name} on Telegram",
+      "errorTitle": "Action failed",
+      "errorBody": "Couldn't update. Try again."
+    },
+    "comments": {
+      "title": "Chat ({count})",
+      "empty": "No messages yet. Say hi.",
+      "placeholder": "Quick note for the group...",
+      "submit": "Send",
+      "errorTitle": "Couldn't send"
+    },
+    "edit": {
+      "eyebrow": "Edit",
+      "intro": "You can cancel this plan. Editing the time and location is coming soon.",
+      "editComingSoon": "Full edit coming next release.",
+      "editComingSoonHint": "For now, cancel and reshare if you need to move the time or place.",
+      "back": "Back to plan",
+      "cancelPlan": "Cancel plan"
+    },
+    "telegram": {
+      "connect": "Connect Telegram for pings",
+      "openedTitle": "Telegram opened",
+      "openedBody": "Tap Start in the chat to finish connecting.",
+      "errorTitle": "Couldn't open Telegram",
+      "notConfigured": "Telegram bot isn't set up yet."
+    }
+  },
+  "today": {
+    "meta": {
+      "title": "Today's plans · Istanbul Nomads",
+      "description": "Plans posted by nomads around you today. Free, transparent, drop-in."
+    },
+    "livePip": "{count, plural, =0 {No plans on the board yet} one {# plan on the board · live} other {# plans on the board · live}}",
+    "dateRibbon": "Plans for today · local time",
+    "headlineA": "What's on the",
+    "headlineB": "board",
+    "headlineC": "today.",
+    "lede": "Plans posted by nomads around you. Nomad plans are peer meetups with a transparent budget. Drop in, walk over, say hi.",
+    "stats": {
+      "total": "Plans on the board",
+      "totalSub": "today only",
+      "open": "Open seats",
+      "openSub": "across {hoods} hoods",
+      "mine": "Your plan today",
+      "mineSub": "{filled}/{seats} joined",
+      "mineNone": "—",
+      "mineNoneSub": "post one in the rail",
+      "hoods": "Neighborhoods",
+      "hoodsSub": "with plans today"
+    },
+    "groups": {
+      "morning": {
+        "label": "Morning · N° 01",
+        "kickerLead": "Before the second coffee.",
+        "kickerRest": "",
+        "range": "06:00 → 12:00 · {count, plural, one {# plan} other {# plans}}"
+      },
+      "afternoon": {
+        "label": "Afternoon · N° 02",
+        "kickerLead": "Long stretch.",
+        "kickerRest": "Two ferries, maybe a walk.",
+        "range": "12:00 → 18:00 · {count, plural, one {# plan} other {# plans}}"
+      },
+      "evening": {
+        "label": "Evening · N° 03",
+        "kickerLead": "The part Istanbul does best.",
+        "kickerRest": "",
+        "range": "18:00 → 00:00 · {count, plural, one {# plan} other {# plans}}"
+      }
+    },
+    "composer": {
+      "eyebrow": "+ post a plan",
+      "placeholder": "One line about what you're up to…",
+      "hint": "Posting as nomad"
+    },
+    "rail": {
+      "title": "Members · recently joined",
+      "cta": "See directory",
+      "empty": "No public profiles yet."
+    },
+    "legend": {
+      "nomad": "Nomad plans · free, budget shown up front",
+      "shortcut": "⌘K · search any day, any neighborhood"
+    },
+    "emptyBoard": "No plans on the board today. Post one - or check tomorrow."
   }
 }

@@ -25,7 +25,7 @@ const PROTOCOL_VERSION = "2024-11-05";
 const SERVER_INFO = {
   name: "istanbul-nomads-content",
   version: "0.1.0",
-  title: "Istanbul Digital Nomads content server",
+  title: "Istanbul Nomads content server",
 };
 
 const TOOLS = [
@@ -82,7 +82,7 @@ const TOOLS = [
   {
     name: "list_blog_posts",
     description:
-      "List Istanbul Digital Nomads blog posts with title, slug, date, and description.",
+      "List Istanbul Nomads blog posts with title, slug, date, and description.",
     inputSchema: {
       type: "object",
       properties: {},

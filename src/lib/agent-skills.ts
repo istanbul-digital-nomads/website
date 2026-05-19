@@ -14,7 +14,7 @@ export const agentSkills: AgentSkill[] = [
     name: "read-istanbul-content",
     type: "instruction",
     description:
-      "Fetch Istanbul Digital Nomads guides, blog posts, neighborhoods, and country relocation playbooks as markdown.",
+      "Fetch Istanbul Nomads guides, blog posts, neighborhoods, and country relocation playbooks as markdown.",
     body: `# read-istanbul-content
 
 Every HTML page on istanbulnomads.com has a markdown equivalent. Use this skill to read the site's content without parsing HTML.
@@ -66,7 +66,7 @@ See \`${SITE}/robots.txt\`. Current signals: \`search=yes, ai-input=yes, ai-trai
       "Find coworking spaces and laptop-friendly cafes in Istanbul, filtered by neighborhood, wifi speed, price, and amenities.",
     body: `# find-coworking-spaces
 
-Istanbul Digital Nomads maintains a verified directory of coworking spaces and laptop-friendly cafes.
+Istanbul Nomads maintains a verified directory of coworking spaces and laptop-friendly cafes.
 
 ## Directory endpoints
 
@@ -97,7 +97,7 @@ Prices are in Turkish Lira, updated at the \`verifiedAt\` date on each entry. Co
       "Check upcoming digital nomad meetups, coworking events, and community gatherings in Istanbul.",
     body: `# browse-istanbul-events
 
-Istanbul Digital Nomads runs a weekly event calendar for the nomad and remote-work community.
+Istanbul Nomads runs a weekly event calendar for the nomad and remote-work community.
 
 ## Endpoints
 
@@ -127,7 +127,7 @@ Events are added and updated frequently. Re-fetch before answering time-sensitiv
       "Generate a personalised Istanbul relocation plan from a small intake (budget, duration, lifestyle, work mode, optional origin country). Returns a structured JSON plan with neighborhood pick, cost breakdown, first-month setup, strategy, and tips.",
     body: `# build-relocation-plan
 
-Istanbul Digital Nomads runs a relocation decision agent that takes a visitor's situation and returns a structured, citation-backed plan grounded in the site's verified content.
+Istanbul Nomads runs a relocation decision agent that takes a visitor's situation and returns a structured, citation-backed plan grounded in the site's verified content.
 
 ## Endpoint
 

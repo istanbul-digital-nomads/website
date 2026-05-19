@@ -34,7 +34,6 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
   const { theme, setTheme } = useTheme();
   const tSite = useTranslations("site");
   const tNav = useTranslations("nav");
-  const tItems = useTranslations("nav.items");
   const tMobile = useTranslations("mobileMenu");
   const tBottomNav = useTranslations("bottomNav");
 
@@ -86,47 +85,35 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
 
         <nav className="mt-6 flex-1 overflow-y-auto px-4">
           <div className="space-y-1">
-            {navItems.map((item) =>
-              "children" in item ? (
-                <div key={item.key}>
-                  <p className="px-4 pb-1 pt-4 font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-400 dark:text-[#5d6d7e]">
-                    {tNav(item.key)}
-                  </p>
-                  {item.children.map((child) => (
-                    <Link
-                      key={child.href}
-                      href={child.href}
-                      prefetch
-                      onClick={onClose}
-                      className={cn(
-                        "tap-highlight flex items-center rounded-2xl px-4 py-3 text-lg font-medium transition-colors",
-                        pathname === child.href ||
-                          pathname.startsWith(child.href + "/")
-                          ? "bg-primary-50 text-primary-700 dark:bg-white/10 dark:text-primary-200"
-                          : "text-neutral-700 hover:bg-black/5 dark:text-[#99a3ad] dark:hover:bg-white/5",
-                      )}
-                    >
-                      {tItems(`${child.key}.label`)}
-                    </Link>
-                  ))}
-                </div>
-              ) : (
+            {navItems.flatMap((item) => {
+              // Dropdowns get flattened into their children in the mobile
+              // sheet - no nested menus on touch. Top-level items use
+              // `nav.<key>` translations; dropdown children use
+              // `nav.items.<key>.label`.
+              const links =
+                "children" in item
+                  ? item.children.map((c) => ({
+                      key: `items.${c.key}.label`,
+                      href: c.href,
+                    }))
+                  : [{ key: item.key, href: item.href }];
+              return links.map((l) => (
                 <Link
-                  key={item.href}
-                  href={item.href}
+                  key={`${item.key}-${l.href}`}
+                  href={l.href}
                   prefetch
                   onClick={onClose}
                   className={cn(
                     "tap-highlight flex items-center rounded-2xl px-4 py-3 text-lg font-medium transition-colors",
-                    pathname === item.href
+                    pathname === l.href || pathname.startsWith(l.href + "/")
                       ? "bg-primary-50 text-primary-700 dark:bg-white/10 dark:text-primary-200"
                       : "text-neutral-700 hover:bg-black/5 dark:text-[#99a3ad] dark:hover:bg-white/5",
                   )}
                 >
-                  {tNav(item.key)}
+                  {tNav(l.key as never)}
                 </Link>
-              ),
-            )}
+              ));
+            })}
           </div>
 
           <Link

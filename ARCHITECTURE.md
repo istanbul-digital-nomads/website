@@ -1,6 +1,14 @@
 # Architecture
 
-This document describes the technical architecture and key design decisions for the Istanbul Digital Nomads website.
+> ⚠️ **Some sections in this document are out of date** (Next.js version,
+> component patterns from before the v3 cinematic redesign). For canonical
+> tech-stack facts and the current data model, read
+> [PRODUCT.md § 9 "Tech stack"](PRODUCT.md#9--tech-stack) and
+> [PRODUCT.md § 6 "Core data entities"](PRODUCT.md#6--core-data-entities) first.
+> This document keeps the deeper "why we chose X" notes that those tables
+> don't have room for.
+
+This document describes the technical architecture and key design decisions for the Istanbul Nomads website.
 
 ## Overview
 
@@ -11,7 +19,7 @@ The site is a full-stack Next.js application that serves two purposes:
 
 ## Tech Decisions
 
-### Next.js 14 (App Router)
+### Next.js 16 (App Router)
 
 We use Next.js with the App Router for several reasons:
 - Server components reduce client-side JavaScript

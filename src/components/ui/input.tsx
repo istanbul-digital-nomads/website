@@ -24,7 +24,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           >
             {label}
             {props.required && (
-              <span className="ml-0.5 text-red-500" aria-hidden="true">
+              <span className="ms-0.5 text-red-500" aria-hidden="true">
                 *
               </span>
             )}
@@ -90,7 +90,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           >
             {label}
             {props.required && (
-              <span className="ml-0.5 text-red-500" aria-hidden="true">
+              <span className="ms-0.5 text-red-500" aria-hidden="true">
                 *
               </span>
             )}

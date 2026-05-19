@@ -9,9 +9,9 @@ function Card({ className, hoverable = false, ...props }: CardProps) {
   return (
     <div
       className={cn(
-        "rounded-md border border-black/10 bg-white p-6 shadow-none dark:border-white/10 dark:bg-[#1a1612]",
+        "rounded-md border border-black/10 bg-white p-6 text-start shadow-none dark:border-white/10 dark:bg-[#1a1612]",
         hoverable &&
-          "transition-[border-color,background-color,transform] hover:-translate-y-0.5 hover:border-primary-300/70 hover:bg-white/95 dark:hover:border-primary-500/35 dark:hover:bg-[rgba(60,40,30,0.35)]",
+          "transition-[border-color,background-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary-300/70 hover:bg-white/95 hover:shadow-[0_18px_48px_rgba(20,17,15,0.08)] focus-within:border-primary-300/70 focus-within:shadow-[0_18px_48px_rgba(20,17,15,0.08)] dark:hover:border-primary-500/35 dark:hover:bg-[rgba(60,40,30,0.35)] dark:hover:shadow-none dark:focus-within:border-primary-500/35",
         className,
       )}
       {...props}
@@ -60,7 +60,7 @@ function CardFooter({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
 function CardImage({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn("-mx-6 -mt-6 mb-4 overflow-hidden rounded-t-lg", className)}
+      className={cn("-mx-6 -mt-6 mb-4 overflow-hidden rounded-t-md", className)}
       {...props}
     />
   );

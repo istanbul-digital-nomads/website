@@ -21,7 +21,7 @@ Istanbul Nomads is a place-based community platform for people working remotely 
 
 ### Current Release
 
-- **Version:** `3.7.0` (see [CHANGELOG.md](CHANGELOG.md))
+- **Version:** `3.8.1` (see [CHANGELOG.md](CHANGELOG.md))
 - **Cinematic live-map homepage hero:** full-bleed MapLibre map auto-touring 6 Istanbul neighborhoods (Beyoğlu → Kadıköy → Karaköy → Sultanahmet → Ortaköy), with nomad photo avatars glued to lat/lng and a floating "Now Live" callout
 - **Today board** at `/today`: editorial daily plans grouped morning/afternoon/evening, with gold "★ Local guide" tag for guide-hosted plans
 - **Members editorial directory** at `/members`: deep-water canvas, neighborhood-grouped, recently-joined sidebar, real Supabase data

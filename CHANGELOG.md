@@ -4,6 +4,23 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.8.1] - 2026-05-19
+
+**PRODUCT.md rewritten with full strategy: monetisation, member roles, verification ladder, XP + badges.** Docs-only patch. No code changes yet; the new doc is the spec that subsequent migrations and features will implement against.
+
+### Documentation
+
+- **PRODUCT.md** restructured into 15 sections. New sections:
+  - **§3 Member roles + verification** - 5 roles (`nomad`, `remote_worker`, `local_guide`, `tour_guide`, `agent`) with the agent role hidden from public surfaces. Three-badge verification ladder (Red basic, Blue verified, Gold trusted). Only Blue/Gold can set entry fees on plans.
+  - **§5 Product loop** split into Loop A (content hub, pre-arrival) and Loop B (community planner, in-Istanbul). Loop B now includes the payment flow (ticket → 7-day holdback → guide payout).
+  - **§6 Monetisation** - three revenue streams documented. Ticket fees (active path to live): **iyzico primary, Stripe Connect fallback, 10% platform + ~2.9% processing = ~13% gross take, 7-day holdback payout**. Guide subscriptions (planned): Free (1 plan/mo) / Standard (5/mo) / Pro (20/mo). Nomad+ parked until brand credit higher.
+  - **§9 XP + badges** - vanity + real-world rewards (one-year-in-Istanbul bracelet is the floor reward), no gating. Threshold ladder for "First plan / Regular / Veteran" + editorial picks for "Best nomad of the year / Top host of the year".
+- **§8 Data entities** expanded with: `member_type` enum to 5 values; new `verification_level` + `xp` + `professional_role` columns on `members`; new tables `member_badges`, `member_subscriptions`, `plan_tickets`; `plans.is_ticketed` + `host_role_at_creation`/`host_badge_at_creation` snapshots; `plan_stops.vibe` extended with `culture` + `admin`; `plan_stops` gets `budget_per_person_min/max` + `entry_fee_cents`/`currency` split (budget plans vs ticketed plans).
+- **§7 Surfaces** - added required-but-not-built rows: `/legal/terms`, `/legal/community-guidelines`, `/legal/plan-disclaimers`, `/legal/privacy`, `/dashboard/payouts`, `/dashboard/subscription`. Each tagged as required before paid-plan launch.
+- **§13 Boundaries** - new entries: no ticket take on budget-only plans, no public Agent presence, no Nomad+ launch before brand credit is earned.
+- **§14 Where things stand** - 13-item ordered follow-up list scoped to "required before paid-plan launch" (role expansion, KYC vendor, iyzico marketplace integration, `plan_tickets`, subscription tiers, legal pages, XP schema, neighborhood counts, hidden agent surface).
+- **Neighborhood = connective tissue** explicit invariant added to §8: every member has a neighborhood, every plan stop has a neighborhood, every neighborhood page must show live nomad + guide counts.
+
 ## [3.8.0] - 2026-05-19
 
 **Route-group scaffold + components reorg + canonical PRODUCT doc.** The `[locale]` tree is now carved into three Next.js route groups - `(home)`, `(marketing)`, `(app)` - each with its own layout. The homepage naturally has no global Header (the hero brand bar owns the top), marketing and app routes mount `HeaderWithCounts` from their own group layout, and the `is-home` pre-hydration script + `IsHomeMarker` client island + `hero-home-hide` CSS shim are all gone. Components moved from `src/components/{plans,today}/` to `src/components/sections/{plans,today}/` so every page-section component lives under a single roof. New `PRODUCT.md` is now the canonical product reference; README / DESIGN / ROADMAP / ARCHITECTURE updated to point at it.

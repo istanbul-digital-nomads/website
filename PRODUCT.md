@@ -57,7 +57,7 @@ see**.
 | `remote_worker` | Yes | No (budget-only plans) | Settled longer-term, professional-network framing, gets dedicated marketing surfaces and CTAs |
 | `local_guide` | Yes | Yes (ticketed plans, subscription-gated volume) | Knows the city, hosts hobby + experience plans |
 | `tour_guide` | Yes | Yes (ticketed plans, subscription-gated volume) | Licensed Turkish tour guide; same plumbing as `local_guide` with a credential field |
-| `agent` | **No (hidden role)** | Yes (admin-vibe plans only) | Visa, govt-office, ikamet specialist. Doesn't appear in `/members`, nav, or homepage hero. Surfaces only inside the authed `/today` board to members who filter for `vibe='admin'`. |
+| `agent` | Yes | Yes (admin-vibe plans, typically ticketed) | Visa, govt-office, ikamet, residency-permit specialist. Listed in `/members` (filterable by role), eligible for `/local-guides` if they want a richer surface, and their plans surface in `/today` like any other host's. Posts default to `vibe='admin'`. Distinguished from `local_guide` by service type, not by visibility. |
 
 `nomad` and `remote_worker` share the same database schema, RLS rules, and
 plan-creation rights. They differ only in **profile copy, CTA surfaces, and
@@ -269,7 +269,7 @@ brand credit + member base justify charging the audience side.** No date.
 | `/plans` | `(app)/plans/page.tsx` | Marketing landing for the plans concept + an authed feed (today/tomorrow/week with neighborhood + vibe + host-type filters). |
 | `/plans/new` | `(app)/plans/new/page.tsx` | Map-first plan creation. Drop pins on verified spaces or anywhere, fill in time + vibe + notes + budget OR entry-fee per stop. Entry-fee field is **hidden for non-Blue/Gold roles**. |
 | `/plans/[id]` | `(app)/plans/[id]/page.tsx` | Plan detail with stop timeline, join/leave, comments, ticket purchase for paid plans, host badge color, full disclaimers. |
-| `/members` | `(marketing)/members/page.tsx` → [members-editorial.tsx](src/components/sections/members/members-editorial.tsx) | Editorial directory grouped by neighborhood. Agents are **never listed here**. Opt-in only. |
+| `/members` | `(marketing)/members/page.tsx` → [members-editorial.tsx](src/components/sections/members/members-editorial.tsx) | Editorial directory grouped by neighborhood. Filterable by role (`nomad`, `remote_worker`, `local_guide`, `tour_guide`, `agent`). Opt-in only. |
 | `/members/[id]` | `(marketing)/members/[id]/page.tsx` | Public profile: bio, skills, location, Telegram handle, upcoming plans, badges earned. Role-specific layout (remote-worker profile differs from nomad in tone + sections). |
 | `/onboarding` | `(app)/onboarding/page.tsx` | Sticky-footer wizard: display name, neighborhood, role (`nomad` / `remote_worker` only - guide role applied via separate review), profile preferences. Saves between steps. |
 | `/login` | `(marketing)/login/page.tsx` | Supabase auth (magic link + OAuth). |
@@ -303,10 +303,10 @@ brand credit + member base justify charging the audience side.** No date.
 | `/about` | `(marketing)/about/` | Our story, values, organizer team. | Live |
 | `/contact` | `(marketing)/contact/` | Contact form (Resend), Telegram, GitHub, email links. | Live |
 | `/credits` | `(marketing)/credits/` | Photo attribution. | Live |
-| `/legal/terms` | not built | Terms of Service - covers ticket purchases, refunds, payouts, dispute resolution, guide obligations. Must be lawyer-reviewed. | **Required, not built** |
-| `/legal/community-guidelines` | not built | Strict, explicit rules: behavior at plans, no-shows, alcohol, harassment, safety, what gets you Red-flagged or removed. | **Required, not built** |
-| `/legal/plan-disclaimers` | not built | Per-vibe disclaimer text shown on every plan card (hiking = trail risk, outdoor = weather, after-work = alcohol, admin = no legal advice, etc.). | **Required, not built** |
-| `/legal/privacy` | not built | GDPR + KVKK (Turkish data law) coverage. | **Required, not built** |
+| `/legal/terms` | not built | Terms of Service - covers ticket purchases, refunds, payouts, dispute resolution, guide obligations. Working draft at [docs/legal/terms.md](docs/legal/terms.md). Must be lawyer-reviewed. | **Draft ready, page not built** |
+| `/legal/community-guidelines` | not built | Strict, explicit rules: behavior at plans, no-shows, alcohol, harassment, safety, what gets you Red-flagged or removed. Working draft at [docs/legal/community-guidelines.md](docs/legal/community-guidelines.md). | **Draft ready, page not built** |
+| `/legal/plan-disclaimers` | not built | Per-vibe disclaimer text shown on every plan card (hiking = trail risk, outdoor = weather, after-work = alcohol, admin = no legal advice, etc.). Working draft at [docs/legal/plan-disclaimers.md](docs/legal/plan-disclaimers.md). | **Draft ready, page not built** |
+| `/legal/privacy` | not built | GDPR + KVKK (Turkish data law) coverage. | **Required, not drafted** |
 | `/dashboard/payouts` | not built | Guide payout history, pending balance, KYC status, bank details. | **Required for guide launch** |
 | `/dashboard/subscription` | not built | Guide subscription tier, plan-quota usage, billing portal. | **Required for guide launch** |
 
@@ -318,9 +318,6 @@ brand credit + member base justify charging the audience side.** No date.
   we don't want to own.
 - **No likes, no follows, no algorithm feed.** The board is chronological
   and short on purpose; we don't want engagement-bait.
-- **No public Agent surface.** Agents exist in the DB and post plans tagged
-  `vibe='admin'`. They never show up in `/members`, the hero, the global
-  nav, or aggregate counts on neighborhood pages.
 
 ---
 
@@ -331,7 +328,7 @@ service-role only on seed/admin scripts.
 
 | Table | Purpose | Notable columns |
 |---|---|---|
-| `members` | Community profiles, opt-in visible | `display_name`, `bio`, `avatar_url`, `location`, `skills[]`, `telegram_handle`, `member_type` (`nomad` \| `remote_worker` \| `local_guide` \| `tour_guide` \| `agent`), `professional_role` (free text - for `remote_worker` framing), `verification_level` (`basic` \| `verified` \| `trusted`), `is_visible` (`agent` is forced `false`), `onboarding_completed`, `xp` (int, default 0), `tour_guide_license_no` (nullable, `tour_guide` only) |
+| `members` | Community profiles, opt-in visible | `display_name`, `bio`, `avatar_url`, `location`, `skills[]`, `telegram_handle`, `member_type` (`nomad` \| `remote_worker` \| `local_guide` \| `tour_guide` \| `agent`), `professional_role` (free text - for `remote_worker` framing), `verification_level` (`basic` \| `verified` \| `trusted`), `is_visible` (member-controlled, defaults to `true` after onboarding for every role), `onboarding_completed`, `xp` (int, default 0), `tour_guide_license_no` (nullable, `tour_guide` only) |
 | `member_badges` | Earned badges | `(member_id, badge_slug)`, `earned_at`, `threshold_value` (e.g. 5 plans hosted) |
 | `member_subscriptions` | Guide subscription state | `member_id`, `tier` (`free` \| `standard` \| `pro`), `period_start`, `period_end`, `plans_used_this_period`, `payment_provider` (`iyzico` \| `stripe`), `external_subscription_id` |
 | `plans` | Daily plans hosted by members | `creator_id`, `title`, `capacity`, `scheduled_date`, `expires_at`, `status`, `is_ticketed` (bool), `host_role_at_creation` (snapshot - so a downgraded guide's old plans still display correctly), `host_badge_at_creation` |
@@ -541,9 +538,6 @@ Codepath highlights worth knowing:
   bid.
 - **No ticket take on budget-only plans.** The 13% only applies to plans a
   Blue/Gold guide explicitly priced.
-- **No public Agent presence.** Agents stay invisible to the public site.
-  They can host plans and earn money, but they are not part of the brand
-  surface or aggregate counts.
 - **No Nomad+ launch before brand credit is earned.** Charging the audience
   side requires having an audience that loves us. We're not there yet.
 
@@ -582,8 +576,8 @@ Tracked follow-ups required before paid-plan launch:
    floor.
 8. **Neighborhood connective-tissue counts** on `/guides/neighborhoods/[slug]`
    ("{n} nomads here · {m} local guides hosting this month").
-9. **Agent hidden surface**: `vibe='admin'` value, role-gated entry-fee
-   field, exclusion from `/members` + hero + nav.
+9. **`vibe='admin'` plan value** + role-gated entry-fee field so agents and
+   admin-service guides have native plumbing.
 10. **Profile-editorial layout** for `/members/[id]` (magazine cover + pull
     quote + stats) - designed, not built.
 11. **Plans map view** at `/today?view=map` and `/plans?view=map`.

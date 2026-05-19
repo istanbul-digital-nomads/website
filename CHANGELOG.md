@@ -6,20 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [3.8.1] - 2026-05-19
 
-**PRODUCT.md rewritten with full strategy: monetisation, member roles, verification ladder, XP + badges.** Docs-only patch. No code changes yet; the new doc is the spec that subsequent migrations and features will implement against.
+**PRODUCT.md rewritten with full strategy: monetisation, member roles, verification ladder, XP + badges. Legal-doc drafts landed (T&C, Community Guidelines, Plan Disclaimers).** Docs-only patch. No code changes yet; the new doc is the spec that subsequent migrations and features will implement against.
 
 ### Documentation
 
 - **PRODUCT.md** restructured into 15 sections. New sections:
-  - **§3 Member roles + verification** - 5 roles (`nomad`, `remote_worker`, `local_guide`, `tour_guide`, `agent`) with the agent role hidden from public surfaces. Three-badge verification ladder (Red basic, Blue verified, Gold trusted). Only Blue/Gold can set entry fees on plans.
+  - **§3 Member roles + verification** - 5 roles (`nomad`, `remote_worker`, `local_guide`, `tour_guide`, `agent`). Agent is a public role like any other (listed in `/members`, eligible for `/local-guides`, plans surface in `/today`); distinguished from `local_guide` by service type, not by visibility. Three-badge verification ladder (Red basic, Blue verified, Gold trusted). Only Blue/Gold can set entry fees on plans.
   - **§5 Product loop** split into Loop A (content hub, pre-arrival) and Loop B (community planner, in-Istanbul). Loop B now includes the payment flow (ticket → 7-day holdback → guide payout).
   - **§6 Monetisation** - three revenue streams documented. Ticket fees (active path to live): **iyzico primary, Stripe Connect fallback, 10% platform + ~2.9% processing = ~13% gross take, 7-day holdback payout**. Guide subscriptions (planned): Free (1 plan/mo) / Standard (5/mo) / Pro (20/mo). Nomad+ parked until brand credit higher.
   - **§9 XP + badges** - vanity + real-world rewards (one-year-in-Istanbul bracelet is the floor reward), no gating. Threshold ladder for "First plan / Regular / Veteran" + editorial picks for "Best nomad of the year / Top host of the year".
 - **§8 Data entities** expanded with: `member_type` enum to 5 values; new `verification_level` + `xp` + `professional_role` columns on `members`; new tables `member_badges`, `member_subscriptions`, `plan_tickets`; `plans.is_ticketed` + `host_role_at_creation`/`host_badge_at_creation` snapshots; `plan_stops.vibe` extended with `culture` + `admin`; `plan_stops` gets `budget_per_person_min/max` + `entry_fee_cents`/`currency` split (budget plans vs ticketed plans).
 - **§7 Surfaces** - added required-but-not-built rows: `/legal/terms`, `/legal/community-guidelines`, `/legal/plan-disclaimers`, `/legal/privacy`, `/dashboard/payouts`, `/dashboard/subscription`. Each tagged as required before paid-plan launch.
-- **§13 Boundaries** - new entries: no ticket take on budget-only plans, no public Agent presence, no Nomad+ launch before brand credit is earned.
-- **§14 Where things stand** - 13-item ordered follow-up list scoped to "required before paid-plan launch" (role expansion, KYC vendor, iyzico marketplace integration, `plan_tickets`, subscription tiers, legal pages, XP schema, neighborhood counts, hidden agent surface).
+- **§13 Boundaries** - new entries: no ticket take on budget-only plans, no Nomad+ launch before brand credit is earned.
+- **§14 Where things stand** - 13-item ordered follow-up list scoped to "required before paid-plan launch" (role expansion, KYC vendor, iyzico marketplace integration, `plan_tickets`, subscription tiers, legal pages, XP schema, neighborhood counts, `vibe='admin'` plumbing).
 - **Neighborhood = connective tissue** explicit invariant added to §8: every member has a neighborhood, every plan stop has a neighborhood, every neighborhood page must show live nomad + guide counts.
+
+### Legal drafts (working, not lawyer-reviewed)
+
+Three new docs under [docs/legal/](docs/legal/) - intended to ship as the
+content for `/legal/terms`, `/legal/community-guidelines`, and
+`/legal/plan-disclaimers` after final review and translation to all 5
+locales.
+
+- **[docs/legal/community-guidelines.md](docs/legal/community-guidelines.md)** - the five rules (show up, be honest, verify before trust, Telegram for chat, don't make this place weird), then the full per-category breakdown (honesty, respect, plans, money, safety, verification, content), moderation process (strikes / suspensions / appeals to legal@istanbulnomads.com), report channels (in-platform / email / Telegram / 112 for emergencies), versioning policy. Strict on no-show behavior: 3 strikes in 90 days = 30-day suspension, 6 strikes = permanent.
+- **[docs/legal/terms.md](docs/legal/terms.md)** - **LAWYER REVIEW REQUIRED** marker at the top. Plain-English working draft covering: who we are, who these terms cover, eligibility (18+), accounts and roles, three-tier verification, plans + money flow (10% platform + ~2.9% processing on tickets, 7-day payout holdback), refund policy (24h+ before = full refund, no-show forfeits, host cancellation = full refund), disputes, guide subscriptions, content licensing, acceptable use, termination, limitation of liability, indemnification, change-of-terms process, **Turkish law and Istanbul courts as governing jurisdiction**. Includes a publication checklist requiring KVKK / TKHK 6502 / 6563 sayılı Kanun / Distance Selling Regulation review.
+- **[docs/legal/plan-disclaimers.md](docs/legal/plan-disclaimers.md)** - per-vibe disclaimer text for `focus`, `cowork`, `social`, `meal`, `after-work` (alcohol + 18+ floor), `outdoor` (risk, weather, health), `culture` (venue tickets often not included), `admin` (not legal advice). Plus a "common to every plan" disclaimer block (real-life meetup disclaimer, 112 emergency line).
 
 ## [3.8.0] - 2026-05-19
 

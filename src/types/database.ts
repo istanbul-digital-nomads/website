@@ -56,6 +56,9 @@ export interface Database {
           working_on: string[] | null;
           wants_to_talk_about: string[] | null;
           hobbies: string[] | null;
+          move_in_date: string | null;
+          planned_move_out_date: string | null;
+          favorite_spots: string[] | null;
           activity_interests: string[] | null;
           event_frequency: string | null;
           looking_for: string[] | null;

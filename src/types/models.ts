@@ -72,6 +72,9 @@ export type MemberPublicProfile = MemberPublic &
     | "hobbies"
     | "activity_interests"
     | "looking_for"
+    | "move_in_date"
+    | "planned_move_out_date"
+    | "favorite_spots"
   >;
 
 // --- Static Content Types ---

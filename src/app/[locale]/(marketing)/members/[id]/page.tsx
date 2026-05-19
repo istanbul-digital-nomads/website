@@ -14,6 +14,8 @@ import { RoleBadge } from "@/components/ui/role-badge";
 import { VerificationBadge } from "@/components/ui/verification-badge";
 import { isVerificationLevel } from "@/lib/verification";
 import { isCurrentStatus, STATUS_TONE } from "@/lib/member-profile";
+import { getMemberActivity } from "@/lib/member-activity";
+import { neighborhoods as ALL_HOODS } from "@/lib/neighborhoods";
 
 interface Props {
   params: Promise<{ locale: string; id: string }>;
@@ -64,6 +66,19 @@ async function MemberProfileContent(props: Props) {
     : "basic";
   const currentStatus = isCurrentStatus(member.current_status)
     ? member.current_status
+    : null;
+  const activity = await getMemberActivity(member.id);
+  const moveOutDate = member.planned_move_out_date
+    ? new Date(member.planned_move_out_date)
+    : null;
+  const today = new Date();
+  const weeksLeft = moveOutDate
+    ? Math.max(
+        0,
+        Math.round(
+          (moveOutDate.getTime() - today.getTime()) / (7 * 24 * 60 * 60 * 1000),
+        ),
+      )
     : null;
 
   return (
@@ -184,6 +199,38 @@ async function MemberProfileContent(props: Props) {
               </p>
             )}
 
+            {weeksLeft !== null ? (
+              <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-ferry-yellow/10 px-3 py-1 text-[12px] text-ferry-yellow">
+                <span
+                  className="inline-block h-1.5 w-1.5 rounded-full bg-ferry-yellow"
+                  aria-hidden
+                />
+                {weeksLeft === 0
+                  ? t("profile.lastWeekHere")
+                  : t("profile.weeksLeft", { count: weeksLeft })}
+              </p>
+            ) : null}
+
+            {/* Stats strip - three numbers that make the profile feel alive. */}
+            {activity.totalPlanCount > 0 ||
+            activity.neighborhoodsVisited.length > 0 ||
+            activity.coAttendees.length > 0 ? (
+              <dl className="mt-8 flex max-w-md divide-x divide-ink-3 border border-ink-3 bg-ink-2/40">
+                <StatBlock
+                  num={activity.totalPlanCount}
+                  label={t("profile.statPlans")}
+                />
+                <StatBlock
+                  num={activity.neighborhoodsVisited.length}
+                  label={t("profile.statHoods")}
+                />
+                <StatBlock
+                  num={activity.coAttendees.length}
+                  label={t("profile.statPeople")}
+                />
+              </dl>
+            ) : null}
+
             <MemberPlansToday memberId={member.id} locale={locale} />
 
             <ProfileChipSection
@@ -203,6 +250,139 @@ async function MemberProfileContent(props: Props) {
               title={t("profile.hobbies")}
               tone="moss"
               chips={member.hobbies}
+            />
+
+            {activity.pastPlans.length > 0 ? (
+              <div className="mt-10 border-t border-ink-3 pt-8">
+                <div className="flex items-baseline gap-3">
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-paper-faint">
+                    N° 05
+                  </span>
+                  <h2 className="font-mono text-[11px] uppercase tracking-wider text-terracotta">
+                    {t("profile.pastPlans")}
+                  </h2>
+                </div>
+                <ul className="mt-4 divide-y divide-ink-3 border-t border-ink-3">
+                  {activity.pastPlans.map((p) => (
+                    <li key={p.id}>
+                      <Link
+                        href={`/plans/${p.id}`}
+                        className="grid grid-cols-[100px_1fr_auto] items-center gap-3 py-3 transition-colors hover:bg-ink-2/40"
+                      >
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                          {new Intl.DateTimeFormat(locale, {
+                            month: "short",
+                            day: "numeric",
+                          }).format(new Date(p.scheduled_date))}
+                        </span>
+                        <span className="truncate text-[14px] text-paper">
+                          {p.title}
+                        </span>
+                        {p.neighborhood_slug ? (
+                          <span className="text-[11px] uppercase tracking-wider text-paper-faint">
+                            {p.neighborhood_slug}
+                          </span>
+                        ) : (
+                          <span aria-hidden />
+                        )}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+
+            {/* Neighborhood passport - shows ALL Istanbul hoods, with
+                ones the member has visited highlighted. Cute gamified
+                feel without being aggressive about it. */}
+            {activity.neighborhoodsVisited.length > 0 ? (
+              <div className="mt-10 border-t border-ink-3 pt-8">
+                <div className="flex items-baseline gap-3">
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-paper-faint">
+                    N° 06
+                  </span>
+                  <h2 className="font-mono text-[11px] uppercase tracking-wider text-ferry-yellow">
+                    {t("profile.hoodPassport")}
+                  </h2>
+                  <span className="font-mono text-[11px] text-paper-faint">
+                    {activity.neighborhoodsVisited.length} / {ALL_HOODS.length}
+                  </span>
+                </div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {ALL_HOODS.map((h) => {
+                    const visited = activity.neighborhoodsVisited.includes(
+                      h.slug,
+                    );
+                    return (
+                      <span
+                        key={h.slug}
+                        className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[12px] transition-colors ${
+                          visited
+                            ? "bg-ferry-yellow/15 text-ferry-yellow"
+                            : "border border-ink-3 text-paper-faint"
+                        }`}
+                      >
+                        {visited ? <span aria-hidden>✓</span> : null}
+                        {h.name}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
+
+            {activity.coAttendees.length > 0 ? (
+              <div className="mt-10 border-t border-ink-3 pt-8">
+                <div className="flex items-baseline gap-3">
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-paper-faint">
+                    N° 07
+                  </span>
+                  <h2 className="font-mono text-[11px] uppercase tracking-wider text-moss">
+                    {t("profile.peopleMet")}
+                  </h2>
+                </div>
+                <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+                  {activity.coAttendees.map((m) => (
+                    <li key={m.id}>
+                      <Link
+                        href={`/members/${m.id}`}
+                        className="flex items-center gap-3 rounded-md border border-ink-3 bg-ink-2/40 p-2.5 transition-colors hover:border-moss/40 hover:bg-ink-2/70"
+                      >
+                        {m.avatar_url ? (
+                          <Image
+                            src={m.avatar_url}
+                            alt=""
+                            width={32}
+                            height={32}
+                            className="rounded-full"
+                          />
+                        ) : (
+                          <span className="inline-block h-8 w-8 rounded-full bg-ink-3" />
+                        )}
+                        <div className="min-w-0 flex-1">
+                          <div className="truncate text-[13px] text-paper">
+                            {m.display_name}
+                          </div>
+                          <div className="font-mono text-[10px] uppercase tracking-wider text-paper-faint">
+                            {m.shared_count === 1
+                              ? t("profile.metOnce")
+                              : t("profile.metPlural", {
+                                  count: m.shared_count,
+                                })}
+                          </div>
+                        </div>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+
+            <ProfileChipSection
+              num="N° 08"
+              title={t("profile.favoriteSpots")}
+              tone="terracotta"
+              chips={member.favorite_spots}
             />
 
             {member.skills && member.skills.length > 0 ? (
@@ -295,6 +475,17 @@ function ProfileChipSection({
           </span>
         ))}
       </div>
+    </div>
+  );
+}
+
+function StatBlock({ num, label }: { num: number; label: string }) {
+  return (
+    <div className="flex flex-1 flex-col items-center justify-center px-4 py-5">
+      <span className="font-display text-2xl text-paper">{num}</span>
+      <span className="mt-1 font-mono text-[10px] uppercase tracking-wider text-paper-faint">
+        {label}
+      </span>
     </div>
   );
 }

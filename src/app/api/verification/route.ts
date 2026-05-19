@@ -6,6 +6,42 @@ import { verificationApplySchema } from "@/lib/verification-schema";
 const APPLY_LIMIT = 5;
 const APPLY_WINDOW_MS = 24 * 60 * 60 * 1000;
 
+export async function DELETE(request: Request) {
+  // Cancel the member's currently-pending verification request.
+  // Body: { id: string } - the pending row's UUID. RLS enforces the
+  // member can only update their own; we narrow to status='pending'
+  // here so a member can't cancel an already-decided request.
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const body = await request.json().catch(() => null);
+  const id =
+    body && typeof (body as { id?: unknown }).id === "string"
+      ? (body as { id: string }).id
+      : null;
+  if (!id) {
+    return NextResponse.json({ error: "Missing request id" }, { status: 400 });
+  }
+  const sb = supabase as unknown as { from: (t: string) => any };
+  const { error } = await sb
+    .from("verification_requests")
+    .update({ status: "cancelled" })
+    .eq("id", id)
+    .eq("member_id", user.id)
+    .eq("status", "pending");
+  if (error) {
+    return NextResponse.json(
+      { error: error.message ?? "Failed to cancel request" },
+      { status: 500 },
+    );
+  }
+  return NextResponse.json({ ok: true });
+}
+
 export async function POST(request: Request) {
   const supabase = await createClient();
   const {

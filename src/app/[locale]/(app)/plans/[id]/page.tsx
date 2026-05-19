@@ -22,6 +22,8 @@ import { getPlanById, type PlanStop } from "@/lib/plans/queries";
 import { getCurrentMember } from "@/lib/supabase/queries";
 import { spaces } from "@/lib/spaces";
 import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/config";
+import { VerificationBadge } from "@/components/ui/verification-badge";
+import { isVerificationLevel } from "@/lib/verification";
 
 export const metadata: Metadata = {
   title: "Plan",
@@ -116,6 +118,11 @@ async function Content({
 
   const t = await getTranslations("plans");
   const tDetail = await getTranslations("plans.detail");
+  const tVerifyLevels = await getTranslations("verification.levels");
+  const tVerifyTooltips = await getTranslations("verification.tooltips");
+  const hostLevel = isVerificationLevel(plan.host?.verification_level)
+    ? plan.host.verification_level
+    : "basic";
 
   const isHost = plan.creator_id === member.id;
   const isAttendee =
@@ -168,9 +175,16 @@ async function Content({
                 ) : null}
               </span>
               <div>
-                <p className="text-sm font-medium text-paper">
-                  {plan.host?.display_name}
-                </p>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-medium text-paper">
+                    {plan.host?.display_name}
+                  </p>
+                  <VerificationBadge
+                    level={hostLevel}
+                    label={tVerifyLevels(hostLevel)}
+                    tooltip={tVerifyTooltips(hostLevel)}
+                  />
+                </div>
                 <p className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
                   {tDetail("host")}
                   {plan.host?.city_district

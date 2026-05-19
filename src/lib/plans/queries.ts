@@ -26,6 +26,7 @@ export interface PlanCardSummary extends PlanRow {
     avatar_url: string | null;
     city_district: string | null;
     member_type: string | null;
+    verification_level: string | null;
   } | null;
   attendees: Array<{
     member_id: string;
@@ -70,7 +71,7 @@ function sortStops<T extends { ordinal: number }>(
 const PLAN_SELECT = `
   *,
   host:members!plans_creator_id_fkey (
-    id, display_name, avatar_url, city_district, member_type
+    id, display_name, avatar_url, city_district, member_type, verification_level
   ),
   attendees:plan_attendees (
     member_id,
@@ -164,7 +165,7 @@ export async function getPlanById(
       `
       *,
       host:members!plans_creator_id_fkey (
-        id, display_name, avatar_url, city_district, telegram_handle, member_type
+        id, display_name, avatar_url, city_district, telegram_handle, member_type, verification_level
       ),
       attendees:plan_attendees (
         member_id,
@@ -191,6 +192,7 @@ export async function getPlanById(
       city_district: string | null;
       telegram_handle: string | null;
       member_type: string | null;
+      verification_level: string | null;
     } | null;
     attendees: Array<{
       member_id: string;
@@ -231,6 +233,7 @@ export async function getPlanById(
             avatar_url: row.host.avatar_url,
             city_district: row.host.city_district,
             member_type: row.host.member_type,
+            verification_level: row.host.verification_level,
           }
         : null,
       attendees,

@@ -1885,7 +1885,9 @@
           "professional": "Professional networking",
           "party": "Party-focused",
           "calm": "Calm and activity-based"
-        }
+        },
+        "verifyNudgeTitle": "Verification unlocks paid plans",
+        "verifyNudgeBody": "Once you finish, head to /dashboard/verify to apply for the Blue badge. We'll review on Telegram, usually within a couple of working days."
       }
     }
   },

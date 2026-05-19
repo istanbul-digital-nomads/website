@@ -406,6 +406,7 @@ export type PaperworkServicePublic = {
     avatar_url: string | null;
     telegram_handle: string | null;
     member_type: string | null;
+    verification_level: string | null;
   } | null;
 };
 
@@ -420,7 +421,7 @@ export async function getPaperworkServicesPublic(filters?: {
   let q = (supabase as any)
     .from("paperwork_services")
     .select(
-      "id, host_id, service_type, title, description, languages, neighborhoods, price_cents, currency, duration_estimate_minutes, host:members!paperwork_services_host_id_fkey (id, display_name, avatar_url, telegram_handle, member_type)",
+      "id, host_id, service_type, title, description, languages, neighborhoods, price_cents, currency, duration_estimate_minutes, host:members!paperwork_services_host_id_fkey (id, display_name, avatar_url, telegram_handle, member_type, verification_level)",
     )
     .eq("is_active", true)
     .order("created_at", { ascending: false });
@@ -441,7 +442,7 @@ export async function getPaperworkServiceById(id: string) {
   const { data, error } = await (supabase as any)
     .from("paperwork_services")
     .select(
-      "id, host_id, service_type, title, description, languages, neighborhoods, price_cents, currency, duration_estimate_minutes, host:members!paperwork_services_host_id_fkey (id, display_name, avatar_url, telegram_handle, member_type)",
+      "id, host_id, service_type, title, description, languages, neighborhoods, price_cents, currency, duration_estimate_minutes, host:members!paperwork_services_host_id_fkey (id, display_name, avatar_url, telegram_handle, member_type, verification_level)",
     )
     .eq("id", id)
     .eq("is_active", true)

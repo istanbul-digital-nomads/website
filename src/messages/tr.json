@@ -1908,7 +1908,9 @@
           "professional": "Profesyonel networking",
           "party": "Parti odaklı",
           "calm": "Sakin ve aktivite tabanlı"
-        }
+        },
+        "verifyNudgeTitle": "Doğrulama ücretli planların kapısını açar",
+        "verifyNudgeBody": "Bitirdikten sonra /dashboard/verify adresine git ve mavi rozet için başvur. Genelde birkaç iş günü içinde Telegram'dan dönüş yaparız."
       }
     }
   },

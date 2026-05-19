@@ -170,6 +170,22 @@ export function StepFinal({ data, updateField, errors }: StepProps) {
         value={(data.atmosphere_preferences as string[]) || []}
         onChange={(v) => updateField("atmosphere_preferences", v)}
       />
+
+      {/* Phase 3 nudge: host roles + is_agent see a "verify next" hint
+          on the final step so they discover /dashboard/verify without
+          having to hit the /plans/new ticketed-mode gate to find it. */}
+      {(data.member_type === "local_guide" ||
+        data.member_type === "tour_guide" ||
+        data.is_agent === true) && (
+        <div className="rounded-xl border border-sky-500/40 bg-sky-500/5 p-4">
+          <p className="text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]">
+            {t("verifyNudgeTitle")}
+          </p>
+          <p className="mt-1 text-xs leading-relaxed text-[#5d6d7e] dark:text-[#99a3ad]">
+            {t("verifyNudgeBody")}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

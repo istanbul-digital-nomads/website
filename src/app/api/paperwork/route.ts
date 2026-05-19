@@ -16,18 +16,31 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // Only is_agent members can create paperwork services. The DB trigger
-  // also enforces this, but checking up-front gives a clear 403 instead
-  // of a generic 500 from the trigger.
+  // Only is_agent members with Blue+ verification can create paperwork
+  // services. The DB trigger enforces is_agent; verification is enforced
+  // here so the 403 messaging is clear. Phase 3 made paperwork creation
+  // a paid-surface action, same standard as ticketed plans.
   const sb = supabase as unknown as { from: (t: string) => any };
   const { data: memberRow } = await sb
     .from("members")
-    .select("is_agent")
+    .select("is_agent, verification_level")
     .eq("id", user.id)
     .maybeSingle();
   if (!memberRow?.is_agent) {
     return NextResponse.json(
       { error: "Only agent-flagged members can create paperwork services." },
+      { status: 403 },
+    );
+  }
+  if (
+    memberRow.verification_level !== "verified" &&
+    memberRow.verification_level !== "trusted"
+  ) {
+    return NextResponse.json(
+      {
+        error:
+          "Verification (Blue badge) is required before publishing paperwork services.",
+      },
       { status: 403 },
     );
   }

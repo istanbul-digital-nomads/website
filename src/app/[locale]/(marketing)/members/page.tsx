@@ -4,6 +4,7 @@ import { getMembersPublic } from "@/lib/supabase/queries";
 import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { alternatesFor } from "@/lib/seo";
 import { MembersEditorial } from "@/components/sections/members/members-editorial";
+import { isMemberRole } from "@/lib/member-roles";
 
 export async function generateMetadata({
   params,
@@ -22,13 +23,19 @@ export async function generateMetadata({
 
 export default async function MembersPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ role?: string }>;
 }) {
   const { locale: rawLocale } = await params;
+  const { role: roleParam } = await searchParams;
+  const activeRole = isMemberRole(roleParam) ? roleParam : null;
   const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
   const { data } = await getMembersPublic();
-  const members = data ?? [];
+  const members = (data ?? []).filter((m) =>
+    activeRole ? m.member_type === activeRole : true,
+  );
 
   // Preferred hood ordering matches the hero map's tour stops where
   // possible, then falls through to whatever else is in the data.
@@ -58,6 +65,7 @@ export default async function MembersPage({
       locale={locale}
       members={members}
       hoodOrder={HOOD_ORDER}
+      activeRole={activeRole}
     />
   );
 }

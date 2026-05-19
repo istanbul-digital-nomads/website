@@ -10,6 +10,7 @@ import { Container } from "@/components/ui/container";
 import { SectionEyebrow } from "@/components/ui/section-eyebrow";
 import { Tag } from "@/components/ui/tag";
 import { MemberPlansToday } from "@/components/sections/plans/member-plans-today";
+import { RoleBadge } from "@/components/ui/role-badge";
 
 interface Props {
   params: Promise<{ locale: string; id: string }>;
@@ -40,7 +41,12 @@ async function MemberProfileContent(props: Props) {
   if (!member) notFound();
 
   const t = getCachedTranslations(locale, "membersV2");
+  const tRoles = getCachedTranslations(
+    locale,
+    "onboardingPage.steps.interests.memberTypeOptions",
+  );
   const initial = (member.display_name || "?").trim().charAt(0).toUpperCase();
+  const roleLabel = member.member_type ? tRoles(member.member_type) : "";
 
   return (
     <section className="bg-ink-1 pt-12 lg:pt-16">
@@ -71,18 +77,37 @@ async function MemberProfileContent(props: Props) {
                 </span>
               )}
             </div>
+            {member.member_type ? (
+              <div className="mt-4">
+                <RoleBadge
+                  role={member.member_type}
+                  label={roleLabel}
+                  size="md"
+                />
+              </div>
+            ) : null}
             <dl className="mt-5 border-t border-ink-3">
               {member.location ? (
                 <Fact label={t("profile.location")} value={member.location} />
               ) : null}
-              {member.profession ? (
+              {member.member_type === "remote_worker" &&
+              member.professional_role ? (
+                <Fact
+                  label={t("profile.profession")}
+                  value={member.professional_role}
+                />
+              ) : member.profession ? (
                 <Fact
                   label={t("profile.profession")}
                   value={member.profession}
                 />
               ) : null}
-              {member.member_type ? (
-                <Fact label={t("profile.type")} value={member.member_type} />
+              {member.member_type === "tour_guide" &&
+              member.tour_guide_license_no ? (
+                <Fact
+                  label={t("profile.tourGuideLicense")}
+                  value={member.tour_guide_license_no}
+                />
               ) : null}
             </dl>
             {member.telegram_handle ? (

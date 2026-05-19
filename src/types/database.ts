@@ -32,7 +32,16 @@ export interface Database {
           attended_events_before: boolean | null;
           attended_which_events: string | null;
           languages: string[] | null;
-          member_type: string | null;
+          member_type:
+            | "nomad"
+            | "remote_worker"
+            | "local_guide"
+            | "tour_guide"
+            | "agent"
+            | null;
+          professional_role: string | null;
+          tour_guide_license_no: string | null;
+          xp: number;
           activity_interests: string[] | null;
           event_frequency: string | null;
           looking_for: string[] | null;

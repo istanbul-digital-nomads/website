@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { MemberPublic } from "@/types/models";
+import { MEMBER_ROLES, type MemberRole } from "@/lib/member-roles";
+import { Link as LocalizedLink } from "@/lib/i18n/routing";
 
 // Hue rotation for the avatar gradient fallback. Stable per-name so the
 // same person always gets the same color.
@@ -100,10 +102,19 @@ type Props = {
   locale: string;
   members: MemberPublic[];
   hoodOrder?: string[];
+  activeRole?: MemberRole | null;
 };
 
-export function MembersEditorial({ locale, members, hoodOrder }: Props) {
+export function MembersEditorial({
+  locale,
+  members,
+  hoodOrder,
+  activeRole = null,
+}: Props) {
   const t = useTranslations("membersV2");
+  const tRoles = useTranslations(
+    "onboardingPage.steps.interests.memberTypeOptions",
+  );
 
   const byHood = groupByHood(members);
   // Order: preferred hoods first (in the order given), then any other hoods
@@ -191,6 +202,39 @@ export function MembersEditorial({ locale, members, hoodOrder }: Props) {
             </div>
           </div>
         </div>
+
+        {/* Role filter chip strip */}
+        <nav
+          aria-label={t("roleFilterAria")}
+          className="mt-10 flex flex-wrap items-center gap-2"
+        >
+          <LocalizedLink
+            href="/members"
+            className={`rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors ${
+              activeRole === null
+                ? "border-gold bg-gold/15 text-gold"
+                : "border-cream/15 text-cream/55 hover:border-cream/30 hover:text-cream"
+            }`}
+          >
+            {t("roleFilterAll")}
+          </LocalizedLink>
+          {MEMBER_ROLES.map((r) => {
+            const isActive = activeRole === r;
+            return (
+              <LocalizedLink
+                key={r}
+                href={`/members?role=${r}`}
+                className={`rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors ${
+                  isActive
+                    ? "border-gold bg-gold/15 text-gold"
+                    : "border-cream/15 text-cream/55 hover:border-cream/30 hover:text-cream"
+                }`}
+              >
+                {tRoles(r)}
+              </LocalizedLink>
+            );
+          })}
+        </nav>
 
         {/* Main split: recent sidebar + grouped-by-hood right column */}
         <div className="mt-14 grid grid-cols-1 gap-12 pb-24 md:grid-cols-[340px_1fr] md:gap-11">

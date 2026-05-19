@@ -1826,15 +1826,26 @@
           "website": "Web sitesi",
           "other": "Diğer"
         },
-        "memberType": "Seni en iyi ne tanımlıyor?",
+        "memberType": "Platformda hangi rol sana uygun?",
+        "memberTypeHint": "Bu, burada neler yapabileceğini belirler. Daha sonra profilinden değiştirebilirsin.",
         "memberTypeOptions": {
-          "expat": "Expat",
-          "nomad": "Dijital göçebe",
-          "traveler": "Gezgin",
-          "local": "Yerel (uluslararası bakışlı)",
-          "student": "Öğrenci",
-          "other": "Diğer"
+          "nomad": "Göçebe",
+          "remote_worker": "Uzaktan çalışan",
+          "local_guide": "Yerel rehber",
+          "tour_guide": "Tur rehberi",
+          "agent": "Acente"
         },
+        "memberTypeDescriptions": {
+          "nomad": "İstanbul'dan geçiyorsun, bir ila altı ay buradasın. Plana katıl ve ücretsiz bütçe planları paylaş.",
+          "remote_worker": "Uzun süreliğine yerleştin. Bir rutin kuruyorsun, profesyonel bir çevre ve coworking ritmi arıyorsun.",
+          "local_guide": "Şehri tanıyorsun, yürüyüş, dinner, kahve günü yöneticisi olmak istiyorsun. Doğrulamadan sonra ücretli planlar açılır.",
+          "tour_guide": "Lisanslı Türk tur rehberi. Yerel rehber gibi ama lisans alanı eklenir. Doğrulamadan sonra ücretli planlar açılır.",
+          "agent": "Vize, ikamet, devlet daireleri, bankacılık konusunda uzmansın. Doğrulamadan sonra ücretli hizmetler açılır."
+        },
+        "professionalRoleLabel": "Mesleğin ne?",
+        "professionalRolePlaceholder": "Yazılımcı, tasarımcı, kurucu...",
+        "tourGuideLicenseLabel": "Tur rehberi lisans numarası",
+        "tourGuideLicenseHint": "Mavi rozet inceleme sırasında doğrulayacağız. Daha sonra doğrulamayı tercih edersen boş bırak.",
         "activities": "Hangi aktiviteler ilgini çekiyor?",
         "activityOptions": {
           "language": "Dil değişimi",
@@ -2728,6 +2739,8 @@
     "headlineC": "evden çıktıkları sokağa göre.",
     "publicLabel": "herkese açık",
     "hoodsLabel": "semt",
+    "roleFilterAria": "Üyeleri role göre filtrele",
+    "roleFilterAll": "Tümü",
     "recentEyebrow": "Yeni katılanlar",
     "recentLede": "Listeye en son eklenen üyeler. Profillerini görmek için adlarına dokun.",
     "noLocation": "Konum gizli",
@@ -2748,6 +2761,7 @@
       "location": "Konum",
       "profession": "Meslek",
       "type": "Üye tipi",
+      "tourGuideLicense": "Tur rehberi lisansı",
       "reachOut": "Telegram'dan ulaş",
       "aboutEyebrow": "Hakkında",
       "noBio": "Bu üye henüz bir biyografi yazmamış.",

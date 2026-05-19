@@ -42,6 +42,9 @@ export interface Database {
           professional_role: string | null;
           tour_guide_license_no: string | null;
           xp: number;
+          verification_level: "basic" | "verified" | "trusted";
+          verified_at: string | null;
+          verified_by: string | null;
           activity_interests: string[] | null;
           event_frequency: string | null;
           looking_for: string[] | null;

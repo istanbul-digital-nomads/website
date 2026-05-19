@@ -4,6 +4,43 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.11.0] - 2026-05-19
+
+**Phase 3: three-tier verification ladder.** Red (basic), Blue (verified), Gold (trusted) badges are real and gate the entry-fee field that Phase 2 plumbed. Phase 3 v1 ships the schema + manual organizer-approval flow (review via Supabase dashboard); a real KYC vendor SDK plugs in later via the `verification_requests.kyc_provider` column. Migration 019 applied to production.
+
+### Schema (migration 019)
+
+- **`members.verification_level`** TEXT NOT NULL DEFAULT `'basic'` CHECK in (`basic`,`verified`,`trusted`). Partial index on the `verified|trusted` subset for hot-path filters.
+- **`members.verified_at`** TIMESTAMPTZ, **`members.verified_by`** UUID (organizer who signed off).
+- **New `verification_requests`** table - `member_id`, `requested_level` (`verified`|`trusted`), `status` (`pending`|`approved`|`rejected`|`cancelled`), `reason`, `document_ref`, KYC hooks (`kyc_provider`, `kyc_session_id`, `kyc_status`), review trail. Unique partial index enforces one pending request per member.
+- **Trigger**: when a request flips to `approved`, member's `verification_level` is automatically bumped + audit columns set.
+- **RLS**: members read their own requests, insert their own, and can cancel their own pending request. Approval is org-only via service-role.
+- **`plans.host_badge_at_creation` backfill**: existing plans whose creator has been upgraded since posting now reflect the current badge.
+
+### Added
+
+- **`src/lib/verification.ts`** - single source of truth: `VERIFICATION_LEVELS`, `canChargeEntryFees`, `VERIFICATION_TONE` (Red dot / Blue check / Gold star).
+- **`<VerificationBadge>`** at `src/components/ui/verification-badge.tsx` - Red hidden by default, Blue + Gold rendered with tone-coded chip + sr-only tooltip text.
+- **`/dashboard/verify`** - host-role members apply for the Blue badge. Pending/rejected/trusted states each get a tailored panel.
+- **`POST /api/verification`** - rate-limited (5/day per member). Self-service for Blue only; Gold rejected with a Telegram-CTA.
+- **`<VerifyForm>`** client component with a free-text reason (20+ chars, max 1000), submits to the API, refreshes the page to reflect new state.
+- **Verification badge on `/members/[id]`** - sits alongside `RoleBadge` and (if applicable) the Agent chip.
+
+### Changed
+
+- **`/plans/new` ticketed-mode gate** is now real:
+  - Verified+ host-role members → ticketed toggle is enabled (was disabled with "Verification required" copy).
+  - Unverified host-role members → see a "Verify to charge" CTA linking to `/dashboard/verify`.
+  - Non-host roles → see only the budget mode (no ticketed option exposed).
+- **`createPlan` mutation** now snapshots `host_badge_at_creation` from the live `verification_level` (was hardcoded `'basic'`) and server-side gates `is_ticketed=true` to verified+ hosts even if the client tries to bypass.
+- **`MemberPublic` + `getMembersPublic` + `getMemberByIdPublic`** include `verification_level`.
+
+### Migration / deploy notes
+
+- Migration 019 applied to production Supabase via Management API before code deploy.
+- All existing members default to `basic`; no badges are auto-awarded.
+- Approval flow for v1 is manual via Supabase dashboard - flip `verification_requests.status` to `approved` and the trigger bumps the member. Admin UI lands later.
+
 ## [3.10.0] - 2026-05-19
 
 **Phase 2 of the product plan: Plans v2 + `/paperwork` surface + agent capability flag.** Plans gain a budget vs entry-fee field split, `culture` vibe lands, and agents move from being a primary role to a capability flag (`is_agent`) so the same account can be both a `nomad` AND offer paperwork services. New `/paperwork` directory + detail + creation surfaces serve agent-hosted services (visa, ikamet, residency permit, bank account, notary, GBT, tax office). All migration plumbing applied to production; payments still gated by Phase 3 verification.

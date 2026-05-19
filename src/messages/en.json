@@ -2704,6 +2704,44 @@
       "allEvents": "All events"
     }
   },
+  "verification": {
+    "levels": {
+      "basic": "Unverified",
+      "verified": "Verified",
+      "trusted": "Trusted"
+    },
+    "tooltips": {
+      "basic": "Email and Telegram confirmed. Can post free budget plans.",
+      "verified": "ID document and selfie verified. Can host paid plans.",
+      "trusted": "Met an organizer in person in Istanbul."
+    },
+    "page": {
+      "title": "Verify your account",
+      "intro": "Verification unlocks paid plans on the platform. The Blue badge requires a real ID document; the Gold badge comes from meeting an organizer in Istanbul in person.",
+      "currentLabel": "Current level",
+      "applyLabel": "Apply for",
+      "reasonLabel": "Why you want this badge",
+      "reasonPlaceholder": "Tell us about your experience hosting, your areas of expertise, your time in Istanbul...",
+      "submit": "Submit request",
+      "submitting": "Sending...",
+      "successTitle": "Request submitted",
+      "successBody": "We'll review and get back to you on Telegram. Usually within a couple of working days.",
+      "pendingTitle": "Request under review",
+      "pendingBody": "Your request for the {level} badge was submitted on {date}. We'll respond on Telegram.",
+      "cancelRequest": "Cancel request",
+      "rejectedTitle": "Most recent request: rejected",
+      "rejectedBody": "Reach out on Telegram if you'd like to know more or apply again.",
+      "trustedNote": "The Gold badge isn't a self-service flow - reach out to an organizer on Telegram to arrange a meet.",
+      "telegramCta": "Talk to an organizer",
+      "errorTitle": "Couldn't submit",
+      "errorBody": "Something went wrong. Try again or message us on Telegram."
+    },
+    "gates": {
+      "ticketedDisabledRoleHint": "Verification required to charge - apply for the Blue badge.",
+      "ticketedDisabledNonHost": "Only local guides and tour guides can host paid plans.",
+      "applyCta": "Verify to charge"
+    }
+  },
   "paperworkPage": {
     "metaTitle": "Paperwork help in Istanbul",
     "metaDescription": "Verified agents who help nomads with visas, ikamet, residency permits, bank accounts, notary, and govt offices in Istanbul.",

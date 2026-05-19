@@ -7,7 +7,7 @@
 // cacheComponents forbids reading the current time in plain server
 // components). cacheLife("minutes") matches the upstream events cache.
 
-import { unstable_cacheLife as cacheLife } from "next/cache";
+import { cacheLife } from "next/cache";
 import { getEventsPublic } from "@/lib/supabase/queries";
 import type { HeaderCounts } from "@/components/layout/header";
 

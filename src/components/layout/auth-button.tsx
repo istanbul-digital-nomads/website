@@ -34,6 +34,7 @@ export function AuthButton() {
       typeof document !== "undefined" &&
       document.cookie.split(";").some((c) => c.trim().startsWith("sb-"));
     if (!hasAuthCookie) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- anon-visitor short-circuit avoids loading the supabase auth chunk
       setLoading(false);
       return;
     }

@@ -28,6 +28,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // One-shot mount-detection + localStorage sync. The React Compiler
+    // eslint rule prefers `useSyncExternalStore`, but theme is read once
+    // at boot and then user-driven; no need to subscribe to changes.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional one-shot post-hydration sync
     setMounted(true);
     const stored = localStorage.getItem("theme") as Theme | null;
     if (stored) setTheme(stored);

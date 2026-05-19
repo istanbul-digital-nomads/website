@@ -150,6 +150,7 @@ export function WorldMap() {
     [],
   );
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- one-shot post-hydration flag for client-only rendering
   useEffect(() => setMounted(true), []);
 
   // Prefetch supported country routes so clicks feel instant.

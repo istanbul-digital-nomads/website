@@ -505,10 +505,12 @@ function DCSection({ id, title, subtitle, children, gap = 48 }) {
   const hidden = sec.srcKey === srcKey ? (sec.hidden || []) : [];
   const srcOrder = allIds.filter((k) => !hidden.includes(k));
 
+  // srcOrder identity changes per render; memoize on the joined key.
+  const srcOrderKey = srcOrder.join('|');
   const order = React.useMemo(() => {
     const kept = (sec.order || []).filter((k) => srcOrder.includes(k));
     return [...kept, ...srcOrder.filter((k) => !kept.includes(k))];
-  }, [sec.order, srcOrder.join('|')]);
+  }, [sec.order, srcOrderKey]);
 
   const byId = Object.fromEntries(artboards.map((a) => [a.props.id ?? a.props.label, a]));
 

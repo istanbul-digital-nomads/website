@@ -76,6 +76,7 @@ async function EventDetailContent(props: Props) {
   });
 
   const isPaid = typeof event.price_try === "number" && event.price_try > 0;
+  // eslint-disable-next-line react-hooks/purity -- async server component, response is per-request
   const isPast = start.getTime() < Date.now();
   const photo = getEventPhoto(event);
   // Paid events route through Stripe Checkout once it's provisioned; until

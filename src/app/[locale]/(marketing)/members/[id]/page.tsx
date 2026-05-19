@@ -11,6 +11,8 @@ import { SectionEyebrow } from "@/components/ui/section-eyebrow";
 import { Tag } from "@/components/ui/tag";
 import { MemberPlansToday } from "@/components/sections/plans/member-plans-today";
 import { RoleBadge } from "@/components/ui/role-badge";
+import { VerificationBadge } from "@/components/ui/verification-badge";
+import { isVerificationLevel } from "@/lib/verification";
 
 interface Props {
   params: Promise<{ locale: string; id: string }>;
@@ -45,8 +47,16 @@ async function MemberProfileContent(props: Props) {
     locale,
     "onboardingPage.steps.interests.memberTypeOptions",
   );
+  const tVerifyLevels = getCachedTranslations(locale, "verification.levels");
+  const tVerifyTooltips = getCachedTranslations(
+    locale,
+    "verification.tooltips",
+  );
   const initial = (member.display_name || "?").trim().charAt(0).toUpperCase();
   const roleLabel = member.member_type ? tRoles(member.member_type) : "";
+  const verificationLevel = isVerificationLevel(member.verification_level)
+    ? member.verification_level
+    : "basic";
 
   return (
     <section className="bg-ink-1 pt-12 lg:pt-16">
@@ -77,7 +87,9 @@ async function MemberProfileContent(props: Props) {
                 </span>
               )}
             </div>
-            {member.member_type || member.is_agent ? (
+            {member.member_type ||
+            member.is_agent ||
+            verificationLevel !== "basic" ? (
               <div className="mt-4 flex flex-wrap items-center gap-2">
                 {member.member_type ? (
                   <RoleBadge
@@ -86,6 +98,12 @@ async function MemberProfileContent(props: Props) {
                     size="md"
                   />
                 ) : null}
+                <VerificationBadge
+                  level={verificationLevel}
+                  label={tVerifyLevels(verificationLevel)}
+                  tooltip={tVerifyTooltips(verificationLevel)}
+                  size="md"
+                />
                 {member.is_agent ? (
                   <Link
                     href={`/paperwork?host=${member.id}`}

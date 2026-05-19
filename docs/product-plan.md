@@ -149,7 +149,15 @@ without enabling ticket purchase yet.
 
 ---
 
-## Phase 3 · Verification ladder + Blue/Gold badges (~5-7 days)
+## Phase 3 · Verification ladder + Blue/Gold badges (shipped in 3.11.0 ✓)
+
+**Scope note vs original plan**: Phase 3 v1 ships the schema + manual
+organizer-approval flow (review via Supabase dashboard). A real KYC
+vendor SDK (Sumsub / Persona / Onfido) plugs into the
+`verification_requests.kyc_provider` + `kyc_session_id` columns in a
+follow-up. Self-service stays at Blue; Gold is in-person via Telegram.
+
+**Original Phase 3 description below for context:**
 
 **Goal:** Red / Blue / Gold badges are real, visible everywhere, and
 gate the entry-fee field that Phase 2 plumbed.

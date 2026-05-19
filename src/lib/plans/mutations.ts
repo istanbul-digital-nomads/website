@@ -52,23 +52,29 @@ export async function createPlan(
     input.stops.map((s) => s.end_time ?? null),
   );
 
-  // Phase 2 host snapshot. Lock in role + badge at the moment of
-  // creation so a downgraded guide's older plans still display
-  // correctly. badge stays 'basic' until Phase 3 ships verification.
+  // Phase 2/3 host snapshot. Lock in role + verification level at the
+  // moment of creation so a downgraded guide's older plans still
+  // display correctly.
   const { data: hostRow } = await sb
     .from("members")
-    .select("member_type")
+    .select("member_type, verification_level")
     .eq("id", userId)
     .maybeSingle();
-  const host_role_at_creation =
-    (hostRow as { member_type: string | null } | null)?.member_type ?? null;
+  const hostShape = hostRow as {
+    member_type: string | null;
+    verification_level: string | null;
+  } | null;
+  const host_role_at_creation = hostShape?.member_type ?? null;
+  const host_badge_at_creation = hostShape?.verification_level ?? "basic";
   const canTicket =
-    host_role_at_creation === "local_guide" ||
-    host_role_at_creation === "tour_guide";
+    (host_role_at_creation === "local_guide" ||
+      host_role_at_creation === "tour_guide") &&
+    (host_badge_at_creation === "verified" ||
+      host_badge_at_creation === "trusted");
 
-  // Server-side guard: even if the client form somehow posts a
-  // ticketed flag for a non-host role, drop it on the floor here.
-  // Phase 3 will further restrict to Blue+ verified hosts.
+  // Server-side guard: only a verified+ host role can post a ticketed
+  // plan, regardless of what the client sends. The schema CHECK
+  // constraint also catches mode/field combos.
   const isTicketed = Boolean(input.is_ticketed) && canTicket;
 
   const { data, error } = await sb
@@ -90,7 +96,7 @@ export async function createPlan(
         : (input.budget_per_person_max_cents ?? null),
       currency: "TRY",
       host_role_at_creation,
-      host_badge_at_creation: "basic",
+      host_badge_at_creation,
     })
     .select("*")
     .single();

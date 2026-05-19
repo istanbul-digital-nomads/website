@@ -338,6 +338,10 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
   // don't shout "Required" at someone who just opened the page
   useEffect(() => {
     if (!attempted) return;
+    // Form-state derived validation - re-runs when the user edits any
+    // field. Could be useMemo but the side-effect of clearing errors
+    // when fields drop in/out of the form is form-shape-dependent.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- form-keyed validation, intentional
     setErrors(getErrors(form));
     // getErrors depends only on translations which are stable per render tree
     // eslint-disable-next-line react-hooks/exhaustive-deps

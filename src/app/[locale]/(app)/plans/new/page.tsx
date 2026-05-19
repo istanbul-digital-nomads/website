@@ -39,5 +39,15 @@ async function NewPlanContent({
     | "tour_guide"
     | null;
 
-  return <PlanCreateFlow hostRole={hostRole} />;
+  // Phase 3: verification level gates the entry-fee field. Unverified
+  // host-role members see a "Verify to charge" CTA instead of an
+  // enabled ticketed-mode toggle.
+  const verificationLevel = (member.verification_level ?? "basic") as
+    | "basic"
+    | "verified"
+    | "trusted";
+
+  return (
+    <PlanCreateFlow hostRole={hostRole} verificationLevel={verificationLevel} />
+  );
 }

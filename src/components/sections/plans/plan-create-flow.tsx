@@ -8,7 +8,7 @@ import {
   useState,
   type FormEvent,
 } from "react";
-import { useRouter } from "@/lib/i18n/routing";
+import { useRouter, Link as LocalizedLink } from "@/lib/i18n/routing";
 import { useLocale, useTranslations } from "next-intl";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -105,23 +105,33 @@ interface PlanCreateFlowProps {
   initial?: PlanInitialState;
   /**
    * Host's member_type. Drives whether the "Charge an entry fee" mode
-   * is exposed. Phase 2 limits ticketing to local_guide + tour_guide;
-   * Phase 3 will further gate by Blue-badge verification.
+   * is exposed. local_guide + tour_guide can host paid plans.
    */
   hostRole?: "nomad" | "remote_worker" | "local_guide" | "tour_guide" | null;
+  /**
+   * Phase 3: Blue+ verification is required to actually enable the
+   * ticketed-mode toggle. Unverified host-role members see a
+   * "Verify to charge" CTA pointing at /dashboard/verify.
+   */
+  verificationLevel?: "basic" | "verified" | "trusted";
 }
 
 export function PlanCreateFlow({
   initial,
   hostRole = null,
+  verificationLevel = "basic",
 }: PlanCreateFlowProps = {}) {
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("plans.create");
   const tMoney = useTranslations("plans.money");
+  const tVerify = useTranslations("verification.gates");
   const isEdit = !!initial;
 
-  const canTicket = hostRole === "local_guide" || hostRole === "tour_guide";
+  const isHostRole = hostRole === "local_guide" || hostRole === "tour_guide";
+  const isVerified =
+    verificationLevel === "verified" || verificationLevel === "trusted";
+  const canTicket = isHostRole && isVerified;
 
   const today = todayInIstanbul();
   const tomorrow = addDays(today, 1);
@@ -555,28 +565,35 @@ export function PlanCreateFlow({
               </div>
 
               {canTicket && (
-                <div
-                  className="flex items-center justify-between gap-3 rounded-md border border-ink-3 px-3 py-2"
-                  title={tMoney("verificationRequiredHint")}
-                >
+                <div className="flex items-center justify-between gap-3 rounded-md border border-ink-3 px-3 py-2">
                   <div className="text-sm text-paper">
-                    <div>{tMoney("ticketedToggleLabel")}</div>
-                    <div className="text-[11px] text-paper-mute">
-                      {tMoney("verificationRequiredHint")}
-                    </div>
+                    {tMoney("ticketedToggleLabel")}
                   </div>
                   <label className="inline-flex items-center gap-2">
                     <input
                       type="checkbox"
                       checked={isTicketed}
                       onChange={(e) => setIsTicketed(e.target.checked)}
-                      disabled
-                      className="h-4 w-4 rounded border-ink-3 opacity-50"
+                      className="h-4 w-4 rounded border-ink-3"
                     />
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-paper-faint">
-                      {tMoney("verificationLockedTag")}
-                    </span>
                   </label>
+                </div>
+              )}
+
+              {isHostRole && !isVerified && (
+                <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-sky-500/40 bg-sky-500/5 px-3 py-2.5">
+                  <div className="text-sm text-paper">
+                    <div>{tMoney("ticketedToggleLabel")}</div>
+                    <div className="mt-0.5 text-[11px] text-paper-mute">
+                      {tVerify("ticketedDisabledRoleHint")}
+                    </div>
+                  </div>
+                  <LocalizedLink
+                    href="/dashboard/verify"
+                    className="inline-flex items-center rounded-full bg-sky-500/90 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-ink-0 transition-colors hover:bg-sky-500"
+                  >
+                    {tVerify("applyCta")}
+                  </LocalizedLink>
                 </div>
               )}
 

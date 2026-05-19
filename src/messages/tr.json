@@ -2727,6 +2727,44 @@
       "allEvents": "Tüm etkinlikler"
     }
   },
+  "verification": {
+    "levels": {
+      "basic": "Doğrulanmamış",
+      "verified": "Doğrulanmış",
+      "trusted": "Güvenilir"
+    },
+    "tooltips": {
+      "basic": "E-posta ve Telegram onaylandı. Ücretsiz bütçe planları paylaşabilir.",
+      "verified": "Kimlik ve selfie doğrulandı. Ücretli plan oluşturabilir.",
+      "trusted": "İstanbul'da bir organizatörle yüz yüze görüştü."
+    },
+    "page": {
+      "title": "Hesabını doğrula",
+      "intro": "Doğrulama ücretli planların kapısını açar. Mavi rozet gerçek bir kimlik belgesi ister; altın rozet İstanbul'da yüz yüze görüşmeyle gelir.",
+      "currentLabel": "Mevcut seviye",
+      "applyLabel": "Başvur:",
+      "reasonLabel": "Neden bu rozeti istiyorsun",
+      "reasonPlaceholder": "Ev sahipliği deneyimini, uzmanlık alanlarını ve İstanbul'daki süreni paylaş...",
+      "submit": "Talebi gönder",
+      "submitting": "Gönderiliyor...",
+      "successTitle": "Talep gönderildi",
+      "successBody": "İnceleyip Telegram'dan dönüş yapacağız. Genelde birkaç iş günü içinde.",
+      "pendingTitle": "Talep inceleniyor",
+      "pendingBody": "{level} rozeti talebin {date} tarihinde alındı. Telegram'dan haber vereceğiz.",
+      "cancelRequest": "Talebi iptal et",
+      "rejectedTitle": "Son talep: reddedildi",
+      "rejectedBody": "Daha fazla bilgi almak veya tekrar başvurmak için Telegram'dan ulaş.",
+      "trustedNote": "Altın rozet kendin başvuramazsın - bir organizatöre Telegram'dan yaz, görüşme ayarlayalım.",
+      "telegramCta": "Organizatörle konuş",
+      "errorTitle": "Gönderilemedi",
+      "errorBody": "Bir şeyler ters gitti. Tekrar dene veya Telegram'dan yaz."
+    },
+    "gates": {
+      "ticketedDisabledRoleHint": "Ücret talep etmek için doğrulama gerekiyor - mavi rozet için başvur.",
+      "ticketedDisabledNonHost": "Yalnızca yerel ve tur rehberleri ücretli plan oluşturabilir.",
+      "applyCta": "Ücret almak için doğrula"
+    }
+  },
   "paperworkPage": {
     "metaTitle": "İstanbul'da evrak desteği",
     "metaDescription": "İstanbul'da vize, ikamet, oturma izni, banka hesabı, noter ve devlet daireleri için doğrulanmış acenteler.",

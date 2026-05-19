@@ -53,6 +53,7 @@ export type MemberPublic = Pick<
   | "telegram_handle"
   | "member_type"
   | "is_agent"
+  | "verification_level"
 >;
 
 // Extended public shape for the member profile page (Design System v2

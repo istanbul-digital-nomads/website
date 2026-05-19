@@ -4,6 +4,25 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.13.1] - 2026-05-19
+
+**"What's coming up" section.** Sibling to the past-plans timeline - shows the next 6 plans a member is hosting or going to, in chronological order. HOSTING vs GOING chip per row tells you their role in each plan at a glance.
+
+### Added
+
+- **`UpcomingPlan` type** in `src/lib/member-activity.ts` (extends `PastPlan` with `isHost: boolean`).
+- **`getMemberActivity`** now returns `upcomingPlans` (last/next 6 by `scheduled_date`) alongside `pastPlans`. Same single Supabase query, split client-side on today's date in Europe/Istanbul.
+- **N° 05 "What's coming up"** section on `/members/[id]` - sky-blue tone heading, 6 rows of date / title / role chip (`HOSTING` terracotta / `GOING` moss) / neighborhood. Hidden when empty.
+- **i18n** (en/tr/fa/ar/ru) for `profile.upcomingPlans`, `hostingTag`, `goingTag`.
+
+### Changed
+
+- **Section renumbering** on the profile: Past plans bumped to N° 06, Hood passport to N° 07, People met to N° 08, Favorite spots to N° 09. Conditional renders unchanged - empty sections still hide.
+
+### Mock data
+
+4 upcoming demo plans seeded (Ahmet's jazz / Cem's breakfast crawl / Mehdi's ikamet walkthrough / Sibel's Çiya dinner), each cross-attended by the other demo members so the new section renders for every demo profile.
+
 ## [3.13.0] - 2026-05-19
 
 **Profile Phase 2: the "fun and good" pass.** Adds a stats strip, past-plans timeline, gamified neighborhood passport, "people you've met" co-attendee grid, favorite-spots chip section, and a stay-window pip. Migrations 021 + 022 + 023 applied to prod.

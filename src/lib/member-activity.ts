@@ -18,6 +18,12 @@ export type PastPlan = {
   neighborhood_slug: string | null;
 };
 
+export type UpcomingPlan = PastPlan & {
+  // True when the member is the plan creator (host) vs an attendee.
+  // Drives a HOSTING vs GOING chip on the profile section.
+  isHost: boolean;
+};
+
 export type CoAttendee = {
   id: string;
   display_name: string;
@@ -28,12 +34,14 @@ export type CoAttendee = {
 
 export type MemberActivity = {
   pastPlans: PastPlan[];
+  upcomingPlans: UpcomingPlan[];
   totalPlanCount: number;
   neighborhoodsVisited: string[];
   coAttendees: CoAttendee[];
 };
 
 const PAST_PLANS_LIMIT = 6;
+const UPCOMING_PLANS_LIMIT = 6;
 const CO_ATTENDEES_LIMIT = 8;
 
 // "Attended" = the member appears in plan_attendees with one of these
@@ -53,6 +61,7 @@ export async function getMemberActivity(
 
   // 1. Plans the member attended (includes plans they hosted - the
   //    auto-attend on createPlan inserts a plan_attendees row).
+  //    creator_id pulled so we can flag HOSTING vs GOING on upcoming.
   const { data: attendances } = await supabase
     .from("plan_attendees")
     .select(
@@ -60,7 +69,7 @@ export async function getMemberActivity(
       plan_id,
       status,
       plan:plans (
-        id, title, scheduled_date,
+        id, title, scheduled_date, creator_id,
         stops:plan_stops (vibe, neighborhood_slug, ordinal)
       )
     `,
@@ -75,6 +84,7 @@ export async function getMemberActivity(
       id: string;
       title: string;
       scheduled_date: string;
+      creator_id: string;
       stops: Array<{
         vibe: string | null;
         neighborhood_slug: string | null;
@@ -87,10 +97,22 @@ export async function getMemberActivity(
     .map((r) => r.plan)
     .filter((p): p is NonNullable<typeof p> => p != null);
 
-  // Most recent N plans, with the first-stop vibe + neighborhood as
-  // the plan-level summary (matches how /today renders cards).
-  plans.sort((a, b) => b.scheduled_date.localeCompare(a.scheduled_date));
-  const pastPlans: PastPlan[] = plans.slice(0, PAST_PLANS_LIMIT).map((p) => {
+  // Split into past / upcoming on today's date in Istanbul. Use plain
+  // YYYY-MM-DD string comparison (scheduled_date is a DATE column).
+  const todayIstanbul = new Date().toLocaleDateString("en-CA", {
+    timeZone: "Europe/Istanbul",
+  });
+
+  // Most recent past plans first.
+  const past = plans
+    .filter((p) => p.scheduled_date < todayIstanbul)
+    .sort((a, b) => b.scheduled_date.localeCompare(a.scheduled_date));
+  // Soonest upcoming first (today, then tomorrow, then...).
+  const upcoming = plans
+    .filter((p) => p.scheduled_date >= todayIstanbul)
+    .sort((a, b) => a.scheduled_date.localeCompare(b.scheduled_date));
+
+  const summarize = (p: (typeof plans)[number]): PastPlan => {
     const firstStop = (p.stops ?? [])
       .slice()
       .sort((a, b) => a.ordinal - b.ordinal)[0];
@@ -101,7 +123,11 @@ export async function getMemberActivity(
       vibe: firstStop?.vibe ?? null,
       neighborhood_slug: firstStop?.neighborhood_slug ?? null,
     };
-  });
+  };
+  const pastPlans: PastPlan[] = past.slice(0, PAST_PLANS_LIMIT).map(summarize);
+  const upcomingPlans: UpcomingPlan[] = upcoming
+    .slice(0, UPCOMING_PLANS_LIMIT)
+    .map((p) => ({ ...summarize(p), isHost: p.creator_id === memberId }));
 
   // Distinct neighborhood slugs across every stop on every attended
   // plan. Powers the neighborhood passport section.
@@ -160,6 +186,7 @@ export async function getMemberActivity(
 
   return {
     pastPlans,
+    upcomingPlans,
     totalPlanCount: plans.length,
     neighborhoodsVisited: Array.from(hoodSet).sort(),
     coAttendees,

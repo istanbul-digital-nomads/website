@@ -103,13 +103,25 @@ export interface PlanInitialState {
 interface PlanCreateFlowProps {
   /** When provided, the flow becomes an edit flow for that plan. */
   initial?: PlanInitialState;
+  /**
+   * Host's member_type. Drives whether the "Charge an entry fee" mode
+   * is exposed. Phase 2 limits ticketing to local_guide + tour_guide;
+   * Phase 3 will further gate by Blue-badge verification.
+   */
+  hostRole?: "nomad" | "remote_worker" | "local_guide" | "tour_guide" | null;
 }
 
-export function PlanCreateFlow({ initial }: PlanCreateFlowProps = {}) {
+export function PlanCreateFlow({
+  initial,
+  hostRole = null,
+}: PlanCreateFlowProps = {}) {
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("plans.create");
+  const tMoney = useTranslations("plans.money");
   const isEdit = !!initial;
+
+  const canTicket = hostRole === "local_guide" || hostRole === "tour_guide";
 
   const today = todayInIstanbul();
   const tomorrow = addDays(today, 1);
@@ -121,6 +133,13 @@ export function PlanCreateFlow({ initial }: PlanCreateFlowProps = {}) {
   const [capacity, setCapacity] = useState(
     initial?.capacity != null ? String(initial.capacity) : "",
   );
+  // Phase 2 money state. Lira-denominated string inputs serialize to
+  // _cents on submit. is_ticketed only ever flips true for canTicket
+  // hosts (UI hides the toggle for others; server still verifies).
+  const [isTicketed, setIsTicketed] = useState(false);
+  const [entryFeeLira, setEntryFeeLira] = useState("");
+  const [budgetMinLira, setBudgetMinLira] = useState("");
+  const [budgetMaxLira, setBudgetMaxLira] = useState("");
   // Compute initial stops + first focused uid together so the edit flow
   // can open with the first stop focused (no setState-in-effect dance).
   const initialStops = useMemo<EditableStop[]>(
@@ -299,11 +318,26 @@ export function PlanCreateFlow({ initial }: PlanCreateFlowProps = {}) {
     }
     setLoading(true);
 
+    // Lira (display unit) → cents (DB unit). 100 cents = 1 TL.
+    const liraToCents = (s: string) => {
+      const n = Number(s);
+      return Number.isFinite(n) && n > 0 ? Math.round(n * 100) : null;
+    };
     const body = {
       scheduled_date: scheduledDate,
       title: title.trim() || autoTitle || "Today",
       capacity: capacity ? Number(capacity) : null,
       language: locale,
+      is_ticketed: canTicket && isTicketed,
+      entry_fee_cents:
+        canTicket && isTicketed ? liraToCents(entryFeeLira) : null,
+      budget_per_person_min_cents: !isTicketed
+        ? liraToCents(budgetMinLira)
+        : null,
+      budget_per_person_max_cents: !isTicketed
+        ? liraToCents(budgetMaxLira)
+        : null,
+      currency: "TRY",
       stops: stops.map((s) => ({
         space_id: s.space_id,
         custom_location: s.custom_location,
@@ -508,6 +542,93 @@ export function PlanCreateFlow({ initial }: PlanCreateFlowProps = {}) {
                 placeholder="-"
                 className="w-16 rounded-md border border-ink-3 bg-transparent px-2 py-1 text-sm text-paper placeholder:text-paper-faint focus-visible:border-terracotta focus-visible:outline-none"
               />
+            </div>
+          )}
+
+          {/* Phase 2 money block. Budget mode by default. Ticketed mode
+              only exposed for canTicket hosts and disabled with a
+              "Verification required" tooltip until Phase 3. */}
+          {stops.length > 0 && (
+            <div className="space-y-3 border-t border-ink-3 px-4 py-4">
+              <div className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                {tMoney("sectionLabel")}
+              </div>
+
+              {canTicket && (
+                <div
+                  className="flex items-center justify-between gap-3 rounded-md border border-ink-3 px-3 py-2"
+                  title={tMoney("verificationRequiredHint")}
+                >
+                  <div className="text-sm text-paper">
+                    <div>{tMoney("ticketedToggleLabel")}</div>
+                    <div className="text-[11px] text-paper-mute">
+                      {tMoney("verificationRequiredHint")}
+                    </div>
+                  </div>
+                  <label className="inline-flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={isTicketed}
+                      onChange={(e) => setIsTicketed(e.target.checked)}
+                      disabled
+                      className="h-4 w-4 rounded border-ink-3 opacity-50"
+                    />
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-paper-faint">
+                      {tMoney("verificationLockedTag")}
+                    </span>
+                  </label>
+                </div>
+              )}
+
+              {!isTicketed && (
+                <div className="grid grid-cols-2 gap-2">
+                  <label className="flex flex-col gap-1">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                      {tMoney("budgetMinLabel")}
+                    </span>
+                    <input
+                      type="number"
+                      min={0}
+                      step={10}
+                      value={budgetMinLira}
+                      onChange={(e) => setBudgetMinLira(e.target.value)}
+                      placeholder="0"
+                      className="rounded-md border border-ink-3 bg-transparent px-2 py-1.5 text-sm text-paper placeholder:text-paper-faint focus-visible:border-terracotta focus-visible:outline-none"
+                    />
+                  </label>
+                  <label className="flex flex-col gap-1">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                      {tMoney("budgetMaxLabel")}
+                    </span>
+                    <input
+                      type="number"
+                      min={0}
+                      step={10}
+                      value={budgetMaxLira}
+                      onChange={(e) => setBudgetMaxLira(e.target.value)}
+                      placeholder="0"
+                      className="rounded-md border border-ink-3 bg-transparent px-2 py-1.5 text-sm text-paper placeholder:text-paper-faint focus-visible:border-terracotta focus-visible:outline-none"
+                    />
+                  </label>
+                </div>
+              )}
+
+              {isTicketed && canTicket && (
+                <label className="flex flex-col gap-1">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                    {tMoney("entryFeeLabel")}
+                  </span>
+                  <input
+                    type="number"
+                    min={1}
+                    step={10}
+                    value={entryFeeLira}
+                    onChange={(e) => setEntryFeeLira(e.target.value)}
+                    placeholder="0"
+                    className="rounded-md border border-ink-3 bg-transparent px-2 py-1.5 text-sm text-paper placeholder:text-paper-faint focus-visible:border-terracotta focus-visible:outline-none"
+                  />
+                </label>
+              )}
             </div>
           )}
 

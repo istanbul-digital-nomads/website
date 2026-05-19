@@ -77,13 +77,26 @@ async function MemberProfileContent(props: Props) {
                 </span>
               )}
             </div>
-            {member.member_type ? (
-              <div className="mt-4">
-                <RoleBadge
-                  role={member.member_type}
-                  label={roleLabel}
-                  size="md"
-                />
+            {member.member_type || member.is_agent ? (
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                {member.member_type ? (
+                  <RoleBadge
+                    role={member.member_type}
+                    label={roleLabel}
+                    size="md"
+                  />
+                ) : null}
+                {member.is_agent ? (
+                  <Link
+                    href={`/paperwork?host=${member.id}`}
+                    className="inline-flex items-center rounded-full bg-moss/15 px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-moss transition-colors hover:bg-moss/25"
+                  >
+                    {t("agentBadge")}
+                    <span className="ms-1 opacity-60" aria-hidden>
+                      →
+                    </span>
+                  </Link>
+                ) : null}
               </div>
             ) : null}
             <dl className="mt-5 border-t border-ink-3">

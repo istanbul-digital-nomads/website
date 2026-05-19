@@ -103,6 +103,7 @@ type Props = {
   members: MemberPublic[];
   hoodOrder?: string[];
   activeRole?: MemberRole | null;
+  activeAgentOnly?: boolean;
 };
 
 export function MembersEditorial({
@@ -110,6 +111,7 @@ export function MembersEditorial({
   members,
   hoodOrder,
   activeRole = null,
+  activeAgentOnly = false,
 }: Props) {
   const t = useTranslations("membersV2");
   const tRoles = useTranslations(
@@ -211,7 +213,7 @@ export function MembersEditorial({
           <LocalizedLink
             href="/members"
             className={`rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors ${
-              activeRole === null
+              activeRole === null && !activeAgentOnly
                 ? "border-gold bg-gold/15 text-gold"
                 : "border-cream/15 text-cream/55 hover:border-cream/30 hover:text-cream"
             }`}
@@ -219,7 +221,7 @@ export function MembersEditorial({
             {t("roleFilterAll")}
           </LocalizedLink>
           {MEMBER_ROLES.map((r) => {
-            const isActive = activeRole === r;
+            const isActive = activeRole === r && !activeAgentOnly;
             return (
               <LocalizedLink
                 key={r}
@@ -234,6 +236,16 @@ export function MembersEditorial({
               </LocalizedLink>
             );
           })}
+          <LocalizedLink
+            href="/members?agent=1"
+            className={`rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors ${
+              activeAgentOnly
+                ? "border-moss bg-moss/15 text-moss"
+                : "border-cream/15 text-cream/55 hover:border-cream/30 hover:text-cream"
+            }`}
+          >
+            {t("roleFilterAgent")}
+          </LocalizedLink>
         </nav>
 
         {/* Main split: recent sidebar + grouped-by-hood right column */}

@@ -26,16 +26,19 @@ export default async function MembersPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ role?: string }>;
+  searchParams: Promise<{ role?: string; agent?: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const { role: roleParam } = await searchParams;
+  const { role: roleParam, agent: agentParam } = await searchParams;
   const activeRole = isMemberRole(roleParam) ? roleParam : null;
+  const activeAgentOnly = agentParam === "1";
   const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
   const { data } = await getMembersPublic();
-  const members = (data ?? []).filter((m) =>
-    activeRole ? m.member_type === activeRole : true,
-  );
+  const members = (data ?? []).filter((m) => {
+    if (activeRole && m.member_type !== activeRole) return false;
+    if (activeAgentOnly && !m.is_agent) return false;
+    return true;
+  });
 
   // Preferred hood ordering matches the hero map's tour stops where
   // possible, then falls through to whatever else is in the data.
@@ -66,6 +69,7 @@ export default async function MembersPage({
       members={members}
       hoodOrder={HOOD_ORDER}
       activeRole={activeRole}
+      activeAgentOnly={activeAgentOnly}
     />
   );
 }

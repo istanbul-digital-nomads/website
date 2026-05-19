@@ -82,11 +82,51 @@ const planBase = z.object({
     z.number().int().min(2).max(20).nullable().optional(),
   ),
   language: z.string().min(2).max(5).optional(),
+  // Phase 2 money fields. Exactly one mode applies:
+  //   budget plan  -> is_ticketed=false, optional budget_*_cents range
+  //   ticketed plan -> is_ticketed=true, entry_fee_cents required
+  // The Phase 3 verification ladder gates whether is_ticketed=true is
+  // even allowed at the API layer; schema enforces shape only.
+  is_ticketed: z.boolean().optional().default(false),
+  entry_fee_cents: z.preprocess(
+    numberOrNull,
+    z.number().int().min(0).nullable().optional(),
+  ),
+  budget_per_person_min_cents: z.preprocess(
+    numberOrNull,
+    z.number().int().min(0).nullable().optional(),
+  ),
+  budget_per_person_max_cents: z.preprocess(
+    numberOrNull,
+    z.number().int().min(0).nullable().optional(),
+  ),
+  currency: z.literal("TRY").optional().default("TRY"),
 });
 
-export const planCreateSchema = planBase.extend({
-  stops: z.array(planStopSchema).min(1, "Add at least one stop").max(8),
-});
+export const planCreateSchema = planBase
+  .extend({
+    stops: z.array(planStopSchema).min(1, "Add at least one stop").max(8),
+  })
+  .refine(
+    (v) =>
+      !v.is_ticketed ||
+      (typeof v.entry_fee_cents === "number" && v.entry_fee_cents > 0),
+    {
+      message: "Ticketed plans need an entry fee",
+      path: ["entry_fee_cents"],
+    },
+  )
+  .refine(
+    (v) =>
+      v.is_ticketed ||
+      v.budget_per_person_min_cents == null ||
+      v.budget_per_person_max_cents == null ||
+      v.budget_per_person_max_cents >= v.budget_per_person_min_cents,
+    {
+      message: "Max budget must be at least the min",
+      path: ["budget_per_person_max_cents"],
+    },
+  );
 
 export type PlanCreateInput = z.infer<typeof planCreateSchema>;
 

@@ -272,6 +272,27 @@ export function StepInterests({ data, updateField, errors }: StepProps) {
         </div>
       )}
 
+      {/* Phase 2: is_agent capability toggle. Independent of role -
+          any role can also offer paperwork services. */}
+      <div className="rounded-xl border border-black/5 bg-white/40 p-4 dark:border-white/5 dark:bg-[#1e2130]/60">
+        <label className="flex items-start gap-3">
+          <input
+            type="checkbox"
+            checked={Boolean(data.is_agent)}
+            onChange={(e) => updateField("is_agent", e.target.checked)}
+            className="mt-0.5 h-4 w-4 rounded border-neutral-300 text-primary-600 focus:ring-primary-500 dark:border-neutral-600"
+          />
+          <span>
+            <span className="block text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]">
+              {t("isAgentLabel")}
+            </span>
+            <span className="mt-1 block text-xs leading-relaxed text-[#5d6d7e] dark:text-[#99a3ad]">
+              {t("isAgentHint")}
+            </span>
+          </span>
+        </label>
+      </div>
+
       <CheckboxGroup
         label={t("activities")}
         options={ACTIVITIES}

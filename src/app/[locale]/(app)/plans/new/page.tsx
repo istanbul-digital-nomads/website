@@ -28,5 +28,16 @@ async function NewPlanContent({
   const { data: member } = await getCurrentMember();
   if (!member) redirect("/login?next=/plans/new");
 
-  return <PlanCreateFlow />;
+  // Phase 2: pass host role so the form knows whether to expose the
+  // ticketed-mode option. local_guide + tour_guide can charge entry
+  // fees (UI present, server-side gate enforces); other roles only
+  // see the budget mode.
+  const hostRole = (member.member_type ?? null) as
+    | "nomad"
+    | "remote_worker"
+    | "local_guide"
+    | "tour_guide"
+    | null;
+
+  return <PlanCreateFlow hostRole={hostRole} />;
 }

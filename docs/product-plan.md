@@ -95,7 +95,15 @@ it. No verification yet, no payment yet. Pure foundation.
 
 ---
 
-## Phase 2 · Plans v2: budget vs entry fee + admin/culture vibes (~3 days)
+## Phase 2 · Plans v2 + paperwork surface (shipped in 3.10.0 ✓)
+
+**Scope expanded vs original plan**: paperwork was supposed to be a
+`vibe='admin'` value on plans. Re-scoped during Phase 2 discussion:
+paperwork is its own surface (`/paperwork`) with its own table
+(`paperwork_services`), agents are a capability flag (`is_agent`)
+not a primary role.
+
+**Original Phase 2 description below for context:**
 
 **Goal:** the plan creation flow understands the two plan classes (budget
 vs ticketed) and the two new vibes (`culture`, `admin`). Wires plumbing

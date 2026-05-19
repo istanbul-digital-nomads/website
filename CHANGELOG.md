@@ -4,6 +4,39 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.12.0] - 2026-05-19
+
+**Rich member profiles - nomads.com-style depth, editorial categorization.** Profile pages get a multi-section editorial layout with three new free-text chip categories (Working on / Happy to talk about / Hobbies + interests) plus a current-vibe status pip. Onboarding wizard captures all four fields with a clean chip-input UX. Migration 020 applied to prod.
+
+### Added
+
+- **`members.current_status`** TEXT enum (six values: `deep_work`, `open_to_meet`, `exploring`, `settling_in`, `hosting`, `hibernating`). Drives the vibe pip on profile + directory cards.
+- **`members.working_on`** TEXT[] - up to 8 free-text chips ("what you're focused on right now").
+- **`members.wants_to_talk_about`** TEXT[] - up to 8 chips ("conversation starters you'd enjoy").
+- **`members.hobbies`** TEXT[] - up to 12 chips ("life outside work").
+- **`src/lib/member-profile.ts`** - `CURRENT_STATUS_OPTIONS` + `STATUS_TONE` map (per-status background/text/dot color).
+- **Partial index** `members_status_open_idx` on the open-to-meet + hosting subset for future "currently open" filters.
+
+### Changed
+
+- **Onboarding wizard step-interests** gained a vibe picker (6 chip tiles) + 3 free-text chip inputs (Working on / Happy to talk about / Hobbies). The new `ChipInput` component handles Enter/comma-to-add, Backspace-to-remove-last, click-chip-to-remove, and respects per-field max counts.
+- **`/members/[id]` rebuilt as editorial sections**: hero (avatar + role/verified/agent badges) → editorial body (eyebrow + display name + status pip + bio + plan list) → **N° 02 Working on** (terracotta tone) → **N° 03 Happy to talk about** (ferry-yellow tone) → **N° 04 Hobbies + interests** (moss tone) → skills + languages + website. Each chip section hides itself if the underlying array is empty.
+- **`/members` directory cards** show a tiny tone-coded status dot inline with the display name. Members without a status set show nothing - no "Unverified vibe" shaming.
+- **`MemberPublic`** + `MemberPublicProfile` now include the new fields; queries widened to fetch them.
+
+### i18n (en/tr/fa/ar/ru)
+
+- `currentStatusOptions` (6 labels) + `currentStatusLabel`/`Hint`
+- `workingOnLabel`/`Hint`, `wantsToTalkLabel`/`Hint`, `hobbiesLabel`/`Hint`
+- `chipAdd` / `chipRemove` / `chipPlaceholder`
+- `profile.workingOn` / `wantsToTalk` / `hobbies` section headers
+
+### Migration / deploy notes
+
+- Migration 020 applied to prod before the code deploy.
+- Demo members (Ahmet, Cem, Mehdi, Sibel) seeded with realistic chip data for `/paperwork` + `/members` to look populated.
+- No breaking changes - all new fields are nullable; existing members render unchanged until they update.
+
 ## [3.11.1] - 2026-05-19
 
 **Phase 3 closeout: verification flow becomes discoverable end-to-end.** 3.11.0 shipped the schema + form + ticketed-mode gate; 3.11.1 wires the badge across every host-facing surface and gives members entry points beyond the `/plans/new` ticketed CTA.

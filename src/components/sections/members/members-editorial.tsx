@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { MemberPublic } from "@/types/models";
 import { MEMBER_ROLES, type MemberRole } from "@/lib/member-roles";
+import { STATUS_TONE, isCurrentStatus } from "@/lib/member-profile";
 import { Link as LocalizedLink } from "@/lib/i18n/routing";
 
 // Hue rotation for the avatar gradient fallback. Stable per-name so the
@@ -81,6 +82,23 @@ function AvatarCircle({
         </span>
       )}
     </span>
+  );
+}
+
+// Tiny status dot next to a member's name on the directory cards.
+// Renders nothing for null/unknown status - we don't shame members
+// who haven't set a vibe.
+function StatusDot({ status }: { status: string | null | undefined }) {
+  if (!isCurrentStatus(status)) return null;
+  const tone = STATUS_TONE[status];
+  // Reuse the Tailwind background classes from the tone map - they
+  // ship with the build.
+  return (
+    <span
+      className={`inline-block h-2 w-2 shrink-0 rounded-full ${tone.dotColor}`}
+      aria-label={`Current status: ${status.replace(/_/g, " ")}`}
+      title={status.replace(/_/g, " ")}
+    />
   );
 }
 
@@ -349,8 +367,11 @@ export function MembersEditorial({
                       >
                         <AvatarCircle member={m} size={40} />
                         <div className="min-w-0">
-                          <div className="truncate font-editorial text-[19px] leading-tight tracking-tight text-cream">
-                            {m.display_name}
+                          <div className="flex items-center gap-2">
+                            <div className="truncate font-editorial text-[19px] leading-tight tracking-tight text-cream">
+                              {m.display_name}
+                            </div>
+                            <StatusDot status={m.current_status} />
                           </div>
                           {m.bio && (
                             <div className="mt-1 line-clamp-1 text-[12px] text-cream/55">

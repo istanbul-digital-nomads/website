@@ -1820,6 +1820,25 @@
         },
         "isAgentLabel": "I also offer paperwork services",
         "isAgentHint": "Tick this if you help others with visa, ikamet, bank account opening, notary, or govt-office paperwork. Your services will appear on /paperwork after verification.",
+        "currentStatusLabel": "What's your current vibe?",
+        "currentStatusHint": "You can change this any time from your profile.",
+        "currentStatusOptions": {
+          "deep_work": "Deep work mode",
+          "open_to_meet": "Open to meet for coffee",
+          "exploring": "Out exploring the city",
+          "settling_in": "Just settling in",
+          "hosting": "Hosting plans today",
+          "hibernating": "Offline for a bit"
+        },
+        "workingOnLabel": "What are you working on?",
+        "workingOnHint": "Tap enter to add - up to 8 short tags. Examples: ML side project, novel chapter 3, new SaaS launch.",
+        "wantsToTalkLabel": "What would you happily talk about for an hour?",
+        "wantsToTalkHint": "Up to 8 tags. Examples: long-form writing, Persian poetry, climbing routes, AI ethics.",
+        "hobbiesLabel": "Hobbies + interests outside work",
+        "hobbiesHint": "Up to 12 tags. Examples: pottery, surfing, board games, cooking, weekend hikes.",
+        "chipAdd": "Add",
+        "chipRemove": "Remove",
+        "chipPlaceholder": "Type and press Enter",
         "professionalRoleLabel": "What do you do for work?",
         "professionalRolePlaceholder": "Software engineer, designer, founder...",
         "tourGuideLicenseLabel": "Tourism guide license number",
@@ -2838,7 +2857,10 @@
       "aboutEyebrow": "About",
       "noBio": "This member hasn't written a bio yet.",
       "skills": "Skills",
-      "languages": "Languages"
+      "languages": "Languages",
+      "workingOn": "Working on",
+      "wantsToTalk": "Happy to talk about",
+      "hobbies": "Hobbies + interests"
     },
     "dashboard": {
       "eyebrow": "Your dashboard",

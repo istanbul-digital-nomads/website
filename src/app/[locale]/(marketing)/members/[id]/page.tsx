@@ -13,6 +13,7 @@ import { MemberPlansToday } from "@/components/sections/plans/member-plans-today
 import { RoleBadge } from "@/components/ui/role-badge";
 import { VerificationBadge } from "@/components/ui/verification-badge";
 import { isVerificationLevel } from "@/lib/verification";
+import { isCurrentStatus, STATUS_TONE } from "@/lib/member-profile";
 
 interface Props {
   params: Promise<{ locale: string; id: string }>;
@@ -52,11 +53,18 @@ async function MemberProfileContent(props: Props) {
     locale,
     "verification.tooltips",
   );
+  const tStatusOptions = getCachedTranslations(
+    locale,
+    "onboardingPage.steps.interests.currentStatusOptions",
+  );
   const initial = (member.display_name || "?").trim().charAt(0).toUpperCase();
   const roleLabel = member.member_type ? tRoles(member.member_type) : "";
   const verificationLevel = isVerificationLevel(member.verification_level)
     ? member.verification_level
     : "basic";
+  const currentStatus = isCurrentStatus(member.current_status)
+    ? member.current_status
+    : null;
 
   return (
     <section className="bg-ink-1 pt-12 lg:pt-16">
@@ -154,12 +162,18 @@ async function MemberProfileContent(props: Props) {
             ) : null}
           </div>
 
-          {/* Bio + skills + languages */}
+          {/* Editorial body - section per category */}
           <div>
             <SectionEyebrow num="N° 01" label={t("profile.aboutEyebrow")} />
             <h1 className="mt-6 font-display text-display-lg leading-none text-paper">
               {member.display_name}
             </h1>
+            {currentStatus !== null ? (
+              <StatusPip
+                status={currentStatus}
+                label={tStatusOptions(currentStatus)}
+              />
+            ) : null}
             {member.bio ? (
               <p className="mt-6 max-w-2xl text-lede leading-relaxed text-paper-dim">
                 {member.bio}
@@ -171,6 +185,25 @@ async function MemberProfileContent(props: Props) {
             )}
 
             <MemberPlansToday memberId={member.id} locale={locale} />
+
+            <ProfileChipSection
+              num="N° 02"
+              title={t("profile.workingOn")}
+              tone="terracotta"
+              chips={member.working_on}
+            />
+            <ProfileChipSection
+              num="N° 03"
+              title={t("profile.wantsToTalk")}
+              tone="ferry-yellow"
+              chips={member.wants_to_talk_about}
+            />
+            <ProfileChipSection
+              num="N° 04"
+              title={t("profile.hobbies")}
+              tone="moss"
+              chips={member.hobbies}
+            />
 
             {member.skills && member.skills.length > 0 ? (
               <div className="mt-10 border-t border-ink-3 pt-8">
@@ -215,6 +248,73 @@ async function MemberProfileContent(props: Props) {
         </div>
       </Container>
     </section>
+  );
+}
+
+function ProfileChipSection({
+  num,
+  title,
+  tone,
+  chips,
+}: {
+  num: string;
+  title: string;
+  tone: "terracotta" | "ferry-yellow" | "moss";
+  chips: string[] | null | undefined;
+}) {
+  if (!chips || chips.length === 0) return null;
+  const toneClass = {
+    terracotta: "text-terracotta",
+    "ferry-yellow": "text-ferry-yellow",
+    moss: "text-moss",
+  }[tone];
+  const chipBg = {
+    terracotta: "bg-terracotta/10 text-terracotta",
+    "ferry-yellow": "bg-ferry-yellow/10 text-ferry-yellow",
+    moss: "bg-moss/10 text-moss",
+  }[tone];
+  return (
+    <div className="mt-10 border-t border-ink-3 pt-8">
+      <div className="flex items-baseline gap-3">
+        <span className="font-mono text-[11px] uppercase tracking-wider text-paper-faint">
+          {num}
+        </span>
+        <h2
+          className={`font-mono text-[11px] uppercase tracking-wider ${toneClass}`}
+        >
+          {title}
+        </h2>
+      </div>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {chips.map((c) => (
+          <span
+            key={c}
+            className={`inline-flex items-center rounded-full px-3 py-1 text-[13px] ${chipBg}`}
+          >
+            {c}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function StatusPip({ status, label }: { status: string; label: string }) {
+  const tone =
+    status in STATUS_TONE
+      ? STATUS_TONE[status as keyof typeof STATUS_TONE]
+      : null;
+  if (!tone) return null;
+  return (
+    <span
+      className={`mt-4 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-mono uppercase tracking-wider ${tone.bg} ${tone.text}`}
+    >
+      <span
+        className={`inline-block h-1.5 w-1.5 rounded-full ${tone.dotColor}`}
+        aria-hidden
+      />
+      {label}
+    </span>
   );
 }
 

@@ -12,7 +12,6 @@ import {
   Compass,
   MapPin,
   Search,
-  Tag,
   Users,
   UsersRound,
 } from "lucide-react";
@@ -42,7 +41,6 @@ const NAV_ICONS: Record<
   map: MapPin,
   events: Calendar,
   members: Users,
-  perks: Tag,
   explore: Compass,
   community: UsersRound,
 };

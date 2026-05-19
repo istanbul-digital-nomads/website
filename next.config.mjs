@@ -51,6 +51,15 @@ const nextConfig = {
       "next-intl",
     ],
   },
+  async redirects() {
+    return [
+      // 3.8.2 - /perks pulled from the product. Preserve inbound link
+      // equity by 301-ing to home. Drop once we're sure no live links
+      // point at /perks.
+      { source: "/perks", destination: "/", permanent: true },
+      { source: "/:locale(tr|fa|ar|ru)/perks", destination: "/:locale", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

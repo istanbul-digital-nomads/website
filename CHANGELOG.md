@@ -4,6 +4,64 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.8.2] - 2026-05-19
+
+**Focus the surface: Perks and Nomad+ pulled. Phased product plan added.** Clears the deck for the registration → profile → plan → ticket loop that the next several releases will build. `/perks` 301s to `/`; nav and homepage no longer show the Perks entry or the Membership Tiers (Nomad+) section.
+
+### Removed
+
+- **Workspace navbar** no longer shows `Perks`. Both the global Header and the hero brand bar read from the same `navItems` source of truth in [src/lib/constants.ts](src/lib/constants.ts); the entry is gone and so is the `perks` value from `NavItemKey` + `NavChildKey` + `NavCountKey` types.
+- **Homepage scroll** no longer shows the `MembershipTiers` (Nomad+) section. Component file deleted ([src/components/sections/home/membership-tiers.tsx](src/components/sections/home/membership-tiers.tsx) - gone).
+- **Footer** no longer links to `/perks`.
+- **CommandMenu / search** no longer indexes `/perks`.
+- **`(marketing)/perks/` route deleted.** Inbound links 301 to `/` (and locale prefixes to `/:locale`) via new `redirects()` block in [next.config.mjs](next.config.mjs).
+- **`getPerksPublic` + `PerkPublic` removed** from [src/lib/supabase/queries.ts](src/lib/supabase/queries.ts) - no remaining callers. The underlying `perks` Supabase table is left intact in case we revisit.
+- **`getNavCounts`** now only fetches events; the perks branch is gone.
+
+### Added
+
+- **[docs/product-plan.md](docs/product-plan.md)** - phased build plan from current production state to working ticketed-plan marketplace. 10 phases (Phase 0 = this PR; Phase 1 = role expansion + lightweight profile; Phase 4 = paid plans live in closed beta). Each phase has scope, schema deltas, UI changes, and an explicit "what's NOT in this phase". Out-of-scope list at the bottom captures the deliberate Nomad+, /perks, in-site DMs, multi-city, native-app exclusions.
+- **PRODUCT.md §14** points at the product plan as the source of truth for phase ordering and dependencies.
+
+### Changed
+
+- **PRODUCT.md §6 (Monetisation)** reframed - only two revenue streams in scope: ticket fees on paid plans + guide subscriptions. The previous "Revenue stream 3 · Nomad+ (parked)" subsection is gone.
+- **PRODUCT.md §13 (Boundaries)** - the "No public Agent presence" + "No Nomad+ launch before brand credit is earned" entries replaced with a single explicit "No consumer-side premium tier and no partner perks vault in scope for the current build" entry that names 3.8.2 as the pull-out point.
+- **PRODUCT.md §9 (XP + badges)** - "Recognition + perks credit" reward language replaced with "Recognition + ticket credit" (no /perks page to redeem against any more).
+
+### Migration notes
+
+- No DB migration in 3.8.2. The `perks` table is untouched. Same for `MembershipTiers`-related i18n keys in `src/messages/*.json` - they're orphaned but not deleted, so the translation pipeline doesn't have to flush 5 locales for a strategic decision that may reverse.
+- Any external SEO links to `/perks` are preserved via the 301 redirect for the foreseeable future.
+
+## [3.8.1] - 2026-05-19
+
+**PRODUCT.md rewritten with full strategy: monetisation, member roles, verification ladder, XP + badges. Legal-doc drafts landed (T&C, Community Guidelines, Plan Disclaimers).** Docs-only patch. No code changes yet; the new doc is the spec that subsequent migrations and features will implement against.
+
+### Documentation
+
+- **PRODUCT.md** restructured into 15 sections. New sections:
+  - **§3 Member roles + verification** - 5 roles (`nomad`, `remote_worker`, `local_guide`, `tour_guide`, `agent`). Agent is a public role like any other (listed in `/members`, eligible for `/local-guides`, plans surface in `/today`); distinguished from `local_guide` by service type, not by visibility. Three-badge verification ladder (Red basic, Blue verified, Gold trusted). Only Blue/Gold can set entry fees on plans.
+  - **§5 Product loop** split into Loop A (content hub, pre-arrival) and Loop B (community planner, in-Istanbul). Loop B now includes the payment flow (ticket → 7-day holdback → guide payout).
+  - **§6 Monetisation** - three revenue streams documented. Ticket fees (active path to live): **iyzico primary, Stripe Connect fallback, 10% platform + ~2.9% processing = ~13% gross take, 7-day holdback payout**. Guide subscriptions (planned): Free (1 plan/mo) / Standard (5/mo) / Pro (20/mo). Nomad+ parked until brand credit higher.
+  - **§9 XP + badges** - vanity + real-world rewards (one-year-in-Istanbul bracelet is the floor reward), no gating. Threshold ladder for "First plan / Regular / Veteran" + editorial picks for "Best nomad of the year / Top host of the year".
+- **§8 Data entities** expanded with: `member_type` enum to 5 values; new `verification_level` + `xp` + `professional_role` columns on `members`; new tables `member_badges`, `member_subscriptions`, `plan_tickets`; `plans.is_ticketed` + `host_role_at_creation`/`host_badge_at_creation` snapshots; `plan_stops.vibe` extended with `culture` + `admin`; `plan_stops` gets `budget_per_person_min/max` + `entry_fee_cents`/`currency` split (budget plans vs ticketed plans).
+- **§7 Surfaces** - added required-but-not-built rows: `/legal/terms`, `/legal/community-guidelines`, `/legal/plan-disclaimers`, `/legal/privacy`, `/dashboard/payouts`, `/dashboard/subscription`. Each tagged as required before paid-plan launch.
+- **§13 Boundaries** - new entries: no ticket take on budget-only plans, no Nomad+ launch before brand credit is earned.
+- **§14 Where things stand** - 13-item ordered follow-up list scoped to "required before paid-plan launch" (role expansion, KYC vendor, iyzico marketplace integration, `plan_tickets`, subscription tiers, legal pages, XP schema, neighborhood counts, `vibe='admin'` plumbing).
+- **Neighborhood = connective tissue** explicit invariant added to §8: every member has a neighborhood, every plan stop has a neighborhood, every neighborhood page must show live nomad + guide counts.
+
+### Legal drafts (working, not lawyer-reviewed)
+
+Three new docs under [docs/legal/](docs/legal/) - intended to ship as the
+content for `/legal/terms`, `/legal/community-guidelines`, and
+`/legal/plan-disclaimers` after final review and translation to all 5
+locales.
+
+- **[docs/legal/community-guidelines.md](docs/legal/community-guidelines.md)** - the five rules (show up, be honest, verify before trust, Telegram for chat, don't make this place weird), then the full per-category breakdown (honesty, respect, plans, money, safety, verification, content), moderation process (strikes / suspensions / appeals to legal@istanbulnomads.com), report channels (in-platform / email / Telegram / 112 for emergencies), versioning policy. Strict on no-show behavior: 3 strikes in 90 days = 30-day suspension, 6 strikes = permanent.
+- **[docs/legal/terms.md](docs/legal/terms.md)** - **LAWYER REVIEW REQUIRED** marker at the top. Plain-English working draft covering: who we are, who these terms cover, eligibility (18+), accounts and roles, three-tier verification, plans + money flow (10% platform + ~2.9% processing on tickets, 7-day payout holdback), refund policy (24h+ before = full refund, no-show forfeits, host cancellation = full refund), disputes, guide subscriptions, content licensing, acceptable use, termination, limitation of liability, indemnification, change-of-terms process, **Turkish law and Istanbul courts as governing jurisdiction**. Includes a publication checklist requiring KVKK / TKHK 6502 / 6563 sayılı Kanun / Distance Selling Regulation review.
+- **[docs/legal/plan-disclaimers.md](docs/legal/plan-disclaimers.md)** - per-vibe disclaimer text for `focus`, `cowork`, `social`, `meal`, `after-work` (alcohol + 18+ floor), `outdoor` (risk, weather, health), `culture` (venue tickets often not included), `admin` (not legal advice). Plus a "common to every plan" disclaimer block (real-life meetup disclaimer, 112 emergency line).
+
 ## [3.8.0] - 2026-05-19
 
 **Route-group scaffold + components reorg + canonical PRODUCT doc.** The `[locale]` tree is now carved into three Next.js route groups - `(home)`, `(marketing)`, `(app)` - each with its own layout. The homepage naturally has no global Header (the hero brand bar owns the top), marketing and app routes mount `HeaderWithCounts` from their own group layout, and the `is-home` pre-hydration script + `IsHomeMarker` client island + `hero-home-hide` CSS shim are all gone. Components moved from `src/components/{plans,today}/` to `src/components/sections/{plans,today}/` so every page-section component lives under a single roof. New `PRODUCT.md` is now the canonical product reference; README / DESIGN / ROADMAP / ARCHITECTURE updated to point at it.

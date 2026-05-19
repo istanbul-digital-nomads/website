@@ -8,7 +8,7 @@
 // components). cacheLife("minutes") matches the upstream events cache.
 
 import { unstable_cacheLife as cacheLife } from "next/cache";
-import { getEventsPublic, getPerksPublic } from "@/lib/supabase/queries";
+import { getEventsPublic } from "@/lib/supabase/queries";
 import type { HeaderCounts } from "@/components/layout/header";
 
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
@@ -17,10 +17,7 @@ export async function getNavCounts(): Promise<HeaderCounts> {
   "use cache";
   cacheLife("minutes");
   try {
-    const [eventsRes, perksRes] = await Promise.all([
-      getEventsPublic({ past: false }),
-      getPerksPublic(),
-    ]);
+    const eventsRes = await getEventsPublic({ past: false });
 
     const now = Date.now();
     const horizon = now + SEVEN_DAYS_MS;
@@ -30,10 +27,9 @@ export async function getNavCounts(): Promise<HeaderCounts> {
         const t = new Date(e.date).getTime();
         return t >= now && t <= horizon;
       }).length ?? 0;
-    const perks = perksRes.data?.length ?? 0;
 
-    return { events, perks };
+    return { events };
   } catch {
-    return { events: 0, perks: 0 };
+    return { events: 0 };
   }
 }

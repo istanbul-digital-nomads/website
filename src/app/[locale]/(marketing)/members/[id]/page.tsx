@@ -252,11 +252,62 @@ async function MemberProfileContent(props: Props) {
               chips={member.hobbies}
             />
 
-            {activity.pastPlans.length > 0 ? (
+            {activity.upcomingPlans.length > 0 ? (
               <div className="mt-10 border-t border-ink-3 pt-8">
                 <div className="flex items-baseline gap-3">
                   <span className="font-mono text-[11px] uppercase tracking-wider text-paper-faint">
                     N° 05
+                  </span>
+                  <h2 className="font-mono text-[11px] uppercase tracking-wider text-sky-400">
+                    {t("profile.upcomingPlans")}
+                  </h2>
+                </div>
+                <ul className="mt-4 divide-y divide-ink-3 border-t border-ink-3">
+                  {activity.upcomingPlans.map((p) => (
+                    <li key={p.id}>
+                      <Link
+                        href={`/plans/${p.id}`}
+                        className="grid grid-cols-[100px_1fr_auto_auto] items-center gap-3 py-3 transition-colors hover:bg-ink-2/40"
+                      >
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                          {new Intl.DateTimeFormat(locale, {
+                            month: "short",
+                            day: "numeric",
+                          }).format(new Date(p.scheduled_date))}
+                        </span>
+                        <span className="truncate text-[14px] text-paper">
+                          {p.title}
+                        </span>
+                        <span
+                          className={`rounded-full px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider ${
+                            p.isHost
+                              ? "bg-terracotta/20 text-terracotta"
+                              : "bg-moss/15 text-moss"
+                          }`}
+                        >
+                          {p.isHost
+                            ? t("profile.hostingTag")
+                            : t("profile.goingTag")}
+                        </span>
+                        {p.neighborhood_slug ? (
+                          <span className="text-[11px] uppercase tracking-wider text-paper-faint">
+                            {p.neighborhood_slug}
+                          </span>
+                        ) : (
+                          <span aria-hidden />
+                        )}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+
+            {activity.pastPlans.length > 0 ? (
+              <div className="mt-10 border-t border-ink-3 pt-8">
+                <div className="flex items-baseline gap-3">
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-paper-faint">
+                    N° 06
                   </span>
                   <h2 className="font-mono text-[11px] uppercase tracking-wider text-terracotta">
                     {t("profile.pastPlans")}
@@ -299,7 +350,7 @@ async function MemberProfileContent(props: Props) {
               <div className="mt-10 border-t border-ink-3 pt-8">
                 <div className="flex items-baseline gap-3">
                   <span className="font-mono text-[11px] uppercase tracking-wider text-paper-faint">
-                    N° 06
+                    N° 07
                   </span>
                   <h2 className="font-mono text-[11px] uppercase tracking-wider text-ferry-yellow">
                     {t("profile.hoodPassport")}
@@ -335,7 +386,7 @@ async function MemberProfileContent(props: Props) {
               <div className="mt-10 border-t border-ink-3 pt-8">
                 <div className="flex items-baseline gap-3">
                   <span className="font-mono text-[11px] uppercase tracking-wider text-paper-faint">
-                    N° 07
+                    N° 08
                   </span>
                   <h2 className="font-mono text-[11px] uppercase tracking-wider text-moss">
                     {t("profile.peopleMet")}
@@ -379,7 +430,7 @@ async function MemberProfileContent(props: Props) {
             ) : null}
 
             <ProfileChipSection
-              num="N° 08"
+              num="N° 09"
               title={t("profile.favoriteSpots")}
               tone="terracotta"
               chips={member.favorite_spots}

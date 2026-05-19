@@ -4,6 +4,27 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.13.2] - 2026-05-20
+
+**Trust signals - earned badge pills on profiles.** Non-fakeable reliability signals computed from real plan history. Positive-only: members who haven't earned a signal simply don't see that pill (no public shaming, no raw no-show/cancellation counts ever displayed).
+
+### Added
+
+- **`TrustSignals` type** in `src/lib/member-activity.ts`: `hostedCount`, `cancelledHostedCount`, `joinedCount`, `noShowCount`, `lastAttendedDate`. Computed via 3 lightweight `count` queries inside the existing `getMemberActivity` round-trip.
+- **`created_at` on `MemberPublic`** + widened profile queries so "Member since" can render.
+- **Trust pill cluster** below the stats strip on `/members/[id]`:
+  - **"Member since {Mon Year}"** - always shown (anchor pill so a fresh profile isn't bare)
+  - **"★ Reliable host"** (terracotta) - hosted >= 3 plans, 0 cancelled
+  - **"✓ Shows up on time"** (moss) - joined >= 3 plans, 0 no-shows
+  - **"● Active this week"** (ferry-yellow) - attended a plan within the last 7 days
+- **i18n** (en/tr/fa/ar/ru) for all four trust labels.
+
+### Design notes
+
+- Signals are **earned-only**. A member with no-shows just doesn't get the "Shows up on time" badge - we never render "2 no-shows" or "cancelled 3 plans". The negative counts are silent gates.
+- All thresholds set at >= 3 so the badges mean something but are reachable at small scale.
+- `isActiveThisWeek` computed in the async server component (not the leaf) to keep the React Compiler `purity` rule happy about `Date.now()`.
+
 ## [3.13.1] - 2026-05-19
 
 **"What's coming up" section.** Sibling to the past-plans timeline - shows the next 6 plans a member is hosting or going to, in chronological order. HOSTING vs GOING chip per row tells you their role in each plan at a glance.

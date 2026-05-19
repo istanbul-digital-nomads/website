@@ -32,12 +32,34 @@ export type CoAttendee = {
   shared_count: number;
 };
 
+export type TrustSignals = {
+  // Total plans the member has hosted (creator_id = member, any
+  // status). Includes future-scheduled plans.
+  hostedCount: number;
+  // Subset of hostedCount with status='cancelled'. Powers the
+  // 'Reliable host' badge - shown when hostedCount >= 3 and
+  // cancelledHostedCount = 0.
+  cancelledHostedCount: number;
+  // Past plans the member attended (creator !== member, scheduled
+  // before today, attended status).
+  joinedCount: number;
+  // Times the member was marked no_show by a host. Drives the 'All
+  // on time' badge - shown when joinedCount >= 3 and noShowCount = 0.
+  // We never display this number directly - it's a silent gate, no
+  // shaming.
+  noShowCount: number;
+  // ISO date string of the most recent plan they attended. Null when
+  // they've attended none.
+  lastAttendedDate: string | null;
+};
+
 export type MemberActivity = {
   pastPlans: PastPlan[];
   upcomingPlans: UpcomingPlan[];
   totalPlanCount: number;
   neighborhoodsVisited: string[];
   coAttendees: CoAttendee[];
+  trustSignals: TrustSignals;
 };
 
 const PAST_PLANS_LIMIT = 6;
@@ -45,8 +67,11 @@ const UPCOMING_PLANS_LIMIT = 6;
 const CO_ATTENDEES_LIMIT = 8;
 
 // "Attended" = the member appears in plan_attendees with one of these
-// statuses. Excludes cancelled / waitlisted / no_show.
+// statuses. Excludes cancelled / waitlisted / no_show / requested.
 const ATTENDED_STATUSES = ["going", "confirmed"] as const;
+// "Trust-aware" pulls a wider set including no_show so we can count
+// it for the silent gate.
+const TRUST_AWARE_STATUSES = ["going", "confirmed", "no_show"] as const;
 
 export async function getMemberActivity(
   memberId: string,
@@ -184,11 +209,40 @@ export async function getMemberActivity(
       .slice(0, CO_ATTENDEES_LIMIT);
   }
 
+  // 3. Trust signals - hosted/cancelled/no-show counts. Separate
+  //    smaller queries for clarity. These are positive-only signals -
+  //    we surface 'Reliable host' / 'All on time' badges as
+  //    earned-only chips; we never publicly display the raw counts.
+  const { count: hostedCountRaw } = await supabase
+    .from("plans")
+    .select("id", { count: "exact", head: true })
+    .eq("creator_id", memberId);
+  const { count: cancelledHostedCountRaw } = await supabase
+    .from("plans")
+    .select("id", { count: "exact", head: true })
+    .eq("creator_id", memberId)
+    .eq("status", "cancelled");
+  const { count: noShowCountRaw } = await supabase
+    .from("plan_attendees")
+    .select("plan_id", { count: "exact", head: true })
+    .eq("member_id", memberId)
+    .eq("status", "no_show");
+  void TRUST_AWARE_STATUSES;
+
+  const trustSignals: TrustSignals = {
+    hostedCount: hostedCountRaw ?? 0,
+    cancelledHostedCount: cancelledHostedCountRaw ?? 0,
+    joinedCount: past.filter((p) => p.creator_id !== memberId).length,
+    noShowCount: noShowCountRaw ?? 0,
+    lastAttendedDate: past[0]?.scheduled_date ?? null,
+  };
+
   return {
     pastPlans,
     upcomingPlans,
     totalPlanCount: plans.length,
     neighborhoodsVisited: Array.from(hoodSet).sort(),
     coAttendees,
+    trustSignals,
   };
 }

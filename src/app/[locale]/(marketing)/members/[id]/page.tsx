@@ -72,6 +72,17 @@ async function MemberProfileContent(props: Props) {
     ? new Date(member.planned_move_out_date)
     : null;
   const today = new Date();
+  const isActiveThisWeek =
+    activity.trustSignals.lastAttendedDate !== null &&
+    today.getTime() -
+      new Date(activity.trustSignals.lastAttendedDate).getTime() <=
+      7 * 24 * 60 * 60 * 1000;
+  const memberSinceLabel = t("profile.trustMemberSince", {
+    when: new Intl.DateTimeFormat(locale, {
+      month: "short",
+      year: "numeric",
+    }).format(new Date(member.created_at)),
+  });
   const weeksLeft = moveOutDate
     ? Math.max(
         0,
@@ -230,6 +241,18 @@ async function MemberProfileContent(props: Props) {
                 />
               </dl>
             ) : null}
+
+            {/* Trust signals - earned badge pills. Positive-only. */}
+            <TrustPills
+              trust={activity.trustSignals}
+              isActiveThisWeek={isActiveThisWeek}
+              labels={{
+                memberSince: memberSinceLabel,
+                reliableHost: t("profile.trustReliableHost"),
+                allOnTime: t("profile.trustAllOnTime"),
+                activeThisWeek: t("profile.trustActiveWeek"),
+              }}
+            />
 
             <MemberPlansToday memberId={member.id} locale={locale} />
 
@@ -526,6 +549,65 @@ function ProfileChipSection({
           </span>
         ))}
       </div>
+    </div>
+  );
+}
+
+// Earned-badge pill cluster. Positive-only - members who haven't
+// earned a signal just don't see that pill (we never display 'N
+// no-shows' or 'cancelled X plans' publicly). 'Member since' is the
+// one always-on pill so the cluster doesn't collapse to nothing on a
+// brand-new profile.
+function TrustPills({
+  trust,
+  isActiveThisWeek,
+  labels,
+}: {
+  trust: {
+    hostedCount: number;
+    cancelledHostedCount: number;
+    joinedCount: number;
+    noShowCount: number;
+    lastAttendedDate: string | null;
+  };
+  isActiveThisWeek: boolean;
+  labels: {
+    memberSince: string;
+    reliableHost: string;
+    allOnTime: string;
+    activeThisWeek: string;
+  };
+}) {
+  const isReliableHost =
+    trust.hostedCount >= 3 && trust.cancelledHostedCount === 0;
+  const isAllOnTime = trust.joinedCount >= 3 && trust.noShowCount === 0;
+
+  return (
+    <div className="mt-5 flex flex-wrap gap-2">
+      <span className="inline-flex items-center gap-1.5 rounded-full bg-ink-2/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+        {labels.memberSince}
+      </span>
+      {isReliableHost ? (
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-terracotta/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-terracotta">
+          <span aria-hidden>★</span>
+          {labels.reliableHost}
+        </span>
+      ) : null}
+      {isAllOnTime ? (
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-moss/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-moss">
+          <span aria-hidden>✓</span>
+          {labels.allOnTime}
+        </span>
+      ) : null}
+      {isActiveThisWeek ? (
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-ferry-yellow/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-ferry-yellow">
+          <span
+            className="inline-block h-1.5 w-1.5 rounded-full bg-ferry-yellow"
+            aria-hidden
+          />
+          {labels.activeThisWeek}
+        </span>
+      ) : null}
     </div>
   );
 }

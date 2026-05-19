@@ -55,6 +55,7 @@ export type MemberPublic = Pick<
   | "is_agent"
   | "verification_level"
   | "current_status"
+  | "created_at"
 >;
 
 // Extended public shape for the member profile page (Design System v2

@@ -181,7 +181,7 @@ export async function getMembers() {
   const { data, error } = await supabase
     .from("members")
     .select(
-      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle, member_type, is_agent, verification_level, current_status",
+      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle, member_type, is_agent, verification_level, current_status, created_at",
     )
     .eq("is_visible", true)
     .order("created_at", { ascending: false });
@@ -199,7 +199,7 @@ export async function getMembersPublic() {
   const { data, error } = await supabase
     .from("members")
     .select(
-      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle, member_type, is_agent, verification_level, current_status",
+      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle, member_type, is_agent, verification_level, current_status, created_at",
     )
     .eq("is_visible", true)
     .order("created_at", { ascending: false });
@@ -220,7 +220,7 @@ export async function getMemberByIdPublic(id: string) {
   const { data, error } = await supabase
     .from("members")
     .select(
-      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle, profession, languages, member_type, is_agent, verification_level, current_status, working_on, wants_to_talk_about, hobbies, activity_interests, looking_for, move_in_date, planned_move_out_date, favorite_spots",
+      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle, profession, languages, member_type, is_agent, verification_level, current_status, working_on, wants_to_talk_about, hobbies, activity_interests, looking_for, move_in_date, planned_move_out_date, favorite_spots, created_at",
     )
     .eq("id", id)
     .eq("is_visible", true)

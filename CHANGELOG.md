@@ -4,6 +4,25 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.11.1] - 2026-05-19
+
+**Phase 3 closeout: verification flow becomes discoverable end-to-end.** 3.11.0 shipped the schema + form + ticketed-mode gate; 3.11.1 wires the badge across every host-facing surface and gives members entry points beyond the `/plans/new` ticketed CTA.
+
+### Added
+
+- **`/dashboard` verification card** for host-role members (and `is_agent` members). Shows current Red/Blue/Gold badge + a CTA to `/dashboard/verify`. Hidden for plain `nomad` / `remote_worker` accounts since the badge doesn't gate anything for them.
+- **VerificationBadge on `/plans/[id]` host card** - next to the host's name.
+- **VerificationBadge on `/paperwork/[id]` host card** - next to the host's name.
+- **Cancel-request button** on the pending-state panel at `/dashboard/verify`. Wired through a new `DELETE /api/verification` handler that narrows to `status='pending'` so already-decided requests can't be reversed.
+- **Onboarding nudge** on the final step for host-role + `is_agent` members - a small "Verification unlocks paid plans" panel pointing at `/dashboard/verify` so the flow is discoverable from sign-up.
+- **`/paperwork/new` verification gate** - now redirects unverified agents to `/dashboard/verify?next=/paperwork/new` and the `POST /api/paperwork` handler returns 403 if `verification_level` isn't `verified` or `trusted`. Brings paperwork in line with ticketed plans (both are paid-surface actions).
+
+### Changed
+
+- **`getPlanById` + `PlanCardSummary` host shape** now include `verification_level` so plan cards/detail can render the badge.
+- **`PaperworkServicePublic` host shape** includes `verification_level`.
+- **`PendingState` panel** delegates to a small client component (`<PendingPanel>`) so it can issue the cancel-request fetch + page refresh.
+
 ## [3.11.0] - 2026-05-19
 
 **Phase 3: three-tier verification ladder.** Red (basic), Blue (verified), Gold (trusted) badges are real and gate the entry-fee field that Phase 2 plumbed. Phase 3 v1 ships the schema + manual organizer-approval flow (review via Supabase dashboard); a real KYC vendor SDK plugs in later via the `verification_requests.kyc_provider` column. Migration 019 applied to production.

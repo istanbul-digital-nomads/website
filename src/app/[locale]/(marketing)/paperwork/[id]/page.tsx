@@ -8,6 +8,8 @@ import { Link } from "@/lib/i18n/routing";
 import { getPaperworkServiceById } from "@/lib/supabase/queries";
 import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { SERVICE_ICONS, isServiceType } from "@/lib/paperwork";
+import { VerificationBadge } from "@/components/ui/verification-badge";
+import { isVerificationLevel } from "@/lib/verification";
 
 interface Props {
   params: Promise<{ locale: string; id: string }>;
@@ -42,6 +44,17 @@ async function Detail({ params }: Props) {
     locale,
     namespace: "paperworkPage.serviceTypes",
   });
+  const tVerifyLevels = await getTranslations({
+    locale,
+    namespace: "verification.levels",
+  });
+  const tVerifyTooltips = await getTranslations({
+    locale,
+    namespace: "verification.tooltips",
+  });
+  const hostLevel = isVerificationLevel(service.host?.verification_level)
+    ? service.host.verification_level
+    : "basic";
 
   const Icon = isServiceType(service.service_type)
     ? SERVICE_ICONS[service.service_type]
@@ -140,9 +153,16 @@ async function Detail({ params }: Props) {
                 <span className="inline-block h-12 w-12 rounded-full bg-cream/10" />
               )}
               <div>
-                <p className="text-[14px] text-cream">
-                  {service.host.display_name}
-                </p>
+                <div className="flex items-center gap-2">
+                  <p className="text-[14px] text-cream">
+                    {service.host.display_name}
+                  </p>
+                  <VerificationBadge
+                    level={hostLevel}
+                    label={tVerifyLevels(hostLevel)}
+                    tooltip={tVerifyTooltips(hostLevel)}
+                  />
+                </div>
                 <Link
                   href={`/members/${service.host.id}`}
                   className="text-[12px] text-cream/55 hover:text-cream"

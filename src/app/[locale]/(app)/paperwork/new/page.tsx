@@ -28,9 +28,16 @@ async function NewServiceContent({
   const { data: member } = await getCurrentMember();
   if (!member) redirect("/login?next=/paperwork/new");
   // Phase 2: paperwork creation is gated to is_agent members only.
-  // The API also enforces this; this just short-circuits the page
-  // with a useful redirect for non-agents.
   if (!member.is_agent) redirect("/onboarding?focus=is_agent");
+  // Phase 3: paid paperwork services require Blue+ verification too.
+  // The API also enforces this; this just short-circuits the page
+  // with a useful redirect for unverified agents.
+  if (
+    member.verification_level !== "verified" &&
+    member.verification_level !== "trusted"
+  ) {
+    redirect("/dashboard/verify?next=/paperwork/new");
+  }
 
   return <PaperworkCreateForm />;
 }

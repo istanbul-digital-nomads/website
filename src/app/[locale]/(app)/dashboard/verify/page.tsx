@@ -10,6 +10,7 @@ import { VerificationBadge } from "@/components/ui/verification-badge";
 import { isVerificationLevel } from "@/lib/verification";
 import { isHostRole } from "@/lib/member-roles";
 import { VerifyForm } from "@/components/sections/verification/verify-form";
+import { PendingPanel } from "@/components/sections/verification/pending-panel";
 
 export const metadata: Metadata = {
   title: "Verify your account",
@@ -147,19 +148,18 @@ async function PendingState({
     day: "numeric",
     year: "numeric",
   });
+  const levelLabel = tLevels(level as "verified" | "trusted");
   return (
-    <div className="mt-8 rounded-md border border-sky-500/40 bg-sky-500/5 p-5">
-      <h2 className="font-display text-xl text-paper">{t("pendingTitle")}</h2>
-      <p className="mt-2 text-[14px] leading-[1.6] text-paper-dim">
-        {t("pendingBody", {
-          level: tLevels(level as "verified" | "trusted"),
-          date: dateFmt.format(new Date(createdAt)),
-        })}
-      </p>
-      <p className="mt-3 font-mono text-[10px] uppercase tracking-wider text-paper-faint">
-        #{requestId.slice(0, 8)}
-      </p>
-    </div>
+    <PendingPanel
+      level={level}
+      levelLabel={levelLabel}
+      pendingTitle={t("pendingTitle")}
+      pendingBody={t("pendingBody", {
+        level: levelLabel,
+        date: dateFmt.format(new Date(createdAt)),
+      })}
+      requestId={requestId}
+    />
   );
 }
 

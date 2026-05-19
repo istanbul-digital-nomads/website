@@ -4,6 +4,42 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.13.0] - 2026-05-19
+
+**Profile Phase 2: the "fun and good" pass.** Adds a stats strip, past-plans timeline, gamified neighborhood passport, "people you've met" co-attendee grid, favorite-spots chip section, and a stay-window pip. Migrations 021 + 022 + 023 applied to prod.
+
+### Added
+
+- **`members.move_in_date`** + **`planned_move_out_date`** (DATE) - drives the "Here for X more weeks" ferry-yellow pip on profile. Constraint ensures move-out >= move-in when both set.
+- **`members.favorite_spots`** TEXT[] (cap 12) - chip list of the member's favorite places in Istanbul.
+- **`src/lib/member-activity.ts`** - `getMemberActivity(memberId)` returns `pastPlans` (last 6 + total count), `neighborhoodsVisited`, `coAttendees` (top 8 by shared plan count). Cached with `cacheLife("minutes")` + `cacheTag("member-activity")`.
+- **Stats strip** on `/members/[id]` - three-column display of total plans / hoods visited / people met. Only renders when at least one is non-zero.
+- **"Here for X more weeks" pip** below the bio when `planned_move_out_date` is set. Switches to "Leaving this week" at <=1 week out.
+- **N° 05 Past plans** section - timeline of last 6 attended plans with date / title / neighborhood, each clickable through to `/plans/[id]`.
+- **N° 06 Neighborhood passport** - visual chip grid of all 10 Istanbul neighborhoods, with check-marked ferry-yellow chips for ones the member has visited, hollow outline chips for ones they haven't. Gamified without being pushy. Counter shows "{visited} / {total}".
+- **N° 07 People they've met** - 2-4 column grid of co-attendee cards (avatar + name + "Met once" / "Met N times"). Aggregated from shared plan attendance.
+- **N° 08 Favorite spots** - terracotta-toned chip list.
+
+### Changed
+
+- **`MemberPublicProfile`** + `getMemberByIdPublic` query widened with new columns.
+- **`/members/[id]` editorial body** now has 8 numbered sections (N° 01-08) with consistent eyebrow + tone-per-category pattern. Sections hide if empty.
+
+### Migration / deploy notes
+
+- **Migration 021** - schema for new fields.
+- **Migration 022** - public read policy on `plan_attendees` for `going`/`confirmed` rows so the profile aggregates work for anonymous visitors. Privacy preserved via the existing `members.is_visible` gate on the join.
+- **Migration 023** - public read on `plans` + `plan_stops` for `active`/`expired` plans (cancelled plans stay private). Required for the past-plans + neighborhood-passport aggregation to resolve titles + stops.
+- All three applied to production Supabase via Management API before code deploy.
+- Mock attendance data seeded for the 4 demo members (Ahmet, Cem, Mehdi, Sibel) so each profile shows real numbers in the stats strip + populated sections.
+
+### i18n (en/tr/fa/ar/ru)
+
+- `profile.pastPlans` / `hoodPassport` / `peopleMet` / `favoriteSpots`
+- `profile.statPlans` / `statHoods` / `statPeople`
+- `profile.metOnce` / `metPlural` (with `count`)
+- `profile.weeksLeft` / `lastWeekHere`
+
 ## [3.12.0] - 2026-05-19
 
 **Rich member profiles - nomads.com-style depth, editorial categorization.** Profile pages get a multi-section editorial layout with three new free-text chip categories (Working on / Happy to talk about / Hobbies + interests) plus a current-vibe status pip. Onboarding wizard captures all four fields with a clean chip-input UX. Migration 020 applied to prod.

@@ -2860,7 +2860,18 @@
       "languages": "Languages",
       "workingOn": "Working on",
       "wantsToTalk": "Happy to talk about",
-      "hobbies": "Hobbies + interests"
+      "hobbies": "Hobbies + interests",
+      "pastPlans": "Past plans",
+      "hoodPassport": "Neighborhood passport",
+      "peopleMet": "People they've met",
+      "favoriteSpots": "Favorite spots",
+      "statPlans": "plans",
+      "statHoods": "hoods",
+      "statPeople": "people",
+      "metOnce": "Met once",
+      "metPlural": "Met {count} times",
+      "weeksLeft": "Here for {count} more weeks",
+      "lastWeekHere": "Leaving this week"
     },
     "dashboard": {
       "eyebrow": "Your dashboard",

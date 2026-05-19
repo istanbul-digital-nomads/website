@@ -145,7 +145,11 @@ export function adaptPlanToCard(
       ? {
           name: raw.host.display_name,
           avatarUrl: raw.host.avatar_url,
-          type: raw.host.member_type === "guide" ? "guide" : "nomad",
+          type:
+            raw.host.member_type === "local_guide" ||
+            raw.host.member_type === "tour_guide"
+              ? "guide"
+              : "nomad",
         }
       : null,
     filled: raw.attendee_count,

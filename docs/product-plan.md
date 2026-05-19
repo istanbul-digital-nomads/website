@@ -40,7 +40,7 @@
 
 ---
 
-## Phase 1 · Member roles + lightweight profile (next, ~3-5 days)
+## Phase 1 · Member roles + lightweight profile (shipped in 3.9.0 ✓)
 
 **Goal:** every signed-in user has a real role + a profile that reflects
 it. No verification yet, no payment yet. Pure foundation.

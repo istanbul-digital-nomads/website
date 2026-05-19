@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import type { OnboardingData, FieldErrors } from "../onboarding-wizard";
+import { MEMBER_ROLES, type MemberRole } from "@/lib/member-roles";
 
 interface StepProps {
   data: OnboardingData;
@@ -21,14 +22,10 @@ const HEARD_FROM: readonly OptionDef[] = [
   { key: "other", value: "other" },
 ];
 
-const MEMBER_TYPES: readonly OptionDef[] = [
-  { key: "expat", value: "expat" },
-  { key: "nomad", value: "digital-nomad" },
-  { key: "traveler", value: "traveler" },
-  { key: "local", value: "local-internationally-minded" },
-  { key: "student", value: "student" },
-  { key: "other", value: "other" },
-];
+// The 5 operational roles (PRODUCT.md §3). The key matches the DB enum
+// value verbatim so we don't need a slug<->display mapping.
+const MEMBER_TYPE_OPTIONS: readonly { key: MemberRole; value: MemberRole }[] =
+  MEMBER_ROLES.map((r) => ({ key: r, value: r }));
 
 const ACTIVITIES: readonly OptionDef[] = [
   { key: "language", value: "language-exchange" },
@@ -161,6 +158,9 @@ export function StepInterests({ data, updateField, errors }: StepProps) {
   const tMember = useTranslations(
     "onboardingPage.steps.interests.memberTypeOptions",
   );
+  const tMemberDesc = useTranslations(
+    "onboardingPage.steps.interests.memberTypeDescriptions",
+  );
   const tActivity = useTranslations(
     "onboardingPage.steps.interests.activityOptions",
   );
@@ -187,16 +187,90 @@ export function StepInterests({ data, updateField, errors }: StepProps) {
         onChange={(v) => updateField("heard_from", v)}
       />
 
-      <RadioGroup
-        label={t("memberType")}
-        options={MEMBER_TYPES}
-        optionLabels={(k) => tMember(k)}
-        value={(data.member_type as string) || ""}
-        onChange={(v) => updateField("member_type", v)}
-        required
-        error={errors.member_type}
-        fieldKey="member_type"
-      />
+      <div data-field="member_type">
+        <label className="block text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]">
+          {t("memberType")}
+          <span className="ml-0.5 text-red-500" aria-hidden="true">
+            *
+          </span>
+        </label>
+        <p className="mt-1 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
+          {t("memberTypeHint")}
+        </p>
+        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+          {MEMBER_TYPE_OPTIONS.map((opt) => {
+            const selected = data.member_type === opt.value;
+            return (
+              <button
+                key={opt.key}
+                type="button"
+                onClick={() => updateField("member_type", opt.value)}
+                className={`rounded-xl border p-3 text-start text-sm transition-colors ${
+                  selected
+                    ? "border-primary-600 bg-primary-50 dark:border-primary-400 dark:bg-primary-950/30"
+                    : "border-black/5 bg-white/70 hover:border-primary-300 dark:border-white/5 dark:bg-[#1e2130] dark:hover:border-primary-700"
+                }`}
+              >
+                <div className="font-medium text-[#1a1a2e] dark:text-[#f2f3f4]">
+                  {tMember(opt.key)}
+                </div>
+                <div className="mt-1 text-xs leading-relaxed text-[#5d6d7e] dark:text-[#99a3ad]">
+                  {tMemberDesc(opt.key)}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+        {errors.member_type && (
+          <p className="animate-error-fade-in mt-1.5 text-sm text-red-600 dark:text-red-400">
+            {errors.member_type}
+          </p>
+        )}
+      </div>
+
+      {data.member_type === "remote_worker" && (
+        <div>
+          <label
+            htmlFor="professional_role"
+            className="block text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]"
+          >
+            {t("professionalRoleLabel")}
+          </label>
+          <input
+            id="professional_role"
+            type="text"
+            maxLength={120}
+            value={(data.professional_role as string) || ""}
+            onChange={(e) => updateField("professional_role", e.target.value)}
+            placeholder={t("professionalRolePlaceholder")}
+            className="mt-2 w-full rounded-xl border border-black/5 bg-white/70 px-3 py-2 text-sm text-[#1a1a2e] placeholder:text-[#5d6d7e]/60 focus:border-primary-400 focus:outline-none dark:border-white/5 dark:bg-[#1e2130] dark:text-[#f2f3f4] dark:placeholder:text-[#99a3ad]/60"
+          />
+        </div>
+      )}
+
+      {data.member_type === "tour_guide" && (
+        <div>
+          <label
+            htmlFor="tour_guide_license_no"
+            className="block text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]"
+          >
+            {t("tourGuideLicenseLabel")}
+          </label>
+          <input
+            id="tour_guide_license_no"
+            type="text"
+            maxLength={60}
+            value={(data.tour_guide_license_no as string) || ""}
+            onChange={(e) =>
+              updateField("tour_guide_license_no", e.target.value)
+            }
+            className="mt-2 w-full rounded-xl border border-black/5 bg-white/70 px-3 py-2 text-sm text-[#1a1a2e] focus:border-primary-400 focus:outline-none dark:border-white/5 dark:bg-[#1e2130] dark:text-[#f2f3f4]"
+          />
+          <p className="mt-1 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
+            {t("tourGuideLicenseHint")}
+          </p>
+        </div>
+      )}
 
       <CheckboxGroup
         label={t("activities")}

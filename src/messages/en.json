@@ -1803,15 +1803,26 @@
           "website": "Website",
           "other": "Other"
         },
-        "memberType": "What best describes you?",
+        "memberType": "Which role fits you on the platform?",
+        "memberTypeHint": "This shapes what you can do here. You can change it later from your profile.",
         "memberTypeOptions": {
-          "expat": "Expat",
-          "nomad": "Digital nomad",
-          "traveler": "Traveler",
-          "local": "Local (internationally minded)",
-          "student": "Student",
-          "other": "Other"
+          "nomad": "Nomad",
+          "remote_worker": "Remote worker",
+          "local_guide": "Local guide",
+          "tour_guide": "Tour guide",
+          "agent": "Agent"
         },
+        "memberTypeDescriptions": {
+          "nomad": "Traveling through Istanbul, here for one to six months. Join plans and post free budget plans.",
+          "remote_worker": "Settled longer-term. Building a routine, looking for a professional crowd and coworking rhythm.",
+          "local_guide": "Knows the city, wants to host walks, hikes, dinners, or coworking days. Paid plans unlock after verification.",
+          "tour_guide": "Licensed Turkish tour guide. Same as local guide plus a credential field. Paid plans unlock after verification.",
+          "agent": "Specialist who helps with visas, residency permits, government offices, banking. Paid services unlock after verification."
+        },
+        "professionalRoleLabel": "What do you do for work?",
+        "professionalRolePlaceholder": "Software engineer, designer, founder...",
+        "tourGuideLicenseLabel": "Tourism guide license number",
+        "tourGuideLicenseHint": "We'll verify this during the Blue-badge review. Leave blank if you'd rather verify later.",
         "activities": "Which activities interest you?",
         "activityOptions": {
           "language": "Language exchange",
@@ -2705,6 +2716,8 @@
     "headlineC": "by the street they leave the house in.",
     "publicLabel": "public",
     "hoodsLabel": "hoods",
+    "roleFilterAria": "Filter members by role",
+    "roleFilterAll": "All",
     "recentEyebrow": "Recently joined",
     "recentLede": "The newest members to opt in. Tap a name for their public profile.",
     "noLocation": "Location private",
@@ -2725,6 +2738,7 @@
       "location": "Location",
       "profession": "Profession",
       "type": "Member type",
+      "tourGuideLicense": "Tour guide license",
       "reachOut": "Reach out on Telegram",
       "aboutEyebrow": "About",
       "noBio": "This member hasn't written a bio yet.",

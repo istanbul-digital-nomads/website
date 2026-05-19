@@ -4,6 +4,46 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.9.0] - 2026-05-19
+
+**Phase 1 of the product plan: member roles + lightweight profile.** Five operational roles land (`nomad`, `remote_worker`, `local_guide`, `tour_guide`, `agent`). New profile-aware sections, role-filtered `/members` directory, conditional onboarding fields for the host roles, full 5-locale i18n coverage. **No verification yet, no payments yet** - this is the foundation. See [docs/product-plan.md](docs/product-plan.md) for what Phase 2-4 build on top.
+
+### Schema (migration 017)
+
+- **`members.member_type` repurposed** from descriptive self-id (`expat`, `digital-nomad`, `traveler`, etc.) to operational role. CHECK constraint enforces one of: `nomad`, `remote_worker`, `local_guide`, `tour_guide`, `agent`. Existing values migrated cleanly: `guide` and `local-internationally-minded` → `local_guide`, everything else descriptive → `nomad`. Nullable allowed for in-flight onboarding rows.
+- **New `members.professional_role`** TEXT (≤120 chars). Free-text "what do you do" - only shown on `remote_worker` profiles, but persists across role changes.
+- **New `members.tour_guide_license_no`** TEXT (≤60 chars). Cleared automatically by a `BEFORE UPDATE` trigger when `member_type` moves away from `tour_guide`.
+- **New `members.xp`** INTEGER NOT NULL DEFAULT 0. Schema only; increments come in Phase 5.
+- **New partial index** `members_visible_role_idx` on `member_type` (filtered to `is_visible = true AND onboarding_completed = true`) for the `/members?role=...` filter.
+
+### Added
+
+- **[src/lib/member-roles.ts](src/lib/member-roles.ts)** - single source of truth for the 5 roles. Exports `MEMBER_ROLES`, `isMemberRole` type guard, `HOST_ROLES` + `isHostRole` predicate, and a `ROLE_TONE` tailwind-token map for badges.
+- **[src/components/ui/role-badge.tsx](src/components/ui/role-badge.tsx)** - presentational chip used on the profile page; caller passes translated label so the leaf stays cache-safe.
+- **Role selector tile grid** in the onboarding wizard's interests step ([src/app/[locale]/(app)/onboarding/steps/step-interests.tsx](src/app/[locale]/(app)/onboarding/steps/step-interests.tsx)). 5 tiles with title + description per role.
+- **Conditional onboarding fields**: `professional_role` text input shows when `member_type === "remote_worker"`; `tour_guide_license_no` text input shows when `member_type === "tour_guide"`. Both auto-save with the rest of the form on step transitions.
+- **Role filter chip strip** on `/members` (URL-driven, server-filtered). 6 chips: All + each role. Links use the locale-aware `Link` so `/tr/members?role=local_guide` works without locale loss.
+- **Role-aware profile sections** on `/members/[id]`:
+  - `<RoleBadge>` shown below the avatar
+  - "Profession" fact prefers `professional_role` for `remote_worker` members, falls back to the legacy `profession` field for everyone else
+  - "Tour guide license" fact shown only for `tour_guide` members with a license number
+
+### Changed
+
+- **`getMemberByIdPublic`** uses a two-pass select - core columns first, then a best-effort fetch of `professional_role` + `tour_guide_license_no`. Pre-migration, the second pass throws and we render with what we have so the page doesn't 404.
+- **`getMembersPublic`** + `MemberPublic` now include `member_type` for the role filter.
+- **`today/types.ts`** `host.type` collapse logic updated: `local_guide` and `tour_guide` map to `"guide"` (the gold "★ Local guide" tag); all other roles map to `"nomad"`.
+- **i18n**: `memberTypeOptions` + `memberTypeDescriptions` + `professionalRoleLabel`/`Placeholder` + `tourGuideLicenseLabel`/`Hint` + `memberTypeHint` keys added to `en/tr/fa/ar/ru`. The old descriptive labels (`expat`, `traveler`, etc.) are no longer referenced and will be removed in a follow-up i18n sweep.
+- **`profile.tourGuideLicense`** key added to `membersV2.profile` in all 5 locales.
+- **`roleFilterAria` + `roleFilterAll`** added to `membersV2` for the directory filter strip.
+
+### Migration / deploy notes
+
+- **Migration 017 must be applied to Supabase before this code goes live**, otherwise the new columns won't exist and onboarding writes will fail. The two-pass `getMemberByIdPublic` keeps the read path safe in either order, but writes need the columns.
+- **No data loss** for existing members. The migration normalises old `member_type` values; nobody loses access.
+- **Existing onboarded members** with no recognised role (`member_type` stays `nomad` after migration) won't see a role badge until they re-enter onboarding (edit mode) and pick a new role. That's the intended path.
+- **The old descriptive `member_type` values** (`expat`, `digital-nomad`, `traveler`, etc.) are gone from the UI but the JSON message keys are retained for one release to avoid a translation churn pass; will be removed in 3.9.1 or later.
+
 ## [3.8.2] - 2026-05-19
 
 **Focus the surface: Perks and Nomad+ pulled. Phased product plan added.** Clears the deck for the registration → profile → plan → ticket loop that the next several releases will build. `/perks` 301s to `/`; nav and homepage no longer show the Perks entry or the Membership Tiers (Nomad+) section.

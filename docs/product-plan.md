@@ -225,7 +225,19 @@ gate the entry-fee field that Phase 2 plumbed.
 
 ---
 
-## Phase 4 · Paid plans live (~7-10 days, closed beta)
+## Phase 5 · Paid plans live (shipped sandbox-ready in 3.14.0 ✓)
+
+Full marketplace flow wired end-to-end behind `isIyzicoConfigured()`:
+plan_tickets ledger, checkout, escrow, 7-day payout cron, refund +
+dispute flows, guide payout dashboard. Fee model: guide keeps ~87%
+(10% platform + ~2.9% processor off the sticker). Not live until
+IYZICO_API_KEY/SECRET_KEY/BASE_URL env vars are set + the 6
+integration points in src/lib/payments/iyzico.ts are filled with the
+iyzipay SDK. Guide subscription tiers deferred to a follow-up.
+
+**Original Phase 4 (paid plans) description below for context:**
+
+## Phase 4 (orig) · Paid plans live (~7-10 days, closed beta)
 
 **Goal:** ticketed plans actually take money. iyzico marketplace
 integration, escrow, 7-day payout holdback, refund flow, dispute handling.

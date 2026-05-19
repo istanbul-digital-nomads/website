@@ -77,6 +77,10 @@ async function DashboardContent({
     [t("links.events"), "/events"],
     [t("links.editProfile"), "/onboarding"],
   ];
+  // Host roles + agents get a payouts link.
+  if (showVerification) {
+    links.splice(3, 0, [t("links.payouts"), "/dashboard/payouts"]);
+  }
 
   return (
     <section className="bg-ink-1 pt-16 lg:pt-24">

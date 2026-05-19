@@ -2725,6 +2725,35 @@
       "allEvents": "All events"
     }
   },
+  "payouts": {
+    "eyebrow": "Your money",
+    "title": "Payouts",
+    "pendingLabel": "Pending",
+    "pendingHint": "Held in escrow. Released 7 days after each plan, once no dispute is open.",
+    "releasedLabel": "Released",
+    "releasedHint": "Paid out to your bank account.",
+    "setupTitle": "Payout account",
+    "nameLabel": "Account holder name",
+    "namePlaceholder": "Name on the bank account",
+    "ibanLabel": "IBAN (Turkish)",
+    "ibanHint": "TRY payouts only for now. Must match the account holder name.",
+    "ibanOnFile": "An IBAN is on file. Submit again to replace it.",
+    "setupSubmit": "Save payout details",
+    "setupSubmitting": "Saving...",
+    "setupSuccess": "Payout details saved",
+    "setupErrorTitle": "Couldn't save",
+    "setupErrorBody": "Something went wrong. Try again or contact support.",
+    "historyTitle": "Ticket history",
+    "noTickets": "No tickets sold yet. Once someone joins a paid plan you host, it shows up here.",
+    "status": {
+      "pending": "Pending",
+      "held": "In escrow",
+      "released": "Paid out",
+      "refunded": "Refunded",
+      "disputed": "Disputed",
+      "failed": "Failed"
+    }
+  },
   "verification": {
     "levels": {
       "basic": "Unverified",
@@ -2902,6 +2931,7 @@
         "directory": "Member directory",
         "profile": "View your public profile",
         "events": "Upcoming events",
+        "payouts": "Payouts",
         "editProfile": "Edit your profile"
       }
     }
@@ -3067,6 +3097,14 @@
     "capacity": {
       "open": "Open",
       "going": "going"
+    },
+    "checkout": {
+      "buyTicket": "Buy ticket · {price}",
+      "loading": "Opening checkout...",
+      "notLiveTitle": "Payments aren't live yet",
+      "notLiveBody": "Ticketed checkout is coming soon. For now, message the host on Telegram to arrange it.",
+      "errorTitle": "Checkout failed",
+      "errorBody": "Something went wrong. Try again in a moment."
     },
     "money": {
       "sectionLabel": "Money",

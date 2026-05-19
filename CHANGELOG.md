@@ -4,6 +4,39 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.14.0] - 2026-05-20
+
+**Phase 5: paid-plan marketplace (sandbox-ready).** The full money flow - checkout, escrow, 7-day payout, refunds, disputes, guide payout dashboard - is wired end-to-end against an `isIyzicoConfigured()` guard. No live iyzico keys yet, so every payment call returns a typed "not configured" result and the UI shows a clean "payments aren't live yet" state (never a fake payment UI). Flip real keys via env vars and it goes live. Fee model: guide keeps ~87% (10% platform + ~2.9% processor off the sticker price).
+
+### Schema (migration 024)
+
+- **`plan_tickets`** money ledger - one row per attendee per ticketed plan. Columns: `gross_cents`, `platform_fee_cents`, `processor_fee_cents`, `net_to_host_cents`, `currency`, `status` (`pending`/`held`/`released`/`refunded`/`disputed`/`failed`), `payment_provider`, `conversation_id` (idempotency), `payment_intent_id`, + paid/released/refunded/disputed timestamps & reasons. Unique partial index = one non-failed ticket per attendee per plan. RLS: attendee + host read their own; all writes via service role.
+- **`members` payout fields**: `payout_iban`, `payout_name`, `iyzico_submerchant_key`.
+
+### Added
+
+- **`src/lib/payments/fees.ts`** - `computeFeeBreakdown` (integer kuruş math, net = remainder so the parts always reconcile to gross), lira<->cents helpers.
+- **`src/lib/payments/iyzico.ts`** - env-gated wrapper: `isIyzicoConfigured`, `createCheckout`, `verifyPayment`, `ensureSubmerchant`, `releaseToSubmerchant`, `refundPayment`. Each is the single integration point to fill once keys + the `iyzipay` SDK land.
+- **`src/lib/payments/tickets.ts`** - service-role ledger ops (create pending, mark held/failed/refunded, open dispute, release cleared).
+- **`createServiceClient`** added to `src/lib/supabase/server.ts` for money/admin operations that bypass RLS.
+- **`POST /api/plans/[id]/checkout`** - creates a pending ticket + iyzico checkout; returns 503 `payments_not_live` until configured.
+- **`/api/payments/iyzico-callback`** - verifies the result, flips ticket held/failed, redirects with a status flag.
+- **`/api/cron/release-payouts`** - daily cron (3am, wired in vercel.json), releases held tickets past the 7-day holdback.
+- **`/api/tickets/[id]/refund`** - attendee refund, 24h-before-plan window.
+- **`/api/tickets/[id]/dispute`** - attendee dispute, within 7 days of the plan, freezes payout.
+- **`/api/payouts/setup`** - guide IBAN + sub-merchant setup, gated to verified host roles.
+- **`/dashboard/payouts`** - guide payout dashboard: pending vs released balance cards, IBAN setup form, ticket history.
+- **`TicketCheckoutButton`** on `/plans/[id]` for ticketed plans (non-host, non-attendee) - "Buy ticket · {price}".
+- **Payouts link** on `/dashboard` for host roles + agents.
+- **i18n** (en/tr/fa/ar/ru): `payouts.*` namespace + `plans.checkout.*`.
+
+### Deploy notes
+
+- Migration 024 applied to production before code deploy.
+- **Not live until env vars are set**: `IYZICO_API_KEY`, `IYZICO_SECRET_KEY`, `IYZICO_BASE_URL`. Until then checkout shows "payments aren't live yet" and the payout cron no-ops.
+- When keys land: install the `iyzipay` SDK, fill the 6 integration points in `iyzico.ts`, create the platform merchant, and run a sandbox end-to-end before flipping production keys.
+- **Out of scope for this cut**: guide subscription tiers (Free/Standard/Pro plan-volume gating) - separate follow-up.
+
 ## [3.13.2] - 2026-05-20
 
 **Trust signals - earned badge pills on profiles.** Non-fakeable reliability signals computed from real plan history. Positive-only: members who haven't earned a signal simply don't see that pill (no public shaming, no raw no-show/cancellation counts ever displayed).

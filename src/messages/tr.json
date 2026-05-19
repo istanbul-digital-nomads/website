@@ -2748,6 +2748,35 @@
       "allEvents": "Tüm etkinlikler"
     }
   },
+  "payouts": {
+    "eyebrow": "Paran",
+    "title": "Ödemeler",
+    "pendingLabel": "Beklemede",
+    "pendingHint": "Emanette tutuluyor. Her plandan 7 gün sonra, itiraz yoksa serbest bırakılır.",
+    "releasedLabel": "Serbest",
+    "releasedHint": "Banka hesabına ödendi.",
+    "setupTitle": "Ödeme hesabı",
+    "nameLabel": "Hesap sahibi adı",
+    "namePlaceholder": "Banka hesabındaki ad",
+    "ibanLabel": "IBAN (Türkiye)",
+    "ibanHint": "Şimdilik yalnızca TRY ödemeleri. Hesap sahibi adıyla eşleşmeli.",
+    "ibanOnFile": "Kayıtlı bir IBAN var. Değiştirmek için tekrar gönder.",
+    "setupSubmit": "Ödeme bilgilerini kaydet",
+    "setupSubmitting": "Kaydediliyor...",
+    "setupSuccess": "Ödeme bilgileri kaydedildi",
+    "setupErrorTitle": "Kaydedilemedi",
+    "setupErrorBody": "Bir şeyler ters gitti. Tekrar dene veya bize ulaş.",
+    "historyTitle": "Bilet geçmişi",
+    "noTickets": "Henüz bilet satılmadı. Düzenlediğin ücretli bir plana biri katıldığında burada görünür.",
+    "status": {
+      "pending": "Beklemede",
+      "held": "Emanette",
+      "released": "Ödendi",
+      "refunded": "İade edildi",
+      "disputed": "İtirazlı",
+      "failed": "Başarısız"
+    }
+  },
   "verification": {
     "levels": {
       "basic": "Doğrulanmamış",
@@ -2925,6 +2954,7 @@
         "directory": "Üye rehberi",
         "profile": "Herkese açık profilini gör",
         "events": "Yaklaşan etkinlikler",
+        "payouts": "Ödemeler",
         "editProfile": "Profilini düzenle"
       }
     }
@@ -3090,6 +3120,14 @@
     "capacity": {
       "open": "Açık",
       "going": "katılıyor"
+    },
+    "checkout": {
+      "buyTicket": "Bilet al · {price}",
+      "loading": "Ödeme açılıyor...",
+      "notLiveTitle": "Ödemeler henüz aktif değil",
+      "notLiveBody": "Biletli ödeme yakında. Şimdilik ev sahibine Telegram'dan yazıp ayarla.",
+      "errorTitle": "Ödeme başarısız",
+      "errorBody": "Bir şeyler ters gitti. Birazdan tekrar dene."
     },
     "money": {
       "sectionLabel": "Para",

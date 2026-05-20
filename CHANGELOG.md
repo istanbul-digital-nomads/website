@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.19.5] - 2026-05-21
+
+### Fixed
+
+- **Content Signals in robots.txt.** robots.txt now emits per-crawler-group `Content-Signal` directives (`ai-train=no, search=yes, ai-input=yes` for the default + answer-engine groups; `ai-train=no, search=no, ai-input=no` for the training-only bots), declaring our AI content-usage preferences per [contentsignals.org](https://contentsignals.org/) / the AIPREF IETF draft. The typed `robots.ts` couldn't emit custom directives, so it's now a raw-text Route Handler. Also removed a stale `public/robots.txt` (which carried a Content-Signal but was being shadowed by the metadata route, so the served robots.txt had no signal). All existing per-crawler allow/deny rules, Host, and Sitemap are preserved.
+
 ## [3.19.4] - 2026-05-20
 
 **Public agent guide for AI-readiness.**

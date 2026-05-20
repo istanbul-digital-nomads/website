@@ -332,6 +332,42 @@ export function StepInterests({ data, updateField, errors }: StepProps) {
         onChange={(v) => updateField("arrival_status", v)}
       />
 
+      {/* Stay window - roughly how long they're around. Both optional. */}
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label
+            htmlFor="move_in_date"
+            className="block text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]"
+          >
+            {t("moveInLabel")}
+          </label>
+          <input
+            id="move_in_date"
+            type="date"
+            value={(data.move_in_date as string) || ""}
+            onChange={(e) => updateField("move_in_date", e.target.value)}
+            className="mt-2 w-full rounded-xl border border-black/5 bg-white/70 px-3 py-2 text-sm text-[#1a1a2e] focus:border-primary-400 focus:outline-none dark:border-white/5 dark:bg-[#1e2130] dark:text-[#f2f3f4]"
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="planned_move_out_date"
+            className="block text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]"
+          >
+            {t("moveOutLabel")}
+          </label>
+          <input
+            id="planned_move_out_date"
+            type="date"
+            value={(data.planned_move_out_date as string) || ""}
+            onChange={(e) =>
+              updateField("planned_move_out_date", e.target.value)
+            }
+            className="mt-2 w-full rounded-xl border border-black/5 bg-white/70 px-3 py-2 text-sm text-[#1a1a2e] focus:border-primary-400 focus:outline-none dark:border-white/5 dark:bg-[#1e2130] dark:text-[#f2f3f4]"
+          />
+        </div>
+      </div>
+
       {data.member_type === "remote_worker" && (
         <div>
           <label
@@ -408,6 +444,13 @@ export function StepInterests({ data, updateField, errors }: StepProps) {
         value={(data.hobbies as string[]) || []}
         onChange={(v) => updateField("hobbies", v)}
         max={12}
+      />
+      <ChipInput
+        label={t("favoriteSpotsLabel")}
+        hint={t("favoriteSpotsHint")}
+        value={(data.favorite_spots as string[]) || []}
+        onChange={(v) => updateField("favorite_spots", v)}
+        max={10}
       />
 
       <CheckboxGroup

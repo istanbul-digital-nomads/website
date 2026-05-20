@@ -1902,7 +1902,11 @@
           "in_istanbul": "Şu an İstanbul'dayım",
           "elsewhere_turkey": "Türkiye'deyim, henüz İstanbul'da değilim",
           "planning": "Gelmeyi planlıyorum"
-        }
+        },
+        "moveInLabel": "Geldin / geliyorsun (isteğe bağlı)",
+        "moveOutLabel": "Ayrılış, biliyorsan (isteğe bağlı)",
+        "favoriteSpotsLabel": "Favori mekanlar",
+        "favoriteSpotsHint": "Kafeler, parklar, ortak çalışma - sık gittiklerin. Eklemek için Enter'a bas."
       },
       "guidelines": {
         "label": "Topluluk Kuralları",

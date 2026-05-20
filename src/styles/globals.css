@@ -199,6 +199,13 @@
     --tw-scale-x: 1;
   }
 
+  /* Explicit horizontal flip for decorative flow arrows in the
+     how-it-works infographics so they point with the reading
+     direction under RTL. */
+  html[dir="rtl"] .rtl-flip-x {
+    transform: scaleX(-1);
+  }
+
   .inline-dir-arrow::before {
     content: "→";
   }

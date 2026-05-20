@@ -978,12 +978,18 @@
           "label": "Kadıköy",
           "sub": "Bir oyun buluşması şekilleniyor"
         },
-        "karakoy": { "label": "Karaköy", "sub": "Sahil boyunca akşam yemeği" },
+        "karakoy": {
+          "label": "Karaköy",
+          "sub": "Sahil boyunca akşam yemeği"
+        },
         "sultanahmet": {
           "label": "Sultanahmet",
           "sub": "Eski şehirde galeri gecesi"
         },
-        "ortakoy": { "label": "Ortaköy", "sub": "Boğaz manzaralı kahvaltı" }
+        "ortakoy": {
+          "label": "Ortaköy",
+          "sub": "Boğaz manzaralı kahvaltı"
+        }
       }
     },
     "firstWeekTool": {
@@ -3293,5 +3299,104 @@
       "shortcut": "⌘K · herhangi bir gün veya semt için ara"
     },
     "emptyBoard": "Bugün panoda plan yok. Sen paylaş ya da yarına bak."
+  },
+  "howItWorks": {
+    "loop": {
+      "eyebrow": "Nasıl çalışır",
+      "title": "Gel, çevreni bul,",
+      "titleAccent": "yarın yine başla.",
+      "lede": "Burada upuzun bir kayıt süreci yok. Geliyorsun, kimler var bakıyorsun, ne yapacağını paylaşıyorsun ve buluşuyorsun. Döngü her sabah sıfırdan başlıyor.",
+      "loopBack": "Her sabah, yeniden",
+      "steps": {
+        "land": {
+          "title": "İstanbul'a gel",
+          "body": "İki dakikada profil oluştur. Bir semt seç, ne üzerine çalıştığını yaz, haritadaki yerini al."
+        },
+        "join": {
+          "title": "Çevreni bul",
+          "body": "Şu an kimler yakında, göz at. Semte, role veya ilgi alanına göre filtrele. Herkes plan paylaşmadan önce doğrulanıyor."
+        },
+        "today": {
+          "title": "Bugünün planlarını gör",
+          "body": "Birlikte çalışma, akşam yemeği, yürüyüş planlarına bak. Bazıları ücretsiz, bazılarının küçük bir giriş ücreti var. Katılmak için dokun."
+        },
+        "meet": {
+          "title": "Gerçekten buluş",
+          "body": "Kafeye, ortak çalışma alanına, vapura gel. Uygulama kapıdan içeri sokuyor, gerisi yüz yüze oluyor."
+        },
+        "repeat": {
+          "title": "Tekrar yap",
+          "body": "Yarın yeni planlar ve yeni yüzler var. Ne kadar kalırsan şehir o kadar evin gibi geliyor."
+        }
+      }
+    },
+    "plans": {
+      "eyebrow": "Planlar nasıl çalışır",
+      "title": "İki tür plan, ödeme için tek güvenli yol.",
+      "budget": {
+        "label": "Bütçe planı",
+        "title": "Katılması ücretsiz, hesabı paylaş",
+        "body": "Çoğu plan rahat. Ev sahibi o gün aşağı yukarı ne harcayacağını söyler, sen oradayken kendi payını ödersin.",
+        "point1": "Bilet yok, peşin ödeme yok",
+        "point2": "Ev sahibi kişi başı tahmini harcamayı gösterir",
+        "point3": "Herkes düzenleyebilir"
+      },
+      "ticketed": {
+        "label": "Biletli plan",
+        "title": "Bir kez öde, yerin ayrılsın",
+        "body": "Bazı planlar sabit bir giriş ücreti alır - rehberli yürüyüş, atölye, sabit ücretli akşam yemeği. Yerini sabitlemek için bilet alırsın.",
+        "point1": "Sabit fiyat, katılırken ödenir",
+        "point2": "Yalnızca doğrulanmış rehberler ücret alabilir",
+        "point3": "Paran plan bitene kadar güvende tutulur"
+      },
+      "escrow": {
+        "label": "Paran nasıl güvende kalıyor",
+        "body": "Bilet aldığında parayı biz tutarız - rehber hemen almaz. Para ancak plan gerçekleştikten ve toz duman dağıldıktan sonra serbest kalır, yani bir aksilik olursa korunmuş olursun.",
+        "step1": "Biletinin parasını ödersin",
+        "step2": "Parayı emanette tutarız",
+        "step3": "Plan gerçekleşir",
+        "step4": "Rehber 7 gün sonra ödeme alır"
+      }
+    },
+    "paperwork": {
+      "eyebrow": "Evrak yardımı nasıl çalışır",
+      "steps": {
+        "browse": {
+          "title": "Doğrulanmış danışmanlara göz at",
+          "body": "Her danışman neyi hallettiğini listeler - oturma izni, vergi numarası, banka hesabı - net fiyatla ve neyin dahil olduğuyla."
+        },
+        "pick": {
+          "title": "Sana uyanı seç",
+          "body": "Deneyimi, konuşulan dilleri ve önceki nomadların dediklerini karşılaştır. Buradaki her danışman listelemeden önce doğrulanır."
+        },
+        "contact": {
+          "title": "Doğrudan iletişime geç",
+          "body": "Soru sormak ve işi ayarlamak için danışmana mesaj at. Onlarla birebir, kendi şartlarınla anlaşırsın."
+        }
+      },
+      "disclaimer": "Danışmanlar bağımsız hizmet sağlayıcılardır, Istanbul Nomads çalışanı değildir. Kimlikleri doğruluyoruz ama hukuki danışmanlık vermiyoruz. Anlaşmadan önce detayları ve fiyatı her zaman doğrudan danışmanla teyit et."
+    },
+    "legend": {
+      "title": "Rozetler ne anlama geliyor?",
+      "rolesTitle": "Üye rolleri",
+      "verifyTitle": "Doğrulama seviyeleri",
+      "statusTitle": "Mevcut durum",
+      "roles": {
+        "nomad": "Bir süreliğine İstanbul'dan gezerek ve çalışarak yaşıyor.",
+        "remote_worker": "Daha uzun süredir burada, uzaktan çalışıyor.",
+        "local_guide": "Plan düzenleyip etrafı gezdiren bir yerli.",
+        "tour_guide": "Ücretli tur ve yürüyüşler yapan lisanslı rehber."
+      },
+      "agentLabel": "Danışman",
+      "agentMeaning": "Evrak işlerinde yardım eder - izinler, vergi numarası, banka hesabı. Aynı zamanda plan düzenleyen bir nomad da olabilir.",
+      "status": {
+        "deep_work": "Kafası dağılmasın istiyor, şu an buluşmaya bakmıyor.",
+        "open_to_meet": "Bugün bir kahve ya da birlikte çalışmaya açık.",
+        "exploring": "Dışarıda, şehri geziyor.",
+        "settling_in": "Yeni geldi, düzenini kuruyor.",
+        "hosting": "Bugün bir plan düzenliyor - gel katıl.",
+        "hibernating": "Ara veriyor, bir süre çevrimdışı."
+      }
+    }
   }
 }

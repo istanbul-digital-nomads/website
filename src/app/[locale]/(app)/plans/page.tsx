@@ -4,6 +4,7 @@ import { Link } from "@/lib/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import { PlansLandingHero } from "@/components/sections/plans/landing/hero";
 import { PlansHowItWorks } from "@/components/sections/plans/landing/how-it-works";
+import { PlansExplainer } from "@/components/sections/how-it-works/plans-explainer";
 import { PlansToneDisclaimer } from "@/components/sections/plans/landing/tone-disclaimer";
 import { PlanFeed } from "@/components/sections/plans/plan-feed";
 import { PlanFilters } from "@/components/sections/plans/plan-filters";
@@ -139,6 +140,7 @@ async function PlansPageContent({
       )}
 
       <PlansHowItWorks />
+      <PlansExplainer locale={locale} />
       <PlansToneDisclaimer />
     </>
   );

@@ -4,6 +4,22 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.15.0] - 2026-05-20
+
+**Onboarding explainer strips.** New diagram-heavy "how it works" sections wire the product together so visitors and members aren't confused about plans, paperwork, or what the badges mean. Shared core content, placed on the pages where the questions actually come up.
+
+### Added
+
+- **`howItWorks` i18n namespace** across all 5 locales (en/tr/fa/ar/ru) - `loop`, `plans`, `paperwork`, `legend`.
+- **`TheLoop`** (homepage, N° 02) - the canonical 5-step community cycle (land → find your people → today's plans → meet → repeat) as a connected SVG rail on desktop, vertical timeline on mobile, with a "every morning, again" loop-back caption. RTL-safe arrows.
+- **`PlansExplainer`** (`/plans`, N° 08) - budget vs ticketed plan comparison + a 4-node escrow timeline SVG (pay → held → plan happens → guide paid after 7 days) reassuring buyers their money stays safe.
+- **`PaperworkExplainer`** (`/paperwork`) - 3-step strip (browse verified agents → pick who fits → reach out directly) with a not-legal-advice disclaimer up front.
+- **`BadgeLegend`** (`/members`) - collapsible `<details>` legend rendering live samples of role chips, verification badges, and status pips next to one-line meanings, so the directory is self-documenting.
+
+### Changed
+
+- Added the `.rtl-flip-x` CSS helper to `globals.css` for mirroring directional arrows under RTL locales.
+
 ## [3.14.0] - 2026-05-20
 
 **Phase 5: paid-plan marketplace (sandbox-ready).** The full money flow - checkout, escrow, 7-day payout, refunds, disputes, guide payout dashboard - is wired end-to-end against an `isIyzicoConfigured()` guard. No live iyzico keys yet, so every payment call returns a typed "not configured" result and the UI shows a clean "payments aren't live yet" state (never a fake payment UI). Flip real keys via env vars and it goes live. Fee model: guide keeps ~87% (10% platform + ~2.9% processor off the sticker price).

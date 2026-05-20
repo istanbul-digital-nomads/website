@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.19.1] - 2026-05-20
+
+### Fixed
+
+- **Location picker "use my location"** now reports failures accurately. It previously showed "Location access was blocked" for *every* failure - including when the browser silently refuses geolocation with no prompt. Now it checks for a secure context up front (geolocation only prompts over https/localhost) with a dedicated message, and distinguishes a real permission block (code 1) from "couldn't read your location" (position unavailable / timeout). New `locationPicker.geoInsecure` string across all 5 locales; sharpened `geoDenied` wording (points to browser settings).
+
 ## [3.19.0] - 2026-05-20
 
 **Help docs fully localized.** The 6 platform docs are now translated into all 5 locales, so the help center and the guided assistant are locale-aware end to end - a Turkish visitor who taps the chatbot's "How plans work" card lands on a Turkish doc, not English.

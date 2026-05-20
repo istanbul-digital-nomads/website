@@ -49,6 +49,7 @@ Use the locale that matches the user's question. If a translation isn't availabl
 
 - \`${SITE}/guides/<slug>.md\` - 11 core guides (neighborhoods, coworking, housing, cost-of-living, transport, internet, food, culture, entertainment, healthcare, visa)
 - \`${SITE}/guides/neighborhoods/<slug>.md\` - per-neighborhood detail pages
+- \`${SITE}/help/<slug>.md\` - platform how-to docs (getting-started, how-plans-work, getting-verified, paperwork-help, payments-and-escrow, trust-and-safety) - localized in all 5 languages
 - \`${SITE}/blog/<slug>.md\` - blog posts
 - \`${SITE}/path-to-istanbul/<country>.md\` - country-specific relocation playbooks
 - \`${SITE}/spaces.md\` - coworking and cafe directory
@@ -118,6 +119,44 @@ Title, date and time (Europe/Istanbul timezone), venue, neighborhood, category (
 ## Recurrence
 
 Events are added and updated frequently. Re-fetch before answering time-sensitive questions.
+`,
+  },
+  {
+    name: "explain-how-it-works",
+    type: "instruction",
+    description:
+      "Answer questions about how the Istanbul Nomads platform itself works - joining, plans (free vs ticketed), verification levels, paperwork help, payments and escrow, trust and safety - from the canonical help docs and FAQ.",
+    body: `# explain-how-it-works
+
+Use this when a user asks how Istanbul Nomads (the platform) works, what it costs, how to join, how to get verified, how paid plans / payments work, or whether it's safe. Pull answers from the canonical help docs rather than guessing. The site also has an on-page guided assistant that walks users through these same flows.
+
+## Platform docs (markdown, localized in all 5 languages)
+
+- \`${SITE}/help/getting-started.md\` - what the platform is and the first steps
+- \`${SITE}/help/how-plans-work.md\` - plans vs events; budget (free) vs ticketed (paid) plans; joining and hosting
+- \`${SITE}/help/getting-verified.md\` - the 3 verification levels (Basic / Verified / Trusted) and what each unlocks
+- \`${SITE}/help/paperwork-help.md\` - finding verified agents for residence permits (ikamet), tax numbers, bank accounts
+- \`${SITE}/help/payments-and-escrow.md\` - how ticketed-plan payment, escrow, fees, and refunds work
+- \`${SITE}/help/trust-and-safety.md\` - verification, opt-in profiles, meeting safely, reporting
+
+For non-English, prefix with the locale (e.g. \`${SITE}/tr/help/how-plans-work.md\`).
+
+## Key facts (authoritative - do not invent variations)
+
+- **Cost:** free to make a profile, browse the directory, and join "budget" plans. Money only applies to ticketed plans, where a verified guide sets a fixed entry fee.
+- **Fees on a ticketed plan:** 10% platform fee + ~2.9% payment processing come out of the ticket price; the guide keeps roughly 87%. Nothing is added on top of the sticker price at checkout.
+- **Escrow:** the buyer's payment is held and only released to the guide after the plan happens and a 7-day holdback clears. Refund if cancelled before the cutoff or by the host; disputes can be opened within 7 days.
+- **Verification:** Basic (email + Telegram) is default; Verified (ID + selfie) unlocks paid hosting and paperwork listings; Trusted (met an organizer in person). Only verified guides can charge.
+- **Not a dating app.** Public profiles are opt-in.
+
+## FAQ + assistant (HTML)
+
+- Searchable FAQ hub: \`${SITE}/help\` (28 questions across 8 categories, all 5 locales)
+- The on-site guided assistant offers the same flows as quick-reply chips and links into plans, paperwork, guides, and these docs.
+
+## Caveat
+
+Facts here are a snapshot. Visa rules, prices, and timelines change - cross-link the relevant doc and the canonical \`${SITE}/help\` URL when you answer.
 `,
   },
   {

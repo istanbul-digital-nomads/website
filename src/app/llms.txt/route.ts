@@ -3,6 +3,7 @@ import { getAllBlogPosts } from "@/lib/blog";
 import { guides } from "@/lib/data";
 import { neighborhoods } from "@/lib/neighborhoods";
 import { getSupportedCountries } from "@/lib/path-to-istanbul";
+import { helpDocs, getHelpDoc } from "@/lib/help-docs";
 
 const SITE = "https://istanbulnomads.com";
 
@@ -26,7 +27,9 @@ Every HTML page on this site has a markdown equivalent. Append \`.md\` to any pa
 - Nomad Spaces (verified coworking + cafe directory): ${SITE}/spaces
 - Events (weekly community calendar): ${SITE}/events
 - Plans (members-only same-day cowork/social plans): ${SITE}/plans
+- Paperwork (verified agents for permits, tax numbers, bank accounts): ${SITE}/paperwork
 - Local Guides (vetted human guides directory): ${SITE}/local-guides
+- Help & FAQ (how the platform works + searchable FAQ): ${SITE}/help
 - About: ${SITE}/about
 - Contact: ${SITE}/contact
 
@@ -55,6 +58,13 @@ ${blogPosts.map((p) => `- [${p.title}](${SITE}/blog/${p.slug}.md): ${p.descripti
 ## Path to Istanbul (country relocation guides)
 
 ${countries.map((c) => `- [${c.flag} ${c.name} to Istanbul](${SITE}/path-to-istanbul/${c.slug}.md)`).join("\n")}
+
+## Help & platform docs
+
+How the platform itself works (not city info). Also the source the on-site guided assistant points to.
+
+${helpDocs.map((d) => `- [${getHelpDoc(d.slug)?.frontmatter.title ?? d.slug}](${SITE}/help/${d.slug}.md): ${getHelpDoc(d.slug)?.frontmatter.description ?? ""}`).join("\n")}
+- Searchable FAQ + assistant (HTML hub): ${SITE}/help
 
 ## Directories
 

@@ -294,6 +294,9 @@ the monthly quota - they're free to post, no money moves, no take.
 | `/blog` + `/blog/[slug]` | `(marketing)/blog/` | MDX, by-people-who-live-here. Long-form. |
 | `/events` + `/events/[id]` | `(marketing)/events/` | Scheduled coworking sessions, meetups, workshops. RSVPs in Supabase. |
 | `/local-guides` + `/local-guides/join` | `(marketing)/local-guides/` | Verified local hosts (walks, dinners, ferry trips, hikes) + application form for new ones. **Application triggers the Blue-badge KYC flow.** |
+| `/help` + `/help/[slug]` | `(marketing)/help/` | Help center: searchable FAQ (28 Q / 8 categories) + 6 platform how-to docs (getting-started, how-plans-work, getting-verified, paperwork-help, payments-and-escrow, trust-and-safety), MDX, localized in all 5 locales. Also exposed as `.md` for AIs and indexed in `/llms.txt`. |
+
+A **floating guided assistant** (scripted, no-LLM) is mounted site-wide (suppressed on `/onboarding`): quick-reply chips that route into plans, paperwork, guides, and the help docs. Opened by its launcher bubble or the "ask the assistant" CTA on `/help`.
 
 ### C · Community side surfaces
 
@@ -313,7 +316,9 @@ the monthly quota - they're free to post, no money moves, no take.
 | `/legal/community-guidelines` | not built | Strict, explicit rules: behavior at plans, no-shows, alcohol, harassment, safety, what gets you Red-flagged or removed. Working draft at [docs/legal/community-guidelines.md](docs/legal/community-guidelines.md). | **Draft ready, page not built** |
 | `/legal/plan-disclaimers` | not built | Per-vibe disclaimer text shown on every plan card (hiking = trail risk, outdoor = weather, after-work = alcohol, admin = no legal advice, etc.). Working draft at [docs/legal/plan-disclaimers.md](docs/legal/plan-disclaimers.md). | **Draft ready, page not built** |
 | `/legal/privacy` | not built | GDPR + KVKK (Turkish data law) coverage. | **Required, not drafted** |
-| `/dashboard/payouts` | not built | Guide payout history, pending balance, KYC status, bank details. | **Required for guide launch** |
+| `/dashboard/profile` | `(app)/dashboard/profile/` | Section-by-section profile editor (about, location, work, interests, stay, contact, visibility) - each card saves on its own. | Live (3.16) |
+| `/dashboard/verify` | `(app)/dashboard/verify/` | Verification request flow (ID + selfie for Verified, in-person for Trusted) with current-level badge + pending/rejected states. | Live (3.11) |
+| `/dashboard/payouts` | `(app)/dashboard/payouts/` | Guide payout history, pending vs released balance, IBAN setup, ticket ledger. Behind `isIyzicoConfigured()`. | Live (3.14), sandbox |
 | `/dashboard/subscription` | not built | Guide subscription tier, plan-quota usage, billing portal. | **Required for guide launch** |
 
 ### What we deliberately don't have
@@ -554,50 +559,57 @@ Codepath highlights worth knowing:
 
 ## 14 · Where things stand (May 2026)
 
-Shipped and live:
+Shipped and live (through v3.19.1):
 
-- Cinematic live-map homepage hero (auto-tour through 6 neighborhoods)
-- Workspace navbar (Today · Map · Events · Members + Explore ▾ + Community
-  ▾) consistent across hero brand bar and global Header. Perks pulled in
-  3.8.2.
-- Members editorial directory (`/members`) with real data, grouped by hood
-- Plans editorial landing (`/plans`) and Today board (`/today`) with mock
-  seed data for development; real plans flow through `/plans/new`
-- All 5 locales kept in sync per release
-- Route-group scaffold landed in 3.8.0; `(home)` / `(marketing)` / `(app)`
+- Cinematic live-map homepage hero + the "Loop" how-it-works infographic
+- Workspace navbar consistent across hero brand bar and global Header
+- **Member roles** (`nomad`, `remote_worker`, `local_guide`, `tour_guide`)
+  + `is_agent` capability flag (3.10)
+- **Verification ladder** (`verification_level`: basic/verified/trusted,
+  request flow at `/dashboard/verify`, badge UI, manual review) (3.11)
+- **Paperwork surface** (`/paperwork` directory + detail + creation) for
+  verified agents (3.10)
+- **iyzico marketplace, sandbox-ready** (3.14): `plan_tickets` ledger,
+  fee math (10% platform + ~2.9% processor, ~87% to guide), escrow with
+  7-day holdback, refunds, disputes, payout dashboard, ticketed checkout -
+  all behind `isIyzicoConfigured()`; ships safe without live keys
+- **Rich member profiles**: editorial `/members/[id]` + section-by-section
+  editor at `/dashboard/profile`; trust-signal badges; upcoming/past plans
+- **Onboarding rework** (3.16): trimmed to nomad vs remote-worker +
+  arrival status; searchable Istanbul **location picker** (39 districts /
+  960 neighborhoods + geolocation); **nationality picker** (250); skills
+  tags; stay dates + favorite spots
+- **Connected dashboard shell** with persistent sub-nav (3.16.2)
+- **Help center** (3.17): `/help` hub with searchable FAQ (28 Q across 8
+  categories) + 6 platform how-to docs at `/help/[slug]` (MDX), all
+  localized in 5 languages (3.19)
+- **Guided assistant** (3.18): floating, scripted (no-LLM) chatbot that
+  routes users into plans / paperwork / guides / help docs
+- All 5 locales kept in sync per release; route groups `(home)` /
+  `(marketing)` / `(app)`
 
 **Full phased build order: [docs/product-plan.md](docs/product-plan.md).**
-The list below is the punch list summary - the build order, dependencies,
-and per-phase scope live in the product plan doc.
 
-Tracked follow-ups required before paid-plan launch:
+Tracked follow-ups (not yet shipped):
 
-1. **Member role expansion to 5 values** (`nomad`, `remote_worker`,
-   `local_guide`, `tour_guide`, `agent`). Schema migration + onboarding
-   wizard role-select + role-specific profile views.
-2. **Verification ladder** (`verification_level` enum + KYC vendor
-   integration + Blue-badge review workflow + Gold-badge in-person tracker).
-3. **iyzico marketplace integration** (escrow account, sub-merchant model,
-   payout flow, 7-day holdback, refund flow, dispute handling).
-4. **`plan_tickets` table + paid-plan UI** (entry-fee field gated by role,
-   checkout flow, attendee receipts, host payout dashboard).
-5. **Guide subscription tiers** (Free / Standard / Pro, plan-quota
+1. **iyzico live keys** - flip the env-gated sandbox integration to
+   production (KYC vendor SDK still stubbed at `kyc_provider`).
+2. **Guide subscription tiers** (Free / Standard / Pro, plan-quota
    tracking, billing portal).
-6. **Legal pages**: `/legal/terms`, `/legal/community-guidelines`,
-   `/legal/privacy`, `/legal/plan-disclaimers` - lawyer-reviewed,
-   translated to all 5 locales, KVKK-compliant.
-7. **XP + badges schema** with the one-year-bracelet reward defined as the
-   floor.
-8. **Neighborhood connective-tissue counts** on `/guides/neighborhoods/[slug]`
-   ("{n} nomads here · {m} local guides hosting this month").
-9. **Paperwork-service detail enrichment** beyond Phase 2 v1: reviews,
-   per-host bundling, real booking flow.
-10. **Profile-editorial layout** for `/members/[id]` (magazine cover + pull
-    quote + stats) - designed, not built.
-11. **Plans map view** at `/today?view=map` and `/plans?view=map`.
-12. **Composer + ⌘N modal** for plan creation (currently a link to
-    `/plans/new`).
-13. **Real Supabase members on the hero map** (currently fixture data).
+3. **Legal pages**: lawyer-reviewed, KVKK-compliant terms / community
+   guidelines / privacy / plan-disclaimers, translated to all 5 locales.
+4. **XP + badges schema** with the one-year-bracelet reward as the floor
+   (trust-signal pills shipped on profiles; the XP ledger has not).
+5. **Neighborhood connective-tissue counts** on
+   `/guides/neighborhoods/[slug]` ("{n} nomads here · {m} guides hosting").
+6. **Paperwork-service detail enrichment**: reviews, per-host bundling,
+   real booking flow.
+7. **Plans map view** at `/today?view=map` and `/plans?view=map`.
+8. **Composer + ⌘N modal** for plan creation (currently links to
+   `/plans/new`).
+9. **Real Supabase members on the hero map** (currently fixture data).
+10. **Per-locale translation of the long-form help-doc bodies** is done;
+    remaining: per-locale guide MDX where still English-fallback.
 
 Tracked but no commitment date:
 

@@ -4,6 +4,20 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.19.2] - 2026-05-20
+
+**AI-facing surfaces + docs caught up to the help center & assistant.**
+
+### Added
+
+- **Markdown for the help docs**: `getMarkdownForPath` now serves `/help` (listing) and `/help/[slug]` (each platform doc), so the 6 docs are fetchable as `.md` by AI agents/crawlers like every other page.
+- **New agent skill `explain-how-it-works`** (auto-exposed via `/.well-known/agent-skills/index.json` + `SKILL.md` + the MCP server card): tells AIs how the platform works - joining, free vs ticketed plans, the 3 verification levels, paperwork, payments/escrow/fees, trust & safety - with the authoritative facts and links to the help docs.
+- `llms.txt` now lists the Help center + the 6 platform docs and adds `/paperwork` to the site sections; the `read-istanbul-content` skill's content map includes `/help/<slug>.md`.
+
+### Changed
+
+- **PRODUCT.md** refreshed: § 14 "Where things stand" now reflects what actually shipped (roles, verification, sandbox-ready payments, rich profiles + editor, onboarding rework, dashboard shell, help center, guided assistant) instead of listing them as pending; § 7 adds the `/help` routes + the guided assistant and corrects the stale "not built" status on `/dashboard/{profile,verify,payouts}`.
+
 ## [3.19.1] - 2026-05-20
 
 ### Fixed

@@ -13,6 +13,7 @@ import {
   type FaqGroup,
   type DocCard,
 } from "@/components/sections/help/help-explorer";
+import { AssistantCta } from "@/components/assistant/assistant-cta";
 
 export async function generateMetadata({
   params,
@@ -106,6 +107,10 @@ async function HelpContent({ locale }: { locale: Locale }) {
           <p className="mt-4 text-lede leading-relaxed text-paper-dim">
             {t("intro")}
           </p>
+
+          <div className="mt-6">
+            <AssistantCta />
+          </div>
 
           <div className="mt-10">
             <HelpExplorer

@@ -129,6 +129,15 @@ export function OnboardingWizard({
     stepHeadingRef.current?.focus({ preventScroll: false });
   }, [currentStep]);
 
+  // Hide the floating assistant launcher while onboarding - its sticky
+  // mobile footer would overlap the bubble.
+  useEffect(() => {
+    window.dispatchEvent(new Event("assistant-suppress"));
+    return () => {
+      window.dispatchEvent(new Event("assistant-unsuppress"));
+    };
+  }, []);
+
   // Auto-save partial profile on each step transition so a member can
   // bounce mid-flow and resume where they left off.
   const saveProgress = useCallback(async (data: OnboardingData) => {

@@ -4,6 +4,21 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.18.0] - 2026-05-20
+
+**Guided assistant.** A floating chatbot that feels like chatting but runs scripted flows and hands users real links - no LLM, fully deterministic.
+
+### Added
+
+- **`AssistantWidget`** - a launcher bubble (site-wide) that opens a chat-style panel. Bot messages + quick-reply chips advance scripted flows; terminal nodes render link cards that route into real content. Transcript + open state persist in `sessionStorage` across navigation. `role="dialog"`, Esc to close, `prefers-reduced-motion` respected, RTL-aware.
+- **`src/lib/assistant/flows.ts`** - the decision-tree as data. Five intents: I'm new to Istanbul, find plans today, paperwork help, how does this work, find a place to work. Options deep-link into real filters (`/plans?range=today&vibe=cowork`, `/paperwork?type=ikamet`, help docs, neighborhood guides, spaces).
+- **"Ask the assistant" CTA** on the `/help` hub (opens the widget via a custom event, mirroring Cmd-K).
+- `assistant` i18n namespace (launcher, title, 6 node messages, 30 option labels) across all 5 locales.
+
+### Changed
+
+- The onboarding wizard suppresses the launcher while active (its sticky mobile footer would overlap), via `assistant-suppress`/`assistant-unsuppress` events - avoids a pathname hook that would force the static `[id]` page shells dynamic.
+
 ## [3.17.0] - 2026-05-20
 
 **Help hub + rich docs + searchable FAQ.** A single `/help` knowledge base that answers both "how does this site work?" and "how do I live in Istanbul?" - groundwork for the guided chatbot landing next.

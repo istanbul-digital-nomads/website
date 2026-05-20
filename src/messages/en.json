@@ -3614,5 +3614,64 @@
     "safety": "Safety",
     "city": "Living in Istanbul",
     "account": "Your account"
+  },
+  "assistant": {
+    "launcherLabel": "Open the assistant",
+    "title": "Assistant",
+    "restart": "Start over",
+    "close": "Close",
+    "askCta": "Prefer to chat? Ask the assistant",
+    "nodes": {
+      "root": {
+        "message": "Hey! What brings you here today?"
+      },
+      "new": {
+        "message": "Welcome to Istanbul! Here's where to start."
+      },
+      "plans": {
+        "message": "Nice. What are you in the mood for today?"
+      },
+      "paperwork": {
+        "message": "Got it. What do you need help with?"
+      },
+      "how": {
+        "message": "Happy to explain. Pick a topic:"
+      },
+      "work": {
+        "message": "Looking for a spot to work? Where are you?"
+      }
+    },
+    "opt": {
+      "new": "I'm new to Istanbul",
+      "plans": "Find plans today",
+      "paperwork": "I need paperwork help",
+      "how": "How does this work?",
+      "work": "Find a place to work",
+      "pathToIstanbul": "Plan your move here",
+      "neighborhoodsGuide": "Compare neighborhoods",
+      "gettingStarted": "Getting started guide",
+      "makeProfile": "Make my profile",
+      "planCowork": "Cowork sessions today",
+      "planSocial": "Something social",
+      "planMeal": "Grab a meal",
+      "planOutdoor": "Get outdoors",
+      "planAll": "Just show me everything today",
+      "pwIkamet": "Residence permit (ikamet)",
+      "pwVisa": "Visa help",
+      "pwBank": "Open a bank account",
+      "pwTax": "Get a tax number",
+      "pwAll": "Browse all agents",
+      "pwHowItWorks": "How paperwork help works",
+      "docPlans": "How plans work",
+      "docVerify": "Getting verified",
+      "docPayments": "Payments & escrow",
+      "docSafety": "Trust & safety",
+      "allHelp": "Open the help center",
+      "hoodKadikoy": "Kadıköy",
+      "hoodCihangir": "Cihangir",
+      "hoodBesiktas": "Beşiktaş",
+      "allSpaces": "Browse coworking spaces",
+      "coworkingGuide": "Coworking guide"
+    }
   }
 }

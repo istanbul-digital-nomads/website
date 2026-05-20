@@ -46,6 +46,12 @@ export async function GET() {
         ],
         "service-doc": [
           {
+            href: `${SITE}/AGENTS.md`,
+            type: "text/markdown",
+            title:
+              "AGENTS.md - agent-facing guide to reading the site, discovery endpoints, skills, and APIs",
+          },
+          {
             href: `${SITE}/llms.txt`,
             type: "text/plain",
             title:
@@ -56,7 +62,8 @@ export async function GET() {
           {
             href: `${SITE}/robots.txt`,
             type: "text/plain",
-            title: "robots.txt with Content-Signal directives",
+            title:
+              "robots.txt with per-crawler AI bot allow/deny rules and content-usage policy",
           },
         ],
       },

@@ -4,6 +4,18 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.19.0] - 2026-05-20
+
+**Help docs fully localized.** The 6 platform docs are now translated into all 5 locales, so the help center and the guided assistant are locale-aware end to end - a Turkish visitor who taps the chatbot's "How plans work" card lands on a Turkish doc, not English.
+
+### Added
+
+- Turkish, Persian, Arabic, and Russian translations of all 6 platform docs (`src/content/help/{tr,fa,ar,ru}/*.mdx`): getting started, how plans work, getting verified, paperwork help, payments & escrow, trust & safety. Translated by the per-locale editor agents - MDX structure, links, and all facts/numbers (10% + ~2.9% fees, ~87%, 7-day escrow, the three verification levels) preserved verbatim; only prose translated. RTL-safe for ar/fa.
+
+### Notes
+
+- The help hub, FAQ, and assistant UI strings were already localized in 3.17.0/3.18.0; this fills the last gap (the long-form doc bodies that previously fell back to English).
+
 ## [3.18.0] - 2026-05-20
 
 **Guided assistant.** A floating chatbot that feels like chatting but runs scripted flows and hands users real links - no LLM, fully deterministic.

@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Input, Textarea } from "@/components/ui/input";
 import { ChipInput } from "@/components/ui/chip-input";
 import { LocationPicker } from "@/components/ui/location-picker";
-import { Link } from "@/lib/i18n/routing";
 import { createClient } from "@/lib/supabase/client";
 import { showToast } from "@/lib/toast";
 import { CURRENT_STATUS_OPTIONS } from "@/lib/member-profile";
@@ -102,19 +101,11 @@ export function ProfileEditor({
       <Container>
         <div className="mx-auto max-w-2xl">
           {/* Masthead */}
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <h1 className="font-display text-h2 leading-tight text-paper">
-                {t("title")}
-              </h1>
-              <p className="mt-2 text-sm text-paper-dim">{t("intro")}</p>
-            </div>
-            <Link
-              href="/dashboard"
-              className="shrink-0 text-sm text-paper-mute underline-offset-4 hover:text-paper hover:underline"
-            >
-              {t("backToDashboard")}
-            </Link>
+          <div>
+            <h1 className="font-display text-h2 leading-tight text-paper">
+              {t("title")}
+            </h1>
+            <p className="mt-2 text-sm text-paper-dim">{t("intro")}</p>
           </div>
 
           <div className="mt-8 space-y-5">

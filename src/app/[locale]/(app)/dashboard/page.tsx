@@ -70,8 +70,9 @@ async function DashboardContent({
   ];
   const done = fields.filter(([, ok]) => ok).length;
 
+  // Profile editing, verification, and payouts now live in the dashboard
+  // sub-nav, so these quick-links focus on exploring the rest of the app.
   const links: [string, string][] = [
-    [t("links.editProfile"), "/dashboard/profile"],
     [t("links.profile"), `/members/${member.id}`],
     [t("links.plans"), "/plans"],
     [t("links.sharePlan"), "/plans/new"],
@@ -79,11 +80,6 @@ async function DashboardContent({
     [t("links.events"), "/events"],
     [t("links.paperwork"), "/paperwork"],
   ];
-  // Host roles + agents get verification + payouts links.
-  if (showVerification) {
-    links.push([t("links.verify"), "/dashboard/verify"]);
-    links.push([t("links.payouts"), "/dashboard/payouts"]);
-  }
 
   return (
     <section className="bg-ink-1 pt-16 lg:pt-24">

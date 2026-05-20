@@ -2957,6 +2957,13 @@
         "sharePlan": "یک برنامه بگذار",
         "paperwork": "کمک کاغذبازی",
         "verify": "تأیید شو"
+      },
+      "nav": {
+        "eyebrow": "داشبورد",
+        "overview": "نمای کلی",
+        "profile": "پروفایل",
+        "verification": "تأیید",
+        "payouts": "پرداخت‌ها"
       }
     }
   },

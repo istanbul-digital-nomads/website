@@ -2965,6 +2965,13 @@
         "sharePlan": "شارك خطة",
         "paperwork": "مساعدة المعاملات",
         "verify": "وثّق حسابك"
+      },
+      "nav": {
+        "eyebrow": "اللوحة",
+        "overview": "نظرة عامة",
+        "profile": "الملف الشخصي",
+        "verification": "التوثيق",
+        "payouts": "المدفوعات"
       }
     }
   },

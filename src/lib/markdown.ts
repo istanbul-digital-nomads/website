@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { getAllBlogPosts, getBlogPost } from "./blog";
 import { getGuideContent } from "./guides";
+import { helpDocs, getHelpDoc } from "./help-docs";
 import { getPathContent } from "./path-to-istanbul-content";
 import { getSupportedCountries, getCountryBySlug } from "./path-to-istanbul";
 import { neighborhoods } from "./neighborhoods";
@@ -146,6 +147,23 @@ function spacesIndexMarkdown(): string {
     })
     .join("\n\n");
   return `${header}${sections}\n`;
+}
+
+function helpListingMarkdown(): string {
+  const header = frontmatterHeader(
+    "Istanbul Nomads - Help & FAQ",
+    "How the platform works (plans, verification, paperwork, payments, trust & safety) plus a searchable FAQ. The HTML hub also has a guided assistant and category-grouped FAQ.",
+    `${SITE}/help`,
+  );
+  const items = helpDocs
+    .map((d) => {
+      const doc = getHelpDoc(d.slug);
+      const title = doc?.frontmatter.title ?? d.slug;
+      const desc = doc?.frontmatter.description ?? "";
+      return `- [${title}](${SITE}/help/${d.slug}.md) - ${desc}`;
+    })
+    .join("\n");
+  return `${header}## Platform docs\n\n${items}\n\nFor the full FAQ, see the HTML hub at ${SITE}/help.\n`;
 }
 
 function homepageMarkdown(): string {
@@ -298,6 +316,21 @@ export function getMarkdownForPath(pathname: string): { body: string } | null {
   }
 
   if (p === "/spaces") return { body: spacesIndexMarkdown() };
+
+  if (p === "/help") return { body: helpListingMarkdown() };
+
+  const helpMatch = p.match(/^\/help\/([^/]+)$/);
+  if (helpMatch) {
+    const content = getHelpDoc(helpMatch[1]);
+    if (!content) return null;
+    return {
+      body: `${frontmatterHeader(
+        content.frontmatter.title || helpMatch[1],
+        content.frontmatter.description,
+        `${SITE}/help/${helpMatch[1]}`,
+      )}${mdxToMarkdown(content.content)}\n`,
+    };
+  }
 
   return null;
 }

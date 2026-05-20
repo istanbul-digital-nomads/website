@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { LocationPicker } from "@/components/ui/location-picker";
+import { NationalityPicker } from "@/components/ui/nationality-picker";
 import type { OnboardingData, FieldErrors } from "../onboarding-wizard";
 
 interface StepProps {
@@ -131,11 +132,10 @@ export function StepAbout({ data, updateField, errors }: StepProps) {
         </div>
       </div>
 
-      <Input
+      <NationalityPicker
         label={t("nationality")}
-        value={(data.nationality as string) || ""}
-        onChange={(e) => updateField("nationality", e.target.value)}
-        placeholder={t("nationalityPlaceholder")}
+        value={(data.nationality as string) || null}
+        onChange={(v) => updateField("nationality", v)}
       />
 
       <LocationPicker

@@ -74,6 +74,7 @@ ${helpDocs.map((d) => `- [${getHelpDoc(d.slug)?.frontmatter.title ?? d.slug}](${
 
 ## Agent endpoints
 
+- Agent guide (AGENTS.md): ${SITE}/AGENTS.md
 - Agent Skills index: ${SITE}/.well-known/agent-skills/index.json
 - MCP server card: ${SITE}/.well-known/mcp/server-card.json
 - MCP endpoint (HTTP): ${SITE}/api/mcp

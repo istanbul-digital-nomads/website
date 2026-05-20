@@ -4,6 +4,19 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.19.4] - 2026-05-20
+
+**Public agent guide for AI-readiness.**
+
+### Added
+
+- **`/AGENTS.md`** - a public, agent-facing guide (the agents.md convention, distinct from the repo-internal coding-rules AGENTS.md): what the site is, how to read content as markdown (incl. locale prefixes), every discovery endpoint (llms.txt, Agent Skills, MCP server card + HTTP endpoint, WebMCP, API Catalog, OpenAPI, OAuth metadata), the live skill list (pulled from the source of truth), the programmatic APIs, and the content-usage policy. Allow-listed in `proxy.ts` so the `.md` content-negotiation rewrite doesn't hijack it.
+- `/AGENTS.md` is now referenced from `llms.txt` (Agent endpoints) and the `/.well-known/api-catalog` linkset.
+
+### Changed
+
+- api-catalog: corrected the robots.txt description to match what it actually emits (per-crawler AI bot allow/deny rules + content-usage policy) rather than claiming a machine-readable Content-Signal directive it doesn't yet output.
+
 ## [3.19.3] - 2026-05-20
 
 ### Fixed

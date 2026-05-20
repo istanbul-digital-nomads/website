@@ -62,7 +62,8 @@ export async function proxy(request: NextRequest) {
     pathname === "/sitemap.xml" ||
     pathname === "/robots.txt" ||
     pathname === "/llms.txt" ||
-    pathname === "/openapi.json"
+    pathname === "/openapi.json" ||
+    pathname === "/AGENTS.md"
   ) {
     return NextResponse.next();
   }

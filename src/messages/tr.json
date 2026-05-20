@@ -1833,8 +1833,8 @@
           "website": "Web sitesi",
           "other": "Diğer"
         },
-        "memberType": "Platformda hangi rol sana uygun?",
-        "memberTypeHint": "Bu, burada neler yapabileceğini belirler. Daha sonra profilinden değiştirebilirsin.",
+        "memberType": "Nomad mısın yoksa uzaktan mı çalışıyorsun?",
+        "memberTypeHint": "Yerli rehberler, tur rehberleri ve evrak danışmanları ayrı bir formla kaydolur.",
         "memberTypeOptions": {
           "nomad": "Göçebe",
           "remote_worker": "Uzaktan çalışan",
@@ -1894,6 +1894,14 @@
           "activities": "Aktiviteler ve hobiler",
           "exploring": "İstanbul'u keşfetmek",
           "other": "Diğer"
+        },
+        "arrivalStatusLabel": "İstanbul'a taşınmada neredesin?",
+        "skillsLabel": "Becerilerin",
+        "skillsHint": "Ne yaptığını etiketle - tasarım, React, fotoğraf. Eklemek için Enter'a bas.",
+        "arrivalStatusOptions": {
+          "in_istanbul": "Şu an İstanbul'dayım",
+          "elsewhere_turkey": "Türkiye'deyim, henüz İstanbul'da değilim",
+          "planning": "Gelmeyi planlıyorum"
         }
       },
       "guidelines": {
@@ -2961,7 +2969,10 @@
         "profile": "Herkese açık profilini gör",
         "events": "Yaklaşan etkinlikler",
         "payouts": "Ödemeler",
-        "editProfile": "Profilini düzenle"
+        "editProfile": "Profilini düzenle",
+        "sharePlan": "Plan paylaş",
+        "paperwork": "Evrak yardımı",
+        "verify": "Doğrulan"
       }
     }
   },
@@ -3397,6 +3408,85 @@
         "hosting": "Bugün bir plan düzenliyor - gel katıl.",
         "hibernating": "Ara veriyor, bir süre çevrimdışı."
       }
+    }
+  },
+  "locationPicker": {
+    "placeholder": "Mahalle ya da ilçe ara...",
+    "useLocation": "Konumumu kullan",
+    "clear": "Temizle",
+    "wholeDistrict": "tüm ilçe",
+    "noResults": "İstanbul'da eşleşme yok. Başka yazımı dene.",
+    "geoUnsupported": "Tarayıcın konum paylaşamıyor.",
+    "geoDenied": "Konum erişimi engellendi. Listeden seç.",
+    "geoNoMatch": "Bunu bir İstanbul ilçesiyle eşleştiremedik. Listeden seç.",
+    "geoError": "Konumun okunamadı. Tekrar dene ya da listeden seç."
+  },
+  "profileEditor": {
+    "metaTitle": "Profili düzenle",
+    "title": "Profilin",
+    "intro": "Her bölümü ayrı ayrı güncelle - ilerledikçe kaydet.",
+    "backToDashboard": "Panoya dön",
+    "save": "Kaydet",
+    "sectionSaved": "Kaydedildi",
+    "saveError": "Kaydedilemedi. Tekrar dene.",
+    "signInAgain": "Lütfen tekrar giriş yap.",
+    "chipRemove": "Kaldır",
+    "about": {
+      "title": "Hakkında",
+      "description": "Diğer nomadların ilk gördüğü temel bilgiler.",
+      "displayName": "Görünen ad",
+      "bio": "Kısa biyografi",
+      "bioPlaceholder": "Kendin hakkında bir iki satır.",
+      "nationality": "Uyruk",
+      "gender": "Cinsiyet",
+      "ageRange": "Yaş aralığı"
+    },
+    "location": {
+      "title": "Nerede olduğun",
+      "description": "İstanbul'daki semtin - haritada seni gruplar.",
+      "field": "Mahalle / ilçe"
+    },
+    "work": {
+      "title": "İş",
+      "description": "Ne yaptığın ve taşınmada nerede olduğun.",
+      "role": "Nomad mısın yoksa uzaktan mı çalışıyorsun?",
+      "roleNote": "Yerli rehberler, tur rehberleri ve evrak danışmanları ayrı bir formla kaydolur.",
+      "arrival": "İstanbul'a taşınma durumun",
+      "profession": "Meslek",
+      "professionalRole": "Rol / unvan",
+      "skills": "Beceriler",
+      "skillsHint": "Ne yaptığını etiketle. Eklemek için Enter'a bas.",
+      "skillsPlaceholder": "örn. Tasarım, React, Fotoğraf"
+    },
+    "interests": {
+      "title": "İlgi alanları",
+      "description": "İnsanların ortak nokta bulmasına yardım et.",
+      "status": "Şu an...",
+      "workingOn": "Üzerinde çalıştığın",
+      "wantsToTalk": "Konuşmaktan keyif aldığın",
+      "hobbies": "Hobiler"
+    },
+    "stay": {
+      "title": "Kalışın",
+      "description": "Yaklaşık ne kadar buradasın ve uğrak yerlerin.",
+      "moveIn": "Geldin / geliyorsun",
+      "moveOut": "Ayrılış (biliyorsan)",
+      "favoriteSpots": "Favori mekanlar",
+      "favoriteSpotsHint": "Kafeler, parklar, ortak çalışma - sık gittiklerin."
+    },
+    "contact": {
+      "title": "İletişim",
+      "description": "Sana nasıl ulaşılır. Asıl kanal Telegram.",
+      "email": "E-posta",
+      "emailNote": "Girişte kullanılır. Herkese açık gösterilmez.",
+      "telegram": "Telegram kullanıcı adı",
+      "website": "Web sitesi",
+      "whatsapp": "WhatsApp"
+    },
+    "visibility": {
+      "title": "Görünürlük",
+      "description": "Herkese açık üye dizininde görünüp görünmemen.",
+      "toggle": "Beni üye dizininde göster"
     }
   }
 }

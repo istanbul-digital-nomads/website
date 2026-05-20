@@ -41,6 +41,7 @@ export interface Database {
           is_agent: boolean;
           professional_role: string | null;
           tour_guide_license_no: string | null;
+          arrival_status: string | null;
           xp: number;
           verification_level: "basic" | "verified" | "trusted";
           verified_at: string | null;

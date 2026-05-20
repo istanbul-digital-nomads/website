@@ -1813,8 +1813,8 @@
           "website": "Website",
           "other": "Other"
         },
-        "memberType": "Which role fits you on the platform?",
-        "memberTypeHint": "This shapes what you can do here. You can change it later from your profile.",
+        "memberType": "Are you a nomad or working remotely?",
+        "memberTypeHint": "Local guides, tour guides and paperwork agents sign up through a separate form.",
         "memberTypeOptions": {
           "nomad": "Nomad",
           "remote_worker": "Remote worker",
@@ -1874,6 +1874,14 @@
           "activities": "Activities & hobbies",
           "exploring": "Exploring Istanbul",
           "other": "Other"
+        },
+        "arrivalStatusLabel": "Where are you in your move to Istanbul?",
+        "skillsLabel": "Your skills",
+        "skillsHint": "Tag what you do - design, React, photography. Press Enter to add.",
+        "arrivalStatusOptions": {
+          "in_istanbul": "I'm in Istanbul now",
+          "elsewhere_turkey": "In Turkey, not Istanbul yet",
+          "planning": "Planning to come"
         }
       },
       "guidelines": {
@@ -2941,7 +2949,10 @@
         "profile": "View your public profile",
         "events": "Upcoming events",
         "payouts": "Payouts",
-        "editProfile": "Edit your profile"
+        "editProfile": "Edit your profile",
+        "sharePlan": "Share a plan",
+        "paperwork": "Paperwork help",
+        "verify": "Get verified"
       }
     }
   },
@@ -3377,6 +3388,85 @@
         "hosting": "Running a plan today - come along.",
         "hibernating": "Taking a break, offline for a bit."
       }
+    }
+  },
+  "locationPicker": {
+    "placeholder": "Search a neighborhood or district...",
+    "useLocation": "Use my location",
+    "clear": "Clear",
+    "wholeDistrict": "whole district",
+    "noResults": "No match in Istanbul. Try another spelling.",
+    "geoUnsupported": "Your browser can't share location.",
+    "geoDenied": "Location access was blocked. Pick from the list instead.",
+    "geoNoMatch": "We couldn't match that to an Istanbul district. Pick from the list.",
+    "geoError": "Couldn't read your location. Try again or pick from the list."
+  },
+  "profileEditor": {
+    "metaTitle": "Edit profile",
+    "title": "Your profile",
+    "intro": "Update any section on its own - save as you go.",
+    "backToDashboard": "Back to dashboard",
+    "save": "Save",
+    "sectionSaved": "Saved",
+    "saveError": "Couldn't save. Try again.",
+    "signInAgain": "Please sign in again.",
+    "chipRemove": "Remove",
+    "about": {
+      "title": "About you",
+      "description": "The basics other nomads see first.",
+      "displayName": "Display name",
+      "bio": "Short bio",
+      "bioPlaceholder": "A line or two about you.",
+      "nationality": "Nationality",
+      "gender": "Gender",
+      "ageRange": "Age range"
+    },
+    "location": {
+      "title": "Where you are",
+      "description": "Your Istanbul neighborhood - groups you on the map.",
+      "field": "Neighborhood / district"
+    },
+    "work": {
+      "title": "Work",
+      "description": "What you do and where you're at with the move.",
+      "role": "Nomad or remote worker?",
+      "roleNote": "Local guides, tour guides and paperwork agents sign up through a separate form.",
+      "arrival": "Your move to Istanbul",
+      "profession": "Profession",
+      "professionalRole": "Role / title",
+      "skills": "Skills",
+      "skillsHint": "Tag what you do. Press Enter to add.",
+      "skillsPlaceholder": "e.g. Design, React, Photography"
+    },
+    "interests": {
+      "title": "Interests",
+      "description": "Help people find common ground.",
+      "status": "Right now you're...",
+      "workingOn": "Working on",
+      "wantsToTalk": "Happy to talk about",
+      "hobbies": "Hobbies"
+    },
+    "stay": {
+      "title": "Your stay",
+      "description": "Roughly how long you're around, and your go-to spots.",
+      "moveIn": "Arrived / arriving",
+      "moveOut": "Leaving (if you know)",
+      "favoriteSpots": "Favorite spots",
+      "favoriteSpotsHint": "Cafes, parks, coworking - your regulars."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "How people reach you. Telegram's the main one.",
+      "email": "Email",
+      "emailNote": "Used to sign in. Not shown publicly.",
+      "telegram": "Telegram handle",
+      "website": "Website",
+      "whatsapp": "WhatsApp"
+    },
+    "visibility": {
+      "title": "Visibility",
+      "description": "Whether you appear in the public directory.",
+      "toggle": "Show me in the members directory"
     }
   }
 }

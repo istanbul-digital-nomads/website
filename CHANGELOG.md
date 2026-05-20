@@ -4,6 +4,30 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.16.0] - 2026-05-20
+
+**Onboarding + profile refinement.** The nomad signup is shorter and clearer, location is now a real searchable Istanbul picker, skills are finally fillable, and "Complete profile" opens a proper section-by-section editor instead of replaying the signup wizard.
+
+### Schema (migration 025)
+
+- **`members.arrival_status`** (text, nullable) - where a member is in their move: `in_istanbul` | `elsewhere_turkey` | `planning`.
+
+### Added
+
+- **`src/lib/istanbul-locations.ts`** - all 39 Istanbul districts and their 960 neighborhoods (sourced from the public Türkiye API, not hand-authored), plus flat `ISTANBUL_PLACES` for a single searchable list.
+- **`LocationPicker`** (`src/components/ui/location-picker.tsx`) - diacritic-insensitive searchable district/neighborhood combobox with a "use my location" button that reverse-geocodes the device position to an Istanbul district. Stores district in `location` (drives directory grouping) and neighborhood in `city_district`.
+- **Skills tag input** in onboarding + the profile editor, writing `members.skills` (so the dashboard's skills completeness check is finally fillable).
+- **`/dashboard/profile`** - a new section-by-section profile editor (About, Location, Work, Interests, Stay, Contact, Visibility). Each card saves independently. The Stay section also captures move-in/out dates + favorite spots.
+- **Reusable `ChipInput`** (`src/components/ui/chip-input.tsx`).
+- **`scripts/apply-migration.sh`** - applies a migration file to the prod project via the Management API.
+
+### Changed
+
+- **Onboarding role step trimmed**: only Nomad vs Remote-worker now, plus an arrival-status question. Local guides, tour guides, and paperwork agents sign up through their own forms - the `is_agent` toggle and guide tiles are gone from the nomad flow.
+- **Free-text "City / District"** input replaced by the searchable `LocationPicker`.
+- **Dashboard quick-links expanded** (share a plan, paperwork, get verified) and "Complete/Edit profile" now opens `/dashboard/profile` instead of the signup wizard.
+- New i18n (`locationPicker`, `profileEditor`, onboarding arrival/skills, dashboard links) across all 5 locales.
+
 ## [3.15.0] - 2026-05-20
 
 **Onboarding explainer strips.** New diagram-heavy "how it works" sections wire the product together so visitors and members aren't confused about plans, paperwork, or what the badges mean. Shared core content, placed on the pages where the questions actually come up.

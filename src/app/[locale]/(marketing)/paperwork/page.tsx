@@ -15,6 +15,7 @@ import {
   isServiceType,
   type ServiceType,
 } from "@/lib/paperwork";
+import { PaperworkExplainer } from "@/components/sections/how-it-works/paperwork-explainer";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -85,6 +86,11 @@ async function PaperworkIndex({ params, searchParams }: Props) {
         <p className="mt-5 max-w-2xl text-[15px] leading-[1.6] text-cream/70">
           {t("lede")}
         </p>
+
+        {/* How paperwork help works - 3-step onboarding strip */}
+        <div className="mt-10">
+          <PaperworkExplainer locale={locale} />
+        </div>
 
         {/* Type filter chips */}
         <nav

@@ -954,13 +954,22 @@
           "label": "Beyoğlu",
           "sub": "Late-night coworking on İstiklal"
         },
-        "kadikoy": { "label": "Kadıköy", "sub": "A gaming meetup is forming" },
-        "karakoy": { "label": "Karaköy", "sub": "Dinner along the waterfront" },
+        "kadikoy": {
+          "label": "Kadıköy",
+          "sub": "A gaming meetup is forming"
+        },
+        "karakoy": {
+          "label": "Karaköy",
+          "sub": "Dinner along the waterfront"
+        },
         "sultanahmet": {
           "label": "Sultanahmet",
           "sub": "Gallery night in the old city"
         },
-        "ortakoy": { "label": "Ortaköy", "sub": "Bosphorus-side breakfast" }
+        "ortakoy": {
+          "label": "Ortaköy",
+          "sub": "Bosphorus-side breakfast"
+        }
       }
     },
     "firstWeekTool": {
@@ -3270,5 +3279,104 @@
       "shortcut": "⌘K · search any day, any neighborhood"
     },
     "emptyBoard": "No plans on the board today. Post one - or check tomorrow."
+  },
+  "howItWorks": {
+    "loop": {
+      "eyebrow": "How it works",
+      "title": "Land, find your people,",
+      "titleAccent": "do it again tomorrow.",
+      "lede": "There's no big sign-up funnel here. You arrive, see who's around, share what you're up to, and meet up. The loop runs fresh every morning.",
+      "loopBack": "Every morning, again",
+      "steps": {
+        "land": {
+          "title": "Land in Istanbul",
+          "body": "Make a profile in two minutes. Pick a neighborhood, say what you're working on, and you're on the map."
+        },
+        "join": {
+          "title": "Find your people",
+          "body": "Browse who's around right now. Filter by hood, role, or what they're into. Everyone's verified before they can host."
+        },
+        "today": {
+          "title": "See today's plans",
+          "body": "Open plans for cowork sessions, dinners, walks. Some are free, some have a small entry fee. Tap to join."
+        },
+        "meet": {
+          "title": "Actually meet up",
+          "body": "Show up at the cafe, the coworking spot, the ferry. The app gets you in the door, the rest happens in person."
+        },
+        "repeat": {
+          "title": "Do it again",
+          "body": "Tomorrow there's a new set of plans and faces. The longer you stay, the more the city feels like home."
+        }
+      }
+    },
+    "plans": {
+      "eyebrow": "How plans work",
+      "title": "Two kinds of plans, one safe way to pay.",
+      "budget": {
+        "label": "Budget plan",
+        "title": "Free to join, split the bill",
+        "body": "Most plans are casual. The host shares roughly what you'll spend on the day, and you pay your own way when you're there.",
+        "point1": "No ticket, no upfront payment",
+        "point2": "Host shows an estimated spend per person",
+        "point3": "Anyone can host one"
+      },
+      "ticketed": {
+        "label": "Ticketed plan",
+        "title": "Pay once, seat reserved",
+        "body": "Some plans charge a set entry fee - a guided walk, a workshop, a dinner with a fixed cost. You buy a ticket to lock your spot.",
+        "point1": "Fixed price, paid when you join",
+        "point2": "Only verified guides can charge",
+        "point3": "Your money's held safely until after the plan"
+      },
+      "escrow": {
+        "label": "How your money stays safe",
+        "body": "When you buy a ticket, we hold the money - the guide doesn't get it right away. It only releases after the plan happens and the dust settles, so you're covered if something falls through.",
+        "step1": "You pay for your ticket",
+        "step2": "We hold it in escrow",
+        "step3": "The plan happens",
+        "step4": "Guide gets paid after 7 days"
+      }
+    },
+    "paperwork": {
+      "eyebrow": "How paperwork help works",
+      "steps": {
+        "browse": {
+          "title": "Browse verified agents",
+          "body": "Each agent lists what they handle - residence permits, tax numbers, bank accounts - with clear pricing and what's included."
+        },
+        "pick": {
+          "title": "Pick who fits",
+          "body": "Compare experience, languages spoken, and what past nomads said. Every agent on here is verified before they can list."
+        },
+        "contact": {
+          "title": "Reach out directly",
+          "body": "Message the agent to ask questions and arrange the work. You deal with them one-on-one, on your own terms."
+        }
+      },
+      "disclaimer": "Agents are independent service providers, not employees of Istanbul Nomads. We verify identities but don't give legal advice. Always confirm details and pricing directly with the agent before you commit."
+    },
+    "legend": {
+      "title": "What do the badges mean?",
+      "rolesTitle": "Member roles",
+      "verifyTitle": "Verification levels",
+      "statusTitle": "Current status",
+      "roles": {
+        "nomad": "Travelling and working from Istanbul for a while.",
+        "remote_worker": "Based here longer-term, working remotely.",
+        "local_guide": "A local who hosts plans and shows people around.",
+        "tour_guide": "A licensed guide who runs paid tours and walks."
+      },
+      "agentLabel": "Agent",
+      "agentMeaning": "Helps with paperwork - permits, tax numbers, bank accounts. Can also be a nomad who hosts plans.",
+      "status": {
+        "deep_work": "Heads down, not looking to meet right now.",
+        "open_to_meet": "Up for a coffee or a co-work today.",
+        "exploring": "Out and about, seeing the city.",
+        "settling_in": "Just arrived, getting set up.",
+        "hosting": "Running a plan today - come along.",
+        "hibernating": "Taking a break, offline for a bit."
+      }
+    }
   }
 }

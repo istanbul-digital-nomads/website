@@ -4,6 +4,7 @@ import { getMembersPublic } from "@/lib/supabase/queries";
 import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { alternatesFor } from "@/lib/seo";
 import { MembersEditorial } from "@/components/sections/members/members-editorial";
+import { BadgeLegend } from "@/components/sections/how-it-works/badge-legend";
 import { isMemberRole } from "@/lib/member-roles";
 
 export async function generateMetadata({
@@ -64,12 +65,19 @@ export default async function MembersPage({
   ];
 
   return (
-    <MembersEditorial
-      locale={locale}
-      members={members}
-      hoodOrder={HOOD_ORDER}
-      activeRole={activeRole}
-      activeAgentOnly={activeAgentOnly}
-    />
+    <>
+      <MembersEditorial
+        locale={locale}
+        members={members}
+        hoodOrder={HOOD_ORDER}
+        activeRole={activeRole}
+        activeAgentOnly={activeAgentOnly}
+      />
+      <section className="bg-deep-water font-grotesk text-cream">
+        <div className="mx-auto max-w-[1320px] px-6 pb-20 md:px-10">
+          <BadgeLegend locale={locale} />
+        </div>
+      </section>
+    </>
   );
 }

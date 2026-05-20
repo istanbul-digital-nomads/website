@@ -14,6 +14,7 @@ import {
   websiteSchema,
 } from "@/lib/seo";
 import { HeroLive } from "@/components/sections/home/hero-live";
+import { TheLoop } from "@/components/sections/how-it-works/the-loop";
 import { ThreeDoors } from "@/components/sections/home/three-doors";
 import { WeekShape } from "@/components/sections/home/week-shape";
 import { GuidesShelf } from "@/components/sections/home/guides-shelf";
@@ -89,6 +90,7 @@ async function HomePageContent({ locale }: { locale: Locale }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <HeroLive locale={locale} />
+      <TheLoop locale={locale} />
       <ThreeDoors locale={locale} />
       <WeekShape locale={locale} />
       <GuidesShelf locale={locale} />

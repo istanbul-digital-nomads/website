@@ -4,6 +4,19 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.16.3] - 2026-05-20
+
+**Searchable nationality picker.**
+
+### Added
+
+- **`src/lib/nationalities.ts`** - all 250 world nationalities (demonym + country + flag + ISO-2, sourced from the REST Countries API).
+- **`NationalityPicker`** (`src/components/ui/nationality-picker.tsx`) - searchable combobox (by demonym or country name, diacritic-insensitive, with flags) storing the demonym string. i18n across all 5 locales.
+
+### Changed
+
+- The free-text Nationality input in onboarding (About step) and the profile editor is now the searchable `NationalityPicker`.
+
 ## [3.16.2] - 2026-05-20
 
 **Connected dashboard shell.** The dashboard area now feels like one product instead of stray pages.

@@ -3499,5 +3499,10 @@
       "description": "Herkese açık üye dizininde görünüp görünmemen.",
       "toggle": "Beni üye dizininde göster"
     }
+  },
+  "nationalityPicker": {
+    "placeholder": "Uyruğunu ara...",
+    "clear": "Temizle",
+    "noResults": "Eşleşme yok. Ülke adını dene."
   }
 }

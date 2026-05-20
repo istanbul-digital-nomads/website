@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input, Textarea } from "@/components/ui/input";
 import { ChipInput } from "@/components/ui/chip-input";
 import { LocationPicker } from "@/components/ui/location-picker";
+import { NationalityPicker } from "@/components/ui/nationality-picker";
 import { createClient } from "@/lib/supabase/client";
 import { showToast } from "@/lib/toast";
 import { CURRENT_STATUS_OPTIONS } from "@/lib/member-profile";
@@ -138,10 +139,10 @@ export function ProfileEditor({
                 maxLength={400}
                 placeholder={t("about.bioPlaceholder")}
               />
-              <Input
+              <NationalityPicker
                 label={t("about.nationality")}
-                value={(form.nationality as string) || ""}
-                onChange={(e) => set("nationality", e.target.value)}
+                value={(form.nationality as string) || null}
+                onChange={(v) => set("nationality", v)}
               />
               <PillGroup
                 label={t("about.gender")}

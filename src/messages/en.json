@@ -3479,5 +3479,10 @@
       "description": "Whether you appear in the public directory.",
       "toggle": "Show me in the members directory"
     }
+  },
+  "nationalityPicker": {
+    "placeholder": "Search your nationality...",
+    "clear": "Clear",
+    "noResults": "No match. Try the country name."
   }
 }

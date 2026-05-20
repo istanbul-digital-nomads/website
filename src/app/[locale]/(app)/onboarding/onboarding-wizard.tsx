@@ -17,6 +17,14 @@ import { StepFinal } from "./steps/step-final";
 export type OnboardingData = Record<string, unknown>;
 export type FieldErrors = Record<string, string>;
 
+// Empty strings -> null before writing, so optional date columns (e.g.
+// move_in_date) don't get a "" that Postgres rejects as invalid date.
+function nullifyEmpty(data: OnboardingData): OnboardingData {
+  const out: OnboardingData = {};
+  for (const [k, v] of Object.entries(data)) out[k] = v === "" ? null : v;
+  return out;
+}
+
 interface OnboardingWizardProps {
   initialData: {
     display_name: string;
@@ -136,7 +144,10 @@ export function OnboardingWizard({
       const sb = supabase as unknown as {
         from: (table: string) => any;
       };
-      await sb.from("members").update(updateData).eq("id", user.id);
+      await sb
+        .from("members")
+        .update(nullifyEmpty(updateData))
+        .eq("id", user.id);
     } catch {
       // Silent - this is best-effort and shouldn't block step navigation.
     }
@@ -228,7 +239,7 @@ export function OnboardingWizard({
 
       const { error } = await (supabase.from("members") as any)
         .update({
-          ...updateData,
+          ...nullifyEmpty(updateData),
           ...legacyAgreements,
           onboarding_completed: true,
           onboarding_completed_at: new Date().toISOString(),

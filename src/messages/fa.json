@@ -1882,7 +1882,11 @@
           "in_istanbul": "الان در استانبولم",
           "elsewhere_turkey": "در ترکیه‌ام، هنوز استانبول نه",
           "planning": "قصد آمدن دارم"
-        }
+        },
+        "moveInLabel": "رسیدی / می‌رسی (اختیاری)",
+        "moveOutLabel": "رفتن، اگر می‌دانی (اختیاری)",
+        "favoriteSpotsLabel": "جاهای محبوب",
+        "favoriteSpotsHint": "کافه‌ها، پارک‌ها، فضای کار - پاتوق‌های همیشگی‌ات. برای افزودن Enter بزن."
       },
       "guidelines": {
         "label": "قوانین جامعه",

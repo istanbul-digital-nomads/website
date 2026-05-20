@@ -4,6 +4,18 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.16.1] - 2026-05-20
+
+**Onboarding stay fields + date-write guard.**
+
+### Added
+
+- The first-run onboarding wizard (interests step) now also collects **move-in / move-out dates** and **favorite spots**, matching the profile editor's Stay section. i18n across all 5 locales.
+
+### Fixed
+
+- Empty date inputs now coerce to `null` before writing (`nullifyEmpty` in the onboarding wizard, matching the profile editor), so clearing an optional date no longer errors against the Postgres `date` columns.
+
 ## [3.16.0] - 2026-05-20
 
 **Onboarding + profile refinement.** The nomad signup is shorter and clearer, location is now a real searchable Istanbul picker, skills are finally fillable, and "Complete profile" opens a proper section-by-section editor instead of replaying the signup wizard.

@@ -1882,7 +1882,11 @@
           "in_istanbul": "I'm in Istanbul now",
           "elsewhere_turkey": "In Turkey, not Istanbul yet",
           "planning": "Planning to come"
-        }
+        },
+        "moveInLabel": "Arrived / arriving (optional)",
+        "moveOutLabel": "Leaving, if you know (optional)",
+        "favoriteSpotsLabel": "Favorite spots",
+        "favoriteSpotsHint": "Cafes, parks, coworking - your regulars. Press Enter to add."
       },
       "guidelines": {
         "label": "Community Guidelines",

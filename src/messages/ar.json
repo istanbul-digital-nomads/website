@@ -1890,7 +1890,11 @@
           "in_istanbul": "أنا بإسطنبول هلّق",
           "elsewhere_turkey": "بتركيا، بس مش بإسطنبول لسا",
           "planning": "ناوي إجي"
-        }
+        },
+        "moveInLabel": "وصلت / رح توصل (اختياري)",
+        "moveOutLabel": "المغادرة، إذا بتعرف (اختياري)",
+        "favoriteSpotsLabel": "أماكن مفضّلة",
+        "favoriteSpotsHint": "كافيهات، حدائق، أماكن عمل - اللي بتروحها دايماً. اضغط Enter للإضافة."
       },
       "guidelines": {
         "label": "قواعد المجتمع",

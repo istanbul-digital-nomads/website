@@ -123,6 +123,15 @@ export function LocationPicker({
       setGeoError(t("geoUnsupported"));
       return;
     }
+    // Browsers only prompt for (and grant) geolocation on a secure
+    // context - https or localhost. On an insecure origin, in a
+    // permissioned iframe, or after a remembered block, the request
+    // fails instantly with no prompt, so explain that rather than
+    // claiming the user blocked it.
+    if (typeof window !== "undefined" && window.isSecureContext === false) {
+      setGeoError(t("geoInsecure"));
+      return;
+    }
     setLocating(true);
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
@@ -165,9 +174,11 @@ export function LocationPicker({
           setLocating(false);
         }
       },
-      () => {
+      (err) => {
         setLocating(false);
-        setGeoError(t("geoDenied"));
+        // 1 = PERMISSION_DENIED, 2 = POSITION_UNAVAILABLE, 3 = TIMEOUT.
+        // Only code 1 is an actual block; the rest are "couldn't read it".
+        setGeoError(err.code === 1 ? t("geoDenied") : t("geoError"));
       },
       { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 },
     );

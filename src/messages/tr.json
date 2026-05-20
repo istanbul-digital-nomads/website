@@ -3501,9 +3501,10 @@
     "wholeDistrict": "tüm ilçe",
     "noResults": "İstanbul'da eşleşme yok. Başka yazımı dene.",
     "geoUnsupported": "Tarayıcın konum paylaşamıyor.",
-    "geoDenied": "Konum erişimi engellendi. Listeden seç.",
+    "geoDenied": "Bu site için konum erişimi kapalı. Tarayıcı ayarlarından aç ya da listeden seç.",
     "geoNoMatch": "Bunu bir İstanbul ilçesiyle eşleştiremedik. Listeden seç.",
-    "geoError": "Konumun okunamadı. Tekrar dene ya da listeden seç."
+    "geoError": "Konumun okunamadı. Tekrar dene ya da listeden seç.",
+    "geoInsecure": "Konum yalnızca güvenli (https) bağlantıda çalışır. Listeden seç."
   },
   "profileEditor": {
     "metaTitle": "Profili düzenle",

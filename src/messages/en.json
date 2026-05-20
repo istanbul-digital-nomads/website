@@ -3481,9 +3481,10 @@
     "wholeDistrict": "whole district",
     "noResults": "No match in Istanbul. Try another spelling.",
     "geoUnsupported": "Your browser can't share location.",
-    "geoDenied": "Location access was blocked. Pick from the list instead.",
+    "geoDenied": "Location access is off for this site. Turn it on in your browser settings, or just pick from the list.",
     "geoNoMatch": "We couldn't match that to an Istanbul district. Pick from the list.",
-    "geoError": "Couldn't read your location. Try again or pick from the list."
+    "geoError": "Couldn't read your location. Try again or pick from the list.",
+    "geoInsecure": "Location only works over a secure (https) connection. Pick from the list instead."
   },
   "profileEditor": {
     "metaTitle": "Edit profile",

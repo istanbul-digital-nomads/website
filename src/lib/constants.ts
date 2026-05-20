@@ -106,7 +106,8 @@ export type FooterLinkKey =
   | "llmsTxt"
   | "members"
   | "circles"
-  | "plans";
+  | "plans"
+  | "help";
 
 export const footerNav: Record<
   "community" | "resources" | "connect" | "legal",
@@ -123,6 +124,7 @@ export const footerNav: Record<
     { key: "contact", href: "/contact" },
   ],
   resources: [
+    { key: "help", href: "/help" },
     { key: "nomadSpaces", href: "/spaces" },
     { key: "cityGuides", href: "/guides" },
     { key: "pathToIstanbul", href: "/path-to-istanbul" },

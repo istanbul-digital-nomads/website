@@ -145,7 +145,8 @@
       "members": "Üye rehberi",
       "circles": "Circles",
       "perks": "Perks kasası",
-      "plans": "Bugünün planları"
+      "plans": "Bugünün planları",
+      "help": "Yardım & SSS"
     }
   },
   "auth": {
@@ -589,46 +590,117 @@
     }
   },
   "faqItems": {
+    "what-is-this": {
+      "question": "Istanbul Nomads nedir?",
+      "answer": "İstanbul'dan uzaktan çalışan insanlar için bir topluluğuz - nomadlar, uzaktan çalışanlar ve buraya yerleşmeyi kolaylaştıran yerli rehberler ve yardımcılar. Site kimlerin yakında olduğunu gösterir, rahat planlar paylaşıp katılmanı sağlar ve ihtiyacın olan rehber ve hizmetlere yönlendirir."
+    },
+    "is-it-free": {
+      "question": "Kullanması ücretsiz mi?",
+      "answer": "Evet. Profil oluşturmak, dizine göz atmak ve ücretsiz 'bütçe' planlarına katılmak ücretsizdir. Para yalnızca biletli planlarda, doğrulanmış bir rehber sabit bir giriş ücreti aldığında devreye girer."
+    },
+    "how-to-join": {
+      "question": "Nasıl katılırım?",
+      "answer": "Kaydol ve kısa bir profil doldur - semtini seç, ne üzerine çalıştığını yaz, birkaç beceri ekle. Yaklaşık iki dakika sürer."
+    },
+    "who-is-it-for": {
+      "question": "Kimler için?",
+      "answer": "İstanbul'da yaşayan ya da taşınan dijital göçebeler, uzaktan çalışanlar ve serbest çalışanlar, ayrıca yerli rehberler ve evrak yardımcıları. Bir süredir İstanbul'dan çalışıyorsan tam yerindesin."
+    },
+    "what-are-plans": {
+      "question": "Planlar nedir?",
+      "answer": "Plan, birinin nerede ve ne zaman olacağını söylemesidir - 'Saat 3'ten itibaren bu kafedeyim, uğra'. Katılabilir ya da öylece gelebilirsin. Katılım baskısı yok, asgari sayı yok."
+    },
+    "plans-vs-events": {
+      "question": "Planlar ve etkinlikler arasındaki fark ne?",
+      "answer": "Etkinlikler düzenlenmiş buluşmalardır - birlikte çalışma günleri, akşam yemekleri, atölyeler. Planlar arada kalan rahat olanlardır: anlık, düşük taahhütlü ve herkes düzenleyebilir."
+    },
+    "how-to-host": {
+      "question": "Nasıl plan düzenlerim?",
+      "answer": "Profili olan herkes ücretsiz plan düzenleyebilir: bir yer seç, saat belirle, bir cümle ekle ve paylaş. Giriş ücreti almak için önce doğrulanman gerekir."
+    },
+    "budget-vs-ticketed": {
+      "question": "Bütçe planı ile biletli plan farkı ne?",
+      "answer": "Bütçe planlarına katılmak ücretsizdir - ev sahibi kişi başı tahmini harcamayı söyler, sen orada kendi payını ödersin. Biletli planların ise yerini ayırtmak için peşin ödediğin sabit bir giriş ücreti vardır."
+    },
+    "why-verify": {
+      "question": "Neden doğrulanmalıyım?",
+      "answer": "Doğrulama, henüz tanışmamış insanlar arasında güven kurar. Ücretsiz planlara katılmak için gerekmez, ama rehberlerin plan için ücret alması ya da evrak hizmeti listelemesi için doğrulanması gerekir."
+    },
+    "verification-levels": {
+      "question": "Doğrulama seviyeleri ne anlama gelir?",
+      "answer": "Temel (e-posta ve Telegram onaylı) varsayılandır. Doğrulanmış, kimlik ve özçekimin kontrol edildiği anlamına gelir - ücretli planları açar. Güvenilir, İstanbul'da bir düzenleyiciyle yüz yüze görüştüğün anlamına gelir."
+    },
+    "how-to-verify": {
+      "question": "Nasıl doğrulanırım?",
+      "answer": "Panondan bir istek başlat. Doğrulanmış için kimlik ve özçekim gönder, Güvenilir için bir düzenleyiciyle yüz yüze görüş. Bir düzenleyici inceler ve onaylandığında rozetin güncellenir."
+    },
+    "what-paperwork": {
+      "question": "Hangi evrak yardımı var?",
+      "answer": "Doğrulanmış danışmanlar nomadların ihtiyaç duyduğu yaygın işlerde yardımcı olur: oturma izni (ikamet), vize, vergi numarası, banka hesabı, noter işleri ve adres kaydı."
+    },
+    "find-agent": {
+      "question": "Nasıl danışman bulurum?",
+      "answer": "Evrak dizinine hizmet türüne göre göz at, deneyim, dil ve fiyatı karşılaştır, sonra işi ayarlamak için danışmana doğrudan mesaj at."
+    },
+    "agent-trust": {
+      "question": "Danışmanlara güvenebilir miyim?",
+      "answer": "Her danışman listelemeden önce doğrulanır, ama bağımsız sağlayıcılardır - çalışan değil - ve biz hukuki danışmanlık vermeyiz. Anlaşmadan önce detayları ve fiyatı her zaman doğrudan teyit et."
+    },
+    "how-payments": {
+      "question": "Ödemeler nasıl çalışır?",
+      "answer": "Çoğu plan ücretsizdir. Biletli planlarda rehberin giriş ücretini ödeme sırasında ödersin - gördüğün fiyat ödediğin fiyattır, üstüne ek ücret eklenmez."
+    },
+    "escrow": {
+      "question": "Bilet aldığımda param güvende mi?",
+      "answer": "Evet. Ödemeni emanette tutarız - rehber parayı hemen almaz. Para ancak plan gerçekleştikten ve 7 günlük bekletme süresi dolduktan sonra serbest kalır."
+    },
+    "refunds": {
+      "question": "İade alabilir miyim?",
+      "answer": "Planın son saatinden önce iptal edersen ya da ev sahibi iptal ederse iaden yapılır. Ayrıca plandan sonraki 7 gün içinde itiraz açabilirsin; bu, inceleme sürerken ödemeyi dondurur."
+    },
+    "guide-fees": {
+      "question": "Rehber hangi ücretleri öder?",
+      "answer": "Bilet fiyatından %10 platform ücreti ve yaklaşık %2,9 ödeme işleme ücreti düşülür. Rehber kabaca %87'sini alır."
+    },
+    "is-it-safe": {
+      "question": "Burada insanlarla buluşmak güvenli mi?",
+      "answer": "Üyeler kimliklerini doğrulayabilir, herkese açık profiller isteğe bağlıdır ve ücretli planların parası emanette tutulur. Yine de sağduyunu kullan: önce halka açık yerde buluş ve nereye gittiğini bir arkadaşına söyle."
+    },
+    "not-dating": {
+      "question": "Bu bir flört uygulaması mı?",
+      "answer": "Hayır. Istanbul Nomads çalışmak, buluşmak ve topluluk kurmak içindir. Romantik eşleşme ve bu tür istenmeyen mesajlar hoş karşılanmaz."
+    },
+    "report": {
+      "question": "Bir sorunu nasıl bildiririm?",
+      "answer": "Biri seni rahatsız ederse ya da bir dolandırıcılıktan şüphelenirsen, düzenleyicilere Telegram'dan ulaş (altbilgide bağlantılı). Erken duymayı tercih ederiz."
+    },
     "neighborhoods": {
-      "question": "Hangi mahallede başlamalıyım?",
-      "answer": "Anadolu yakasındaki Kadıköy göçebeler arasında en popüleri - yürünebilir, ekonomik ve kafelerle dolu. Avrupa yakasında ise Cihangir, Boğaz manzaralı sosyal ve bohem bir hava için en gözde bölge."
+      "question": "Hangi semtte yaşamalıyım?",
+      "answer": "Anadolu yakasında Kadıköy ve Moda sakin ve kafe doludur; Avrupa yakasında Cihangir ve Beşiktaş merkezi ve canlıdır. Karşılaştırmak için semtler rehberine bak."
     },
     "cost-of-living": {
-      "question": "İstanbul'da bir ay ne kadar tutar?",
-      "answer": "Rahat bir göçebe yaşam ayda 1.200-1.500 dolar civarında: Kadıköy'de mobilyalı bir daire, haftada birkaç kez dışarıda yemek, ortak çalışma ve ulaşım dahil. Bütçeye dikkat eden göçebeler 750-1.000 dolarla idare edebilir."
+      "question": "İstanbul'da yaşamak ne kadar tutar?",
+      "answer": "Semte ve yaşam tarzına göre çok değişir. Yaşam maliyeti rehberi kirayı, yemeği, ulaşımı ve birlikte çalışmayı TL ve USD olarak ayrıntılandırır."
     },
     "visa": {
-      "question": "Uzaktan çalışmak için vize gerekli mi?",
-      "answer": "90 günden kısa kalışlar için anında çevrimiçi alınan turist e-vizesi (50-60 dolar) yeterli. Daha uzun kalışlar için Türkiye'nin 12 aylık dijital göçebe vizesi (aylık 3.000 dolar gelir şartıyla) veya standart ikamet izni var."
+      "question": "Vizeye ihtiyacım var mı?",
+      "answer": "Uyruğuna ve ne kadar kalacağına bağlı. Vize rehberi turistik kalışları, e-vizeleri ve ne zaman oturma izni isteyeceğini kapsar."
     },
     "internet": {
-      "question": "SIM kartı nasıl alırım?",
-      "answer": "Herhangi bir Turkcell şirket mağazasından yaklaşık 250 TL'ye (~8 dolar) 20 GB veriyle turist SIM kartı al. Pasaportunu yanına al. Şehir mağazaları havalimanından daha ucuz."
-    },
-    "coworking": {
-      "question": "Nerede iyi wifi'yle çalışabilirim?",
-      "answer": "Kolektif House'un 100+ Mbps wifi'si var ve ayda 490 TL (~16 dolar). Kafeler için Kadıköy ve Cihangir, güvenilir bağlantılı dizüstü dostu mekanların en yoğun olduğu yerler."
-    },
-    "housing": {
-      "question": "Nasıl daire bulurum?",
-      "answer": "Keşif yaparken ilk ay için Airbnb veya Flatio ile başla. Daha uzun kalışlar için sahibinden.com en iyi yerel fiyatlara sahip. Ödeme yapmadan önce her zaman yerinde gör."
-    },
-    "safety": {
-      "question": "İstanbul güvenli mi?",
-      "answer": "Evet. İstanbul büyüklüğüne göre çok güvenli. Göçebelerin tercih ettiği mahalleler (Kadıköy, Cihangir, Beşiktaş, Karaköy) gece gündüz güvenli. Taksi için BiTaksi'yi kullan ve standart büyük şehir önlemlerini al.",
-      "guideSlug": "neighborhoods"
+      "question": "İnternet nasıl?",
+      "answer": "Genelde iyi - kafeler ve ortak çalışma alanlarında genellikle güvenilir wifi var ve mobil veri ucuz. İnternet rehberi SIM'leri ve hızları kapsar."
     },
     "transport": {
-      "question": "Havalimanından nasıl gelirim?",
-      "answer": "Havaist otobüsü en iyi değer (150 TL, Taksim ve Kadıköy'e gidiyor). Taksi 600-800 TL tutar. Yeni M11 metro hattı da havalimanını şehre bağlıyor."
+      "question": "Nasıl dolaşırım?",
+      "answer": "Bir İstanbulkart al ve metro, vapur, otobüs ve tramvayları kullan. Ulaşım rehberi rotaları, ücretleri ve uygulamaları açıklar."
     },
-    "culture": {
-      "question": "Türkçe konuşmam gerekli mi?",
-      "answer": "Göçebe dostu bölgelerde gerekli değil - kafelerde, ortak çalışma alanlarında ve turistik yerlerde İngilizce yaygın olarak anlaşılıyor. Ama 20 temel ifade öğrenmek yerlilerin sana yaklaşımını dönüştürür."
+    "edit-profile": {
+      "question": "Profilimi nasıl düzenlerim?",
+      "answer": "Panonu aç ve Profil'e git - her bölüm (hakkında, konum, iş, ilgi alanları, iletişim) ayrı ayrı kaydedilir."
     },
-    "healthcare": {
-      "question": "Doktora nasıl giderim?",
-      "answer": "Özel hastanelerde (Acıbadem, Memorial) İngilizce konuşan personel var ve uluslararası sigorta kabul ediliyor. Sigortasız doktor muayenesi 500-1.500 TL (~16-48 dolar) - Batılı ülkelerden çok daha ucuz."
+    "visibility": {
+      "question": "Profilimi gizleyebilir miyim?",
+      "answer": "Evet. Herkese açık listeleme isteğe bağlıdır - profil düzenleyicide görünürlüğü istediğin zaman kapat, dizinden kaybolursun."
     }
   },
   "about": {
@@ -3076,7 +3148,8 @@
       "perks": "Perks kasası",
       "planner": "İlk Hafta Planlayıcı",
       "pathToIstanbul": "İstanbul'a Yol",
-      "dashboard": "Panelin"
+      "dashboard": "Panelin",
+      "help": "Yardım & SSS"
     }
   },
   "plans": {
@@ -3504,5 +3577,62 @@
     "placeholder": "Uyruğunu ara...",
     "clear": "Temizle",
     "noResults": "Eşleşme yok. Ülke adını dene."
+  },
+  "helpPage": {
+    "metaTitle": "Yardım & SSS",
+    "metaDescription": "Istanbul Nomads'ı kullanmaya dair yanıtlar - planlar, doğrulama, evrak, ödemeler - artı İstanbul'da yaşamaya dair rehberler.",
+    "eyebrow": "Yardım merkezi",
+    "title": "Nasıl yardımcı olabiliriz?",
+    "intro": "Bir yanıt ara, platformun nasıl çalıştığına göz at ya da şehir rehberlerini oku. Istanbul Nomads'ı kullanmaya ve şehre yerleşmeye dair her şey tek yerde.",
+    "searchPlaceholder": "Yardım, SSS ve rehberlerde ara...",
+    "docsTitle": "Platform nasıl çalışır",
+    "faqTitle": "Sıkça sorulan sorular",
+    "learnMore": "Daha fazla",
+    "noResults": "Eşleşme yok. Farklı kelimeler dene ya da aşağıya göz at.",
+    "resultsTitle": "Sonuçlar",
+    "backToHub": "Yardım merkezine dön",
+    "cityNote": "İstanbul'da yaşamaya dair tavsiye mi arıyorsun - semtler, vizeler, yaşam maliyeti?",
+    "cityCta": "Şehir rehberlerine göz at",
+    "kind": {
+      "faq": "SSS",
+      "doc": "Rehber",
+      "guide": "Şehir rehberi"
+    },
+    "docs": {
+      "getting-started": {
+        "title": "Başlarken",
+        "description": "Istanbul Nomads nasıl çalışır ve ilk hafta çevreni nasıl bulursun."
+      },
+      "how-plans-work": {
+        "title": "Planlar nasıl çalışır",
+        "description": "Plana katılmak, plan düzenlemek ve iki plan türü."
+      },
+      "getting-verified": {
+        "title": "Doğrulanmak",
+        "description": "Üç doğrulama seviyesi ve nasıl yükselirsin."
+      },
+      "paperwork-help": {
+        "title": "Evrak yardımı",
+        "description": "İzinler, vergi numaraları ve banka hesapları için doğrulanmış danışmanlar."
+      },
+      "payments-and-escrow": {
+        "title": "Ödemeler & emanet",
+        "description": "Biletli bir plan için ödeme nasıl çalışır ve paran nasıl güvende kalır."
+      },
+      "trust-and-safety": {
+        "title": "Güven & güvenlik",
+        "description": "Topluluğu nasıl gerçek tutuyoruz ve güvenle nasıl buluşulur."
+      }
+    }
+  },
+  "faqCategories": {
+    "getting-started": "Başlarken",
+    "plans": "Planlar & buluşmalar",
+    "verification": "Doğrulama & güven",
+    "paperwork": "Evrak",
+    "payments": "Ödemeler",
+    "safety": "Güvenlik",
+    "city": "İstanbul'da yaşamak",
+    "account": "Hesabın"
   }
 }

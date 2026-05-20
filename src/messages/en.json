@@ -145,7 +145,8 @@
       "members": "Member directory",
       "circles": "Circles",
       "perks": "Perks vault",
-      "plans": "Today's plans"
+      "plans": "Today's plans",
+      "help": "Help & FAQ"
     }
   },
   "auth": {
@@ -569,46 +570,117 @@
     }
   },
   "faqItems": {
+    "what-is-this": {
+      "question": "What is Istanbul Nomads?",
+      "answer": "We're a community for people working remotely from Istanbul - nomads, remote workers, and the local guides and helpers who make landing here easier. The site shows you who's around, lets you share and join casual plans, and points you to the guides and services you'll need."
+    },
+    "is-it-free": {
+      "question": "Is it free to use?",
+      "answer": "Yes. Making a profile, browsing the directory, and joining free 'budget' plans cost nothing. Money only comes up for ticketed plans, where a verified guide charges a set entry fee."
+    },
+    "how-to-join": {
+      "question": "How do I join?",
+      "answer": "Sign up and fill in a short profile - pick your neighborhood, say what you're working on, add a few skills. It takes about two minutes."
+    },
+    "who-is-it-for": {
+      "question": "Who is it for?",
+      "answer": "Digital nomads, remote workers and freelancers based in or moving to Istanbul, plus local guides and paperwork helpers. If you're working from Istanbul for a while, you'll fit right in."
+    },
+    "what-are-plans": {
+      "question": "What are plans?",
+      "answer": "A plan is someone saying where they'll be and when - 'I'm at this cafe from 3, drop by'. You can join or just show up. No RSVP guilt, no minimum headcount."
+    },
+    "plans-vs-events": {
+      "question": "What's the difference between plans and events?",
+      "answer": "Events are organized meetups - cowork days, dinners, workshops. Plans are the casual in-between: spontaneous, low-commitment, and anyone can host one."
+    },
+    "how-to-host": {
+      "question": "How do I host a plan?",
+      "answer": "Anyone with a profile can host a free plan: pick a spot, set a time, add a one-liner, and share it. To charge an entry fee you'll need to get verified first."
+    },
+    "budget-vs-ticketed": {
+      "question": "What's a budget plan vs a ticketed plan?",
+      "answer": "Budget plans are free to join - the host shares a rough spend per person and you pay your own way there. Ticketed plans have a fixed entry fee you pay upfront to reserve a spot."
+    },
+    "why-verify": {
+      "question": "Why should I get verified?",
+      "answer": "Verification builds trust between people who haven't met. You don't need it to join free plans, but guides must be verified to charge for plans or list paperwork services."
+    },
+    "verification-levels": {
+      "question": "What do the verification levels mean?",
+      "answer": "Basic (email and Telegram confirmed) is the default. Verified means an ID and selfie were checked - it unlocks paid plans. Trusted means you met an organizer in person in Istanbul."
+    },
+    "how-to-verify": {
+      "question": "How do I get verified?",
+      "answer": "Start a request from your dashboard. Submit an ID and selfie for Verified, or meet an organizer in person for Trusted. An organizer reviews it and your badge updates once approved."
+    },
+    "what-paperwork": {
+      "question": "What paperwork help is available?",
+      "answer": "Verified agents help with the common things nomads need: residence permits (ikamet), visas, tax numbers, bank accounts, notary work, and address registration."
+    },
+    "find-agent": {
+      "question": "How do I find an agent?",
+      "answer": "Browse the paperwork directory by service type, compare experience, languages, and pricing, then message the agent directly to arrange the work."
+    },
+    "agent-trust": {
+      "question": "Can I trust the agents?",
+      "answer": "Every agent is verified before they can list, but they're independent providers - not employees - and we don't give legal advice. Always confirm details and pricing directly before you commit."
+    },
+    "how-payments": {
+      "question": "How do payments work?",
+      "answer": "Most plans are free. For ticketed plans you pay the guide's entry fee at checkout - the price you see is the price you pay, with no fees added on top."
+    },
+    "escrow": {
+      "question": "Is my money safe when I buy a ticket?",
+      "answer": "Yes. We hold your payment in escrow - the guide doesn't get it right away. It only releases after the plan happens and a 7-day holdback clears."
+    },
+    "refunds": {
+      "question": "Can I get a refund?",
+      "answer": "If you cancel before the plan's cutoff, or the host cancels, you're refunded. You can also open a dispute within 7 days of the plan, which freezes the payout while it's reviewed."
+    },
+    "guide-fees": {
+      "question": "What fees does a guide pay?",
+      "answer": "A 10% platform fee and a payment-processing fee of around 2.9% come out of the ticket price. The guide keeps roughly 87%."
+    },
+    "is-it-safe": {
+      "question": "Is it safe to meet people here?",
+      "answer": "Members can verify their identity, public profiles are opt-in, and money for paid plans is held in escrow. Still, use your judgment: meet in public first and tell a friend where you're going."
+    },
+    "not-dating": {
+      "question": "Is this a dating app?",
+      "answer": "No. Istanbul Nomads is for working, meeting, and building community. Romantic matching and unsolicited DMs of that kind aren't welcome."
+    },
+    "report": {
+      "question": "How do I report a problem?",
+      "answer": "If someone makes you uncomfortable or you suspect a scam, reach out to the organizers on Telegram (linked in the footer). We'd rather hear about it early."
+    },
     "neighborhoods": {
-      "question": "Which neighborhood should I start in?",
-      "answer": "Kadikoy on the Asian side is the most popular with nomads - walkable, affordable, and packed with cafes. Cihangir on the European side is the go-to for a social, bohemian vibe with Bosphorus views."
+      "question": "Which neighborhood should I live in?",
+      "answer": "Kadikoy and Moda on the Asian side are calm and cafe-heavy; Cihangir and Besiktas on the European side are central and lively. See the neighborhoods guide to compare."
     },
     "cost-of-living": {
-      "question": "How much does a month in Istanbul cost?",
-      "answer": "A comfortable nomad lifestyle runs $1,200-$1,500/month including a furnished apartment in Kadikoy, eating out a few times a week, coworking, and transport. Budget-conscious nomads can manage on $750-$1,000."
+      "question": "How much does it cost to live in Istanbul?",
+      "answer": "It varies a lot by neighborhood and lifestyle. The cost-of-living guide breaks down rent, food, transport, and coworking in TL and USD."
     },
     "visa": {
-      "question": "Do I need a visa to work remotely?",
-      "answer": "For stays under 90 days, a tourist e-visa ($50-60, instant online) is all you need. For longer stays, Turkey has a digital nomad visa (12 months, requires $3,000/month income) or a standard residence permit."
+      "question": "Do I need a visa?",
+      "answer": "It depends on your nationality and how long you're staying. The visa guide covers tourist stays, e-visas, and when you'll want a residence permit."
     },
     "internet": {
-      "question": "How do I get a SIM card?",
-      "answer": "Buy a Turkcell tourist SIM at any company-owned store for about 250 TL (~$8) with 20 GB data. Bring your passport. City stores are cheaper than airport counters."
-    },
-    "coworking": {
-      "question": "Where can I work with good wifi?",
-      "answer": "Kolektif House has 100+ Mbps wifi and costs 490 TL/month (~$16). For cafes, Kadikoy and Cihangir have the highest density of laptop-friendly spots with reliable connections."
-    },
-    "housing": {
-      "question": "How do I find an apartment?",
-      "answer": "Start with Airbnb or Flatio for your first month while you explore. For longer stays, Sahibinden.com has the best local prices. Always visit in person before paying."
-    },
-    "safety": {
-      "question": "Is Istanbul safe?",
-      "answer": "Yes. Istanbul is very safe for its size. The nomad-popular neighborhoods (Kadikoy, Cihangir, Besiktas, Karakoy) are all safe day and night. Use BiTaksi for taxis and standard big-city precautions.",
-      "guideSlug": "neighborhoods"
+      "question": "How's the internet?",
+      "answer": "Generally good - cafes and coworking spaces usually have reliable wifi, and mobile data is cheap. The internet guide covers SIMs and speeds."
     },
     "transport": {
-      "question": "How do I get from the airport?",
-      "answer": "The Havaist bus is the best value (150 TL, runs to Taksim and Kadikoy). A taxi costs 600-800 TL. The new M11 metro line also connects the airport to the city."
+      "question": "How do I get around?",
+      "answer": "Get an Istanbulkart and use the metro, ferries, buses, and trams. The transport guide explains routes, costs, and apps."
     },
-    "culture": {
-      "question": "Do I need to speak Turkish?",
-      "answer": "Not in nomad-friendly areas - English is widely understood in cafes, coworking spaces, and tourist areas. But learning 20 basic phrases will transform how locals treat you."
+    "edit-profile": {
+      "question": "How do I edit my profile?",
+      "answer": "Open your dashboard and go to Profile - each section (about, location, work, interests, contact) saves on its own."
     },
-    "healthcare": {
-      "question": "How do I see a doctor?",
-      "answer": "Private hospitals (Acibadem, Memorial) have English-speaking staff and accept international insurance. A doctor visit costs 500-1,500 TL (~$16-48) without insurance - much cheaper than Western countries."
+    "visibility": {
+      "question": "Can I hide my profile?",
+      "answer": "Yes. Public listing is opt-in - toggle visibility off in your profile editor anytime and you'll disappear from the directory."
     }
   },
   "about": {
@@ -3056,7 +3128,8 @@
       "perks": "Perks vault",
       "planner": "First Week Planner",
       "pathToIstanbul": "Path to Istanbul",
-      "dashboard": "Your dashboard"
+      "dashboard": "Your dashboard",
+      "help": "Help & FAQ"
     }
   },
   "plans": {
@@ -3484,5 +3557,62 @@
     "placeholder": "Search your nationality...",
     "clear": "Clear",
     "noResults": "No match. Try the country name."
+  },
+  "helpPage": {
+    "metaTitle": "Help & FAQ",
+    "metaDescription": "Answers about using Istanbul Nomads - plans, verification, paperwork, payments - plus guides to living in Istanbul.",
+    "eyebrow": "Help center",
+    "title": "How can we help?",
+    "intro": "Search for an answer, browse how the platform works, or read the city guides. Everything about using Istanbul Nomads and settling into the city, in one place.",
+    "searchPlaceholder": "Search help, FAQ, and guides...",
+    "docsTitle": "How the platform works",
+    "faqTitle": "Frequently asked questions",
+    "learnMore": "Learn more",
+    "noResults": "No matches. Try different words, or browse below.",
+    "resultsTitle": "Results",
+    "backToHub": "Back to help center",
+    "cityNote": "Looking for advice on living in Istanbul - neighborhoods, visas, cost of living?",
+    "cityCta": "Browse the city guides",
+    "kind": {
+      "faq": "FAQ",
+      "doc": "Guide",
+      "guide": "City guide"
+    },
+    "docs": {
+      "getting-started": {
+        "title": "Getting started",
+        "description": "How Istanbul Nomads works and how to find your people in week one."
+      },
+      "how-plans-work": {
+        "title": "How plans work",
+        "description": "Joining and hosting plans, and the two plan types."
+      },
+      "getting-verified": {
+        "title": "Getting verified",
+        "description": "The three verification levels and how to move up."
+      },
+      "paperwork-help": {
+        "title": "Paperwork help",
+        "description": "Finding verified agents for permits, tax numbers, and bank accounts."
+      },
+      "payments-and-escrow": {
+        "title": "Payments & escrow",
+        "description": "How paying for a ticketed plan works and how your money stays safe."
+      },
+      "trust-and-safety": {
+        "title": "Trust & safety",
+        "description": "How we keep the community real and how to meet safely."
+      }
+    }
+  },
+  "faqCategories": {
+    "getting-started": "Getting started",
+    "plans": "Plans & meetups",
+    "verification": "Verification & trust",
+    "paperwork": "Paperwork",
+    "payments": "Payments",
+    "safety": "Safety",
+    "city": "Living in Istanbul",
+    "account": "Your account"
   }
 }

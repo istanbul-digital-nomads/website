@@ -4,6 +4,19 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.16.2] - 2026-05-20
+
+**Connected dashboard shell.** The dashboard area now feels like one product instead of stray pages.
+
+### Added
+
+- **`/dashboard/layout.tsx` + `DashboardNav`** - a persistent, sticky sub-nav (Overview, Profile, and - for hosts/agents - Verification, Payouts) across every dashboard page, with active-tab state and icons. i18n across all 5 locales.
+
+### Changed
+
+- Dashboard overview quick-links now focus on exploring the app (your public profile, plans, share a plan, directory, events, paperwork); profile/verification/payouts moved into the sub-nav.
+- Removed the redundant "back to dashboard" link from the profile editor (the nav handles it).
+
 ## [3.16.1] - 2026-05-20
 
 **Onboarding stay fields + date-write guard.**

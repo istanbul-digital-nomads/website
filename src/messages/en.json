@@ -2957,6 +2957,13 @@
         "sharePlan": "Share a plan",
         "paperwork": "Paperwork help",
         "verify": "Get verified"
+      },
+      "nav": {
+        "eyebrow": "Dashboard",
+        "overview": "Overview",
+        "profile": "Profile",
+        "verification": "Verification",
+        "payouts": "Payouts"
       }
     }
   },

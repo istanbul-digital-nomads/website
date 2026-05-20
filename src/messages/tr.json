@@ -2977,6 +2977,13 @@
         "sharePlan": "Plan paylaş",
         "paperwork": "Evrak yardımı",
         "verify": "Doğrulan"
+      },
+      "nav": {
+        "eyebrow": "Pano",
+        "overview": "Genel bakış",
+        "profile": "Profil",
+        "verification": "Doğrulama",
+        "payouts": "Ödemeler"
       }
     }
   },

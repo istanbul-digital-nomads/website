@@ -30,6 +30,7 @@ const STATIC_PAGE_KEYS = [
   { key: "contact", href: "/contact" },
   { key: "events", href: "/events" },
   { key: "guides", href: "/guides" },
+  { key: "help", href: "/help" },
   { key: "blog", href: "/blog" },
   { key: "spaces", href: "/spaces" },
   { key: "members", href: "/members" },

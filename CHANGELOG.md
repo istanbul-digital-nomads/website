@@ -4,6 +4,23 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.17.0] - 2026-05-20
+
+**Help hub + rich docs + searchable FAQ.** A single `/help` knowledge base that answers both "how does this site work?" and "how do I live in Istanbul?" - groundwork for the guided chatbot landing next.
+
+### Added
+
+- **`/help` hub** - hero + in-memory search across FAQ, platform docs, and city guides; category-grouped FAQ accordion; platform-doc cards; a link out to the city guides. Emits `FAQPage` JSON-LD for search/answer engines.
+- **6 platform docs** (`/help/[slug]`) authored as MDX, rendered through the existing guides pipeline: getting started, how plans work, getting verified, paperwork help, payments & escrow, trust & safety. Facts grounded in the code (10% platform + ~2.9% processor fee, ~87% to the guide, 7-day escrow holdback, the three verification levels).
+- **Categorized FAQ** - expanded from 10 city-only items to 28 across 8 categories (getting started, plans, verification, paperwork, payments, safety, living in Istanbul, your account), in all 5 locales.
+- **`src/lib/help-docs.ts`** (doc catalog + MDX loader), **`src/lib/help-search.ts`** (search dataset), **`HelpExplorer`** component.
+
+### Changed
+
+- `src/lib/faq.ts` rewritten to a categorized model (`category` + `href`); the unused, stale `faq-section.tsx` removed.
+- "Help & FAQ" added to the footer Resources column and the Cmd-K search.
+- New `helpPage` + `faqCategories` i18n namespaces across en/tr/fa/ar/ru. FAQ + hub strings are fully translated; the long-form platform-doc MDX is English-first and falls back gracefully until translated.
+
 ## [3.16.3] - 2026-05-20
 
 **Searchable nationality picker.**

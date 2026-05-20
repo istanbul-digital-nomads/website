@@ -54,6 +54,8 @@ Use the locale that matches the user's question. If a translation isn't availabl
 - \`${SITE}/path-to-istanbul/<country>.md\` - country-specific relocation playbooks
 - \`${SITE}/spaces.md\` - coworking and cafe directory
 - \`${SITE}/events.md\` - upcoming community events
+- \`${SITE}/paperwork.md\` - paperwork-agent service types + how it works (live directory is HTML at /paperwork)
+- \`${SITE}/circles.md\` + \`${SITE}/circles/<slug>.md\` - interest-based sub-communities
 
 ## Content usage policy
 

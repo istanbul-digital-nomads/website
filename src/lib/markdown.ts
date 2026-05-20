@@ -9,6 +9,8 @@ import { getSupportedCountries, getCountryBySlug } from "./path-to-istanbul";
 import { neighborhoods } from "./neighborhoods";
 import { spaces } from "./spaces";
 import { guides } from "./data";
+import { circles } from "./circles";
+import { SERVICE_TYPES } from "./paperwork";
 import { defaultLocale, isValidLocale, type Locale } from "./i18n/config";
 
 const SITE = "https://istanbulnomads.com";
@@ -166,6 +168,70 @@ function helpListingMarkdown(locale: Locale): string {
     })
     .join("\n");
   return `${header}## Platform docs\n\n${items}\n\nFor the full FAQ, see the HTML hub at ${SITE}${prefix}/help.\n`;
+}
+
+function circlesListingMarkdown(): string {
+  const header = frontmatterHeader(
+    "Istanbul Nomads - Circles",
+    "Smaller sub-communities (rooms inside the community) organized around a shared interest - coworking, hiking, and more.",
+    `${SITE}/circles`,
+  );
+  const items = circles
+    .map((c) => `- [${c.name}](${SITE}/circles/${c.slug}.md) - ${c.blurb}`)
+    .join("\n");
+  return `${header}## Circles\n\n${items}\n`;
+}
+
+function circleMarkdown(slug: string): string | null {
+  const c = circles.find((x) => x.slug === slug);
+  if (!c) return null;
+  return [
+    frontmatterHeader(
+      `${c.name} - Istanbul Nomads Circle`,
+      c.blurb,
+      `${SITE}/circles/${c.slug}`,
+    ),
+    `## About this circle`,
+    ``,
+    c.description,
+    ``,
+    `## A typical week`,
+    ``,
+    c.rhythm,
+    ``,
+  ].join("\n");
+}
+
+// Static labels for the paperwork service types (the agent directory at
+// /paperwork is live HTML; this overview is the markdown twin).
+const SERVICE_TYPE_LABELS: Record<string, string> = {
+  visa: "Visa support",
+  ikamet: "Residence permit (ikamet)",
+  residency_permit: "Residency permit",
+  bank_account: "Bank account opening",
+  notary: "Notary and document work",
+  gbt: "Foreigner ID / GBT queries",
+  tax_office: "Tax number and tax office",
+  other: "Other paperwork",
+};
+
+function paperworkListingMarkdown(): string {
+  const header = frontmatterHeader(
+    "Istanbul Nomads - Paperwork help",
+    "Directory of verified independent agents who help nomads with Turkish bureaucracy - residence permits, tax numbers, bank accounts, and more.",
+    `${SITE}/paperwork`,
+  );
+  const types = SERVICE_TYPES.map(
+    (t) => `- ${SERVICE_TYPE_LABELS[t] ?? t}`,
+  ).join("\n");
+  return `${header}## Service types
+
+${types}
+
+## How it works
+
+Each agent lists what they handle with clear pricing. Every agent is verified before they can list, but they're independent providers - not employees - and we don't give legal advice. See [how paperwork help works](${SITE}/help/paperwork-help.md). Browse and contact agents at the live directory: ${SITE}/paperwork
+`;
 }
 
 function homepageMarkdown(): string {
@@ -333,6 +399,16 @@ export function getMarkdownForPath(pathname: string): { body: string } | null {
   }
 
   if (p === "/spaces") return { body: spacesIndexMarkdown() };
+
+  if (p === "/circles") return { body: circlesListingMarkdown() };
+
+  const circleMatch = p.match(/^\/circles\/([^/]+)$/);
+  if (circleMatch) {
+    const md = circleMarkdown(circleMatch[1]);
+    return md ? { body: md } : null;
+  }
+
+  if (p === "/paperwork") return { body: paperworkListingMarkdown() };
 
   if (p === "/help") return { body: helpListingMarkdown(locale) };
 

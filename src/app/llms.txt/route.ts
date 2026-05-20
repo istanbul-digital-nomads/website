@@ -4,6 +4,7 @@ import { guides } from "@/lib/data";
 import { neighborhoods } from "@/lib/neighborhoods";
 import { getSupportedCountries } from "@/lib/path-to-istanbul";
 import { helpDocs, getHelpDoc } from "@/lib/help-docs";
+import { circles } from "@/lib/circles";
 
 const SITE = "https://istanbulnomads.com";
 
@@ -29,6 +30,7 @@ Every HTML page on this site has a markdown equivalent. Append \`.md\` to any pa
 - Plans (members-only same-day cowork/social plans): ${SITE}/plans
 - Paperwork (verified agents for permits, tax numbers, bank accounts): ${SITE}/paperwork
 - Local Guides (vetted human guides directory): ${SITE}/local-guides
+- Circles (interest-based sub-communities): ${SITE}/circles
 - Help & FAQ (how the platform works + searchable FAQ): ${SITE}/help
 - About: ${SITE}/about
 - Contact: ${SITE}/contact
@@ -71,6 +73,11 @@ ${helpDocs.map((d) => `- [${getHelpDoc(d.slug)?.frontmatter.title ?? d.slug}](${
 - [Coworking and cafes](${SITE}/spaces.md)
 - [Events calendar](${SITE}/events.md)
 - [Local guides](${SITE}/local-guides.md)
+- [Paperwork agents](${SITE}/paperwork.md)
+
+## Circles (interest-based sub-communities)
+
+${circles.map((c) => `- [${c.name}](${SITE}/circles/${c.slug}.md): ${c.blurb}`).join("\n")}
 
 ## Agent endpoints
 

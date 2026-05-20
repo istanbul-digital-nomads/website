@@ -4,6 +4,19 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.19.6] - 2026-05-21
+
+**Complete the AI-doc content coverage.** Audited every public route against what the AI surfaces expose and closed the two gaps.
+
+### Added
+
+- **Circles** markdown twins: `/circles.md` (listing) + `/circles/<slug>.md` (per-circle), locale-aware, plus a Circles section in `llms.txt` and the `read-istanbul-content` skill.
+- **Paperwork** markdown twin: `/paperwork.md` - the service-type overview + how-it-works, with a pointer to the live HTML directory and the `paperwork-help` doc. Added to `llms.txt` directories and the skill content map.
+
+### Notes
+
+- Coverage now spans every public content area (guides, neighborhoods, blog, path-to-istanbul, spaces, events, local guides, help docs, **circles**, **paperwork**, about/contact/credits) as markdown + in `llms.txt`. Product features (plans, verification, payments/escrow, paperwork, trust & safety, getting started) are covered by the help docs + the `explain-how-it-works` skill; the events and relocation APIs by their skills. Member/profile pages and the members-only plans board are intentionally excluded from the markdown/agent surfaces (people data + auth-gated live content).
+
 ## [3.19.5] - 2026-05-21
 
 ### Fixed

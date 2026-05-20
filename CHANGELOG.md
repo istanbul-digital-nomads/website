@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.19.3] - 2026-05-20
+
+### Fixed
+
+- **Locale-aware markdown for AIs.** `getMarkdownForPath` now strips a leading locale prefix and serves the translated content, so `/tr/help/...md`, `/ar/...md`, etc. return the localized doc instead of **404** (locale-prefixed `.md` URLs were broken before - the `read-istanbul-content` agent skill advertised them but they didn't resolve). Threads the locale into the per-locale loaders (guides, help, blog, path-to-istanbul) with graceful English fallback where a translation doesn't exist; canonical URLs in the markdown header now carry the locale prefix. Data-driven listings (neighborhoods, spaces) stay English.
+
 ## [3.19.2] - 2026-05-20
 
 **AI-facing surfaces + docs caught up to the help center & assistant.**

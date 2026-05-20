@@ -34,6 +34,7 @@ import { bcp47, isRtl, type Locale } from "@/lib/i18n/config";
 import { getTimeOfDay } from "@/lib/ambient";
 import { getSearchItems } from "@/lib/search";
 import { CommandMenu } from "@/components/ui/command-menu";
+import { AssistantWidget } from "@/components/assistant/assistant-widget";
 import "@/styles/globals.css";
 
 // Design System v2 font stack: Geist (UI/body), Fraunces (editorial display
@@ -335,6 +336,7 @@ export default async function LocaleLayout({
               <BottomTabBarIsland />
             </Suspense>
             <CommandMenu items={searchItems} />
+            <AssistantWidget />
           </ThemeProvider>
           <ToasterIsland />
           <WebMcpRegisterIsland />

@@ -3634,5 +3634,64 @@
     "safety": "Güvenlik",
     "city": "İstanbul'da yaşamak",
     "account": "Hesabın"
+  },
+  "assistant": {
+    "launcherLabel": "Asistanı aç",
+    "title": "Asistan",
+    "restart": "Baştan başla",
+    "close": "Kapat",
+    "askCta": "Sohbet etmeyi mi tercih edersin? Asistana sor",
+    "nodes": {
+      "root": {
+        "message": "Selam! Bugün seni buraya ne getirdi?"
+      },
+      "new": {
+        "message": "İstanbul'a hoş geldin! İşte başlangıç noktan."
+      },
+      "plans": {
+        "message": "Güzel. Bugün canın ne istiyor?"
+      },
+      "paperwork": {
+        "message": "Anlaşıldı. Ne konuda yardım lazım?"
+      },
+      "how": {
+        "message": "Açıklamaktan memnuniyet duyarım. Bir konu seç:"
+      },
+      "work": {
+        "message": "Çalışacak bir yer mi arıyorsun? Neredesin?"
+      }
+    },
+    "opt": {
+      "new": "İstanbul'da yeniyim",
+      "plans": "Bugünün planlarını bul",
+      "paperwork": "Evrak yardımı lazım",
+      "how": "Bu nasıl çalışıyor?",
+      "work": "Çalışacak yer bul",
+      "pathToIstanbul": "Taşınmanı planla",
+      "neighborhoodsGuide": "Semtleri karşılaştır",
+      "gettingStarted": "Başlangıç rehberi",
+      "makeProfile": "Profilimi oluştur",
+      "planCowork": "Bugün birlikte çalışma",
+      "planSocial": "Sosyal bir şey",
+      "planMeal": "Bir şeyler ye",
+      "planOutdoor": "Açık havaya çık",
+      "planAll": "Bugünün hepsini göster",
+      "pwIkamet": "Oturma izni (ikamet)",
+      "pwVisa": "Vize yardımı",
+      "pwBank": "Banka hesabı aç",
+      "pwTax": "Vergi numarası al",
+      "pwAll": "Tüm danışmanlara göz at",
+      "pwHowItWorks": "Evrak yardımı nasıl çalışır",
+      "docPlans": "Planlar nasıl çalışır",
+      "docVerify": "Doğrulanmak",
+      "docPayments": "Ödemeler & emanet",
+      "docSafety": "Güven & güvenlik",
+      "allHelp": "Yardım merkezini aç",
+      "hoodKadikoy": "Kadıköy",
+      "hoodCihangir": "Cihangir",
+      "hoodBesiktas": "Beşiktaş",
+      "allSpaces": "Ortak çalışma alanlarına göz at",
+      "coworkingGuide": "Ortak çalışma rehberi"
+    }
   }
 }

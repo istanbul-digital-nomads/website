@@ -71,15 +71,18 @@ async function DashboardContent({
   const done = fields.filter(([, ok]) => ok).length;
 
   const links: [string, string][] = [
-    [t("links.plans"), "/plans"],
-    [t("links.directory"), "/members"],
+    [t("links.editProfile"), "/dashboard/profile"],
     [t("links.profile"), `/members/${member.id}`],
+    [t("links.plans"), "/plans"],
+    [t("links.sharePlan"), "/plans/new"],
+    [t("links.directory"), "/members"],
     [t("links.events"), "/events"],
-    [t("links.editProfile"), "/onboarding"],
+    [t("links.paperwork"), "/paperwork"],
   ];
-  // Host roles + agents get a payouts link.
+  // Host roles + agents get verification + payouts links.
   if (showVerification) {
-    links.splice(3, 0, [t("links.payouts"), "/dashboard/payouts"]);
+    links.push([t("links.verify"), "/dashboard/verify"]);
+    links.push([t("links.payouts"), "/dashboard/payouts"]);
   }
 
   return (
@@ -152,7 +155,7 @@ async function DashboardContent({
             </ul>
             {done < fields.length ? (
               <Link
-                href="/onboarding"
+                href="/dashboard/profile"
                 className="mt-6 inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta"
               >
                 {t("completeProfile")}{" "}

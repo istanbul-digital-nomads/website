@@ -3,7 +3,6 @@
 import { useState, type KeyboardEvent } from "react";
 import { useTranslations } from "next-intl";
 import type { OnboardingData, FieldErrors } from "../onboarding-wizard";
-import { MEMBER_ROLES, type MemberRole } from "@/lib/member-roles";
 import { CURRENT_STATUS_OPTIONS } from "@/lib/member-profile";
 
 interface StepProps {
@@ -24,10 +23,22 @@ const HEARD_FROM: readonly OptionDef[] = [
   { key: "other", value: "other" },
 ];
 
-// The 5 operational roles (PRODUCT.md §3). The key matches the DB enum
-// value verbatim so we don't need a slug<->display mapping.
-const MEMBER_TYPE_OPTIONS: readonly { key: MemberRole; value: MemberRole }[] =
-  MEMBER_ROLES.map((r) => ({ key: r, value: r }));
+// Onboarding only asks the two self-serve roles. Local guides, tour
+// guides, and paperwork agents apply through their own dedicated forms,
+// so we don't crowd the nomad signup with options that need vetting.
+const ONBOARDING_ROLES = ["nomad", "remote_worker"] as const;
+type OnboardingRole = (typeof ONBOARDING_ROLES)[number];
+const MEMBER_TYPE_OPTIONS: readonly {
+  key: OnboardingRole;
+  value: OnboardingRole;
+}[] = ONBOARDING_ROLES.map((r) => ({ key: r, value: r }));
+
+// Where the member is in their move to Istanbul. Stored in arrival_status.
+const ARRIVAL_STATUS: readonly OptionDef[] = [
+  { key: "in_istanbul", value: "in_istanbul" },
+  { key: "elsewhere_turkey", value: "elsewhere_turkey" },
+  { key: "planning", value: "planning" },
+];
 
 const ACTIVITIES: readonly OptionDef[] = [
   { key: "language", value: "language-exchange" },
@@ -239,6 +250,9 @@ export function StepInterests({ data, updateField, errors }: StepProps) {
   const tMemberDesc = useTranslations(
     "onboardingPage.steps.interests.memberTypeDescriptions",
   );
+  const tArrival = useTranslations(
+    "onboardingPage.steps.interests.arrivalStatusOptions",
+  );
   const tStatus = useTranslations(
     "onboardingPage.steps.interests.currentStatusOptions",
   );
@@ -309,6 +323,15 @@ export function StepInterests({ data, updateField, errors }: StepProps) {
         )}
       </div>
 
+      {/* Arrival status - where they are in the move to Istanbul. */}
+      <RadioGroup
+        label={t("arrivalStatusLabel")}
+        options={ARRIVAL_STATUS}
+        optionLabels={(k) => tArrival(k)}
+        value={(data.arrival_status as string) || ""}
+        onChange={(v) => updateField("arrival_status", v)}
+      />
+
       {data.member_type === "remote_worker" && (
         <div>
           <label
@@ -326,30 +349,6 @@ export function StepInterests({ data, updateField, errors }: StepProps) {
             placeholder={t("professionalRolePlaceholder")}
             className="mt-2 w-full rounded-xl border border-black/5 bg-white/70 px-3 py-2 text-sm text-[#1a1a2e] placeholder:text-[#5d6d7e]/60 focus:border-primary-400 focus:outline-none dark:border-white/5 dark:bg-[#1e2130] dark:text-[#f2f3f4] dark:placeholder:text-[#99a3ad]/60"
           />
-        </div>
-      )}
-
-      {data.member_type === "tour_guide" && (
-        <div>
-          <label
-            htmlFor="tour_guide_license_no"
-            className="block text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]"
-          >
-            {t("tourGuideLicenseLabel")}
-          </label>
-          <input
-            id="tour_guide_license_no"
-            type="text"
-            maxLength={60}
-            value={(data.tour_guide_license_no as string) || ""}
-            onChange={(e) =>
-              updateField("tour_guide_license_no", e.target.value)
-            }
-            className="mt-2 w-full rounded-xl border border-black/5 bg-white/70 px-3 py-2 text-sm text-[#1a1a2e] focus:border-primary-400 focus:outline-none dark:border-white/5 dark:bg-[#1e2130] dark:text-[#f2f3f4]"
-          />
-          <p className="mt-1 text-xs text-[#5d6d7e] dark:text-[#99a3ad]">
-            {t("tourGuideLicenseHint")}
-          </p>
         </div>
       )}
 
@@ -383,6 +382,13 @@ export function StepInterests({ data, updateField, errors }: StepProps) {
       </div>
 
       <ChipInput
+        label={t("skillsLabel")}
+        hint={t("skillsHint")}
+        value={(data.skills as string[]) || []}
+        onChange={(v) => updateField("skills", v)}
+        max={12}
+      />
+      <ChipInput
         label={t("workingOnLabel")}
         hint={t("workingOnHint")}
         value={(data.working_on as string[]) || []}
@@ -403,27 +409,6 @@ export function StepInterests({ data, updateField, errors }: StepProps) {
         onChange={(v) => updateField("hobbies", v)}
         max={12}
       />
-
-      {/* Phase 2: is_agent capability toggle. Independent of role -
-          any role can also offer paperwork services. */}
-      <div className="rounded-xl border border-black/5 bg-white/40 p-4 dark:border-white/5 dark:bg-[#1e2130]/60">
-        <label className="flex items-start gap-3">
-          <input
-            type="checkbox"
-            checked={Boolean(data.is_agent)}
-            onChange={(e) => updateField("is_agent", e.target.checked)}
-            className="mt-0.5 h-4 w-4 rounded border-neutral-300 text-primary-600 focus:ring-primary-500 dark:border-neutral-600"
-          />
-          <span>
-            <span className="block text-sm font-medium text-neutral-700 dark:text-[#d4c4b4]">
-              {t("isAgentLabel")}
-            </span>
-            <span className="mt-1 block text-xs leading-relaxed text-[#5d6d7e] dark:text-[#99a3ad]">
-              {t("isAgentHint")}
-            </span>
-          </span>
-        </label>
-      </div>
 
       <CheckboxGroup
         label={t("activities")}

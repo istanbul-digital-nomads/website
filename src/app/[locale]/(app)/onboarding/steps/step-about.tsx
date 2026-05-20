@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
+import { LocationPicker } from "@/components/ui/location-picker";
 import type { OnboardingData, FieldErrors } from "../onboarding-wizard";
 
 interface StepProps {
@@ -137,11 +138,14 @@ export function StepAbout({ data, updateField, errors }: StepProps) {
         placeholder={t("nationalityPlaceholder")}
       />
 
-      <Input
+      <LocationPicker
         label={t("cityDistrict")}
-        value={(data.city_district as string) || ""}
-        onChange={(e) => updateField("city_district", e.target.value)}
-        placeholder={t("cityDistrictPlaceholder")}
+        district={(data.location as string) || null}
+        neighborhood={(data.city_district as string) || null}
+        onChange={(district, neighborhood) => {
+          updateField("location", district);
+          updateField("city_district", neighborhood);
+        }}
       />
     </div>
   );

@@ -9,6 +9,7 @@ import { getSupportedCountries, getCountryBySlug } from "./path-to-istanbul";
 import { neighborhoods } from "./neighborhoods";
 import { spaces } from "./spaces";
 import { guides } from "./data";
+import { defaultLocale, isValidLocale, type Locale } from "./i18n/config";
 
 const SITE = "https://istanbulnomads.com";
 
@@ -149,21 +150,22 @@ function spacesIndexMarkdown(): string {
   return `${header}${sections}\n`;
 }
 
-function helpListingMarkdown(): string {
+function helpListingMarkdown(locale: Locale): string {
+  const prefix = locale === defaultLocale ? "" : `/${locale}`;
   const header = frontmatterHeader(
     "Istanbul Nomads - Help & FAQ",
     "How the platform works (plans, verification, paperwork, payments, trust & safety) plus a searchable FAQ. The HTML hub also has a guided assistant and category-grouped FAQ.",
-    `${SITE}/help`,
+    `${SITE}${prefix}/help`,
   );
   const items = helpDocs
     .map((d) => {
-      const doc = getHelpDoc(d.slug);
+      const doc = getHelpDoc(d.slug, locale);
       const title = doc?.frontmatter.title ?? d.slug;
       const desc = doc?.frontmatter.description ?? "";
-      return `- [${title}](${SITE}/help/${d.slug}.md) - ${desc}`;
+      return `- [${title}](${SITE}${prefix}/help/${d.slug}.md) - ${desc}`;
     })
     .join("\n");
-  return `${header}## Platform docs\n\n${items}\n\nFor the full FAQ, see the HTML hub at ${SITE}/help.\n`;
+  return `${header}## Platform docs\n\n${items}\n\nFor the full FAQ, see the HTML hub at ${SITE}${prefix}/help.\n`;
 }
 
 function homepageMarkdown(): string {
@@ -199,7 +201,22 @@ function simpleStubMarkdown(
 }
 
 export function getMarkdownForPath(pathname: string): { body: string } | null {
-  const p = pathname.replace(/\/$/, "") || "/";
+  let p = pathname.replace(/\/$/, "") || "/";
+
+  // Strip a leading locale prefix (e.g. `/tr/help/x` -> `/help/x`) and use
+  // it to fetch the translated content. The default locale (en) has no
+  // prefix and behaves exactly as before. Loaders for per-locale MDX
+  // (guides, help, blog, path-to-istanbul) get the locale; data-driven
+  // listings (neighborhoods, spaces) stay English.
+  let locale: Locale = defaultLocale;
+  const firstSeg = p.split("/")[1];
+  if (firstSeg && isValidLocale(firstSeg)) {
+    locale = firstSeg;
+    p = "/" + p.split("/").slice(2).join("/");
+    p = p.replace(/\/$/, "") || "/";
+  }
+  // Canonical-URL prefix for the active locale (empty for the default).
+  const prefix = locale === defaultLocale ? "" : `/${locale}`;
 
   if (p === "/" || p === "/home" || p === "/index") {
     return { body: homepageMarkdown() };
@@ -269,7 +286,7 @@ export function getMarkdownForPath(pathname: string): { body: string } | null {
 
   const guideMatch = p.match(/^\/guides\/([^/]+)$/);
   if (guideMatch) {
-    const content = getGuideContent(guideMatch[1]);
+    const content = getGuideContent(guideMatch[1], locale);
     if (!content) return null;
     const title =
       content.frontmatter.title ||
@@ -279,7 +296,7 @@ export function getMarkdownForPath(pathname: string): { body: string } | null {
       body: `${frontmatterHeader(
         title,
         content.frontmatter.description,
-        `${SITE}/guides/${guideMatch[1]}`,
+        `${SITE}${prefix}/guides/${guideMatch[1]}`,
       )}${mdxToMarkdown(content.content)}\n`,
     };
   }
@@ -288,13 +305,13 @@ export function getMarkdownForPath(pathname: string): { body: string } | null {
 
   const blogMatch = p.match(/^\/blog\/([^/]+)$/);
   if (blogMatch) {
-    const post = getBlogPost(blogMatch[1]);
+    const post = getBlogPost(blogMatch[1], locale);
     if (!post) return null;
     return {
       body: `${frontmatterHeader(
         post.meta.title,
         post.meta.description,
-        `${SITE}/blog/${blogMatch[1]}`,
+        `${SITE}${prefix}/blog/${blogMatch[1]}`,
       )}*By ${post.meta.author} - ${post.meta.date} - ${post.meta.readingTime}*\n\n${mdxToMarkdown(post.content)}\n`,
     };
   }
@@ -304,30 +321,30 @@ export function getMarkdownForPath(pathname: string): { body: string } | null {
   const pathMatch = p.match(/^\/path-to-istanbul\/([^/]+)$/);
   if (pathMatch) {
     const country = getCountryBySlug(pathMatch[1]);
-    const content = getPathContent(pathMatch[1]);
+    const content = getPathContent(pathMatch[1], locale);
     if (!country || !content) return null;
     return {
       body: `${frontmatterHeader(
         `${country.flag} ${country.name} to Istanbul`,
         content.frontmatter.summary,
-        `${SITE}/path-to-istanbul/${pathMatch[1]}`,
+        `${SITE}${prefix}/path-to-istanbul/${pathMatch[1]}`,
       )}${mdxToMarkdown(content.content)}\n`,
     };
   }
 
   if (p === "/spaces") return { body: spacesIndexMarkdown() };
 
-  if (p === "/help") return { body: helpListingMarkdown() };
+  if (p === "/help") return { body: helpListingMarkdown(locale) };
 
   const helpMatch = p.match(/^\/help\/([^/]+)$/);
   if (helpMatch) {
-    const content = getHelpDoc(helpMatch[1]);
+    const content = getHelpDoc(helpMatch[1], locale);
     if (!content) return null;
     return {
       body: `${frontmatterHeader(
         content.frontmatter.title || helpMatch[1],
         content.frontmatter.description,
-        `${SITE}/help/${helpMatch[1]}`,
+        `${SITE}${prefix}/help/${helpMatch[1]}`,
       )}${mdxToMarkdown(content.content)}\n`,
     };
   }

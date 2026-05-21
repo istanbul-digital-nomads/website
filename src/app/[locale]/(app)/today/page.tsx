@@ -58,10 +58,11 @@ export default async function TodayPage({
   const { data: member } = await getCurrentMember();
   const isAuthed = !!member;
 
+  // Today's board is public read-only (plans have public-read RLS) so
+  // signed-out visitors see the day's activity - "proof of community".
+  // Joining/hosting is still gated downstream (the plan page + composer).
   const [{ data: plansRaw }, { data: membersRaw }] = await Promise.all([
-    isAuthed
-      ? getPlansForFeed({ range: "today" })
-      : Promise.resolve({ data: [], error: null }),
+    getPlansForFeed({ range: "today" }),
     getMembersPublic(),
   ]);
 
@@ -191,12 +192,11 @@ export default async function TodayPage({
         <div className="mt-14 grid items-start gap-8 pb-20 md:grid-cols-[1fr_340px]">
           {/* Board */}
           <div>
-            {!isAuthed ? (
-              <SignInPrompt />
-            ) : cards.length === 0 ? (
+            {cards.length === 0 ? (
               <EmptyBoard label={t("emptyBoard")} />
             ) : (
               <>
+                {!isAuthed && <SignInPrompt />}
                 {grouped.morning.length > 0 && (
                   <>
                     <SectionHead
@@ -362,38 +362,24 @@ export default async function TodayPage({
   );
 }
 
+// Slim nudge shown above the (public) board for logged-out visitors:
+// browsing is open, joining/posting needs an account.
 function SignInPrompt() {
   return (
     <div
-      className="rounded-2xl border p-8 md:p-10"
+      className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border px-4 py-3"
       style={{
         borderColor: "rgba(244, 184, 96, 0.22)",
         background: "rgba(10,26,47,0.45)",
       }}
     >
-      <Eyebrow label="Members only" />
-      <h2
-        className="mt-4 font-editorial text-cream"
-        style={{
-          fontSize: "clamp(1.625rem, 3vw, 2rem)",
-          letterSpacing: "-0.02em",
-          lineHeight: 1.1,
-          fontWeight: 400,
-        }}
-      >
-        Sign in to see <em className="italic text-gold">today&apos;s board.</em>
-      </h2>
-      <p className="mt-3 max-w-prose text-[14.5px] leading-[1.6] text-cream/70">
-        Plans are visible to logged-in members so the people on them can
-        recognise who shows up. Read the public side over on{" "}
-        <Link href="/plans" className="text-gold hover:underline">
-          /plans
-        </Link>
-        .
+      <p className="text-[13.5px] leading-snug text-cream/75">
+        You&apos;re browsing as a guest. Sign in to join a plan or post your
+        own.
       </p>
       <Link
         href="/login?next=/today"
-        className="mt-5 inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3 font-grotesk text-[13px] font-semibold text-deep-water transition-colors hover:bg-gold/90"
+        className="inline-flex shrink-0 items-center gap-2 rounded-full bg-gold px-4 py-2 font-grotesk text-[12.5px] font-semibold text-deep-water transition-colors hover:bg-gold/90"
       >
         Sign in <ArrowRight className="h-3.5 w-3.5" />
       </Link>

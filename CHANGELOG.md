@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.21.1] - 2026-05-21
+
+### Fixed
+
+- **`/today` now shows the day's plans to everyone.** The board was gated behind auth, so signed-out visitors saw a "Sign in to see today's board" block instead of any plans - the page looked empty. Plans have public-read RLS, so the board is now public read-only (grouped morning/afternoon/evening, filtered to today), with joining/posting still gated. Replaced the full-screen sign-in gate with a slim "browsing as a guest - sign in to join or post" nudge above the board.
+
 ## [3.21.0] - 2026-05-21
 
 **UI/UX polish pass.**

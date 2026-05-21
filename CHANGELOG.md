@@ -4,6 +4,14 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.21.2] - 2026-05-21
+
+### Fixed
+
+- **Auth header sync.** The "Sign In" button was showing for authenticated users because `AuthButton` had a `document.cookie` heuristic to skip loading Supabase for anonymous visitors. With `@supabase/ssr` v0.10, cookies can be HttpOnly or chunked in ways JS can't read, so the heuristic was falsely bailing out. Removed the early-return; the deferred dynamic import (100 ms timer) already prevents blocking the first paint for everyone.
+- **Hero section RTL layout.** The headline block was `absolute left-6 / md:left-11` and the gradient mask was hardcoded to darken the left edge - both wrong in Arabic/Persian locales where reading direction is right-to-left. Switched to logical CSS properties (`start-6 / md:start-11`), moved the gradient to a `.hero-text-mask` CSS class with a `[dir=rtl]` override (265 deg instead of 95 deg), and added `rtl:rotate-180` to the CTA arrow icons.
+- **Member + plan detail pages: faster first load.** `getMemberActivity` was firing four sequential Supabase round-trips (attendances + three trust-signal counts). The three count queries are now in a single `Promise.all` alongside the attendances query, cutting latency from ~4 serial trips to ~2.
+
 ## [3.21.1] - 2026-05-21
 
 ### Fixed

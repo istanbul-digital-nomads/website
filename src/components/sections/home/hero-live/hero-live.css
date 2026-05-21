@@ -65,6 +65,30 @@
   }
 }
 
+/* Gradient mask that darkens the inline-start side of the map so the
+   headline text sits on a readable dark background. Flips in RTL so the
+   dark region covers the right side where the text will land. */
+.hero-text-mask {
+  background: linear-gradient(
+    95deg,
+    #06101f 0%,
+    rgba(6, 16, 31, 0.94) 22%,
+    rgba(6, 16, 31, 0.7) 34%,
+    rgba(6, 16, 31, 0.25) 46%,
+    rgba(6, 16, 31, 0) 56%
+  );
+}
+[dir="rtl"] .hero-text-mask {
+  background: linear-gradient(
+    265deg,
+    #06101f 0%,
+    rgba(6, 16, 31, 0.94) 22%,
+    rgba(6, 16, 31, 0.7) 34%,
+    rgba(6, 16, 31, 0.25) 46%,
+    rgba(6, 16, 31, 0) 56%
+  );
+}
+
 .hero-live-pip {
   animation: hero-live-blink 1.4s ease-in-out infinite;
 }

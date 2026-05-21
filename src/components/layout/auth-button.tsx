@@ -25,25 +25,15 @@ export function AuthButton() {
   const t = useTranslations("auth");
 
   useEffect(() => {
-    // Cheap heuristic: skip the supabase client entirely when there's no
-    // Supabase auth cookie (sb-*-auth-token). For anonymous visitors - the
-    // vast majority of home-page traffic - this avoids downloading the ~40 KB
-    // supabase chunk and the ~50 KB gotrue-js auth client. Authenticated
-    // visitors fall through to the deferred dynamic import below.
-    const hasAuthCookie =
-      typeof document !== "undefined" &&
-      document.cookie.split(";").some((c) => c.trim().startsWith("sb-"));
-    if (!hasAuthCookie) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- anon-visitor short-circuit avoids loading the supabase auth chunk
-      setLoading(false);
-      return;
-    }
-
     let cleanupRef: (() => void) | null = null;
 
     // Defer auth client load + check until after first paint. Lazy-importing
-    // the supabase client keeps its chunk off the initial bundle even for
-    // signed-in visitors.
+    // the supabase client keeps its chunk off the initial bundle for all
+    // visitors, and the 100ms timer lets the initial HTML paint first.
+    // Note: we intentionally skip the document.cookie heuristic here -
+    // @supabase/ssr v0.10 may set httpOnly or chunked cookies that aren't
+    // visible to JS, so that check was causing false negatives for signed-in
+    // users (the header showing "Sign In" even when authenticated).
     const timer = setTimeout(async () => {
       const { createClient } = await import("@/lib/supabase/client");
       const supabase = createClient();

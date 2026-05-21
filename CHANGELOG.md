@@ -4,6 +4,18 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.25.0] - 2026-05-21
+
+### Added
+
+- **Member social share cards.** Pasting a `/members/{id}` link into Telegram/WhatsApp/X/etc. now shows a branded 1200x630 card with the member's avatar (or initials disc), name, role chip, verification tier, and location instead of a bare link. Built on the existing dual-renderer OG system - satori for en/tr/ru, resvg-js for fa/ar with **full RTL parity** (mirrored layout, Arabic-shaped role/category/tagline labels). New `og.member` i18n keys in all 5 locales.
+
+### Notes
+
+- WebP/AVIF avatars may not decode in the OG renderers; those cards gracefully fall back to the initials disc. JPG/PNG avatars render normally. (Most browser-exported uploads are JPG/PNG.)
+
+---
+
 ## [3.24.0] - 2026-05-21
 
 ### Added

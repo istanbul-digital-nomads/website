@@ -2204,6 +2204,9 @@
   },
   "og": {
     "tagline": "زندگی دورکار، ریتم محلی",
+    "member": {
+      "category": "عضو"
+    },
     "altText": {
       "home": "Istanbul Digital Nomads",
       "about": "دربارهٔ Istanbul Digital Nomads",

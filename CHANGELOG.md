@@ -4,6 +4,17 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.21.5] - 2026-05-21
+
+### Fixed
+
+- **Plan detail map: all pins show, route line draws, and popups work.** Three separate issues were preventing the full map experience:
+  1. Missing neighborhood slugs - "karakoy" and 16 other slugs weren't in the `NEIGHBORHOOD_CENTERS` lookup, so stops with those slugs had no position and were dropped from the map. The table is now expanded to 27 slugs covering all commonly generated values.
+  2. Route line GL race condition - the `Source`/`Layer` components were rendering before the map style finished loading, triggering a MapLibre error that silently discarded the layer. They're now gated on the `mapLoaded` flag.
+  3. No click/popup - click handlers and the `Popup` component weren't wired up. Clicking a marker now opens a popup showing the stop number, name, vibe (with emoji), time range, notes, and an "approximate area" notice for neighborhood-fallback pins. Clicking the map background closes the popup.
+  Also added `dedupePositions()` to spread stops that resolve to the exact same coordinate (e.g. two stops both falling back to a neighborhood center) so they're always individually clickable.
+
+
 ## [3.21.4] - 2026-05-21
 
 ### Fixed

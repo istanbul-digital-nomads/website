@@ -31,46 +31,46 @@ const ISTANBUL_BOUNDS: [[number, number], [number, number]] = [
 // alternatives used in free-text neighbourhood fields.
 // Coordinates are [lng, lat] (GeoJSON / MapLibre order).
 const NEIGHBORHOOD_CENTERS: Record<string, [number, number]> = {
-  kadikoy:      [29.0228, 40.9902],
-  moda:         [29.0200, 40.9815],
-  cihangir:     [28.9818, 41.0293],
-  besiktas:     [29.0044, 41.0425],
-  galata:       [28.9747, 41.0246],
-  karakoy:      [28.9747, 41.0246], // same area as Galata
-  beyoglu:      [28.9758, 41.0336],
-  taksim:       [28.9784, 41.0370],
-  uskudar:      [29.0150, 41.0230],
-  nisantasi:    [28.9919, 41.0491],
-  levent:       [28.9988, 41.0773],
-  balat:        [28.9460, 41.0278],
-  atasehir:     [29.1157, 40.9847],
-  sisli:        [28.9870, 41.0600],
-  fatih:        [28.9500, 41.0200],
-  sultanahmet:  [28.9730, 41.0055],
-  bakirkoy:     [28.8700, 40.9800],
-  sariyer:      [29.0570, 41.1660],
-  bebek:        [29.0440, 41.0792],
-  ortakoy:      [29.0267, 41.0470],
-  bosphorus:    [29.0330, 41.0600],
-  arnavutkoy:   [29.0381, 41.0614],
-  etiler:       [29.0305, 41.0733],
-  maslak:       [29.0143, 41.1095],
-  eminonu:      [28.9710, 41.0150],
-  sirkeci:      [28.9790, 41.0128],
-  kumkapi:      [28.9530, 41.0010],
-  yenikoy:      [29.0530, 41.1220],
-  tarabya:      [29.0600, 41.1430],
+  kadikoy: [29.0228, 40.9902],
+  moda: [29.02, 40.9815],
+  cihangir: [28.9818, 41.0293],
+  besiktas: [29.0044, 41.0425],
+  galata: [28.9747, 41.0246],
+  karakoy: [28.9747, 41.0246], // same area as Galata
+  beyoglu: [28.9758, 41.0336],
+  taksim: [28.9784, 41.037],
+  uskudar: [29.015, 41.023],
+  nisantasi: [28.9919, 41.0491],
+  levent: [28.9988, 41.0773],
+  balat: [28.946, 41.0278],
+  atasehir: [29.1157, 40.9847],
+  sisli: [28.987, 41.06],
+  fatih: [28.95, 41.02],
+  sultanahmet: [28.973, 41.0055],
+  bakirkoy: [28.87, 40.98],
+  sariyer: [29.057, 41.166],
+  bebek: [29.044, 41.0792],
+  ortakoy: [29.0267, 41.047],
+  bosphorus: [29.033, 41.06],
+  arnavutkoy: [29.0381, 41.0614],
+  etiler: [29.0305, 41.0733],
+  maslak: [29.0143, 41.1095],
+  eminonu: [28.971, 41.015],
+  sirkeci: [28.979, 41.0128],
+  kumkapi: [28.953, 41.001],
+  yenikoy: [29.053, 41.122],
+  tarabya: [29.06, 41.143],
 };
 
 // Vibe emoji map for popup display.
 const VIBE_EMOJI: Record<string, string> = {
-  focus:       "🎯",
-  cowork:      "💻",
-  social:      "🤝",
-  meal:        "🍽️",
+  focus: "🎯",
+  cowork: "💻",
+  social: "🤝",
+  meal: "🍽️",
   "after-work": "🍻",
-  outdoor:     "🌿",
-  culture:     "🎭",
+  outdoor: "🌿",
+  culture: "🎭",
 };
 
 function stopName(stop: PlanStop): string {
@@ -108,7 +108,10 @@ function stopLatLng(stop: PlanStop): {
 // small circle (~60 m radius) so they're all visible and the route line
 // is non-zero-length.
 function dedupePositions(
-  items: Array<{ stop: PlanStop; pos: { lat: number; lng: number; approximate?: boolean } }>,
+  items: Array<{
+    stop: PlanStop;
+    pos: { lat: number; lng: number; approximate?: boolean };
+  }>,
 ) {
   const seen = new Map<string, number>();
   return items.map((item) => {
@@ -150,8 +153,12 @@ export function PlanDetailMap({ stops }: Props) {
     const resolved = stops
       .map((stop) => ({ stop, pos: stopLatLng(stop) }))
       .filter(
-        (x): x is { stop: PlanStop; pos: NonNullable<ReturnType<typeof stopLatLng>> } =>
-          x.pos !== null,
+        (
+          x,
+        ): x is {
+          stop: PlanStop;
+          pos: NonNullable<ReturnType<typeof stopLatLng>>;
+        } => x.pos !== null,
       );
     return dedupePositions(resolved);
   }, [stops]);
@@ -180,7 +187,11 @@ export function PlanDetailMap({ stops }: Props) {
     const map = mapRef.current?.getMap();
     if (!map || positioned.length === 0) return;
     if (positioned.length === 1) {
-      map.flyTo({ center: [positioned[0]!.pos.lng, positioned[0]!.pos.lat], zoom: 14, duration: 600 });
+      map.flyTo({
+        center: [positioned[0]!.pos.lng, positioned[0]!.pos.lat],
+        zoom: 14,
+        duration: 600,
+      });
       return;
     }
     const lngs = positioned.map((p) => p.pos.lng);
@@ -369,7 +380,10 @@ export function PlanDetailMap({ stops }: Props) {
             isDark ? "bg-[#1a1d27]" : "bg-[#e8e0d4]",
           )}
         >
-          <Loader2 className="h-6 w-6 animate-spin text-terracotta motion-reduce:animate-none" aria-hidden />
+          <Loader2
+            className="h-6 w-6 animate-spin text-terracotta motion-reduce:animate-none"
+            aria-hidden
+          />
         </div>
       )}
     </div>

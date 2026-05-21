@@ -41,8 +41,10 @@ export function HeroFrame(_props: Props) {
         setUser(data.user);
         setAuthReady(true);
       });
-      const { data: { subscription } } = supabase.auth.onAuthStateChange(
-        (_event, session) => setUser(session?.user ?? null),
+      const {
+        data: { subscription },
+      } = supabase.auth.onAuthStateChange((_event, session) =>
+        setUser(session?.user ?? null),
       );
       unsub = () => subscription.unsubscribe();
     }, 100);
@@ -196,9 +198,7 @@ function HeroAuthControl({
   // Pulse skeleton until the 100ms deferred check completes - prevents the
   // sign-in link from flashing for authenticated visitors on first paint.
   if (!ready) {
-    return (
-      <div className="h-8 w-20 animate-pulse rounded-full bg-cream/10" />
-    );
+    return <div className="h-8 w-20 animate-pulse rounded-full bg-cream/10" />;
   }
 
   if (user) {

@@ -4,6 +4,14 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.21.6] - 2026-05-21
+
+### Fixed
+
+- **Plan detail page load time.** `getCurrentMember()` and `getPlanById()` were sequential awaits - the plan query couldn't start until the auth check finished. Both are now fired with `Promise.all`, saving roughly one Supabase round-trip per page load. Same fix applied to the plan edit page.
+- **Prettier formatting** on `plan-detail-map.tsx` and `hero-frame.tsx` was failing CI, which was potentially blocking the Vercel deployment of v3.21.5. Both files now pass `prettier --check`.
+
+
 ## [3.21.5] - 2026-05-21
 
 ### Fixed

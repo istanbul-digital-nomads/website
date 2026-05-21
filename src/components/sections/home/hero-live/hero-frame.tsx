@@ -28,14 +28,9 @@ export function HeroFrame(_props: Props) {
 
   return (
     <>
-      {/* Left-side gradient mask for text contrast over the map. */}
-      <div
-        className="pointer-events-none absolute inset-0 z-[1050]"
-        style={{
-          background:
-            "linear-gradient(95deg, #06101f 0%, rgba(6,16,31,0.94) 22%, rgba(6,16,31,0.7) 34%, rgba(6,16,31,0.25) 46%, rgba(6,16,31,0) 56%)",
-        }}
-      />
+      {/* Inline-start gradient mask for text contrast over the map.
+          hero-text-mask flips direction in [dir=rtl] - see hero-live.css. */}
+      <div className="hero-text-mask pointer-events-none absolute inset-0 z-[1050]" />
 
       {/* Brand bar - the hero's own header. Same nav content as the global
           Header, but rendered in an editorial register: bigger confident
@@ -96,13 +91,15 @@ export function HeroFrame(_props: Props) {
             className="group inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-cream/20 bg-cream/[0.04] px-3.5 py-1.5 font-grotesk text-[12.5px] font-medium text-cream backdrop-blur-sm transition-all hover:border-gold/60 hover:bg-gold/10 hover:text-gold"
           >
             {t("nav.signIn")}
-            <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+            <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5 rtl:group-hover:translate-x-0" />
           </Link>
         </div>
       </header>
 
-      {/* Headline block - left side, vertically centered. */}
-      <div className="absolute left-6 top-1/2 z-[1100] w-[min(540px,calc(100%-3rem))] -translate-y-1/2 md:left-11">
+      {/* Headline block - inline-start side, vertically centered.
+          Uses logical CSS properties (start-*) so it sits on the right
+          in [dir=rtl] without extra overrides. */}
+      <div className="absolute start-6 top-1/2 z-[1100] w-[min(540px,calc(100%-3rem))] -translate-y-1/2 md:start-11">
         <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-moss/35 bg-moss/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-moss">
           <span
             className="hero-live-pip inline-block h-1.5 w-1.5 rounded-full bg-moss"
@@ -137,7 +134,7 @@ export function HeroFrame(_props: Props) {
             className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3.5 text-sm font-semibold text-deep-water transition hover:bg-gold/90"
           >
             {t("ctaPrimary")}
-            <ArrowRight className="h-3.5 w-3.5" />
+            <ArrowRight className="h-3.5 w-3.5 rtl:rotate-180" />
           </Link>
           <Link
             href="/about"

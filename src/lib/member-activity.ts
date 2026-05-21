@@ -84,23 +84,47 @@ export async function getMemberActivity(
     from: (t: string) => any;
   };
 
-  // 1. Plans the member attended (includes plans they hosted - the
-  //    auto-attend on createPlan inserts a plan_attendees row).
-  //    creator_id pulled so we can flag HOSTING vs GOING on upcoming.
-  const { data: attendances } = await supabase
-    .from("plan_attendees")
-    .select(
-      `
-      plan_id,
-      status,
-      plan:plans (
-        id, title, scheduled_date, creator_id,
-        stops:plan_stops (vibe, neighborhood_slug, ordinal)
+  // Run all four independent queries in parallel:
+  //   1. Plans the member attended (includes hosted - auto-attend row).
+  //      creator_id pulled so we can flag HOSTING vs GOING on upcoming.
+  //   2-4. Trust-signal counts (hosted / cancelled-hosted / no-show).
+  // The co-attendees query (query 5) still runs after because it needs the
+  // planIds returned by query 1.
+  const [
+    { data: attendances },
+    { count: hostedCountRaw },
+    { count: cancelledHostedCountRaw },
+    { count: noShowCountRaw },
+  ] = await Promise.all([
+    supabase
+      .from("plan_attendees")
+      .select(
+        `
+        plan_id,
+        status,
+        plan:plans (
+          id, title, scheduled_date, creator_id,
+          stops:plan_stops (vibe, neighborhood_slug, ordinal)
+        )
+      `,
       )
-    `,
-    )
-    .eq("member_id", memberId)
-    .in("status", ATTENDED_STATUSES as unknown as string[]);
+      .eq("member_id", memberId)
+      .in("status", ATTENDED_STATUSES as unknown as string[]),
+    supabase
+      .from("plans")
+      .select("id", { count: "exact", head: true })
+      .eq("creator_id", memberId),
+    supabase
+      .from("plans")
+      .select("id", { count: "exact", head: true })
+      .eq("creator_id", memberId)
+      .eq("status", "cancelled"),
+    supabase
+      .from("plan_attendees")
+      .select("plan_id", { count: "exact", head: true })
+      .eq("member_id", memberId)
+      .eq("status", "no_show"),
+  ]);
 
   const rows = (attendances ?? []) as Array<{
     plan_id: string;
@@ -209,24 +233,7 @@ export async function getMemberActivity(
       .slice(0, CO_ATTENDEES_LIMIT);
   }
 
-  // 3. Trust signals - hosted/cancelled/no-show counts. Separate
-  //    smaller queries for clarity. These are positive-only signals -
-  //    we surface 'Reliable host' / 'All on time' badges as
-  //    earned-only chips; we never publicly display the raw counts.
-  const { count: hostedCountRaw } = await supabase
-    .from("plans")
-    .select("id", { count: "exact", head: true })
-    .eq("creator_id", memberId);
-  const { count: cancelledHostedCountRaw } = await supabase
-    .from("plans")
-    .select("id", { count: "exact", head: true })
-    .eq("creator_id", memberId)
-    .eq("status", "cancelled");
-  const { count: noShowCountRaw } = await supabase
-    .from("plan_attendees")
-    .select("plan_id", { count: "exact", head: true })
-    .eq("member_id", memberId)
-    .eq("status", "no_show");
+  // Trust-signal counts are now fetched in the parallel batch above.
   void TRUST_AWARE_STATUSES;
 
   const trustSignals: TrustSignals = {

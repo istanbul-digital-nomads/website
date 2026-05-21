@@ -4,6 +4,17 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.20.1] - 2026-05-21
+
+### Changed
+
+- **Richer seed plans for this week.** The seeder now generates 12 plans with the full feature surface: multi-stop itineraries (up to 4 stops) with per-leg transport (ferry/metro/walk + prices), budget plans (`budget_per_person_*`) and ticketed plans (`entry_fee_cents`, hosted only by verified guides, with `host_role_at_creation`/`host_badge_at_creation`), spread across the week. Includes the canonical 3-stop nomad plan with a ferry leg between stops.
+- Seeder now purges prior seed plans/events globally by `[seed]` title prefix (cleans leftovers from older seeders).
+
+### Removed
+
+- Stale `scripts/seed-today-plans.ts` (superseded by `seed-mock-data.ts`; it set the now-invalid `member_type: "guide"`).
+
 ## [3.20.0] - 2026-05-21
 
 **Dynamic paperwork markdown + mock data across every surface.**

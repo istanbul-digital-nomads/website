@@ -159,21 +159,151 @@ const TRIPS: SeedTrip[] = [
   { title: "Rumeli Hisarı fortress + fish sandwich", description: "Fortress walk on the upper Bosphorus, ending with the city's best balık ekmek.", type: "social", guideSlug: "guide-deniz", location_name: "Rumeli Hisarı", daysFromNow: 10, capacity: 14, price_try: 500 },
 ];
 
-// ─── Plans (10), hosted across members, this week ──────────────────────
+// ─── Plans (12), hosted across members, this week ──────────────────────
+// Rich variations: single + multi-stop, ferry/metro/walk transport legs,
+// budget plans (budget_per_person) and ticketed plans (entry fee, hosted
+// only by verified guides who are allowed to charge).
 type Vibe = "focus" | "cowork" | "social" | "meal" | "after-work" | "outdoor" | "culture";
-interface SeedPlanStop { start_time: string; end_time: string; vibe: Vibe; neighborhood_slug: string; custom_location: string; notes: string; }
-interface SeedPlan { title: string; hostSlug: string; capacity: number; daysFromNow: number; stops: SeedPlanStop[]; }
+type Transport = "ferry" | "metro" | "bus" | "taxi" | "shared_uber" | "walk" | "bike" | "tram" | "minibus";
+interface SeedPlanStop {
+  start_time: string;
+  end_time: string;
+  vibe: Vibe;
+  neighborhood_slug: string;
+  custom_location: string;
+  notes: string;
+  lat?: number;
+  lng?: number;
+  // Transport to get TO this stop (the leg from the previous one).
+  transport_mode?: Transport;
+  transport_price_min?: number;
+  transport_price_max?: number;
+}
+interface SeedPlan {
+  title: string;
+  hostSlug: string;
+  capacity: number;
+  daysFromNow: number;
+  budget?: [number, number]; // per-person min/max in lira (budget plan)
+  entryFee?: number; // entry fee in lira (ticketed; verified guides only)
+  stops: SeedPlanStop[];
+}
 const PLANS: SeedPlan[] = [
-  { title: `${SEED_PREFIX} Morning cowork at Kronotrop`, hostSlug: "nomad-diego", capacity: 6, daysFromNow: 0, stops: [{ start_time: "09:30", end_time: "12:30", vibe: "cowork", neighborhood_slug: "cihangir", custom_location: "Kronotrop, Cihangir", notes: "Quiet til noon. Outlets along the back wall." }] },
-  { title: `${SEED_PREFIX} Moda sahil sunset walk`, hostSlug: "nomad-lena", capacity: 8, daysFromNow: 0, stops: [{ start_time: "18:30", end_time: "19:30", vibe: "outdoor", neighborhood_slug: "moda", custom_location: "Moda Pier", notes: "Easy loop, tea after if people are up for it." }] },
-  { title: `${SEED_PREFIX} Deep-work morning, Karabatak`, hostSlug: "nomad-ben", capacity: 4, daysFromNow: 1, stops: [{ start_time: "10:00", end_time: "13:00", vibe: "focus", neighborhood_slug: "karakoy", custom_location: "Karabatak, Karaköy", notes: "Heads-down. We chat at the break only." }] },
-  { title: `${SEED_PREFIX} Lunch + cowork, Coffee Department`, hostSlug: "nomad-priya", capacity: 6, daysFromNow: 1, stops: [{ start_time: "12:30", end_time: "16:00", vibe: "cowork", neighborhood_slug: "cihangir", custom_location: "Coffee Department", notes: "Lunch first, then cowork downstairs." }] },
-  { title: `${SEED_PREFIX} Climbing then beers`, hostSlug: "nomad-diego", capacity: 6, daysFromNow: 2, stops: [{ start_time: "19:00", end_time: "21:00", vibe: "after-work", neighborhood_slug: "kadikoy", custom_location: "BoulderClub Kadıköy", notes: "All levels. Beers after for whoever's keen." }] },
-  { title: `${SEED_PREFIX} Çukurcuma antique wander`, hostSlug: "nomad-clara", capacity: 5, daysFromNow: 2, stops: [{ start_time: "15:00", end_time: "17:00", vibe: "culture", neighborhood_slug: "cihangir", custom_location: "Çukurcuma antique shops", notes: "Slow browse, no pressure to buy. Coffee at the end." }] },
-  { title: `${SEED_PREFIX} Bebek to Rumeli walk`, hostSlug: "guide-mert", capacity: 10, daysFromNow: 3, stops: [{ start_time: "10:00", end_time: "12:00", vibe: "outdoor", neighborhood_slug: "besiktas", custom_location: "Bebek sahil", notes: "Flat coastal walk, ~5km, fish sandwich at the end." }] },
-  { title: `${SEED_PREFIX} Pide night in Caferağa`, hostSlug: "nomad-marta", capacity: 5, daysFromNow: 3, stops: [{ start_time: "19:30", end_time: "21:00", vibe: "meal", neighborhood_slug: "kadikoy", custom_location: "Borsam Taşfırın", notes: "Family-style pide, ~₺180 each." }] },
-  { title: `${SEED_PREFIX} Quiet cowork, Nişantaşı`, hostSlug: "nomad-sam", capacity: 4, daysFromNow: 4, stops: [{ start_time: "10:00", end_time: "13:00", vibe: "focus", neighborhood_slug: "nisantasi", custom_location: "Cup of Joy, Nişantaşı", notes: "Calls fine in the back room." }] },
-  { title: `${SEED_PREFIX} Saturday social, Moda tea garden`, hostSlug: "nomad-lena", capacity: 12, daysFromNow: 5, stops: [{ start_time: "16:00", end_time: "18:00", vibe: "social", neighborhood_slug: "moda", custom_location: "Moda Çay Bahçesi", notes: "Just turn up. Tea, backgammon, sea view." }] },
+  // The classic 3-stop nomad plan with a ferry leg between stop 1 and 2.
+  {
+    title: `${SEED_PREFIX} Cowork, ferry, sunset dinner`,
+    hostSlug: "nomad-lena",
+    capacity: 6,
+    daysFromNow: 0,
+    budget: [200, 350],
+    stops: [
+      { start_time: "10:00", end_time: "13:00", vibe: "cowork", neighborhood_slug: "moda", custom_location: "Kahve Dünyası, Moda", notes: "Heads-down morning. Outlets at the back, sea view if you're early.", lat: 40.9847, lng: 29.0264 },
+      { start_time: "13:30", end_time: "14:15", vibe: "social", neighborhood_slug: "kadikoy", custom_location: "Kadıköy → Karaköy ferry", notes: "13:30 boat. Tea on the deck, ~45 min crossing.", transport_mode: "ferry", transport_price_min: 37, transport_price_max: 37 },
+      { start_time: "18:30", end_time: "21:00", vibe: "meal", neighborhood_slug: "karakoy", custom_location: "Karaköy Lokantası", notes: "Communal table booked, ~₺300pp. RSVP so we hold seats.", transport_mode: "walk" },
+    ],
+  },
+  {
+    title: `${SEED_PREFIX} Morning cowork at Kronotrop`,
+    hostSlug: "nomad-diego",
+    capacity: 6,
+    daysFromNow: 0,
+    budget: [80, 150],
+    stops: [{ start_time: "09:30", end_time: "12:30", vibe: "cowork", neighborhood_slug: "cihangir", custom_location: "Kronotrop, Cihangir", notes: "Quiet til noon. Outlets along the back wall." }],
+  },
+  {
+    title: `${SEED_PREFIX} Moda sahil sunset walk`,
+    hostSlug: "nomad-clara",
+    capacity: 10,
+    daysFromNow: 0,
+    stops: [{ start_time: "18:30", end_time: "19:30", vibe: "outdoor", neighborhood_slug: "moda", custom_location: "Moda Pier", notes: "Easy loop, tea after if people are up for it. Free." }],
+  },
+  // Ticketed guided trip: 4 stops with ferry + walk legs, entry fee.
+  {
+    title: `${SEED_PREFIX} ★ Old Kadıköy: ferry, breakfast, coffee crawl`,
+    hostSlug: "guide-cem",
+    capacity: 12,
+    daysFromNow: 1,
+    entryFee: 450,
+    stops: [
+      { start_time: "08:00", end_time: "08:45", vibe: "outdoor", neighborhood_slug: "kadikoy", custom_location: "Kadıköy iskele · 08:00 ferry", notes: "Meet at the pier. Çay on the deck." },
+      { start_time: "08:45", end_time: "10:30", vibe: "meal", neighborhood_slug: "karakoy", custom_location: "Van Kahvaltı Evi", notes: "7-plate breakfast with a guided rundown.", transport_mode: "ferry", transport_price_min: 37, transport_price_max: 37 },
+      { start_time: "10:30", end_time: "11:30", vibe: "outdoor", neighborhood_slug: "karakoy", custom_location: "Galata stairs + Şişhane lookout", notes: "Walk back uphill, photo stops welcome.", transport_mode: "walk" },
+      { start_time: "11:30", end_time: "12:30", vibe: "social", neighborhood_slug: "karakoy", custom_location: "Geyik Coffee, Tophane", notes: "Two-origin tasting to finish.", transport_mode: "walk" },
+    ],
+  },
+  {
+    title: `${SEED_PREFIX} Deep-work morning, Karabatak`,
+    hostSlug: "nomad-ben",
+    capacity: 4,
+    daysFromNow: 1,
+    budget: [60, 120],
+    stops: [{ start_time: "10:00", end_time: "13:00", vibe: "focus", neighborhood_slug: "karakoy", custom_location: "Karabatak, Karaköy", notes: "Heads-down. We chat at the break only." }],
+  },
+  // 2-stop with metro leg.
+  {
+    title: `${SEED_PREFIX} Lunch in Levent, then cowork`,
+    hostSlug: "nomad-sam",
+    capacity: 5,
+    daysFromNow: 2,
+    budget: [180, 300],
+    stops: [
+      { start_time: "12:30", end_time: "14:00", vibe: "meal", neighborhood_slug: "levent", custom_location: "Kanyon food court", notes: "Quick lunch, lots of options." },
+      { start_time: "14:30", end_time: "17:30", vibe: "cowork", neighborhood_slug: "nisantasi", custom_location: "Cup of Joy, Nişantaşı", notes: "Two metro stops down. Calls fine in the back room.", transport_mode: "metro", transport_price_min: 27, transport_price_max: 27 },
+    ],
+  },
+  {
+    title: `${SEED_PREFIX} Climbing then beers`,
+    hostSlug: "nomad-diego",
+    capacity: 6,
+    daysFromNow: 2,
+    budget: [150, 250],
+    stops: [{ start_time: "19:00", end_time: "21:00", vibe: "after-work", neighborhood_slug: "kadikoy", custom_location: "BoulderClub Kadıköy", notes: "All levels. Beers after for whoever's keen." }],
+  },
+  // Ticketed tour-guide outing.
+  {
+    title: `${SEED_PREFIX} ★ Balat & Fener photo walk`,
+    hostSlug: "guide-elif",
+    capacity: 10,
+    daysFromNow: 3,
+    entryFee: 350,
+    stops: [{ start_time: "10:00", end_time: "12:30", vibe: "culture", neighborhood_slug: "balat", custom_location: "Fener pier → Balat lanes", notes: "Colorful houses, the old Greek quarter. Bring a camera; pace is slow." }],
+  },
+  {
+    title: `${SEED_PREFIX} Pide night in Caferağa`,
+    hostSlug: "nomad-marta",
+    capacity: 5,
+    daysFromNow: 3,
+    budget: [150, 220],
+    stops: [{ start_time: "19:30", end_time: "21:00", vibe: "meal", neighborhood_slug: "kadikoy", custom_location: "Borsam Taşfırın", notes: "Family-style pide, ~₺180 each." }],
+  },
+  // 3-stop outdoor day with ferry + walk.
+  {
+    title: `${SEED_PREFIX} Sunset ferry → Galata → dinner`,
+    hostSlug: "nomad-priya",
+    capacity: 8,
+    daysFromNow: 4,
+    budget: [250, 400],
+    stops: [
+      { start_time: "17:35", end_time: "18:15", vibe: "outdoor", neighborhood_slug: "kadikoy", custom_location: "Kadıköy iskele · 17:35 ferry", notes: "Upstairs deck, cameras welcome." },
+      { start_time: "18:30", end_time: "19:30", vibe: "outdoor", neighborhood_slug: "karakoy", custom_location: "Karaköy → Cihangir via Galata", notes: "~40 min uphill walk through Galata.", transport_mode: "ferry", transport_price_min: 37, transport_price_max: 37 },
+      { start_time: "19:30", end_time: "22:00", vibe: "meal", neighborhood_slug: "cihangir", custom_location: "Susam Sokak", notes: "Communal table, ~₺280pp.", transport_mode: "walk" },
+    ],
+  },
+  {
+    title: `${SEED_PREFIX} Bebek to Rumeli coastal walk`,
+    hostSlug: "guide-mert",
+    capacity: 12,
+    daysFromNow: 5,
+    budget: [50, 120],
+    stops: [{ start_time: "10:00", end_time: "12:00", vibe: "outdoor", neighborhood_slug: "besiktas", custom_location: "Bebek sahil → Rumeli Hisarı", notes: "Flat coastal walk, ~5km, fish sandwich at the end." }],
+  },
+  {
+    title: `${SEED_PREFIX} Saturday social, Moda tea garden`,
+    hostSlug: "nomad-lena",
+    capacity: 14,
+    daysFromNow: 6,
+    stops: [{ start_time: "16:00", end_time: "18:00", vibe: "social", neighborhood_slug: "moda", custom_location: "Moda Çay Bahçesi", notes: "Just turn up. Tea, backgammon, sea view. Free." }],
+  },
 ];
 
 function dateFromNow(days: number): string {
@@ -211,6 +341,7 @@ async function main() {
   // Provision an auth user + members row for each seed member.
   const idBySlug = new Map<string, string>();
   const allMembers: SeedMember[] = [...NOMADS, ...GUIDES, ...AGENTS];
+  const memberBySlug = new Map(allMembers.map((m) => [m.slug, m]));
   for (const m of allMembers) {
     const email = SEED_EMAIL(m.slug);
     let id = byEmail.get(email.toLowerCase());
@@ -285,12 +416,11 @@ async function main() {
   }
   console.log(`✓ Inserted ${svcCount} paperwork services`);
 
-  // Plans - purge prior seed plans by these hosts, then insert + stops.
-  const planHostIds = Array.from(idBySlug.values());
+  // Plans - purge ALL prior seed plans (any creator, by title prefix) so
+  // leftovers from older seeders are cleaned up too, then insert + stops.
   const { data: priorPlans } = await db
     .from("plans")
     .select("id")
-    .in("creator_id", planHostIds)
     .like("title", `${SEED_PREFIX}%`);
   const priorIds = (priorPlans ?? []).map((p: { id: string }) => p.id);
   if (priorIds.length) {
@@ -302,6 +432,7 @@ async function main() {
   for (const p of PLANS) {
     const creatorId = idBySlug.get(p.hostSlug);
     if (!creatorId) continue;
+    const host = memberBySlug.get(p.hostSlug);
     const date = dateFromNow(p.daysFromNow);
     const last = p.stops[p.stops.length - 1];
     const { data: row, error } = await db
@@ -313,6 +444,13 @@ async function main() {
         capacity: p.capacity,
         language: "en",
         expires_at: expiresAt(date, last.end_time),
+        is_ticketed: !!p.entryFee,
+        entry_fee_cents: p.entryFee ? p.entryFee * 100 : null,
+        budget_per_person_min_cents: p.budget ? p.budget[0] * 100 : null,
+        budget_per_person_max_cents: p.budget ? p.budget[1] * 100 : null,
+        currency: "TRY",
+        host_role_at_creation: host?.member_type ?? "nomad",
+        host_badge_at_creation: host?.verification_level ?? "basic",
       })
       .select("id")
       .single();
@@ -329,6 +467,11 @@ async function main() {
       start_time: s.start_time,
       end_time: s.end_time,
       notes: s.notes,
+      lat: s.lat ?? null,
+      lng: s.lng ?? null,
+      transport_mode: s.transport_mode ?? null,
+      transport_price_min: s.transport_price_min ?? null,
+      transport_price_max: s.transport_price_max ?? null,
     }));
     const { error: sErr } = await db.from("plan_stops").insert(stops);
     if (sErr) console.error(`  ✗ stops for "${p.title}":`, sErr.message);
@@ -336,12 +479,10 @@ async function main() {
   }
   console.log(`✓ Inserted ${planCount} plans`);
 
-  // Trips (events) - purge prior seed events, then insert.
-  const organizerIds = GUIDES.map((g) => idBySlug.get(g.slug)).filter(Boolean) as string[];
+  // Trips (events) - purge ALL prior seed events by title prefix.
   const { data: priorEv } = await db
     .from("events")
     .select("id")
-    .in("organizer_id", organizerIds)
     .like("title", `${SEED_PREFIX}%`);
   const priorEvIds = (priorEv ?? []).map((e: { id: string }) => e.id);
   if (priorEvIds.length) await db.from("events").delete().in("id", priorEvIds);

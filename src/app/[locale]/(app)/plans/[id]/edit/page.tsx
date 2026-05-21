@@ -26,10 +26,11 @@ async function Content({
   params: Promise<{ locale: string; id: string }>;
 }) {
   const { id } = await params;
-  const { data: member } = await getCurrentMember();
+  const [{ data: member }, { data: plan }] = await Promise.all([
+    getCurrentMember(),
+    getPlanById(id),
+  ]);
   if (!member) redirect(`/login?next=/plans/${id}/edit`);
-
-  const { data: plan } = await getPlanById(id);
   if (!plan) notFound();
   if (plan.creator_id !== member.id) notFound();
 

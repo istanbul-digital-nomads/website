@@ -123,10 +123,12 @@ async function Content({
   const { locale: rawLocale, id } = await params;
   const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
 
-  const { data: member } = await getCurrentMember();
+  // Fire both in parallel - auth check happens after both settle.
+  const [{ data: member }, { data: plan }] = await Promise.all([
+    getCurrentMember(),
+    getPlanById(id),
+  ]);
   if (!member) redirect(`/login?next=/plans/${id}`);
-
-  const { data: plan } = await getPlanById(id);
   if (!plan) notFound();
 
   const t = await getTranslations("plans");

@@ -31,6 +31,18 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+// Initials fallback for a host with no avatar (e.g. "Cem Kaya" -> "CK").
+function initialsOf(name?: string | null): string {
+  if (!name) return "·";
+  return name
+    .split(/\s+/)
+    .map((p) => p[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+}
+
 export default function PlanDetailPage(props: {
   params: Promise<{ locale: string; id: string }>;
 }) {
@@ -144,7 +156,7 @@ async function Content({
             {dateFmt.format(new Date(`${plan.scheduled_date}T12:00:00Z`))}
           </p>
 
-          <h1 className="mt-3 font-display text-display-lg leading-tight text-paper">
+          <h1 className="mt-2 max-w-2xl font-display text-h1 text-paper">
             {plan.title}
           </h1>
 
@@ -159,11 +171,11 @@ async function Content({
           </div>
 
           {/* Host card */}
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border border-ink-3 bg-ink-2 p-4">
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-ink-3 bg-ink-2 p-4">
             <div className="flex items-center gap-3">
               <span
                 aria-hidden
-                className="inline-flex h-10 w-10 overflow-hidden rounded-full bg-ink-3"
+                className="inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-ink-3 font-display text-sm text-paper-mute"
               >
                 {plan.host?.avatar_url ? (
                   <Image
@@ -173,7 +185,9 @@ async function Content({
                     height={40}
                     className="h-full w-full object-cover"
                   />
-                ) : null}
+                ) : (
+                  initialsOf(plan.host?.display_name)
+                )}
               </span>
               <div>
                 <div className="flex items-center gap-2">

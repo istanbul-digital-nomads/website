@@ -2935,7 +2935,7 @@
     "successTitle": "Service published",
     "errorTitle": "Couldn't publish",
     "errorBody": "Something went wrong. Try again or contact support.",
-    "disclaimer": "By publishing, you agree to the Community Guidelines and confirm you're qualified to provide this service. Paid checkout opens in Phase 4 - until then, attendees contact you on Telegram."
+    "disclaimer": "By publishing, you agree to the Community Guidelines and confirm you're qualified to provide this service. Paid checkout is coming soon - until then, attendees contact you on Telegram."
   },
   "membersV2": {
     "metaTitle": "Members",
@@ -3213,7 +3213,7 @@
     "money": {
       "sectionLabel": "Money",
       "ticketedToggleLabel": "Charge an entry fee",
-      "verificationRequiredHint": "Verification required - unlocks in Phase 3",
+      "verificationRequiredHint": "Verification required to charge",
       "verificationLockedTag": "Locked",
       "budgetMinLabel": "Min budget (TL)",
       "budgetMaxLabel": "Max budget (TL)",
@@ -3221,7 +3221,7 @@
       "budgetDisplay": "Expect {min}-{max} TL per person",
       "budgetDisplayApprox": "Around {amount} TL per person",
       "entryFeeDisplay": "Entry fee: {amount} TL",
-      "checkoutComingSoon": "Checkout opens in Phase 4"
+      "checkoutComingSoon": "Checkout coming soon"
     },
     "create": {
       "eyebrow": "New plan",

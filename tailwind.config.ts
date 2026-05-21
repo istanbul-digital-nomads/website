@@ -94,33 +94,35 @@ const config: Config = {
       fontSize: {
         // Design System v2 scale (docs/plan/design DESIGN_SYSTEM.md §3).
         // Display weights are light (300); page titles 400; subsections 500.
+        // Fluid, dialed-down scale (v3.21): headings clamp by viewport so
+        // they read as confident, not shouty - and scale down on mobile.
         "display-2xl": [
-          "9.25rem",
-          { lineHeight: "0.9", letterSpacing: "-0.045em", fontWeight: "300" },
+          "clamp(3.5rem, 9vw, 6rem)",
+          { lineHeight: "0.95", letterSpacing: "-0.04em", fontWeight: "300" },
         ],
         "display-xl": [
-          "6.75rem",
-          { lineHeight: "0.92", letterSpacing: "-0.04em", fontWeight: "300" },
-        ],
-        "display-lg": [
-          "5rem",
+          "clamp(3rem, 7.5vw, 4.5rem)",
           { lineHeight: "0.95", letterSpacing: "-0.035em", fontWeight: "300" },
         ],
-        h1: [
-          "3.5rem",
-          { lineHeight: "1", letterSpacing: "-0.03em", fontWeight: "400" },
+        "display-lg": [
+          "clamp(2.6rem, 6vw, 3.25rem)",
+          { lineHeight: "1", letterSpacing: "-0.03em", fontWeight: "300" },
         ],
-        h2: [
-          "2.375rem",
+        h1: [
+          "clamp(2rem, 5vw, 2.5rem)",
           { lineHeight: "1.05", letterSpacing: "-0.025em", fontWeight: "400" },
         ],
+        h2: [
+          "clamp(1.5rem, 3.5vw, 1.85rem)",
+          { lineHeight: "1.12", letterSpacing: "-0.02em", fontWeight: "400" },
+        ],
         h3: [
-          "1.75rem",
-          { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "400" },
+          "clamp(1.25rem, 2.5vw, 1.45rem)",
+          { lineHeight: "1.2", letterSpacing: "-0.015em", fontWeight: "500" },
         ],
         h4: [
-          "1.375rem",
-          { lineHeight: "1.15", letterSpacing: "-0.015em", fontWeight: "500" },
+          "clamp(1.1rem, 2vw, 1.25rem)",
+          { lineHeight: "1.25", letterSpacing: "-0.01em", fontWeight: "500" },
         ],
         lede: ["1.1875rem", { lineHeight: "1.45" }],
         body: ["1rem", { lineHeight: "1.55" }],

@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { ArrowRight, ChevronDown, Play } from "lucide-react";
+import { ArrowRight, ChevronDown, LogOut, Play, User } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import {
   navItems,
@@ -13,6 +13,7 @@ import {
   type NavItem,
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import type { User as SupabaseUser } from "@supabase/supabase-js";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 
 type Props = { locale?: string };
@@ -25,6 +26,31 @@ export function HeroFrame(_props: Props) {
   const t = useTranslations("home.heroLive");
   const tNav = useTranslations("nav");
   const tSite = useTranslations("site");
+
+  // Auth state lifted here so it's fetched once and shared to both
+  // HeroAuthControl (header top-right) and the primary CTA.
+  const [user, setUser] = useState<SupabaseUser | null>(null);
+  const [authReady, setAuthReady] = useState(false);
+
+  useEffect(() => {
+    let unsub: (() => void) | null = null;
+    const timer = setTimeout(async () => {
+      const { createClient } = await import("@/lib/supabase/client");
+      const supabase = createClient();
+      supabase.auth.getUser().then(({ data }) => {
+        setUser(data.user);
+        setAuthReady(true);
+      });
+      const { data: { subscription } } = supabase.auth.onAuthStateChange(
+        (_event, session) => setUser(session?.user ?? null),
+      );
+      unsub = () => subscription.unsubscribe();
+    }, 100);
+    return () => {
+      clearTimeout(timer);
+      unsub?.();
+    };
+  }, []);
 
   return (
     <>
@@ -86,13 +112,7 @@ export function HeroFrame(_props: Props) {
 
         <div className="flex shrink-0 items-center gap-2.5">
           <LanguageSwitcher />
-          <Link
-            href="/login"
-            className="group inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-cream/20 bg-cream/[0.04] px-3.5 py-1.5 font-grotesk text-[12.5px] font-medium text-cream backdrop-blur-sm transition-all hover:border-gold/60 hover:bg-gold/10 hover:text-gold"
-          >
-            {t("nav.signIn")}
-            <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5 rtl:group-hover:translate-x-0" />
-          </Link>
+          <HeroAuthControl user={user} ready={authReady} />
         </div>
       </header>
 
@@ -130,10 +150,10 @@ export function HeroFrame(_props: Props) {
 
         <div className="flex flex-wrap items-center gap-3">
           <Link
-            href="/onboarding"
+            href={user ? "/today" : "/onboarding"}
             className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3.5 text-sm font-semibold text-deep-water transition hover:bg-gold/90"
           >
-            {t("ctaPrimary")}
+            {user ? t("ctaPrimaryAuthed") : t("ctaPrimary")}
             <ArrowRight className="h-3.5 w-3.5 rtl:rotate-180" />
           </Link>
           <Link
@@ -148,6 +168,79 @@ export function HeroFrame(_props: Props) {
         </div>
       </div>
     </>
+  );
+}
+
+// ── Auth-aware control for the hero header.
+// Receives auth state from HeroFrame (single getUser() call, not duplicated).
+// Uses the hero's dark/cream palette instead of the main header's ink/paper.
+function HeroAuthControl({
+  user,
+  ready,
+}: {
+  user: SupabaseUser | null;
+  ready: boolean;
+}) {
+  const t = useTranslations("auth");
+
+  const handleSignOut = useCallback(async () => {
+    const { createClient } = await import("@/lib/supabase/client");
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    window.location.href = "/";
+  }, []);
+
+  const pill =
+    "group inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-cream/20 bg-cream/[0.04] px-3.5 py-1.5 font-grotesk text-[12.5px] font-medium text-cream backdrop-blur-sm transition-all hover:border-gold/60 hover:bg-gold/10 hover:text-gold";
+
+  // Pulse skeleton until the 100ms deferred check completes - prevents the
+  // sign-in link from flashing for authenticated visitors on first paint.
+  if (!ready) {
+    return (
+      <div className="h-8 w-20 animate-pulse rounded-full bg-cream/10" />
+    );
+  }
+
+  if (user) {
+    const name =
+      user.user_metadata?.full_name ||
+      user.email?.split("@")[0] ||
+      t("memberFallback");
+    const avatar = user.user_metadata?.avatar_url;
+    return (
+      <div className="flex items-center gap-1.5">
+        <Link href="/dashboard" className={pill} title={t("openDashboard")}>
+          {avatar ? (
+            <Image
+              src={avatar}
+              alt={name}
+              width={18}
+              height={18}
+              className="h-[18px] w-[18px] rounded-full"
+            />
+          ) : (
+            <User className="h-3.5 w-3.5" />
+          )}
+          <span className="max-w-[110px] truncate">{name}</span>
+        </Link>
+        <button
+          type="button"
+          onClick={handleSignOut}
+          title={t("signOut")}
+          aria-label={t("signOut")}
+          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-cream/20 bg-cream/[0.04] text-cream backdrop-blur-sm transition-all hover:border-gold/60 hover:bg-gold/10 hover:text-gold"
+        >
+          <LogOut className="h-3.5 w-3.5" />
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <Link href="/login" className={pill}>
+      {t("signIn")}
+      <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 rtl:rotate-180" />
+    </Link>
   );
 }
 

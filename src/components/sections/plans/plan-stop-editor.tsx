@@ -17,6 +17,8 @@ export interface EditableStop extends DraftStop {
   end_time: string;
   vibe: PlanVibe;
   notes: string;
+  cost_min: string;
+  cost_max: string;
   transport_mode: TransportMode | null;
   transport_price_min: string;
   transport_price_max: string;
@@ -164,6 +166,37 @@ export function PlanStopEditor({
         aria-label={t("notesLabel")}
         className="w-full resize-none rounded-md border border-ink-3 bg-transparent px-3 py-2 text-sm text-paper placeholder:text-paper-faint focus-visible:border-terracotta focus-visible:outline-none"
       />
+
+      {/* Cost at this stop (optional) */}
+      <div className="flex items-center gap-2 text-sm">
+        <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+          {t("costEyebrow")}
+        </span>
+        <span className="font-mono text-[10px] text-paper-faint">₺</span>
+        <input
+          type="number"
+          inputMode="numeric"
+          min={0}
+          value={stop.cost_min}
+          onChange={(e) => patch({ cost_min: e.target.value })}
+          placeholder={t("costMinPlaceholder")}
+          aria-label={t("costMinLabel")}
+          className="w-20 rounded-md border border-ink-3 bg-transparent px-2 py-1.5 text-sm text-paper placeholder:text-paper-faint focus-visible:border-terracotta focus-visible:outline-none"
+        />
+        <span aria-hidden className="text-paper-mute">
+          –
+        </span>
+        <input
+          type="number"
+          inputMode="numeric"
+          min={0}
+          value={stop.cost_max}
+          onChange={(e) => patch({ cost_max: e.target.value })}
+          placeholder={t("costMaxPlaceholder")}
+          aria-label={t("costMaxLabel")}
+          className="w-20 rounded-md border border-ink-3 bg-transparent px-2 py-1.5 text-sm text-paper placeholder:text-paper-faint focus-visible:border-terracotta focus-visible:outline-none"
+        />
+      </div>
 
       {/* Transport: only for stops after the first. */}
       {index > 0 && (

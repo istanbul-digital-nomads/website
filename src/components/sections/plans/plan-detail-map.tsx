@@ -9,7 +9,7 @@ import MapGL, {
   type MapRef,
 } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { Loader2, MapPin, X } from "lucide-react";
+import { Loader2, MapPin, Wallet, X } from "lucide-react";
 import { useTheme } from "@/components/layout/theme-provider";
 import { spaces } from "@/lib/spaces";
 import { cn } from "@/lib/utils";
@@ -358,6 +358,22 @@ export function PlanDetailMap({ stops }: Props) {
                 <p className="mt-1.5 line-clamp-3 text-[11px] leading-relaxed opacity-70">
                   {selected.stop.notes}
                 </p>
+              )}
+
+              {/* Cost */}
+              {(selected.stop.cost_min_cents != null ||
+                selected.stop.cost_max_cents != null) && (
+                <div className="mt-1.5 flex items-center gap-1">
+                  <Wallet className="h-3 w-3 shrink-0 text-moss" aria-hidden />
+                  <span className="font-mono text-[10px] uppercase tracking-wider opacity-70">
+                    {selected.stop.cost_min_cents != null &&
+                    selected.stop.cost_max_cents != null &&
+                    selected.stop.cost_max_cents !==
+                      selected.stop.cost_min_cents
+                      ? `₺${selected.stop.cost_min_cents / 100} - ₺${selected.stop.cost_max_cents / 100}`
+                      : `₺${(selected.stop.cost_min_cents ?? selected.stop.cost_max_cents)! / 100}`}
+                  </span>
+                </div>
               )}
 
               {/* Approximate location warning */}

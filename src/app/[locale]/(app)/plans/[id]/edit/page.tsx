@@ -54,6 +54,8 @@ async function Content({
           transport_mode: s.transport_mode,
           transport_price_min: s.transport_price_min,
           transport_price_max: s.transport_price_max,
+          cost_min_cents: s.cost_min_cents,
+          cost_max_cents: s.cost_max_cents,
         })),
       }}
     />

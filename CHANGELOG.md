@@ -4,6 +4,15 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.23.0] - 2026-05-21
+
+### Added
+
+- **Per-stop cost/budget range.** Hosts can now enter an optional "Spend here" TL min/max for each stop when creating or editing a plan. The values are stored in new `cost_min_cents` / `cost_max_cents` columns on `plan_stops` (migration 026). The detail page shows a wallet icon + range on each stop card, and the map popup shows the cost when you tap a pin. All 5 locales updated.
+- **Migration 026** (`supabase/migrations/026_stop_cost.sql`): adds `cost_min_cents` and `cost_max_cents` integer columns to `plan_stops` with a `>= 0` check and a max-must-be-gte-min constraint. **Apply to production before deploying this version.**
+
+---
+
 ## [3.22.0] - 2026-05-21
 
 ### Added

@@ -48,6 +48,14 @@ export const planStopSchema = z
       numberOrNull,
       z.number().int().min(0).nullable().optional(),
     ),
+    cost_min_cents: z.preprocess(
+      numberOrNull,
+      z.number().int().min(0).nullable().optional(),
+    ),
+    cost_max_cents: z.preprocess(
+      numberOrNull,
+      z.number().int().min(0).nullable().optional(),
+    ),
   })
   .refine(
     (v) =>
@@ -69,6 +77,16 @@ export const planStopSchema = z
     {
       message: "Max price must be greater than min",
       path: ["transport_price_max"],
+    },
+  )
+  .refine(
+    (v) =>
+      v.cost_min_cents == null ||
+      v.cost_max_cents == null ||
+      v.cost_max_cents >= v.cost_min_cents,
+    {
+      message: "Max cost must be at least the min",
+      path: ["cost_max_cents"],
     },
   );
 

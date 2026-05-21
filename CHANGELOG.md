@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - **Plan detail map now always shows.** The map was hidden for any plan whose stops only had a `neighborhood_slug` (no exact `lat`/`lng` and no `space_id`). Added a third fallback in `stopLatLng`: if a stop has only a neighborhood slug, resolve it to the hood's center coordinates from a `NEIGHBORHOOD_CENTERS` lookup table (10 Istanbul neighborhoods covered). Approximate pins render as a hollow terracotta ring + `MapPin` icon so users can tell it's a neighborhood-level estimate rather than a pinpoint address. Also fixed the `fitBounds` effect - it now runs on `mapLoaded` too, not just on `positioned` changes, so the camera correctly zooms to all pins once the map style finishes loading.
 
+
 ## [3.21.3] - 2026-05-21
 
 ### Fixed

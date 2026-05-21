@@ -11,6 +11,10 @@ import { spaces } from "./spaces";
 import { guides } from "./data";
 import { circles } from "./circles";
 import { SERVICE_TYPES } from "./paperwork";
+import {
+  getPaperworkServicesPublic,
+  type PaperworkServicePublic,
+} from "./supabase/queries";
 import { defaultLocale, isValidLocale, type Locale } from "./i18n/config";
 
 const SITE = "https://istanbulnomads.com";
@@ -215,7 +219,7 @@ const SERVICE_TYPE_LABELS: Record<string, string> = {
   other: "Other paperwork",
 };
 
-function paperworkListingMarkdown(): string {
+function paperworkListingMarkdown(services: PaperworkServicePublic[]): string {
   const header = frontmatterHeader(
     "Istanbul Nomads - Paperwork help",
     "Directory of verified independent agents who help nomads with Turkish bureaucracy - residence permits, tax numbers, bank accounts, and more.",
@@ -224,10 +228,39 @@ function paperworkListingMarkdown(): string {
   const types = SERVICE_TYPES.map(
     (t) => `- ${SERVICE_TYPE_LABELS[t] ?? t}`,
   ).join("\n");
+
+  // Live listings, grouped by service type.
+  let listings = "";
+  if (services.length > 0) {
+    const byType = new Map<string, PaperworkServicePublic[]>();
+    for (const s of services) {
+      const arr = byType.get(s.service_type) ?? [];
+      arr.push(s);
+      byType.set(s.service_type, arr);
+    }
+    const sections: string[] = [];
+    for (const t of SERVICE_TYPES) {
+      const items = byType.get(t);
+      if (!items || items.length === 0) continue;
+      const rows = items
+        .map((s) => {
+          const price = `${(s.price_cents / 100).toLocaleString("en-US")} ${s.currency}`;
+          const host = s.host?.display_name ?? "Verified agent";
+          const langs = s.languages?.length
+            ? ` · ${s.languages.join("/")}`
+            : "";
+          return `- **${s.title}** - ${price} · ${host}${langs}\n  ${SITE}/paperwork/${s.id}`;
+        })
+        .join("\n");
+      sections.push(`### ${SERVICE_TYPE_LABELS[t] ?? t}\n\n${rows}`);
+    }
+    listings = `\n## Available services (${services.length})\n\n${sections.join("\n\n")}\n`;
+  }
+
   return `${header}## Service types
 
 ${types}
-
+${listings}
 ## How it works
 
 Each agent lists what they handle with clear pricing. Every agent is verified before they can list, but they're independent providers - not employees - and we don't give legal advice. See [how paperwork help works](${SITE}/help/paperwork-help.md). Browse and contact agents at the live directory: ${SITE}/paperwork
@@ -266,7 +299,9 @@ function simpleStubMarkdown(
   return `${frontmatterHeader(title, description, canonical)}See the HTML version at ${canonical} for the full interactive page.\n`;
 }
 
-export function getMarkdownForPath(pathname: string): { body: string } | null {
+export async function getMarkdownForPath(
+  pathname: string,
+): Promise<{ body: string } | null> {
   let p = pathname.replace(/\/$/, "") || "/";
 
   // Strip a leading locale prefix (e.g. `/tr/help/x` -> `/help/x`) and use
@@ -408,7 +443,10 @@ export function getMarkdownForPath(pathname: string): { body: string } | null {
     return md ? { body: md } : null;
   }
 
-  if (p === "/paperwork") return { body: paperworkListingMarkdown() };
+  if (p === "/paperwork") {
+    const { data } = await getPaperworkServicesPublic();
+    return { body: paperworkListingMarkdown(data) };
+  }
 
   if (p === "/help") return { body: helpListingMarkdown(locale) };
 

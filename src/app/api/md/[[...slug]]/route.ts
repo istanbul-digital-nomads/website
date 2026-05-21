@@ -7,7 +7,7 @@ export async function GET(
 ) {
   const { slug } = await params;
   const pathname = "/" + (slug ?? []).join("/");
-  const result = getMarkdownForPath(pathname);
+  const result = await getMarkdownForPath(pathname);
 
   if (!result) {
     return new NextResponse(

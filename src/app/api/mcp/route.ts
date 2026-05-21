@@ -179,7 +179,7 @@ async function callTool(name: string, args: Record<string, unknown> = {}) {
       if (!guides.some((g) => g.slug === slug)) {
         return textResult(`Guide not found: ${slug}`);
       }
-      const md = getMarkdownForPath(`/guides/${slug}`);
+      const md = await getMarkdownForPath(`/guides/${slug}`);
       return textResult(md?.body ?? `Guide markdown unavailable: ${slug}`);
     }
     case "list_blog_posts": {
@@ -201,7 +201,7 @@ async function callTool(name: string, args: Record<string, unknown> = {}) {
     case "get_blog_post": {
       const slug = typeof args.slug === "string" ? args.slug : "";
       if (!getBlogPost(slug)) return textResult(`Blog post not found: ${slug}`);
-      const md = getMarkdownForPath(`/blog/${slug}`);
+      const md = await getMarkdownForPath(`/blog/${slug}`);
       return textResult(md?.body ?? `Blog post markdown unavailable: ${slug}`);
     }
     case "list_events": {

@@ -4,6 +4,19 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.20.0] - 2026-05-21
+
+**Dynamic paperwork markdown + mock data across every surface.**
+
+### Added
+
+- **`/paperwork.md` is now dynamic.** The markdown pipeline (`getMarkdownForPath`) is async and `/paperwork.md` lists the **live** verified agents and services (grouped by service type, with prices, host, languages, and detail URLs) - not a static overview. AI agents now read the same directory humans see.
+- **`scripts/seed-mock-data.ts`** - an idempotent seeder that populates every public surface with realistic mock data: ~10 nomads/remote workers, ~10 local/tour guides, ~10 paperwork agents (with services), ~10 plans (this week), and ~10 trips (events). Seed members use stable `seed-*@istanbulnomads.local` emails; plans/events use a `[seed]` title prefix, so re-running refreshes cleanly. Applied to the database.
+
+### Changed
+
+- The MCP tool handlers (`get_guide`, `get_blog_post`) now `await` the markdown helper.
+
 ## [3.19.6] - 2026-05-21
 
 **Complete the AI-doc content coverage.** Audited every public route against what the AI surfaces expose and closed the two gaps.

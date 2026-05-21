@@ -72,14 +72,16 @@ async function PlansPageContent({
   const isAuthed = !!member;
   const t = await getTranslations("plans");
 
-  const hoodLookup = await Promise.all(
-    neighborhoods.map(async (n) => ({
-      slug: n.slug,
-      name: (await getTranslations({ locale, namespace: "neighborhoodList" }))(
-        `${n.slug}.name`,
-      ),
-    })),
-  );
+  // One translator, reused across all neighborhoods (was instantiating a
+  // translator per hood inside the map - 10 redundant awaits).
+  const tHoods = await getTranslations({
+    locale,
+    namespace: "neighborhoodList",
+  });
+  const hoodLookup = neighborhoods.map((n) => ({
+    slug: n.slug,
+    name: tHoods(`${n.slug}.name`),
+  }));
 
   return (
     <>

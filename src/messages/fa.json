@@ -2935,7 +2935,7 @@
     "successTitle": "خدمت منتشر شد",
     "errorTitle": "انتشار نشد",
     "errorBody": "خطایی رخ داد. دوباره امتحان کن یا با ما تماس بگیر.",
-    "disclaimer": "با انتشار، قوانین جامعه را می‌پذیری و تأیید می‌کنی که صلاحیت ارائه‌ی این خدمت را داری. پرداخت در فاز ۴ فعال می‌شود - تا آن زمان متقاضیان از طریق تلگرام تماس می‌گیرند."
+    "disclaimer": "با انتشار، قوانین جامعه را می‌پذیری و تأیید می‌کنی که صلاحیت ارائه‌ی این خدمت را داری. پرداخت به‌زودی - تا آن زمان متقاضیان از طریق تلگرام تماس می‌گیرند."
   },
   "membersV2": {
     "metaTitle": "اعضا",
@@ -3213,7 +3213,7 @@
     "money": {
       "sectionLabel": "هزینه",
       "ticketedToggleLabel": "هزینه ورود دریافت کن",
-      "verificationRequiredHint": "نیاز به تأیید هویت دارد - در فاز ۳ فعال می‌شود",
+      "verificationRequiredHint": "برای دریافت هزینه، تأیید هویت لازم است",
       "verificationLockedTag": "قفل",
       "budgetMinLabel": "حداقل بودجه (لیر)",
       "budgetMaxLabel": "حداکثر بودجه (لیر)",
@@ -3221,7 +3221,7 @@
       "budgetDisplay": "هر نفر حدود {min}-{max} لیر",
       "budgetDisplayApprox": "هر نفر حدود {amount} لیر",
       "entryFeeDisplay": "هزینه ورود: {amount} لیر",
-      "checkoutComingSoon": "پرداخت در فاز ۴ فعال می‌شود"
+      "checkoutComingSoon": "پرداخت به‌زودی"
     },
     "create": {
       "eyebrow": "برنامه جدید",

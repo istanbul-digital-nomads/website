@@ -2959,7 +2959,7 @@
     "successTitle": "Услуга опубликована",
     "errorTitle": "Не удалось опубликовать",
     "errorBody": "Что-то пошло не так. Попробуй ещё раз или напиши нам.",
-    "disclaimer": "Публикуя, ты принимаешь Правила сообщества и подтверждаешь, что компетентен оказывать эту услугу. Оплата откроется в фазе 4 - до этого участники связываются с тобой в Telegram."
+    "disclaimer": "Публикуя, ты принимаешь Правила сообщества и подтверждаешь, что компетентен оказывать эту услугу. Оплата скоро - до этого участники связываются с тобой в Telegram."
   },
   "membersV2": {
     "metaTitle": "Участники",
@@ -3237,7 +3237,7 @@
     "money": {
       "sectionLabel": "Деньги",
       "ticketedToggleLabel": "Брать плату за участие",
-      "verificationRequiredHint": "Нужна верификация - откроется в фазе 3",
+      "verificationRequiredHint": "Для оплаты нужна верификация",
       "verificationLockedTag": "Закрыто",
       "budgetMinLabel": "Мин бюджет (TL)",
       "budgetMaxLabel": "Макс бюджет (TL)",
@@ -3245,7 +3245,7 @@
       "budgetDisplay": "Ожидай {min}-{max} TL с человека",
       "budgetDisplayApprox": "Примерно {amount} TL с человека",
       "entryFeeDisplay": "Цена: {amount} TL",
-      "checkoutComingSoon": "Оплата откроется в фазе 4"
+      "checkoutComingSoon": "Оплата скоро"
     },
     "create": {
       "eyebrow": "Новый план",

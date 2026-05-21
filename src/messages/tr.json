@@ -2955,7 +2955,7 @@
     "successTitle": "Hizmet yayınlandı",
     "errorTitle": "Yayınlanamadı",
     "errorBody": "Bir şeyler ters gitti. Tekrar dene veya bizimle iletişime geç.",
-    "disclaimer": "Yayınlayarak Topluluk Kurallarını kabul etmiş olur ve bu hizmeti vermek için yetkin olduğunu onaylarsın. Ücretli ödeme Faz 4'te açılır - o zamana kadar katılımcılar seninle Telegram üzerinden iletişime geçer."
+    "disclaimer": "Yayınlayarak Topluluk Kurallarını kabul etmiş olur ve bu hizmeti vermek için yetkin olduğunu onaylarsın. Ücretli ödeme yakında geliyor - o zamana kadar katılımcılar seninle Telegram üzerinden iletişime geçer."
   },
   "membersV2": {
     "metaTitle": "Üyeler",
@@ -3233,7 +3233,7 @@
     "money": {
       "sectionLabel": "Para",
       "ticketedToggleLabel": "Giriş ücreti al",
-      "verificationRequiredHint": "Doğrulama gerekiyor - Faz 3'te açılır",
+      "verificationRequiredHint": "Ücret almak için doğrulama gerekir",
       "verificationLockedTag": "Kilitli",
       "budgetMinLabel": "Min bütçe (TL)",
       "budgetMaxLabel": "Maks bütçe (TL)",
@@ -3241,7 +3241,7 @@
       "budgetDisplay": "Kişi başı {min}-{max} TL bekleyin",
       "budgetDisplayApprox": "Kişi başı yaklaşık {amount} TL",
       "entryFeeDisplay": "Giriş ücreti: {amount} TL",
-      "checkoutComingSoon": "Ödeme Faz 4'te açılır"
+      "checkoutComingSoon": "Ödeme yakında"
     },
     "create": {
       "eyebrow": "Yeni plan",

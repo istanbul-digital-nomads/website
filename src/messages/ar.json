@@ -2943,7 +2943,7 @@
     "successTitle": "نُشرت الخدمة",
     "errorTitle": "تعذّر النشر",
     "errorBody": "حدث خطأ. حاول مجددًا أو تواصل معنا.",
-    "disclaimer": "بالنشر، توافق على إرشادات المجتمع وتؤكد أنك مؤهّل لتقديم هذه الخدمة. يُفتح الدفع في المرحلة 4 - حتى ذلك الوقت يتواصل المشاركون معك عبر تيليجرام."
+    "disclaimer": "بالنشر، توافق على إرشادات المجتمع وتؤكد أنك مؤهّل لتقديم هذه الخدمة. يُفتح الدفع قريباً - حتى ذلك الوقت يتواصل المشاركون معك عبر تيليجرام."
   },
   "membersV2": {
     "metaTitle": "الأعضاء",
@@ -3221,7 +3221,7 @@
     "money": {
       "sectionLabel": "المال",
       "ticketedToggleLabel": "اطلب رسم دخول",
-      "verificationRequiredHint": "يتطلب التحقق - يُفتح في المرحلة 3",
+      "verificationRequiredHint": "التحقق مطلوب لفرض رسوم",
       "verificationLockedTag": "مغلق",
       "budgetMinLabel": "أدنى ميزانية (ل.ت)",
       "budgetMaxLabel": "أعلى ميزانية (ل.ت)",
@@ -3229,7 +3229,7 @@
       "budgetDisplay": "توقّع {min}-{max} ل.ت للشخص",
       "budgetDisplayApprox": "حوالي {amount} ل.ت للشخص",
       "entryFeeDisplay": "رسم الدخول: {amount} ل.ت",
-      "checkoutComingSoon": "الدفع في المرحلة 4"
+      "checkoutComingSoon": "الدفع قريباً"
     },
     "create": {
       "eyebrow": "خطة جديدة",

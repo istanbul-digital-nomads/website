@@ -4,6 +4,20 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.21.0] - 2026-05-21
+
+**UI/UX polish pass.**
+
+### Changed
+
+- **Dialed-down, responsive type scale.** The heading scale in `tailwind.config.ts` was fixed and oversized (`display-lg` 80px, `h1` 56px, `h2` 38px, no mobile scaling). Headings now use `clamp()` so they're confident rather than shouty and scale down on mobile (`display-lg` ~42-52px, `h1` ~32-40px, `h2` ~24-30px, `h3`/`h4` likewise). One change, cascades site-wide.
+- **Plan detail page polish**: title right-sized (`display-lg` → fluid `h1`), host card rounded with an **initials avatar fallback** (no more empty circle when a host has no photo), tighter spacing.
+- **`/plans` perf**: the page was instantiating a translator per neighborhood (10 redundant awaits) to build the filter list - now one translator, reused.
+
+### Fixed
+
+- **Removed internal roadmap language from user-facing copy.** "Checkout opens in Phase 4" → "Checkout coming soon", "Verification required - unlocks in Phase 3" → "Verification required to charge", and the paperwork-publish disclaimer's "Phase 4" reference - across all 5 locales.
+
 ## [3.20.1] - 2026-05-21
 
 ### Changed

@@ -663,6 +663,29 @@ export interface Database {
           telegram_chat_id?: number;
         };
       };
+      short_links: {
+        Row: {
+          code: string;
+          kind: string;
+          entity_id: string;
+          target_path: string;
+          created_by: string | null;
+          click_count: number;
+          created_at: string;
+        };
+        Insert: {
+          code: string;
+          kind: string;
+          entity_id: string;
+          target_path: string;
+          created_by?: string | null;
+          click_count?: number;
+          created_at?: string;
+        };
+        Update: {
+          click_count?: number;
+        };
+      };
     };
     Views: {
       plans_today_count: {

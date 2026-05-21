@@ -3694,5 +3694,10 @@
       "allSpaces": "Browse coworking spaces",
       "coworkingGuide": "Coworking guide"
     }
+  },
+  "share": {
+    "button": "Share",
+    "copied": "Link copied",
+    "error": "Couldn’t create share link. Try again."
   }
 }

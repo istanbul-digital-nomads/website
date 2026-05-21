@@ -4,6 +4,19 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.26.0] - 2026-05-21
+
+### Added
+
+- **On-demand link shortener + Share buttons.** Member, plan, paperwork, guide, and blog detail pages now have a "Share" button that creates-or-reuses a short link (`istanbulnomads.com/s/{code}`) and hands it to the native share sheet on mobile or the clipboard on desktop. Sharing the same entity twice returns the same code (deduped via a unique index). Short codes are 7-char base62 from `node:crypto` (no new dependency).
+- **`/s/[code]` redirect route** (locale-less, like `/api`): 308-redirects to the canonical entity path; unknown codes fall back to the homepage.
+- **`/api/share`**: IP rate-limited, validates the path against a per-kind allowlist (no open-redirect), records the signed-in member as creator when present.
+- **Migration 027** (`supabase/migrations/027_short_links.sql`): new `short_links` table with a unique `(kind, entity_id)` index; RLS enabled with no policies (server-only access via the service-role client). All 5 locales get a `share` namespace.
+
+> **Deploy note:** migration 027 must be applied to the production DB for the shortener to work. Until it's applied, the Share button surfaces a graceful error toast and nothing else breaks.
+
+---
+
 ## [3.25.0] - 2026-05-21
 
 ### Added

@@ -16,6 +16,7 @@ import { isVerificationLevel } from "@/lib/verification";
 import { isCurrentStatus, STATUS_TONE } from "@/lib/member-profile";
 import { getMemberActivity } from "@/lib/member-activity";
 import { neighborhoods as ALL_HOODS } from "@/lib/neighborhoods";
+import { ShareButton } from "@/components/ui/share-button";
 
 interface Props {
   params: Promise<{ locale: string; id: string }>;
@@ -111,13 +112,21 @@ async function MemberProfileContent(props: Props) {
   return (
     <section className="bg-ink-1 pt-12 lg:pt-16">
       <Container>
-        <nav className="flex flex-wrap gap-2.5 font-mono text-[11px] uppercase tracking-wider text-paper-mute">
-          <Link href="/members" className="hover:text-paper">
-            {t("eyebrow")}
-          </Link>
-          <span>/</span>
-          <span className="text-paper">{member.display_name}</span>
-        </nav>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <nav className="flex flex-wrap gap-2.5 font-mono text-[11px] uppercase tracking-wider text-paper-mute">
+            <Link href="/members" className="hover:text-paper">
+              {t("eyebrow")}
+            </Link>
+            <span>/</span>
+            <span className="text-paper">{member.display_name}</span>
+          </nav>
+          <ShareButton
+            kind="member"
+            entityId={member.id}
+            path={`/members/${member.id}`}
+            title={member.display_name}
+          />
+        </div>
 
         <div className="mt-10 grid gap-12 pb-24 lg:grid-cols-[280px_1fr] lg:items-start">
           {/* Avatar + meta */}

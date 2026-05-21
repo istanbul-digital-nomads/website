@@ -10,6 +10,7 @@ import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { SERVICE_ICONS, isServiceType } from "@/lib/paperwork";
 import { VerificationBadge } from "@/components/ui/verification-badge";
 import { isVerificationLevel } from "@/lib/verification";
+import { ShareButton } from "@/components/ui/share-button";
 
 interface Props {
   params: Promise<{ locale: string; id: string }>;
@@ -64,18 +65,26 @@ async function Detail({ params }: Props) {
   return (
     <section className="bg-deep-water text-cream">
       <div className="mx-auto max-w-3xl px-6 py-12 md:px-10 md:py-16">
-        <nav className="flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-cream/55">
-          <Link href="/paperwork" className="hover:text-cream">
-            {t("eyebrow")}
-          </Link>
-          <span aria-hidden>/</span>
-          <Link
-            href={`/paperwork?type=${service.service_type}`}
-            className="hover:text-cream"
-          >
-            {tType(service.service_type)}
-          </Link>
-        </nav>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <nav className="flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-cream/55">
+            <Link href="/paperwork" className="hover:text-cream">
+              {t("eyebrow")}
+            </Link>
+            <span aria-hidden>/</span>
+            <Link
+              href={`/paperwork?type=${service.service_type}`}
+              className="hover:text-cream"
+            >
+              {tType(service.service_type)}
+            </Link>
+          </nav>
+          <ShareButton
+            kind="paperwork"
+            entityId={service.id}
+            path={`/paperwork/${service.id}`}
+            title={service.title}
+          />
+        </div>
 
         <div className="mt-8 flex items-start gap-4">
           <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-moss/15 text-moss">

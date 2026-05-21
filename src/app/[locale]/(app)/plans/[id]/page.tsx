@@ -26,6 +26,7 @@ import { spaces } from "@/lib/spaces";
 import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/config";
 import { VerificationBadge } from "@/components/ui/verification-badge";
 import { isVerificationLevel } from "@/lib/verification";
+import { ShareButton } from "@/components/ui/share-button";
 
 export const metadata: Metadata = {
   title: "Plan",
@@ -163,9 +164,17 @@ async function Content({
     <article className="bg-ink-0 pb-20">
       <section className="border-b border-ink-3 bg-ink-1 py-12 lg:py-16">
         <Container className="max-w-3xl">
-          <p className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
-            {dateFmt.format(new Date(`${plan.scheduled_date}T12:00:00Z`))}
-          </p>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
+              {dateFmt.format(new Date(`${plan.scheduled_date}T12:00:00Z`))}
+            </p>
+            <ShareButton
+              kind="plan"
+              entityId={plan.id}
+              path={`/plans/${plan.id}`}
+              title={plan.title}
+            />
+          </div>
 
           <h1 className="mt-2 max-w-2xl font-display text-h1 text-paper">
             {plan.title}

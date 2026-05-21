@@ -17,6 +17,7 @@ import { mdxComponents } from "@/components/ui/mdx-components";
 import { formatDate } from "@/lib/utils";
 import { mdxOptions } from "@/lib/mdx-options";
 import { alternatesFor, SITE_URL, localeUrl } from "@/lib/seo";
+import { ShareButton } from "@/components/ui/share-button";
 
 interface GuidePageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -131,25 +132,33 @@ export default async function GuidePage(props: GuidePageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
       <div className="mx-auto max-w-3xl">
-        <nav className="mb-6 flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
-          <Link
-            href="/"
-            className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
-          >
-            {tPage("breadcrumb.home")}
-          </Link>
-          <span>/</span>
-          <Link
-            href="/guides"
-            className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
-          >
-            {tPage("breadcrumb.guides")}
-          </Link>
-          <span>/</span>
-          <span className="text-[#1a1a2e] dark:text-[#f2f3f4]">
-            {localizedTitle}
-          </span>
-        </nav>
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+          <nav className="flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
+            <Link
+              href="/"
+              className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+            >
+              {tPage("breadcrumb.home")}
+            </Link>
+            <span>/</span>
+            <Link
+              href="/guides"
+              className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+            >
+              {tPage("breadcrumb.guides")}
+            </Link>
+            <span>/</span>
+            <span className="text-[#1a1a2e] dark:text-[#f2f3f4]">
+              {localizedTitle}
+            </span>
+          </nav>
+          <ShareButton
+            kind="guide"
+            entityId={guide.slug}
+            path={`/guides/${guide.slug}`}
+            title={localizedTitle}
+          />
+        </div>
 
         <h1 className="text-4xl font-bold tracking-tight text-[#1a1a2e] dark:text-[#f2f3f4]">
           {localizedTitle}

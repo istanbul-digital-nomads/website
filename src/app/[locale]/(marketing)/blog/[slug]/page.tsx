@@ -19,6 +19,7 @@ import {
 import { formatDate } from "@/lib/utils";
 import { mdxOptions } from "@/lib/mdx-options";
 import { alternatesFor } from "@/lib/seo";
+import { ShareButton } from "@/components/ui/share-button";
 
 const SITE_URL = "https://istanbulnomads.com";
 
@@ -201,25 +202,33 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <Container>
         <Reveal>
           <div className="mx-auto max-w-3xl">
-            <nav className="mb-6 flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
-              <Link
-                href="/"
-                className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
-              >
-                {t("breadcrumb.home")}
-              </Link>
-              <span>/</span>
-              <Link
-                href="/blog"
-                className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
-              >
-                {t("breadcrumb.blog")}
-              </Link>
-              <span>/</span>
-              <span className="truncate text-[#1a1a2e] dark:text-[#f2f3f4]">
-                {post.meta.title}
-              </span>
-            </nav>
+            <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+              <nav className="flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
+                <Link
+                  href="/"
+                  className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+                >
+                  {t("breadcrumb.home")}
+                </Link>
+                <span>/</span>
+                <Link
+                  href="/blog"
+                  className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+                >
+                  {t("breadcrumb.blog")}
+                </Link>
+                <span>/</span>
+                <span className="truncate text-[#1a1a2e] dark:text-[#f2f3f4]">
+                  {post.meta.title}
+                </span>
+              </nav>
+              <ShareButton
+                kind="blog"
+                entityId={post.meta.slug}
+                path={`/blog/${post.meta.slug}`}
+                title={post.meta.title}
+              />
+            </div>
 
             {!post.meta.translated && locale !== defaultLocale && (
               <div className="mb-6 flex items-start gap-3 rounded-md border border-amber-200/60 bg-amber-50/60 p-4 text-sm text-amber-900 dark:border-amber-900/40 dark:bg-amber-950/30 dark:text-amber-100">

@@ -3714,5 +3714,10 @@
       "allSpaces": "Ortak çalışma alanlarına göz at",
       "coworkingGuide": "Ortak çalışma rehberi"
     }
+  },
+  "share": {
+    "button": "Paylaş",
+    "copied": "Bağlantı kopyalandı",
+    "error": "Bağlantı oluşturulamadı. Tekrar deneyin."
   }
 }

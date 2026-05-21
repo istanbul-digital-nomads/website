@@ -3500,6 +3500,13 @@
     "metaTitle": "Edit profile",
     "title": "Your profile",
     "intro": "Update any section on its own - save as you go.",
+    "avatar": {
+      "changePhoto": "Change photo",
+      "uploading": "Uploading...",
+      "saved": "Photo updated",
+      "tooLarge": "Photo must be under 5 MB",
+      "uploadError": "Couldn't upload photo. Try again."
+    },
     "backToDashboard": "Back to dashboard",
     "save": "Save",
     "sectionSaved": "Saved",

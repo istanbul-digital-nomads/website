@@ -4,6 +4,14 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.24.0] - 2026-05-21
+
+### Added
+
+- **Avatar upload on the profile editor.** The profile page now shows a circular photo at the top. Clicking it opens a file picker - pick any image (JPG, PNG, WEBP) under 5 MB and it uploads to Supabase Storage (`avatars/{userId}/avatar.{ext}`), updates `members.avatar_url`, and instantly shows the new photo. Camera icon on hover, spinner while uploading, toast on success or error. Falls back to initials if no photo is set. All 5 locales updated.
+
+---
+
 ## [3.23.0] - 2026-05-21
 
 ### Added

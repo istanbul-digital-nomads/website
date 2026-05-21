@@ -3520,6 +3520,13 @@
     "metaTitle": "Profili düzenle",
     "title": "Profilin",
     "intro": "Her bölümü ayrı ayrı güncelle - ilerledikçe kaydet.",
+    "avatar": {
+      "changePhoto": "Fotoğrafı değiştir",
+      "uploading": "Yükleniyor...",
+      "saved": "Fotoğraf güncellendi",
+      "tooLarge": "Fotoğraf 5 MB'tan küçük olmalı",
+      "uploadError": "Fotoğraf yüklenemedi. Tekrar dene."
+    },
     "backToDashboard": "Panoya dön",
     "save": "Kaydet",
     "sectionSaved": "Kaydedildi",

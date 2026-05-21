@@ -1,8 +1,10 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { Camera, Loader2 } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Input, Textarea } from "@/components/ui/input";
@@ -29,6 +31,108 @@ const GENDERS: { key: string; value: string }[] = [
 // section and save just that part. Each card owns a Save button that
 // writes only its own fields, so an update to "Contact" never touches
 // "Interests".
+
+const MAX_AVATAR_BYTES = 5 * 1024 * 1024; // 5 MB
+
+function AvatarUpload({
+  userId,
+  displayName,
+  initialUrl,
+}: {
+  userId: string;
+  displayName: string;
+  initialUrl: string | null;
+}) {
+  const t = useTranslations("profileEditor.avatar");
+  const [url, setUrl] = useState<string | null>(initialUrl);
+  const [uploading, setUploading] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const initials = displayName
+    .split(/\s+/)
+    .map((p) => p[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase() || "·";
+
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!inputRef.current) inputRef.current = e.target;
+    // Reset so the same file can be re-selected after an error.
+    e.target.value = "";
+    if (!file) return;
+    if (file.size > MAX_AVATAR_BYTES) {
+      showToast.error(t("tooLarge"));
+      return;
+    }
+    setUploading(true);
+    try {
+      const supabase = createClient();
+      const ext = file.name.split(".").pop() ?? "jpg";
+      const path = `${userId}/avatar.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from("avatars")
+        .upload(path, file, { upsert: true, contentType: file.type });
+      if (upErr) throw upErr;
+      const { data: urlData } = supabase.storage
+        .from("avatars")
+        .getPublicUrl(path);
+      const publicUrl = `${urlData.publicUrl}?t=${Date.now()}`;
+      const { error: dbErr } = await (supabase.from("members") as any)
+        .update({ avatar_url: publicUrl })
+        .eq("id", userId);
+      if (dbErr) throw dbErr;
+      setUrl(publicUrl);
+      showToast.success(t("saved"));
+    } catch {
+      showToast.error(t("uploadError"));
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      aria-label={t("changePhoto")}
+      title={t("changePhoto")}
+      disabled={uploading}
+      onClick={() => inputRef.current?.click()}
+      className="group relative h-20 w-20 shrink-0 overflow-hidden rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
+    >
+      {url ? (
+        <Image
+          src={url}
+          alt={displayName}
+          fill
+          className="object-cover"
+          sizes="80px"
+        />
+      ) : (
+        <span className="flex h-full w-full items-center justify-center bg-ink-3 font-display text-xl text-paper-mute">
+          {initials}
+        </span>
+      )}
+      {/* Hover overlay */}
+      <span className="absolute inset-0 flex items-center justify-center rounded-full bg-ink-0/60 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+        {uploading ? (
+          <Loader2 className="h-5 w-5 animate-spin text-paper" aria-hidden />
+        ) : (
+          <Camera className="h-5 w-5 text-paper" aria-hidden />
+        )}
+      </span>
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/*"
+        className="sr-only"
+        onChange={handleFile}
+        aria-hidden
+      />
+    </button>
+  );
+}
 
 export function ProfileEditor({
   member,
@@ -102,11 +206,18 @@ export function ProfileEditor({
       <Container>
         <div className="mx-auto max-w-2xl">
           {/* Masthead */}
-          <div>
-            <h1 className="font-display text-h2 leading-tight text-paper">
-              {t("title")}
-            </h1>
-            <p className="mt-2 text-sm text-paper-dim">{t("intro")}</p>
+          <div className="flex items-center gap-5">
+            <AvatarUpload
+              userId={(form.id as string) || ""}
+              displayName={(form.display_name as string) || email}
+              initialUrl={(form.avatar_url as string) || null}
+            />
+            <div>
+              <h1 className="font-display text-h2 leading-tight text-paper">
+                {t("title")}
+              </h1>
+              <p className="mt-1 text-sm text-paper-dim">{t("intro")}</p>
+            </div>
           </div>
 
           <div className="mt-8 space-y-5">

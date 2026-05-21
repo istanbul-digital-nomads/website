@@ -3246,7 +3246,8 @@
       "budgetDisplay": "Ожидай {min}-{max} TL с человека",
       "budgetDisplayApprox": "Примерно {amount} TL с человека",
       "entryFeeDisplay": "Цена: {amount} TL",
-      "checkoutComingSoon": "Оплата скоро"
+      "checkoutComingSoon": "Оплата скоро",
+      "free": "Бесплатно"
     },
     "create": {
       "eyebrow": "Новый план",
@@ -3323,7 +3324,10 @@
       "empty": "Сообщений пока нет. Поздоровайся.",
       "placeholder": "Короткое сообщение для группы...",
       "submit": "Отправить",
-      "errorTitle": "Не отправилось"
+      "errorTitle": "Не отправилось",
+      "you": "Вы",
+      "delete": "Удалить сообщение",
+      "deleteError": "Не удалось удалить"
     },
     "edit": {
       "eyebrow": "Редактирование",

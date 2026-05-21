@@ -3230,7 +3230,8 @@
       "budgetDisplay": "توقّع {min}-{max} ل.ت للشخص",
       "budgetDisplayApprox": "حوالي {amount} ل.ت للشخص",
       "entryFeeDisplay": "رسم الدخول: {amount} ل.ت",
-      "checkoutComingSoon": "الدفع قريباً"
+      "checkoutComingSoon": "الدفع قريباً",
+      "free": "مجاني"
     },
     "create": {
       "eyebrow": "خطة جديدة",
@@ -3307,7 +3308,10 @@
       "empty": "لا رسائل بعد. قل مرحباً.",
       "placeholder": "ملاحظة سريعة للمجموعة...",
       "submit": "إرسال",
-      "errorTitle": "تعذّر الإرسال"
+      "errorTitle": "تعذّر الإرسال",
+      "you": "أنت",
+      "delete": "حذف الرسالة",
+      "deleteError": "تعذّر الحذف"
     },
     "edit": {
       "eyebrow": "تعديل",

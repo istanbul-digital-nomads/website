@@ -81,6 +81,14 @@ async function PlanMoneyChip({
   }
   const min = plan.budget_per_person_min_cents;
   const max = plan.budget_per_person_max_cents;
+  if (!plan.is_ticketed && min === 0 && (max === 0 || max === null)) {
+    return (
+      <span className="inline-flex items-center gap-2">
+        <CircleDollarSign className="h-4 w-4 text-moss" aria-hidden />
+        {t("free")}
+      </span>
+    );
+  }
   if (min != null && max != null && max > min) {
     return (
       <span className="inline-flex items-center gap-2">
@@ -376,6 +384,8 @@ async function Content({
             author: c.author,
           }))}
           isAttendee={isAttendee}
+          currentMemberId={member.id}
+          currentMemberName={member.display_name ?? ""}
         />
       </Container>
     </article>

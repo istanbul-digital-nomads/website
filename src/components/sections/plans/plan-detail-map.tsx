@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Map, { Marker, Source, Layer, type MapRef } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { Loader2 } from "lucide-react";
+import { Loader2, MapPin } from "lucide-react";
 import { useTheme } from "@/components/layout/theme-provider";
 import { spaces } from "@/lib/spaces";
 import { cn } from "@/lib/utils";
@@ -20,13 +20,51 @@ const ISTANBUL_BOUNDS: [[number, number], [number, number]] = [
   [29.4, 41.2],
 ];
 
-function stopLatLng(stop: PlanStop): { lat: number; lng: number } | null {
+// Approximate center coordinates for every neighborhood. Used as a fallback
+// when a stop has only a neighborhood_slug and no exact lat/lng or space_id.
+// Coordinates are [lng, lat] (GeoJSON order, same as spaces.ts).
+const NEIGHBORHOOD_CENTERS: Record<string, [number, number]> = {
+  kadikoy:    [29.0228, 40.9902],
+  moda:       [29.0200, 40.9815],
+  cihangir:   [28.9818, 41.0293],
+  besiktas:   [29.0044, 41.0425],
+  galata:     [28.9747, 41.0246],
+  uskudar:    [29.0150, 41.0230],
+  nisantasi:  [28.9919, 41.0491],
+  levent:     [28.9988, 41.0773],
+  balat:      [28.9460, 41.0278],
+  atasehir:   [29.1157, 40.9847],
+  sisli:      [28.9870, 41.0600],
+  taksim:     [28.9784, 41.0370],
+  beyoglu:    [28.9758, 41.0336],
+  fatih:      [28.9500, 41.0200],
+  sultanahmet:[28.9730, 41.0055],
+  bakirkoy:   [28.8700, 40.9800],
+  sariyer:    [29.0570, 41.1660],
+  bebek:      [29.0440, 41.0792],
+  ortakoy:    [29.0267, 41.0470],
+  bosphorus:  [29.0330, 41.0600],
+};
+
+function stopLatLng(stop: PlanStop): {
+  lat: number;
+  lng: number;
+  approximate?: boolean;
+} | null {
+  // 1. Exact coordinates on the stop record - most precise.
   if (stop.lat != null && stop.lng != null) {
     return { lat: Number(stop.lat), lng: Number(stop.lng) };
   }
+  // 2. Matched space from the static spaces catalog.
   if (stop.space_id) {
     const sp = spaces.find((s) => s.id === stop.space_id);
     if (sp) return { lat: sp.coordinates[1], lng: sp.coordinates[0] };
+  }
+  // 3. Neighborhood center fallback - approximate pin at the hood's midpoint.
+  //    Marked so we can show a subtly different pin (hollow ring vs. solid dot).
+  if (stop.neighborhood_slug) {
+    const center = NEIGHBORHOOD_CENTERS[stop.neighborhood_slug];
+    if (center) return { lat: center[1], lng: center[0], approximate: true };
   }
   return null;
 }
@@ -37,8 +75,9 @@ interface Props {
 
 /**
  * Read-only map for the plan detail page. Shows each stop as a numbered
- * terracotta pin and connects them with a dashed line in order.
- * Hidden when no stop has a resolvable location.
+ * terracotta pin, connected with a dashed line. Stops with only a
+ * neighborhood_slug resolve to an approximate hood-center pin (hollow ring).
+ * Hidden when no stop has any resolvable location at all.
  */
 export function PlanDetailMap({ stops }: Props) {
   const { theme } = useTheme();
@@ -56,8 +95,12 @@ export function PlanDetailMap({ stops }: Props) {
       stops
         .map((stop) => ({ stop, pos: stopLatLng(stop) }))
         .filter(
-          (x): x is { stop: PlanStop; pos: { lat: number; lng: number } } =>
-            x.pos !== null,
+          (
+            x,
+          ): x is {
+            stop: PlanStop;
+            pos: NonNullable<ReturnType<typeof stopLatLng>>;
+          } => x.pos !== null,
         ),
     [stops],
   );
@@ -79,8 +122,11 @@ export function PlanDetailMap({ stops }: Props) {
     };
   }, [positioned]);
 
-  // Fit the map to include all stops once loaded.
+  // Fit the map to all stop pins once the style has loaded. The effect runs
+  // on both `positioned` changes AND `mapLoaded` so it fires correctly even
+  // when the map finishes loading after the stops are already computed.
   useEffect(() => {
+    if (!mapLoaded) return;
     const map = mapRef.current?.getMap();
     if (!map || positioned.length === 0) return;
     if (positioned.length === 1) {
@@ -95,9 +141,9 @@ export function PlanDetailMap({ stops }: Props) {
         [Math.min(...lngs), Math.min(...lats)],
         [Math.max(...lngs), Math.max(...lats)],
       ],
-      { padding: 60, maxZoom: 14, duration: 600 },
+      { padding: 72, maxZoom: 14, duration: 600 },
     );
-  }, [positioned]);
+  }, [positioned, mapLoaded]);
 
   if (positioned.length === 0) return null;
 
@@ -123,24 +169,48 @@ export function PlanDetailMap({ stops }: Props) {
         onLoad={() => setMapLoaded(true)}
         interactive
       >
-        {positioned.map(({ stop, pos }, i) => (
-          <Marker
-            key={stop.id}
-            longitude={pos.lng}
-            latitude={pos.lat}
-            anchor="bottom"
-          >
-            <span
-              aria-label={`Stop ${i + 1}`}
-              className="relative -translate-y-1"
+        {positioned.map(({ stop, pos }, i) =>
+          pos.approximate ? (
+            // Approximate (neighborhood-level) pin: hollow ring with a
+            // MapPin icon so users know it's not a pinpoint address.
+            <Marker
+              key={stop.id}
+              longitude={pos.lng}
+              latitude={pos.lat}
+              anchor="bottom"
             >
-              <span className="flex h-6 w-6 items-center justify-center rounded-full border border-paper bg-terracotta font-mono text-[10px] font-semibold text-ink-0 shadow-md">
-                {i + 1}
+              <span
+                aria-label={`Stop ${i + 1} (approximate area)`}
+                className="relative -translate-y-1"
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-terracotta bg-terracotta/15 shadow-md backdrop-blur-sm">
+                  <MapPin className="h-3.5 w-3.5 text-terracotta" aria-hidden />
+                </span>
+                <span className="absolute -bottom-0.5 left-1/2 flex h-5 min-w-[18px] -translate-x-1/2 items-center justify-center rounded-full bg-terracotta px-1 font-mono text-[9px] font-semibold text-ink-0 shadow ring-1 ring-paper/30">
+                  {i + 1}
+                </span>
               </span>
-              <span className="absolute -bottom-1 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rotate-45 bg-terracotta" />
-            </span>
-          </Marker>
-        ))}
+            </Marker>
+          ) : (
+            // Exact pin: solid terracotta circle with diamond tail.
+            <Marker
+              key={stop.id}
+              longitude={pos.lng}
+              latitude={pos.lat}
+              anchor="bottom"
+            >
+              <span
+                aria-label={`Stop ${i + 1}`}
+                className="relative -translate-y-1"
+              >
+                <span className="flex h-6 w-6 items-center justify-center rounded-full border border-paper bg-terracotta font-mono text-[10px] font-semibold text-ink-0 shadow-md">
+                  {i + 1}
+                </span>
+                <span className="absolute -bottom-1 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rotate-45 bg-terracotta" />
+              </span>
+            </Marker>
+          ),
+        )}
 
         {routeGeo && (
           <Source id="plan-route" type="geojson" data={routeGeo}>

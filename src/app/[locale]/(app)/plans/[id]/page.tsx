@@ -9,6 +9,7 @@ import {
   MapPin,
   Pencil,
   Users,
+  Wallet,
 } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import { Container } from "@/components/ui/container";
@@ -344,6 +345,17 @@ async function Content({
                         <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
                           <MapPin className="h-3 w-3" aria-hidden />
                           {stop.neighborhood_slug}
+                        </span>
+                      )}
+                      {(stop.cost_min_cents != null ||
+                        stop.cost_max_cents != null) && (
+                        <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                          <Wallet className="h-3 w-3 text-moss" aria-hidden />
+                          {stop.cost_min_cents != null &&
+                          stop.cost_max_cents != null &&
+                          stop.cost_max_cents !== stop.cost_min_cents
+                            ? `₺${stop.cost_min_cents / 100} - ₺${stop.cost_max_cents / 100}`
+                            : `₺${(stop.cost_min_cents ?? stop.cost_max_cents)! / 100}`}
                         </span>
                       )}
                     </div>

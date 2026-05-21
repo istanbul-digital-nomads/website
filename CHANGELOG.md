@@ -4,6 +4,14 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.21.3] - 2026-05-21
+
+### Fixed
+
+- **Hero "Sign In" CTA persisting for authenticated users.** The hero section has its own nav bar (`HeroFrame`) that was completely separate from the main `AuthButton` - it had a hardcoded `<Link href="/login">` that always rendered regardless of auth state. Replaced it with a new `HeroAuthControl` component (same deferred Supabase check, hero's dark/cream palette) that shows name + dashboard link + sign-out when signed in, and the sign-in pill for guests. Auth state is fetched once in `HeroFrame` and shared to both the control and the primary CTA.
+- **Hero primary CTA for signed-in users.** The "Let's connect nomads" button always went to `/onboarding`. Signed-in members now see "See today's board" → `/today` instead (i18n in all 5 locales).
+
+
 ## [3.21.2] - 2026-05-21
 
 ### Fixed

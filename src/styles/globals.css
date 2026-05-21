@@ -1233,3 +1233,20 @@ html.tod-night {
     opacity: 0.4;
   }
 }
+
+/* ── Plan detail map popup ──────────────────────────────────────────────────
+   MapLibre renders a white .maplibregl-popup-content shell around the popup
+   children by default. Strip it so the inner React div owns all visual
+   styling (background, border, shadow, border-radius) for both themes.
+   The tip arrow is hidden - the numbered pins make context clear. */
+
+.plan-stop-popup .maplibregl-popup-content {
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.plan-stop-popup .maplibregl-popup-tip {
+  display: none;
+}

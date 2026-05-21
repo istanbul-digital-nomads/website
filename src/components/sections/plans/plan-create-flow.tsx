@@ -331,7 +331,7 @@ export function PlanCreateFlow({
     // Lira (display unit) → cents (DB unit). 100 cents = 1 TL.
     const liraToCents = (s: string) => {
       const n = Number(s);
-      return Number.isFinite(n) && n > 0 ? Math.round(n * 100) : null;
+      return Number.isFinite(n) && n >= 0 ? Math.round(n * 100) : null;
     };
     const body = {
       scheduled_date: scheduledDate,

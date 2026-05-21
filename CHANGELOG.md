@@ -4,6 +4,19 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.22.0] - 2026-05-21
+
+### Added
+
+- **Delete button on own comments.** A trash icon appears inline in the comment header for the current user's own messages. Clicking it calls DELETE `/api/plans/[id]/comments/[commentId]` (author-only, no admin bypass) and removes the comment from local state on success.
+
+### Fixed
+
+- **`liraToCents` rejected 0 as invalid.** The `n > 0` guard in `plan-create-flow.tsx` meant a budget of ₺0 was silently dropped. Changed to `n >= 0` so free plans save correctly.
+- **Free plans now display as "Free" on the plan detail page.** When both min and max budget are 0 (or max is null), `PlanMoneyChip` now renders a "Free" label with the moss icon instead of showing nothing.
+- **Comments showed "-" for the current user's own optimistic messages.** The `author: null` in the optimistic update meant newly sent messages fell back to "-" until the page reloaded. The optimistic entry now sets `author: { id, display_name }` from the current member. Own messages show "You" (terracotta) instead of the member's name.
+
+
 ## [3.21.7] - 2026-05-21
 
 ### Fixed

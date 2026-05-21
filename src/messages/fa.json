@@ -3222,7 +3222,8 @@
       "budgetDisplay": "هر نفر حدود {min}-{max} لیر",
       "budgetDisplayApprox": "هر نفر حدود {amount} لیر",
       "entryFeeDisplay": "هزینه ورود: {amount} لیر",
-      "checkoutComingSoon": "پرداخت به‌زودی"
+      "checkoutComingSoon": "پرداخت به‌زودی",
+      "free": "رایگان"
     },
     "create": {
       "eyebrow": "برنامه جدید",
@@ -3299,7 +3300,10 @@
       "empty": "هنوز پیامی نیست. سلام بگو.",
       "placeholder": "یک یادداشت سریع برای گروه...",
       "submit": "ارسال",
-      "errorTitle": "ارسال نشد"
+      "errorTitle": "ارسال نشد",
+      "you": "شما",
+      "delete": "حذف پیام",
+      "deleteError": "حذف ناموفق بود"
     },
     "edit": {
       "eyebrow": "ویرایش",

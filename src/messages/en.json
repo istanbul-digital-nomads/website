@@ -3222,7 +3222,8 @@
       "budgetDisplay": "Expect {min}-{max} TL per person",
       "budgetDisplayApprox": "Around {amount} TL per person",
       "entryFeeDisplay": "Entry fee: {amount} TL",
-      "checkoutComingSoon": "Checkout coming soon"
+      "checkoutComingSoon": "Checkout coming soon",
+      "free": "Free"
     },
     "create": {
       "eyebrow": "New plan",
@@ -3299,7 +3300,10 @@
       "empty": "No messages yet. Say hi.",
       "placeholder": "Quick note for the group...",
       "submit": "Send",
-      "errorTitle": "Couldn't send"
+      "errorTitle": "Couldn't send",
+      "you": "You",
+      "delete": "Delete message",
+      "deleteError": "Couldn't delete"
     },
     "edit": {
       "eyebrow": "Edit",

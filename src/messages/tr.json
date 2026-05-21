@@ -3242,7 +3242,8 @@
       "budgetDisplay": "Kişi başı {min}-{max} TL bekleyin",
       "budgetDisplayApprox": "Kişi başı yaklaşık {amount} TL",
       "entryFeeDisplay": "Giriş ücreti: {amount} TL",
-      "checkoutComingSoon": "Ödeme yakında"
+      "checkoutComingSoon": "Ödeme yakında",
+      "free": "Ücretsiz"
     },
     "create": {
       "eyebrow": "Yeni plan",
@@ -3319,7 +3320,10 @@
       "empty": "Henüz mesaj yok. Selam ver.",
       "placeholder": "Grup için kısa bir not...",
       "submit": "Gönder",
-      "errorTitle": "Gönderilemedi"
+      "errorTitle": "Gönderilemedi",
+      "you": "Siz",
+      "delete": "Mesajı sil",
+      "deleteError": "Silinemedi"
     },
     "edit": {
       "eyebrow": "Düzenle",

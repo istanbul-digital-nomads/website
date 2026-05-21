@@ -213,7 +213,7 @@ export function PlanDetailMap({ stops }: Props) {
       ],
       { padding: 80, maxZoom: 14, duration: 600 },
     );
-  }, [positioned]);
+  }, [positioned, mapLoaded]);
 
   // Close popup on map click (outside a marker).
   const handleMapClick = useCallback(() => {

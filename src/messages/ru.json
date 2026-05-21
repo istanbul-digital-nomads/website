@@ -2228,6 +2228,9 @@
   },
   "og": {
     "tagline": "Удалённая жизнь, местный ритм",
+    "member": {
+      "category": "Участник"
+    },
     "altText": {
       "home": "Istanbul Digital Nomads",
       "about": "Об Istanbul Digital Nomads",

@@ -36,7 +36,7 @@ interface RtlProps {
 const VAZIRMATN_REG = "public/fonts/og/Vazirmatn-Regular.ttf";
 const VAZIRMATN_BOLD = "public/fonts/og/Vazirmatn-Bold.ttf";
 
-const FONT_FILES: Record<
+export const FONT_FILES: Record<
   "fa" | "ar",
   { primary: string; secondary?: string[]; family: string }
 > = {
@@ -59,11 +59,11 @@ const FONT_FILES: Record<
 // Resolve relative paths to absolute once, so resvg-js can stream the
 // fonts off disk. Resolving per-request is fine - resvg's own pipeline
 // memoizes the parsed font tables.
-function resolveFontPath(p: string): string {
+export function resolveFontPath(p: string): string {
   return path.join(process.cwd(), p);
 }
 
-function escapeXml(s: string): string {
+export function escapeXml(s: string): string {
   return s
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -75,7 +75,7 @@ function escapeXml(s: string): string {
 // SVG `<text>` doesn't auto-wrap. Split a long title into manual `<tspan>`
 // lines, breaking at the nearest space (or just by character count if the
 // run has no spaces - common in long Persian titles). Cap at 3 lines.
-function splitTitle(
+export function splitTitle(
   text: string,
   maxCharsPerLine: number,
   maxLines: number,

@@ -25,9 +25,25 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const { id } = await props.params;
   const { data: member } = await getMemberByIdPublic(id);
   if (!member) return {};
+  const description =
+    member.bio?.slice(0, 160) ??
+    [member.location, member.profession].filter(Boolean).join(" · ") ??
+    member.display_name;
+  // The OG image is auto-discovered from the colocated opengraph-image.tsx,
+  // so we only set the textual metadata here.
   return {
     title: member.display_name,
-    description: member.bio?.slice(0, 160) ?? member.display_name,
+    description,
+    openGraph: {
+      type: "profile",
+      title: member.display_name,
+      description,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: member.display_name,
+      description,
+    },
   };
 }
 

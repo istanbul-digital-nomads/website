@@ -2212,6 +2212,9 @@
   },
   "og": {
     "tagline": "حياة عن بُعد، إيقاع محلي",
+    "member": {
+      "category": "عضو"
+    },
     "altText": {
       "home": "Istanbul Digital Nomads",
       "about": "عن Istanbul Digital Nomads",

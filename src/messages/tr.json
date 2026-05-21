@@ -2224,6 +2224,9 @@
   },
   "og": {
     "tagline": "Uzaktan yaşam, yerel ritim",
+    "member": {
+      "category": "Üye"
+    },
     "altText": {
       "home": "Istanbul Digital Nomads",
       "about": "Istanbul Digital Nomads Hakkında",

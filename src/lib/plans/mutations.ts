@@ -37,6 +37,8 @@ function stopRow(stop: PlanStopInput, planId: string, ordinal: number) {
       ordinal === 1 ? null : (stop.transport_price_min ?? null),
     transport_price_max:
       ordinal === 1 ? null : (stop.transport_price_max ?? null),
+    cost_min_cents: stop.cost_min_cents ?? null,
+    cost_max_cents: stop.cost_max_cents ?? null,
   };
 }
 

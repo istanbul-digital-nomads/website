@@ -567,6 +567,8 @@ export interface Database {
             | null;
           transport_price_min: number | null;
           transport_price_max: number | null;
+          cost_min_cents: number | null;
+          cost_max_cents: number | null;
           created_at: string;
         };
         Insert: {
@@ -602,6 +604,8 @@ export interface Database {
             | null;
           transport_price_min?: number | null;
           transport_price_max?: number | null;
+          cost_min_cents?: number | null;
+          cost_max_cents?: number | null;
           created_at?: string;
         };
         Update: {

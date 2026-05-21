@@ -57,6 +57,8 @@ function makeStopFromSpace(sp: NomadSpace): EditableStop {
     transport_mode: null,
     transport_price_min: "",
     transport_price_max: "",
+    cost_min: "",
+    cost_max: "",
   };
 }
 
@@ -75,6 +77,8 @@ function makeStopFromPin(lat: number, lng: number): EditableStop {
     transport_mode: null,
     transport_price_min: "",
     transport_price_max: "",
+    cost_min: "",
+    cost_max: "",
   };
 }
 
@@ -97,6 +101,8 @@ export interface PlanInitialState {
     transport_mode: import("@/lib/plans/transport").TransportMode | null;
     transport_price_min: number | null;
     transport_price_max: number | null;
+    cost_min_cents: number | null;
+    cost_max_cents: number | null;
   }>;
 }
 
@@ -170,6 +176,10 @@ export function PlanCreateFlow({
           s.transport_price_min != null ? String(s.transport_price_min) : "",
         transport_price_max:
           s.transport_price_max != null ? String(s.transport_price_max) : "",
+        cost_min:
+          s.cost_min_cents != null ? String(s.cost_min_cents / 100) : "",
+        cost_max:
+          s.cost_max_cents != null ? String(s.cost_max_cents / 100) : "",
       })) ?? [],
     // initial only matters at first render; the prop is conceptually a one-shot seed.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -365,6 +375,8 @@ export function PlanCreateFlow({
         transport_price_max: s.transport_price_max
           ? Number(s.transport_price_max)
           : null,
+        cost_min_cents: liraToCents(s.cost_min),
+        cost_max_cents: liraToCents(s.cost_max),
       })),
     };
 

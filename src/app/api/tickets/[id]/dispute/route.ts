@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { openDispute } from "@/lib/payments/tickets";
+import { notifyMember } from "@/lib/notifications/notify";
+import { SITE_URL } from "@/lib/seo";
 
 const disputeSchema = z.object({
   reason: z.string().trim().min(10).max(1000),
@@ -37,7 +39,9 @@ export async function POST(
   const sb = supabase as unknown as { from: (t: string) => any };
   const { data: ticket } = await sb
     .from("plan_tickets")
-    .select("id, attendee_id, status, plan:plans(scheduled_date)")
+    .select(
+      "id, attendee_id, status, plan_id, plan:plans(scheduled_date, creator_id, title)",
+    )
     .eq("id", ticketId)
     .maybeSingle();
 
@@ -64,5 +68,21 @@ export async function POST(
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+
+  // Tell the host a dispute was filed (freezes their payout).
+  if (ticket.plan?.creator_id) {
+    await notifyMember({
+      recipientId: ticket.plan.creator_id,
+      actorId: user.id,
+      category: "tickets",
+      messageKey: "ticketDisputed",
+      values: { title: ticket.plan.title },
+      cta: {
+        labelKey: "ctaOpenPlan",
+        url: `${SITE_URL}/plans/${ticket.plan_id}`,
+      },
+    });
+  }
+
   return NextResponse.json({ ok: true });
 }

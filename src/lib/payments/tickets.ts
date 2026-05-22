@@ -2,6 +2,8 @@ import "server-only";
 
 import { createServiceClient } from "@/lib/supabase/server";
 import { computeFeeBreakdown } from "./fees";
+import { notifyMember } from "@/lib/notifications/notify";
+import { SITE_URL } from "@/lib/seo";
 
 // Ticket ledger operations. All run with the service-role client
 // because plan_tickets has no client-writable RLS policy - money rows
@@ -55,6 +57,33 @@ export async function markTicketHeld(
     })
     .eq("conversation_id", conversationId)
     .eq("status", "pending");
+
+  // Tell the host someone bought a ticket.
+  if (!error) {
+    const { data: t } = await sb
+      .from("plan_tickets")
+      .select("attendee_id, host_id, plan_id, plan:plans(title)")
+      .eq("conversation_id", conversationId)
+      .maybeSingle();
+    if (t?.host_id) {
+      const { data: buyer } = await sb
+        .from("members")
+        .select("display_name")
+        .eq("id", t.attendee_id)
+        .maybeSingle();
+      await notifyMember({
+        recipientId: t.host_id,
+        actorId: t.attendee_id,
+        category: "tickets",
+        messageKey: "ticketPurchased",
+        values: {
+          actor: buyer?.display_name ?? "Someone",
+          title: t.plan?.title ?? "",
+        },
+        cta: { labelKey: "ctaOpenPlan", url: `${SITE_URL}/plans/${t.plan_id}` },
+      });
+    }
+  }
   return { error };
 }
 
@@ -110,6 +139,21 @@ export async function releaseClearedTickets(holdbackDays: number) {
     .update({ status: "released", released_at: new Date().toISOString() })
     .eq("status", "held")
     .lt("paid_at", cutoff)
-    .select("id");
+    .select("id, host_id, plan_id, plan:plans(title)");
+
+  // Tell each host their escrow held funds were released.
+  for (const row of (data ?? []) as Array<{
+    host_id: string;
+    plan_id: string;
+    plan: { title: string } | null;
+  }>) {
+    await notifyMember({
+      recipientId: row.host_id,
+      category: "tickets",
+      messageKey: "payoutReleased",
+      values: { title: row.plan?.title ?? "" },
+      cta: { labelKey: "ctaOpenPlan", url: `${SITE_URL}/plans/${row.plan_id}` },
+    });
+  }
   return { releasedCount: data?.length ?? 0, error };
 }

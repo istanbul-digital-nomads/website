@@ -3751,6 +3751,16 @@
     "planJoined": "انضم {actor} إلى خطتك «{title}».",
     "planCancelled": "أُلغيت الخطة: ألغى المضيف «{title}».",
     "planReminder": "تبدأ خلال ساعة تقريبًا: {title}",
-    "ctaOpenPlan": "افتح الخطة"
+    "ctaOpenPlan": "افتح الخطة",
+    "planLeft": "غادر {actor} خطتك «{title}».",
+    "planCommented": "علّق {actor} على خطتك «{title}».",
+    "planRescheduled": "تنبيه: أُعيد جدولة «{title}».",
+    "ticketPurchased": "اشترى {actor} تذكرة لـ«{title}».",
+    "ticketRefunded": "تم استرداد تذكرة لـ«{title}».",
+    "ticketDisputed": "فُتح نزاع على «{title}». دفعتك معلّقة.",
+    "payoutReleased": "تم تحرير دفعتك عن «{title}».",
+    "eventRsvp": "{actor} قادم إلى فعاليتك «{title}».",
+    "eventUpdated": "تنبيه: تم تحديث الفعالية «{title}».",
+    "ctaOpenEvent": "افتح الفعالية"
   }
 }

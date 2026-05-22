@@ -3763,6 +3763,16 @@
     "planJoined": "{actor}, \"{title}\" planına katıldı.",
     "planCancelled": "Plan iptal edildi: \"{title}\" ev sahibi tarafından iptal edildi.",
     "planReminder": "Yaklaşık 1 saat içinde başlıyor: {title}",
-    "ctaOpenPlan": "Planı aç"
+    "ctaOpenPlan": "Planı aç",
+    "planLeft": "{actor}, \"{title}\" planından ayrıldı.",
+    "planCommented": "{actor}, \"{title}\" planına yorum yaptı.",
+    "planRescheduled": "Haberin olsun: \"{title}\" yeniden planlandı.",
+    "ticketPurchased": "{actor}, \"{title}\" için bilet aldı.",
+    "ticketRefunded": "\"{title}\" için bir bilet iade edildi.",
+    "ticketDisputed": "\"{title}\" için itiraz açıldı. Ödemen beklemede.",
+    "payoutReleased": "\"{title}\" için ödemen serbest bırakıldı.",
+    "eventRsvp": "{actor}, \"{title}\" etkinliğine geliyor.",
+    "eventUpdated": "Haberin olsun: \"{title}\" etkinliği güncellendi.",
+    "ctaOpenEvent": "Etkinliği aç"
   }
 }

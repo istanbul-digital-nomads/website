@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 import { isIyzicoConfigured, refundPayment } from "@/lib/payments/iyzico";
 import { refundTicket } from "@/lib/payments/tickets";
+import { notifyMember } from "@/lib/notifications/notify";
+import { SITE_URL } from "@/lib/seo";
 
 // Attendee-initiated refund. Allowed only 24h+ before the plan's
 // scheduled date (the T&C cancellation window). Full refund, ticket
@@ -26,7 +28,7 @@ export async function POST(
   const { data: ticket } = await sb
     .from("plan_tickets")
     .select(
-      "id, attendee_id, status, gross_cents, payment_intent_id, plan:plans(scheduled_date)",
+      "id, attendee_id, status, gross_cents, payment_intent_id, plan_id, plan:plans(scheduled_date, creator_id, title)",
     )
     .eq("id", ticketId)
     .maybeSingle();
@@ -71,5 +73,21 @@ export async function POST(
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+
+  // Tell the host an attendee refunded.
+  if (ticket.plan?.creator_id) {
+    await notifyMember({
+      recipientId: ticket.plan.creator_id,
+      actorId: user.id,
+      category: "tickets",
+      messageKey: "ticketRefunded",
+      values: { title: ticket.plan.title },
+      cta: {
+        labelKey: "ctaOpenPlan",
+        url: `${SITE_URL}/plans/${ticket.plan_id}`,
+      },
+    });
+  }
+
   return NextResponse.json({ ok: true });
 }

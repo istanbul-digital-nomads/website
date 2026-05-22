@@ -3764,19 +3764,19 @@
     }
   },
   "telegramNotifications": {
-    "planJoined": "{actor} присоединился к вашему плану «{title}».",
-    "planCancelled": "План отменён: «{title}» отменён организатором.",
+    "planJoined": "{actor} теперь в твоём плане «{title}».",
+    "planCancelled": "План отменён: «{title}» отменил организатор.",
     "planReminder": "Начнётся примерно через час: {title}",
     "ctaOpenPlan": "Открыть план",
-    "planLeft": "{actor} покинул ваш план «{title}».",
-    "planCommented": "{actor} оставил комментарий к вашему плану «{title}».",
-    "planRescheduled": "Внимание: «{title}» перенесён.",
-    "ticketPurchased": "{actor} купил билет на «{title}».",
-    "ticketRefunded": "Билет на «{title}» возвращён.",
-    "ticketDisputed": "По «{title}» открыт спор. Ваша выплата приостановлена.",
-    "payoutReleased": "Ваша выплата за «{title}» переведена.",
-    "eventRsvp": "{actor} придёт на ваше событие «{title}».",
-    "eventUpdated": "Внимание: событие «{title}» обновлено.",
+    "planLeft": "{actor} больше не в твоём плане «{title}».",
+    "planCommented": "Новый комментарий от {actor} к твоему плану «{title}».",
+    "planRescheduled": "Обрати внимание: «{title}» перенесли на другое время.",
+    "ticketPurchased": "Новая покупка билета на «{title}» от {actor}.",
+    "ticketRefunded": "Билет на «{title}» вернули.",
+    "ticketDisputed": "По «{title}» открыли спор. Твоя выплата пока заморожена.",
+    "payoutReleased": "Твоя выплата за «{title}» уже в пути.",
+    "eventRsvp": "{actor} придёт на твоё событие «{title}».",
+    "eventUpdated": "Обрати внимание: событие «{title}» обновили.",
     "ctaOpenEvent": "Открыть событие"
   }
 }

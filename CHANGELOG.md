@@ -4,6 +4,14 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.28.1] - 2026-05-22
+
+### Changed
+
+- **Native-level polish of the Telegram notification + account-page strings** (tr/fa/ar/ru), reviewed by the per-locale editors. Highlights: gender-neutral phrasing for `{actor}` in Russian and Arabic (past-tense verbs assumed a male actor), consistent informal register (Persian/Russian "ты"/تو), warmer less-bureaucratic wording, and ZWNJ/punctuation fixes in Persian. English unchanged; all ICU placeholders and keys preserved.
+
+---
+
 ## [3.28.0] - 2026-05-22
 
 ### Added

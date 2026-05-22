@@ -57,6 +57,10 @@ export async function proxy(request: NextRequest) {
     pathname.startsWith("/api") ||
     pathname.startsWith("/auth") ||
     pathname.startsWith("/.well-known") ||
+    // Short-link redirects (/s/{code}) are locale-less and handled by their
+    // own route; next-intl would otherwise treat "s" as a locale and 404.
+    pathname === "/s" ||
+    pathname.startsWith("/s/") ||
     pathname === "/icon" ||
     pathname === "/apple-icon" ||
     pathname === "/sitemap.xml" ||

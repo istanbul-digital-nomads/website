@@ -4,6 +4,14 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.28.2] - 2026-05-22
+
+### Performance
+
+- **Deferred the site-wide Cmd-K menu and assistant widget off the initial hydration path.** Both were statically mounted in the root layout, so their JS (cmdk + the assistant flow graph) hydrated on *every* page, inflating Total Blocking Time (the main driver of sluggish-feeling navigation - prod TBT was ~590ms). They now mount via `next/dynamic` (`ssr: false`) on the first engagement signal (pointer move/down, key, scroll, touch) or when the main thread goes idle, whichever comes first - so they're ready before a user reaches for them but no longer compete with first paint/hydration. Verified the assistant launcher + Cmd-K still work after first interaction.
+
+---
+
 ## [3.28.1] - 2026-05-22
 
 ### Changed

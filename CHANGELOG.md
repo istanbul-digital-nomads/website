@@ -4,6 +4,25 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.27.0] - 2026-05-22
+
+### Added
+
+- **Account page with Telegram notifications.** New `/dashboard/account` page where members connect their Telegram account to the bot (deep-link flow, with live "waiting for you to tap Start" polling), see their connection status, and disconnect. Below that, a master "Telegram notifications" switch plus per-category toggles (plan activity, comments, tickets & payments, events & RSVPs, reminders).
+- **Central notification helper** (`src/lib/notifications/notify.ts`): one gated, localized path for every Telegram DM. It reads the recipient's preferences + `preferred_locale` via the service-role client, skips if the master switch or that category is off (or the actor is the recipient), and renders the message in the recipient's language.
+- **Per-member locale** (`preferred_locale`) captured at onboarding and whenever account settings are saved, so notifications arrive in the member's language.
+
+### Fixed
+
+- **Join/cancel Telegram notifications never actually fired.** They read the recipient's `telegram_subscriptions` row through the auth client, which the own-row-only RLS silently blocked. Routing them through the new service-role helper makes them work, and gates them behind the new toggles.
+
+### Database
+
+- **Migration 028** (`028_notification_prefs.sql`): adds `notify_telegram`, `notify_plan_activity`, `notify_comments`, `notify_tickets`, `notify_events`, `notify_reminders` (all `boolean default true`) and `preferred_locale` (`text default 'en'`) to `members`.
+- ⚠️ **Must be applied to prod.** Until applied, the account page loads and Telegram connect/disconnect work, but saving notification toggles will error and notifications won't send.
+
+---
+
 ## [3.26.1] - 2026-05-22
 
 ### Fixed

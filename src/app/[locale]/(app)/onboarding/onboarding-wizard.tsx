@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
@@ -98,6 +98,7 @@ export function OnboardingWizard({
   const router = useRouter();
   const t = useTranslations("onboardingPage.wizard");
   const tSteps = useTranslations("onboardingPage.steps");
+  const activeLocale = useLocale();
   const validateStep = useValidator();
 
   const isEdit = !!existing?.onboarding_completed;
@@ -252,6 +253,9 @@ export function OnboardingWizard({
           ...legacyAgreements,
           onboarding_completed: true,
           onboarding_completed_at: new Date().toISOString(),
+          // Capture the locale they onboarded in so Telegram notifications
+          // are sent in their language.
+          preferred_locale: activeLocale,
         })
         .eq("id", user.id);
 

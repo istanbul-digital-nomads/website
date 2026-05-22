@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createPublicClient } from "@/lib/supabase/server";
-import { sendTelegram } from "@/lib/plans/telegram";
+import { notifyMembers } from "@/lib/notifications/notify";
 import { todayInIstanbul } from "@/lib/plans/expiry";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://istanbulnomads.com";
@@ -75,27 +75,14 @@ export async function GET(request: Request) {
     const memberIds = raw.attendees.map((a) => a.member_id);
     if (!memberIds.length) continue;
 
-    const subRes = await fetch(
-      `${serviceUrl}/rest/v1/telegram_subscriptions?member_id=in.(${memberIds.join(",")})&select=member_id,telegram_chat_id`,
-      {
-        headers: {
-          apikey: serviceKey,
-          Authorization: `Bearer ${serviceKey}`,
-        },
-      },
-    );
-    const subs =
-      ((await subRes.json().catch(() => [])) as Array<{
-        telegram_chat_id: number;
-      }>) ?? [];
-
-    for (const s of subs) {
-      await sendTelegram({
-        chatId: s.telegram_chat_id,
-        text: `<b>Starting in ~1h:</b> ${escapeHtml(raw.title)}`,
-        cta: { text: "Open plan", url: `${SITE}/plans/${raw.id}` },
-      });
-    }
+    // notifyMembers gates each recipient on their reminders toggle + master
+    // switch and localizes the message to their preferred locale.
+    await notifyMembers(memberIds, {
+      category: "reminders",
+      messageKey: "planReminder",
+      values: { title: raw.title },
+      cta: { labelKey: "ctaOpenPlan", url: `${SITE}/plans/${raw.id}` },
+    });
 
     await fetch(`${serviceUrl}/rest/v1/plans?id=eq.${raw.id}`, {
       method: "PATCH",
@@ -111,8 +98,4 @@ export async function GET(request: Request) {
   }
 
   return NextResponse.json({ data: { sent } });
-}
-
-function escapeHtml(s: string) {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }

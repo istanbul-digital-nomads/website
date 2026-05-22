@@ -3059,7 +3059,8 @@
         "overview": "Genel bakış",
         "profile": "Profil",
         "verification": "Doğrulama",
-        "payouts": "Ödemeler"
+        "payouts": "Ödemeler",
+        "account": "Hesap"
       }
     }
   },
@@ -3719,5 +3720,49 @@
     "button": "Paylaş",
     "copied": "Bağlantı kopyalandı",
     "error": "Bağlantı oluşturulamadı. Tekrar deneyin."
+  },
+  "accountPage": {
+    "eyebrow": "Hesap",
+    "title": "Hesap ve bildirimler",
+    "intro": "Telegram'ını bağla ve hangi güncellemeleri özel mesaj olarak almak istediğini seç.",
+    "save": "Kaydet",
+    "saved": "Ayarlar kaydedildi",
+    "saveError": "Kaydedilemedi. Tekrar dene.",
+    "telegram": {
+      "title": "Telegram",
+      "description": "Bir şey olduğunda sana özelden yazabilmemiz için Telegram'ını bağla. Hiçbir şey paylaşmayız, başka kimseye mesaj atmayız.",
+      "connect": "Telegram'ı bağla",
+      "disconnect": "Bağlantıyı kes",
+      "connected": "Bağlı",
+      "connectedSince": "{date} tarihinden beri bağlı",
+      "connectedToast": "Telegram bağlandı",
+      "disconnectedToast": "Telegram bağlantısı kesildi",
+      "openedTitle": "Telegram açıldı",
+      "openedBody": "Bağlantıyı tamamlamak için sohbette Başlat'a dokun.",
+      "errorTitle": "Bir şeyler ters gitti",
+      "waiting": "Başlat'a dokunmanı bekliyoruz..."
+    },
+    "notify": {
+      "title": "Bildirimler",
+      "description": "Sana neyi özelden bildireceğimizi seç. İstediğin zaman değiştirebilirsin.",
+      "master": "Telegram bildirimleri",
+      "masterDescription": "Ana anahtar. Hepsini durdurmak için kapat.",
+      "planActivity": "Plan hareketleri",
+      "planActivityDescription": "Birisi planına katıldığında ya da ayrıldığında, veya katıldığın bir plan değiştiğinde.",
+      "comments": "Yorumlar",
+      "commentsDescription": "Birisi planına yorum yaptığında.",
+      "tickets": "Biletler ve ödemeler",
+      "ticketsDescription": "Planlarındaki bilet alımları, iadeler, itirazlar ve ödemeler.",
+      "events": "Etkinlikler ve katılımlar",
+      "eventsDescription": "Birisi etkinliğine katıldığını bildirdiğinde ya da katıldığın bir etkinlik değiştiğinde.",
+      "reminders": "Hatırlatmalar",
+      "remindersDescription": "Bir plan başlamadan yaklaşık bir saat önce uyarı."
+    }
+  },
+  "telegramNotifications": {
+    "planJoined": "{actor}, \"{title}\" planına katıldı.",
+    "planCancelled": "Plan iptal edildi: \"{title}\" ev sahibi tarafından iptal edildi.",
+    "planReminder": "Yaklaşık 1 saat içinde başlıyor: {title}",
+    "ctaOpenPlan": "Planı aç"
   }
 }

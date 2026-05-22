@@ -3047,7 +3047,8 @@
         "overview": "نظرة عامة",
         "profile": "الملف الشخصي",
         "verification": "التوثيق",
-        "payouts": "المدفوعات"
+        "payouts": "المدفوعات",
+        "account": "الحساب"
       }
     }
   },
@@ -3707,5 +3708,49 @@
     "button": "مشاركة",
     "copied": "تم نسخ الرابط",
     "error": "تعذّر إنشاء الرابط. حاول مرة أخرى."
+  },
+  "accountPage": {
+    "eyebrow": "الحساب",
+    "title": "الحساب والإشعارات",
+    "intro": "اربط حساب تيليجرام واختر التحديثات التي تريد استلامها كرسالة مباشرة.",
+    "save": "حفظ",
+    "saved": "تم حفظ الإعدادات",
+    "saveError": "تعذّر الحفظ. حاول مرة أخرى.",
+    "telegram": {
+      "title": "تيليجرام",
+      "description": "اربط حساب تيليجرام لنراسلك عند حدوث شيء. لا ننشر أي شيء ولا نراسل أحدًا غيرك.",
+      "connect": "ربط تيليجرام",
+      "disconnect": "قطع الربط",
+      "connected": "متصل",
+      "connectedSince": "متصل منذ {date}",
+      "connectedToast": "تم ربط تيليجرام",
+      "disconnectedToast": "تم قطع ربط تيليجرام",
+      "openedTitle": "تم فتح تيليجرام",
+      "openedBody": "اضغط Start في المحادثة لإكمال الربط.",
+      "errorTitle": "حدث خطأ ما",
+      "waiting": "بانتظار أن تضغط Start..."
+    },
+    "notify": {
+      "title": "الإشعارات",
+      "description": "اختر ما نراسلك بشأنه. يمكنك تغيير ذلك في أي وقت.",
+      "master": "إشعارات تيليجرام",
+      "masterDescription": "المفتاح الرئيسي. أوقفه لإيقاف كل شيء.",
+      "planActivity": "نشاط الخطة",
+      "planActivityDescription": "عندما ينضم أحد إلى خطتك أو يغادرها، أو تتغير خطة أنت فيها.",
+      "comments": "التعليقات",
+      "commentsDescription": "عندما يعلّق أحد على خطتك.",
+      "tickets": "التذاكر والمدفوعات",
+      "ticketsDescription": "شراء التذاكر والاستردادات والنزاعات والمدفوعات في خططك.",
+      "events": "الفعاليات والحضور",
+      "eventsDescription": "عندما يؤكّد أحد حضوره لفعاليتك، أو تتغير فعالية تحضرها.",
+      "reminders": "التذكيرات",
+      "remindersDescription": "تنبيه قبل نحو ساعة من بدء الخطة."
+    }
+  },
+  "telegramNotifications": {
+    "planJoined": "انضم {actor} إلى خطتك «{title}».",
+    "planCancelled": "أُلغيت الخطة: ألغى المضيف «{title}».",
+    "planReminder": "تبدأ خلال ساعة تقريبًا: {title}",
+    "ctaOpenPlan": "افتح الخطة"
   }
 }

@@ -3743,6 +3743,16 @@
     "planJoined": "{actor} به برنامهٔ شما «{title}» پیوست.",
     "planCancelled": "برنامه لغو شد: «{title}» توسط میزبان لغو شد.",
     "planReminder": "حدود ۱ ساعت دیگر شروع می‌شود: {title}",
-    "ctaOpenPlan": "باز کردن برنامه"
+    "ctaOpenPlan": "باز کردن برنامه",
+    "planLeft": "{actor} از برنامهٔ شما «{title}» خارج شد.",
+    "planCommented": "{actor} روی برنامهٔ شما «{title}» نظر گذاشت.",
+    "planRescheduled": "توجه: «{title}» دوباره زمان‌بندی شد.",
+    "ticketPurchased": "{actor} برای «{title}» بلیت خرید.",
+    "ticketRefunded": "یک بلیت برای «{title}» بازپرداخت شد.",
+    "ticketDisputed": "برای «{title}» اعتراض ثبت شد. تسویه‌حسابت در انتظار است.",
+    "payoutReleased": "تسویه‌حساب «{title}» آزاد شد.",
+    "eventRsvp": "{actor} به رویداد شما «{title}» می‌آید.",
+    "eventUpdated": "توجه: رویداد «{title}» به‌روزرسانی شد.",
+    "ctaOpenEvent": "باز کردن رویداد"
   }
 }

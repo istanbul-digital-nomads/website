@@ -273,6 +273,26 @@ export async function leavePlan(planId: string, userId: string) {
     .delete()
     .eq("plan_id", planId)
     .eq("member_id", userId);
+  if (!error) {
+    const [{ data: plan }, { data: actor }] = await Promise.all([
+      sb
+        .from("plans")
+        .select("creator_id, title")
+        .eq("id", planId)
+        .maybeSingle(),
+      sb.from("members").select("display_name").eq("id", userId).maybeSingle(),
+    ]);
+    if (plan?.creator_id) {
+      await notifyMember({
+        recipientId: plan.creator_id,
+        actorId: userId,
+        category: "plan_activity",
+        messageKey: "planLeft",
+        values: { actor: actor?.display_name ?? "Someone", title: plan.title },
+        cta: { labelKey: "ctaOpenPlan", url: `${SITE}/plans/${planId}` },
+      });
+    }
+  }
   return { error: error?.message ?? null };
 }
 
@@ -284,5 +304,25 @@ export async function addComment(planId: string, userId: string, body: string) {
     .insert({ plan_id: planId, author_id: userId, body })
     .select("*")
     .single();
+  if (!error) {
+    const [{ data: plan }, { data: actor }] = await Promise.all([
+      sb
+        .from("plans")
+        .select("creator_id, title")
+        .eq("id", planId)
+        .maybeSingle(),
+      sb.from("members").select("display_name").eq("id", userId).maybeSingle(),
+    ]);
+    if (plan?.creator_id) {
+      await notifyMember({
+        recipientId: plan.creator_id,
+        actorId: userId,
+        category: "comments",
+        messageKey: "planCommented",
+        values: { actor: actor?.display_name ?? "Someone", title: plan.title },
+        cta: { labelKey: "ctaOpenPlan", url: `${SITE}/plans/${planId}` },
+      });
+    }
+  }
   return { data, error: error?.message ?? null };
 }

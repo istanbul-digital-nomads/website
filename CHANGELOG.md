@@ -4,6 +4,19 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.28.0] - 2026-05-22
+
+### Added
+
+- **Telegram notifications for every social action.** Building on the v3.27.0 account page + toggles, members now get a localized DM (gated by their per-category preference) for:
+  - **Plan activity** - someone leaves your plan, or a plan you're in is rescheduled (join & cancel already shipped).
+  - **Comments** - someone comments on your plan.
+  - **Tickets & payments** - someone buys a ticket on your plan, requests a refund, files a dispute, or your escrow payout is released.
+  - **Events & RSVPs** - someone RSVPs (going/maybe) to your event, or an event you're attending is updated.
+  - Every message routes through the central `notifyMember` helper (service-role lookup, never notifies the actor about their own action, localized to the recipient's `preferred_locale`), and is best-effort so it never blocks the underlying action.
+
+---
+
 ## [3.27.0] - 2026-05-22
 
 ### Added

@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { getRSVPsForEvent } from "@/lib/supabase/queries";
 import { validateCreateRSVP } from "@/lib/validations";
 import { rateLimit, rateLimitHeaders } from "@/lib/rate-limit";
+import { notifyMember } from "@/lib/notifications/notify";
+import { SITE_URL } from "@/lib/seo";
 
 const RSVP_LIMIT = 30;
 const RSVP_WINDOW_MS = 60 * 60 * 1000; // 30 RSVPs per hour per user
@@ -71,6 +73,37 @@ export async function POST(request: Request) {
       { error: error.message },
       { status: 500, headers: rlHeaders },
     );
+  }
+
+  // Notify the organizer when someone's coming (going/maybe), not on not_going.
+  if (data?.status !== "not_going") {
+    const sb = supabase as unknown as { from: (t: string) => any };
+    const { data: event } = await sb
+      .from("events")
+      .select("organizer_id, title")
+      .eq("id", data.event_id)
+      .maybeSingle();
+    if (event?.organizer_id) {
+      const { data: actor } = await sb
+        .from("members")
+        .select("display_name")
+        .eq("id", user.id)
+        .maybeSingle();
+      await notifyMember({
+        recipientId: event.organizer_id,
+        actorId: user.id,
+        category: "events",
+        messageKey: "eventRsvp",
+        values: {
+          actor: actor?.display_name ?? "Someone",
+          title: event.title,
+        },
+        cta: {
+          labelKey: "ctaOpenEvent",
+          url: `${SITE_URL}/events/${data.event_id}`,
+        },
+      });
+    }
   }
 
   return NextResponse.json({ data }, { status: 201, headers: rlHeaders });

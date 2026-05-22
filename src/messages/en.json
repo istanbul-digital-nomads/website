@@ -3743,6 +3743,16 @@
     "planJoined": "{actor} joined your plan \"{title}\".",
     "planCancelled": "Plan cancelled: \"{title}\" was cancelled by the host.",
     "planReminder": "Starting in ~1h: {title}",
-    "ctaOpenPlan": "Open plan"
+    "ctaOpenPlan": "Open plan",
+    "planLeft": "{actor} left your plan \"{title}\".",
+    "planCommented": "{actor} commented on your plan \"{title}\".",
+    "planRescheduled": "Heads up: \"{title}\" was rescheduled.",
+    "ticketPurchased": "{actor} bought a ticket for \"{title}\".",
+    "ticketRefunded": "A ticket for \"{title}\" was refunded.",
+    "ticketDisputed": "A dispute was filed on \"{title}\". Your payout is on hold.",
+    "payoutReleased": "Your payout for \"{title}\" was released.",
+    "eventRsvp": "{actor} is coming to your event \"{title}\".",
+    "eventUpdated": "Heads up: the event \"{title}\" was updated.",
+    "ctaOpenEvent": "Open event"
   }
 }

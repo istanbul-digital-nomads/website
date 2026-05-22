@@ -3767,6 +3767,16 @@
     "planJoined": "{actor} присоединился к вашему плану «{title}».",
     "planCancelled": "План отменён: «{title}» отменён организатором.",
     "planReminder": "Начнётся примерно через час: {title}",
-    "ctaOpenPlan": "Открыть план"
+    "ctaOpenPlan": "Открыть план",
+    "planLeft": "{actor} покинул ваш план «{title}».",
+    "planCommented": "{actor} оставил комментарий к вашему плану «{title}».",
+    "planRescheduled": "Внимание: «{title}» перенесён.",
+    "ticketPurchased": "{actor} купил билет на «{title}».",
+    "ticketRefunded": "Билет на «{title}» возвращён.",
+    "ticketDisputed": "По «{title}» открыт спор. Ваша выплата приостановлена.",
+    "payoutReleased": "Ваша выплата за «{title}» переведена.",
+    "eventRsvp": "{actor} придёт на ваше событие «{title}».",
+    "eventUpdated": "Внимание: событие «{title}» обновлено.",
+    "ctaOpenEvent": "Открыть событие"
   }
 }

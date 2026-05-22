@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { cancelPlan, updatePlanStops } from "@/lib/plans/mutations";
 import { planUpdateSchema } from "@/lib/plans/schema";
 import { computeExpiresAt } from "@/lib/plans/expiry";
+import { notifyMembers } from "@/lib/notifications/notify";
+import { SITE_URL } from "@/lib/seo";
 
 interface Ctx {
   params: Promise<{ id: string }>;
@@ -91,6 +93,29 @@ export async function PATCH(request: Request, { params }: Ctx) {
       { status: 404 },
     );
   }
+
+  // Notify going attendees (excluding host) when the schedule changed.
+  if (parsed.data.scheduled_date !== undefined || parsed.data.stops) {
+    const { data: attendees } = await sb
+      .from("plan_attendees")
+      .select("member_id")
+      .eq("plan_id", id)
+      .eq("status", "going")
+      .neq("member_id", user.id);
+    await notifyMembers(
+      ((attendees ?? []) as Array<{ member_id: string }>).map(
+        (a) => a.member_id,
+      ),
+      {
+        actorId: user.id,
+        category: "plan_activity",
+        messageKey: "planRescheduled",
+        values: { title: (data as { title: string }).title },
+        cta: { labelKey: "ctaOpenPlan", url: `${SITE_URL}/plans/${id}` },
+      },
+    );
+  }
+
   return NextResponse.json({ data });
 }
 

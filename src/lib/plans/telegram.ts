@@ -7,6 +7,12 @@ interface SendOptions {
   text: string;
   /** Inline button [{ text, url }] pair. */
   cta?: { text: string; url: string };
+  /**
+   * "HTML" (default) parses <b>/<a> markup - callers must escape interpolated
+   * user content. "plain" sends the text verbatim with no markup, which is
+   * safe for localized messages that interpolate untrusted titles/names.
+   */
+  parseMode?: "HTML" | "plain";
 }
 
 /**
@@ -17,6 +23,7 @@ export async function sendTelegram({
   chatId,
   text,
   cta,
+  parseMode = "HTML",
 }: SendOptions): Promise<{ ok: boolean; reason?: string }> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) {
@@ -30,9 +37,11 @@ export async function sendTelegram({
   const body: Record<string, unknown> = {
     chat_id: chatId,
     text,
-    parse_mode: "HTML",
     disable_web_page_preview: true,
   };
+  if (parseMode === "HTML") {
+    body.parse_mode = "HTML";
+  }
   if (cta) {
     body.reply_markup = {
       inline_keyboard: [[{ text: cta.text, url: cta.url }]],

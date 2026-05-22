@@ -3039,7 +3039,8 @@
         "overview": "Overview",
         "profile": "Profile",
         "verification": "Verification",
-        "payouts": "Payouts"
+        "payouts": "Payouts",
+        "account": "Account"
       }
     }
   },
@@ -3699,5 +3700,49 @@
     "button": "Share",
     "copied": "Link copied",
     "error": "Couldn’t create share link. Try again."
+  },
+  "accountPage": {
+    "eyebrow": "Account",
+    "title": "Account & notifications",
+    "intro": "Connect your Telegram and choose which updates you want as a direct message.",
+    "save": "Save",
+    "saved": "Settings saved",
+    "saveError": "Couldn't save. Try again.",
+    "telegram": {
+      "title": "Telegram",
+      "description": "Link your Telegram so we can DM you when something happens. We never post anything or message anyone else.",
+      "connect": "Connect Telegram",
+      "disconnect": "Disconnect",
+      "connected": "Connected",
+      "connectedSince": "Connected since {date}",
+      "connectedToast": "Telegram connected",
+      "disconnectedToast": "Telegram disconnected",
+      "openedTitle": "Telegram opened",
+      "openedBody": "Tap Start in the chat to finish connecting.",
+      "errorTitle": "Something went wrong",
+      "waiting": "Waiting for you to tap Start..."
+    },
+    "notify": {
+      "title": "Notifications",
+      "description": "Pick what we DM you about. You can change these anytime.",
+      "master": "Telegram notifications",
+      "masterDescription": "The main switch. Turn it off to pause everything.",
+      "planActivity": "Plan activity",
+      "planActivityDescription": "When someone joins or leaves your plan, or a plan you're in changes.",
+      "comments": "Comments",
+      "commentsDescription": "When someone comments on your plan.",
+      "tickets": "Tickets & payments",
+      "ticketsDescription": "Ticket purchases, refunds, disputes, and payouts on your plans.",
+      "events": "Events & RSVPs",
+      "eventsDescription": "When someone RSVPs to your event, or an event you're attending changes.",
+      "reminders": "Reminders",
+      "remindersDescription": "A heads-up about an hour before a plan starts."
+    }
+  },
+  "telegramNotifications": {
+    "planJoined": "{actor} joined your plan \"{title}\".",
+    "planCancelled": "Plan cancelled: \"{title}\" was cancelled by the host.",
+    "planReminder": "Starting in ~1h: {title}",
+    "ctaOpenPlan": "Open plan"
   }
 }

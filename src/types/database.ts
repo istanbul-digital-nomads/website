@@ -87,6 +87,13 @@ export interface Database {
           agrees_no_misuse: string[] | null;
           onboarding_completed: boolean;
           onboarding_completed_at: string | null;
+          notify_telegram: boolean;
+          notify_plan_activity: boolean;
+          notify_comments: boolean;
+          notify_tickets: boolean;
+          notify_events: boolean;
+          notify_reminders: boolean;
+          preferred_locale: string;
           created_at: string;
           updated_at: string;
         };

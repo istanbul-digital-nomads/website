@@ -22,6 +22,7 @@ export default async function DashboardLayout({
   const items: DashboardNavItem[] = [
     { key: "overview", href: "/dashboard" },
     { key: "profile", href: "/dashboard/profile" },
+    { key: "account", href: "/dashboard/account" },
   ];
   if (showEarnings) {
     items.push({ key: "verification", href: "/dashboard/verify" });

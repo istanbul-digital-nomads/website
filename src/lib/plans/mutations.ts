@@ -1,7 +1,7 @@
 import "server-only";
 import { revalidateTag } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
-import { sendTelegram } from "./telegram";
+import { notifyMember, notifyMembers } from "@/lib/notifications/notify";
 import type { PlanCreateInput, PlanStopInput } from "./schema";
 import { computeExpiresAt } from "./expiry";
 import type { Database } from "@/types/database";
@@ -187,30 +187,23 @@ export async function cancelPlan(planId: string, userId: string) {
     .eq("creator_id", userId);
   if (error) return { error: error.message };
 
-  // Notify attendees (excluding host).
+  // Notify attendees (excluding host) that the plan was cancelled.
   const { data: attendees } = await sb
     .from("plan_attendees")
-    .select("member_id, member:members(display_name)")
+    .select("member_id")
     .eq("plan_id", planId)
     .eq("status", "going")
     .neq("member_id", userId);
 
-  for (const a of (attendees ?? []) as Array<{
-    member_id: string;
-    member: { display_name: string } | null;
-  }>) {
-    const { data: sub } = await sb
-      .from("telegram_subscriptions")
-      .select("telegram_chat_id")
-      .eq("member_id", a.member_id)
-      .maybeSingle();
-    if (sub) {
-      await sendTelegram({
-        chatId: sub.telegram_chat_id,
-        text: `<b>Plan cancelled</b>\n"${escapeHtml((plan as PlanRow).title)}" was cancelled by the host.`,
-      });
-    }
-  }
+  await notifyMembers(
+    ((attendees ?? []) as Array<{ member_id: string }>).map((a) => a.member_id),
+    {
+      actorId: userId,
+      category: "plan_activity",
+      messageKey: "planCancelled",
+      values: { title: (plan as PlanRow).title },
+    },
+  );
 
   revalidateTag("plans-today", "minutes");
   return { error: null };
@@ -251,23 +244,22 @@ export async function joinPlan(planId: string, userId: string) {
   if (error) return { error: error.message };
 
   if (plan.creator_id !== userId) {
-    const [{ data: joinerRow }, { data: hostSub }] = await Promise.all([
-      sb.from("members").select("display_name").eq("id", userId).maybeSingle(),
-      sb
-        .from("telegram_subscriptions")
-        .select("telegram_chat_id")
-        .eq("member_id", plan.creator_id)
-        .maybeSingle(),
-    ]);
-
-    if (hostSub) {
-      const joinerName = joinerRow?.display_name ?? "Someone";
-      await sendTelegram({
-        chatId: hostSub.telegram_chat_id,
-        text: `<b>${escapeHtml(joinerName)}</b> joined your plan "${escapeHtml(plan.title)}".`,
-        cta: { text: "Open plan", url: `${SITE}/plans/${planId}` },
-      });
-    }
+    const { data: joinerRow } = await sb
+      .from("members")
+      .select("display_name")
+      .eq("id", userId)
+      .maybeSingle();
+    await notifyMember({
+      recipientId: plan.creator_id,
+      actorId: userId,
+      category: "plan_activity",
+      messageKey: "planJoined",
+      values: {
+        actor: joinerRow?.display_name ?? "Someone",
+        title: plan.title,
+      },
+      cta: { labelKey: "ctaOpenPlan", url: `${SITE}/plans/${planId}` },
+    });
   }
 
   return { error: null };
@@ -293,8 +285,4 @@ export async function addComment(planId: string, userId: string, body: string) {
     .select("*")
     .single();
   return { data, error: error?.message ?? null };
-}
-
-function escapeHtml(s: string) {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }

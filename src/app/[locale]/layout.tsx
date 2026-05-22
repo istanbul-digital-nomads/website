@@ -28,13 +28,13 @@ import {
   NavProgressIsland,
   ToasterIsland,
   WebMcpRegisterIsland,
+  CommandMenuIsland,
+  AssistantWidgetIsland,
 } from "@/components/layout/client-islands";
 import { routing } from "@/lib/i18n/routing";
 import { bcp47, isRtl, type Locale } from "@/lib/i18n/config";
 import { getTimeOfDay } from "@/lib/ambient";
 import { getSearchItems } from "@/lib/search";
-import { CommandMenu } from "@/components/ui/command-menu";
-import { AssistantWidget } from "@/components/assistant/assistant-widget";
 import "@/styles/globals.css";
 
 // Design System v2 font stack: Geist (UI/body), Fraunces (editorial display
@@ -335,8 +335,8 @@ export default async function LocaleLayout({
             <Suspense fallback={null}>
               <BottomTabBarIsland />
             </Suspense>
-            <CommandMenu items={searchItems} />
-            <AssistantWidget />
+            <CommandMenuIsland items={searchItems} />
+            <AssistantWidgetIsland />
           </ThemeProvider>
           <ToasterIsland />
           <WebMcpRegisterIsland />

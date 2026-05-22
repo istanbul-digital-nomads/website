@@ -3734,7 +3734,7 @@
       "connect": "Telegram'ı bağla",
       "disconnect": "Bağlantıyı kes",
       "connected": "Bağlı",
-      "connectedSince": "{date} tarihinden beri bağlı",
+      "connectedSince": "{date}'ten beri bağlı",
       "connectedToast": "Telegram bağlandı",
       "disconnectedToast": "Telegram bağlantısı kesildi",
       "openedTitle": "Telegram açıldı",
@@ -3746,7 +3746,7 @@
       "title": "Bildirimler",
       "description": "Sana neyi özelden bildireceğimizi seç. İstediğin zaman değiştirebilirsin.",
       "master": "Telegram bildirimleri",
-      "masterDescription": "Ana anahtar. Hepsini durdurmak için kapat.",
+      "masterDescription": "Ana düğme. Hepsini duraklatmak için kapat.",
       "planActivity": "Plan hareketleri",
       "planActivityDescription": "Birisi planına katıldığında ya da ayrıldığında, veya katıldığın bir plan değiştiğinde.",
       "comments": "Yorumlar",
@@ -3756,21 +3756,21 @@
       "events": "Etkinlikler ve katılımlar",
       "eventsDescription": "Birisi etkinliğine katıldığını bildirdiğinde ya da katıldığın bir etkinlik değiştiğinde.",
       "reminders": "Hatırlatmalar",
-      "remindersDescription": "Bir plan başlamadan yaklaşık bir saat önce uyarı."
+      "remindersDescription": "Bir plan başlamadan yaklaşık bir saat önce ufak bir hatırlatma."
     }
   },
   "telegramNotifications": {
     "planJoined": "{actor}, \"{title}\" planına katıldı.",
-    "planCancelled": "Plan iptal edildi: \"{title}\" ev sahibi tarafından iptal edildi.",
+    "planCancelled": "Plan iptal: \"{title}\" düzenleyen tarafından iptal edildi.",
     "planReminder": "Yaklaşık 1 saat içinde başlıyor: {title}",
     "ctaOpenPlan": "Planı aç",
     "planLeft": "{actor}, \"{title}\" planından ayrıldı.",
     "planCommented": "{actor}, \"{title}\" planına yorum yaptı.",
-    "planRescheduled": "Haberin olsun: \"{title}\" yeniden planlandı.",
+    "planRescheduled": "Haberin olsun: \"{title}\" başka bir zamana alındı.",
     "ticketPurchased": "{actor}, \"{title}\" için bilet aldı.",
     "ticketRefunded": "\"{title}\" için bir bilet iade edildi.",
     "ticketDisputed": "\"{title}\" için itiraz açıldı. Ödemen beklemede.",
-    "payoutReleased": "\"{title}\" için ödemen serbest bırakıldı.",
+    "payoutReleased": "\"{title}\" için ödemen hesabına aktarıldı.",
     "eventRsvp": "{actor}, \"{title}\" etkinliğine geliyor.",
     "eventUpdated": "Haberin olsun: \"{title}\" etkinliği güncellendi.",
     "ctaOpenEvent": "Etkinliği aç"

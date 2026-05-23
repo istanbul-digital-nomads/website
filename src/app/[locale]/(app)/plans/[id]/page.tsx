@@ -18,7 +18,7 @@ import { PlanAttendeeStack } from "@/components/sections/plans/plan-attendee-sta
 import { PlanComments } from "@/components/sections/plans/plan-comments";
 import { JoinLeaveButton } from "@/components/sections/plans/join-leave-button";
 import { TicketCheckoutButton } from "@/components/sections/plans/ticket-checkout-button";
-import { PlanDetailMap } from "@/components/sections/plans/plan-detail-map";
+import { PlanDetailMapLazy } from "@/components/sections/plans/plan-detail-map-lazy";
 import { TRANSPORT_ICONS } from "@/lib/plans/transport";
 import { getPlanById, type PlanStop } from "@/lib/plans/queries";
 import { getCurrentMember } from "@/lib/supabase/queries";
@@ -277,7 +277,7 @@ async function Content({
 
       {/* Map: shown when 1+ stops have a resolvable location */}
       <Container className="max-w-3xl pt-8">
-        <PlanDetailMap stops={plan.stops} />
+        <PlanDetailMapLazy stops={plan.stops} />
       </Container>
 
       {/* Stops timeline (with transport legs between stops) */}

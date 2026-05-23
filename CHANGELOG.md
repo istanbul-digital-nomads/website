@@ -4,6 +4,14 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.28.3] - 2026-05-22
+
+### Performance
+
+- **Deferred the ~1 MB map bundle on the plan detail page.** `/plans/[id]` statically imported `PlanDetailMap`, which pulls in maplibre-gl + react-map-gl, putting that whole bundle on the page's critical path even though the map renders below the header (and only when stops have coordinates). It's now loaded via `next/dynamic` (`ssr: false`) so the plan header is interactive without waiting on the map - matching how `/spaces` and the neighborhoods map already load it. No behavior change (the map already rendered client-side only).
+
+---
+
 ## [3.28.2] - 2026-05-22
 
 ### Performance

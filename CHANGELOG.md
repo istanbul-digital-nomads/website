@@ -4,6 +4,14 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.28.6] - 2026-05-23
+
+### Changed
+
+- **Redesigned the route loading screen to match the brand + design system.** The old loading state used generic neutral/primary skeletons. The new one is grounded in the design tokens: the logo mark gently breathing inside a soft terracotta glow, the Fraunces display wordmark, a slim terracotta-to-moss progress bar, and a mono uppercase label - on the deep-water/cream canvas. Localized in all 5 locales and fully reduced-motion safe.
+
+---
+
 ## [3.28.5] - 2026-05-23
 
 ### Performance

@@ -2175,7 +2175,8 @@
       "askTelegram": "Or ask in the Telegram group"
     },
     "loading": {
-      "srLabel": "Loading page content"
+      "srLabel": "Loading page content",
+      "label": "Loading"
     }
   },
   "blogIndexPage": {

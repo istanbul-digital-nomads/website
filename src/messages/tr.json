@@ -2195,7 +2195,8 @@
       "askTelegram": "Ya da Telegram grubunda sor"
     },
     "loading": {
-      "srLabel": "Sayfa içeriği yükleniyor"
+      "srLabel": "Sayfa içeriği yükleniyor",
+      "label": "Yükleniyor"
     }
   },
   "blogIndexPage": {

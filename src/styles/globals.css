@@ -501,6 +501,25 @@
     transform-origin: left center;
   }
 
+  /* Branded page loader: the logo mark gently breathes inside a soft
+     terracotta glow that pulses in counter-rhythm. */
+  .page-loader-mark {
+    animation: loader-breathe 2.6s ease-in-out infinite;
+  }
+
+  .page-loader-glow {
+    position: absolute;
+    inset: -45%;
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle,
+      rgb(var(--terracotta) / 0.32) 0%,
+      rgb(var(--terracotta) / 0.1) 38%,
+      transparent 70%
+    );
+    animation: loader-glow 2.6s ease-in-out infinite;
+  }
+
   .reveal-hidden {
     opacity: 0;
     transform: translate3d(0, 28px, 0) scale(0.985);
@@ -689,6 +708,28 @@
   }
 }
 
+@keyframes loader-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes loader-glow {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
 /* MapLibre clean brand filter - applies only to the canvas, not markers */
 .map-canvas-warm .maplibregl-canvas {
   filter: saturate(0.9) brightness(1.02) contrast(0.96);
@@ -782,6 +823,8 @@
   .route-progress,
   .route-enter,
   .loading-bar,
+  .page-loader-mark,
+  .page-loader-glow,
   .reveal-hidden {
     animation: none;
     opacity: 1;

@@ -6,8 +6,13 @@ on:
   pull_request:
     branches: [main, develop]
 
+# Dedupe runs per logical change: a push to `develop` and the develop->main
+# PR share one group (keyed on the head branch, not the raw ref), so we get a
+# single CI run instead of two racing ones. cancel-in-progress also cancels a
+# superseded run cleanly instead of leaving it to fail - e.g. when a branch is
+# merged while its run is still in flight.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 jobs:

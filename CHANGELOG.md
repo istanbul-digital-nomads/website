@@ -4,6 +4,14 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.28.4] - 2026-05-23
+
+### Performance
+
+- **Mobile/reduced-motion now get a static hero instead of the WebGL cinematic map.** PageSpeed Insights (mobile) showed the homepage at a ~13.8s Total Blocking Time / 14.3s Speed Index, dominated by the MapLibre WebGL hero running on a throttled mobile CPU. The cinematic map now loads (via `next/dynamic`) and runs only on desktop viewports with motion allowed; mobile and `prefers-reduced-motion` users see the static deep-water hero and never download the ~1 MB maplibre chunk. Desktop experience unchanged.
+
+---
+
 ## [3.28.3] - 2026-05-22
 
 ### Performance

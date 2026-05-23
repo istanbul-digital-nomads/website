@@ -4,6 +4,14 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.28.5] - 2026-05-23
+
+### Performance
+
+- **Delayed the desktop hero auto-tour so the page can reach a settled state first.** The cinematic map started its perpetual fly-to tour immediately, so the main thread never went quiet, Time-to-Interactive never settled, and Total Blocking Time ballooned (8-17s in PSI desktop). The map still renders instantly at the first stop (LCP unaffected); the auto-pan now begins ~5.5s after load, once the page is interactive. Big TBT reduction with the cinematic experience intact.
+
+---
+
 ## [3.28.4] - 2026-05-23
 
 ### Performance

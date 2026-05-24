@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { ogLogoDataUri } from "@/lib/og-logo";
 import type { Locale } from "@/lib/i18n/config";
 import { isRtlOgLocale, renderOgImageRtl } from "@/lib/og-image-rtl";
 
@@ -70,23 +71,14 @@ export function renderOgImage({
     >
       {/* Brand wordmark */}
       <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: 12,
-            background: BRAND,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-            fontSize: 22,
-            fontWeight: 800,
-            letterSpacing: -0.5,
-          }}
-        >
-          IN
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={ogLogoDataUri()}
+          width={48}
+          height={48}
+          alt=""
+          style={{ display: "block" }}
+        />
         <div
           style={{
             color: FG,

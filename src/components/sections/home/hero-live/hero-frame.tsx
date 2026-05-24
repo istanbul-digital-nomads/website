@@ -139,7 +139,7 @@ export function HeroFrame(_props: Props) {
         <div className="flex flex-wrap items-center gap-3">
           <Link
             href={user ? "/today" : "/onboarding"}
-            className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3.5 text-sm font-semibold text-deep-water transition hover:bg-gold/90"
+            className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3.5 text-sm font-semibold text-[#06101f] transition hover:bg-gold/90"
           >
             {user ? t("ctaPrimaryAuthed") : t("ctaPrimary")}
             <ArrowRight className="h-3.5 w-3.5 rtl:rotate-180" />

@@ -110,7 +110,7 @@ async function DashboardContent({
             </div>
             <Link
               href="/dashboard/verify"
-              className="inline-flex items-center gap-1.5 rounded-full bg-terracotta px-4 py-2 text-sm font-medium text-ink-0 transition-colors hover:bg-terracotta-dim"
+              className="inline-flex items-center gap-1.5 rounded-full bg-terracotta px-4 py-2 text-sm font-medium text-[#06101f] transition-colors hover:bg-terracotta-dim"
             >
               {verificationLevel === "basic"
                 ? tVerify("title")

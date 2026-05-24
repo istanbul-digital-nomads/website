@@ -379,7 +379,7 @@ function SignInPrompt() {
       </p>
       <Link
         href="/login?next=/today"
-        className="inline-flex shrink-0 items-center gap-2 rounded-full bg-gold px-4 py-2 font-grotesk text-[12.5px] font-semibold text-deep-water transition-colors hover:bg-gold/90"
+        className="inline-flex shrink-0 items-center gap-2 rounded-full bg-gold px-4 py-2 font-grotesk text-[12.5px] font-semibold text-[#06101f] transition-colors hover:bg-gold/90"
       >
         Sign in <ArrowRight className="h-3.5 w-3.5" />
       </Link>

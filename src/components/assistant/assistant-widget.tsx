@@ -152,7 +152,7 @@ export function AssistantWidget() {
           type="button"
           onClick={() => setOpen(true)}
           aria-label={t("launcherLabel")}
-          className="fixed bottom-5 end-5 z-[90] inline-flex h-14 w-14 items-center justify-center rounded-full bg-terracotta text-ink-0 shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/60 motion-safe:animate-marker-pulse"
+          className="fixed bottom-5 end-5 z-[90] inline-flex h-14 w-14 items-center justify-center rounded-full bg-terracotta text-[#06101f] shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/60 motion-safe:animate-marker-pulse"
         >
           <MessageCircle className="h-6 w-6" />
         </button>
@@ -211,7 +211,7 @@ export function AssistantWidget() {
               ) : (
                 <div
                   key={i}
-                  className="ms-auto max-w-[85%] rounded-2xl rounded-be-sm bg-terracotta px-3.5 py-2.5 text-[13px] leading-relaxed text-ink-0"
+                  className="ms-auto max-w-[85%] rounded-2xl rounded-be-sm bg-terracotta px-3.5 py-2.5 text-[13px] leading-relaxed text-[#06101f]"
                 >
                   {t(`opt.${item.optKey}`)}
                 </div>

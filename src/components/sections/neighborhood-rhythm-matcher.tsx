@@ -61,7 +61,7 @@ export function NeighborhoodRhythmMatcher({
       >
         <div>
           <div className="flex items-center gap-3.5 font-mono text-[11px] uppercase tracking-wider">
-            <span className="text-terracotta">{eyebrowNum}</span>
+            <span className="text-terracotta-ink">{eyebrowNum}</span>
             <span className="h-px w-7 bg-terracotta" />
             <span className="text-paper-mute">{t("eyebrow")}</span>
           </div>
@@ -92,7 +92,7 @@ export function NeighborhoodRhythmMatcher({
                     className={cn(
                       "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border",
                       active
-                        ? "border-terracotta bg-terracotta text-ink-0"
+                        ? "border-terracotta bg-terracotta text-[#06101f]"
                         : "border-ink-5 text-transparent",
                     )}
                   >
@@ -114,12 +114,12 @@ export function NeighborhoodRhythmMatcher({
 
         <div className="border border-ink-3 bg-ink-2 p-3">
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-ink-3 px-2 pb-3">
-            <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-terracotta">
+            <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-terracotta-ink">
               <SlidersHorizontal className="h-4 w-4" />
               {t("liveMatch")}
             </div>
             <div className="inline-flex items-center gap-2 border border-ink-4 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
-              <Sparkles className="h-3.5 w-3.5 text-terracotta" />
+              <Sparkles className="h-3.5 w-3.5 text-terracotta-ink" />
               {t("signals", {
                 count: selected.length || defaultRhythms.length,
               })}
@@ -162,7 +162,7 @@ export function NeighborhoodRhythmMatcher({
                         })}
                       </p>
                     </div>
-                    <ArrowRight className="mt-1 h-5 w-5 shrink-0 text-paper-faint transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 group-hover:text-terracotta" />
+                    <ArrowRight className="mt-1 h-5 w-5 shrink-0 text-paper-faint transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 group-hover:text-terracotta-ink" />
                   </div>
 
                   <div className="mt-3 flex flex-wrap gap-1.5">
@@ -204,7 +204,7 @@ export function NeighborhoodRhythmMatcher({
           {matches[0] ? (
             <div className="mt-4 flex flex-col gap-3 border border-ink-3 bg-ink-1 p-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-wider text-terracotta">
+                <p className="font-mono text-[10px] uppercase tracking-wider text-terracotta-ink">
                   {t("turnIntoWeekOne")}
                 </p>
                 <p className="mt-1 text-sm leading-6 text-paper-dim">
@@ -215,7 +215,7 @@ export function NeighborhoodRhythmMatcher({
               </div>
               <Link
                 href={`/plans?neighborhood=${matches[0].neighborhood.slug}`}
-                className="inline-flex shrink-0 items-center justify-center gap-2 bg-terracotta px-4 py-2.5 text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim"
+                className="inline-flex shrink-0 items-center justify-center gap-2 bg-terracotta px-4 py-2.5 text-sm font-medium text-[#06101f] transition-colors duration-fast hover:bg-terracotta-dim"
               >
                 {t("planFromMatch")}
                 <ArrowRight className="h-4 w-4" />

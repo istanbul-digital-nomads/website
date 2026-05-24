@@ -455,7 +455,7 @@ export function MembersEditorial({
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
                 href="/onboarding"
-                className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3 text-sm font-semibold text-deep-water transition-colors hover:bg-gold/90"
+                className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3 text-sm font-semibold text-[#06101f] transition-colors hover:bg-gold/90"
               >
                 {t("ctaPrimary")}
                 <ArrowRight className="h-3.5 w-3.5" />

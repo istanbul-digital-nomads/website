@@ -35,7 +35,7 @@ export async function EventsStrip({ locale }: { locale: Locale }) {
 
         <h2 className="mt-8 font-display text-h1 leading-tight text-paper">
           {t("title")}{" "}
-          <span className="italic text-terracotta">{t("titleItalic")}</span>
+          <span className="italic text-terracotta-ink">{t("titleItalic")}</span>
         </h2>
 
         <div className="mt-12 border border-ink-3">
@@ -50,7 +50,7 @@ export async function EventsStrip({ locale }: { locale: Locale }) {
                     i === 0 ? undefined : "1px solid rgb(var(--ink-3))",
                 }}
               >
-                <span className="font-mono text-[11px] uppercase tracking-wider text-terracotta">
+                <span className="font-mono text-[11px] uppercase tracking-wider text-terracotta-ink">
                   {dateFmt.format(new Date(event.date))}
                 </span>
                 <span className="font-mono text-base tabular-nums text-paper">
@@ -69,7 +69,7 @@ export async function EventsStrip({ locale }: { locale: Locale }) {
                     </span>
                   ) : null}
                 </span>
-                <span className="inline-flex items-center gap-1.5 text-sm text-terracotta">
+                <span className="inline-flex items-center gap-1.5 text-sm text-terracotta-ink">
                   {t("rsvp")}
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
                 </span>
@@ -77,7 +77,7 @@ export async function EventsStrip({ locale }: { locale: Locale }) {
             ))
           ) : (
             <div className="px-6 py-10">
-              <p className="font-mono text-[11px] uppercase tracking-wider text-terracotta">
+              <p className="font-mono text-[11px] uppercase tracking-wider text-terracotta-ink">
                 {t("emptyEyebrow")}
               </p>
               <p className="mt-3 max-w-xl font-display text-h3 text-paper">
@@ -93,7 +93,7 @@ export async function EventsStrip({ locale }: { locale: Locale }) {
           </span>
           <Link
             href="/events"
-            className="group inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta"
+            className="group inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta-ink"
           >
             {t("allEvents")}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />

@@ -116,7 +116,7 @@ async function PlansPageContent({
               </div>
               <Link
                 href="/plans/new"
-                className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3 text-sm font-semibold text-deep-water transition-colors hover:bg-gold/90"
+                className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3 text-sm font-semibold text-[#06101f] transition-colors hover:bg-gold/90"
               >
                 <Plus className="h-3.5 w-3.5" />
                 {t("landing.ctaShare")}

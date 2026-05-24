@@ -185,7 +185,7 @@ async function Detail({ params }: Props) {
                 href={`https://t.me/${service.host.telegram_handle.replace(/^@/, "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full bg-terracotta px-4 py-2 text-sm font-medium text-ink-0 transition-colors hover:bg-terracotta-dim"
+                className="inline-flex items-center gap-1.5 rounded-full bg-terracotta px-4 py-2 text-sm font-medium text-[#06101f] transition-colors hover:bg-terracotta-dim"
               >
                 {t("contactCta")} <span aria-hidden>→</span>
               </a>

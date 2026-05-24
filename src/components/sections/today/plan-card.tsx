@@ -296,7 +296,7 @@ export function PlanCard({ plan }: Props) {
           {isMine ? (
             <Link
               href={`/plans/${plan.id}`}
-              className="inline-flex items-center justify-between gap-2 rounded-full bg-gold px-4 py-3 font-grotesk text-[13px] font-semibold text-deep-water transition-colors hover:bg-gold/90"
+              className="inline-flex items-center justify-between gap-2 rounded-full bg-gold px-4 py-3 font-grotesk text-[13px] font-semibold text-[#06101f] transition-colors hover:bg-gold/90"
             >
               Edit plan <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -307,7 +307,7 @@ export function PlanCard({ plan }: Props) {
                 className={cn(
                   "inline-flex items-center justify-between gap-2 rounded-full px-4 py-3 font-grotesk text-[13px] font-semibold transition-colors",
                   isGuide
-                    ? "bg-gold text-deep-water hover:bg-gold/90"
+                    ? "bg-gold text-[#06101f] hover:bg-gold/90"
                     : "border border-gold text-cream hover:bg-gold/10",
                 )}
               >

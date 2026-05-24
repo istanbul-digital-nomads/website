@@ -324,7 +324,7 @@ async function Content({
                 <div className="flex gap-4 p-4">
                   <span
                     aria-hidden
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-terracotta font-mono text-sm font-semibold text-ink-0"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-terracotta font-mono text-sm font-semibold text-[#06101f]"
                   >
                     {i + 1}
                   </span>

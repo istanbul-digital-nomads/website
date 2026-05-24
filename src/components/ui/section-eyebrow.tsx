@@ -23,7 +23,7 @@ export function SectionEyebrow({
         className,
       )}
     >
-      <span className="text-terracotta">{num}</span>
+      <span className="text-terracotta-ink">{num}</span>
       <span className="h-px w-7 bg-terracotta" />
       <span className="text-paper-mute">{label}</span>
       {kicker ? <span className="text-paper-faint">· {kicker}</span> : null}

@@ -88,7 +88,7 @@ export default async function CircleDetailPage(props: Props) {
               href={socialLinks.telegram}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex w-full items-center justify-center gap-1.5 bg-terracotta px-6 py-4 text-center text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim"
+              className="mt-6 inline-flex w-full items-center justify-center gap-1.5 bg-terracotta px-6 py-4 text-center text-sm font-medium text-[#06101f] transition-colors duration-fast hover:bg-terracotta-dim"
             >
               {t("joinTelegram")}{" "}
               <span className="inline-dir-arrow" aria-hidden />

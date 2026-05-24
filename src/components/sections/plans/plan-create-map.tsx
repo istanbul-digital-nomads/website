@@ -230,8 +230,8 @@ export function PlanCreateMap({
                 className={cn(
                   "flex h-6 w-6 items-center justify-center rounded-full border font-mono text-[10px] font-semibold shadow-md",
                   focusedUid === stop.uid
-                    ? "border-paper bg-terracotta text-ink-0 ring-2 ring-terracotta/40"
-                    : "border-paper bg-terracotta text-ink-0",
+                    ? "border-paper bg-terracotta text-[#06101f] ring-2 ring-terracotta/40"
+                    : "border-paper bg-terracotta text-[#06101f]",
                 )}
               >
                 {i + 1}

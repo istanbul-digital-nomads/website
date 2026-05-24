@@ -182,7 +182,7 @@ async function NeighborhoodDetailContent(props: Props) {
             <div className="mt-10 flex flex-wrap justify-center gap-3">
               <Link
                 href={`/plans?neighborhood=${n.slug}`}
-                className="bg-terracotta px-7 py-4 text-sm font-medium text-ink-0 transition-colors duration-fast hover:bg-terracotta-dim"
+                className="bg-terracotta px-7 py-4 text-sm font-medium text-[#06101f] transition-colors duration-fast hover:bg-terracotta-dim"
               >
                 {tDetail("planWeekOne")}{" "}
                 <span className="inline-dir-arrow" aria-hidden />

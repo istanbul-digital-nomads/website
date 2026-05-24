@@ -21,7 +21,9 @@ export function SundayLetterPreview({ locale }: { locale: Locale }) {
             <h2 className="mt-8 font-display text-h1 leading-tight text-paper">
               {t("title")}
               <br />
-              <span className="italic text-terracotta">{t("titleItalic")}</span>
+              <span className="italic text-terracotta-ink">
+                {t("titleItalic")}
+              </span>
             </h2>
             <p className="mt-6 max-w-xl text-lede leading-relaxed text-paper-dim">
               {t("body")}

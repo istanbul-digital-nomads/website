@@ -279,7 +279,7 @@ export function PlanDetailMap({ stops }: Props) {
                 <span className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-terracotta bg-terracotta/15 shadow-md transition-transform hover:scale-110">
                   <MapPin className="h-3.5 w-3.5 text-terracotta" aria-hidden />
                 </span>
-                <span className="absolute -bottom-0.5 left-1/2 flex h-5 min-w-[18px] -translate-x-1/2 items-center justify-center rounded-full bg-terracotta px-1 font-mono text-[9px] font-semibold text-ink-0 shadow ring-1 ring-paper/30">
+                <span className="absolute -bottom-0.5 left-1/2 flex h-5 min-w-[18px] -translate-x-1/2 items-center justify-center rounded-full bg-terracotta px-1 font-mono text-[9px] font-semibold text-[#06101f] shadow ring-1 ring-paper/30">
                   {i + 1}
                 </span>
               </span>
@@ -289,7 +289,7 @@ export function PlanDetailMap({ stops }: Props) {
                 className="relative -translate-y-1 cursor-pointer"
                 title={stopName(stop)}
               >
-                <span className="flex h-6 w-6 items-center justify-center rounded-full border border-paper bg-terracotta font-mono text-[10px] font-semibold text-ink-0 shadow-md transition-transform hover:scale-110">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full border border-paper bg-terracotta font-mono text-[10px] font-semibold text-[#06101f] shadow-md transition-transform hover:scale-110">
                   {i + 1}
                 </span>
                 <span className="absolute -bottom-1 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rotate-45 bg-terracotta" />
@@ -320,7 +320,7 @@ export function PlanDetailMap({ stops }: Props) {
             >
               {/* Stop number + name */}
               <div className="mb-1.5 flex items-start gap-2">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-terracotta font-mono text-[9px] font-semibold text-ink-0">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-terracotta font-mono text-[9px] font-semibold text-[#06101f]">
                   {selectedIdx + 1}
                 </span>
                 <p className="text-[13px] font-medium leading-snug">

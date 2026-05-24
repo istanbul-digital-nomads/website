@@ -16,11 +16,11 @@ const ACCENT_RING: Record<CircleAccent, string> = {
   "bosphorus-dim": "border-bosphorus-dim",
 };
 const ACCENT_TEXT: Record<CircleAccent, string> = {
-  terracotta: "text-terracotta",
+  terracotta: "text-terracotta-ink",
   bosphorus: "text-bosphorus",
-  "ferry-yellow": "text-ferry-yellow",
-  moss: "text-moss",
-  "terracotta-dim": "text-terracotta-dim",
+  "ferry-yellow": "text-gold-ink",
+  moss: "text-moss-ink",
+  "terracotta-dim": "text-terracotta-ink",
   "bosphorus-dim": "text-bosphorus-dim",
 };
 
@@ -39,7 +39,7 @@ export function CirclesStrip({ locale }: { locale: Locale }) {
 
         <h2 className="mt-8 max-w-3xl font-display text-h1 leading-tight text-paper">
           {t("title")}{" "}
-          <span className="italic text-terracotta">{t("titleItalic")}</span>
+          <span className="italic text-terracotta-ink">{t("titleItalic")}</span>
         </h2>
 
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
@@ -74,7 +74,7 @@ export function CirclesStrip({ locale }: { locale: Locale }) {
           </p>
           <Link
             href="/circles"
-            className="group inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta"
+            className="group inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta-ink"
           >
             {t("seeAll")}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />

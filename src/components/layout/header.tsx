@@ -106,19 +106,10 @@ export function Header({ counts = {} }: Props) {
             <Image
               src="/images/logo-light.png"
               alt={tSite("shortName")}
-              width={530}
-              height={680}
-              className="block dark:hidden"
-              style={{ width: 26, height: "auto" }}
-              priority
-            />
-            <Image
-              src="/images/logo-dark.png"
-              alt={tSite("shortName")}
-              width={542}
-              height={693}
-              className="hidden dark:block"
-              style={{ width: 26, height: "auto" }}
+              width={512}
+              height={512}
+              className="block"
+              style={{ width: 28, height: "auto" }}
               priority
             />
             <span className="hidden font-display text-[15px] tracking-tight text-paper sm:inline">

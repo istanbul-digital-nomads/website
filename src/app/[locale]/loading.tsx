@@ -22,22 +22,12 @@ export default async function Loading() {
         <Image
           src="/images/logo-light.png"
           alt=""
-          width={530}
-          height={680}
+          width={512}
+          height={512}
           priority
           aria-hidden
-          className="relative block dark:hidden"
-          style={{ width: 44, height: "auto" }}
-        />
-        <Image
-          src="/images/logo-dark.png"
-          alt=""
-          width={542}
-          height={693}
-          priority
-          aria-hidden
-          className="relative hidden dark:block"
-          style={{ width: 44, height: "auto" }}
+          className="relative block"
+          style={{ width: 56, height: "auto" }}
         />
       </div>
 

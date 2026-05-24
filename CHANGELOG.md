@@ -4,6 +4,16 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.29.0] - 2026-05-25
+
+### Changed
+
+- **New brand mark across the whole site.** Replaced the old wordmark/"IN" monogram with our seagull mascot - a fez-wearing gull in front of the Istanbul skyline (Galata Tower, the Bosphorus bridge, a mosque) on a terracotta disc. The mark is rendered as a clean circular badge so it reads on both the light cream and dark deep-water themes, and it's now used in the header, footer, mobile menu, the homepage hero brand bar, the route loader, and the About page. Same logo in both themes - no more separate light/dark monochrome silhouettes.
+- **Favicons and touch icons now use the seagull.** Replaced the code-drawn "IN" `icon.tsx`/`apple-icon.tsx` with static PNGs generated from the new mark, so browser tabs, bookmarks, and home-screen shortcuts show the real logo.
+- **README** now leads with the new logo.
+
+---
+
 ## [3.28.8] - 2026-05-24
 
 ### Changed

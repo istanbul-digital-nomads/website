@@ -48,18 +48,10 @@ export async function Footer({ locale }: { locale: Locale }) {
               <Image
                 src="/images/logo-light.png"
                 alt={tSite("shortName")}
-                width={530}
-                height={680}
-                className="block dark:hidden"
-                style={{ width: 28, height: "auto" }}
-              />
-              <Image
-                src="/images/logo-dark.png"
-                alt={tSite("shortName")}
-                width={542}
-                height={693}
-                className="hidden dark:block"
-                style={{ width: 28, height: "auto" }}
+                width={512}
+                height={512}
+                className="block"
+                style={{ width: 32, height: "auto" }}
               />
               <span className="font-display text-base tracking-tight text-paper">
                 {tSite("name")}

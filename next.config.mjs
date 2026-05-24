@@ -57,7 +57,11 @@ const nextConfig = {
       // equity by 301-ing to home. Drop once we're sure no live links
       // point at /perks.
       { source: "/perks", destination: "/", permanent: true },
-      { source: "/:locale(tr|fa|ar|ru)/perks", destination: "/:locale", permanent: true },
+      {
+        source: "/:locale(tr|fa|ar|ru)/perks",
+        destination: "/:locale",
+        permanent: true,
+      },
     ];
   },
   async headers() {
@@ -72,6 +76,16 @@ const nextConfig = {
           {
             key: "Link",
             value: '<https://istanbulnomads.com/sitemap.xml>; rel="sitemap"',
+          },
+          // AI content-usage policy, delivered as an HTTP header per the
+          // content signals spec (https://contentsignals.org/). This replaces
+          // the non-standard `Content-Signal` directive that used to live in
+          // robots.txt - robots.txt validators (incl. Lighthouse) flag unknown
+          // directives as errors, so the signal moved here while the standard
+          // Allow/Disallow rules continue to gate crawlers in robots.txt.
+          {
+            key: "Content-Signal",
+            value: "ai-train=no, search=yes, ai-input=yes",
           },
         ],
       },

@@ -52,7 +52,7 @@ export function GuidesShelf({ locale }: { locale: Locale }) {
                   />
                 </Link>
                 <div className="flex items-baseline justify-between font-mono text-[10.5px] uppercase tracking-wider">
-                  <span className="text-terracotta">
+                  <span className="text-terracotta-ink">
                     {guide.category.replace("-", " ")}
                   </span>
                   <span className="text-paper-faint">
@@ -61,7 +61,7 @@ export function GuidesShelf({ locale }: { locale: Locale }) {
                 </div>
                 <Link href={`/guides/${guide.slug}`} className="group">
                   <h3
-                    className={`font-display leading-tight text-paper transition-colors group-hover:text-terracotta ${
+                    className={`font-display leading-tight text-paper transition-colors group-hover:text-terracotta-ink ${
                       i === 0 ? "text-h2" : "text-h3"
                     }`}
                   >
@@ -79,7 +79,7 @@ export function GuidesShelf({ locale }: { locale: Locale }) {
         <div className="mt-12 border-t border-ink-3 pt-6">
           <Link
             href="/guides"
-            className="group inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta"
+            className="group inline-flex items-center gap-1.5 border-b border-terracotta pb-0.5 text-sm text-terracotta-ink"
           >
             {t("allGuides")}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />

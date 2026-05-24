@@ -499,7 +499,7 @@ export function PlanCreateFlow({
                         : "border-ink-3 text-paper-mute hover:border-paper",
                     )}
                   >
-                    <span className="flex h-4 w-4 items-center justify-center rounded-full bg-terracotta font-mono text-[9px] text-ink-0">
+                    <span className="flex h-4 w-4 items-center justify-center rounded-full bg-terracotta font-mono text-[9px] text-[#06101f]">
                       {i + 1}
                     </span>
                     <span className="max-w-[10ch] truncate">{label}</span>

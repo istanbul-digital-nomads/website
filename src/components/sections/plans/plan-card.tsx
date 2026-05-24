@@ -183,7 +183,7 @@ function StopRow({
         className={cn(
           "flex h-5 w-5 shrink-0 items-center justify-center rounded-full font-mono text-[10px] font-semibold",
           isFirst
-            ? "bg-terracotta text-ink-0"
+            ? "bg-terracotta text-[#06101f]"
             : "border border-terracotta/60 bg-transparent text-terracotta",
         )}
       >

@@ -51,7 +51,7 @@ export function TicketCheckoutButton({
       type="button"
       onClick={handleClick}
       disabled={loading}
-      className="inline-flex items-center gap-2 rounded-full bg-ferry-yellow px-5 py-2.5 text-sm font-medium text-ink-0 transition-colors hover:bg-ferry-yellow/90 disabled:opacity-60"
+      className="inline-flex items-center gap-2 rounded-full bg-ferry-yellow px-5 py-2.5 text-sm font-medium text-[#06101f] transition-colors hover:bg-ferry-yellow/90 disabled:opacity-60"
     >
       {loading ? t("loading") : t("buyTicket", { price: priceLabel })}
     </button>

@@ -26,7 +26,7 @@ const DOORS: {
     num: "01",
     href: "/plans",
     photo: "interior",
-    tone: "text-terracotta",
+    tone: "text-terracotta-ink",
   },
   {
     id: "matcher",
@@ -41,7 +41,7 @@ const DOORS: {
     href: socialLinks.telegram,
     external: true,
     photo: "street",
-    tone: "text-ferry-yellow",
+    tone: "text-gold-ink",
   },
 ];
 

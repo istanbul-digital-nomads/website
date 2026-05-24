@@ -28,7 +28,7 @@ export async function Footer({ locale }: { locale: Locale }) {
         {/* Newsletter */}
         <div className="grid gap-5 border-b border-ink-3 py-9 md:grid-cols-[minmax(0,1fr)_minmax(320px,420px)] md:items-end">
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-wider text-terracotta">
+            <p className="font-mono text-[11px] uppercase tracking-wider text-terracotta-ink">
               {tFooter("newsletterEyebrow")}
             </p>
             <h2 className="mt-3 max-w-2xl font-display text-h3 text-paper">
@@ -148,14 +148,14 @@ function FooterColumn({
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm leading-6 text-paper-dim transition-colors hover:text-terracotta"
+                className="text-sm leading-6 text-paper-dim transition-colors hover:text-terracotta-ink"
               >
                 {labelFor(link.key)}
               </a>
             ) : (
               <Link
                 href={link.href}
-                className="text-sm leading-6 text-paper-dim transition-colors hover:text-terracotta"
+                className="text-sm leading-6 text-paper-dim transition-colors hover:text-terracotta-ink"
               >
                 {labelFor(link.key)}
               </Link>

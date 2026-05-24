@@ -2,18 +2,19 @@ import { NextResponse } from "next/server";
 import { siteConfig } from "@/lib/constants";
 
 // robots.txt is a raw-text Route Handler (not the typed `robots.ts`
-// metadata file) so it can emit the `Content-Signal` directive, which
-// declares our AI content-usage preferences per crawler group.
-// Spec: https://contentsignals.org/ +
-// https://datatracker.ietf.org/doc/draft-romm-aipref-contentsignals/
+// metadata file) so we keep full control of the emitted directives.
 //
 // Policy for 2026:
 // - Allow search crawlers + AI answer engines that cite sources (so we're
-//   included in answer-engine results). Their content signal:
-//   `ai-train=no, search=yes, ai-input=yes` - indexing and grounded
-//   answers welcome, wholesale training ingestion is not.
-// - Block training-only crawlers (GPTBot, CCBot, etc.) entirely, with an
-//   all-no content signal for good measure.
+//   included in answer-engine results) - indexing and grounded answers
+//   welcome, wholesale training ingestion is not.
+// - Block training-only crawlers (GPTBot, CCBot, etc.) entirely.
+//
+// Our AI content-usage preference (`ai-train=no, search=yes, ai-input=yes`)
+// is now broadcast via the `Content-Signal` HTTP response header (see
+// next.config.mjs) rather than as a robots.txt directive: robots.txt
+// validators - including Lighthouse's SEO audit - flag unknown directives
+// as errors. The standard Allow/Disallow rules below still gate crawlers.
 
 const SITE = siteConfig.url;
 
@@ -43,31 +44,22 @@ const ALLOW_AGENTS = [
 // Training-only crawlers - fully opted out.
 const BLOCK_AGENTS = ["GPTBot", "CCBot", "FacebookBot", "Bytespider"];
 
-const ALLOW_SIGNAL = "ai-train=no, search=yes, ai-input=yes";
-const BLOCK_SIGNAL = "ai-train=no, search=no, ai-input=no";
-
 function allowGroup(agent: string): string {
   return [
     `User-agent: ${agent}`,
-    `Content-Signal: ${ALLOW_SIGNAL}`,
     `Allow: /`,
     ...DISALLOW.map((d) => `Disallow: ${d}`),
   ].join("\n");
 }
 
 function blockGroup(agent: string): string {
-  return [
-    `User-agent: ${agent}`,
-    `Content-Signal: ${BLOCK_SIGNAL}`,
-    `Disallow: /`,
-  ].join("\n");
+  return [`User-agent: ${agent}`, `Disallow: /`].join("\n");
 }
 
 export function GET() {
   const body = [
     ...ALLOW_AGENTS.map(allowGroup),
     ...BLOCK_AGENTS.map(blockGroup),
-    `Host: ${SITE}`,
     `Sitemap: ${SITE}/sitemap.xml`,
     "",
   ].join("\n\n");

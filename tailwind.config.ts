@@ -67,6 +67,9 @@ const config: Config = {
         terracotta: {
           DEFAULT: "rgb(var(--terracotta) / <alpha-value>)",
           dim: "rgb(var(--terracotta-dim) / <alpha-value>)",
+          // Contrast-safe text variant: deep rust on the cream light canvas,
+          // bright rose in dark mode. Use as `text-terracotta-ink`.
+          ink: "rgb(var(--terracotta-ink) / <alpha-value>)",
         },
         bosphorus: {
           DEFAULT: "rgb(var(--bosphorus) / <alpha-value>)",
@@ -74,6 +77,8 @@ const config: Config = {
         },
         "ferry-yellow": "rgb(var(--ferry-yellow) / <alpha-value>)",
         moss: "rgb(var(--moss) / <alpha-value>)",
+        // Contrast-safe green text: deep green on cream, bright moss in dark.
+        "moss-ink": "rgb(var(--moss-ink) / <alpha-value>)",
         // Time-of-day accent, set by the `tod-*` class on <html>.
         tod: "rgb(var(--tod-accent) / <alpha-value>)",
         // Cinematic-palette semantic aliases (used by HeroLive).
@@ -82,6 +87,8 @@ const config: Config = {
         "deep-water": "rgb(var(--ink-0) / <alpha-value>)",
         cream: "rgb(var(--paper) / <alpha-value>)",
         gold: "rgb(var(--ferry-yellow) / <alpha-value>)",
+        // Contrast-safe gold text: dark amber on cream, bright gold in dark.
+        "gold-ink": "rgb(var(--gold-ink) / <alpha-value>)",
         rose: "rgb(var(--terracotta) / <alpha-value>)",
       },
       fontFamily: {

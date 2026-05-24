@@ -21,10 +21,10 @@ const STEP_ICONS = [MapPin, UserPlus, CalendarDays, Handshake, RotateCcw];
 const STEP_KEYS = ["land", "join", "today", "meet", "repeat"] as const;
 const STEP_TONE = [
   "text-sky-400",
-  "text-ferry-yellow",
-  "text-gold",
-  "text-terracotta",
-  "text-moss",
+  "text-gold-ink",
+  "text-gold-ink",
+  "text-terracotta-ink",
+  "text-moss-ink",
 ];
 
 export function TheLoop({ locale }: { locale: Locale }) {
@@ -36,7 +36,7 @@ export function TheLoop({ locale }: { locale: Locale }) {
         <SectionEyebrow num="N° 02" label={t("eyebrow")} />
         <h2 className="mt-6 max-w-3xl font-display text-h2 leading-tight text-paper">
           {t("title")}{" "}
-          <span className="italic text-gold">{t("titleAccent")}</span>
+          <span className="italic text-gold-ink">{t("titleAccent")}</span>
         </h2>
         <p className="mt-5 max-w-2xl text-lede leading-relaxed text-paper-dim">
           {t("lede")}
@@ -76,7 +76,7 @@ export function TheLoop({ locale }: { locale: Locale }) {
         </ol>
 
         {/* "every morning, again" loop-back caption */}
-        <p className="mt-6 hidden items-center justify-center gap-2 font-mono text-[11px] uppercase tracking-wider text-moss lg:flex">
+        <p className="mt-6 hidden items-center justify-center gap-2 font-mono text-[11px] uppercase tracking-wider text-moss-ink lg:flex">
           <RotateCcw className="h-3.5 w-3.5" aria-hidden />
           {t("loopBack")}
         </p>

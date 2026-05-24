@@ -21,11 +21,11 @@ export function WeekShape({ locale }: { locale: Locale }) {
 
         <div className="mt-14 grid gap-16 lg:grid-cols-[1.5fr_1fr] lg:items-start">
           <h2 className="font-display text-h1 leading-none text-paper">
-            <span className="italic text-terracotta">{t("line1")}</span>
+            <span className="italic text-terracotta-ink">{t("line1")}</span>
             <br />
             <span className="italic text-bosphorus">{t("line2")}</span>
             <br />
-            <span className="italic text-ferry-yellow">{t("line3")}</span>
+            <span className="italic text-gold-ink">{t("line3")}</span>
           </h2>
 
           <div className="pt-2">

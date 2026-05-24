@@ -4,6 +4,18 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.29.2] - 2026-05-25
+
+### Accessibility
+
+- **Fixed light-theme colour contrast across the homepage (Lighthouse a11y).** On the cream light-theme canvas the bright gold/terracotta/moss accents and the faint muted text didn't meet WCAG AA (4.5:1) for small text. Added contrast-safe text tokens (`terracotta-ink`, `gold-ink`, `moss-ink`) that deepen to rust/amber/green on cream but stay bright on the dark canvas (so dark theme is visually unchanged), darkened `--paper-faint`, and switched every accent button (`bg-gold`/`bg-terracotta`/`bg-ferry-yellow`) from the theme-flipping `text-ink-0`/`text-deep-water` to a fixed deep-ink so the label is always dark on the bright fill. Homepage now passes contrast at 0 failures in light mode.
+
+### SEO
+
+- **robots.txt is now standards-valid (Lighthouse SEO).** It previously emitted a non-standard `Content-Signal` directive per crawler group (13 lines), which robots.txt validators flag as errors. The AI content-usage preference (`ai-train=no, search=yes, ai-input=yes`) now ships as a site-wide `Content-Signal` HTTP response header instead, and the standard `Allow`/`Disallow` rules still gate every crawler (training-only bots like GPTBot/CCBot stay fully blocked). Also dropped the deprecated `Host:` line.
+
+---
+
 ## [3.29.1] - 2026-05-25
 
 ### Fixed

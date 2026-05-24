@@ -94,7 +94,7 @@ export function PayoutSetupForm({
       <button
         type="submit"
         disabled={submitting}
-        className="inline-flex items-center rounded-full bg-terracotta px-5 py-2.5 text-sm font-medium text-ink-0 transition-colors hover:bg-terracotta-dim disabled:opacity-60"
+        className="inline-flex items-center rounded-full bg-terracotta px-5 py-2.5 text-sm font-medium text-[#06101f] transition-colors hover:bg-terracotta-dim disabled:opacity-60"
       >
         {submitting ? t("setupSubmitting") : t("setupSubmit")}
       </button>

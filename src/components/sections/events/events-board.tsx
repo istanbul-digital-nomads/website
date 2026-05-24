@@ -58,7 +58,7 @@ export function EventsBoard({
               onClick={() => setTab(key)}
               className={`px-4 py-2 font-mono text-[11px] uppercase tracking-wider transition-colors duration-fast ${
                 tab === key
-                  ? "bg-terracotta text-ink-0"
+                  ? "bg-terracotta text-[#06101f]"
                   : "text-paper-mute hover:text-paper"
               }`}
             >

@@ -24,9 +24,17 @@
     --paper: 6 16 31; /* deep-water ink (text) */
     --paper-dim: 18 33 56; /* water */
     --paper-mute: 60 78 105;
-    --paper-faint: 112 128 152;
+    --paper-faint: 86 98 118; /* darkened from 112/128/152 to clear WCAG AA (~4.9:1) on the cream canvas */
     --terracotta: 232 122 93; /* rose */
     --terracotta-dim: 198 91 64;
+    /* Accent-as-TEXT tokens. On the cream light-theme canvas the bright rose
+       and gold fail WCAG contrast for small text, so the text variants are
+       deepened here. In dark mode (below) they equal the bright accents, so
+       dark-theme rendering is unchanged. Used via `text-terracotta-ink` /
+       `text-gold-ink` on cream-background sections. */
+    --terracotta-ink: 173 58 36; /* deep rust - ~5:1 on cream */
+    --gold-ink: 124 84 12; /* dark amber - ~5:1 on cream */
+    --moss-ink: 21 105 52; /* deep green - ~5:1 on cream */
     --bosphorus: 19 41 74; /* waterHi */
     --bosphorus-dim: 10 26 47;
     --ferry-yellow: 244 184 96; /* gold */
@@ -54,6 +62,11 @@
     --paper-faint: 112 104 90;
     --terracotta: 232 122 93; /* rose */
     --terracotta-dim: 198 91 64;
+    /* In dark mode the accents already pass on the deep-water canvas, so the
+       -ink text tokens just mirror the bright accents (no visual change). */
+    --terracotta-ink: 232 122 93;
+    --gold-ink: 244 184 96;
+    --moss-ink: 134 239 172;
     --bosphorus: 61 107 138;
     --bosphorus-dim: 47 84 112;
     --ferry-yellow: 244 184 96; /* gold */

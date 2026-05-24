@@ -559,7 +559,7 @@ Codepath highlights worth knowing:
 
 ## 14 · Where things stand (May 2026)
 
-Shipped and live (through v3.19.1):
+Shipped and live (through v3.28.8):
 
 - Cinematic live-map homepage hero + the "Loop" how-it-works infographic
 - Workspace navbar consistent across hero brand bar and global Header
@@ -585,6 +585,26 @@ Shipped and live (through v3.19.1):
   localized in 5 languages (3.19)
 - **Guided assistant** (3.18): floating, scripted (no-LLM) chatbot that
   routes users into plans / paperwork / guides / help docs
+- **Per-stop spend range** on plans (3.23) + **avatar upload** on the
+  profile editor (3.24)
+- **Member social share cards** (3.25): a branded 1200×630 OpenGraph image
+  per `/members/[id]` (avatar/initials + name + role + verification +
+  location), satori for LTR and resvg-js for fa/ar with full RTL parity
+- **On-demand link shortener** (3.26): a Share button on member / plan /
+  paperwork / guide / blog pages mints or reuses `istanbulnomads.com/s/{code}`
+  (path-allowlisted, deduped per entity, migration 027)
+- **Account page + Telegram notifications** (3.27-3.28): `/dashboard/account`
+  links Telegram via the bot, with a master switch + per-category toggles; a
+  central `notifyMember` helper DMs the right member (localized to their
+  `preferred_locale`, gated by their toggles, never the actor) on every
+  social action - plan join/leave/comment/reschedule, ticket
+  purchase/refund/dispute, payout release, event RSVP/update (migration 028).
+  Also fixed the long-broken join/cancel DMs (RLS blocked the auth-client
+  lookup; the helper uses the service-role client)
+- **Performance pass** (3.28.x): mobile PSI 54 → **89**, desktop 58 → **99**.
+  Mobile / reduced-motion get a static hero; desktop mounts the WebGL map on
+  first interaction; the plan-detail map and the Cmd-K menu + assistant are
+  lazy-loaded; a brand-aligned route loader replaced the generic skeleton
 - All 5 locales kept in sync per release; route groups `(home)` /
   `(marketing)` / `(app)`
 

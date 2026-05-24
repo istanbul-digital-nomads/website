@@ -520,6 +520,27 @@
     animation: loader-glow 2.6s ease-in-out infinite;
   }
 
+  /* Indeterminate progress bar: a single segment travels across the track in
+     reading direction, so it reads as purposeful "working" motion rather than
+     a bar that fills and empties in place. */
+  .page-loader-track {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-loader-bar {
+    position: absolute;
+    inset-block: 0;
+    inline-size: 38%;
+    border-radius: 9999px;
+    animation: loader-track-slide 1.3s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+
+  /* Mirror the travel direction for RTL locales. */
+  html[dir="rtl"] .page-loader-bar {
+    animation-direction: reverse;
+  }
+
   .reveal-hidden {
     opacity: 0;
     transform: translate3d(0, 28px, 0) scale(0.985);
@@ -730,6 +751,17 @@
   }
 }
 
+/* The segment enters from before the track's start edge and exits past the
+   end edge, then loops - a steady left-to-right (RTL: right-to-left) sweep. */
+@keyframes loader-track-slide {
+  0% {
+    transform: translateX(-115%);
+  }
+  100% {
+    transform: translateX(380%);
+  }
+}
+
 /* MapLibre clean brand filter - applies only to the canvas, not markers */
 .map-canvas-warm .maplibregl-canvas {
   filter: saturate(0.9) brightness(1.02) contrast(0.96);
@@ -825,11 +857,18 @@
   .loading-bar,
   .page-loader-mark,
   .page-loader-glow,
+  .page-loader-bar,
   .reveal-hidden {
     animation: none;
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  /* Reduced motion: hold a calm, partially-filled bar instead of sweeping. */
+  .page-loader-bar {
+    inline-size: 100%;
+    opacity: 0.85;
   }
 
   ::view-transition-old(root),

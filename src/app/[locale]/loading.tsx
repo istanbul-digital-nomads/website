@@ -46,9 +46,10 @@ export default async function Loading() {
         {tSite("shortName")}
       </p>
 
-      {/* Progress bar */}
-      <div className="mt-6 h-[3px] w-40 overflow-hidden rounded-full bg-ink-3/60">
-        <div className="loading-bar h-full w-full rounded-full bg-gradient-to-r from-terracotta via-terracotta-dim to-moss" />
+      {/* Indeterminate progress bar - a segment sweeps across in reading
+          direction (purposeful "working" motion, not a fill/empty pulse). */}
+      <div className="page-loader-track mt-6 h-[3px] w-40 rounded-full bg-ink-3/50">
+        <div className="page-loader-bar bg-gradient-to-r from-terracotta to-terracotta-dim" />
       </div>
 
       {/* Label */}

@@ -4,6 +4,15 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.28.8] - 2026-05-24
+
+### Changed
+
+- **Route loader progress bar is now a purposeful indeterminate sweep.** It previously scaled a fill in and out in place (grow/shrink), which read as aimless and confused people. It is now a single segment that travels across the track in reading direction (right-to-left under RTL) - clear "working" motion. Reduced-motion users get a calm static bar.
+- **Docs:** refreshed PRODUCT.md §14 ("Where things stand") through v3.28.8 - member OG share cards, on-demand link shortener, account page + Telegram notifications, and the mobile-89 / desktop-99 performance pass.
+
+---
+
 ## [3.28.7] - 2026-05-23
 
 ### Performance

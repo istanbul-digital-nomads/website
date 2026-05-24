@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import type { Locale } from "@/lib/i18n/config";
 import { ogSize } from "@/lib/og-image";
+import { ogLogoDataUri } from "@/lib/og-logo";
 import { isRtlOgLocale, renderMemberOgImageRtl } from "@/lib/og-member-rtl";
 
 // Member share card. Distinct from the generic text card in og-image.tsx:
@@ -99,23 +100,14 @@ export async function renderMemberOgImage(props: MemberOgProps) {
     >
       {/* Brand wordmark */}
       <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: 12,
-            background: BRAND,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-            fontSize: 22,
-            fontWeight: 800,
-            letterSpacing: -0.5,
-          }}
-        >
-          IN
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={ogLogoDataUri()}
+          width={48}
+          height={48}
+          alt=""
+          style={{ display: "block" }}
+        />
         <div
           style={{
             color: FG,

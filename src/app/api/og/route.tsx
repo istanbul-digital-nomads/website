@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { type NextRequest } from "next/server";
+import { ogLogoDataUri } from "@/lib/og-logo";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -32,6 +33,14 @@ export async function GET(request: NextRequest) {
           maxWidth: "900px",
         }}
       >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={ogLogoDataUri()}
+          width={96}
+          height={96}
+          alt=""
+          style={{ display: "block", marginBottom: 20 }}
+        />
         <div
           style={{
             fontSize: 24,

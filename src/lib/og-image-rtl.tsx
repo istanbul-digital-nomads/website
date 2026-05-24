@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { Resvg } from "@resvg/resvg-js";
 import type { Locale } from "@/lib/i18n/config";
+import { ogLogoDataUri } from "@/lib/og-logo";
 
 // Mirror of @vercel/og's OG card design, rasterized via resvg-js for
 // Arabic-script locales (fa/ar) where satori crashes on GSUB lookupType 5.
@@ -199,8 +200,7 @@ function buildSvg(props: RtlProps): string {
 
   <!-- Brand wordmark (top right in RTL) -->
   <g font-family="${family}, ${fallbackFamily}">
-    <rect x="${BRAND_BADGE_X}" y="${PADDING_Y}" width="${BADGE_SIZE}" height="${BADGE_SIZE}" rx="12" fill="${BRAND}" />
-    <text x="${BRAND_BADGE_X + BADGE_SIZE / 2}" y="${BRAND_BASELINE}" text-anchor="middle" font-size="22" font-weight="800" fill="#ffffff" letter-spacing="-0.5">IN</text>
+    <image href="${ogLogoDataUri()}" x="${BRAND_BADGE_X}" y="${PADDING_Y}" width="${BADGE_SIZE}" height="${BADGE_SIZE}" />
     <text x="${BRAND_TEXT_X}" y="${BRAND_BASELINE}" text-anchor="end" font-size="22" font-weight="700" fill="${FG}" letter-spacing="0.5">${escapeXml(BRAND_TEXT.toUpperCase())}</text>
   </g>
 

@@ -4,6 +4,14 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.29.1] - 2026-05-25
+
+### Fixed
+
+- **Social share cards (OG images) still showed the old "IN" monogram.** The seagull mark only replaced the on-page logos in 3.29.0; the dynamically rendered Open Graph cards - the previews that show when a link is shared on social, in chats, etc. - still drew the red "IN" square. All OG renderers now embed the seagull badge instead: the generic page card, the member share card, and both their RTL (Arabic/Persian) variants, plus the `/api/og` fallback. Also removed the now-unused legacy `mark.tsx` logo component.
+
+---
+
 ## [3.29.0] - 2026-05-25
 
 ### Changed

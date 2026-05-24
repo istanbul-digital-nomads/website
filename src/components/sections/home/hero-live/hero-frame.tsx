@@ -69,28 +69,14 @@ export function HeroFrame(_props: Props) {
           className="group flex shrink-0 items-center gap-2.5"
           aria-label={tSite("shortName")}
         >
-          <span
-            className="relative inline-flex h-8 w-8 items-center justify-center overflow-hidden rounded-[10px]"
-            style={{
-              background: "linear-gradient(135deg, #f4b860, #e87a5d)",
-              boxShadow:
-                "0 8px 22px -8px rgba(244,184,96,0.45), inset 0 0 0 0.5px rgba(255,255,255,0.18)",
-            }}
-          >
-            <Image
-              src="/images/logo-dark.png"
-              alt=""
-              width={542}
-              height={693}
-              style={{
-                width: 22,
-                height: "auto",
-                filter:
-                  "brightness(0) saturate(100%) invert(7%) sepia(50%) saturate(2200%) hue-rotate(195deg) brightness(95%) contrast(98%)",
-              }}
-              priority
-            />
-          </span>
+          <Image
+            src="/images/logo-light.png"
+            alt=""
+            width={512}
+            height={512}
+            style={{ width: 34, height: "auto" }}
+            priority
+          />
           <span
             className="font-editorial leading-none tracking-tight text-cream"
             style={{ fontSize: 18, letterSpacing: "-0.01em" }}

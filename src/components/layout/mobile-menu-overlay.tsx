@@ -54,16 +54,10 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
             <Image
               src="/images/logo-light.png"
               alt={tSite("shortName")}
-              width={25}
-              height={32}
-              className="block dark:hidden"
-            />
-            <Image
-              src="/images/logo-dark.png"
-              alt={tSite("shortName")}
-              width={25}
-              height={32}
-              className="hidden dark:block"
+              width={512}
+              height={512}
+              className="block"
+              style={{ width: 32, height: "auto" }}
             />
             <div>
               <span className="text-lg font-bold text-primary-600 dark:text-primary-400">

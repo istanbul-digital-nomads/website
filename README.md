@@ -1,7 +1,13 @@
-![CI](https://github.com/istanbul-digital-nomads/website/actions/workflows/ci.yml/badge.svg?branch=develop)
-![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue?logo=typescript&logoColor=white)
-![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs&logoColor=white)
-![License](https://img.shields.io/badge/License-Proprietary-red)
+<p align="center">
+  <img src="public/images/logo-light.png" alt="Istanbul Nomads" width="120" height="120" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/istanbul-digital-nomads/website/actions/workflows/ci.yml/badge.svg?branch=develop" alt="CI" />
+  <img src="https://img.shields.io/badge/TypeScript-strict-blue?logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/License-Proprietary-red" alt="License" />
+</p>
 
 # Istanbul Nomads - Website
 

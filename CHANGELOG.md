@@ -4,6 +4,14 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.28.7] - 2026-05-23
+
+### Performance
+
+- **Desktop hero map now mounts on first interaction instead of on load.** The MapLibre WebGL init was the last big chunk of main-thread work during desktop page load (keeping Total Blocking Time ~1.7s and Speed Index ~4.9s). It now mounts on the first engagement signal (pointer move/scroll/key/touch), so the page reaches a settled interactive state first and the cinematic map fades in the instant the visitor moves - effectively immediate on desktop. The headline and CTAs render regardless; a fallback still mounts the map for visitors who never interact. Mobile/reduced-motion remain on the static hero.
+
+---
+
 ## [3.28.6] - 2026-05-23
 
 ### Changed

@@ -31,11 +31,37 @@ export function HeroLiveClient({ locale }: Props) {
       "(prefers-reduced-motion: reduce)",
     ).matches;
     if (!desktop || reduced) return; // static hero on mobile / reduced-motion
-    // Defer the heavy MapLibre tree one tick so React settles any leftover
-    // state from a previous client-side navigation (the rapid /about <-> /
-    // case where the old WebGL canvas teardown raced the new mount).
-    const id = window.setTimeout(() => setCinematic(true), 0);
-    return () => window.clearTimeout(id);
+
+    // Mount the heavy MapLibre tree on the first real engagement signal
+    // (pointer move/down, wheel, scroll, key, touch) rather than on load.
+    // The WebGL init + tile render is the dominant main-thread cost on the
+    // homepage; running it during load is what kept Lighthouse's blocking
+    // time high. Gating it on interaction means the page reaches an
+    // interactive, settled state first, then the cinematic map fades in the
+    // instant the visitor moves - which on a desktop hero is effectively
+    // immediate. The headline and CTAs render regardless. A generous fallback
+    // still mounts it for the rare visitor who never interacts.
+    let done = false;
+    const mount = () => {
+      if (done) return;
+      done = true;
+      setCinematic(true);
+    };
+    const opts: AddEventListenerOptions = { once: true, passive: true };
+    const events = [
+      "pointermove",
+      "pointerdown",
+      "wheel",
+      "scroll",
+      "keydown",
+      "touchstart",
+    ];
+    events.forEach((e) => window.addEventListener(e, mount, opts));
+    const fallback = window.setTimeout(mount, 8000);
+    return () => {
+      events.forEach((e) => window.removeEventListener(e, mount));
+      window.clearTimeout(fallback);
+    };
   }, []);
 
   return (

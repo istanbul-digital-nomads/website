@@ -6,6 +6,9 @@ export type Event = Database["public"]["Tables"]["events"]["Row"];
 export type Member = Database["public"]["Tables"]["members"]["Row"];
 export type BlogPost = Database["public"]["Tables"]["blog_posts"]["Row"];
 export type RSVP = Database["public"]["Tables"]["rsvps"]["Row"];
+export type NomadBrandRow = Database["public"]["Tables"]["nomad_brands"]["Row"];
+export type BrandLocationRow =
+  Database["public"]["Tables"]["brand_locations"]["Row"];
 
 // --- Insert Types (what you send to create a record) ---
 

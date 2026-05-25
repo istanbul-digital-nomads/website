@@ -32,6 +32,11 @@ export function CirclesStrip({ locale }: { locale: Locale }) {
   const t = getCachedTranslations(locale, "homeV2.circles");
   const tList = getCachedTranslations(locale, "circlesV2");
 
+  // The home strip stays a tight six-card teaser. Show circles that have
+  // translated copy (the original six); the full grouped catalog - including
+  // newer circles - lives on /circles.
+  const featured = circles.filter((c) => tList.has(`names.${c.slug}`));
+
   return (
     <section className="border-b border-ink-3 bg-ink-1 py-24 lg:py-32">
       <Container>
@@ -43,7 +48,7 @@ export function CirclesStrip({ locale }: { locale: Locale }) {
         </h2>
 
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-          {circles.map((circle) => (
+          {featured.map((circle) => (
             <Link
               key={circle.slug}
               href={`/circles/${circle.slug}`}

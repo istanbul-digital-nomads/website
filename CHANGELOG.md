@@ -4,6 +4,14 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.29.5] - 2026-05-25
+
+### Fixed
+
+- **In-app browsers (Instagram, Facebook, iOS home screen) still showed the old icon.** They probe the root `/apple-touch-icon.png` and `/apple-touch-icon-precomposed.png` directly - ignoring the `<link rel="apple-touch-icon">` tag - and both were returning a 500, so they fell back to a stale cached icon. Added real files at `public/apple-touch-icon.png` and `public/apple-touch-icon-precomposed.png` (the seagull mark), so those root probes now return the new icon. Follows the `/favicon.ico` fix in 3.29.4.
+
+---
+
 ## [3.29.4] - 2026-05-25
 
 ### Fixed

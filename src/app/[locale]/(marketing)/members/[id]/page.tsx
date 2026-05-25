@@ -50,16 +50,46 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function MemberProfilePage(props: Props) {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<MemberProfileSkeleton />}>
       <MemberProfileContent {...props} />
     </Suspense>
+  );
+}
+
+// Lightweight branded skeleton shown while the profile's server data
+// (member record + activity aggregation) streams in. Replaces a blank
+// screen so the page feels instant on a cold cache.
+function MemberProfileSkeleton() {
+  return (
+    <Container className="animate-pulse py-12 sm:py-16" aria-hidden>
+      <div className="h-3 w-24 rounded bg-ink-3/60" />
+      <div className="mt-8 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+        <div className="h-24 w-24 shrink-0 rounded-full bg-ink-3/60" />
+        <div className="w-full max-w-md space-y-3">
+          <div className="h-7 w-2/3 rounded bg-ink-3/60" />
+          <div className="h-4 w-1/2 rounded bg-ink-3/50" />
+          <div className="h-4 w-1/3 rounded bg-ink-3/40" />
+        </div>
+      </div>
+      <div className="mt-12 space-y-3">
+        <div className="h-4 w-full rounded bg-ink-3/40" />
+        <div className="h-4 w-11/12 rounded bg-ink-3/40" />
+        <div className="h-4 w-4/5 rounded bg-ink-3/30" />
+      </div>
+    </Container>
   );
 }
 
 async function MemberProfileContent(props: Props) {
   const { locale: rawLocale, id } = await props.params;
   const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
-  const { data: member } = await getMemberByIdPublic(id);
+  // Fetch the member record and their activity aggregation in parallel -
+  // both are keyed by the route id, so there's no reason to wait for one
+  // before starting the other (this used to be a sequential waterfall).
+  const [{ data: member }, activity] = await Promise.all([
+    getMemberByIdPublic(id),
+    getMemberActivity(id),
+  ]);
   if (!member) notFound();
 
   const t = getCachedTranslations(locale, "membersV2");
@@ -84,7 +114,6 @@ async function MemberProfileContent(props: Props) {
   const currentStatus = isCurrentStatus(member.current_status)
     ? member.current_status
     : null;
-  const activity = await getMemberActivity(member.id);
   const moveOutDate = member.planned_move_out_date
     ? new Date(member.planned_move_out_date)
     : null;
@@ -279,7 +308,11 @@ async function MemberProfileContent(props: Props) {
               }}
             />
 
-            <MemberPlansToday memberId={member.id} locale={locale} />
+            {/* Today's plans run their own query; stream them in their
+                own boundary so they never hold up the main profile. */}
+            <Suspense fallback={null}>
+              <MemberPlansToday memberId={member.id} locale={locale} />
+            </Suspense>
 
             <ProfileChipSection
               num="N° 02"

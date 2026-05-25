@@ -211,47 +211,19 @@ export async function getMemberByIdPublic(id: string) {
   cacheLife("minutes");
   cacheTag("members");
   const supabase = createPublicClient();
-  // Two-pass select: the core columns always exist, the Phase 1 columns
-  // (professional_role, tour_guide_license_no) are added by migration 017
-  // and may not be applied yet in every environment. Trying them in a
-  // second query and swallowing the error keeps the page rendering
-  // pre-migration; the conditional fields in the UI handle the
-  // undefined-fallback.
+  // Single select including the Phase 1 columns (professional_role,
+  // tour_guide_license_no, migration 017 - applied in every live env).
+  // Previously this was two round-trips for pre-migration safety; merged
+  // into one query to halve the cold-load latency on the profile page.
   const { data, error } = await supabase
     .from("members")
     .select(
-      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle, profession, languages, member_type, is_agent, verification_level, current_status, working_on, wants_to_talk_about, hobbies, activity_interests, looking_for, move_in_date, planned_move_out_date, favorite_spots, created_at",
+      "id, display_name, bio, avatar_url, location, skills, website, telegram_handle, profession, languages, member_type, is_agent, verification_level, current_status, working_on, wants_to_talk_about, hobbies, activity_interests, looking_for, move_in_date, planned_move_out_date, favorite_spots, created_at, professional_role, tour_guide_license_no",
     )
     .eq("id", id)
     .eq("is_visible", true)
     .maybeSingle();
   if (!data) return { data: null, error };
-
-  // Best-effort fetch of the Phase 1 columns. If the migration hasn't
-  // run yet the SELECT fails and we leave the new fields undefined.
-  try {
-    const { data: extra } = await supabase
-      .from("members")
-      .select("professional_role, tour_guide_license_no")
-      .eq("id", id)
-      .maybeSingle();
-    if (extra) {
-      const extraTyped = extra as {
-        professional_role: string | null;
-        tour_guide_license_no: string | null;
-      };
-      return {
-        data: {
-          ...(data as object),
-          professional_role: extraTyped.professional_role,
-          tour_guide_license_no: extraTyped.tour_guide_license_no,
-        } as MemberPublicProfile,
-        error: null,
-      };
-    }
-  } catch {
-    // Pre-migration: new columns don't exist. Render with what we have.
-  }
   return { data: data as MemberPublicProfile, error: null };
 }
 

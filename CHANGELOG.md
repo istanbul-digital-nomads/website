@@ -4,6 +4,14 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.29.4] - 2026-05-25
+
+### Fixed
+
+- **Mobile browsers showed the old logo in the tab/bookmark/home-screen icon.** `/favicon.ico` was returning a 500, so browsers (especially mobile) fell back to a stale cached icon while the new seagull only showed in-page. Added a real multi-resolution `src/app/favicon.ico` (16/32/48) generated from the seagull mark, so `/favicon.ico` now serves a valid icon. The in-app PNG logos, `icon.png`, and `apple-icon.png` were already correct.
+
+---
+
 ## [3.29.3] - 2026-05-25
 
 ### Performance

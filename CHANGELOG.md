@@ -4,6 +4,14 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.29.3] - 2026-05-25
+
+### Performance
+
+- **Member profile pages (`/members/[id]`) load faster and no longer flash a blank screen.** The page used to stream behind an empty `fallback={null}`, so on a cold cache you'd stare at nothing while three DB phases ran back-to-back (member record → activity aggregation → today's plans). Now: a branded skeleton shows immediately, the member record and activity aggregation are fetched in parallel instead of in a waterfall, "today's plans" stream in their own Suspense boundary so they never hold up the main profile, and `getMemberByIdPublic` does a single query instead of two (the redundant pre-migration fallback select is gone).
+
+---
+
 ## [3.29.2] - 2026-05-25
 
 ### Accessibility

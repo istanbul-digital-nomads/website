@@ -67,6 +67,56 @@ function readEnglishSource(category: Category, slug: string): string | null {
   return fs.readFileSync(filePath, "utf-8");
 }
 
+type CoverageRow = { slug: string; locales: Record<Locale, boolean> };
+type CategoryCoverage = {
+  category: Category;
+  total: number;
+  rows: CoverageRow[];
+  coverage: Record<Locale, number>; // percent 0-100, integer
+};
+
+/**
+ * Pure, side-effect-free coverage computation. Reads the filesystem via the
+ * existing helpers but returns plain data instead of printing, so it can feed
+ * a `--json` output, a dashboard, or a test. Additive: nothing else depends on
+ * it and the human-readable `printStatus` path is unchanged.
+ */
+export function computeCoverage(filter?: Category): CategoryCoverage[] {
+  const cats: readonly Category[] = filter ? [filter] : CATEGORIES;
+  const out: CategoryCoverage[] = [];
+  for (const cat of cats) {
+    const slugs = listEnglishSlugs(cat);
+    const rows: CoverageRow[] = [];
+    const counts: Record<Locale, number> = {
+      en: 0,
+      tr: 0,
+      fa: 0,
+      ar: 0,
+      ru: 0,
+    };
+    for (const slug of slugs) {
+      const locales = {} as Record<Locale, boolean>;
+      for (const l of LOCALES) {
+        const present = hasLocaleFile(cat, l, slug);
+        locales[l] = present;
+        if (present) counts[l]++;
+      }
+      rows.push({ slug, locales });
+    }
+    const total = slugs.length;
+    const coverage = {} as Record<Locale, number>;
+    for (const l of LOCALES) {
+      coverage[l] = total === 0 ? 0 : Math.round((counts[l] / total) * 100);
+    }
+    out.push({ category: cat, total, rows, coverage });
+  }
+  return out;
+}
+
+function printStatusJson(filter?: Category) {
+  console.log(JSON.stringify(computeCoverage(filter), null, 2));
+}
+
 function printStatus(filter?: Category) {
   const cats: readonly Category[] = filter ? [filter] : CATEGORIES;
   for (const cat of cats) {
@@ -152,13 +202,15 @@ function main() {
   const [cmd, ...args] = process.argv.slice(2);
 
   if (!cmd || cmd === "status") {
-    const filter = args[0] as Category | undefined;
+    const asJson = args.includes("--json");
+    const filter = args.find((a) => a !== "--json") as Category | undefined;
     if (filter && !CATEGORIES.includes(filter as Category)) {
       console.error(`unknown category '${filter}'`);
       console.error(`valid: ${CATEGORIES.join(", ")}`);
       process.exit(1);
     }
-    printStatus(filter);
+    if (asJson) printStatusJson(filter);
+    else printStatus(filter);
     return;
   }
 
@@ -170,7 +222,9 @@ function main() {
     ];
     if (!locale || !LOCALES.includes(locale)) {
       console.error(`usage: pnpm i18n:stub <locale> [<category>] [<slug>]`);
-      console.error(`valid locales: ${LOCALES.filter((l) => l !== "en").join(", ")}`);
+      console.error(
+        `valid locales: ${LOCALES.filter((l) => l !== "en").join(", ")}`,
+      );
       process.exit(1);
     }
     if (locale === DEFAULT_LOCALE) {

@@ -13,6 +13,14 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/layout/theme-provider";
+import {
+  brands as defaultBrands,
+  brandLocations as defaultBrandLocations,
+  type BrandLocation,
+  type NomadBrand,
+} from "@/lib/brands";
+import { BrandMarker } from "@/components/ui/brand-marker";
+import { BrandFilterBar } from "@/components/ui/brand-filter-bar";
 
 // CartoCDN tiles - reliable, free, no API key needed
 const MAP_STYLE_LIGHT =
@@ -248,7 +256,17 @@ function AnimatedMarker({
   );
 }
 
-export function IstanbulMap() {
+interface IstanbulMapProps {
+  /** Brand catalogue (defaults to the static seed for client-only use). */
+  brands?: NomadBrand[];
+  /** Brand branches to plot when their brand filter is on. */
+  brandLocations?: BrandLocation[];
+}
+
+export function IstanbulMap({
+  brands = defaultBrands,
+  brandLocations = defaultBrandLocations,
+}: IstanbulMapProps = {}) {
   const tMap = useTranslations("sections.istanbulMap");
   const tCommon = useTranslations("common.side");
   const { theme } = useTheme();
@@ -256,6 +274,28 @@ export function IstanbulMap() {
   const [mapLoaded, setMapLoaded] = useState(false);
   const [mapError, setMapError] = useState(false);
   const mapRef = useRef<any>(null);
+
+  // Brand layer: which brands are toggled on, and which branch popup is open.
+  // Brands start off so the neighborhood overview stays the default focus.
+  const [activeBrands, setActiveBrands] = useState<Set<string>>(new Set());
+  const [openLocation, setOpenLocation] = useState<string | null>(null);
+
+  const toggleBrand = useCallback((slug: string) => {
+    setActiveBrands((prev) => {
+      const next = new Set(prev);
+      if (next.has(slug)) next.delete(slug);
+      else next.add(slug);
+      return next;
+    });
+    setOpenLocation(null);
+  }, []);
+
+  const brandsBySlug: Record<string, NomadBrand> = Object.fromEntries(
+    brands.map((b) => [b.slug, b]),
+  );
+  const visibleLocations = brandLocations.filter((l) =>
+    activeBrands.has(l.brand_slug),
+  );
 
   const isDark =
     theme === "dark" ||
@@ -341,8 +381,83 @@ export function IstanbulMap() {
                 isActive={activeMarker === n.name}
               />
             ))}
+
+            {/* Brand branches - only the toggled-on brands render. */}
+            {visibleLocations.map((loc) => {
+              const brand = brandsBySlug[loc.brand_slug];
+              if (!brand) return null;
+              return (
+                <BrandMarker
+                  key={loc.id}
+                  brand={brand}
+                  location={loc}
+                  interactive
+                  selected={openLocation === loc.id}
+                  onSelect={() =>
+                    setOpenLocation((prev) => (prev === loc.id ? null : loc.id))
+                  }
+                />
+              );
+            })}
           </Map>
         </div>
+
+        {/* Brand filter chips - sit above the legend card, top-left. */}
+        <div className="pointer-events-auto absolute inset-x-4 top-4 sm:inset-x-6 sm:top-6">
+          <BrandFilterBar
+            brands={brands}
+            active={activeBrands}
+            onToggle={toggleBrand}
+          />
+        </div>
+
+        {/* Open brand branch popup - simple card pinned bottom-center. */}
+        {openLocation &&
+          (() => {
+            const loc = visibleLocations.find((l) => l.id === openLocation);
+            const brand = loc && brandsBySlug[loc.brand_slug];
+            if (!loc || !brand) return null;
+            return (
+              <div className="pointer-events-auto absolute inset-x-4 top-20 z-10 mx-auto max-w-xs sm:inset-x-auto sm:left-6">
+                <div className="rounded-md border border-black/10 bg-white/95 p-3 backdrop-blur-sm dark:border-white/10 dark:bg-[#1a1612]/95">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] leading-none"
+                      style={{ backgroundColor: brand.color }}
+                      aria-hidden
+                    >
+                      {brand.icon}
+                    </span>
+                    <p className="text-xs font-medium text-neutral-900 dark:text-[#d5dce3]">
+                      {loc.name}
+                    </p>
+                  </div>
+                  {loc.address && (
+                    <p className="mt-1.5 text-[11px] leading-relaxed text-neutral-600 dark:text-[#99a3ad]">
+                      {loc.address}
+                    </p>
+                  )}
+                  <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-0.5 text-[10px] uppercase tracking-wider text-[#85929e]">
+                    {loc.opening_hours && <span>{loc.opening_hours}</span>}
+                    {loc.rating != null && (
+                      <span>
+                        {loc.rating.toFixed(1)}
+                        {loc.reviews_count != null
+                          ? ` (${loc.reviews_count}+)`
+                          : ""}
+                      </span>
+                    )}
+                  </div>
+                  {loc.unverified_fields &&
+                    loc.unverified_fields.length > 0 && (
+                      <p className="mt-1.5 text-[10px] leading-relaxed text-[#85929e]">
+                        Work scores aren&apos;t checked here yet.
+                      </p>
+                    )}
+                </div>
+              </div>
+            );
+          })()}
 
         {/* Warm tint overlay on the map tiles */}
         <div

@@ -693,6 +693,98 @@ export interface Database {
           click_count?: number;
         };
       };
+      nomad_brands: {
+        Row: {
+          id: string;
+          name: string;
+          slug: string;
+          icon: string | null;
+          category: string | null;
+          color: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          slug: string;
+          icon?: string | null;
+          category?: string | null;
+          color?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          name?: string;
+          slug?: string;
+          icon?: string | null;
+          category?: string | null;
+          color?: string | null;
+        };
+      };
+      brand_locations: {
+        Row: {
+          id: string;
+          brand_id: string | null;
+          name: string | null;
+          lat: number | null;
+          lng: number | null;
+          district: string | null;
+          neighborhood_slug: string | null;
+          address: string | null;
+          opening_hours: string | null;
+          rating: number | null;
+          reviews_count: number | null;
+          wifi_score: number | null;
+          atmosphere_score: number | null;
+          laptop_friendliness: number | null;
+          power_outlet_score: number | null;
+          images: Json;
+          sources: Json;
+          unverified_fields: string[];
+          last_verified: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          brand_id?: string | null;
+          name?: string | null;
+          lat?: number | null;
+          lng?: number | null;
+          district?: string | null;
+          neighborhood_slug?: string | null;
+          address?: string | null;
+          opening_hours?: string | null;
+          rating?: number | null;
+          reviews_count?: number | null;
+          wifi_score?: number | null;
+          atmosphere_score?: number | null;
+          laptop_friendliness?: number | null;
+          power_outlet_score?: number | null;
+          images?: Json;
+          sources?: Json;
+          unverified_fields?: string[];
+          last_verified?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          name?: string | null;
+          lat?: number | null;
+          lng?: number | null;
+          district?: string | null;
+          neighborhood_slug?: string | null;
+          address?: string | null;
+          opening_hours?: string | null;
+          rating?: number | null;
+          reviews_count?: number | null;
+          wifi_score?: number | null;
+          atmosphere_score?: number | null;
+          laptop_friendliness?: number | null;
+          power_outlet_score?: number | null;
+          images?: Json;
+          sources?: Json;
+          unverified_fields?: string[];
+          last_verified?: string | null;
+        };
+      };
     };
     Views: {
       plans_today_count: {

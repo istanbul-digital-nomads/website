@@ -11,8 +11,16 @@ import Map, {
 import "maplibre-gl/dist/maplibre-gl.css";
 import { Loader2, Plus } from "lucide-react";
 import { spaces, type NomadSpace } from "@/lib/spaces";
+import {
+  brands as defaultBrands,
+  brandLocations as defaultBrandLocations,
+  type BrandLocation,
+  type NomadBrand,
+} from "@/lib/brands";
 import { useTheme } from "@/components/layout/theme-provider";
 import { cn } from "@/lib/utils";
+import { BrandMarker } from "@/components/ui/brand-marker";
+import { BrandFilterBar } from "@/components/ui/brand-filter-bar";
 
 const LIGHT_STYLE =
   "https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json";
@@ -52,7 +60,12 @@ interface Props {
   pickerMode: boolean;
   onPickSpace: (space: NomadSpace) => void;
   onDropCustomPin: (lat: number, lng: number) => void;
+  /** Picking a specific coffee-chain branch (name + coords come pre-filled). */
+  onPickBrandBranch?: (location: BrandLocation, brand: NomadBrand) => void;
   onFocusStop: (uid: string) => void;
+  /** Brand catalogue + branches (default to the static seed). */
+  brands?: NomadBrand[];
+  brandLocations?: BrandLocation[];
   className?: string;
 }
 
@@ -73,12 +86,41 @@ export function PlanCreateMap({
   pickerMode,
   onPickSpace,
   onDropCustomPin,
+  onPickBrandBranch,
   onFocusStop,
+  brands = defaultBrands,
+  brandLocations = defaultBrandLocations,
   className,
 }: Props) {
   const { theme } = useTheme();
   const mapRef = useRef<MapRef>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
+
+  // Coffee-chain layer: pick a brand to reveal its branches, then tap one to
+  // add it as a stop. Only shown in picker mode so it doesn't clutter the
+  // route view. Starts empty so verified spaces stay the default choice.
+  const [activeBrands, setActiveBrands] = useState<Set<string>>(new Set());
+
+  const toggleBrand = useCallback((slug: string) => {
+    setActiveBrands((prev) => {
+      const next = new Set(prev);
+      if (next.has(slug)) next.delete(slug);
+      else next.add(slug);
+      return next;
+    });
+  }, []);
+
+  const brandsBySlug = useMemo<Record<string, NomadBrand>>(
+    () => Object.fromEntries(brands.map((b) => [b.slug, b])),
+    [brands],
+  );
+  const visibleBranches = useMemo(
+    () =>
+      pickerMode
+        ? brandLocations.filter((l) => activeBrands.has(l.brand_slug))
+        : [],
+    [pickerMode, brandLocations, activeBrands],
+  );
 
   const isDark =
     theme === "dark" ||
@@ -205,6 +247,21 @@ export function PlanCreateMap({
             );
           })}
 
+        {/* Coffee-chain branches - only in picker mode for toggled brands. */}
+        {visibleBranches.map((loc) => {
+          const brand = brandsBySlug[loc.brand_slug];
+          if (!brand) return null;
+          return (
+            <BrandMarker
+              key={loc.id}
+              brand={brand}
+              location={loc}
+              interactive
+              onSelect={() => onPickBrandBranch?.(loc, brand)}
+            />
+          );
+        })}
+
         {/* Selected stops (numbered terracotta pins) */}
         {stopPositions.map(({ stop, pos }, i) => (
           <Marker
@@ -266,7 +323,7 @@ export function PlanCreateMap({
         )}
       </Map>
 
-      {/* Picker mode banner */}
+      {/* Picker mode banner + coffee-chain filter */}
       {pickerMode && (
         <div
           role="status"
@@ -275,8 +332,14 @@ export function PlanCreateMap({
         >
           <p className="flex items-center gap-2 text-sm text-paper">
             <Plus className="h-4 w-4 text-terracotta" aria-hidden />
-            Tap a space, or tap anywhere on the map to drop a pin
+            Tap a space, pick a coffee chain below, or tap the map to drop a pin
           </p>
+          <BrandFilterBar
+            brands={brands}
+            active={activeBrands}
+            onToggle={toggleBrand}
+            className="mt-2.5"
+          />
         </div>
       )}
 

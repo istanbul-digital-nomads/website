@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- **Map page upgrade.** The brand + a new neighborhood filter now live *above* the map instead of as an on-canvas overlay (the map became a controlled component). Each neighborhood's real OSM boundary (ODbL, fetched into `public/data/neighborhood-borders.json` - 15 of 19 have a polygon; informal areas like Galata/Karaköy stay point-only) is drawn on the map and brightened when you toggle it in the filter. Brand branches expanded toward full Istanbul coverage - Espressolab 22, Starbucks 17, BEX 6 - every one cited, never fabricated.
 - **Nomad brand markers now use real brand logos instead of an emoji.** Each brand carries its own SVG logo (`public/brands/<slug>.svg` - Espressolab, Starbucks, BEX Coffee) rendered on a white pill/circle with a brand-colour ring, on both the map markers and the filter chips. The schema field `icon` was renamed to `logo` end to end (`brands.ts`, `database.ts`, migration `032` renames the `nomad_brands.icon` column), and Espressolab's accent colour was corrected to its real red.
 - **Paperwork is hidden from navigation for now.** A new `PAPERWORK_ENABLED` flag (`src/lib/constants.ts`, currently `false`) filters the Paperwork entry out of the desktop header, mobile menu, and hero nav. The `/paperwork` routes still exist but are unlinked - flip the flag to `true` to bring it back when it's ready.
 

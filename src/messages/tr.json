@@ -3076,7 +3076,11 @@
     "lede": "Her göçebe üssü, kahve zinciri ve vapur hattı tek bir haritada. Kendi kafene göre filtrele, mahalleye dokunup derinlere in, sonra bulduklarını haftalık bir plana dönüştür.",
     "ctaPlan": "Plan oluştur",
     "ctaSpaces": "Mekânlara göz at",
-    "details": "Solda Avrupa yakası, sağda Anadolu yakası, vapurlar da haftayı birbirine bağlıyor. Espressolab, Starbucks ya da BEX'i aç şubelerini gör; herhangi bir mahalleye dokunarak rehberini aç."
+    "details": "Solda Avrupa yakası, sağda Anadolu yakası, vapurlar da haftayı birbirine bağlıyor. Espressolab, Starbucks ya da BEX'i aç şubelerini gör; herhangi bir mahalleye dokunarak rehberini aç.",
+    "filters": {
+      "brands": "Kahve markaları",
+      "neighborhoods": "Mahalleler"
+    }
   },
   "circlesV2": {
     "metaTitle": "Circles",

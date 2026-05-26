@@ -5,7 +5,7 @@ import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { alternatesFor, localeUrl } from "@/lib/seo";
 import { Container } from "@/components/ui/container";
 import { SectionEyebrow } from "@/components/ui/section-eyebrow";
-import { MapCanvas } from "@/components/sections/map/map-canvas";
+import { MapExplorer } from "@/components/sections/map/map-explorer";
 
 export async function generateMetadata({
   params,
@@ -65,7 +65,12 @@ export default async function MapPage({
       </Container>
 
       <Container className="mt-12 pb-20 lg:mt-16 lg:pb-28">
-        <MapCanvas />
+        <MapExplorer
+          labels={{
+            brands: t("filters.brands"),
+            neighborhoods: t("filters.neighborhoods"),
+          }}
+        />
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-paper-mute">
           {t("details")}
         </p>

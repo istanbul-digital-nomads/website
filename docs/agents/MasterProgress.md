@@ -104,6 +104,11 @@ Shell default Node is v14 and the corepack pnpm shim is broken on Node 20 here; 
 
 1. `supabase db push` (or `db reset`) in your env to apply 029/030/031 on top of 028.
 2. Confirm the brand-filter map renders in a real browser (it's now mounted on the home page; the automated preview can't exercise MapLibre's children, including pre-existing markers). `pnpm dev` and scroll to "The neighborhoods, mapped."
-3. Stale copy: `circlesV2.title`/`titleItalic` still say "Six smaller rooms" across all 5 locale files though there are now 22 circles - a content/voice edit best routed through the editor agents.
-4. Translations for the 16 new circles (`circlesV2.names/blurbs/...`) via `nomad-*-editor` - they currently fall back to English.
-5. Push the branch + open PR(s) - not done; per the git workflow this goes `develop` -> PR to `main`, and I haven't pushed anything.
+3. ~~Stale copy~~ DONE - `circlesV2.title`/`metaDescription` no longer say "Six"; updated in all 5 locales.
+4. ~~Translations for the 16 new circles~~ DONE - all 22 circles' names/blurbs/descriptions/rhythms translated across en/tr/fa/ar/ru via the `nomad-*-editor` agents; build emits 0 `MISSING_MESSAGE`.
+5. ~~Push + PR~~ DONE - merged to `develop` (3.30.0) and opened PR #134 (`develop` -> `main`). Not merged/tagged - that's your review step.
+
+Still open (need your environment):
+- `supabase db push` to apply migrations `029`/`030`/`031`.
+- Real-browser confirm of the brand-filter map (automated preview can't mount MapLibre children). A `brands.test.ts` suite now locks the data + no-fabrication contract as a substitute check.
+- Category headers on `/circles` still render from the static English in `circles.ts` (not wired to messages), so non-English locales show English category labels - a small follow-up if you want them localized.

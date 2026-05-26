@@ -346,6 +346,154 @@ export const brandLocations: BrandLocation[] = [
     ],
     last_verified: "2026-05-26",
   },
+  {
+    id: "espressolab-mecidiyekoy-meydan",
+    brand_slug: "espressolab",
+    name: "Espressolab Mecidiyekoy Meydan",
+    coordinates: [28.995569, 41.065897],
+    district: "Sisli",
+    address:
+      "Mecidiyekoy Mah. Buyukdere Cad. No:52A, Mecidiyekoy, Sisli, Istanbul",
+    opening_hours: "Closes 1:30am",
+    rating: 4.6,
+    reviews_count: 9,
+    wifi_score: null,
+    atmosphere_score: null,
+    laptop_friendliness: null,
+    power_outlet_score: null,
+    sources: [
+      {
+        label:
+          "Yandex Maps - Espressolab Mecidiyekoy Meydan (address, coordinates, hours, rating)",
+        url: "https://yandex.com.tr/maps/org/espressolab_mecidiyekoy_meydan/198737888376/",
+      },
+    ],
+    unverified_fields: [
+      "wifi_score",
+      "atmosphere_score",
+      "laptop_friendliness",
+      "power_outlet_score",
+    ],
+    last_verified: "2026-05-26",
+  },
+  {
+    id: "espressolab-taskisla-harbiye",
+    brand_slug: "espressolab",
+    name: "Espressolab Taskisla",
+    coordinates: [28.989536, 41.042158],
+    district: "Sisli",
+    address: "Harbiye Mah. Taskisla Cad. No:2, ITU Kampusu, Sisli, Istanbul",
+    rating: 4.5,
+    reviews_count: 2337,
+    wifi_score: null,
+    atmosphere_score: null,
+    laptop_friendliness: null,
+    power_outlet_score: null,
+    sources: [
+      {
+        label:
+          "Wanderlog - Espressolab Taskisla (address, coordinates, rating, reviews)",
+        url: "https://wanderlog.com/place/details/424154/espressolab-ta%C5%9Fk%C4%B1%C5%9Fla",
+      },
+    ],
+    unverified_fields: [
+      "opening_hours",
+      "wifi_score",
+      "atmosphere_score",
+      "laptop_friendliness",
+      "power_outlet_score",
+    ],
+    last_verified: "2026-05-26",
+  },
+  {
+    id: "espressolab-taksim-istiklal-15",
+    brand_slug: "espressolab",
+    name: "Espressolab Taksim (Istiklal No:15)",
+    coordinates: [28.984173, 41.036114],
+    district: "Beyoglu",
+    address:
+      "Katip Mustafa Celebi Mah. Istiklal Cad. No:15, Taksim, Beyoglu, Istanbul",
+    rating: 3.5,
+    reviews_count: 172,
+    wifi_score: null,
+    atmosphere_score: null,
+    laptop_friendliness: null,
+    power_outlet_score: null,
+    sources: [
+      {
+        label:
+          "Tripadvisor - Espressolab Taksim, Istiklal Cad No:15 (address, coordinates, rating, reviews)",
+        url: "https://www.tripadvisor.com/Restaurant_Review-g293974-d8539405-Reviews-Espressolab_Taksim-Istanbul.html",
+      },
+    ],
+    unverified_fields: [
+      "opening_hours",
+      "wifi_score",
+      "atmosphere_score",
+      "laptop_friendliness",
+      "power_outlet_score",
+    ],
+    last_verified: "2026-05-26",
+  },
+  {
+    id: "espressolab-itu-ayazaga-maslak",
+    brand_slug: "espressolab",
+    name: "Espressolab ITU Ayazaga",
+    coordinates: [29.023531, 41.10542],
+    district: "Sariyer",
+    address:
+      "Resitpasa Mah. Katar Cad. ITU Ayazaga Merkezi Derslik 2/32/1, Maslak, Sariyer, Istanbul",
+    rating: 5.0,
+    reviews_count: 2,
+    wifi_score: null,
+    atmosphere_score: null,
+    laptop_friendliness: null,
+    power_outlet_score: null,
+    sources: [
+      {
+        label:
+          "Tripadvisor - Espressolab ITU Ayazaga, Resitpasa/Maslak (address, coordinates, rating, reviews)",
+        url: "https://www.tripadvisor.com/Restaurant_Review-g293974-d17397740-Reviews-EspressoLab-Istanbul.html",
+      },
+    ],
+    unverified_fields: [
+      "opening_hours",
+      "wifi_score",
+      "atmosphere_score",
+      "laptop_friendliness",
+      "power_outlet_score",
+    ],
+    last_verified: "2026-05-26",
+  },
+  {
+    id: "espressolab-bakirkoy-cevizlik",
+    brand_slug: "espressolab",
+    name: "Espressolab Bakirkoy",
+    coordinates: [28.87448, 40.97875],
+    district: "Bakirkoy",
+    address: "Cevizlik Mah. Fahri Koruturk Cad. No:2 B/1, Bakirkoy, Istanbul",
+    wifi_score: null,
+    atmosphere_score: null,
+    laptop_friendliness: null,
+    power_outlet_score: null,
+    sources: [
+      {
+        label:
+          "Tripadvisor - Espressolab Bakirkoy, Cevizlik Mah. (address, coordinates)",
+        url: "https://www.tripadvisor.com/Restaurant_Review-g293974-d20300772-Reviews-Espressolab-Istanbul.html",
+      },
+    ],
+    unverified_fields: [
+      "opening_hours",
+      "rating",
+      "reviews_count",
+      "wifi_score",
+      "atmosphere_score",
+      "laptop_friendliness",
+      "power_outlet_score",
+    ],
+    last_verified: "2026-05-26",
+  },
 
   // --- Starbucks ---
   {
@@ -536,6 +684,125 @@ export const brandLocations: BrandLocation[] = [
     ],
     last_verified: "2026-05-26",
   },
+  {
+    id: "starbucks-istiklal-sehit-muhtar",
+    brand_slug: "starbucks",
+    name: "Starbucks Istiklal (No:16/A)",
+    coordinates: [28.98279, 41.03585],
+    district: "Beyoglu",
+    address:
+      "Sehit Muhtar Mah. Istiklal Cad. No:16/A, Taksim, Beyoglu, Istanbul",
+    rating: 3.3,
+    reviews_count: 22,
+    wifi_score: null,
+    atmosphere_score: null,
+    laptop_friendliness: null,
+    power_outlet_score: null,
+    sources: [
+      {
+        label:
+          "Tripadvisor - Starbucks Istiklal Cad. No:16/A, Beyoglu (address, coordinates, rating, reviews)",
+        url: "https://www.tripadvisor.com/Restaurant_Review-g293974-d9720036-Reviews-Starbucks-Istanbul.html",
+      },
+    ],
+    unverified_fields: [
+      "opening_hours",
+      "wifi_score",
+      "atmosphere_score",
+      "laptop_friendliness",
+      "power_outlet_score",
+    ],
+    last_verified: "2026-05-26",
+  },
+  {
+    id: "starbucks-istiklal-tunel",
+    brand_slug: "starbucks",
+    name: "Starbucks Istiklal (No:469-471)",
+    coordinates: [28.97408, 41.02731],
+    district: "Beyoglu",
+    address: "Sahkulu Mah. Istiklal Cad. No:469-471, Tunel, Beyoglu, Istanbul",
+    opening_hours: "7am-11pm (Fri-Sat to 12am)",
+    rating: 3.1,
+    reviews_count: 14,
+    wifi_score: null,
+    atmosphere_score: null,
+    laptop_friendliness: null,
+    power_outlet_score: null,
+    sources: [
+      {
+        label:
+          "Tripadvisor - Starbucks Istiklal Cad. No:469-471, Beyoglu (address, coordinates, hours, rating, reviews)",
+        url: "https://www.tripadvisor.in/Restaurant_Review-g293974-d10792535-Reviews-Starbucks-Istanbul.html",
+      },
+    ],
+    unverified_fields: [
+      "wifi_score",
+      "atmosphere_score",
+      "laptop_friendliness",
+      "power_outlet_score",
+    ],
+    last_verified: "2026-05-26",
+  },
+  {
+    id: "starbucks-maslak-sun-plaza",
+    brand_slug: "starbucks",
+    name: "Starbucks Maslak Sun Plaza",
+    coordinates: [29.019278, 41.10991],
+    district: "Sariyer",
+    address: "Buyukdere Cad., Sun Plaza, Maslak, Sariyer, Istanbul",
+    opening_hours: "7am-7pm (Mon-Fri)",
+    wifi_score: null,
+    atmosphere_score: null,
+    laptop_friendliness: null,
+    power_outlet_score: null,
+    sources: [
+      {
+        label:
+          "Tripadvisor - Starbucks Maslak, Sun Plaza, Buyukdere Cad. (address, coordinates, hours)",
+        url: "https://www.tripadvisor.com/Restaurant_Review-g27491329-d27504741-Reviews-Starbucks-Maslak.html",
+      },
+    ],
+    unverified_fields: [
+      "rating",
+      "reviews_count",
+      "wifi_score",
+      "atmosphere_score",
+      "laptop_friendliness",
+      "power_outlet_score",
+    ],
+    last_verified: "2026-05-26",
+  },
+  {
+    id: "starbucks-levent-199-plaza",
+    brand_slug: "starbucks",
+    name: "Starbucks Levent 199 Plaza",
+    coordinates: [29.010548, 41.08042],
+    district: "Besiktas",
+    neighborhood_slug: "levent",
+    address:
+      "Esentepe Mah. Buyukdere Cad. Levent 199 Plaza No:199, Levent, Istanbul",
+    wifi_score: null,
+    atmosphere_score: null,
+    laptop_friendliness: null,
+    power_outlet_score: null,
+    sources: [
+      {
+        label:
+          "Tripadvisor - Starbucks Levent 199 Plaza, Buyukdere Cad. (address, coordinates)",
+        url: "https://www.tripadvisor.com/Restaurant_Review-g293974-d27516557-Reviews-Starbucks-Istanbul.html",
+      },
+    ],
+    unverified_fields: [
+      "opening_hours",
+      "rating",
+      "reviews_count",
+      "wifi_score",
+      "atmosphere_score",
+      "laptop_friendliness",
+      "power_outlet_score",
+    ],
+    last_verified: "2026-05-26",
+  },
 
   // --- BEX Coffee ---
   {
@@ -619,6 +886,105 @@ export const brandLocations: BrandLocation[] = [
       },
     ],
     unverified_fields: [
+      "wifi_score",
+      "atmosphere_score",
+      "laptop_friendliness",
+      "power_outlet_score",
+    ],
+    last_verified: "2026-05-26",
+  },
+  {
+    id: "bex-pendik-kurtkoy",
+    brand_slug: "bex-coffee",
+    name: "BEX Coffee Kurtkoy",
+    coordinates: [29.282994, 40.909691],
+    district: "Pendik",
+    address: "Ankara Cad. No:402/A, Kurtkoy, Pendik, Istanbul",
+    opening_hours: "Closes 1am",
+    rating: 4.9,
+    reviews_count: 12,
+    wifi_score: null,
+    atmosphere_score: null,
+    laptop_friendliness: null,
+    power_outlet_score: null,
+    sources: [
+      {
+        label:
+          "Yandex Maps - BEX Coffee Pendik/Kurtkoy, Ankara Cad. (address, coordinates, rating, reviews)",
+        url: "https://yandex.com/maps/org/bex_coffee/219091660329/",
+      },
+      {
+        label: "Tripadvisor - BEX Coffee Kurtkoy (address, hours, rating)",
+        url: "https://www.tripadvisor.com/Restaurant_Review-g293974-d33374614-Reviews-BEX_Coffee_Kurtkoy-Istanbul.html",
+      },
+    ],
+    unverified_fields: [
+      "wifi_score",
+      "atmosphere_score",
+      "laptop_friendliness",
+      "power_outlet_score",
+    ],
+    last_verified: "2026-05-26",
+  },
+  {
+    id: "bex-kucukyali",
+    brand_slug: "bex-coffee",
+    name: "BEX Coffee Kucukyali",
+    coordinates: [29.0975936, 40.973471],
+    district: "Maltepe",
+    address:
+      "Cinar Mah. Kadir Has Cad. C05 No:55 B, 34840 Kucukyali, Maltepe, Istanbul",
+    opening_hours: "8am-12am daily",
+    wifi_score: null,
+    atmosphere_score: null,
+    laptop_friendliness: null,
+    power_outlet_score: null,
+    sources: [
+      {
+        label: "BEX Coffee official store locator (address, hours)",
+        url: "https://www.bexcoffee.com/pages/kafelerimiz",
+      },
+      {
+        label: "Google Maps - BEX Coffee Kucukyali (coordinates)",
+        url: "https://www.google.com/maps/place/BEX+Coffee/@40.973471,29.0975936,17z",
+      },
+    ],
+    unverified_fields: [
+      "rating",
+      "reviews_count",
+      "wifi_score",
+      "atmosphere_score",
+      "laptop_friendliness",
+      "power_outlet_score",
+    ],
+    last_verified: "2026-05-26",
+  },
+  {
+    id: "bex-sancaktepe",
+    brand_slug: "bex-coffee",
+    name: "BEX Coffee Sancaktepe",
+    coordinates: [29.2302881, 40.991444],
+    district: "Sancaktepe",
+    address:
+      "Sinpas Metrolife, Abdurrahmangazi Mah. Ebubekir Cad. No:28 D:56, 34887 Sancaktepe, Istanbul",
+    opening_hours: "8am-12am daily",
+    wifi_score: null,
+    atmosphere_score: null,
+    laptop_friendliness: null,
+    power_outlet_score: null,
+    sources: [
+      {
+        label: "BEX Coffee official store locator (address, hours)",
+        url: "https://www.bexcoffee.com/pages/kafelerimiz",
+      },
+      {
+        label: "Google Maps - BEX Coffee Sancaktepe (coordinates)",
+        url: "https://www.google.com/maps/place/BEX+Coffee+-+Sancaktepe/@40.991444,29.2302881,17z",
+      },
+    ],
+    unverified_fields: [
+      "rating",
+      "reviews_count",
       "wifi_score",
       "atmosphere_score",
       "laptop_friendliness",

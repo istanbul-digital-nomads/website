@@ -47,7 +47,9 @@ export default async function CircleDetailPage(props: Props) {
   const description = t.has("descriptions." + slug)
     ? t("descriptions." + slug)
     : circle.description;
-  const rhythm = t.has("rhythms." + slug) ? t("rhythms." + slug) : circle.rhythm;
+  const rhythm = t.has("rhythms." + slug)
+    ? t("rhythms." + slug)
+    : circle.rhythm;
   const nameFor = (c: (typeof others)[number]) =>
     t.has("names." + c.slug) ? t("names." + c.slug) : c.name;
 

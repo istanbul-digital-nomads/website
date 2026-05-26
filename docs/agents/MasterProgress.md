@@ -109,6 +109,6 @@ Shell default Node is v14 and the corepack pnpm shim is broken on Node 20 here; 
 5. ~~Push + PR~~ DONE - merged to `develop` (3.30.0) and opened PR #134 (`develop` -> `main`). Not merged/tagged - that's your review step.
 
 Still open (need your environment):
-- `supabase db push` to apply migrations `029`/`030`/`031`.
+- ~~`supabase db push`~~ DONE - migrations `029`/`030`/`031` applied to production via the Supabase Management API (2026-05-26). Verified: all 8 new tables created with RLS + public-read policies, and `circle_members.participation_score` added. Tables start empty; the app reads the static TS seeds and will pick up DB rows when populated.
 - Real-browser confirm of the brand-filter map (automated preview can't mount MapLibre children). A `brands.test.ts` suite now locks the data + no-fabrication contract as a substitute check.
 - Category headers on `/circles` still render from the static English in `circles.ts` (not wired to messages), so non-English locales show English category labels - a small follow-up if you want them localized.

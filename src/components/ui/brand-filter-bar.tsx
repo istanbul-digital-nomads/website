@@ -37,14 +37,17 @@ export function BrandFilterBar({
             aria-pressed={isOn}
             onClick={() => onToggle(brand.slug)}
             className={cn(
-              "flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
+              "flex items-center gap-1.5 rounded-full border bg-white px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
               isOn
-                ? "border-transparent text-white shadow-sm"
-                : "border-black/10 bg-white/80 text-neutral-600 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:text-[#99a3ad]",
+                ? "text-neutral-900"
+                : "border-black/10 text-neutral-500 opacity-70 hover:opacity-100",
             )}
-            style={isOn ? { backgroundColor: brand.color } : undefined}
+            style={
+              isOn ? { borderColor: brand.color, borderWidth: 2 } : undefined
+            }
           >
-            <span aria-hidden>{brand.icon}</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={brand.logo} alt="" aria-hidden className="h-3.5 w-auto" />
             {brand.name}
           </button>
         );

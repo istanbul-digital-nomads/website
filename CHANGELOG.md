@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- **Nomad brand markers now use real brand logos instead of an emoji.** Each brand carries its own SVG logo (`public/brands/<slug>.svg` - Espressolab, Starbucks, BEX Coffee) rendered on a white pill/circle with a brand-colour ring, on both the map markers and the filter chips. The schema field `icon` was renamed to `logo` end to end (`brands.ts`, `database.ts`, migration `032` renames the `nomad_brands.icon` column), and Espressolab's accent colour was corrected to its real red.
 - **Paperwork is hidden from navigation for now.** A new `PAPERWORK_ENABLED` flag (`src/lib/constants.ts`, currently `false`) filters the Paperwork entry out of the desktop header, mobile menu, and hero nav. The `/paperwork` routes still exist but are unlinked - flip the flag to `true` to bring it back when it's ready.
 
 ### Notes

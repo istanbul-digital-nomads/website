@@ -42,13 +42,17 @@ export function BrandMarker({
         tabIndex={interactive ? 0 : -1}
         onClick={() => onSelect?.(location, brand)}
         className={cn(
-          "flex h-6 w-6 items-center justify-center rounded-full text-[11px] leading-none ring-2 ring-white/90 transition-transform dark:ring-[#1a1612]/80 focus-visible:outline-none focus-visible:ring-terracotta",
-          interactive ? "cursor-pointer hover:scale-125" : "cursor-default",
-          selected && "scale-125",
+          "flex items-center justify-center rounded-full bg-white px-2 py-1 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
+          interactive ? "cursor-pointer hover:scale-110" : "cursor-default",
+          selected && "scale-110",
         )}
-        style={{ backgroundColor: brand.color }}
+        // Brand-colour ring hugged by a soft white halo so it reads on the dark map.
+        style={{
+          boxShadow: `0 0 0 2px ${brand.color}, 0 0 0 4px rgba(255,255,255,0.92)`,
+        }}
       >
-        <span aria-hidden>{brand.icon}</span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={brand.logo} alt="" aria-hidden className="h-4 w-auto" />
       </button>
     </Marker>
   );

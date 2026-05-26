@@ -44,9 +44,9 @@ export async function getBrandsData(): Promise<BrandsData> {
       return {
         slug: String(row.slug),
         name: String(row.name),
-        icon: (row.icon as string) ?? seed?.icon ?? "☕",
+        logo: (row.logo as string) ?? seed?.logo ?? "/brands/espressolab.svg",
         category: (row.category as BrandCategory) ?? seed?.category ?? "coffee",
-        color: (row.color as string) ?? seed?.color ?? "#c0392b",
+        color: (row.color as string) ?? seed?.color ?? "#2b2b2b",
         blurb: seed?.blurb ?? "",
         website: seed?.website,
       };

@@ -4,6 +4,21 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.30.0] - 2026-05-26
+
+### Added
+
+- **Nomad brands layer on the map.** New `nomad_brands` + `brand_locations` Supabase tables (migration `029`), a typed `src/lib/brands.ts` seed (Espressolab, Starbucks, BEX Coffee with 6 cited branch locations - scores stay null until a source backs them, per the spaces.ts convention), and reusable `BrandFilterBar` + `BrandMarker` components. The neighborhood overview map (`istanbul-map.tsx`) now has a coffee-brand filter, and the plan-create map lets you pick a brand branch. `NeighborhoodsMapSection` is now mounted on the home page so the map is reachable.
+- **Istanbul district + neighborhood intelligence layer.** New `istanbul_districts` + `istanbul_neighborhoods` Supabase tables (migration `030`) and `src/lib/districts.ts`, composing a district hierarchy on top of the existing 10 rich neighborhoods. Scores (nomad, nightlife, cost, walkability, safety) stay null unless cited.
+- **Circles v2.** Expanded from 6 static circles to a category-grouped system (professional / lifestyle / growth / social / relationship) with `circle_categories`, `circle_badges`, `circle_activity`, and participation scoring (migration `031`, building on the existing `circle_members`/`perks` tables). The `/circles` page now groups circles by category; new circles fall back to their static fields until translations land.
+- **Multi-agent deliverables under `docs/agents/`** - design-system audit, multi-language content-calendar system, circles research, and a master progress log. Plus a `--json`/coverage helper on `scripts/i18n-content.ts`.
+
+### Notes
+
+- Migrations `029`/`030`/`031` are defined but not yet applied - the app reads the static TS seeds and degrades gracefully when the tables are absent. Run `supabase db push` to apply.
+
+---
+
 ## [3.29.5] - 2026-05-25
 
 ### Fixed

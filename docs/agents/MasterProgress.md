@@ -95,7 +95,7 @@ All five agents' work was integrated onto branch `claude/focused-euler-c78831` a
 - `pnpm build`: success (exit 0), 631 static pages generated, **0 `MISSING_MESSAGE`** after the search.ts fix.
 - Migrations: static structural review only - balanced parens, FKs reference parent tables, RLS + public-read on every table, 031 orders `circle_categories` before `circles` and only alters the existing `circle_members`. **Not applied to a DB** - no local Postgres/Docker/Supabase CLI here, and I won't touch production. Needs `supabase db push` in your environment.
 - Browser (dev server on :3030): home `/` 200; `/circles` renders all 22 circles grouped into the 5 categories with the 16 new ones resolving via fallback, no console errors, design language consistent; `/circles/developers` and `/circles/ai-builders` detail pages 200.
-- **Map brand filter NOT browser-verified.** `istanbul-map.tsx` is rendered only by `NeighborhoodsMapSection`, which was already orphaned at the base commit (not mounted on any route - pre-existing), and the plan-create brand picker lives behind `/plans/new`, which redirects to `/login`. The code builds and type-checks, but exercising it needs either auth or mounting the orphaned section.
+- **Map brand filter - mounted, builds, but not exercisable in the automated preview.** `istanbul-map.tsx` was rendered only by `NeighborhoodsMapSection`, which was orphaned at the base commit. I mounted that section on the home page (after the rhythm matcher) so the brand filter is now reachable for real users. In the automated preview browser the section heading and the MapLibre canvas render, but **none** of react-map-gl's children mount - not the brand filter bar, not the brand markers, and not even the *pre-existing* neighborhood markers (0 markers, 0 map controls). Since the same failure hits pre-existing code, this is a MapLibre `load`-event limitation in the headless preview, not a defect in the brand work. CartoDB CDN is reachable (200) and WebGL is present, so it should render in a normal browser. Verified by code + clean build instead: 3 brands + 6 cited branch locations seeded in `src/lib/brands.ts`, `BrandFilterBar` renders a toggle per brand, markers gated on toggle. The plan-create brand picker also lives behind `/plans/new` (auth-gated).
 
 ### Toolchain note
 Shell default Node is v14 and the corepack pnpm shim is broken on Node 20 here; all checks ran via Node 22 (`nvm use 22.22.2`). Worth a `.nvmrc`/CI pin.
@@ -103,7 +103,7 @@ Shell default Node is v14 and the corepack pnpm shim is broken on Node 20 here; 
 ## Remaining for you (on approval)
 
 1. `supabase db push` (or `db reset`) in your env to apply 029/030/031 on top of 028.
-2. Decide whether to mount `NeighborhoodsMapSection` (to surface the brand filter) - it's a homepage/product call, so I left it alone.
+2. Confirm the brand-filter map renders in a real browser (it's now mounted on the home page; the automated preview can't exercise MapLibre's children, including pre-existing markers). `pnpm dev` and scroll to "The neighborhoods, mapped."
 3. Stale copy: `circlesV2.title`/`titleItalic` still say "Six smaller rooms" across all 5 locale files though there are now 22 circles - a content/voice edit best routed through the editor agents.
 4. Translations for the 16 new circles (`circlesV2.names/blurbs/...`) via `nomad-*-editor` - they currently fall back to English.
 5. Push the branch + open PR(s) - not done; per the git workflow this goes `develop` -> PR to `main`, and I haven't pushed anything.

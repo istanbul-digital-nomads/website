@@ -3065,6 +3065,19 @@
       }
     }
   },
+  "mapPage": {
+    "meta": {
+      "title": "Harita",
+      "description": "Istanbul'un bütün göçebe haritası - mahalleler, kahve zincirleri, ortak çalışma alanları ve vapur hatları tek bir yerde. Sonra hepsini bir plana dönüştür."
+    },
+    "eyebrow": "Harita · her şey tek bir yerde",
+    "title": "Bir göçebenin Istanbul'da ihtiyacı olan tek şey",
+    "titleItalic": "bir harita.",
+    "lede": "Her göçebe üssü, kahve zinciri ve vapur hattı tek bir haritada. Kendi kafene göre filtrele, mahalleye dokunup derinlere in, sonra bulduklarını haftalık bir plana dönüştür.",
+    "ctaPlan": "Plan oluştur",
+    "ctaSpaces": "Mekânlara göz at",
+    "details": "Solda Avrupa yakası, sağda Anadolu yakası, vapurlar da haftayı birbirine bağlıyor. Espressolab, Starbucks ya da BEX'i aç şubelerini gör; herhangi bir mahalleye dokunarak rehberini aç."
+  },
   "circlesV2": {
     "metaTitle": "Circles",
     "metaDescription": "Istanbul Nomads topluluğunun içindeki küçük odalar, ilgi alanına göre gruplanmış.",

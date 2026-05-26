@@ -3045,6 +3045,19 @@
       }
     }
   },
+  "mapPage": {
+    "meta": {
+      "title": "Map",
+      "description": "The whole nomad map of Istanbul - neighborhoods, coffee chains, coworking, and ferry lines in one place. Then turn it into a plan."
+    },
+    "eyebrow": "The map · everything in one place",
+    "title": "All a nomad needs in Istanbul is",
+    "titleItalic": "a map.",
+    "lede": "Every nomad base, coffee chain, and ferry line on one map. Filter by your café, tap a neighborhood to dig in, then turn what you find into a plan for the week.",
+    "ctaPlan": "Create a plan",
+    "ctaSpaces": "Browse spaces",
+    "details": "European side on the left, Asian side on the right, ferries tying the week together. Toggle Espressolab, Starbucks, or BEX to see their branches; tap any neighborhood to open its guide."
+  },
   "circlesV2": {
     "metaTitle": "Circles",
     "metaDescription": "Smaller rooms inside the Istanbul Nomads community, grouped by what you're into.",

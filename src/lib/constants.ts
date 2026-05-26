@@ -65,7 +65,7 @@ export type NavItem = NavFlatItem | NavDropdownItem;
 
 const allNavItems: NavItem[] = [
   { key: "today", href: "/today" },
-  { key: "map", href: "/spaces" },
+  { key: "map", href: "/map" },
   { key: "events", href: "/events", countKey: "events" },
   { key: "members", href: "/members" },
   { key: "paperwork", href: "/paperwork" },

@@ -14,10 +14,14 @@ export interface NomadBrand {
   /** Stable slug, also the key locations point at. */
   slug: string;
   name: string;
-  /** Emoji or short icon key rendered inside the map marker. */
-  icon: string;
+  /**
+   * Path to the brand's own logo SVG under public/brands/<slug>.svg. Rendered
+   * on a white pill/circle in the map markers and filter chips - the real
+   * brand mark, not an emoji.
+   */
+  logo: string;
   category: BrandCategory;
-  /** Hex colour used to tint the brand's markers. */
+  /** Hex colour (drawn from the brand's logo) used for the marker/chip ring. */
   color: string;
   /** One-line "what it is" blurb for the filter UI. */
   blurb: string;
@@ -62,9 +66,9 @@ export const brands: NomadBrand[] = [
   {
     slug: "espressolab",
     name: "Espressolab",
-    icon: "☕", // coffee cup
+    logo: "/brands/espressolab.svg",
     category: "coffee",
-    color: "#1f6f54",
+    color: "#b12118",
     blurb:
       "Turkish specialty chain. Big menus, consistent across branches, easy to find on both sides.",
     website: "https://www.espressolab.com",
@@ -72,7 +76,7 @@ export const brands: NomadBrand[] = [
   {
     slug: "starbucks",
     name: "Starbucks",
-    icon: "☕",
+    logo: "/brands/starbucks.svg",
     category: "coffee",
     color: "#00704a",
     blurb:
@@ -82,9 +86,9 @@ export const brands: NomadBrand[] = [
   {
     slug: "bex-coffee",
     name: "BEX Coffee",
-    icon: "☕",
+    logo: "/brands/bex-coffee.svg",
     category: "coffee",
-    color: "#c0392b",
+    color: "#2b2b2b",
     blurb:
       "Fast-growing Istanbul chain with a strong Asian-side footprint and budget-friendly prices.",
     website: "https://www.bexcoffee.com",

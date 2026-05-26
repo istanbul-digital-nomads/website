@@ -422,11 +422,12 @@ export function IstanbulMap({
                 <div className="rounded-md border border-black/10 bg-white/95 p-3 backdrop-blur-sm dark:border-white/10 dark:bg-[#1a1612]/95">
                   <div className="flex items-center gap-2">
                     <span
-                      className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] leading-none"
-                      style={{ backgroundColor: brand.color }}
+                      className="flex items-center justify-center rounded-full bg-white px-1.5 py-0.5"
+                      style={{ boxShadow: `0 0 0 1.5px ${brand.color}` }}
                       aria-hidden
                     >
-                      {brand.icon}
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={brand.logo} alt="" className="h-3 w-auto" />
                     </span>
                     <p className="text-xs font-medium text-neutral-900 dark:text-[#d5dce3]">
                       {loc.name}

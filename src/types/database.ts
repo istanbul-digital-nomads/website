@@ -698,7 +698,7 @@ export interface Database {
           id: string;
           name: string;
           slug: string;
-          icon: string | null;
+          logo: string | null;
           category: string | null;
           color: string | null;
           created_at: string;
@@ -707,7 +707,7 @@ export interface Database {
           id?: string;
           name: string;
           slug: string;
-          icon?: string | null;
+          logo?: string | null;
           category?: string | null;
           color?: string | null;
           created_at?: string;
@@ -715,7 +715,7 @@ export interface Database {
         Update: {
           name?: string;
           slug?: string;
-          icon?: string | null;
+          logo?: string | null;
           category?: string | null;
           color?: string | null;
         };

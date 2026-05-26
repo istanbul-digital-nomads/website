@@ -170,7 +170,8 @@ export const istanbulDistricts: IstanbulDistrict[] = [
           "A calmer seaside peninsula just south of Kadikoy center, big on evening walks.",
         atmosphere: "Seaside, quiet, creative.",
         tags: ["seaside", "quiet", "residential"],
-        transportation: "Walk from Kadikoy center plus the nostalgic coast tram.",
+        transportation:
+          "Walk from Kadikoy center plus the nostalgic coast tram.",
         sources: [SRC.sehirHatlari],
         lastVerified: VERIFIED,
       }),
@@ -181,7 +182,8 @@ export const istanbulDistricts: IstanbulDistrict[] = [
           "Upmarket coastal stretch further east, popular for longer stays and seaside running paths.",
         atmosphere: "Residential, coastal, upscale.",
         tags: ["seaside", "residential"],
-        transportation: "M4 metro (Caddebostan/Goztepe area) and coastal buses.",
+        transportation:
+          "M4 metro (Caddebostan/Goztepe area) and coastal buses.",
         sources: [SRC.metroIstanbul],
         lastVerified: VERIFIED,
       }),
@@ -260,7 +262,8 @@ export const istanbulDistricts: IstanbulDistrict[] = [
           "Bohemian hilltop with Bosphorus views, strong cafe culture, and a tight expat scene.",
         atmosphere: "Bohemian, social, hilly.",
         tags: ["cafes", "expat", "nightlife"],
-        transportation: "Walk to Taksim (~10 min), Kabatas tram/funicular nearby.",
+        transportation:
+          "Walk to Taksim (~10 min), Kabatas tram/funicular nearby.",
         sources: [SRC.metroIstanbul],
         lastVerified: VERIFIED,
       }),
@@ -306,7 +309,8 @@ export const istanbulDistricts: IstanbulDistrict[] = [
           "Polished, cafe-rich residential streets with boutiques, gyms, and reliable work spots.",
         atmosphere: "Polished, residential, upscale.",
         tags: ["cafes", "upscale", "central"],
-        transportation: "Osmanbey metro (M2), quick access to Taksim and Levent.",
+        transportation:
+          "Osmanbey metro (M2), quick access to Taksim and Levent.",
         sources: [SRC.metroIstanbul],
         lastVerified: VERIFIED,
       }),
@@ -328,7 +332,8 @@ export const istanbulDistricts: IstanbulDistrict[] = [
           "Major transit and office interchange, useful as a connected (if noisy) base.",
         atmosphere: "Busy, commercial, transit-heavy.",
         tags: ["business", "metro", "transit"],
-        transportation: "M2 metro, metrobus interchange, buses across the city.",
+        transportation:
+          "M2 metro, metrobus interchange, buses across the city.",
         sources: [SRC.metroIstanbul],
         lastVerified: VERIFIED,
       }),
@@ -417,7 +422,8 @@ export const istanbulDistricts: IstanbulDistrict[] = [
           "Northern business district with towers and campuses, north of Levent on the M2 line.",
         atmosphere: "Corporate, modern, car-oriented.",
         tags: ["business", "metro"],
-        transportation: "M2 metro (Itu-Ayazaga / Sariyer stops) and Buyukdere Avenue.",
+        transportation:
+          "M2 metro (Itu-Ayazaga / Sariyer stops) and Buyukdere Avenue.",
         sources: [SRC.metroIstanbul],
         lastVerified: VERIFIED,
       }),
@@ -578,8 +584,9 @@ function rowToNeighborhood(row: NeighborhoodRow): DistrictNeighborhood {
   // If a seeded neighborhood shares this slug, inherit its richSlug link so
   // the DB layer never has to know about neighborhoods.ts.
   const seeded = row.slug
-    ? getAllDistrictNeighborhoods().find((x) => x.neighborhood.slug === row.slug)
-        ?.neighborhood
+    ? getAllDistrictNeighborhoods().find(
+        (x) => x.neighborhood.slug === row.slug,
+      )?.neighborhood
     : undefined;
   return {
     slug: row.slug ?? "",

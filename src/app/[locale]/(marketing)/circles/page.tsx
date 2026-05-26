@@ -63,7 +63,9 @@ export default async function CirclesPage({
   // keys (the original six), static fields from src/lib/circles.ts otherwise.
   // Keeps newly added circles working before their translations land.
   const copyFor = (circle: Circle): CircleCardCopy => ({
-    name: t.has(`names.${circle.slug}`) ? t(`names.${circle.slug}`) : circle.name,
+    name: t.has(`names.${circle.slug}`)
+      ? t(`names.${circle.slug}`)
+      : circle.name,
     blurb: t.has(`blurbs.${circle.slug}`)
       ? t(`blurbs.${circle.slug}`)
       : circle.blurb,

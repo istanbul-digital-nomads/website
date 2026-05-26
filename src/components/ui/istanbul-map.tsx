@@ -31,6 +31,17 @@ const MAP_STYLE_DARK =
 const ISTANBUL_CENTER = { longitude: 29.0, latitude: 41.015 } as const;
 const INITIAL_ZOOM = 11.35;
 
+// Clamp the viewport to Istanbul so the map can't be panned or zoomed out to
+// the rest of the world - it's an Istanbul nomad map, nothing else belongs on
+// it. [west, south] / [east, north], wide enough to hold every neighborhood
+// and brand branch (Bakirkoy in the west to Pendik in the east) with a little
+// pan room, and minZoom keeps the city filling the frame.
+const ISTANBUL_BOUNDS: [[number, number], [number, number]] = [
+  [28.45, 40.78],
+  [29.55, 41.35],
+];
+const MIN_ZOOM = 9.5;
+
 interface Neighborhood {
   name: string;
   lng: number;
@@ -135,6 +146,110 @@ const neighborhoods: Neighborhood[] = [
     color: "#f39c12",
     bgClass: "bg-accent-warm text-neutral-950",
     labelSide: "left",
+  },
+  {
+    name: "Cihangir",
+    lng: 28.982,
+    lat: 41.031,
+    vibe: "Bohemian hillside, cafe culture, a longtime expat favourite",
+    side: "European",
+    color: "#27ae60",
+    bgClass: "bg-accent-green text-white",
+    labelSide: "right",
+  },
+  {
+    name: "Karakoy",
+    lng: 28.978,
+    lat: 41.024,
+    vibe: "Design studios, third-wave coffee, Galataport on the water",
+    side: "European",
+    color: "#f39c12",
+    bgClass: "bg-accent-warm text-neutral-950",
+    labelSide: "left",
+  },
+  {
+    name: "Beyoglu",
+    lng: 28.979,
+    lat: 41.036,
+    vibe: "Istiklal buzz, galleries, nightlife - the part that never sleeps",
+    side: "European",
+    color: "#c0392b",
+    bgClass: "bg-primary-500 text-white",
+    labelSide: "right",
+  },
+  {
+    name: "Sisli",
+    lng: 28.987,
+    lat: 41.06,
+    vibe: "Central and practical - malls, clinics, metro everywhere",
+    side: "European",
+    color: "#737373",
+    bgClass:
+      "bg-neutral-200 text-neutral-800 dark:bg-[#3c2d24] dark:text-[#d5dce3]",
+    labelSide: "left",
+  },
+  {
+    name: "Maslak",
+    lng: 29.02,
+    lat: 41.108,
+    vibe: "Finance and tech towers, coworking density, weekday energy",
+    side: "European",
+    color: "#1a1a2e",
+    bgClass:
+      "bg-neutral-900 text-white dark:bg-neutral-200 dark:text-neutral-900",
+    labelSide: "left",
+  },
+  {
+    name: "Bebek",
+    lng: 29.043,
+    lat: 41.077,
+    vibe: "Upscale Bosphorus village, seaside walks, slow brunches",
+    side: "European",
+    color: "#f39c12",
+    bgClass: "bg-accent-warm text-neutral-950",
+    labelSide: "right",
+  },
+  {
+    name: "Bakirkoy",
+    lng: 28.872,
+    lat: 40.978,
+    vibe: "Westside Marmara coast, calmer streets, lower rents",
+    side: "European",
+    color: "#27ae60",
+    bgClass: "bg-accent-green text-white",
+    labelSide: "right",
+  },
+  {
+    name: "Caddebostan",
+    lng: 29.062,
+    lat: 40.963,
+    vibe: "Asian-side seaside, Bagdat Caddesi shopping, dawn joggers",
+    side: "Asian",
+    color: "#c0392b",
+    bgClass: "bg-primary-500 text-white",
+    labelSide: "left",
+  },
+  {
+    name: "Bostanci",
+    lng: 29.094,
+    lat: 40.955,
+    vibe: "Ferry and metro hub, Marmara coast, easy commutes",
+    side: "Asian",
+    color: "#737373",
+    bgClass:
+      "bg-neutral-200 text-neutral-800 dark:bg-[#3c2d24] dark:text-[#d5dce3]",
+    labelSide: "left",
+  },
+  {
+    name: "Fatih",
+    lng: 28.949,
+    lat: 41.019,
+    vibe: "Historic peninsula - mosques, bazaars, deep old-city character",
+    side: "European",
+    color: "#1a1a2e",
+    bgClass:
+      "bg-neutral-900 text-white dark:bg-neutral-200 dark:text-neutral-900",
+    labelSide: "right",
   },
 ];
 
@@ -339,6 +454,8 @@ export function IstanbulMap({
               ...ISTANBUL_CENTER,
               zoom: INITIAL_ZOOM,
             }}
+            maxBounds={ISTANBUL_BOUNDS}
+            minZoom={MIN_ZOOM}
             style={{ width: "100%", height: "100%" }}
             scrollZoom={false}
             attributionControl={false}

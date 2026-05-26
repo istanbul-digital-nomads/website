@@ -13,6 +13,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **Circles v2.** Expanded from 6 static circles to 22 in a category-grouped system (professional / lifestyle / growth / social / relationship) with `circle_categories`, `circle_badges`, `circle_activity`, and participation scoring (migration `031`, building on the existing `circle_members`/`perks` tables). The `/circles` page now groups circles by category, and all 22 circles are translated across the five locales (en/tr/fa/ar/ru).
 - **Multi-agent deliverables under `docs/agents/`** - design-system audit, multi-language content-calendar system, circles research, and a master progress log. Plus a `--json`/coverage helper on `scripts/i18n-content.ts` and a `brands.ts` test suite that enforces the no-fabrication scoring contract.
 
+### Changed
+
+- **Paperwork is hidden from navigation for now.** A new `PAPERWORK_ENABLED` flag (`src/lib/constants.ts`, currently `false`) filters the Paperwork entry out of the desktop header, mobile menu, and hero nav. The `/paperwork` routes still exist but are unlinked - flip the flag to `true` to bring it back when it's ready.
+
 ### Notes
 
 - Migrations `029`/`030`/`031` are defined but not yet applied - the app reads the static TS seeds and degrades gracefully when the tables are absent. Run `supabase db push` to apply.

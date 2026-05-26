@@ -21,6 +21,10 @@ import {
 } from "@/lib/brands";
 import { BrandMarker } from "@/components/ui/brand-marker";
 import { BrandFilterBar } from "@/components/ui/brand-filter-bar";
+import {
+  mapNeighborhoods,
+  type MapNeighborhood,
+} from "@/lib/map-neighborhoods";
 
 // CartoCDN tiles - reliable, free, no API key needed
 const MAP_STYLE_LIGHT =
@@ -42,216 +46,19 @@ const ISTANBUL_BOUNDS: [[number, number], [number, number]] = [
 ];
 const MIN_ZOOM = 9.5;
 
-interface Neighborhood {
-  name: string;
-  lng: number;
-  lat: number;
-  vibe: string;
-  side: "European" | "Asian";
-  color: string;
-  bgClass: string;
-  labelSide: "left" | "right";
-}
+// Neighborhood marker list + filter metadata now live in @/lib/map-neighborhoods
+// (shared with the external filter bar). Border polygons are fetched at runtime
+// from public/data/neighborhood-borders.json (real OSM boundaries, ODbL).
+type Neighborhood = MapNeighborhood;
 
-const neighborhoods: Neighborhood[] = [
-  {
-    name: "Galata",
-    lng: 28.974,
-    lat: 41.026,
-    vibe: "Historic tower district, cafes, galleries, nightlife",
-    side: "European",
-    color: "#f39c12",
-    bgClass: "bg-accent-warm text-neutral-950",
-    labelSide: "right",
-  },
-  {
-    name: "Besiktas",
-    lng: 29.007,
-    lat: 41.043,
-    vibe: "Lively waterfront, markets, great transport links",
-    side: "European",
-    color: "#737373",
-    bgClass:
-      "bg-neutral-200 text-neutral-800 dark:bg-[#3c2d24] dark:text-[#d5dce3]",
-    labelSide: "left",
-  },
-  {
-    name: "Kadikoy",
-    lng: 29.027,
-    lat: 40.993,
-    vibe: "Calm Asian side, walkable cafes, daily rhythm hub",
-    side: "Asian",
-    color: "#c0392b",
-    bgClass: "bg-primary-500 text-white",
-    labelSide: "right",
-  },
-  {
-    name: "Moda",
-    lng: 29.026,
-    lat: 40.978,
-    vibe: "Seaside promenades, quiet streets, creative scene",
-    side: "Asian",
-    color: "#27ae60",
-    bgClass: "bg-accent-green text-white",
-    labelSide: "left",
-  },
-  {
-    name: "Uskudar",
-    lng: 29.015,
-    lat: 41.023,
-    vibe: "Traditional neighborhood, ferry hub, Bosphorus views",
-    side: "Asian",
-    color: "#737373",
-    bgClass:
-      "bg-neutral-200 text-neutral-800 dark:bg-[#3c2d24] dark:text-[#d5dce3]",
-    labelSide: "right",
-  },
-  {
-    name: "Nisantasi",
-    lng: 28.988,
-    lat: 41.048,
-    vibe: "Polished central living, boutiques, cafes, practical errands",
-    side: "European",
-    color: "#27ae60",
-    bgClass: "bg-accent-green text-white",
-    labelSide: "right",
-  },
-  {
-    name: "Levent",
-    lng: 29.011,
-    lat: 41.077,
-    vibe: "Business corridor, metro access, coworking density",
-    side: "European",
-    color: "#1a1a2e",
-    bgClass:
-      "bg-neutral-900 text-white dark:bg-neutral-200 dark:text-neutral-900",
-    labelSide: "left",
-  },
-  {
-    name: "Balat",
-    lng: 28.949,
-    lat: 41.029,
-    vibe: "Historic Golden Horn streets, color, character, lower rent",
-    side: "European",
-    color: "#c0392b",
-    bgClass: "bg-primary-500 text-white",
-    labelSide: "right",
-  },
-  {
-    name: "Atasehir",
-    lng: 29.124,
-    lat: 40.992,
-    vibe: "Modern Asian-side towers, newer apartments, quiet nights",
-    side: "Asian",
-    color: "#f39c12",
-    bgClass: "bg-accent-warm text-neutral-950",
-    labelSide: "left",
-  },
-  {
-    name: "Cihangir",
-    lng: 28.982,
-    lat: 41.031,
-    vibe: "Bohemian hillside, cafe culture, a longtime expat favourite",
-    side: "European",
-    color: "#27ae60",
-    bgClass: "bg-accent-green text-white",
-    labelSide: "right",
-  },
-  {
-    name: "Karakoy",
-    lng: 28.978,
-    lat: 41.024,
-    vibe: "Design studios, third-wave coffee, Galataport on the water",
-    side: "European",
-    color: "#f39c12",
-    bgClass: "bg-accent-warm text-neutral-950",
-    labelSide: "left",
-  },
-  {
-    name: "Beyoglu",
-    lng: 28.979,
-    lat: 41.036,
-    vibe: "Istiklal buzz, galleries, nightlife - the part that never sleeps",
-    side: "European",
-    color: "#c0392b",
-    bgClass: "bg-primary-500 text-white",
-    labelSide: "right",
-  },
-  {
-    name: "Sisli",
-    lng: 28.987,
-    lat: 41.06,
-    vibe: "Central and practical - malls, clinics, metro everywhere",
-    side: "European",
-    color: "#737373",
-    bgClass:
-      "bg-neutral-200 text-neutral-800 dark:bg-[#3c2d24] dark:text-[#d5dce3]",
-    labelSide: "left",
-  },
-  {
-    name: "Maslak",
-    lng: 29.02,
-    lat: 41.108,
-    vibe: "Finance and tech towers, coworking density, weekday energy",
-    side: "European",
-    color: "#1a1a2e",
-    bgClass:
-      "bg-neutral-900 text-white dark:bg-neutral-200 dark:text-neutral-900",
-    labelSide: "left",
-  },
-  {
-    name: "Bebek",
-    lng: 29.043,
-    lat: 41.077,
-    vibe: "Upscale Bosphorus village, seaside walks, slow brunches",
-    side: "European",
-    color: "#f39c12",
-    bgClass: "bg-accent-warm text-neutral-950",
-    labelSide: "right",
-  },
-  {
-    name: "Bakirkoy",
-    lng: 28.872,
-    lat: 40.978,
-    vibe: "Westside Marmara coast, calmer streets, lower rents",
-    side: "European",
-    color: "#27ae60",
-    bgClass: "bg-accent-green text-white",
-    labelSide: "right",
-  },
-  {
-    name: "Caddebostan",
-    lng: 29.062,
-    lat: 40.963,
-    vibe: "Asian-side seaside, Bagdat Caddesi shopping, dawn joggers",
-    side: "Asian",
-    color: "#c0392b",
-    bgClass: "bg-primary-500 text-white",
-    labelSide: "left",
-  },
-  {
-    name: "Bostanci",
-    lng: 29.094,
-    lat: 40.955,
-    vibe: "Ferry and metro hub, Marmara coast, easy commutes",
-    side: "Asian",
-    color: "#737373",
-    bgClass:
-      "bg-neutral-200 text-neutral-800 dark:bg-[#3c2d24] dark:text-[#d5dce3]",
-    labelSide: "left",
-  },
-  {
-    name: "Fatih",
-    lng: 28.949,
-    lat: 41.019,
-    vibe: "Historic peninsula - mosques, bazaars, deep old-city character",
-    side: "European",
-    color: "#1a1a2e",
-    bgClass:
-      "bg-neutral-900 text-white dark:bg-neutral-200 dark:text-neutral-900",
-    labelSide: "right",
-  },
-];
+interface BorderCollection {
+  type: "FeatureCollection";
+  features: Array<{
+    type: "Feature";
+    properties: { slug: string; name: string; side: string };
+    geometry: { type: string; coordinates: unknown };
+  }>;
+}
 
 const ferryRoute = {
   type: "FeatureCollection" as const,
@@ -376,11 +183,27 @@ interface IstanbulMapProps {
   brands?: NomadBrand[];
   /** Brand branches to plot when their brand filter is on. */
   brandLocations?: BrandLocation[];
+  /**
+   * Controlled brand filter. When provided, the in-map filter overlay is
+   * suppressed and the parent owns the active set + toggling (used by the
+   * /map page, which renders the filter bar outside the map). Omit for the
+   * old self-contained behaviour (plan editor).
+   */
+  activeBrands?: Set<string>;
+  onToggleBrand?: (slug: string) => void;
+  /** Slugs whose OSM border polygon should be highlighted. */
+  activeNeighborhoods?: Set<string>;
+  /** Hide the in-map brand filter chips (filters live outside the map). */
+  hideOverlayFilter?: boolean;
 }
 
 export function IstanbulMap({
   brands = defaultBrands,
   brandLocations = defaultBrandLocations,
+  activeBrands: controlledBrands,
+  onToggleBrand,
+  activeNeighborhoods,
+  hideOverlayFilter = false,
 }: IstanbulMapProps = {}) {
   const tMap = useTranslations("sections.istanbulMap");
   const tCommon = useTranslations("common.side");
@@ -392,18 +215,44 @@ export function IstanbulMap({
 
   // Brand layer: which brands are toggled on, and which branch popup is open.
   // Brands start off so the neighborhood overview stays the default focus.
-  const [activeBrands, setActiveBrands] = useState<Set<string>>(new Set());
+  // `activeBrands` is controlled when the parent passes a set, else internal.
+  const [internalBrands, setInternalBrands] = useState<Set<string>>(new Set());
+  const activeBrands = controlledBrands ?? internalBrands;
   const [openLocation, setOpenLocation] = useState<string | null>(null);
 
-  const toggleBrand = useCallback((slug: string) => {
-    setActiveBrands((prev) => {
-      const next = new Set(prev);
-      if (next.has(slug)) next.delete(slug);
-      else next.add(slug);
-      return next;
-    });
-    setOpenLocation(null);
+  // Real OSM neighborhood boundaries, fetched once on mount (ODbL).
+  const [borders, setBorders] = useState<BorderCollection | null>(null);
+  useEffect(() => {
+    let alive = true;
+    fetch("/data/neighborhood-borders.json")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (alive && d) setBorders(d as BorderCollection);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
   }, []);
+
+  const toggleBrand = useCallback(
+    (slug: string) => {
+      if (onToggleBrand) {
+        onToggleBrand(slug);
+      } else {
+        setInternalBrands((prev) => {
+          const next = new Set(prev);
+          if (next.has(slug)) next.delete(slug);
+          else next.add(slug);
+          return next;
+        });
+      }
+      setOpenLocation(null);
+    },
+    [onToggleBrand],
+  );
+
+  const activeHoodArr = activeNeighborhoods ? [...activeNeighborhoods] : [];
 
   const brandsBySlug: Record<string, NomadBrand> = Object.fromEntries(
     brands.map((b) => [b.slug, b]),
@@ -488,7 +337,56 @@ export function IstanbulMap({
               />
             </Source>
 
-            {neighborhoods.map((n, i) => (
+            {/* Real OSM neighborhood boundaries (ODbL). Always shown subtly so
+                you can see the borders; the filter brightens the active ones. */}
+            {borders && (
+              <Source id="hood-borders" type="geojson" data={borders as never}>
+                <Layer
+                  id="hood-fill"
+                  type="fill"
+                  paint={{ "fill-color": "#c9a25e", "fill-opacity": 0.05 }}
+                />
+                <Layer
+                  id="hood-line"
+                  type="line"
+                  paint={{
+                    "line-color": "#c9a25e",
+                    "line-width": 0.8,
+                    "line-opacity": 0.4,
+                  }}
+                />
+                {activeHoodArr.length > 0 && (
+                  <>
+                    <Layer
+                      id="hood-fill-active"
+                      type="fill"
+                      filter={[
+                        "in",
+                        ["get", "slug"],
+                        ["literal", activeHoodArr],
+                      ]}
+                      paint={{ "fill-color": "#f0c674", "fill-opacity": 0.25 }}
+                    />
+                    <Layer
+                      id="hood-line-active"
+                      type="line"
+                      filter={[
+                        "in",
+                        ["get", "slug"],
+                        ["literal", activeHoodArr],
+                      ]}
+                      paint={{
+                        "line-color": "#f0c674",
+                        "line-width": 2.5,
+                        "line-opacity": 0.95,
+                      }}
+                    />
+                  </>
+                )}
+              </Source>
+            )}
+
+            {mapNeighborhoods.map((n, i) => (
               <AnimatedMarker
                 key={n.name}
                 neighborhood={n}
@@ -519,14 +417,17 @@ export function IstanbulMap({
           </Map>
         </div>
 
-        {/* Brand filter chips - sit above the legend card, top-left. */}
-        <div className="pointer-events-auto absolute inset-x-4 top-4 sm:inset-x-6 sm:top-6">
-          <BrandFilterBar
-            brands={brands}
-            active={activeBrands}
-            onToggle={toggleBrand}
-          />
-        </div>
+        {/* Brand filter chips - sit above the legend card, top-left. Hidden
+            when the parent renders the filters outside the map (/map page). */}
+        {!hideOverlayFilter && (
+          <div className="pointer-events-auto absolute inset-x-4 top-4 sm:inset-x-6 sm:top-6">
+            <BrandFilterBar
+              brands={brands}
+              active={activeBrands}
+              onToggle={toggleBrand}
+            />
+          </div>
+        )}
 
         {/* Open brand branch popup - simple card pinned bottom-center. */}
         {openLocation &&

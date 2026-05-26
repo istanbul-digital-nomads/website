@@ -19,6 +19,7 @@ import { ThreeDoors } from "@/components/sections/home/three-doors";
 import { WeekShape } from "@/components/sections/home/week-shape";
 import { GuidesShelf } from "@/components/sections/home/guides-shelf";
 import { NeighborhoodRhythmMatcher } from "@/components/sections/neighborhood-rhythm-matcher";
+import { NeighborhoodsMapSection } from "@/components/sections/neighborhoods-map-section";
 import { EventsStrip } from "@/components/sections/home/events-strip";
 import { CirclesStrip } from "@/components/sections/home/circles-strip";
 import { SundayLetterPreview } from "@/components/sections/home/sunday-letter-preview";
@@ -95,6 +96,7 @@ async function HomePageContent({ locale }: { locale: Locale }) {
       <WeekShape locale={locale} />
       <GuidesShelf locale={locale} />
       <NeighborhoodRhythmMatcher eyebrowNum="N° 05" />
+      <NeighborhoodsMapSection />
       <EventsStrip locale={locale} />
       <CirclesStrip locale={locale} />
       <SundayLetterPreview locale={locale} />

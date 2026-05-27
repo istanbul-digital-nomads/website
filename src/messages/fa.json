@@ -3062,7 +3062,9 @@
       "neighborhoods": "محله‌ها",
       "ferries": "اسکله‌ها",
       "ports": "اسکله‌ها",
-      "routes": "مسیرها"
+      "routes": "مسیرها",
+      "showMore": "نمایش بیشتر",
+      "showLess": "نمایش کمتر"
     }
   },
   "circlesV2": {

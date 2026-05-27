@@ -3086,7 +3086,9 @@
       "neighborhoods": "Районы",
       "ferries": "Паромы",
       "ports": "Причалы",
-      "routes": "Маршруты"
+      "routes": "Маршруты",
+      "showMore": "Показать ещё",
+      "showLess": "Свернуть"
     }
   },
   "circlesV2": {

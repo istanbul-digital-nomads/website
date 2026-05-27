@@ -60,6 +60,40 @@ interface BorderCollection {
   }>;
 }
 
+// Bounding box of a (Multi)Polygon geometry's nested coordinate arrays, used to
+// frame a neighborhood when its filter chip is selected. Returns [[w,s],[e,n]].
+function geometryBounds(
+  geometry: { coordinates: unknown } | undefined,
+): [[number, number], [number, number]] | null {
+  if (!geometry) return null;
+  let w = Infinity,
+    s = Infinity,
+    e = -Infinity,
+    n = -Infinity,
+    found = false;
+  const walk = (node: unknown) => {
+    if (!Array.isArray(node)) return;
+    if (typeof node[0] === "number" && typeof node[1] === "number") {
+      const lng = node[0] as number;
+      const lat = node[1] as number;
+      w = Math.min(w, lng);
+      e = Math.max(e, lng);
+      s = Math.min(s, lat);
+      n = Math.max(n, lat);
+      found = true;
+    } else {
+      node.forEach(walk);
+    }
+  };
+  walk(geometry.coordinates);
+  return found
+    ? [
+        [w, s],
+        [e, n],
+      ]
+    : null;
+}
+
 const ferryRoute = {
   type: "FeatureCollection" as const,
   features: [
@@ -282,6 +316,30 @@ export function IstanbulMap({
     }
   }, []);
 
+  // Selecting a neighborhood in the filter focuses it on the map (like clicking
+  // its point): fit to the real border polygon when we have one, else fly to
+  // the marker point. Only fires for newly-added slugs, not on deselect.
+  const prevHoodsRef = useRef<Set<string>>(new Set());
+  useEffect(() => {
+    const current = activeNeighborhoods ?? new Set<string>();
+    const added = [...current].filter((s) => !prevHoodsRef.current.has(s));
+    prevHoodsRef.current = new Set(current);
+    if (!added.length || !mapLoaded) return;
+    const slug = added[added.length - 1];
+    const map = mapRef.current?.getMap();
+    if (!map) return;
+    const feature = borders?.features.find((f) => f.properties.slug === slug);
+    const bounds = geometryBounds(feature?.geometry);
+    if (bounds) {
+      map.fitBounds(bounds, { padding: 64, maxZoom: 14.5, duration: 900 });
+      return;
+    }
+    const point = mapNeighborhoods.find((x) => x.slug === slug);
+    if (point) {
+      map.flyTo({ center: [point.lng, point.lat], zoom: 14, duration: 900 });
+    }
+  }, [activeNeighborhoods, borders, mapLoaded]);
+
   return (
     <div className="absolute inset-0 overflow-hidden rounded-xl border border-black/10 bg-[#d5dce3] dark:border-white/10 dark:bg-[#1a1612]">
       <div
@@ -343,11 +401,13 @@ export function IstanbulMap({
               <Source id="hood-borders" type="geojson" data={borders as never}>
                 <Layer
                   id="hood-fill"
+                  source="hood-borders"
                   type="fill"
                   paint={{ "fill-color": "#c9a25e", "fill-opacity": 0.05 }}
                 />
                 <Layer
                   id="hood-line"
+                  source="hood-borders"
                   type="line"
                   paint={{
                     "line-color": "#c9a25e",
@@ -355,33 +415,30 @@ export function IstanbulMap({
                     "line-opacity": 0.4,
                   }}
                 />
+                {/* Active highlight - explicit `source` because these aren't
+                    direct <Source> children, so the source context isn't
+                    injected for them. */}
                 {activeHoodArr.length > 0 && (
-                  <>
-                    <Layer
-                      id="hood-fill-active"
-                      type="fill"
-                      filter={[
-                        "in",
-                        ["get", "slug"],
-                        ["literal", activeHoodArr],
-                      ]}
-                      paint={{ "fill-color": "#f0c674", "fill-opacity": 0.25 }}
-                    />
-                    <Layer
-                      id="hood-line-active"
-                      type="line"
-                      filter={[
-                        "in",
-                        ["get", "slug"],
-                        ["literal", activeHoodArr],
-                      ]}
-                      paint={{
-                        "line-color": "#f0c674",
-                        "line-width": 2.5,
-                        "line-opacity": 0.95,
-                      }}
-                    />
-                  </>
+                  <Layer
+                    id="hood-fill-active"
+                    source="hood-borders"
+                    type="fill"
+                    filter={["in", ["get", "slug"], ["literal", activeHoodArr]]}
+                    paint={{ "fill-color": "#ffd166", "fill-opacity": 0.32 }}
+                  />
+                )}
+                {activeHoodArr.length > 0 && (
+                  <Layer
+                    id="hood-line-active"
+                    source="hood-borders"
+                    type="line"
+                    filter={["in", ["get", "slug"], ["literal", activeHoodArr]]}
+                    paint={{
+                      "line-color": "#ffd166",
+                      "line-width": 3.5,
+                      "line-opacity": 1,
+                    }}
+                  />
                 )}
               </Source>
             )}

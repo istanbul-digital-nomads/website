@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, memo } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, memo } from "react";
 import { useTranslations } from "next-intl";
 import Map, {
   Marker,
@@ -13,13 +13,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/layout/theme-provider";
-import {
-  brands as defaultBrands,
-  brandLocations as defaultBrandLocations,
-  type BrandLocation,
-  type NomadBrand,
-} from "@/lib/brands";
-import { BrandMarker } from "@/components/ui/brand-marker";
+import { brands as defaultBrands, type NomadBrand } from "@/lib/brands";
 import { BrandFilterBar } from "@/components/ui/brand-filter-bar";
 import {
   mapNeighborhoods,
@@ -230,11 +224,31 @@ const FerryPortMarker = memo(function FerryPortMarker({
   );
 });
 
+// One brand branch, as stored in public/data/brand-locations.json (a GeoJSON
+// FeatureCollection of every Istanbul branch we've collected from the official
+// store locators). Far too many points (~490) for DOM markers, so they render
+// as a single MapLibre circle layer instead.
+interface BrandPoint {
+  id: string;
+  brand: string;
+  name: string;
+  address: string | null;
+  district: string | null;
+  lng: number;
+  lat: number;
+}
+interface BrandFeatureCollection {
+  type: "FeatureCollection";
+  features: Array<{
+    type: "Feature";
+    geometry: { type: "Point"; coordinates: [number, number] };
+    properties: Omit<BrandPoint, "lng" | "lat">;
+  }>;
+}
+
 interface IstanbulMapProps {
   /** Brand catalogue (defaults to the static seed for client-only use). */
   brands?: NomadBrand[];
-  /** Brand branches to plot when their brand filter is on. */
-  brandLocations?: BrandLocation[];
   /**
    * Controlled brand filter. When provided, the in-map filter overlay is
    * suppressed and the parent owns the active set + toggling (used by the
@@ -255,7 +269,6 @@ interface IstanbulMapProps {
 
 export function IstanbulMap({
   brands = defaultBrands,
-  brandLocations = defaultBrandLocations,
   activeBrands: controlledBrands,
   onToggleBrand,
   activeNeighborhoods,
@@ -276,7 +289,12 @@ export function IstanbulMap({
   // `activeBrands` is controlled when the parent passes a set, else internal.
   const [internalBrands, setInternalBrands] = useState<Set<string>>(new Set());
   const activeBrands = controlledBrands ?? internalBrands;
-  const [openLocation, setOpenLocation] = useState<string | null>(null);
+  // The clicked branch (drives the popup card). Holds the feature's props +
+  // its coordinates so we don't need to look it up again.
+  const [selectedFeature, setSelectedFeature] = useState<BrandPoint | null>(
+    null,
+  );
+  const [cursor, setCursor] = useState<string>("");
 
   // Real OSM neighborhood boundaries, fetched once on mount (ODbL).
   const [borders, setBorders] = useState<BorderCollection | null>(null);
@@ -310,6 +328,26 @@ export function IstanbulMap({
     };
   }, [showFerryPorts, showFerryRoutes, ferries]);
 
+  // Every Istanbul branch of every brand (from the official store locators),
+  // fetched once the first brand filter is switched on. ~490 points, so they
+  // render as a MapLibre circle layer rather than DOM markers.
+  const [brandPoints, setBrandPoints] = useState<BrandFeatureCollection | null>(
+    null,
+  );
+  useEffect(() => {
+    if (activeBrands.size === 0 || brandPoints) return;
+    let alive = true;
+    fetch("/data/brand-locations.json")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (alive && d) setBrandPoints(d as BrandFeatureCollection);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, [activeBrands, brandPoints]);
+
   const toggleBrand = useCallback(
     (slug: string) => {
       if (onToggleBrand) {
@@ -322,7 +360,7 @@ export function IstanbulMap({
           return next;
         });
       }
-      setOpenLocation(null);
+      setSelectedFeature(null);
     },
     [onToggleBrand],
   );
@@ -332,9 +370,44 @@ export function IstanbulMap({
   const brandsBySlug: Record<string, NomadBrand> = Object.fromEntries(
     brands.map((b) => [b.slug, b]),
   );
-  const visibleLocations = brandLocations.filter((l) =>
-    activeBrands.has(l.brand_slug),
-  );
+
+  // Only the toggled-on brands' branches get plotted. Memoised so the GeoJSON
+  // source isn't rebuilt on every render.
+  const brandFC = useMemo<BrandFeatureCollection>(() => {
+    if (!brandPoints || activeBrands.size === 0) {
+      return { type: "FeatureCollection", features: [] };
+    }
+    return {
+      type: "FeatureCollection",
+      features: brandPoints.features.filter((f) =>
+        activeBrands.has(f.properties.brand),
+      ),
+    };
+  }, [brandPoints, activeBrands]);
+
+  // Colour each dot by its brand, in sync with the brand catalogue. BEX's near
+  // black brand colour stays legible thanks to the white stroke below.
+  const brandColorExpr = useMemo(() => {
+    const expr: (string | string[])[] = ["match", ["get", "brand"]];
+    for (const b of brands) expr.push(b.slug, b.color);
+    expr.push("#888888");
+    return expr as unknown as never;
+  }, [brands]);
+
+  const onBrandClick = useCallback((e: { features?: unknown[] }) => {
+    const f = e.features?.[0] as
+      | {
+          geometry?: { coordinates?: [number, number] };
+          properties?: Omit<BrandPoint, "lng" | "lat">;
+        }
+      | undefined;
+    if (f?.properties && f.geometry?.coordinates) {
+      const [lng, lat] = f.geometry.coordinates;
+      setSelectedFeature({ ...f.properties, lng, lat });
+    } else {
+      setSelectedFeature(null);
+    }
+  }, []);
 
   const isDark =
     theme === "dark" ||
@@ -411,6 +484,11 @@ export function IstanbulMap({
             scrollZoom={false}
             attributionControl={false}
             onLoad={onLoad}
+            cursor={cursor}
+            interactiveLayerIds={["brand-circles"]}
+            onClick={onBrandClick}
+            onMouseEnter={() => setCursor("pointer")}
+            onMouseLeave={() => setCursor("")}
           >
             <NavigationControl position="top-right" showCompass={false} />
 
@@ -505,23 +583,56 @@ export function IstanbulMap({
               />
             ))}
 
-            {/* Brand branches - only the toggled-on brands render. */}
-            {visibleLocations.map((loc) => {
-              const brand = brandsBySlug[loc.brand_slug];
-              if (!brand) return null;
-              return (
-                <BrandMarker
-                  key={loc.id}
-                  brand={brand}
-                  location={loc}
-                  interactive
-                  selected={openLocation === loc.id}
-                  onSelect={() =>
-                    setOpenLocation((prev) => (prev === loc.id ? null : loc.id))
-                  }
+            {/* Brand branches - every Istanbul branch of the toggled-on brands,
+                drawn as one circle layer (hundreds of points). Click a dot for
+                its name + address. */}
+            {brandFC.features.length > 0 && (
+              <Source id="brand-points" type="geojson" data={brandFC as never}>
+                <Layer
+                  id="brand-glow"
+                  source="brand-points"
+                  type="circle"
+                  paint={{
+                    "circle-color": brandColorExpr,
+                    "circle-opacity": 0.18,
+                    "circle-blur": 0.6,
+                    "circle-radius": [
+                      "interpolate",
+                      ["linear"],
+                      ["zoom"],
+                      9,
+                      5,
+                      13,
+                      9,
+                      16,
+                      14,
+                    ],
+                  }}
                 />
-              );
-            })}
+                <Layer
+                  id="brand-circles"
+                  source="brand-points"
+                  type="circle"
+                  paint={{
+                    "circle-color": brandColorExpr,
+                    "circle-opacity": 0.95,
+                    "circle-stroke-color": "#ffffff",
+                    "circle-stroke-width": 1.2,
+                    "circle-radius": [
+                      "interpolate",
+                      ["linear"],
+                      ["zoom"],
+                      9,
+                      2.5,
+                      13,
+                      4.5,
+                      16,
+                      7,
+                    ],
+                  }}
+                />
+              </Source>
+            )}
 
             {/* Iskele - every Istanbul ferry port. */}
             {showFerryPorts &&
@@ -543,50 +654,47 @@ export function IstanbulMap({
           </div>
         )}
 
-        {/* Open brand branch popup - simple card pinned bottom-center. */}
-        {openLocation &&
+        {/* Open brand branch popup - simple card pinned top-left. */}
+        {selectedFeature &&
           (() => {
-            const loc = visibleLocations.find((l) => l.id === openLocation);
-            const brand = loc && brandsBySlug[loc.brand_slug];
-            if (!loc || !brand) return null;
+            const brand = brandsBySlug[selectedFeature.brand];
+            if (!brand) return null;
             return (
               <div className="pointer-events-auto absolute inset-x-4 top-20 z-10 mx-auto max-w-xs sm:inset-x-auto sm:left-6">
                 <div className="rounded-md border border-black/10 bg-white/95 p-3 backdrop-blur-sm dark:border-white/10 dark:bg-[#1a1612]/95">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="flex items-center justify-center rounded-full bg-white px-1.5 py-0.5"
-                      style={{ boxShadow: `0 0 0 1.5px ${brand.color}` }}
-                      aria-hidden
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="flex items-center justify-center rounded-full bg-white px-1.5 py-0.5"
+                        style={{ boxShadow: `0 0 0 1.5px ${brand.color}` }}
+                        aria-hidden
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={brand.logo} alt="" className="h-3 w-auto" />
+                      </span>
+                      <p className="text-xs font-medium text-neutral-900 dark:text-[#d5dce3]">
+                        {selectedFeature.name}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedFeature(null)}
+                      className="text-neutral-400 hover:text-neutral-700 dark:hover:text-[#d5dce3]"
+                      aria-label="Close"
                     >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={brand.logo} alt="" className="h-3 w-auto" />
-                    </span>
-                    <p className="text-xs font-medium text-neutral-900 dark:text-[#d5dce3]">
-                      {loc.name}
-                    </p>
+                      ×
+                    </button>
                   </div>
-                  {loc.address && (
+                  {selectedFeature.address && (
                     <p className="mt-1.5 text-[11px] leading-relaxed text-neutral-600 dark:text-[#99a3ad]">
-                      {loc.address}
+                      {selectedFeature.address}
                     </p>
                   )}
-                  <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-0.5 text-[10px] uppercase tracking-wider text-[#85929e]">
-                    {loc.opening_hours && <span>{loc.opening_hours}</span>}
-                    {loc.rating != null && (
-                      <span>
-                        {loc.rating.toFixed(1)}
-                        {loc.reviews_count != null
-                          ? ` (${loc.reviews_count}+)`
-                          : ""}
-                      </span>
-                    )}
-                  </div>
-                  {loc.unverified_fields &&
-                    loc.unverified_fields.length > 0 && (
-                      <p className="mt-1.5 text-[10px] leading-relaxed text-[#85929e]">
-                        Work scores aren&apos;t checked here yet.
-                      </p>
-                    )}
+                  {selectedFeature.district && (
+                    <p className="mt-1.5 text-[10px] uppercase tracking-wider text-[#85929e]">
+                      {selectedFeature.district}
+                    </p>
+                  )}
                 </div>
               </div>
             );

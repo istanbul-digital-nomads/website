@@ -72,6 +72,8 @@ export default async function MapPage({
             ferries: t("filters.ferries"),
             ports: t("filters.ports"),
             routes: t("filters.routes"),
+            showMore: t("filters.showMore"),
+            showLess: t("filters.showLess"),
           }}
         />
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-paper-mute">

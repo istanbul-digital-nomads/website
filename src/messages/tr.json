@@ -3082,7 +3082,9 @@
       "neighborhoods": "Mahalleler",
       "ferries": "Vapurlar",
       "ports": "İskeleler",
-      "routes": "Hatlar"
+      "routes": "Hatlar",
+      "showMore": "Daha fazla",
+      "showLess": "Daha az"
     }
   },
   "circlesV2": {

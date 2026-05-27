@@ -3062,7 +3062,9 @@
       "neighborhoods": "Neighborhoods",
       "ferries": "Ferries",
       "ports": "İskele",
-      "routes": "Routes"
+      "routes": "Routes",
+      "showMore": "Show more",
+      "showLess": "Show less"
     }
   },
   "circlesV2": {

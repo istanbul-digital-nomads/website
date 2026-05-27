@@ -3070,7 +3070,9 @@
       "neighborhoods": "الأحياء",
       "ferries": "العبّارات",
       "ports": "الأرصفة",
-      "routes": "المسارات"
+      "routes": "المسارات",
+      "showMore": "عرض المزيد",
+      "showLess": "عرض أقل"
     }
   },
   "circlesV2": {

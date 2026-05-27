@@ -37,6 +37,8 @@ interface MapExplorerProps {
     ferries: string;
     ports: string;
     routes: string;
+    showMore: string;
+    showLess: string;
   };
 }
 
@@ -131,6 +133,7 @@ export function MapExplorer({ labels }: MapExplorerProps) {
             neighborhoods={mapNeighborhoods}
             active={activeHoods}
             onToggle={toggleHood}
+            labels={{ showMore: labels.showMore, showLess: labels.showLess }}
           />
         </div>
       </div>

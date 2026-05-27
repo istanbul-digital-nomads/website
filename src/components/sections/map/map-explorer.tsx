@@ -146,6 +146,7 @@ export function MapExplorer({ labels }: MapExplorerProps) {
           showFerryPorts={showPorts}
           showFerryRoutes={showRoutes}
           hideOverlayFilter
+          hideLegend
         />
       </div>
     </div>

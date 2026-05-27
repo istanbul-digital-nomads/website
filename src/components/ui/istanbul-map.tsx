@@ -261,6 +261,8 @@ interface IstanbulMapProps {
   activeNeighborhoods?: Set<string>;
   /** Hide the in-map brand filter chips (filters live outside the map). */
   hideOverlayFilter?: boolean;
+  /** Hide the bottom legend/caption card (redundant on the /map page). */
+  hideLegend?: boolean;
   /** Show the iskele (ferry ports). Defaults on. */
   showFerryPorts?: boolean;
   /** Show the ferry route lines. Defaults on. */
@@ -273,6 +275,7 @@ export function IstanbulMap({
   onToggleBrand,
   activeNeighborhoods,
   hideOverlayFilter = false,
+  hideLegend = false,
   showFerryPorts = true,
   showFerryRoutes = true,
 }: IstanbulMapProps = {}) {
@@ -799,38 +802,40 @@ export function IstanbulMap({
 
       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-black/5 dark:ring-white/10" />
 
-      <div className="absolute inset-x-4 bottom-4 sm:inset-x-6 sm:bottom-6">
-        <div className="rounded-md border border-black/10 bg-white/90 px-5 py-4 backdrop-blur-xl dark:border-white/10 dark:bg-[#1a1612]/88">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="eyebrow">{tMap("eyebrow")}</p>
-              <p className="mt-2 max-w-sm text-sm leading-6 text-neutral-700 dark:text-[#99a3ad]">
-                {tMap("body")}
-              </p>
+      {!hideLegend && (
+        <div className="absolute inset-x-4 bottom-4 sm:inset-x-6 sm:bottom-6">
+          <div className="rounded-md border border-black/10 bg-white/90 px-5 py-4 backdrop-blur-xl dark:border-white/10 dark:bg-[#1a1612]/88">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="eyebrow">{tMap("eyebrow")}</p>
+                <p className="mt-2 max-w-sm text-sm leading-6 text-neutral-700 dark:text-[#99a3ad]">
+                  {tMap("body")}
+                </p>
+              </div>
+              <div className="hidden rounded-md border border-black/10 bg-white/80 p-2.5 dark:border-white/10 dark:bg-white/10 sm:block">
+                <MapPin className="h-4 w-4 text-primary-600 dark:text-primary-400" />
+              </div>
             </div>
-            <div className="hidden rounded-md border border-black/10 bg-white/80 p-2.5 dark:border-white/10 dark:bg-white/10 sm:block">
-              <MapPin className="h-4 w-4 text-primary-600 dark:text-primary-400" />
+            <div className="mt-3 flex gap-4 text-xs text-[#5d6d7e] dark:text-[#85929e]">
+              <span className="flex items-center gap-1.5">
+                <span className="h-2 w-2 rounded-full bg-accent-warm" />
+                {tCommon("european")}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
+                {tCommon("asian")}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span
+                  className="h-2 w-2 rounded-full"
+                  style={{ backgroundColor: FERRY_BLUE }}
+                />
+                {tMap("ferryRoutes")}
+              </span>
             </div>
-          </div>
-          <div className="mt-3 flex gap-4 text-xs text-[#5d6d7e] dark:text-[#85929e]">
-            <span className="flex items-center gap-1.5">
-              <span className="h-2 w-2 rounded-full bg-accent-warm" />
-              {tCommon("european")}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="h-2 w-2 rounded-full bg-primary-500" />
-              {tCommon("asian")}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span
-                className="h-2 w-2 rounded-full"
-                style={{ backgroundColor: FERRY_BLUE }}
-              />
-              {tMap("ferryRoutes")}
-            </span>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

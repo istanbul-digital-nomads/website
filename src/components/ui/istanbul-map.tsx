@@ -321,10 +321,13 @@ export function IstanbulMap({
   // the marker point. Only fires for newly-added slugs, not on deselect.
   const prevHoodsRef = useRef<Set<string>>(new Set());
   useEffect(() => {
+    // Wait until the map is ready before recording/acting, so a neighborhood
+    // selected during initial load still gets focused once the map loads.
+    if (!mapLoaded) return;
     const current = activeNeighborhoods ?? new Set<string>();
     const added = [...current].filter((s) => !prevHoodsRef.current.has(s));
     prevHoodsRef.current = new Set(current);
-    if (!added.length || !mapLoaded) return;
+    if (!added.length) return;
     const slug = added[added.length - 1];
     const map = mapRef.current?.getMap();
     if (!map) return;

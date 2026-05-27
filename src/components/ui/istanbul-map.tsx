@@ -35,16 +35,17 @@ const MAP_STYLE_DARK =
 const ISTANBUL_CENTER = { longitude: 29.0, latitude: 41.015 } as const;
 const INITIAL_ZOOM = 11.35;
 
-// Clamp the viewport to Istanbul so the map can't be panned or zoomed out to
-// the rest of the world - it's an Istanbul nomad map, nothing else belongs on
-// it. [west, south] / [east, north], wide enough to hold every neighborhood
-// and brand branch (Bakirkoy in the west to Pendik in the east) with a little
-// pan room, and minZoom keeps the city filling the frame.
+// Clamp the viewport to the Istanbul province so the map can't be panned or
+// zoomed out to the rest of the world - it's an Istanbul map, nothing else
+// belongs on it. [west, south] / [east, north], wide enough to hold all 39
+// districts (Silivri/Catalca in the far west to Sile in the far east, the
+// Princes' Islands in the south) with a little pan room; minZoom keeps the
+// province filling the frame.
 const ISTANBUL_BOUNDS: [[number, number], [number, number]] = [
-  [28.45, 40.78],
-  [29.55, 41.35],
+  [27.85, 40.72],
+  [30.05, 41.7],
 ];
-const MIN_ZOOM = 9.5;
+const MIN_ZOOM = 8.5;
 
 // Neighborhood marker list + filter metadata now live in @/lib/map-neighborhoods
 // (shared with the external filter bar). Border polygons are fetched at runtime
@@ -172,22 +173,29 @@ function AnimatedMarker({
         onMouseLeave={onLeave}
       >
         <span
-          className="relative block h-3.5 w-3.5 rounded-full ring-2 ring-white/90 dark:ring-[#1a1612]/80"
+          className={cn(
+            "relative block rounded-full ring-2 ring-white/90 dark:ring-[#1a1612]/80",
+            neighborhood.tier === "district" ? "h-2.5 w-2.5" : "h-3.5 w-3.5",
+          )}
           style={{ backgroundColor: neighborhood.color }}
         />
 
-        <div
-          className={cn(
-            "absolute top-1/2 -translate-y-1/2 whitespace-nowrap rounded-md px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.25em] transition-all duration-200",
-            neighborhood.bgClass,
-            neighborhood.labelSide === "right" ? "left-5" : "right-5",
-            isActive
-              ? "scale-105 opacity-100"
-              : "opacity-90 group-hover:scale-105 group-hover:opacity-100",
-          )}
-        >
-          {neighborhood.name}
-        </div>
+        {/* Districts (full-city coverage) stay as bare dots to avoid clutter -
+            their name shows in the hover card. Curated spots keep the label. */}
+        {neighborhood.tier !== "district" && (
+          <div
+            className={cn(
+              "absolute top-1/2 -translate-y-1/2 whitespace-nowrap rounded-md px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.25em] transition-all duration-200",
+              neighborhood.bgClass,
+              neighborhood.labelSide === "right" ? "left-5" : "right-5",
+              isActive
+                ? "scale-105 opacity-100"
+                : "opacity-90 group-hover:scale-105 group-hover:opacity-100",
+            )}
+          >
+            {neighborhood.name}
+          </div>
+        )}
 
         {isActive && (
           <div

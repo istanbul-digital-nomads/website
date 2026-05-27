@@ -94,8 +94,8 @@ export function MapExplorer({ labels }: MapExplorerProps) {
   );
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex flex-col gap-4 rounded-2xl border border-ink-3 bg-black/20 p-4 sm:p-5">
+    <div className="flex flex-col gap-4 sm:gap-5">
+      <div className="flex flex-col gap-3 rounded-2xl border border-ink-3 bg-black/20 p-3 sm:gap-4 sm:p-5">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="flex flex-col gap-2">
             <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
@@ -138,7 +138,7 @@ export function MapExplorer({ labels }: MapExplorerProps) {
         </div>
       </div>
 
-      <div className="relative min-h-[420px] sm:min-h-[520px] lg:min-h-[640px]">
+      <div className="relative min-h-[68vh] sm:min-h-[520px] lg:min-h-[640px]">
         <IstanbulMap
           activeBrands={activeBrands}
           onToggleBrand={toggleBrand}

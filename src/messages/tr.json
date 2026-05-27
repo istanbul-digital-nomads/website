@@ -3080,7 +3080,9 @@
     "filters": {
       "brands": "Kahve markaları",
       "neighborhoods": "Mahalleler",
-      "ferries": "Vapurlar"
+      "ferries": "Vapurlar",
+      "ports": "İskeleler",
+      "routes": "Hatlar"
     }
   },
   "circlesV2": {

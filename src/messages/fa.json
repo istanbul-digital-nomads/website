@@ -3060,7 +3060,9 @@
     "filters": {
       "brands": "برندهای قهوه",
       "neighborhoods": "محله‌ها",
-      "ferries": "اسکله‌ها"
+      "ferries": "اسکله‌ها",
+      "ports": "اسکله‌ها",
+      "routes": "مسیرها"
     }
   },
   "circlesV2": {

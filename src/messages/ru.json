@@ -3084,7 +3084,9 @@
     "filters": {
       "brands": "Кофейные бренды",
       "neighborhoods": "Районы",
-      "ferries": "Паромы"
+      "ferries": "Паромы",
+      "ports": "Причалы",
+      "routes": "Маршруты"
     }
   },
   "circlesV2": {

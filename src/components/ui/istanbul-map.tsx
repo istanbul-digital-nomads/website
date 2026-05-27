@@ -234,6 +234,9 @@ interface BrandPoint {
   name: string;
   address: string | null;
   district: string | null;
+  opening_hours?: string;
+  phone?: string;
+  website?: string;
   lng: number;
   lat: number;
 }
@@ -779,11 +782,36 @@ export function IstanbulMap({
                       {selectedFeature.address}
                     </p>
                   )}
-                  {selectedFeature.district && (
-                    <p className="mt-1.5 text-[10px] uppercase tracking-wider text-[#85929e]">
-                      {selectedFeature.district}
+                  {selectedFeature.opening_hours && (
+                    <p className="mt-1.5 text-[11px] leading-relaxed text-neutral-600 dark:text-[#99a3ad]">
+                      {selectedFeature.opening_hours}
                     </p>
                   )}
+                  <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-0.5">
+                    {selectedFeature.district && (
+                      <span className="text-[10px] uppercase tracking-wider text-[#85929e]">
+                        {selectedFeature.district}
+                      </span>
+                    )}
+                    {selectedFeature.phone && (
+                      <a
+                        href={`tel:${selectedFeature.phone.replace(/\s+/g, "")}`}
+                        className="text-[11px] text-terracotta hover:underline"
+                      >
+                        {selectedFeature.phone}
+                      </a>
+                    )}
+                    {selectedFeature.website && (
+                      <a
+                        href={selectedFeature.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[11px] text-terracotta hover:underline"
+                      >
+                        Website
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             );

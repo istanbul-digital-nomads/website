@@ -295,6 +295,9 @@ export function IstanbulMap({
     null,
   );
   const [cursor, setCursor] = useState<string>("");
+  // The brand logos are rasterised into the map as icons on load; the symbol
+  // layer only renders once they're registered.
+  const [iconsReady, setIconsReady] = useState(false);
 
   // Real OSM neighborhood boundaries, fetched once on mount (ODbL).
   const [borders, setBorders] = useState<BorderCollection | null>(null);
@@ -418,17 +421,69 @@ export function IstanbulMap({
   const onLoad = useCallback(() => {
     setMapLoaded(true);
     const map = mapRef.current?.getMap();
-    if (map) {
-      map.on("error", () => setMapError(true));
-      // Simplified zoom-in - shorter duration for better perceived perf
-      map.flyTo({
-        center: [ISTANBUL_CENTER.longitude, ISTANBUL_CENTER.latitude],
-        zoom: INITIAL_ZOOM + 0.3,
-        duration: 800,
-        easing: (t: number) => t * (2 - t),
-      });
+    if (!map) return;
+    map.on("error", () => setMapError(true));
+    // Simplified zoom-in - shorter duration for better perceived perf
+    map.flyTo({
+      center: [ISTANBUL_CENTER.longitude, ISTANBUL_CENTER.latitude],
+      zoom: INITIAL_ZOOM + 0.3,
+      duration: 800,
+      easing: (t: number) => t * (2 - t),
+    });
+
+    // Rasterise each brand logo onto a white circular pill (with the brand's
+    // colour as a ring) and register it as a map image, so the symbol layer
+    // can show the real logo on a dot wherever there's room.
+    const SIZE = 48;
+    const RING = 22;
+    let pending = brands.length;
+    const done = () => {
+      if (--pending <= 0) setIconsReady(true);
+    };
+    if (pending === 0) {
+      setIconsReady(true);
+      return;
     }
-  }, []);
+    for (const b of brands) {
+      const id = `brand-${b.slug}`;
+      if (map.hasImage(id)) {
+        done();
+        continue;
+      }
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const canvas = document.createElement("canvas");
+          canvas.width = SIZE;
+          canvas.height = SIZE;
+          const ctx = canvas.getContext("2d");
+          if (ctx) {
+            ctx.beginPath();
+            ctx.arc(SIZE / 2, SIZE / 2, RING, 0, Math.PI * 2);
+            ctx.fillStyle = "#ffffff";
+            ctx.fill();
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = b.color;
+            ctx.stroke();
+            const box = SIZE - 22; // padding inside the pill
+            const iw = img.naturalWidth || img.width || box;
+            const ih = img.naturalHeight || img.height || box;
+            const ratio = Math.min(box / iw, box / ih) || 1;
+            const w = iw * ratio;
+            const h = ih * ratio;
+            ctx.drawImage(img, (SIZE - w) / 2, (SIZE - h) / 2, w, h);
+            const data = ctx.getImageData(0, 0, SIZE, SIZE);
+            if (!map.hasImage(id)) map.addImage(id, data, { pixelRatio: 2 });
+          }
+        } catch {
+          // ignore - the dot still renders without a logo
+        }
+        done();
+      };
+      img.onerror = done;
+      img.src = b.logo;
+    }
+  }, [brands]);
 
   // Selecting a neighborhood in the filter focuses it on the map (like clicking
   // its point): fit to the real border polygon when we have one, else fly to
@@ -485,7 +540,7 @@ export function IstanbulMap({
             attributionControl={false}
             onLoad={onLoad}
             cursor={cursor}
-            interactiveLayerIds={["brand-circles"]}
+            interactiveLayerIds={["brand-circles", "brand-logos"]}
             onClick={onBrandClick}
             onMouseEnter={() => setCursor("pointer")}
             onMouseLeave={() => setCursor("")}
@@ -631,6 +686,33 @@ export function IstanbulMap({
                     ],
                   }}
                 />
+                {/* Real brand logos on a white pill. Collision detection
+                    (allow-overlap false) declutters them, so a few show at the
+                    province overview and more pop in as you zoom into an area;
+                    the coloured dot underneath always marks every branch. */}
+                {iconsReady && (
+                  <Layer
+                    id="brand-logos"
+                    source="brand-points"
+                    type="symbol"
+                    layout={{
+                      "icon-image": ["concat", "brand-", ["get", "brand"]],
+                      "icon-size": [
+                        "interpolate",
+                        ["linear"],
+                        ["zoom"],
+                        10,
+                        0.4,
+                        13,
+                        0.6,
+                        16,
+                        0.85,
+                      ],
+                      "icon-allow-overlap": false,
+                      "icon-padding": 2,
+                    }}
+                  />
+                )}
               </Source>
             )}
 

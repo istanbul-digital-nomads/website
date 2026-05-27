@@ -95,37 +95,26 @@ function geometryBounds(
     : null;
 }
 
-const ferryRoute = {
-  type: "FeatureCollection" as const,
-  features: [
-    {
-      type: "Feature" as const,
-      properties: {},
-      geometry: {
-        type: "LineString" as const,
-        coordinates: [
-          [29.023, 40.992],
-          [29.015, 41.0],
-          [29.005, 41.007],
-          [28.997, 41.013],
-          [28.978, 41.018],
-        ],
-      },
-    },
-    {
-      type: "Feature" as const,
-      properties: {},
-      geometry: {
-        type: "LineString" as const,
-        coordinates: [
-          [29.023, 40.992],
-          [29.018, 41.005],
-          [29.015, 41.023],
-        ],
-      },
-    },
-  ],
-};
+// Real Istanbul ferry network from OSM (public/data/ferries.json): every
+// iskele (ferry port) plus the actual route line geometries. Fetched at
+// runtime and rendered in the Bosphorus blue, toggled from the filter bar.
+interface FerryPort {
+  name: string;
+  lng: number;
+  lat: number;
+}
+interface FerryData {
+  ports: FerryPort[];
+  routes: {
+    type: "FeatureCollection";
+    features: Array<{
+      type: "Feature";
+      properties: { name: string; operator: string | null };
+      geometry: { type: string; coordinates: unknown };
+    }>;
+  };
+}
+const FERRY_BLUE = "#2e9bd6";
 
 function AnimatedMarker({
   neighborhood,
@@ -220,6 +209,27 @@ function AnimatedMarker({
   );
 }
 
+// An iskele (ferry port): a small Bosphorus-blue dot with the pier name on hover.
+const FerryPortMarker = memo(function FerryPortMarker({
+  port,
+}: {
+  port: FerryPort;
+}) {
+  return (
+    <Marker longitude={port.lng} latitude={port.lat} anchor="center">
+      <div className="group relative cursor-pointer">
+        <span
+          className="block h-2 w-2 rounded-full ring-1 ring-white/80 dark:ring-[#1a1612]/70"
+          style={{ backgroundColor: FERRY_BLUE }}
+        />
+        <span className="pointer-events-none absolute left-1/2 top-3 z-10 -translate-x-1/2 whitespace-nowrap rounded bg-[#0f1722]/90 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#d5e8f5] opacity-0 transition-opacity duration-150 group-hover:opacity-100">
+          {port.name}
+        </span>
+      </div>
+    </Marker>
+  );
+});
+
 interface IstanbulMapProps {
   /** Brand catalogue (defaults to the static seed for client-only use). */
   brands?: NomadBrand[];
@@ -237,6 +247,8 @@ interface IstanbulMapProps {
   activeNeighborhoods?: Set<string>;
   /** Hide the in-map brand filter chips (filters live outside the map). */
   hideOverlayFilter?: boolean;
+  /** Show the ferry network (iskele + routes). Defaults on. */
+  showFerries?: boolean;
 }
 
 export function IstanbulMap({
@@ -246,6 +258,7 @@ export function IstanbulMap({
   onToggleBrand,
   activeNeighborhoods,
   hideOverlayFilter = false,
+  showFerries = true,
 }: IstanbulMapProps = {}) {
   const tMap = useTranslations("sections.istanbulMap");
   const tCommon = useTranslations("common.side");
@@ -276,6 +289,23 @@ export function IstanbulMap({
       alive = false;
     };
   }, []);
+
+  // Real Istanbul ferry network (iskele + routes) from OSM. Only fetched when
+  // the ferry layer is on.
+  const [ferries, setFerries] = useState<FerryData | null>(null);
+  useEffect(() => {
+    if (!showFerries || ferries) return;
+    let alive = true;
+    fetch("/data/ferries.json")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (alive && d) setFerries(d as FerryData);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, [showFerries, ferries]);
 
   const toggleBrand = useCallback(
     (slug: string) => {
@@ -381,30 +411,37 @@ export function IstanbulMap({
           >
             <NavigationControl position="top-right" showCompass={false} />
 
-            <Source id="ferry-routes" type="geojson" data={ferryRoute}>
-              <Layer
-                id="ferry-glow"
-                type="line"
-                paint={{
-                  "line-color": isDark
-                    ? "rgba(39,174,96,0.25)"
-                    : "rgba(39,174,96,0.15)",
-                  "line-width": 8,
-                  "line-blur": 6,
-                }}
-              />
-              <Layer
-                id="ferry-line"
-                type="line"
-                paint={{
-                  "line-color": isDark
-                    ? "rgba(39,174,96,0.7)"
-                    : "rgba(39,174,96,0.5)",
-                  "line-width": 2,
-                  "line-dasharray": [2, 3],
-                }}
-              />
-            </Source>
+            {/* Real Istanbul ferry routes (OSM) in Bosphorus blue. */}
+            {showFerries && ferries && (
+              <Source
+                id="ferry-routes"
+                type="geojson"
+                data={ferries.routes as never}
+              >
+                <Layer
+                  id="ferry-glow"
+                  source="ferry-routes"
+                  type="line"
+                  paint={{
+                    "line-color": FERRY_BLUE,
+                    "line-width": 6,
+                    "line-blur": 5,
+                    "line-opacity": 0.25,
+                  }}
+                />
+                <Layer
+                  id="ferry-line"
+                  source="ferry-routes"
+                  type="line"
+                  paint={{
+                    "line-color": FERRY_BLUE,
+                    "line-width": 1.6,
+                    "line-opacity": 0.85,
+                    "line-dasharray": [2, 2.5],
+                  }}
+                />
+              </Source>
+            )}
 
             {/* Real OSM neighborhood boundaries (ODbL). Always shown subtly so
                 you can see the borders; the filter brightens the active ones. */}
@@ -482,6 +519,12 @@ export function IstanbulMap({
                 />
               );
             })}
+
+            {/* Iskele - every Istanbul ferry port (toggled with the routes). */}
+            {showFerries &&
+              ferries?.ports.map((port) => (
+                <FerryPortMarker key={`${port.name}-${port.lng}`} port={port} />
+              ))}
           </Map>
         </div>
 
@@ -582,7 +625,10 @@ export function IstanbulMap({
               {tCommon("asian")}
             </span>
             <span className="flex items-center gap-1.5">
-              <span className="h-2 w-2 rounded-full bg-accent-green" />
+              <span
+                className="h-2 w-2 rounded-full"
+                style={{ backgroundColor: FERRY_BLUE }}
+              />
               {tMap("ferryRoutes")}
             </span>
           </div>

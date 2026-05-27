@@ -3079,7 +3079,8 @@
     "details": "Solda Avrupa yakası, sağda Anadolu yakası, vapurlar da haftayı birbirine bağlıyor. Espressolab, Starbucks ya da BEX'i aç şubelerini gör; herhangi bir mahalleye dokunarak rehberini aç.",
     "filters": {
       "brands": "Kahve markaları",
-      "neighborhoods": "Mahalleler"
+      "neighborhoods": "Mahalleler",
+      "ferries": "Vapurlar"
     }
   },
   "circlesV2": {

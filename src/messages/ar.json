@@ -3068,7 +3068,9 @@
     "filters": {
       "brands": "ماركات القهوة",
       "neighborhoods": "الأحياء",
-      "ferries": "العبّارات"
+      "ferries": "العبّارات",
+      "ports": "الأرصفة",
+      "routes": "المسارات"
     }
   },
   "circlesV2": {

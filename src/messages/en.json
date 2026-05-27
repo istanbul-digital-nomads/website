@@ -3060,7 +3060,9 @@
     "filters": {
       "brands": "Coffee brands",
       "neighborhoods": "Neighborhoods",
-      "ferries": "Ferries"
+      "ferries": "Ferries",
+      "ports": "İskele",
+      "routes": "Routes"
     }
   },
   "circlesV2": {

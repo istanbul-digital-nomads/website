@@ -31,15 +31,56 @@ const toggleIn = (set: Set<string>, slug: string) => {
 };
 
 interface MapExplorerProps {
-  labels: { brands: string; neighborhoods: string; ferries: string };
+  labels: {
+    brands: string;
+    neighborhoods: string;
+    ferries: string;
+    ports: string;
+    routes: string;
+  };
 }
 
 const FERRY_BLUE = "#2e9bd6";
 
+function FerryToggle({
+  label,
+  on,
+  onClick,
+}: {
+  label: string;
+  on: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      aria-pressed={on}
+      onClick={onClick}
+      className="flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2e9bd6]"
+      style={
+        on
+          ? {
+              borderColor: FERRY_BLUE,
+              color: FERRY_BLUE,
+              backgroundColor: "rgba(46,155,214,0.12)",
+            }
+          : { borderColor: "rgba(255,255,255,0.12)" }
+      }
+    >
+      <span
+        className="h-2 w-2 rounded-full"
+        style={{ backgroundColor: on ? FERRY_BLUE : "#5d6d7e" }}
+      />
+      {label}
+    </button>
+  );
+}
+
 export function MapExplorer({ labels }: MapExplorerProps) {
   const [activeBrands, setActiveBrands] = useState<Set<string>>(new Set());
   const [activeHoods, setActiveHoods] = useState<Set<string>>(new Set());
-  const [showFerries, setShowFerries] = useState(true);
+  const [showPorts, setShowPorts] = useState(true);
+  const [showRoutes, setShowRoutes] = useState(true);
 
   const toggleBrand = useCallback(
     (slug: string) => setActiveBrands((prev) => toggleIn(prev, slug)),
@@ -53,7 +94,7 @@ export function MapExplorer({ labels }: MapExplorerProps) {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-4 rounded-2xl border border-ink-3 bg-black/20 p-4 sm:p-5">
-        <div className="flex flex-wrap items-end justify-between gap-3">
+        <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="flex flex-col gap-2">
             <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
               {labels.brands}
@@ -64,27 +105,23 @@ export function MapExplorer({ labels }: MapExplorerProps) {
               onToggle={toggleBrand}
             />
           </div>
-          <button
-            type="button"
-            aria-pressed={showFerries}
-            onClick={() => setShowFerries((v) => !v)}
-            className="flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-2"
-            style={
-              showFerries
-                ? {
-                    borderColor: FERRY_BLUE,
-                    color: FERRY_BLUE,
-                    backgroundColor: "rgba(46,155,214,0.12)",
-                  }
-                : undefined
-            }
-          >
-            <span
-              className="h-2 w-2 rounded-full"
-              style={{ backgroundColor: showFerries ? FERRY_BLUE : "#5d6d7e" }}
-            />
-            {labels.ferries}
-          </button>
+          <div className="flex flex-col gap-2">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+              {labels.ferries}
+            </span>
+            <div className="flex flex-wrap items-center gap-2">
+              <FerryToggle
+                label={labels.ports}
+                on={showPorts}
+                onClick={() => setShowPorts((v) => !v)}
+              />
+              <FerryToggle
+                label={labels.routes}
+                on={showRoutes}
+                onClick={() => setShowRoutes((v) => !v)}
+              />
+            </div>
+          </div>
         </div>
         <div className="flex flex-col gap-2">
           <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
@@ -103,7 +140,8 @@ export function MapExplorer({ labels }: MapExplorerProps) {
           activeBrands={activeBrands}
           onToggleBrand={toggleBrand}
           activeNeighborhoods={activeHoods}
-          showFerries={showFerries}
+          showFerryPorts={showPorts}
+          showFerryRoutes={showRoutes}
           hideOverlayFilter
         />
       </div>

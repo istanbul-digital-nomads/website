@@ -247,8 +247,10 @@ interface IstanbulMapProps {
   activeNeighborhoods?: Set<string>;
   /** Hide the in-map brand filter chips (filters live outside the map). */
   hideOverlayFilter?: boolean;
-  /** Show the ferry network (iskele + routes). Defaults on. */
-  showFerries?: boolean;
+  /** Show the iskele (ferry ports). Defaults on. */
+  showFerryPorts?: boolean;
+  /** Show the ferry route lines. Defaults on. */
+  showFerryRoutes?: boolean;
 }
 
 export function IstanbulMap({
@@ -258,7 +260,8 @@ export function IstanbulMap({
   onToggleBrand,
   activeNeighborhoods,
   hideOverlayFilter = false,
-  showFerries = true,
+  showFerryPorts = true,
+  showFerryRoutes = true,
 }: IstanbulMapProps = {}) {
   const tMap = useTranslations("sections.istanbulMap");
   const tCommon = useTranslations("common.side");
@@ -294,7 +297,7 @@ export function IstanbulMap({
   // the ferry layer is on.
   const [ferries, setFerries] = useState<FerryData | null>(null);
   useEffect(() => {
-    if (!showFerries || ferries) return;
+    if ((!showFerryPorts && !showFerryRoutes) || ferries) return;
     let alive = true;
     fetch("/data/ferries.json")
       .then((r) => (r.ok ? r.json() : null))
@@ -305,7 +308,7 @@ export function IstanbulMap({
     return () => {
       alive = false;
     };
-  }, [showFerries, ferries]);
+  }, [showFerryPorts, showFerryRoutes, ferries]);
 
   const toggleBrand = useCallback(
     (slug: string) => {
@@ -412,7 +415,7 @@ export function IstanbulMap({
             <NavigationControl position="top-right" showCompass={false} />
 
             {/* Real Istanbul ferry routes (OSM) in Bosphorus blue. */}
-            {showFerries && ferries && (
+            {showFerryRoutes && ferries && (
               <Source
                 id="ferry-routes"
                 type="geojson"
@@ -520,8 +523,8 @@ export function IstanbulMap({
               );
             })}
 
-            {/* Iskele - every Istanbul ferry port (toggled with the routes). */}
-            {showFerries &&
+            {/* Iskele - every Istanbul ferry port. */}
+            {showFerryPorts &&
               ferries?.ports.map((port) => (
                 <FerryPortMarker key={`${port.name}-${port.lng}`} port={port} />
               ))}

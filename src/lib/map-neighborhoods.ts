@@ -29,7 +29,7 @@ export const mapNeighborhoods: MapNeighborhood[] = [
     color: "#f39c12",
     bgClass: "bg-accent-warm text-neutral-950",
     labelSide: "right",
-    hasBorder: false,
+    hasBorder: true,
   },
   {
     slug: "besiktas",
@@ -66,7 +66,7 @@ export const mapNeighborhoods: MapNeighborhood[] = [
     color: "#27ae60",
     bgClass: "bg-accent-green text-white",
     labelSide: "left",
-    hasBorder: false,
+    hasBorder: true,
   },
   {
     slug: "uskudar",
@@ -91,7 +91,7 @@ export const mapNeighborhoods: MapNeighborhood[] = [
     color: "#27ae60",
     bgClass: "bg-accent-green text-white",
     labelSide: "right",
-    hasBorder: false,
+    hasBorder: true,
   },
   {
     slug: "levent",
@@ -152,7 +152,7 @@ export const mapNeighborhoods: MapNeighborhood[] = [
     color: "#f39c12",
     bgClass: "bg-accent-warm text-neutral-950",
     labelSide: "left",
-    hasBorder: false,
+    hasBorder: true,
   },
   {
     slug: "beyoglu",
@@ -252,6 +252,6 @@ export const mapNeighborhoods: MapNeighborhood[] = [
     bgClass:
       "bg-neutral-900 text-white dark:bg-neutral-200 dark:text-neutral-900",
     labelSide: "right",
-    hasBorder: false,
+    hasBorder: true,
   },
 ];

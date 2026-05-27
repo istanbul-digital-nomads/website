@@ -58,40 +58,45 @@ export function NeighborhoodFilter({
           : group.items.slice(0, COLLAPSED_PER_SIDE);
         const hiddenCount = group.items.length - visible.length;
         return (
-          <div key={group.side} className="flex flex-wrap items-center gap-2">
-            <span className="mr-1 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+          <div key={group.side} className="flex flex-col gap-1.5">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
               {group.side}
             </span>
-            {visible.map((n) => {
-              const isOn = active.has(n.slug);
-              return (
+            {/* On mobile each side is one horizontally-scrollable row so the
+                39-district list doesn't bury the map; it wraps normally from sm
+                up. The chips keep their size (shrink-0) while scrolling. */}
+            <div className="-mx-1 flex items-center gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:flex-wrap sm:px-0 sm:pb-0">
+              {visible.map((n) => {
+                const isOn = active.has(n.slug);
+                return (
+                  <button
+                    key={n.slug}
+                    type="button"
+                    aria-pressed={isOn}
+                    onClick={() => onToggle(n.slug)}
+                    title={n.vibe}
+                    className={cn(
+                      "shrink-0 rounded-full border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold sm:px-2.5 sm:py-1",
+                      isOn
+                        ? "border-gold bg-gold/15 text-paper"
+                        : "border-ink-3 text-paper-mute hover:border-paper-mute hover:text-paper-dim",
+                    )}
+                  >
+                    {n.name}
+                  </button>
+                );
+              })}
+              {(hiddenCount > 0 || isExpanded) && (
                 <button
-                  key={n.slug}
                   type="button"
-                  aria-pressed={isOn}
-                  onClick={() => onToggle(n.slug)}
-                  title={n.vibe}
-                  className={cn(
-                    "rounded-full border px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold",
-                    isOn
-                      ? "border-gold bg-gold/15 text-paper"
-                      : "border-ink-3 text-paper-mute hover:border-paper-mute hover:text-paper-dim",
-                  )}
+                  aria-expanded={isExpanded}
+                  onClick={() => toggleSide(group.side)}
+                  className="shrink-0 rounded-full px-2 py-1.5 font-mono text-[11px] uppercase tracking-wider text-gold transition-colors hover:text-gold/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold sm:py-1"
                 >
-                  {n.name}
+                  {isExpanded ? `${labels.showLess} −` : `${labels.showMore} +`}
                 </button>
-              );
-            })}
-            {(hiddenCount > 0 || isExpanded) && (
-              <button
-                type="button"
-                aria-expanded={isExpanded}
-                onClick={() => toggleSide(group.side)}
-                className="rounded-full px-2 py-1 font-mono text-[11px] uppercase tracking-wider text-gold transition-colors hover:text-gold/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
-              >
-                {isExpanded ? `${labels.showLess} −` : `${labels.showMore} +`}
-              </button>
-            )}
+              )}
+            </div>
           </div>
         );
       })}

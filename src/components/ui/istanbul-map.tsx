@@ -537,6 +537,10 @@ export function IstanbulMap({
             minZoom={MIN_ZOOM}
             style={{ width: "100%", height: "100%" }}
             scrollZoom={false}
+            // One finger scrolls the page past the map; two fingers (or
+            // ctrl/cmd + scroll on desktop) pan/zoom it. Keeps the tall mobile
+            // map from trapping the page scroll.
+            cooperativeGestures
             attributionControl={false}
             onLoad={onLoad}
             cursor={cursor}

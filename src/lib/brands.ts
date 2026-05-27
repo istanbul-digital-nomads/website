@@ -93,6 +93,46 @@ export const brands: NomadBrand[] = [
       "Fast-growing Istanbul chain with a strong Asian-side footprint and budget-friendly prices.",
     website: "https://www.bexcoffee.com",
   },
+  {
+    slug: "mikel",
+    name: "Mikel Coffee",
+    logo: "/brands/mikel.svg",
+    category: "coffee",
+    color: "#141414",
+    blurb:
+      "Greek-born chain that took off in Istanbul. Big airy branches with lots of seating - easy to settle in with a laptop.",
+    website: "https://www.mikelcoffee.com",
+  },
+  {
+    slug: "kahve-dunyasi",
+    name: "Kahve Dünyası",
+    logo: "/brands/kahve-dunyasi.svg",
+    category: "coffee",
+    color: "#7b1e3a",
+    blurb:
+      "Turkish staple with big stores and plenty of sockets. You'll find one on almost every main street.",
+    website: "https://www.kahvedunyasi.com",
+  },
+  {
+    slug: "caffe-nero",
+    name: "Caffè Nero",
+    logo: "/brands/caffe-nero.svg",
+    category: "coffee",
+    color: "#15356b",
+    blurb:
+      "Reliable wifi and power with comfy seating. A solid fallback when you need a few quiet hours of work.",
+    website: "https://www.caffenero.com.tr",
+  },
+  {
+    slug: "gloria-jeans",
+    name: "Gloria Jean's",
+    logo: "/brands/gloria-jeans.svg",
+    category: "coffee",
+    color: "#6e2639",
+    blurb:
+      "Roomy branches in malls and on high streets - good for a longer sit-down session.",
+    website: "https://www.gloriajeanscoffees.com.tr",
+  },
 ];
 
 // VERIFIED SEED - a handful of well-known branches per brand. Coordinates,

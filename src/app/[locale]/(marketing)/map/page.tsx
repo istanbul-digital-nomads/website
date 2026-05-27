@@ -69,6 +69,7 @@ export default async function MapPage({
           labels={{
             brands: t("filters.brands"),
             neighborhoods: t("filters.neighborhoods"),
+            ferries: t("filters.ferries"),
           }}
         />
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-paper-mute">

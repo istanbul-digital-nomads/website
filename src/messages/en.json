@@ -3059,7 +3059,8 @@
     "details": "European side on the left, Asian side on the right, ferries tying the week together. Toggle Espressolab, Starbucks, or BEX to see their branches; tap any neighborhood to open its guide.",
     "filters": {
       "brands": "Coffee brands",
-      "neighborhoods": "Neighborhoods"
+      "neighborhoods": "Neighborhoods",
+      "ferries": "Ferries"
     }
   },
   "circlesV2": {

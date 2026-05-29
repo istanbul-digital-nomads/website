@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.30.1] - 2026-05-29
+
+### Fixed
+
+- **Plan share cards now use a redirect-free OG image URL.** The plan `og:image` / `twitter:image` pointed at the colocated `/en/…/opengraph-image` route, which 307-redirects (the proxy strips the default locale) - strict social scrapers that don't follow a redirecting image can miss the card. Plans now serve the OG card from a canonical, locale-less `/api/plans/[id]/og` endpoint (HTTP 200, no redirect), so link previews are reliable across X / Facebook / WhatsApp / Telegram / iMessage. (If a platform still shows an old preview, that's its cache - re-scrape via its debugger or append `?v=2`.)
+
 ## [3.30.0] - 2026-05-29
 
 ### Added

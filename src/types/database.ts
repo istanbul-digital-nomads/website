@@ -693,6 +693,180 @@ export interface Database {
           click_count?: number;
         };
       };
+      nomad_brands: {
+        Row: {
+          id: string;
+          name: string;
+          slug: string;
+          logo: string | null;
+          category: string | null;
+          color: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          slug: string;
+          logo?: string | null;
+          category?: string | null;
+          color?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          name?: string;
+          slug?: string;
+          logo?: string | null;
+          category?: string | null;
+          color?: string | null;
+        };
+      };
+      brand_locations: {
+        Row: {
+          id: string;
+          brand_id: string | null;
+          name: string | null;
+          lat: number | null;
+          lng: number | null;
+          district: string | null;
+          neighborhood_slug: string | null;
+          address: string | null;
+          opening_hours: string | null;
+          rating: number | null;
+          reviews_count: number | null;
+          wifi_score: number | null;
+          atmosphere_score: number | null;
+          laptop_friendliness: number | null;
+          power_outlet_score: number | null;
+          images: Json;
+          sources: Json;
+          unverified_fields: string[];
+          last_verified: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          brand_id?: string | null;
+          name?: string | null;
+          lat?: number | null;
+          lng?: number | null;
+          district?: string | null;
+          neighborhood_slug?: string | null;
+          address?: string | null;
+          opening_hours?: string | null;
+          rating?: number | null;
+          reviews_count?: number | null;
+          wifi_score?: number | null;
+          atmosphere_score?: number | null;
+          laptop_friendliness?: number | null;
+          power_outlet_score?: number | null;
+          images?: Json;
+          sources?: Json;
+          unverified_fields?: string[];
+          last_verified?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          name?: string | null;
+          lat?: number | null;
+          lng?: number | null;
+          district?: string | null;
+          neighborhood_slug?: string | null;
+          address?: string | null;
+          opening_hours?: string | null;
+          rating?: number | null;
+          reviews_count?: number | null;
+          wifi_score?: number | null;
+          atmosphere_score?: number | null;
+          laptop_friendliness?: number | null;
+          power_outlet_score?: number | null;
+          images?: Json;
+          sources?: Json;
+          unverified_fields?: string[];
+          last_verified?: string | null;
+        };
+      };
+      // Migration 030 - district/neighborhood intelligence layer.
+      // Public reference content (RLS public-read, no client writes), so
+      // only Row is meaningfully consumed; reads degrade to the static seed
+      // in src/lib/districts.ts when the tables aren't applied.
+      istanbul_districts: {
+        Row: {
+          id: string;
+          name: string;
+          side: string | null;
+          slug: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          side?: string | null;
+          slug?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          name?: string;
+          side?: string | null;
+          slug?: string | null;
+        };
+      };
+      istanbul_neighborhoods: {
+        Row: {
+          id: string;
+          district_id: string | null;
+          slug: string | null;
+          name: string;
+          description: string | null;
+          tags: string[];
+          atmosphere: string | null;
+          nomad_score: number | null;
+          nightlife_score: number | null;
+          cost_level: number | null;
+          walkability: number | null;
+          safety: number | null;
+          transportation: string | null;
+          sources: Json;
+          unverified_fields: string[];
+          last_verified: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          district_id?: string | null;
+          slug?: string | null;
+          name: string;
+          description?: string | null;
+          tags?: string[];
+          atmosphere?: string | null;
+          nomad_score?: number | null;
+          nightlife_score?: number | null;
+          cost_level?: number | null;
+          walkability?: number | null;
+          safety?: number | null;
+          transportation?: string | null;
+          sources?: Json;
+          unverified_fields?: string[];
+          last_verified?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          district_id?: string | null;
+          slug?: string | null;
+          name?: string;
+          description?: string | null;
+          tags?: string[];
+          atmosphere?: string | null;
+          nomad_score?: number | null;
+          nightlife_score?: number | null;
+          cost_level?: number | null;
+          walkability?: number | null;
+          safety?: number | null;
+          transportation?: string | null;
+          sources?: Json;
+          unverified_fields?: string[];
+          last_verified?: string | null;
+        };
+      };
     };
     Views: {
       plans_today_count: {

@@ -17,6 +17,12 @@ export const socialLinks = {
   email: "hello@istanbulnomads.com",
 } as const;
 
+// Feature flag: Paperwork isn't ready to surface yet. While this is false the
+// Paperwork nav entry is filtered out of `navItems` (so it disappears from the
+// desktop header, mobile menu, and hero nav at once). The /paperwork routes
+// still exist - they're just unlinked. Flip to true to bring it back.
+export const PAPERWORK_ENABLED = false;
+
 // Hybrid nav: 5 workspace-style icon destinations on the left, two rich
 // dropdowns on the right. `countKey` opts a flat item into a count pill;
 // dropdowns get label + description rows for each child.
@@ -57,9 +63,9 @@ export type NavDropdownItem = {
 };
 export type NavItem = NavFlatItem | NavDropdownItem;
 
-export const navItems: NavItem[] = [
+const allNavItems: NavItem[] = [
   { key: "today", href: "/today" },
-  { key: "map", href: "/spaces" },
+  { key: "map", href: "/map" },
   { key: "events", href: "/events", countKey: "events" },
   { key: "members", href: "/members" },
   { key: "paperwork", href: "/paperwork" },
@@ -84,6 +90,10 @@ export const navItems: NavItem[] = [
     ],
   },
 ];
+
+export const navItems: NavItem[] = allNavItems.filter(
+  (item) => PAPERWORK_ENABLED || item.key !== "paperwork",
+);
 
 export type FooterLinkKey =
   | "aboutUs"

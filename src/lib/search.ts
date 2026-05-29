@@ -82,13 +82,19 @@ export async function getSearchItems(locale: Locale): Promise<SearchItem[]> {
     });
   }
 
-  // Circles
+  // Circles. Circles with translation keys (the original six) use them;
+  // newly added circles fall back to their static fields in src/lib/circles.ts
+  // until their translations land.
   for (const circle of circles) {
     items.push({
       id: `circle:${circle.slug}`,
       group: "circles",
-      title: tCircles(`names.${circle.slug}`),
-      subtitle: tCircles(`blurbs.${circle.slug}`),
+      title: tCircles.has(`names.${circle.slug}`)
+        ? tCircles(`names.${circle.slug}`)
+        : circle.name,
+      subtitle: tCircles.has(`blurbs.${circle.slug}`)
+        ? tCircles(`blurbs.${circle.slug}`)
+        : circle.blurb,
       href: `/circles/${circle.slug}`,
       keywords: [circle.slug],
     });

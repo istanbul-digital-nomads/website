@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
+import { connection } from "next/server";
 import Image from "next/image";
-import { redirect, notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import {
   CircleDollarSign,
@@ -24,14 +24,59 @@ import { getPlanById, type PlanStop } from "@/lib/plans/queries";
 import { getCurrentMember } from "@/lib/supabase/queries";
 import { spaces } from "@/lib/spaces";
 import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/config";
+import { alternatesFor, localeUrl } from "@/lib/seo";
+import { planNeighborhoods, planDateLabel } from "@/lib/plans/share";
 import { VerificationBadge } from "@/components/ui/verification-badge";
 import { isVerificationLevel } from "@/lib/verification";
-import { ShareButton } from "@/components/ui/share-button";
+import { PlanShareButton } from "@/components/sections/plans/plan-share";
 
-export const metadata: Metadata = {
-  title: "Plan",
-  robots: { index: false, follow: false },
-};
+// Per-plan metadata so shares on X/FB/WhatsApp/Slack/iMessage show a rich card
+// (the colocated opengraph-image.tsx supplies og:image automatically). Plans
+// are ephemeral, so we keep them out of the search index - social scrapers
+// read these OG/Twitter tags regardless of robots.
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; id: string }>;
+}): Promise<Metadata> {
+  const { locale: rawLocale, id } = await params;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
+  const { data: plan } = await getPlanById(id);
+  if (!plan) {
+    return { title: "Plan", robots: { index: false, follow: false } };
+  }
+
+  const tPlans = await getTranslations({ locale, namespace: "plans" });
+  const hostName = plan.host?.display_name ?? "Istanbul Nomads";
+  const hoods = planNeighborhoods(plan);
+  const title = plan.title;
+  const description = [
+    planDateLabel(plan.scheduled_date, locale),
+    hoods.join(", "),
+    tPlans("stops", { count: plan.stops.length }),
+  ]
+    .filter(Boolean)
+    .join(" · ");
+  const url = localeUrl(locale, `/plans/${id}`);
+
+  return {
+    title,
+    description,
+    robots: { index: false, follow: false },
+    alternates: alternatesFor(locale, `/plans/${id}`),
+    openGraph: {
+      title: `${title} · ${hostName}`,
+      description,
+      url,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} · ${hostName}`,
+      description,
+    },
+  };
+}
 
 // Initials fallback for a host with no avatar (e.g. "Cem Kaya" -> "CK").
 function initialsOf(name?: string | null): string {
@@ -45,14 +90,28 @@ function initialsOf(name?: string | null): string {
     .toUpperCase();
 }
 
-export default function PlanDetailPage(props: {
+export default async function PlanDetailPage({
+  params,
+}: {
   params: Promise<{ locale: string; id: string }>;
 }) {
-  return (
-    <Suspense fallback={null}>
-      <Content {...props} />
-    </Suspense>
-  );
+  // Login-gated, per-plan dynamic route. Resolve auth + the plan HERE (not
+  // inside a Suspense) and opt into dynamic rendering, so redirect()/notFound()
+  // set real HTTP status codes on the SSR first load. Under cacheComponents a
+  // prerendered shell would otherwise commit a 200 and the redirect/not-found
+  // would only resolve client-side - a broken 404-looking hard load even though
+  // CSR navigation worked.
+  await connection();
+  const { locale: rawLocale, id } = await params;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
+
+  const [{ data: member }, { data: plan }] = await Promise.all([
+    getCurrentMember(),
+    getPlanById(id),
+  ]);
+  if (!plan) notFound();
+
+  return <Content locale={locale} member={member} plan={plan} />;
 }
 
 async function PlanMoneyChip({
@@ -126,21 +185,16 @@ function formatTime(start: string | null, end: string | null): string {
 }
 
 async function Content({
-  params,
+  locale,
+  member,
+  plan,
 }: {
-  params: Promise<{ locale: string; id: string }>;
+  locale: Locale;
+  // Null for logged-out visitors - the plan is public (RLS allows anon read);
+  // member-only actions (join, edit, comment) fall back to a sign-in prompt.
+  member: Awaited<ReturnType<typeof getCurrentMember>>["data"];
+  plan: NonNullable<Awaited<ReturnType<typeof getPlanById>>["data"]>;
 }) {
-  const { locale: rawLocale, id } = await params;
-  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
-
-  // Fire both in parallel - auth check happens after both settle.
-  const [{ data: member }, { data: plan }] = await Promise.all([
-    getCurrentMember(),
-    getPlanById(id),
-  ]);
-  if (!member) redirect(`/login?next=/plans/${id}`);
-  if (!plan) notFound();
-
   const t = await getTranslations("plans");
   const tDetail = await getTranslations("plans.detail");
   const tVerifyLevels = await getTranslations("verification.levels");
@@ -149,9 +203,10 @@ async function Content({
     ? plan.host.verification_level
     : "basic";
 
-  const isHost = plan.creator_id === member.id;
+  const isHost = !!member && plan.creator_id === member.id;
   const isAttendee =
-    isHost || plan.attendees.some((a) => a.member_id === member.id);
+    isHost ||
+    (!!member && plan.attendees.some((a) => a.member_id === member.id));
   const isFull = plan.capacity != null && plan.attendee_count >= plan.capacity;
 
   const dateFmt = new Intl.DateTimeFormat(locale, {
@@ -168,10 +223,9 @@ async function Content({
             <p className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
               {dateFmt.format(new Date(`${plan.scheduled_date}T12:00:00Z`))}
             </p>
-            <ShareButton
-              kind="plan"
-              entityId={plan.id}
-              path={`/plans/${plan.id}`}
+            <PlanShareButton
+              planId={plan.id}
+              locale={locale}
               title={plan.title}
             />
           </div>
@@ -239,10 +293,17 @@ async function Content({
                   <Pencil className="h-4 w-4" aria-hidden />
                 </Link>
               )}
-              {plan.is_ticketed &&
-              !isHost &&
-              !isAttendee &&
-              plan.entry_fee_cents != null ? (
+              {!member ? (
+                <Link
+                  href={`/login?next=/plans/${plan.id}`}
+                  className="inline-flex items-center gap-2 rounded-md border border-ink-4 px-4 py-2.5 text-sm text-paper transition-colors hover:border-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
+                >
+                  {tDetail("signInToJoin")}
+                </Link>
+              ) : plan.is_ticketed &&
+                !isHost &&
+                !isAttendee &&
+                plan.entry_fee_cents != null ? (
                 <TicketCheckoutButton
                   planId={plan.id}
                   priceLabel={`${(plan.entry_fee_cents / 100).toLocaleString(locale)} TL`}
@@ -285,7 +346,7 @@ async function Content({
         <h2 className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
           {t("stops", { count: plan.stops.length })}
         </h2>
-        <ol className="mt-5 space-y-3" aria-label="Plan stops">
+        <ol className="mt-4 space-y-3" aria-label="Plan stops">
           {plan.stops.map((stop, i) => {
             const TransportIcon = stop.transport_mode
               ? TRANSPORT_ICONS[stop.transport_mode]
@@ -304,11 +365,11 @@ async function Content({
                 {/* Transport leg from previous stop to this one. */}
                 {i > 0 && TransportIcon && stop.transport_mode && (
                   <div
-                    className="flex items-center gap-2 border-b border-ink-3 bg-ink-2 px-4 py-2 text-sm text-paper-dim"
+                    className="flex items-center gap-2 border-b border-ink-3 bg-ink-2 px-4 py-2 text-paper-dim"
                     aria-label={`Travel to stop ${i + 1}`}
                   >
                     <TransportIcon
-                      className="h-4 w-4 text-terracotta"
+                      className="h-3.5 w-3.5 text-terracotta"
                       aria-hidden
                     />
                     <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
@@ -322,11 +383,16 @@ async function Content({
                   </div>
                 )}
                 <div className="flex gap-4 p-4">
-                  <span
-                    aria-hidden
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-terracotta font-mono text-sm font-semibold text-[#06101f]"
-                  >
-                    {i + 1}
+                  <span aria-hidden className="relative shrink-0">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-terracotta text-[#06101f]">
+                      <PlanVibeIcon
+                        vibe={stop.vibe}
+                        className="h-[18px] w-[18px]"
+                      />
+                    </span>
+                    <span className="absolute -bottom-1 -right-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full border border-ink-1 bg-ink-2 px-1 font-mono text-[10px] font-semibold text-paper">
+                      {i + 1}
+                    </span>
                   </span>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -343,23 +409,22 @@ async function Content({
                       )}
                     </div>
                     <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-paper-dim">
-                      <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
-                        <PlanVibeIcon
-                          vibe={stop.vibe}
-                          className="h-3 w-3 text-terracotta"
-                        />
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
                         {t(`vibes.${stop.vibe}`)}
                       </span>
                       {stop.neighborhood_slug && (
-                        <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
-                          <MapPin className="h-3 w-3" aria-hidden />
+                        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                          <MapPin className="h-3.5 w-3.5" aria-hidden />
                           {stop.neighborhood_slug}
                         </span>
                       )}
                       {(stop.cost_min_cents != null ||
                         stop.cost_max_cents != null) && (
-                        <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
-                          <Wallet className="h-3 w-3 text-moss" aria-hidden />
+                        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                          <Wallet
+                            className="h-3.5 w-3.5 text-moss"
+                            aria-hidden
+                          />
                           {stop.cost_min_cents != null &&
                           stop.cost_max_cents != null &&
                           stop.cost_max_cents !== stop.cost_min_cents
@@ -405,8 +470,8 @@ async function Content({
             author: c.author,
           }))}
           isAttendee={isAttendee}
-          currentMemberId={member.id}
-          currentMemberName={member.display_name ?? ""}
+          currentMemberId={member?.id ?? ""}
+          currentMemberName={member?.display_name ?? ""}
         />
       </Container>
     </article>

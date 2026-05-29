@@ -20,6 +20,7 @@ import { todayInIstanbul, addDays } from "@/lib/plans/expiry";
 import { VIBE_ICONS, type PlanVibe } from "@/lib/plans/vibes";
 import type { NomadSpace } from "@/lib/spaces";
 import { spaces } from "@/lib/spaces";
+import type { BrandLocation, NomadBrand } from "@/lib/brands";
 import { neighborhoods, type NeighborhoodSlug } from "@/lib/neighborhoods";
 import { PlanCreateMap, type DraftStop } from "./plan-create-map";
 import { PlanStopEditor, type EditableStop } from "./plan-stop-editor";
@@ -73,6 +74,34 @@ function makeStopFromPin(lat: number, lng: number): EditableStop {
     start_time: "",
     end_time: "",
     vibe: "social",
+    notes: "",
+    transport_mode: null,
+    transport_price_min: "",
+    transport_price_max: "",
+    cost_min: "",
+    cost_max: "",
+  };
+}
+
+// A coffee-chain branch becomes a custom stop: it's not one of the verified
+// spaces (no space_id), but we pre-fill the branch name and its coordinates so
+// the host doesn't have to type or pin it by hand.
+function makeStopFromBranch(
+  loc: BrandLocation,
+  brand: NomadBrand,
+): EditableStop {
+  return {
+    uid: uid(),
+    space_id: null,
+    custom_location: loc.name || brand.name,
+    neighborhood_slug:
+      loc.neighborhood_slug ??
+      inferNeighborhood(loc.coordinates[1], loc.coordinates[0]),
+    lat: loc.coordinates[1],
+    lng: loc.coordinates[0],
+    start_time: "",
+    end_time: "",
+    vibe: "cowork",
     notes: "",
     transport_mode: null,
     transport_price_min: "",
@@ -277,6 +306,38 @@ export function PlanCreateFlow({
     [replacingUid],
   );
 
+  const handlePickBrandBranch = useCallback(
+    (loc: BrandLocation, brand: NomadBrand) => {
+      if (replacingUid) {
+        setStops((prev) =>
+          prev.map((s) =>
+            s.uid === replacingUid
+              ? {
+                  ...s,
+                  space_id: null,
+                  custom_location: loc.name || brand.name,
+                  neighborhood_slug:
+                    loc.neighborhood_slug ??
+                    inferNeighborhood(loc.coordinates[1], loc.coordinates[0]),
+                  lat: loc.coordinates[1],
+                  lng: loc.coordinates[0],
+                }
+              : s,
+          ),
+        );
+        setFocusedUid(replacingUid);
+        setReplacingUid(null);
+      } else {
+        const stop = makeStopFromBranch(loc, brand);
+        setStops((prev) => [...prev, stop]);
+        setFocusedUid(stop.uid);
+      }
+      setPickerMode(false);
+      setSheetHeight("half");
+    },
+    [replacingUid],
+  );
+
   const handleFocusStop = useCallback((targetUid: string) => {
     setFocusedUid(targetUid);
     setPickerMode(false);
@@ -416,6 +477,7 @@ export function PlanCreateFlow({
           pickerMode={pickerMode}
           onPickSpace={handlePickSpace}
           onDropCustomPin={handleDropCustomPin}
+          onPickBrandBranch={handlePickBrandBranch}
           onFocusStop={handleFocusStop}
         />
 

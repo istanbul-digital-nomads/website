@@ -26,8 +26,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   if (!circle) return {};
   const t = await getTranslations({ locale, namespace: "circlesV2" });
   return {
-    title: t("names." + slug),
-    description: t("blurbs." + slug),
+    title: t.has("names." + slug) ? t("names." + slug) : circle.name,
+    description: t.has("blurbs." + slug) ? t("blurbs." + slug) : circle.blurb,
     alternates: alternatesFor(locale, `/circles/${slug}`),
   };
 }
@@ -41,6 +41,18 @@ export default async function CircleDetailPage(props: Props) {
   const t = getCachedTranslations(locale, "circlesV2");
   const others = circles.filter((c) => c.slug !== slug);
 
+  // Translations for the original six; static fields from src/lib/circles.ts
+  // for circles added later that don't have translation keys yet.
+  const name = t.has("names." + slug) ? t("names." + slug) : circle.name;
+  const description = t.has("descriptions." + slug)
+    ? t("descriptions." + slug)
+    : circle.description;
+  const rhythm = t.has("rhythms." + slug)
+    ? t("rhythms." + slug)
+    : circle.rhythm;
+  const nameFor = (c: (typeof others)[number]) =>
+    t.has("names." + c.slug) ? t("names." + c.slug) : c.name;
+
   return (
     <section className="bg-ink-1 pt-12 lg:pt-16">
       <Container>
@@ -49,7 +61,7 @@ export default async function CircleDetailPage(props: Props) {
             {t("eyebrow")}
           </Link>
           <span>/</span>
-          <span className="text-paper">{t("names." + slug)}</span>
+          <span className="text-paper">{name}</span>
         </nav>
 
         <div className="mt-10 flex items-center gap-4">
@@ -59,21 +71,19 @@ export default async function CircleDetailPage(props: Props) {
           <SectionEyebrow num="N° 01" label={t("circleEyebrow")} />
         </div>
         <h1 className="mt-6 font-display text-h1 leading-none text-paper lg:text-display-lg">
-          {t("names." + slug)}
+          {name}
         </h1>
 
         <div className="mt-10 grid gap-12 border-t border-ink-3 py-14 lg:grid-cols-[1.6fr_1fr]">
           <div>
             <p className="max-w-2xl text-lede leading-relaxed text-paper-dim">
-              {t("descriptions." + slug)}
+              {description}
             </p>
             <div className="mt-8 border-t border-ink-3 pt-6">
               <h2 className="font-mono text-[11px] uppercase tracking-wider text-terracotta">
                 {t("rhythmEyebrow")}
               </h2>
-              <p className="mt-3 text-base text-paper">
-                {t("rhythms." + slug)}
-              </p>
+              <p className="mt-3 text-base text-paper">{rhythm}</p>
             </div>
           </div>
 
@@ -110,7 +120,7 @@ export default async function CircleDetailPage(props: Props) {
                   className={`block h-2.5 w-2.5 rounded-full border-2 ${ACCENT_RING[other.accent]}`}
                 />
                 <span className="mt-3 block font-display text-h4 text-paper transition-colors group-hover:text-terracotta">
-                  {t("names." + other.slug)}
+                  {nameFor(other)}
                 </span>
               </Link>
             ))}

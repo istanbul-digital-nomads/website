@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import MapGL, {
   Marker,
   Popup,
@@ -9,10 +9,21 @@ import MapGL, {
   type MapRef,
 } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { Loader2, MapPin, Wallet, X } from "lucide-react";
+import {
+  Loader2,
+  MapPin,
+  Pause,
+  Play,
+  RotateCcw,
+  Wallet,
+  X,
+} from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useTheme } from "@/components/layout/theme-provider";
 import { spaces } from "@/lib/spaces";
 import { cn } from "@/lib/utils";
+import { VIBE_ICONS, type PlanVibe } from "@/lib/plans/vibes";
+import { TRANSPORT_ICONS } from "@/lib/plans/transport";
 import type { PlanStop } from "@/lib/plans/queries";
 
 const LIGHT_STYLE =
@@ -25,6 +36,11 @@ const ISTANBUL_BOUNDS: [[number, number], [number, number]] = [
   [28.7, 40.85],
   [29.4, 41.2],
 ];
+
+// How long the animation lingers on each stop before advancing.
+const STEP_MS = 2600;
+
+const ROUTE_COLOR = "#c0392b";
 
 // Approximate center coordinates for every neighbourhood slug the plan
 // composer can produce. Covers all slugs in neighborhoods.ts plus common
@@ -60,17 +76,6 @@ const NEIGHBORHOOD_CENTERS: Record<string, [number, number]> = {
   kumkapi: [28.953, 41.001],
   yenikoy: [29.053, 41.122],
   tarabya: [29.06, 41.143],
-};
-
-// Vibe emoji map for popup display.
-const VIBE_EMOJI: Record<string, string> = {
-  focus: "🎯",
-  cowork: "💻",
-  social: "🤝",
-  meal: "🍽️",
-  "after-work": "🍻",
-  outdoor: "🌿",
-  culture: "🎭",
 };
 
 function stopName(stop: PlanStop): string {
@@ -139,9 +144,14 @@ interface Props {
 
 export function PlanDetailMap({ stops }: Props) {
   const { theme } = useTheme();
+  const tVibes = useTranslations("plans.vibes");
+  const tTransport = useTranslations("plans.transport");
   const mapRef = useRef<MapRef>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+  // Animation: index of the stop currently in focus + whether we're playing.
+  const [stopIdx, setStopIdx] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const isDark =
     theme === "dark" ||
@@ -163,6 +173,7 @@ export function PlanDetailMap({ stops }: Props) {
     return dedupePositions(resolved);
   }, [stops]);
 
+  // Faint dashed line through every stop (the whole route).
   const routeGeo = useMemo(() => {
     if (positioned.length < 2) return null;
     return {
@@ -180,12 +191,28 @@ export function PlanDetailMap({ stops }: Props) {
     };
   }, [positioned]);
 
-  const handleLoad = useCallback(() => {
-    setMapLoaded(true);
-    // Call fitBounds directly here - the mapLoaded state update triggers a
-    // re-render but the map is guaranteed ready at this point.
+  // Solid trail up to (and including) the focused stop - grows while playing.
+  const trailGeo = useMemo(() => {
+    const coords = positioned
+      .slice(0, stopIdx + 1)
+      .map((p) => [p.pos.lng, p.pos.lat]);
+    if (coords.length < 2) return null;
+    return {
+      type: "FeatureCollection" as const,
+      features: [
+        {
+          type: "Feature" as const,
+          properties: {},
+          geometry: { type: "LineString" as const, coordinates: coords },
+        },
+      ],
+    };
+  }, [positioned, stopIdx]);
+
+  const fitAll = useCallback(() => {
     const map = mapRef.current?.getMap();
     if (!map || positioned.length === 0) return;
+    map.resize();
     if (positioned.length === 1) {
       map.flyTo({
         center: [positioned[0]!.pos.lng, positioned[0]!.pos.lat],
@@ -205,6 +232,68 @@ export function PlanDetailMap({ stops }: Props) {
     );
   }, [positioned]);
 
+  const handleLoad = useCallback(() => {
+    setMapLoaded(true);
+    fitAll();
+  }, [fitAll]);
+
+  // Flag ready on client-side remounts too: on a warm-cache <Link> nav the
+  // MapLibre `load` event can fire before react-map-gl binds `onLoad`, which
+  // would freeze the map at the world view. Grab the instance and either read
+  // its already-loaded state or attach our own one-shot listener.
+  useEffect(() => {
+    const map = mapRef.current?.getMap();
+    if (!map) return;
+    if (map.loaded()) {
+      handleLoad();
+      return;
+    }
+    map.once("load", handleLoad);
+    return () => {
+      map.off("load", handleLoad);
+    };
+  }, [handleLoad]);
+
+  // Auto-advance through the stops while playing; stop at the end.
+  useEffect(() => {
+    if (!isPlaying) return;
+    const id = window.setTimeout(() => {
+      setStopIdx((i) => {
+        if (i >= positioned.length - 1) {
+          setIsPlaying(false);
+          return i;
+        }
+        return i + 1;
+      });
+    }, STEP_MS);
+    return () => window.clearTimeout(id);
+  }, [isPlaying, stopIdx, positioned.length]);
+
+  // Fly the camera to the focused stop while playing.
+  useEffect(() => {
+    if (!mapLoaded || !isPlaying) return;
+    const map = mapRef.current?.getMap();
+    const p = positioned[stopIdx];
+    if (!map || !p) return;
+    map.flyTo({
+      center: [p.pos.lng, p.pos.lat],
+      zoom: 14.6,
+      duration: 1200,
+      essential: true,
+    });
+  }, [stopIdx, isPlaying, mapLoaded, positioned]);
+
+  const play = useCallback(() => {
+    setStopIdx((i) => (i >= positioned.length - 1 ? 0 : i));
+    setIsPlaying(true);
+  }, [positioned.length]);
+  const pause = useCallback(() => setIsPlaying(false), []);
+  const reset = useCallback(() => {
+    setStopIdx(0);
+    setIsPlaying(false);
+    fitAll();
+  }, [fitAll]);
+
   // Close popup on map click (outside a marker).
   const handleMapClick = useCallback(() => {
     setSelectedIdx(null);
@@ -213,6 +302,8 @@ export function PlanDetailMap({ stops }: Props) {
   if (positioned.length === 0) return null;
 
   const selected = selectedIdx !== null ? positioned[selectedIdx] : null;
+  const focused = positioned[stopIdx];
+  const canAnimate = positioned.length > 1;
 
   return (
     <div
@@ -234,94 +325,155 @@ export function PlanDetailMap({ stops }: Props) {
         onClick={handleMapClick}
         interactive
       >
-        {/* Route line - gated on mapLoaded to avoid GL style race */}
+        {/* Faint full route + solid growing trail - gated on mapLoaded to
+            avoid a GL style race. */}
         {mapLoaded && routeGeo && (
           <Source id="plan-route" type="geojson" data={routeGeo}>
-            <Layer
-              id="plan-route-glow"
-              type="line"
-              paint={{
-                "line-color": "rgba(192,57,43,0.22)",
-                "line-width": 10,
-                "line-blur": 8,
-              }}
-            />
             <Layer
               id="plan-route-line"
               type="line"
               paint={{
-                "line-color": "#c0392b",
-                "line-width": 2.5,
-                "line-dasharray": [3, 3],
+                "line-color": ROUTE_COLOR,
+                "line-width": 2,
+                "line-opacity": 0.3,
+                "line-dasharray": [2, 2.5],
+              }}
+            />
+          </Source>
+        )}
+        {mapLoaded && trailGeo && (
+          <Source id="plan-trail" type="geojson" data={trailGeo}>
+            <Layer
+              id="plan-trail-glow"
+              type="line"
+              paint={{
+                "line-color": ROUTE_COLOR,
+                "line-width": 9,
+                "line-blur": 6,
+                "line-opacity": 0.3,
+              }}
+            />
+            <Layer
+              id="plan-trail-line"
+              type="line"
+              paint={{
+                "line-color": ROUTE_COLOR,
+                "line-width": 3,
+                "line-opacity": 0.95,
               }}
             />
           </Source>
         )}
 
-        {/* Stop markers */}
-        {positioned.map(({ stop, pos }, i) => (
-          <Marker
-            key={stop.id}
-            longitude={pos.lng}
-            latitude={pos.lat}
-            anchor="bottom"
-            onClick={(e) => {
-              e.originalEvent.stopPropagation();
-              setSelectedIdx(i === selectedIdx ? null : i);
-            }}
-          >
-            {pos.approximate ? (
+        {/* Transport chips at the midpoint of each leg (walk / ferry / …). */}
+        {positioned.map(({ stop }, i) => {
+          if (i === 0 || !stop.transport_mode) return null;
+          const prev = positioned[i - 1]!;
+          const cur = positioned[i]!;
+          const TransportIcon = TRANSPORT_ICONS[stop.transport_mode];
+          const activeLeg = isPlaying && i === stopIdx;
+          return (
+            <Marker
+              key={`leg-${stop.id}`}
+              longitude={(prev.pos.lng + cur.pos.lng) / 2}
+              latitude={(prev.pos.lat + cur.pos.lat) / 2}
+              anchor="center"
+            >
               <span
-                aria-label={`Stop ${i + 1} (approximate area)`}
-                className="relative -translate-y-1 cursor-pointer"
-                title={stopName(stop)}
+                title={tTransport(stop.transport_mode)}
+                aria-label={tTransport(stop.transport_mode)}
+                className={cn(
+                  "flex h-5 w-5 items-center justify-center rounded-full border shadow transition-transform",
+                  isDark
+                    ? "border-white/15 bg-[#1c2030] text-paper"
+                    : "border-black/10 bg-white text-neutral-700",
+                  activeLeg && "scale-125",
+                )}
+                style={
+                  activeLeg
+                    ? { boxShadow: `0 0 0 3px ${ROUTE_COLOR}55` }
+                    : undefined
+                }
               >
-                <span className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-terracotta bg-terracotta/15 shadow-md transition-transform hover:scale-110">
-                  <MapPin className="h-3.5 w-3.5 text-terracotta" aria-hidden />
-                </span>
-                <span className="absolute -bottom-0.5 left-1/2 flex h-5 min-w-[18px] -translate-x-1/2 items-center justify-center rounded-full bg-terracotta px-1 font-mono text-[9px] font-semibold text-[#06101f] shadow ring-1 ring-paper/30">
-                  {i + 1}
-                </span>
+                <TransportIcon className="h-3 w-3" aria-hidden />
               </span>
-            ) : (
+            </Marker>
+          );
+        })}
+
+        {/* Stop markers - vibe icon, highlighted by animation state. */}
+        {positioned.map(({ stop, pos }, i) => {
+          const Icon = VIBE_ICONS[stop.vibe as PlanVibe] ?? MapPin;
+          const active = i === stopIdx;
+          const visited = i < stopIdx;
+          return (
+            <Marker
+              key={stop.id}
+              longitude={pos.lng}
+              latitude={pos.lat}
+              anchor="center"
+              onClick={(e) => {
+                e.originalEvent.stopPropagation();
+                setSelectedIdx(i === selectedIdx ? null : i);
+                setStopIdx(i);
+                setIsPlaying(false);
+              }}
+            >
               <span
-                aria-label={`Stop ${i + 1}`}
-                className="relative -translate-y-1 cursor-pointer"
+                aria-label={`${stopName(stop)}${pos.approximate ? " (approximate area)" : ""}`}
                 title={stopName(stop)}
+                className={cn(
+                  "flex cursor-pointer items-center justify-center rounded-full border-2 shadow-md transition-all",
+                  active
+                    ? "h-9 w-9 scale-105 border-paper bg-terracotta text-paper"
+                    : visited
+                      ? "h-7 w-7 border-paper/80 bg-terracotta/90 text-paper"
+                      : "h-7 w-7 border-paper/60 bg-terracotta/30 text-paper hover:scale-110",
+                  pos.approximate && "border-dashed",
+                )}
+                style={
+                  active
+                    ? { boxShadow: `0 0 0 4px ${ROUTE_COLOR}55` }
+                    : undefined
+                }
               >
-                <span className="flex h-6 w-6 items-center justify-center rounded-full border border-paper bg-terracotta font-mono text-[10px] font-semibold text-[#06101f] shadow-md transition-transform hover:scale-110">
-                  {i + 1}
-                </span>
-                <span className="absolute -bottom-1 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rotate-45 bg-terracotta" />
+                <Icon
+                  className={active ? "h-4 w-4" : "h-3.5 w-3.5"}
+                  aria-hidden
+                />
               </span>
-            )}
-          </Marker>
-        ))}
+            </Marker>
+          );
+        })}
 
         {/* Click popup */}
         {selected && selectedIdx !== null && (
           <Popup
             longitude={selected.pos.lng}
             latitude={selected.pos.lat}
-            anchor="top"
-            offset={[0, 12] as [number, number]}
+            anchor="bottom"
+            offset={[0, -14] as [number, number]}
             closeButton={false}
             closeOnClick={false}
             onClose={() => setSelectedIdx(null)}
             className="plan-stop-popup"
           >
             <div
-              className="min-w-[160px] max-w-[220px] rounded-lg border border-ink-3 p-3 shadow-xl"
+              className="min-w-[160px] max-w-[230px] rounded-lg border border-ink-3 p-3 shadow-xl"
               style={{
                 background: isDark ? "#1c2030" : "#ffffff",
                 color: isDark ? "#e8dfd4" : "#1a1a1a",
               }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Stop number + name */}
+              {/* Vibe icon + name */}
               <div className="mb-1.5 flex items-start gap-2">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-terracotta font-mono text-[9px] font-semibold text-[#06101f]">
-                  {selectedIdx + 1}
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-terracotta text-paper">
+                  {(() => {
+                    const Icon =
+                      VIBE_ICONS[selected.stop.vibe as PlanVibe] ?? MapPin;
+                    return <Icon className="h-3 w-3" aria-hidden />;
+                  })()}
                 </span>
                 <p className="text-[13px] font-medium leading-snug">
                   {stopName(selected.stop)}
@@ -340,7 +492,7 @@ export function PlanDetailMap({ stops }: Props) {
               <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
                 {selected.stop.vibe && (
                   <span className="font-mono text-[10px] uppercase tracking-wider opacity-60">
-                    {VIBE_EMOJI[selected.stop.vibe] ?? ""} {selected.stop.vibe}
+                    {tVibes(selected.stop.vibe)}
                   </span>
                 )}
                 {selected.stop.start_time && (
@@ -352,6 +504,29 @@ export function PlanDetailMap({ stops }: Props) {
                   </span>
                 )}
               </div>
+
+              {/* Transport used to arrive here */}
+              {selectedIdx > 0 && selected.stop.transport_mode && (
+                <div className="mt-1.5 flex items-center gap-1">
+                  {(() => {
+                    const TransportIcon =
+                      TRANSPORT_ICONS[selected.stop.transport_mode];
+                    return (
+                      <TransportIcon
+                        className="h-3 w-3 shrink-0 text-terracotta"
+                        aria-hidden
+                      />
+                    );
+                  })()}
+                  <span className="font-mono text-[10px] uppercase tracking-wider opacity-70">
+                    {tTransport(selected.stop.transport_mode)}
+                    {selected.stop.transport_price_min != null ||
+                    selected.stop.transport_price_max != null
+                      ? ` · ₺${selected.stop.transport_price_min ?? selected.stop.transport_price_max}`
+                      : ""}
+                  </span>
+                </div>
+              )}
 
               {/* Notes */}
               {selected.stop.notes && (
@@ -386,6 +561,37 @@ export function PlanDetailMap({ stops }: Props) {
           </Popup>
         )}
       </MapGL>
+
+      {/* Playback controls */}
+      {canAnimate && (
+        <div className="pointer-events-auto absolute inset-x-3 bottom-3 flex items-center justify-between gap-2 rounded-full border border-black/10 bg-white/90 px-2.5 py-1.5 backdrop-blur dark:border-white/10 dark:bg-[#1a1d27]/90">
+          <button
+            type="button"
+            onClick={isPlaying ? pause : play}
+            className="flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium text-neutral-900 transition-colors hover:bg-black/5 dark:text-paper dark:hover:bg-white/10"
+            aria-label={isPlaying ? "Pause walkthrough" : "Play walkthrough"}
+          >
+            {isPlaying ? (
+              <Pause className="h-3.5 w-3.5" aria-hidden />
+            ) : (
+              <Play className="h-3.5 w-3.5" aria-hidden />
+            )}
+            {isPlaying ? "Pause" : "Play"}
+          </button>
+          <span className="min-w-0 flex-1 truncate text-center font-mono text-[10px] uppercase tracking-wider text-neutral-500 dark:text-paper-mute">
+            {stopIdx + 1}/{positioned.length}
+            {focused ? ` · ${stopName(focused.stop)}` : ""}
+          </span>
+          <button
+            type="button"
+            onClick={reset}
+            className="flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs text-neutral-700 transition-colors hover:bg-black/5 dark:text-paper-dim dark:hover:bg-white/10"
+            aria-label="Reset walkthrough"
+          >
+            <RotateCcw className="h-3.5 w-3.5" aria-hidden />
+          </button>
+        </div>
+      )}
 
       {!mapLoaded && (
         <div

@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.30.10] - 2026-05-29
+
+### Fixed
+
+- **fa/ar plan link-preview card now shows the host avatar + name.** The Persian/Arabic OG share card (the image link previews show on WhatsApp/X/iMessage) fell back to a plain text card with no host, while the English card led with the host avatar, name, and a stops/going footer. Added a resvg-js (HarfBuzz) RTL renderer (`og-plan-rtl.tsx`) that mirrors the English card - brand wordmark, eyebrow, title, **host avatar + name**, neighbourhood chips, and footer - right-aligned for RTL. (The story image already matched in v3.30.8; this brings the link-preview card to parity too.)
+
 ## [3.30.9] - 2026-05-29
 
 ### Fixed

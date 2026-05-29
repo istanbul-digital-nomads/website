@@ -3796,10 +3796,10 @@
     "copyLink": "Copy link",
     "shareLink": "Share",
     "story": "Story image",
-    "storyHint": "Save the image, then open Instagram and add it to your story - drop a link sticker to istanbulnomads.com.",
-    "preparing": "Preparing…",
-    "saveImage": "Save image",
-    "openInstagram": "Open Instagram"
+    "shareStory": "Share to Stories",
+    "downloadStory": "Download image",
+    "storyHint": "Choose Instagram in the share sheet - your image opens in the story. Then add a link sticker to istanbulnomads.com.",
+    "preparing": "Preparing…"
   },
   "accountPage": {
     "eyebrow": "Account",

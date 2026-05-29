@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.30.5] - 2026-05-29
+
+### Changed
+
+- **Reverted "Share to Stories" to the Web Share flow.** Confirmed once more there's no web API to push an image into an Instagram story (native-app-only) and no better option, so restored the single **Share to Stories** button (Web Share API with the image file - choose Instagram in the share sheet and the image opens in the composer) plus **Download image**, instead of the two-step Save/Open variant. Fully localized across en/tr/fa/ar/ru, and the story image itself is locale-aware (date + labels).
+
 ## [3.30.4] - 2026-05-29
 
 ### Changed

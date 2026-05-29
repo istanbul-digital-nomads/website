@@ -67,7 +67,7 @@ export default async function MapPage({
             href="/plans/ali-week"
             className="inline-flex items-center gap-2 text-sm text-paper-mute underline-offset-4 transition-colors hover:text-paper hover:underline"
           >
-            See a sample week →
+            {"See Ali's real week on the map →"}
           </Link>
         </div>
       </Container>

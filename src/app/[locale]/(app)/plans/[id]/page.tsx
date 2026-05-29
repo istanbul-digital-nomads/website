@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
+import { connection } from "next/server";
 import Image from "next/image";
-import { redirect, notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import {
   CircleDollarSign,
@@ -45,14 +45,28 @@ function initialsOf(name?: string | null): string {
     .toUpperCase();
 }
 
-export default function PlanDetailPage(props: {
+export default async function PlanDetailPage({
+  params,
+}: {
   params: Promise<{ locale: string; id: string }>;
 }) {
-  return (
-    <Suspense fallback={null}>
-      <Content {...props} />
-    </Suspense>
-  );
+  // Login-gated, per-plan dynamic route. Resolve auth + the plan HERE (not
+  // inside a Suspense) and opt into dynamic rendering, so redirect()/notFound()
+  // set real HTTP status codes on the SSR first load. Under cacheComponents a
+  // prerendered shell would otherwise commit a 200 and the redirect/not-found
+  // would only resolve client-side - a broken 404-looking hard load even though
+  // CSR navigation worked.
+  await connection();
+  const { locale: rawLocale, id } = await params;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
+
+  const [{ data: member }, { data: plan }] = await Promise.all([
+    getCurrentMember(),
+    getPlanById(id),
+  ]);
+  if (!plan) notFound();
+
+  return <Content locale={locale} member={member} plan={plan} />;
 }
 
 async function PlanMoneyChip({
@@ -126,21 +140,16 @@ function formatTime(start: string | null, end: string | null): string {
 }
 
 async function Content({
-  params,
+  locale,
+  member,
+  plan,
 }: {
-  params: Promise<{ locale: string; id: string }>;
+  locale: Locale;
+  // Null for logged-out visitors - the plan is public (RLS allows anon read);
+  // member-only actions (join, edit, comment) fall back to a sign-in prompt.
+  member: Awaited<ReturnType<typeof getCurrentMember>>["data"];
+  plan: NonNullable<Awaited<ReturnType<typeof getPlanById>>["data"]>;
 }) {
-  const { locale: rawLocale, id } = await params;
-  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
-
-  // Fire both in parallel - auth check happens after both settle.
-  const [{ data: member }, { data: plan }] = await Promise.all([
-    getCurrentMember(),
-    getPlanById(id),
-  ]);
-  if (!member) redirect(`/login?next=/plans/${id}`);
-  if (!plan) notFound();
-
   const t = await getTranslations("plans");
   const tDetail = await getTranslations("plans.detail");
   const tVerifyLevels = await getTranslations("verification.levels");
@@ -149,9 +158,10 @@ async function Content({
     ? plan.host.verification_level
     : "basic";
 
-  const isHost = plan.creator_id === member.id;
+  const isHost = !!member && plan.creator_id === member.id;
   const isAttendee =
-    isHost || plan.attendees.some((a) => a.member_id === member.id);
+    isHost ||
+    (!!member && plan.attendees.some((a) => a.member_id === member.id));
   const isFull = plan.capacity != null && plan.attendee_count >= plan.capacity;
 
   const dateFmt = new Intl.DateTimeFormat(locale, {
@@ -239,10 +249,17 @@ async function Content({
                   <Pencil className="h-4 w-4" aria-hidden />
                 </Link>
               )}
-              {plan.is_ticketed &&
-              !isHost &&
-              !isAttendee &&
-              plan.entry_fee_cents != null ? (
+              {!member ? (
+                <Link
+                  href={`/login?next=/plans/${plan.id}`}
+                  className="inline-flex items-center gap-2 rounded-md border border-ink-4 px-4 py-2.5 text-sm text-paper transition-colors hover:border-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
+                >
+                  {tDetail("signInToJoin")}
+                </Link>
+              ) : plan.is_ticketed &&
+                !isHost &&
+                !isAttendee &&
+                plan.entry_fee_cents != null ? (
                 <TicketCheckoutButton
                   planId={plan.id}
                   priceLabel={`${(plan.entry_fee_cents / 100).toLocaleString(locale)} TL`}
@@ -285,7 +302,7 @@ async function Content({
         <h2 className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
           {t("stops", { count: plan.stops.length })}
         </h2>
-        <ol className="mt-5 space-y-3" aria-label="Plan stops">
+        <ol className="mt-4 space-y-3" aria-label="Plan stops">
           {plan.stops.map((stop, i) => {
             const TransportIcon = stop.transport_mode
               ? TRANSPORT_ICONS[stop.transport_mode]
@@ -304,11 +321,11 @@ async function Content({
                 {/* Transport leg from previous stop to this one. */}
                 {i > 0 && TransportIcon && stop.transport_mode && (
                   <div
-                    className="flex items-center gap-2 border-b border-ink-3 bg-ink-2 px-4 py-2 text-sm text-paper-dim"
+                    className="flex items-center gap-2 border-b border-ink-3 bg-ink-2 px-4 py-2 text-paper-dim"
                     aria-label={`Travel to stop ${i + 1}`}
                   >
                     <TransportIcon
-                      className="h-4 w-4 text-terracotta"
+                      className="h-3.5 w-3.5 text-terracotta"
                       aria-hidden
                     />
                     <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
@@ -324,7 +341,10 @@ async function Content({
                 <div className="flex gap-4 p-4">
                   <span aria-hidden className="relative shrink-0">
                     <span className="flex h-9 w-9 items-center justify-center rounded-full bg-terracotta text-[#06101f]">
-                      <PlanVibeIcon vibe={stop.vibe} className="h-5 w-5" />
+                      <PlanVibeIcon
+                        vibe={stop.vibe}
+                        className="h-[18px] w-[18px]"
+                      />
                     </span>
                     <span className="absolute -bottom-1 -right-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full border border-ink-1 bg-ink-2 px-1 font-mono text-[10px] font-semibold text-paper">
                       {i + 1}
@@ -345,23 +365,22 @@ async function Content({
                       )}
                     </div>
                     <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-paper-dim">
-                      <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
-                        <PlanVibeIcon
-                          vibe={stop.vibe}
-                          className="h-3 w-3 text-terracotta"
-                        />
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
                         {t(`vibes.${stop.vibe}`)}
                       </span>
                       {stop.neighborhood_slug && (
-                        <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
-                          <MapPin className="h-3 w-3" aria-hidden />
+                        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                          <MapPin className="h-3.5 w-3.5" aria-hidden />
                           {stop.neighborhood_slug}
                         </span>
                       )}
                       {(stop.cost_min_cents != null ||
                         stop.cost_max_cents != null) && (
-                        <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
-                          <Wallet className="h-3 w-3 text-moss" aria-hidden />
+                        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                          <Wallet
+                            className="h-3.5 w-3.5 text-moss"
+                            aria-hidden
+                          />
                           {stop.cost_min_cents != null &&
                           stop.cost_max_cents != null &&
                           stop.cost_max_cents !== stop.cost_min_cents
@@ -407,8 +426,8 @@ async function Content({
             author: c.author,
           }))}
           isAttendee={isAttendee}
-          currentMemberId={member.id}
-          currentMemberName={member.display_name ?? ""}
+          currentMemberId={member?.id ?? ""}
+          currentMemberName={member?.display_name ?? ""}
         />
       </Container>
     </article>

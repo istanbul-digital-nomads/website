@@ -102,26 +102,38 @@ export function PlanShareButton({
     return new File([blob], `istanbul-nomads-plan.png`, { type: "image/png" });
   }
 
-  // Hand the actual image to Instagram. The Web Share API with a file is the
-  // ONLY web mechanism that attaches the image: the user taps Instagram in the
-  // sheet and the image opens in the story/post composer. Instagram's
-  // image-attached deeplink (instagram-stories://share + UIPasteboard custom
-  // keys on iOS, com.instagram.share.ADD_TO_STORY intent on Android) is
-  // native-app-only - that's what the X app uses; a website can't, and a bare
-  // instagram://story-camera deeplink just opens Instagram with no image.
-  // Desktop (no file share) falls back to download.
-  async function shareStory() {
+  // Reliable two-step flow, because there is NO web way to auto-load an image
+  // into an Instagram story: the image-attached share (instagram-stories://share
+  // + iOS UIPasteboard keys / Android ADD_TO_STORY intent) is native-app-only
+  // (that's what the X app uses), and iOS Safari's Web Share -> Instagram is
+  // unreliable (often drops the file / opens the camera empty). So we let the
+  // user (1) save the image, then (2) open Instagram and add it.
+  function platform() {
+    const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
+    const isAndroid = /Android/i.test(ua);
+    const isIOS =
+      /iP(hone|ad|od)/i.test(ua) ||
+      (typeof navigator !== "undefined" &&
+        navigator.maxTouchPoints > 1 &&
+        /Macintosh/i.test(ua));
+    return { isAndroid, isIOS, isMobile: isAndroid || isIOS };
+  }
+
+  // Step 1: get the image onto the device. iOS <a download> just opens the
+  // image (can't write to Photos), so there we use the share sheet, which has a
+  // "Save Image" action; everywhere else a direct download is cleanest.
+  async function saveImage() {
     if (busyStory) return;
     setBusyStory(true);
     try {
       const file = await getStoryFile();
       if (!file) return;
+      const { isIOS } = platform();
       const canShareFiles =
         typeof navigator !== "undefined" &&
         typeof navigator.canShare === "function" &&
         navigator.canShare({ files: [file] });
-      if (canShareFiles) {
-        // Files ONLY - adding url/text makes some targets drop the file.
+      if (isIOS && canShareFiles) {
         await navigator.share({ files: [file] }).catch(() => {});
       } else {
         downloadBlob(file);
@@ -133,16 +145,17 @@ export function PlanShareButton({
     }
   }
 
-  async function downloadStory() {
-    if (busyStory) return;
-    setBusyStory(true);
-    try {
-      const file = await getStoryFile();
-      if (file) downloadBlob(file);
-    } catch {
-      showToast.error(t("error"));
-    } finally {
-      setBusyStory(false);
+  // Step 2: open Instagram's story camera (mobile) or instagram.com (desktop).
+  function openInstagram() {
+    const { isAndroid, isIOS } = platform();
+    if (isAndroid) {
+      window.location.assign(
+        "intent://story-camera#Intent;package=com.instagram.android;scheme=instagram;S.browser_fallback_url=https%3A%2F%2Fwww.instagram.com;end",
+      );
+    } else if (isIOS) {
+      window.location.assign("instagram://story-camera");
+    } else {
+      window.open("https://www.instagram.com", "_blank", "noopener");
     }
   }
 
@@ -245,25 +258,24 @@ export function PlanShareButton({
                 <div className="flex min-w-0 flex-1 flex-col gap-2">
                   <button
                     type="button"
-                    onClick={shareStory}
+                    onClick={saveImage}
                     disabled={busyStory}
                     className="inline-flex items-center justify-center gap-2 rounded-md bg-terracotta py-2.5 text-sm font-semibold text-[#06101f] transition-opacity hover:opacity-90 disabled:opacity-60"
                   >
                     {busyStory ? (
                       <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
                     ) : (
-                      <Instagram className="h-4 w-4" aria-hidden />
+                      <Download className="h-4 w-4" aria-hidden />
                     )}
-                    {t("shareStory")}
+                    {t("saveImage")}
                   </button>
                   <button
                     type="button"
-                    onClick={downloadStory}
-                    disabled={busyStory}
-                    className="inline-flex items-center justify-center gap-2 rounded-md border border-ink-3 py-2.5 text-sm text-paper transition-colors hover:border-ink-4 disabled:opacity-60"
+                    onClick={openInstagram}
+                    className="inline-flex items-center justify-center gap-2 rounded-md border border-ink-3 py-2.5 text-sm text-paper transition-colors hover:border-ink-4"
                   >
-                    <Download className="h-4 w-4" aria-hidden />
-                    {t("downloadStory")}
+                    <Instagram className="h-4 w-4" aria-hidden />
+                    {t("openInstagram")}
                   </button>
                   <p className="text-xs leading-relaxed text-paper-mute">
                     {t("storyHint")}

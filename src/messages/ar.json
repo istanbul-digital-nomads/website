@@ -3804,10 +3804,10 @@
     "copyLink": "نسخ الرابط",
     "shareLink": "مشاركة",
     "story": "صورة الاستوري",
-    "shareStory": "مشاركة في الاستوري",
-    "downloadStory": "تنزيل الصورة",
-    "storyHint": "اختر إنستغرام من قائمة المشاركة - تُفتح صورتك في القصة. ثم أضف ملصق رابط إلى istanbulnomads.com.",
-    "preparing": "جارٍ التحضير…"
+    "storyHint": "احفظ الصورة ثم افتح إنستغرام وأضفها إلى قصتك - وضع ملصق رابط إلى istanbulnomads.com.",
+    "preparing": "جارٍ التحضير…",
+    "saveImage": "حفظ الصورة",
+    "openInstagram": "فتح إنستغرام"
   },
   "accountPage": {
     "eyebrow": "الحساب",

@@ -2,6 +2,7 @@ import { ImageResponse } from "next/og";
 import type { ReactNode } from "react";
 import type { Locale } from "@/lib/i18n/config";
 import { isRtlOgLocale } from "@/lib/og-image-rtl";
+import { renderPlanStoryImageRtl } from "@/lib/og-plan-story-rtl";
 import { ogLogoDataUri } from "@/lib/og-logo";
 import { avatarToDataUri } from "@/lib/og-member";
 
@@ -159,9 +160,25 @@ export async function renderPlanStoryImage(props: PlanStoryProps) {
     tagline = "Remote life, local rhythm",
   } = props;
 
-  // Latin-safe fallback: never hand Arabic-script text to satori.
+  // fa/ar: render via resvg-js (HarfBuzz) so the Persian/Arabic chrome shapes
+  // correctly - satori can't, and would crash. This is the localized story.
+  if (isRtlOgLocale(locale)) {
+    return renderPlanStoryImageRtl({
+      locale,
+      title,
+      dateLabel,
+      neighborhoods,
+      stops,
+      shortUrl,
+      category,
+      storyCta,
+      tagline,
+    });
+  }
+
+  // Non-RTL locale carrying Arabic-script content (rare): satori would still
+  // crash on it, so fall back to a Latin-only card.
   const unsafe =
-    isRtlOgLocale(locale) ||
     ARABIC.test(title) ||
     ARABIC.test(dateLabel) ||
     neighborhoods.some((n) => ARABIC.test(n)) ||

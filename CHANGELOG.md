@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.30.7] - 2026-05-29
+
+### Fixed
+
+- **Story share image is now localized for fa/ar.** After the 500 fix, the Persian/Arabic story still rendered an English Latin fallback (satori can't shape Arabic). Added a resvg-js (HarfBuzz) RTL story renderer (`og-plan-story-rtl.tsx`) so fa/ar stories render right-to-left with the Persian/Arabic eyebrow, localized date (Jalali for fa), neighbourhoods, CTA and tagline - matching how the OG link card already localizes. (en/tr/ru already localized via satori.)
+
 ## [3.30.6] - 2026-05-29
 
 ### Fixed

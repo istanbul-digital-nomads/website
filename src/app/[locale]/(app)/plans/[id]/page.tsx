@@ -324,9 +324,12 @@ async function Content({
                 <div className="flex gap-4 p-4">
                   <span
                     aria-hidden
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-terracotta font-mono text-sm font-semibold text-[#06101f]"
+                    className="flex h-9 w-9 shrink-0 flex-col items-center justify-center gap-0.5 rounded-full bg-terracotta text-[#06101f]"
                   >
-                    {i + 1}
+                    <PlanVibeIcon vibe={stop.vibe} className="h-3.5 w-3.5" />
+                    <span className="font-mono text-[9px] font-semibold leading-none">
+                      {i + 1}
+                    </span>
                   </span>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-baseline justify-between gap-2">

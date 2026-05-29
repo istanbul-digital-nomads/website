@@ -1,14 +1,15 @@
 import { ImageResponse } from "next/og";
 import type { Locale } from "@/lib/i18n/config";
-import { ogSize, renderOgImage } from "@/lib/og-image";
+import { ogSize } from "@/lib/og-image";
 import { isRtlOgLocale } from "@/lib/og-image-rtl";
+import { renderPlanOgImageRtl } from "@/lib/og-plan-rtl";
 import { ogLogoDataUri } from "@/lib/og-logo";
 import { avatarToDataUri } from "@/lib/og-member";
 
 // Plan share card (1200x630) for link previews on X/FB/WhatsApp/Slack/iMessage.
 // Leads with the host avatar + plan title, then date, neighborhoods, and a
-// stops/going meta line. fa/ar can't be shaped by satori, so they fall back to
-// the generic RTL text renderer (still branded, just no avatar).
+// stops/going meta line. satori can't shape Arabic, so fa/ar render the same
+// card via resvg-js (og-plan-rtl.tsx) - host avatar + name included, RTL.
 
 const BRAND = "#c0392b";
 const BG = "#0f1117";
@@ -45,17 +46,21 @@ export async function renderPlanOgImage(props: PlanOgProps) {
     stopsLabel,
     goingLabel,
     category,
-    tagline = "Remote life, local rhythm",
   } = props;
 
-  // satori can't shape Arabic-script glyphs - hand fa/ar to the resvg RTL card.
+  // satori can't shape Arabic-script glyphs - hand fa/ar to the resvg RTL card,
+  // which mirrors this layout (host avatar + name + footer) right-aligned.
   if (isRtlOgLocale(locale)) {
-    return renderOgImage({
+    return await renderPlanOgImageRtl({
       locale,
-      category,
       title,
-      description: [dateLabel, ...neighborhoods].filter(Boolean).join(" · "),
-      tagline,
+      hostName,
+      avatarUrl,
+      dateLabel,
+      neighborhoods,
+      stopsLabel,
+      goingLabel,
+      category,
     });
   }
 

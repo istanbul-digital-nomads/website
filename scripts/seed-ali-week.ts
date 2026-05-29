@@ -81,6 +81,18 @@ interface SeedDay {
   stops: SeedStop[];
 }
 
+// Indicative per-stop spend (in kuruş = TL*100) by vibe, so the budget chip
+// renders on each stop. Outdoor stops (sahil walks, parks) are free -> no chip.
+const COST_BY_VIBE: Record<Vibe, [number, number] | null> = {
+  cowork: [12000, 18000],
+  focus: [10000, 16000],
+  meal: [25000, 45000],
+  social: [15000, 30000],
+  "after-work": [30000, 60000],
+  outdoor: null,
+  culture: [10000, 25000],
+};
+
 const DAYS: SeedDay[] = [
   {
     title: "Moda slow morning",
@@ -532,21 +544,26 @@ async function main() {
       console.error(`✗ plan "${day.title}":`, error?.message);
       continue;
     }
-    const stops = day.stops.map((s, idx) => ({
-      plan_id: row.id,
-      ordinal: idx + 1,
-      space_id: null,
-      custom_location: s.custom_location,
-      neighborhood_slug: s.neighborhood_slug,
-      lat: s.lat,
-      lng: s.lng,
-      start_time: s.start_time,
-      end_time: s.end_time,
-      vibe: s.vibe,
-      notes: s.notes,
-      // Transport is the leg from the previous stop; null on the first.
-      transport_mode: idx === 0 ? null : s.transport_mode,
-    }));
+    const stops = day.stops.map((s, idx) => {
+      const cost = COST_BY_VIBE[s.vibe];
+      return {
+        plan_id: row.id,
+        ordinal: idx + 1,
+        space_id: null,
+        custom_location: s.custom_location,
+        neighborhood_slug: s.neighborhood_slug,
+        lat: s.lat,
+        lng: s.lng,
+        start_time: s.start_time,
+        end_time: s.end_time,
+        vibe: s.vibe,
+        notes: s.notes,
+        // Transport is the leg from the previous stop; null on the first.
+        transport_mode: idx === 0 ? null : s.transport_mode,
+        cost_min_cents: cost?.[0] ?? null,
+        cost_max_cents: cost?.[1] ?? null,
+      };
+    });
     const { error: sErr } = await db.from("plan_stops").insert(stops);
     if (sErr) {
       console.error(`✗ stops for "${day.title}":`, sErr.message);

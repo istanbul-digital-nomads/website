@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/config";
 import { alternatesFor, localeUrl } from "@/lib/seo";
+import { Link } from "@/lib/i18n/routing";
 import { Container } from "@/components/ui/container";
 import { SectionEyebrow } from "@/components/ui/section-eyebrow";
 import { AliWeekMapLazy } from "@/components/sections/plans/ali-week-map-lazy";
 import { aliMember, aliWeek } from "@/lib/ali-week";
+import { daySlug } from "@/lib/ali-week-plans";
 
 export async function generateMetadata({
   params,
@@ -45,8 +47,10 @@ export default async function AliWeekPage({
           <span className="italic text-terracotta">on the map.</span>
         </h1>
         <p className="mt-8 max-w-2xl text-lede leading-relaxed text-paper-dim">
-          Seven days, three neighborhoods, a different cafe to open each one.
-          Tap a day to load its stops, hit play to walk through it.
+          This is how Ali actually splits his week - seven days, three
+          neighborhoods, a different cafe to open each one. Tap a day to load
+          its stops, hit play to walk through it, or open any day as its own
+          plan.
         </p>
         <div className="mt-6 flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-paper-mute">
           {neighborhoods.map((n) => (
@@ -74,6 +78,27 @@ export default async function AliWeekPage({
           the opera, the park, a meyhane evening. Hit play and the camera flies
           through the day; click a numbered pin to jump straight to that stop.
         </p>
+
+        {/* Open each day as its own plan-detail page. */}
+        <div className="mt-8">
+          <p className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+            Open a day as a plan
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {aliWeek.map((d) => (
+              <Link
+                key={d.day}
+                href={`/plans/ali-week/${daySlug(d)}`}
+                className="rounded-full border border-ink-3 px-3 py-1.5 text-sm text-paper-dim transition-colors hover:border-terracotta hover:text-paper"
+              >
+                <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                  {d.weekday}
+                </span>{" "}
+                {d.title}
+              </Link>
+            ))}
+          </div>
+        </div>
       </Container>
     </section>
   );

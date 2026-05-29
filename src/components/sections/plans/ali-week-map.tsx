@@ -151,6 +151,31 @@ export function AliWeekMap({ initialDay = 1 }: Props) {
     };
   }, [day, stopIdx]);
 
+  // Reliably flag the map as loaded - including on client-side navigation.
+  // On a Next <Link> remount the basemap style/tiles are usually warm in the
+  // HTTP cache, so MapLibre's `load` event can fire before react-map-gl's
+  // `onLoad` prop binds, leaving `mapLoaded` stuck false and the camera frozen
+  // at the initial world view. We grab the instance ourselves the moment it
+  // exists and either read its already-loaded state or attach our own one-shot
+  // listener. `resize()` covers the case where the container was measured at
+  // zero size mid-transition, which leaves the canvas blank until nudged.
+  useEffect(() => {
+    const map = mapRef.current?.getMap();
+    if (!map) return;
+    const markReady = () => {
+      setMapLoaded(true);
+      map.resize();
+    };
+    if (map.loaded()) {
+      markReady();
+      return;
+    }
+    map.once("load", markReady);
+    return () => {
+      map.off("load", markReady);
+    };
+  }, []);
+
   // Fit bounds when the day changes (and on initial load).
   useEffect(() => {
     if (!mapLoaded) return;
@@ -254,7 +279,10 @@ export function AliWeekMap({ initialDay = 1 }: Props) {
             scrollZoom={false}
             cooperativeGestures
             attributionControl={false}
-            onLoad={() => setMapLoaded(true)}
+            onLoad={(e) => {
+              setMapLoaded(true);
+              e.target.resize();
+            }}
           >
             <NavigationControl position="top-right" showCompass={false} />
 

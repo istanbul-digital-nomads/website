@@ -14,6 +14,9 @@ interface Props {
   capacityOpenLabel: string;
   todayLabel: string;
   locale: string;
+  // Override the card link. Defaults to /plans/${plan.id}; the Ali Sameni
+  // showcase cards point at their static /plans/ali-week/<day> pages instead.
+  href?: string;
 }
 
 function stopLabel(stop: PlanCardSummary["stops"][number]): string {
@@ -50,6 +53,7 @@ export function PlanCard({
   capacityOpenLabel,
   todayLabel,
   locale,
+  href,
 }: Props) {
   const firstStop = plan.stops[0];
   const moreStops = plan.stops.slice(1);
@@ -57,7 +61,7 @@ export function PlanCard({
 
   return (
     <Link
-      href={`/plans/${plan.id}`}
+      href={href ?? `/plans/${plan.id}`}
       className="group block border border-ink-3 bg-ink-1 transition-colors duration-fast hover:border-terracotta focus-visible:border-terracotta focus-visible:outline-none"
     >
       <article

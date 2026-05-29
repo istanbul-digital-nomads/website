@@ -46,6 +46,11 @@ These four roadmap items are now considered complete for phase one:
 3. First Week Planner
 4. Cafe and Coworking Finder Upgrade
 
+### Shipped in `v3.30.0`
+
+- **Plans are a live, shareable surface.** Every `/plans/[id]` plays an animated map walkthrough (vibe-icon stop markers, transport legs between stops, play/pause/reset), the detail page is publicly viewable (no login wall), and each plan has full social sharing: branded OpenGraph link cards plus a 1080×1920 Instagram/TikTok **story image** (the "share as an image with the link below" pattern) and a share sheet with Web Share API support (Share to Stories + download). Ali Sameni's showcase week ships as real member plans, seeded via `scripts/seed-ali-week.ts`.
+- Also in this release: the `/map` page, the coffee-brand + neighborhood map layers, district/neighborhood intelligence, and Circles v2.
+
 ---
 
 ## Product principles

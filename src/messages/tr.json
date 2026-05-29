@@ -3818,9 +3818,8 @@
     "story": "Story görseli",
     "shareStory": "Story'de paylaş",
     "downloadStory": "Görseli indir",
-    "storyHint": "Görseli indir, sonra Instagram story'ne ekleyip istanbulnomads.com bağlantı çıkartması koy.",
-    "preparing": "Hazırlanıyor…",
-    "instagramHint": "Instagram açılıyor - story kamerasında görselini seç."
+    "storyHint": "Paylaş menüsünden Instagram'ı seç - görselin story'de açılır. Sonra istanbulnomads.com bağlantı çıkartması ekle.",
+    "preparing": "Hazırlanıyor…"
   },
   "accountPage": {
     "eyebrow": "Hesap",

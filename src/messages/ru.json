@@ -3822,8 +3822,9 @@
     "story": "Изображение для истории",
     "shareStory": "Поделиться в историю",
     "downloadStory": "Скачать изображение",
-    "storyHint": "Опубликуйте в истории и добавьте стикер со ссылкой istanbulnomads.com.",
-    "preparing": "Подготовка…"
+    "storyHint": "Скачайте изображение, затем добавьте его в историю Instagram со стикером-ссылкой на istanbulnomads.com.",
+    "preparing": "Подготовка…",
+    "instagramHint": "Открывается Instagram — выберите изображение в камере историй."
   },
   "accountPage": {
     "eyebrow": "Аккаунт",

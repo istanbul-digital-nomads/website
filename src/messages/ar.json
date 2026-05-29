@@ -3806,8 +3806,9 @@
     "story": "صورة الاستوري",
     "shareStory": "مشاركة في الاستوري",
     "downloadStory": "تنزيل الصورة",
-    "storyHint": "انشرها في قصتك وأضف ملصق رابط إلى istanbulnomads.com.",
-    "preparing": "جارٍ التحضير…"
+    "storyHint": "نزّل الصورة ثم أضفها إلى قصتك على إنستغرام مع ملصق رابط إلى istanbulnomads.com.",
+    "preparing": "جارٍ التحضير…",
+    "instagramHint": "يفتح إنستغرام - اختر صورتك في كاميرا القصة."
   },
   "accountPage": {
     "eyebrow": "الحساب",

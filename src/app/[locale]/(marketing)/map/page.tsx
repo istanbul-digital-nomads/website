@@ -61,14 +61,6 @@ export default async function MapPage({
           >
             {t("ctaSpaces")}
           </Link>
-          {/* Showcase link to Ali Sameni's animated 7-day week. English-only
-              for now - add an i18n key if/when this becomes a permanent CTA. */}
-          <Link
-            href="/plans/ali-week"
-            className="inline-flex items-center gap-2 text-sm text-paper-mute underline-offset-4 transition-colors hover:text-paper hover:underline"
-          >
-            {"See Ali's real week on the map →"}
-          </Link>
         </div>
       </Container>
 

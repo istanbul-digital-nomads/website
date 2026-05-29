@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.30.2] - 2026-05-29
+
+### Changed
+
+- **"Share to Stories" now deep-links straight into Instagram.** On iOS/Android the button opens Instagram's story camera directly (`instagram://story-camera`; Android `intent://story-camera` with a fallback) instead of the OS share sheet, so only Instagram opens. The web story-camera deeplink can't carry the image (that's a native-app-only API), so the image is saved first on Android and the sheet's Download button + hint cover picking it; desktop falls back to download.
+
 ## [3.30.1] - 2026-05-29
 
 ### Fixed

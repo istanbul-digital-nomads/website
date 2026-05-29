@@ -3798,8 +3798,9 @@
     "story": "Story image",
     "shareStory": "Share to Stories",
     "downloadStory": "Download image",
-    "storyHint": "Post it to your story and add a link sticker to istanbulnomads.com.",
-    "preparing": "Preparing…"
+    "storyHint": "Download the image, then add it to your Instagram story with a link sticker to istanbulnomads.com.",
+    "preparing": "Preparing…",
+    "instagramHint": "Opening Instagram - pick your image in the story camera."
   },
   "accountPage": {
     "eyebrow": "Account",

@@ -2284,6 +2284,10 @@
       "category": "Spaces",
       "title": "Coworking spaces, rated by nomads",
       "description": "Wifi, noise, coffee, and vibe - scored by people who actually worked there."
+    },
+    "plan": {
+      "category": "Plan",
+      "storyCta": "See the full plan"
     }
   },
   "guideCategories": {
@@ -3787,7 +3791,15 @@
   "share": {
     "button": "Share",
     "copied": "Link copied",
-    "error": "Couldn’t create share link. Try again."
+    "error": "Couldn’t create share link. Try again.",
+    "title": "Share this plan",
+    "copyLink": "Copy link",
+    "shareLink": "Share",
+    "story": "Story image",
+    "shareStory": "Share to Stories",
+    "downloadStory": "Download image",
+    "storyHint": "Post it to your story and add a link sticker to istanbulnomads.com.",
+    "preparing": "Preparing…"
   },
   "accountPage": {
     "eyebrow": "Account",

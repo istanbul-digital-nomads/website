@@ -14,10 +14,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **Circles v2.** Expanded from 6 static circles to 22 in a category-grouped system (professional / lifestyle / growth / social / relationship) with `circle_categories`, `circle_badges`, `circle_activity`, and participation scoring (migration `031`, building on the existing `circle_members`/`perks` tables). The `/circles` page now groups circles by category, and all 22 circles are translated across the five locales (en/tr/fa/ar/ru).
 - **Multi-agent deliverables under `docs/agents/`** - design-system audit, multi-language content-calendar system, circles research, and a master progress log. Plus a `--json`/coverage helper on `scripts/i18n-content.ts` and a `brands.ts` test suite that enforces the no-fabrication scoring contract.
 - **Animated walkthrough on every plan's map.** The plan-detail map (`/plans/[id]`) now plays through a plan stop by stop: a growing route trail, the camera flying to each stop, and play/pause/reset controls. Stop pins show the **activity icon** for their vibe (coffee, fork, tree, music, focus, sunset, people) instead of plain numbers, and a small **transport chip** (walk / ferry / metro / taxi / …) sits on each leg between stops, from the transport mode the plan builder already captures. Works for every member's plan - the one-off static "Ali Sameni week" showcase was retired in favour of this, and Ali's days are now real plans seeded with `scripts/seed-ali-week.ts`.
+- **Social sharing for plans (link cards + story images).** Each plan now generates a branded **OpenGraph card** (1200×630, host avatar + title + date + neighborhoods + "N stops · M going") via a colocated `opengraph-image`, with dynamic per-plan `generateMetadata` (`twitter:card=summary_large_image`) so shares on X / Facebook / WhatsApp / Slack / iMessage show a rich preview. Plus a **portrait story image** (1080×1920, `/api/plans/[id]/story`) in the "share a tweet as an image with the link below" style - a centered plan card with the short link printed beneath, sized to the Instagram/TikTok story safe zone. A new share sheet on the plan page offers copy-link, native share, and **Share to Stories** (Web Share API with the image file → pick Instagram on mobile) with a download fallback and live preview. fa/ar fall back to a Latin-safe card (satori can't shape Arabic). `src/lib/og-plan.tsx`, `src/lib/og-plan-story.tsx`, `src/components/sections/plans/plan-share.tsx`.
 
 ### Changed
 
-- **Map page upgrade.** The brand + a new neighborhood filter now live *above* the map instead of as an on-canvas overlay (the map became a controlled component). Each neighborhood's real OSM boundary (ODbL, fetched into `public/data/neighborhood-borders.json` - 15 of 19 have a polygon; informal areas like Galata/Karaköy stay point-only) is drawn on the map and brightened when you toggle it in the filter. Brand branches expanded toward full Istanbul coverage - Espressolab 22, Starbucks 17, BEX 6 - every one cited, never fabricated.
+- **Map page upgrade.** The brand + a new neighborhood filter now live _above_ the map instead of as an on-canvas overlay (the map became a controlled component). Each neighborhood's real OSM boundary (ODbL, fetched into `public/data/neighborhood-borders.json` - 15 of 19 have a polygon; informal areas like Galata/Karaköy stay point-only) is drawn on the map and brightened when you toggle it in the filter. Brand branches expanded toward full Istanbul coverage - Espressolab 22, Starbucks 17, BEX 6 - every one cited, never fabricated.
 - **Nomad brand markers now use real brand logos instead of an emoji.** Each brand carries its own SVG logo (`public/brands/<slug>.svg` - Espressolab, Starbucks, BEX Coffee) rendered on a white pill/circle with a brand-colour ring, on both the map markers and the filter chips. The schema field `icon` was renamed to `logo` end to end (`brands.ts`, `database.ts`, migration `032` renames the `nomad_brands.icon` column), and Espressolab's accent colour was corrected to its real red.
 - **Paperwork is hidden from navigation for now.** A new `PAPERWORK_ENABLED` flag (`src/lib/constants.ts`, currently `false`) filters the Paperwork entry out of the desktop header, mobile menu, and hero nav. The `/paperwork` routes still exist but are unlinked - flip the flag to `true` to bring it back when it's ready.
 
@@ -134,7 +135,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Performance
 
-- **Deferred the site-wide Cmd-K menu and assistant widget off the initial hydration path.** Both were statically mounted in the root layout, so their JS (cmdk + the assistant flow graph) hydrated on *every* page, inflating Total Blocking Time (the main driver of sluggish-feeling navigation - prod TBT was ~590ms). They now mount via `next/dynamic` (`ssr: false`) on the first engagement signal (pointer move/down, key, scroll, touch) or when the main thread goes idle, whichever comes first - so they're ready before a user reaches for them but no longer compete with first paint/hydration. Verified the assistant launcher + Cmd-K still work after first interaction.
+- **Deferred the site-wide Cmd-K menu and assistant widget off the initial hydration path.** Both were statically mounted in the root layout, so their JS (cmdk + the assistant flow graph) hydrated on _every_ page, inflating Total Blocking Time (the main driver of sluggish-feeling navigation - prod TBT was ~590ms). They now mount via `next/dynamic` (`ssr: false`) on the first engagement signal (pointer move/down, key, scroll, touch) or when the main thread goes idle, whichever comes first - so they're ready before a user reaches for them but no longer compete with first paint/hydration. Verified the assistant launcher + Cmd-K still work after first interaction.
 
 ---
 
@@ -240,13 +241,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **Free plans now display as "Free" on the plan detail page.** When both min and max budget are 0 (or max is null), `PlanMoneyChip` now renders a "Free" label with the moss icon instead of showing nothing.
 - **Comments showed "-" for the current user's own optimistic messages.** The `author: null` in the optimistic update meant newly sent messages fell back to "-" until the page reloaded. The optimistic entry now sets `author: { id, display_name }` from the current member. Own messages show "You" (terracotta) instead of the member's name.
 
-
 ## [3.21.7] - 2026-05-21
 
 ### Fixed
 
 - **Plan detail map popup: dark mode.** MapLibre renders a white `.maplibregl-popup-content` shell around popup children regardless of theme. Added global CSS to strip the shell's background, padding, and box-shadow so the inner React card (already dark/light via inline styles) is the only visible surface. Also hides the tip arrow (the numbered pins make context clear without it).
-
 
 ## [3.21.6] - 2026-05-21
 
@@ -254,7 +253,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - **Plan detail page load time.** `getCurrentMember()` and `getPlanById()` were sequential awaits - the plan query couldn't start until the auth check finished. Both are now fired with `Promise.all`, saving roughly one Supabase round-trip per page load. Same fix applied to the plan edit page.
 - **Prettier formatting** on `plan-detail-map.tsx` and `hero-frame.tsx` was failing CI, which was potentially blocking the Vercel deployment of v3.21.5. Both files now pass `prettier --check`.
-
 
 ## [3.21.5] - 2026-05-21
 
@@ -264,8 +262,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   1. Missing neighborhood slugs - "karakoy" and 16 other slugs weren't in the `NEIGHBORHOOD_CENTERS` lookup, so stops with those slugs had no position and were dropped from the map. The table is now expanded to 27 slugs covering all commonly generated values.
   2. Route line GL race condition - the `Source`/`Layer` components were rendering before the map style finished loading, triggering a MapLibre error that silently discarded the layer. They're now gated on the `mapLoaded` flag.
   3. No click/popup - click handlers and the `Popup` component weren't wired up. Clicking a marker now opens a popup showing the stop number, name, vibe (with emoji), time range, notes, and an "approximate area" notice for neighborhood-fallback pins. Clicking the map background closes the popup.
-  Also added `dedupePositions()` to spread stops that resolve to the exact same coordinate (e.g. two stops both falling back to a neighborhood center) so they're always individually clickable.
-
+     Also added `dedupePositions()` to spread stops that resolve to the exact same coordinate (e.g. two stops both falling back to a neighborhood center) so they're always individually clickable.
 
 ## [3.21.4] - 2026-05-21
 
@@ -273,14 +270,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - **Plan detail map now always shows.** The map was hidden for any plan whose stops only had a `neighborhood_slug` (no exact `lat`/`lng` and no `space_id`). Added a third fallback in `stopLatLng`: if a stop has only a neighborhood slug, resolve it to the hood's center coordinates from a `NEIGHBORHOOD_CENTERS` lookup table (10 Istanbul neighborhoods covered). Approximate pins render as a hollow terracotta ring + `MapPin` icon so users can tell it's a neighborhood-level estimate rather than a pinpoint address. Also fixed the `fitBounds` effect - it now runs on `mapLoaded` too, not just on `positioned` changes, so the camera correctly zooms to all pins once the map style finishes loading.
 
-
 ## [3.21.3] - 2026-05-21
 
 ### Fixed
 
 - **Hero "Sign In" CTA persisting for authenticated users.** The hero section has its own nav bar (`HeroFrame`) that was completely separate from the main `AuthButton` - it had a hardcoded `<Link href="/login">` that always rendered regardless of auth state. Replaced it with a new `HeroAuthControl` component (same deferred Supabase check, hero's dark/cream palette) that shows name + dashboard link + sign-out when signed in, and the sign-in pill for guests. Auth state is fetched once in `HeroFrame` and shared to both the control and the primary CTA.
 - **Hero primary CTA for signed-in users.** The "Let's connect nomads" button always went to `/onboarding`. Signed-in members now see "See today's board" → `/today` instead (i18n in all 5 locales).
-
 
 ## [3.21.2] - 2026-05-21
 
@@ -390,7 +385,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
-- **Location picker "use my location"** now reports failures accurately. It previously showed "Location access was blocked" for *every* failure - including when the browser silently refuses geolocation with no prompt. Now it checks for a secure context up front (geolocation only prompts over https/localhost) with a dedicated message, and distinguishes a real permission block (code 1) from "couldn't read your location" (position unavailable / timeout). New `locationPicker.geoInsecure` string across all 5 locales; sharpened `geoDenied` wording (points to browser settings).
+- **Location picker "use my location"** now reports failures accurately. It previously showed "Location access was blocked" for _every_ failure - including when the browser silently refuses geolocation with no prompt. Now it checks for a secure context up front (geolocation only prompts over https/localhost) with a dedicated message, and distinguishes a real permission block (code 1) from "couldn't read your location" (position unavailable / timeout). New `locationPicker.geoInsecure` string across all 5 locales; sharpened `geoDenied` wording (points to browser settings).
 
 ## [3.19.0] - 2026-05-20
 
@@ -769,7 +764,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - **[src/lib/member-roles.ts](src/lib/member-roles.ts)** - single source of truth for the 5 roles. Exports `MEMBER_ROLES`, `isMemberRole` type guard, `HOST_ROLES` + `isHostRole` predicate, and a `ROLE_TONE` tailwind-token map for badges.
 - **[src/components/ui/role-badge.tsx](src/components/ui/role-badge.tsx)** - presentational chip used on the profile page; caller passes translated label so the leaf stays cache-safe.
-- **Role selector tile grid** in the onboarding wizard's interests step ([src/app/[locale]/(app)/onboarding/steps/step-interests.tsx](src/app/[locale]/(app)/onboarding/steps/step-interests.tsx)). 5 tiles with title + description per role.
+- **Role selector tile grid** in the onboarding wizard's interests step ([src/app/[locale]/(app)/onboarding/steps/step-interests.tsx](<src/app/[locale]/(app)/onboarding/steps/step-interests.tsx>)). 5 tiles with title + description per role.
 - **Conditional onboarding fields**: `professional_role` text input shows when `member_type === "remote_worker"`; `tour_guide_license_no` text input shows when `member_type === "tour_guide"`. Both auto-save with the rest of the form on step transitions.
 - **Role filter chip strip** on `/members` (URL-driven, server-filtered). 6 chips: All + each role. Links use the locale-aware `Link` so `/tr/members?role=local_guide` works without locale loss.
 - **Role-aware profile sections** on `/members/[id]`:
@@ -878,23 +873,23 @@ locales.
 
 ### Delivered against the Members + Profile handoff (`docs/plan/design/files/members/CHANGES.md`)
 
-| Handoff artboard / asset                    | Status       | Where it lives                                                                                |
-| ------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------- |
-| `directory-list` (`MembersListPage`)        | **Done**     | [members-editorial.tsx](src/components/sections/members/members-editorial.tsx) on `/members`  |
-| `directory-map` (`MembersMapPage`)          | Deferred     | needs a Bosphorus SVG + lat/lng-pinned member chips                                            |
-| `profile-editorial` (`ProfileEditorialPage`)| Deferred     | `/members/[id]` still uses the previous card profile                                            |
-| `profile-quiet` (`ProfileQuietPage`)        | Deferred     | will be the default for own-profile / `/me`                                                    |
-| Plans landing (`today.jsx`-aligned chrome)  | **Done**     | [hero.tsx](src/components/plans/landing/hero.tsx) + counter + how-it-works + tone-disclaimer  |
-| `today.jsx` page at `/today`                | Deferred     | route doesn't exist yet; nearest equivalent is `/plans`                                        |
+| Handoff artboard / asset                                        | Status       | Where it lives                                                                                                                                                                                      |
+| --------------------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `directory-list` (`MembersListPage`)                            | **Done**     | [members-editorial.tsx](src/components/sections/members/members-editorial.tsx) on `/members`                                                                                                        |
+| `directory-map` (`MembersMapPage`)                              | Deferred     | needs a Bosphorus SVG + lat/lng-pinned member chips                                                                                                                                                 |
+| `profile-editorial` (`ProfileEditorialPage`)                    | Deferred     | `/members/[id]` still uses the previous card profile                                                                                                                                                |
+| `profile-quiet` (`ProfileQuietPage`)                            | Deferred     | will be the default for own-profile / `/me`                                                                                                                                                         |
+| Plans landing (`today.jsx`-aligned chrome)                      | **Done**     | [hero.tsx](src/components/plans/landing/hero.tsx) + counter + how-it-works + tone-disclaimer                                                                                                        |
+| `today.jsx` page at `/today`                                    | Deferred     | route doesn't exist yet; nearest equivalent is `/plans`                                                                                                                                             |
 | Global re-skin to deep-water + Instrument Serif + Space Grotesk | **Partial**  | tokens already remapped in 3.6.0; Space Grotesk loaded as `--font-grotesk` (preload off); applied to Hero, Members, Plans surfaces. Other pages still inherit the token shift via Geist + Fraunces. |
-| Hero map system (already-shipped)           | **Hardened** | see "Hero map crash fix" + "raster tiles" + "deferred mount" below                            |
+| Hero map system (already-shipped)                               | **Hardened** | see "Hero map crash fix" + "raster tiles" + "deferred mount" below                                                                                                                                  |
 
 ### Added
 
 - **Workspace navbar** ([src/components/layout/header.tsx](src/components/layout/header.tsx)) - five flat icon destinations (Map → `/spaces`, Events, Members, Perks, with Lucide glyphs) + two restored rich dropdowns (Explore ▾, Community ▾) that show a label + description per item and gain the gold-tint active state when any of their children is current. `aria-current="page"`, keyboard-friendly, click-outside close.
 - **Header counts** ([src/lib/nav-counts.ts](src/lib/nav-counts.ts) + [src/components/layout/header-with-counts.tsx](src/components/layout/header-with-counts.tsx)) - server-side `getNavCounts()` composes the already-cached `getEventsPublic` + `getPerksPublic` queries inside a `"use cache"` boundary (cacheLife `"minutes"`); upcoming-7-day events + active perks render as count pills next to the matching destination, hidden at 0, capped at `99+`.
 - **`is-home` route flag** - pre-hydration script in [layout.tsx](src/app/[locale]/layout.tsx) sets `html.is-home` based on `location.pathname` so the homepage paints without flicker, plus [is-home-marker.tsx](src/components/layout/is-home-marker.tsx) client island that keeps the flag in sync across client-side navigations. Hides both `AmbientBar` and the global `Header` on `/` via a single CSS rule, replacing the previous client-side gate that caused hydration mismatches.
-- **MembersEditorial section** ([src/components/sections/members/members-editorial.tsx](src/components/sections/members/members-editorial.tsx)) - new full-page layout for `/members`: deep-water canvas with subtle gold/rose gradient wash, moss-green live pip with real member count, Instrument Serif headline "The people *here*, by the street they leave the house in." (italic gold accent), counts strip (public / hoods), two-column split with a recently-joined sidebar and a neighborhood-grouped right column, stable hue-per-name avatar fallback for members without photos, CTA block at the bottom. Works on real `MemberPublic` data; "Across Istanbul" bucket catches members without a `location`.
+- **MembersEditorial section** ([src/components/sections/members/members-editorial.tsx](src/components/sections/members/members-editorial.tsx)) - new full-page layout for `/members`: deep-water canvas with subtle gold/rose gradient wash, moss-green live pip with real member count, Instrument Serif headline "The people _here_, by the street they leave the house in." (italic gold accent), counts strip (public / hoods), two-column split with a recently-joined sidebar and a neighborhood-grouped right column, stable hue-per-name avatar fallback for members without photos, CTA block at the bottom. Works on real `MemberPublic` data; "Across Istanbul" bucket catches members without a `location`.
 - **Plans editorial reskin** - [hero.tsx](src/components/plans/landing/hero.tsx) + [plans-today-counter.tsx](src/components/plans/plans-today-counter.tsx) + [how-it-works.tsx](src/components/plans/landing/how-it-works.tsx) + [tone-disclaimer.tsx](src/components/plans/landing/tone-disclaimer.tsx) + the authed range header inside [plans/page.tsx](src/app/[locale]/plans/page.tsx). All now share the deep-water canvas, italic-gold serif numerals (01/02/03), rounded-full gold/ghost CTAs, gold-bordered counter card with massive Instrument Serif number.
 - **Space Grotesk** loaded via `next/font/google` ([layout.tsx](src/app/[locale]/layout.tsx)) as `--font-grotesk` + Tailwind `font-grotesk` family. Preload off (only used on Members + Plans editorial surfaces).
 - **HeroErrorBoundary** ([src/components/sections/home/hero-live/hero-error-boundary.tsx](src/components/sections/home/hero-live/hero-error-boundary.tsx)) - local class-based boundary that catches MapLibre / react-map-gl render errors from rapid mount/unmount races so they don't bubble up to the layout-level `error.tsx`. Auto-recovers on `resetKey` change.
@@ -946,7 +941,7 @@ locales.
 
 ## [3.5.0] - 2026-05-17
 
-**Multi-stop plans + map-first create flow.** A plan is now a *day* with one or more *stops* on it (cowork at Kolektif 10-2, beer at Karga at 6), each pinned visually on a map. The create flow is rewritten as a mobile-first full-bleed map with a swipeable bottom sheet - tap a verified space pin or tap anywhere to drop a custom pin, then fill in time / vibe / notes per stop. Member profiles now surface a member's upcoming plans inline. Onboarding wizard gets a mobile-first chrome refresh with a sticky footer, auto-save between steps, and an a11y baseline.
+**Multi-stop plans + map-first create flow.** A plan is now a _day_ with one or more _stops_ on it (cowork at Kolektif 10-2, beer at Karga at 6), each pinned visually on a map. The create flow is rewritten as a mobile-first full-bleed map with a swipeable bottom sheet - tap a verified space pin or tap anywhere to drop a custom pin, then fill in time / vibe / notes per stop. Member profiles now surface a member's upcoming plans inline. Onboarding wizard gets a mobile-first chrome refresh with a sticky footer, auto-save between steps, and an a11y baseline.
 
 ### Added
 
@@ -1129,11 +1124,13 @@ The fix:
 - **OG image routes**: re-applied the Promise-params fix from v3.0.0 that the rollback dropped. FA OG renders Persian text again (was silently returning EN for all locales without this fix).
 
 ### Result on local prod server
+
 - Build classification: every `[locale]/*` route is **◐ Partial Prerender** (was ƒ Dynamic before).
 - **TTFB: 5 ms** (was 330 ms uncached on the earlier Next 16 attempt; was ~80 ms cached on Next 15.5).
 - Build clean, type-check clean, 91/91 tests pass.
 
 ### Open follow-ups
+
 - Other pages (about, blog, guides, spaces, etc) still use the request-context-aware `getTranslations()` and are wrapped in Suspense - they work, but their static shell isn't cached as aggressively as the home page. Migrating them to `getCachedTranslations` is mechanical and lands in a follow-up sprint.
 - React-19-strict eslint rules downgraded to warn pending a cleanup pass.
 
@@ -1145,6 +1142,7 @@ The fix:
 - **Cache Components migration is blocked on next-intl 4** - `getTranslations({ locale })` internally reads `headers()` even with an explicit locale argument, which is forbidden inside `'use cache'` scopes (errors with "Route used `headers()` inside use cache"). next-intl's FAQ acknowledges this and points at unstable internal APIs as the workaround. When next-intl ships Cache-Components-compatible APIs, we can retry the Next 16 migration in a focused PR.
 
 ### On main after this rollback
+
 - Next 15.5.18, React 19.2.6, next-intl 4.12
 - Mobile Lighthouse: 95 / 100 / 100 / 100 (Perf / A11y / BP / SEO)
 - Desktop Lighthouse: 99 / 100 / 100 / 100
@@ -1167,7 +1165,7 @@ The fix:
 ### Fixed
 
 - **Removed `dynamic({ ssr: false })` from `client-islands.tsx`**. Post-v2.0.0 Lighthouse showed Performance had dropped from 98 to ~86 and SEO from 100 to 92, with `BAILOUT_TO_CLIENT_SIDE_RENDERING` Suspense templates in the SSR HTML. Each `ssr: false` import now produces a bailout marker that delays React 19's Document Metadata flush, so the `<title>` and `<meta name="description">` ended up in body instead of head and Lighthouse couldn't find them. The four islands (BottomTabBar, NavigationProgress, Toaster, WebMcpRegister) are now plain client component imports - they SSR-render to their initial null state (no DOM cost) and hydrate cleanly with no bailout.
-- **Disabled `experimental.optimizeCss`**. On Next 15.5 + React 19 it inlines critical CSS *after* the React 19 metadata flush, undoing the LCP improvement it gave us on Next 14. Removed the `critters` devDep.
+- **Disabled `experimental.optimizeCss`**. On Next 15.5 + React 19 it inlines critical CSS _after_ the React 19 metadata flush, undoing the LCP improvement it gave us on Next 14. Removed the `critters` devDep.
 
 ## [2.0.0] - 2026-05-14
 

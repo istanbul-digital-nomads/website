@@ -2304,6 +2304,10 @@
       "category": "Alanlar",
       "title": "Göçebelerin puanladığı coworking alanları",
       "description": "Wifi, gürültü, kahve ve hava - orada gerçekten çalışmış kişiler tarafından puanlanır."
+    },
+    "plan": {
+      "category": "Plan",
+      "storyCta": "Planın tamamını gör"
     }
   },
   "guideCategories": {
@@ -3807,7 +3811,15 @@
   "share": {
     "button": "Paylaş",
     "copied": "Bağlantı kopyalandı",
-    "error": "Bağlantı oluşturulamadı. Tekrar deneyin."
+    "error": "Bağlantı oluşturulamadı. Tekrar deneyin.",
+    "title": "Bu planı paylaş",
+    "copyLink": "Bağlantıyı kopyala",
+    "shareLink": "Paylaş",
+    "story": "Story görseli",
+    "shareStory": "Story'de paylaş",
+    "downloadStory": "Görseli indir",
+    "storyHint": "Story'ne ekle ve istanbulnomads.com bağlantı çıkartması koy.",
+    "preparing": "Hazırlanıyor…"
   },
   "accountPage": {
     "eyebrow": "Hesap",

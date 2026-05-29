@@ -13,13 +13,20 @@ interface Props {
 
 export async function PlanFeed({ range, neighborhood, vibe, locale }: Props) {
   const t = await getTranslations("plans");
-  const { data: dbPlans } = await getPlansForFeed({ range, neighborhood, vibe });
+  const { data: dbPlans } = await getPlansForFeed({
+    range,
+    neighborhood,
+    vibe,
+  });
 
   // Mix Ali Sameni's showcase week into the feed. These are static (not DB)
   // so they stay visible regardless of the date range, but we still honour the
   // active neighborhood/vibe filter so filtering the feed behaves coherently.
   const aliPlans = aliPlanCards().filter((p) => {
-    if (neighborhood && !p.stops.some((s) => s.neighborhood_slug === neighborhood)) {
+    if (
+      neighborhood &&
+      !p.stops.some((s) => s.neighborhood_slug === neighborhood)
+    ) {
       return false;
     }
     if (vibe && !p.stops.some((s) => s.vibe === vibe)) return false;

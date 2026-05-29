@@ -7,7 +7,12 @@
 
 import type { PlanVibe } from "@/lib/plans/vibes";
 import type { PlanCardSummary, PlanStop } from "@/lib/plans/queries";
-import { aliMember, aliWeek, type AliDayPlan, type AliStop } from "@/lib/ali-week";
+import {
+  aliMember,
+  aliWeek,
+  type AliDayPlan,
+  type AliStop,
+} from "@/lib/ali-week";
 
 // Synthetic id namespace so the feed can tell Ali's cards apart from DB plans
 // and point them at their static detail pages instead of /plans/[id].

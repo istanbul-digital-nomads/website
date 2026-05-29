@@ -24,14 +24,59 @@ import { getPlanById, type PlanStop } from "@/lib/plans/queries";
 import { getCurrentMember } from "@/lib/supabase/queries";
 import { spaces } from "@/lib/spaces";
 import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/config";
+import { alternatesFor, localeUrl } from "@/lib/seo";
+import { planNeighborhoods, planDateLabel } from "@/lib/plans/share";
 import { VerificationBadge } from "@/components/ui/verification-badge";
 import { isVerificationLevel } from "@/lib/verification";
-import { ShareButton } from "@/components/ui/share-button";
+import { PlanShareButton } from "@/components/sections/plans/plan-share";
 
-export const metadata: Metadata = {
-  title: "Plan",
-  robots: { index: false, follow: false },
-};
+// Per-plan metadata so shares on X/FB/WhatsApp/Slack/iMessage show a rich card
+// (the colocated opengraph-image.tsx supplies og:image automatically). Plans
+// are ephemeral, so we keep them out of the search index - social scrapers
+// read these OG/Twitter tags regardless of robots.
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; id: string }>;
+}): Promise<Metadata> {
+  const { locale: rawLocale, id } = await params;
+  const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
+  const { data: plan } = await getPlanById(id);
+  if (!plan) {
+    return { title: "Plan", robots: { index: false, follow: false } };
+  }
+
+  const tPlans = await getTranslations({ locale, namespace: "plans" });
+  const hostName = plan.host?.display_name ?? "Istanbul Nomads";
+  const hoods = planNeighborhoods(plan);
+  const title = plan.title;
+  const description = [
+    planDateLabel(plan.scheduled_date, locale),
+    hoods.join(", "),
+    tPlans("stops", { count: plan.stops.length }),
+  ]
+    .filter(Boolean)
+    .join(" · ");
+  const url = localeUrl(locale, `/plans/${id}`);
+
+  return {
+    title,
+    description,
+    robots: { index: false, follow: false },
+    alternates: alternatesFor(locale, `/plans/${id}`),
+    openGraph: {
+      title: `${title} · ${hostName}`,
+      description,
+      url,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} · ${hostName}`,
+      description,
+    },
+  };
+}
 
 // Initials fallback for a host with no avatar (e.g. "Cem Kaya" -> "CK").
 function initialsOf(name?: string | null): string {
@@ -178,10 +223,9 @@ async function Content({
             <p className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
               {dateFmt.format(new Date(`${plan.scheduled_date}T12:00:00Z`))}
             </p>
-            <ShareButton
-              kind="plan"
-              entityId={plan.id}
-              path={`/plans/${plan.id}`}
+            <PlanShareButton
+              planId={plan.id}
+              locale={locale}
               title={plan.title}
             />
           </div>

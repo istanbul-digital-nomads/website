@@ -163,9 +163,11 @@ export async function renderPlanStoryImage(props: PlanStoryProps) {
   // fa/ar: render via resvg-js (HarfBuzz) so the Persian/Arabic chrome shapes
   // correctly - satori can't, and would crash. This is the localized story.
   if (isRtlOgLocale(locale)) {
-    return renderPlanStoryImageRtl({
+    return await renderPlanStoryImageRtl({
       locale,
       title,
+      hostName,
+      avatarUrl,
       dateLabel,
       neighborhoods,
       stops,

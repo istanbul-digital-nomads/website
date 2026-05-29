@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.30.8] - 2026-05-29
+
+### Fixed
+
+- **fa/ar story image now matches the English layout.** The resvg RTL story from v3.30.7 was a flat text card missing the host. Rebuilt to mirror the EN design: brand header, a bordered card with the host **avatar + name** + Persian/Arabic eyebrow, title, neighbourhood chips, and the numbered stop timeline - right-aligned for RTL.
+
 ## [3.30.7] - 2026-05-29
 
 ### Fixed

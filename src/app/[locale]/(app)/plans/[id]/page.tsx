@@ -24,16 +24,17 @@ import { getPlanById, type PlanStop } from "@/lib/plans/queries";
 import { getCurrentMember } from "@/lib/supabase/queries";
 import { spaces } from "@/lib/spaces";
 import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/config";
-import { alternatesFor, localeUrl } from "@/lib/seo";
+import { alternatesFor, localeUrl, SITE_URL } from "@/lib/seo";
 import { planNeighborhoods, planDateLabel } from "@/lib/plans/share";
 import { VerificationBadge } from "@/components/ui/verification-badge";
 import { isVerificationLevel } from "@/lib/verification";
 import { PlanShareButton } from "@/components/sections/plans/plan-share";
 
-// Per-plan metadata so shares on X/FB/WhatsApp/Slack/iMessage show a rich card
-// (the colocated opengraph-image.tsx supplies og:image automatically). Plans
-// are ephemeral, so we keep them out of the search index - social scrapers
-// read these OG/Twitter tags regardless of robots.
+// Per-plan metadata so shares on X/FB/WhatsApp/Slack/iMessage show a rich card.
+// og:image points at the canonical, locale-less /api/plans/[id]/og route (not a
+// colocated opengraph-image, whose `/en/...` URL 307-redirects and trips strict
+// scrapers). Plans are ephemeral, so we keep them out of the search index -
+// social scrapers read these OG/Twitter tags regardless of robots.
 export async function generateMetadata({
   params,
 }: {
@@ -58,6 +59,7 @@ export async function generateMetadata({
     .filter(Boolean)
     .join(" · ");
   const url = localeUrl(locale, `/plans/${id}`);
+  const ogImage = `${SITE_URL}/api/plans/${id}/og?locale=${locale}`;
 
   return {
     title,
@@ -69,11 +71,13 @@ export async function generateMetadata({
       description,
       url,
       type: "article",
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} · ${hostName}`,
       description,
+      images: [ogImage],
     },
   };
 }

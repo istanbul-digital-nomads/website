@@ -102,45 +102,30 @@ export function PlanShareButton({
     return new File([blob], `istanbul-nomads-plan.png`, { type: "image/png" });
   }
 
-  // Open ONLY Instagram (the story camera), per request. The web story-camera
-  // deeplink can't carry the image (that's a native-app-only API), so we save
-  // the image first where the browser allows and let the user pick it in IG.
-  // iOS: instagram://story-camera. Android: an intent:// with a Play-store
-  // fallback. Desktop has no app, so we just download.
+  // Hand the actual image to Instagram. The Web Share API with a file is the
+  // ONLY web mechanism that attaches the image: the user taps Instagram in the
+  // sheet and the image opens in the story/post composer. Instagram's
+  // image-attached deeplink (instagram-stories://share + UIPasteboard custom
+  // keys on iOS, com.instagram.share.ADD_TO_STORY intent on Android) is
+  // native-app-only - that's what the X app uses; a website can't, and a bare
+  // instagram://story-camera deeplink just opens Instagram with no image.
+  // Desktop (no file share) falls back to download.
   async function shareStory() {
     if (busyStory) return;
     setBusyStory(true);
     try {
-      const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
-      const isAndroid = /Android/i.test(ua);
-      const isIOS =
-        /iP(hone|ad|od)/i.test(ua) ||
-        (typeof navigator !== "undefined" &&
-          navigator.maxTouchPoints > 1 &&
-          /Macintosh/i.test(ua));
-
-      if (!isAndroid && !isIOS) {
-        const file = await getStoryFile();
-        if (file) downloadBlob(file);
-        return;
+      const file = await getStoryFile();
+      if (!file) return;
+      const canShareFiles =
+        typeof navigator !== "undefined" &&
+        typeof navigator.canShare === "function" &&
+        navigator.canShare({ files: [file] });
+      if (canShareFiles) {
+        // Files ONLY - adding url/text makes some targets drop the file.
+        await navigator.share({ files: [file] }).catch(() => {});
+      } else {
+        downloadBlob(file);
       }
-
-      // Save the image so it's available to pick in IG. Android writes it to
-      // the gallery/Downloads; iOS can't save from web, so the hint tells the
-      // user to grab it via the Download button first.
-      if (isAndroid) {
-        try {
-          const file = await getStoryFile();
-          if (file) downloadBlob(file);
-        } catch {
-          /* best-effort save */
-        }
-      }
-      showToast.info(t("instagramHint"));
-      const deeplink = isAndroid
-        ? "intent://story-camera#Intent;package=com.instagram.android;scheme=instagram;S.browser_fallback_url=https%3A%2F%2Fwww.instagram.com;end"
-        : "instagram://story-camera";
-      window.location.assign(deeplink);
     } catch {
       showToast.error(t("error"));
     } finally {

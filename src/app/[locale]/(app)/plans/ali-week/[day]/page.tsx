@@ -98,7 +98,8 @@ export default async function AliWeekDayPage({
           </Link>
 
           <p className="mt-4 font-mono text-[11px] uppercase tracking-wider text-paper-mute">
-            {dateFmt.format(new Date(`${day.date}T12:00:00Z`))} · {day.neighborhood}
+            {dateFmt.format(new Date(`${day.date}T12:00:00Z`))} ·{" "}
+            {day.neighborhood}
           </p>
 
           <h1 className="mt-2 max-w-2xl font-display text-h1 text-paper">

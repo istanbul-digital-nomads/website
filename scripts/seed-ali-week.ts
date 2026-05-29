@@ -1,20 +1,25 @@
 /**
- * Seed "Ali Sameni" as a real member and his week as 7 real plans, built the
- * same way the app's createPlan does - so they show up in the feed and on
- * /plans/[id] like any member's plans, and exercise the animated walkthrough
- * (vibe-icon markers + transport legs).
+ * Seed Ali Sameni's week as 7 real plans owned by the REAL "Ali Sameni" member
+ * (the actual logged-in account, so cards/detail show that profile's avatar) -
+ * built the same way the app's createPlan does, so they behave like any
+ * member's plans and exercise the animated walkthrough (vibe icons + transport).
  *
- * Idempotent: the member is upserted by a stable email, and his plans are
- * purged by creator_id (cascading stops/attendees) before re-insert. Dates are
- * rolling - assigned to the upcoming 7 days so they stay inside the feed's
- * "this week" range. Re-run to refresh the dates.
+ * Owner resolution: the "Ali Sameni" member whose email is NOT a seed address,
+ * or ALI_OWNER_EMAIL if set. Idempotent: prior copies of these 7 day-plans are
+ * purged by title (any creator) before re-insert, so ownership migrates off the
+ * old synthetic showcase member, which is then deleted. Dates are rolling
+ * (upcoming 7 days) so they stay in the feed's "this week" range - re-run to
+ * refresh.
  *
  * Run: pnpm tsx --env-file=.env.local scripts/seed-ali-week.ts
+ * Or:  ALI_OWNER_EMAIL=you@example.com pnpm tsx --env-file=.env.local scripts/seed-ali-week.ts
  */
 
 import { createClient } from "@supabase/supabase-js";
 
-const ALI_EMAIL = "ali-sameni@istanbulnomads.local";
+// Old one-off showcase account these plans used to be attributed to. Now we
+// attribute them to the real "Ali Sameni" member and delete this if present.
+const SYNTHETIC_EMAIL = "ali-sameni@istanbulnomads.local";
 
 // Istanbul is UTC+03 year-round (no DST since 2016), so a fixed offset is safe.
 function todayIstanbul(): string {
@@ -441,60 +446,56 @@ async function main() {
   const sb = createClient(url, key, { auth: { persistSession: false } });
   const db = sb as unknown as { from: (t: string) => any };
 
-  // 1. Provision Ali's auth user + member row.
-  const { data: usersList } = await sb.auth.admin.listUsers({
-    page: 1,
-    perPage: 1000,
-  });
-  let aliId = (usersList?.users ?? []).find(
-    (u) => u.email?.toLowerCase() === ALI_EMAIL,
-  )?.id;
-  if (!aliId) {
-    const { data: created, error } = await sb.auth.admin.createUser({
-      email: ALI_EMAIL,
-      email_confirm: true,
-      user_metadata: { full_name: "Ali Sameni" },
-    });
-    if (error || !created?.user) {
-      console.error("✗ create auth user:", error?.message);
-      process.exit(1);
-    }
-    aliId = created.user.id;
-  }
-  const { error: mErr } = await db.from("members").upsert(
-    {
-      id: aliId,
-      email: ALI_EMAIL,
-      display_name: "Ali Sameni",
-      is_visible: true,
-      onboarding_completed: true,
-      member_type: "nomad",
-      is_agent: false,
-      verification_level: "verified",
-      location: "Kadıköy",
-      city_district: "Moda",
-      profession: "Designer",
-      bio: "Designer, walking nomad. Splits the week between Kadıköy, Şişli, and Beyoğlu - one neighborhood a day.",
-    },
-    { onConflict: "id" },
-  );
-  if (mErr) {
-    console.error("✗ upsert member:", mErr.message);
+  // 1. Resolve the real owner. These are a member's own plans, not a synthetic
+  // showcase account, so attribute them to the real "Ali Sameni" member (the
+  // one with a real, non-seed email) - or to ALI_OWNER_EMAIL if provided.
+  const ownerEmail = process.env.ALI_OWNER_EMAIL;
+  const { data: matches } = await db
+    .from("members")
+    .select("id, email, member_type, verification_level")
+    .eq("display_name", "Ali Sameni");
+  const members = (matches ?? []) as Array<{
+    id: string;
+    email: string;
+    member_type: string | null;
+    verification_level: string | null;
+  }>;
+  const owner = ownerEmail
+    ? members.find((m) => m.email.toLowerCase() === ownerEmail.toLowerCase())
+    : members.find((m) => !m.email.endsWith("@istanbulnomads.local"));
+  if (!owner) {
+    console.error(
+      ownerEmail
+        ? `No member found for ALI_OWNER_EMAIL=${ownerEmail}.`
+        : 'No real "Ali Sameni" member found. Set ALI_OWNER_EMAIL to your account email and re-run.',
+    );
     process.exit(1);
   }
-  console.log(`✓ Member ready: Ali Sameni (${aliId})`);
+  const ownerId = owner.id;
+  console.log(`✓ Owner: ${owner.email} (${ownerId})`);
 
-  // 2. Purge Ali's prior plans (cascades stops + attendees via FK).
+  // 2. Purge prior copies of these 7 day-plans, scoped to the only two
+  // creators that could own them - the real owner (idempotent re-run) and the
+  // old synthetic showcase member (ownership migration). Title + creator scope
+  // means we never touch another member's plans.
+  const syntheticMember = members.find((m) =>
+    m.email.endsWith("@istanbulnomads.local"),
+  );
+  const cleanupCreatorIds = [ownerId, syntheticMember?.id].filter(
+    (v): v is string => Boolean(v),
+  );
+  const titles = DAYS.map((d) => d.title);
   const { data: prior } = await db
     .from("plans")
     .select("id")
-    .eq("creator_id", aliId);
+    .in("creator_id", cleanupCreatorIds)
+    .in("title", titles);
   const priorIds = (prior ?? []).map((p: { id: string }) => p.id);
   if (priorIds.length) {
     await db.from("plan_attendees").delete().in("plan_id", priorIds);
     await db.from("plan_stops").delete().in("plan_id", priorIds);
     await db.from("plans").delete().in("id", priorIds);
-    console.log(`✓ Cleared ${priorIds.length} prior Ali plans`);
+    console.log(`✓ Cleared ${priorIds.length} prior plan(s)`);
   }
 
   // 3. Insert the 7 days on rolling upcoming dates.
@@ -511,7 +512,7 @@ async function main() {
     const { data: row, error } = await db
       .from("plans")
       .insert({
-        creator_id: aliId,
+        creator_id: ownerId,
         scheduled_date: date,
         title: day.title,
         capacity: null,
@@ -522,8 +523,8 @@ async function main() {
         budget_per_person_min_cents: null,
         budget_per_person_max_cents: null,
         currency: "TRY",
-        host_role_at_creation: "nomad",
-        host_badge_at_creation: "verified",
+        host_role_at_creation: owner.member_type ?? "nomad",
+        host_badge_at_creation: owner.verification_level ?? "basic",
       })
       .select("id")
       .single();
@@ -554,13 +555,28 @@ async function main() {
     }
     await db
       .from("plan_attendees")
-      .insert({ plan_id: row.id, member_id: aliId, status: "going" });
+      .insert({ plan_id: row.id, member_id: ownerId, status: "going" });
     planCount++;
     stopCount += stops.length;
   }
   console.log(
-    `✓ Seeded ${planCount} plans / ${stopCount} stops for Ali Sameni (${today} +1..+7)`,
+    `✓ Seeded ${planCount} plans / ${stopCount} stops for ${owner.email} (${today} +1..+7)`,
   );
+
+  // 3. Remove the old synthetic showcase member if it's still around, so it
+  // stops showing up as a duplicate "Ali Sameni" in the directory. Deleting
+  // the auth user cascades to its members row.
+  const { data: usersList } = await sb.auth.admin.listUsers({
+    page: 1,
+    perPage: 1000,
+  });
+  const synthetic = (usersList?.users ?? []).find(
+    (u) => u.email?.toLowerCase() === SYNTHETIC_EMAIL,
+  );
+  if (synthetic) {
+    await sb.auth.admin.deleteUser(synthetic.id);
+    console.log(`✓ Removed synthetic ${SYNTHETIC_EMAIL} member`);
+  }
 }
 
 main().catch((e) => {

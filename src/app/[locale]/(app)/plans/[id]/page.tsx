@@ -322,13 +322,12 @@ async function Content({
                   </div>
                 )}
                 <div className="flex gap-4 p-4">
-                  <span
-                    aria-hidden
-                    className="flex h-9 w-9 shrink-0 flex-col items-center justify-center gap-0.5 rounded-full bg-terracotta text-[#06101f]"
-                  >
-                    <PlanVibeIcon vibe={stop.vibe} className="h-3.5 w-3.5" />
-                    <span className="font-mono text-[9px] font-semibold leading-none">
+                  <span aria-hidden className="relative shrink-0">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-terracotta font-mono text-sm font-semibold text-[#06101f]">
                       {i + 1}
+                    </span>
+                    <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full border border-ink-1 bg-ink-2 text-terracotta">
+                      <PlanVibeIcon vibe={stop.vibe} className="h-3 w-3" />
                     </span>
                   </span>
                   <div className="min-w-0 flex-1">

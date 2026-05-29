@@ -16,6 +16,19 @@ interface Props {
   locale: string;
 }
 
+// Two-letter initials for a host with no avatar (e.g. "Ali Sameni" -> "AS"),
+// so the fallback reads as an intentional avatar rather than a lone letter.
+function initials(name?: string | null): string {
+  if (!name) return "?";
+  return name
+    .split(/\s+/)
+    .map((p) => p[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+}
+
 function stopLabel(stop: PlanCardSummary["stops"][number]): string {
   if (stop.space_id) {
     const sp = spaces.find((s) => s.id === stop.space_id);
@@ -79,7 +92,7 @@ export function PlanCard({
                 className="h-full w-full object-cover"
               />
             ) : (
-              (plan.host?.display_name ?? "?").charAt(0)
+              initials(plan.host?.display_name)
             )}
           </span>
           <div className="min-w-0 flex-1">
@@ -118,6 +131,7 @@ export function PlanCard({
           {firstStop && (
             <StopRow
               ordinal={1}
+              vibe={firstStop.vibe}
               label={stopLabel(firstStop)}
               time={formatStopTime(
                 firstStop.start_time,
@@ -131,6 +145,7 @@ export function PlanCard({
             <StopRow
               key={s.id}
               ordinal={i + 2}
+              vibe={s.vibe}
               label={stopLabel(s)}
               time={formatStopTime(s.start_time, s.end_time, locale)}
             />
@@ -167,11 +182,13 @@ export function PlanCard({
 
 function StopRow({
   ordinal,
+  vibe,
   label,
   time,
   isFirst,
 }: {
   ordinal: number;
+  vibe?: PlanVibe;
   label: string;
   time: string;
   isFirst?: boolean;
@@ -189,6 +206,12 @@ function StopRow({
       >
         {ordinal}
       </span>
+      {vibe && (
+        <PlanVibeIcon
+          vibe={vibe}
+          className="h-3.5 w-3.5 shrink-0 text-terracotta"
+        />
+      )}
       <span className="truncate">{label}</span>
       {time && (
         <span className="ms-auto font-mono text-[10px] uppercase tracking-wider text-paper-mute">

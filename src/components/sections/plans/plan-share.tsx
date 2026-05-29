@@ -1,7 +1,12 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/react";
 import { useTranslations } from "next-intl";
 import {
   Share2,
@@ -175,14 +180,20 @@ export function PlanShareButton({
       <Dialog
         open={open}
         onClose={() => setOpen(false)}
+        transition
         className="relative z-[60]"
       >
-        <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-sm"
-          aria-hidden
+        <DialogBackdrop
+          transition
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm duration-200 ease-out data-[closed]:opacity-0"
         />
-        <div className="fixed inset-0 flex items-end justify-center p-0 sm:items-center sm:p-4">
-          <DialogPanel className="w-full max-w-md rounded-t-2xl border border-ink-3 bg-ink-1 p-5 shadow-2xl sm:rounded-2xl">
+        {/* Vertically + horizontally centered on every viewport; scrolls if the
+            content is taller than the screen. */}
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <DialogPanel
+            transition
+            className="max-h-[calc(100dvh-2rem)] w-full max-w-md overflow-y-auto rounded-2xl border border-ink-3 bg-ink-1 p-5 shadow-2xl duration-200 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
+          >
             <div className="flex items-center justify-between">
               <DialogTitle className="font-display text-h3 text-paper">
                 {t("title")}

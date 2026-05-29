@@ -3397,7 +3397,8 @@
       "edit": "تعديل الخطة",
       "openTelegram": "راسل {name} على تيليغرام",
       "errorTitle": "فشل الإجراء",
-      "errorBody": "تعذّر التحديث. حاول مجدداً."
+      "errorBody": "تعذّر التحديث. حاول مجدداً.",
+      "signInToJoin": "سجّل الدخول للانضمام"
     },
     "comments": {
       "title": "محادثة ({count})",

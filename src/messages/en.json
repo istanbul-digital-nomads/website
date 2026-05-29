@@ -3389,7 +3389,8 @@
       "edit": "Edit plan",
       "openTelegram": "Message {name} on Telegram",
       "errorTitle": "Action failed",
-      "errorBody": "Couldn't update. Try again."
+      "errorBody": "Couldn't update. Try again.",
+      "signInToJoin": "Sign in to join"
     },
     "comments": {
       "title": "Chat ({count})",

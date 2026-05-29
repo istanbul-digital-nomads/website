@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.30.6] - 2026-05-29
+
+### Fixed
+
+- **Story share image now generates for fa/ar.** The Persian/Arabic story image returned a 500 (`lookupType 5 - substFormat 3`): satori can't shape Arabic, and the RTL fallback still passed the localized `category` / CTA / tagline (Arabic) to it. The fallback now renders only Latin-safe text - the plan title (when it has no Arabic glyphs) or its neighbourhoods, plus the short link - so fa/ar share previews and downloads work. (The fa/ar OG link card already rendered via the resvg RTL path.)
+
 ## [3.30.5] - 2026-05-29
 
 ### Changed

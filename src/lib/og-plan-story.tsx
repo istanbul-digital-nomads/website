@@ -168,6 +168,16 @@ export async function renderPlanStoryImage(props: PlanStoryProps) {
     stops.some((s) => ARABIC.test(s.name));
 
   if (unsafe) {
+    // satori can't shape Arabic, so render ONLY Latin-safe text: the title (if
+    // it has no Arabic glyphs) or the neighbourhoods, plus the short link.
+    // Localized chrome (category / cta / tagline) is skipped here because it's
+    // Arabic for fa/ar - using it would crash the renderer (no image at all).
+    const headline = !ARABIC.test(title)
+      ? title
+      : neighborhoods
+          .filter((n) => !ARABIC.test(n))
+          .slice(0, 3)
+          .join(" · ") || "Istanbul";
     return new ImageResponse(
       frame(
         <div
@@ -182,27 +192,35 @@ export async function renderPlanStoryImage(props: PlanStoryProps) {
           <div
             style={{
               color: BRAND,
-              fontSize: 28,
+              fontSize: 26,
               fontWeight: 600,
               letterSpacing: 3,
               textTransform: "uppercase",
               marginBottom: 24,
             }}
           >
-            {category}
+            PLAN
           </div>
           <div
             style={{
               color: FG,
-              fontSize: 64,
+              fontSize: 60,
               fontWeight: 800,
               lineHeight: 1.1,
-              maxWidth: 820,
+              maxWidth: 860,
+              display: "-webkit-box",
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
             }}
           >
-            {neighborhoods.slice(0, 3).join(" · ") || "Istanbul"}
+            {headline}
           </div>
-          {linkBlock(shortUrl, storyCta, tagline)}
+          {linkBlock(
+            shortUrl,
+            "See the full plan",
+            "Remote life, local rhythm",
+          )}
         </div>,
       ),
       { ...storySize },

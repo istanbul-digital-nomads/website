@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.30.4] - 2026-05-29
+
+### Changed
+
+- **Story sharing is now an explicit, reliable two-step flow.** No website can auto-load an image into an Instagram story - Instagram's image-attached share is native-app-only (UIPasteboard keys / `ADD_TO_STORY` intent, what the X app uses), and iOS Safari's Web Share → Instagram unreliably drops the file or opens the camera empty. So the share sheet now shows **Save image** then **Open Instagram** with a one-line hint, instead of one button that opened Instagram with nothing loaded. "Save image" uses the iOS share sheet's Save-to-Photos on iOS and a direct download elsewhere; "Open Instagram" deep-links to the story camera on mobile (instagram.com on desktop).
+
 ## [3.30.3] - 2026-05-29
 
 ### Fixed

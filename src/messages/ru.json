@@ -3820,10 +3820,10 @@
     "copyLink": "Копировать ссылку",
     "shareLink": "Поделиться",
     "story": "Изображение для истории",
-    "shareStory": "Поделиться в историю",
-    "downloadStory": "Скачать изображение",
-    "storyHint": "Выберите Instagram в меню «Поделиться» — изображение откроется в истории. Затем добавьте стикер-ссылку на istanbulnomads.com.",
-    "preparing": "Подготовка…"
+    "storyHint": "Сохраните изображение, затем откройте Instagram и добавьте его в историю — поставьте стикер-ссылку на istanbulnomads.com.",
+    "preparing": "Подготовка…",
+    "saveImage": "Сохранить изображение",
+    "openInstagram": "Открыть Instagram"
   },
   "accountPage": {
     "eyebrow": "Аккаунт",

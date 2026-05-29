@@ -3816,10 +3816,10 @@
     "copyLink": "Bağlantıyı kopyala",
     "shareLink": "Paylaş",
     "story": "Story görseli",
-    "storyHint": "Görseli kaydet, sonra Instagram'ı açıp story'ne ekle - istanbulnomads.com bağlantı çıkartması koy.",
-    "preparing": "Hazırlanıyor…",
-    "saveImage": "Görseli kaydet",
-    "openInstagram": "Instagram'ı aç"
+    "shareStory": "Story'de paylaş",
+    "downloadStory": "Görseli indir",
+    "storyHint": "Paylaş menüsünden Instagram'ı seç - görselin story'de açılır. Sonra istanbulnomads.com bağlantı çıkartması ekle.",
+    "preparing": "Hazırlanıyor…"
   },
   "accountPage": {
     "eyebrow": "Hesap",

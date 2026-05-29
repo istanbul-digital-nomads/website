@@ -1,16 +1,18 @@
 name: CI
 
 on:
+  # Only run on push for `main` (post-merge). `develop` is covered by the
+  # standing develop->main pull_request below, so we don't double-trigger.
+  # Previously `push: [develop]` raced the PR run in the same concurrency group
+  # and the cancelled one surfaced on the commit as a red "fail", making the PR
+  # look broken even though the PR run was green.
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
     branches: [main, develop]
 
-# Dedupe runs per logical change: a push to `develop` and the develop->main
-# PR share one group (keyed on the head branch, not the raw ref), so we get a
-# single CI run instead of two racing ones. cancel-in-progress also cancels a
-# superseded run cleanly instead of leaving it to fail - e.g. when a branch is
-# merged while its run is still in flight.
+# One run per logical change. cancel-in-progress also cancels a superseded run
+# cleanly when a newer commit lands while a run is still in flight.
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true

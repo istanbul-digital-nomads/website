@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Input, Textarea } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { ImageCarousel, ImageLightbox } from "@/components/ui/image-carousel";
 import { cn } from "@/lib/utils";
 import { showToast } from "@/lib/toast";
 import { createClient } from "@/lib/supabase/client";
@@ -48,25 +49,29 @@ interface Props {
   currentMemberName: string;
 }
 
-// Read-only grid of review photos with a lightweight click-to-open.
+// Review photos as a swipeable slider with dots, plus a fullscreen gallery
+// (lightbox) when a photo is tapped.
 function PhotoGallery({ photos, alt }: { photos: string[]; alt: string }) {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   if (photos.length === 0) return null;
+  const images = photos.map((src, i) => ({
+    src,
+    alt: photos.length > 1 ? `${alt} (${i + 1}/${photos.length})` : alt,
+  }));
   return (
-    <ul className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4" aria-label={alt}>
-      {photos.map((url) => (
-        <li key={url} className="relative aspect-square overflow-hidden">
-          <a href={url} target="_blank" rel="noopener noreferrer">
-            <Image
-              src={url}
-              alt={alt}
-              fill
-              sizes="(max-width: 640px) 50vw, 160px"
-              className="object-cover transition-transform duration-fast hover:scale-105"
-            />
-          </a>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ImageCarousel
+        images={images}
+        className="mt-3"
+        onImageClick={(i) => setLightboxIndex(i)}
+      />
+      <ImageLightbox
+        images={images}
+        index={lightboxIndex}
+        onClose={() => setLightboxIndex(null)}
+        onIndexChange={setLightboxIndex}
+      />
+    </>
   );
 }
 

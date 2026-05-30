@@ -2,7 +2,11 @@ import "server-only";
 import { revalidateTag } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { notifyMember, notifyMembers } from "@/lib/notifications/notify";
-import type { PlanCreateInput, PlanStopInput } from "./schema";
+import type {
+  PlanCreateInput,
+  PlanStopInput,
+  ReviewUpsertInput,
+} from "./schema";
 import { computeExpiresAt } from "./expiry";
 import type { Database } from "@/types/database";
 
@@ -325,4 +329,93 @@ export async function addComment(planId: string, userId: string, body: string) {
     }
   }
   return { data, error: error?.message ?? null };
+}
+
+// Create or update the current user's review for a plan. Reviews are only
+// allowed for nomads who attended (going) and only once the plan has ended.
+// The host can't review their own plan. RLS enforces the same rules; this is
+// the friendly, app-level guard with readable errors.
+export async function upsertReview(
+  planId: string,
+  userId: string,
+  input: ReviewUpsertInput,
+): Promise<{ data: unknown; error: string | null }> {
+  const supabase = await createClient();
+  const sb = asAny(supabase);
+
+  const { data: plan, error: planErr } = await sb
+    .from("plans")
+    .select("id, creator_id, title, expires_at")
+    .eq("id", planId)
+    .maybeSingle();
+  if (planErr || !plan) {
+    return { data: null, error: planErr?.message ?? "Plan not found" };
+  }
+
+  if (plan.creator_id === userId) {
+    return { data: null, error: "Hosts can't review their own plan" };
+  }
+  if (new Date(plan.expires_at).getTime() >= Date.now()) {
+    return { data: null, error: "You can review once the plan has ended" };
+  }
+
+  const { data: attendee } = await sb
+    .from("plan_attendees")
+    .select("member_id")
+    .eq("plan_id", planId)
+    .eq("member_id", userId)
+    .eq("status", "going")
+    .maybeSingle();
+  if (!attendee) {
+    return { data: null, error: "Only attendees can review this plan" };
+  }
+
+  const { data, error } = await sb
+    .from("plan_reviews")
+    .upsert(
+      {
+        plan_id: planId,
+        author_id: userId,
+        rating: input.rating,
+        would_return: input.would_return,
+        quote: input.quote ?? null,
+        body: input.body ?? null,
+        photos: input.photos ?? [],
+      },
+      { onConflict: "plan_id,author_id" },
+    )
+    .select("*")
+    .single();
+  if (error || !data) {
+    return { data: null, error: error?.message ?? "Failed to save review" };
+  }
+
+  if (plan.creator_id !== userId) {
+    const { data: actor } = await sb
+      .from("members")
+      .select("display_name")
+      .eq("id", userId)
+      .maybeSingle();
+    await notifyMember({
+      recipientId: plan.creator_id,
+      actorId: userId,
+      category: "plan_activity",
+      messageKey: "planReviewed",
+      values: { actor: actor?.display_name ?? "Someone", title: plan.title },
+      cta: { labelKey: "ctaOpenPlan", url: `${SITE}/plans/${planId}` },
+    });
+  }
+
+  return { data, error: null };
+}
+
+export async function deleteReview(planId: string, userId: string) {
+  const supabase = await createClient();
+  const sb = asAny(supabase);
+  const { error } = await sb
+    .from("plan_reviews")
+    .delete()
+    .eq("plan_id", planId)
+    .eq("author_id", userId);
+  return { error: error?.message ?? null };
 }

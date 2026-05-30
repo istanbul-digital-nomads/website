@@ -655,6 +655,40 @@ export interface Database {
           body?: string;
         };
       };
+      plan_reviews: {
+        Row: {
+          id: string;
+          plan_id: string;
+          author_id: string;
+          rating: number;
+          would_return: boolean;
+          body: string | null;
+          quote: string | null;
+          photos: string[];
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          plan_id: string;
+          author_id: string;
+          rating: number;
+          would_return: boolean;
+          body?: string | null;
+          quote?: string | null;
+          photos?: string[];
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          rating?: number;
+          would_return?: boolean;
+          body?: string | null;
+          quote?: string | null;
+          photos?: string[];
+          updated_at?: string;
+        };
+      };
       telegram_subscriptions: {
         Row: {
           member_id: string;

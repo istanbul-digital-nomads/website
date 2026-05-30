@@ -9,6 +9,7 @@ type PlanRow = Database["public"]["Tables"]["plans"]["Row"];
 type StopRow = Database["public"]["Tables"]["plan_stops"]["Row"];
 type AttendeeRow = Database["public"]["Tables"]["plan_attendees"]["Row"];
 type CommentRow = Database["public"]["Tables"]["plan_comments"]["Row"];
+type ReviewRow = Database["public"]["Tables"]["plan_reviews"]["Row"];
 
 type AnySupabase = {
   from: (table: string) => any;
@@ -17,6 +18,30 @@ type AnySupabase = {
 export interface PlanStop extends Omit<StopRow, "vibe" | "transport_mode"> {
   vibe: PlanVibe;
   transport_mode: TransportMode | null;
+}
+
+export interface ReviewSummary {
+  // Average rating rounded to 1 decimal, or null when there are no reviews.
+  average: number | null;
+  count: number;
+  wouldReturnCount: number;
+}
+
+// Aggregate a set of reviews into the numbers a card/detail badge needs.
+// Mirrors the honest-partial spirit of computeNomadScore in spaces.ts.
+export function summarizeReviews(
+  rows: Array<{ rating: number; would_return: boolean }> | null | undefined,
+): ReviewSummary {
+  const list = rows ?? [];
+  if (list.length === 0) {
+    return { average: null, count: 0, wouldReturnCount: 0 };
+  }
+  const total = list.reduce((sum, r) => sum + r.rating, 0);
+  return {
+    average: Math.round((total / list.length) * 10) / 10,
+    count: list.length,
+    wouldReturnCount: list.filter((r) => r.would_return).length,
+  };
 }
 
 export interface PlanCardSummary extends PlanRow {
@@ -35,7 +60,16 @@ export interface PlanCardSummary extends PlanRow {
   }>;
   attendee_count: number;
   stops: PlanStop[];
+  rating_summary: ReviewSummary;
 }
+
+export type PlanReviewWithAuthor = ReviewRow & {
+  author: {
+    id: string;
+    display_name: string;
+    avatar_url: string | null;
+  } | null;
+};
 
 export interface PlanDetail extends PlanCardSummary {
   comments: Array<
@@ -47,7 +81,11 @@ export interface PlanDetail extends PlanCardSummary {
       } | null;
     }
   >;
+  reviews: PlanReviewWithAuthor[];
   host_telegram_handle: string | null;
+  // True once the plan's expiry has passed. Computed server-side so the
+  // page render stays pure (no Date.now() in the component body).
+  ended: boolean;
 }
 
 export type PlanRange = "today" | "tomorrow" | "week";
@@ -77,7 +115,8 @@ const PLAN_SELECT = `
     member_id,
     member:members (id, display_name, avatar_url)
   ),
-  stops:plan_stops (*)
+  stops:plan_stops (*),
+  reviews:plan_reviews (rating, would_return)
 `;
 
 export async function getPlansForFeed(options: {
@@ -115,6 +154,7 @@ export async function getPlansForFeed(options: {
       } | null;
     }>;
     stops: StopRow[];
+    reviews: Array<{ rating: number; would_return: boolean }>;
   };
 
   const cards: PlanCardSummary[] = ((data ?? []) as unknown as Raw[])
@@ -130,6 +170,7 @@ export async function getPlansForFeed(options: {
         })),
       attendee_count: row.attendees?.length ?? 0,
       stops: sortStops(row.stops) as PlanStop[],
+      rating_summary: summarizeReviews(row.reviews),
     }))
     .filter((plan) => {
       if (
@@ -175,6 +216,10 @@ export async function getPlanById(
       comments:plan_comments (
         id, plan_id, author_id, body, created_at,
         author:members (id, display_name, avatar_url)
+      ),
+      reviews:plan_reviews (
+        id, plan_id, author_id, rating, would_return, quote, body, photos, created_at, updated_at,
+        author:members (id, display_name, avatar_url)
       )
       `,
     )
@@ -212,6 +257,7 @@ export async function getPlanById(
         } | null;
       }
     >;
+    reviews: PlanReviewWithAuthor[];
   };
   const row = data as unknown as Raw;
 
@@ -243,6 +289,11 @@ export async function getPlanById(
       comments: (row.comments ?? []).sort((a, b) =>
         a.created_at.localeCompare(b.created_at),
       ),
+      reviews: (row.reviews ?? []).sort((a, b) =>
+        b.created_at.localeCompare(a.created_at),
+      ),
+      rating_summary: summarizeReviews(row.reviews),
+      ended: new Date(row.expires_at).getTime() < Date.now(),
     },
     error: null,
   };
@@ -345,6 +396,7 @@ export async function getMemberPlansToday(
       } | null;
     }>;
     stops: StopRow[];
+    reviews: Array<{ rating: number; would_return: boolean }>;
   };
 
   return (data as unknown as Raw[]).map((row) => ({
@@ -359,5 +411,6 @@ export async function getMemberPlansToday(
       })),
     attendee_count: row.attendees?.length ?? 0,
     stops: sortStops(row.stops) as PlanStop[],
+    rating_summary: summarizeReviews(row.reviews),
   }));
 }

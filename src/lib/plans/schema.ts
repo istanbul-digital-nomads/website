@@ -156,3 +156,17 @@ export const planUpdateSchema = planBase.partial().extend({
 export const commentCreateSchema = z.object({
   body: z.string().trim().min(1).max(500),
 });
+
+// A review left by an attendee after a plan ends: a 1-5 star rating, a
+// "would you go again?" flag, and optional free text. Upsert semantics -
+// one review per attendee, editable.
+export const reviewUpsertSchema = z.object({
+  rating: z.coerce.number().int().min(1).max(5),
+  would_return: z.boolean(),
+  body: z.preprocess(
+    emptyToNull,
+    z.string().trim().max(1000).nullable().optional(),
+  ),
+});
+
+export type ReviewUpsertInput = z.infer<typeof reviewUpsertSchema>;

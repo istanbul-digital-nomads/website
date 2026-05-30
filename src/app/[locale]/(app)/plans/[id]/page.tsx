@@ -16,6 +16,7 @@ import { Container } from "@/components/ui/container";
 import { PlanVibeIcon } from "@/components/sections/plans/plan-vibe-icon";
 import { PlanAttendeeStack } from "@/components/sections/plans/plan-attendee-stack";
 import { PlanComments } from "@/components/sections/plans/plan-comments";
+import { PlanReviews } from "@/components/sections/plans/plan-reviews";
 import { JoinLeaveButton } from "@/components/sections/plans/join-leave-button";
 import { TicketCheckoutButton } from "@/components/sections/plans/ticket-checkout-button";
 import { PlanDetailMapLazy } from "@/components/sections/plans/plan-detail-map-lazy";
@@ -212,6 +213,18 @@ async function Content({
     isHost ||
     (!!member && plan.attendees.some((a) => a.member_id === member.id));
   const isFull = plan.capacity != null && plan.attendee_count >= plan.capacity;
+
+  // Reviews: a non-host attendee can review once the plan has ended.
+  const planEnded = plan.ended;
+  const canReview = isAttendee && !isHost && planEnded;
+  const reviewLockReason: "not-attended" | "not-ended" | null =
+    !member || canReview || isHost
+      ? null
+      : !isAttendee
+        ? "not-attended"
+        : !planEnded
+          ? "not-ended"
+          : null;
 
   const dateFmt = new Intl.DateTimeFormat(locale, {
     weekday: "long",
@@ -474,6 +487,22 @@ async function Content({
             author: c.author,
           }))}
           isAttendee={isAttendee}
+          currentMemberId={member?.id ?? ""}
+          currentMemberName={member?.display_name ?? ""}
+        />
+
+        <PlanReviews
+          planId={plan.id}
+          initial={plan.reviews.map((r) => ({
+            id: r.id,
+            rating: r.rating,
+            would_return: r.would_return,
+            body: r.body,
+            created_at: r.created_at,
+            author: r.author,
+          }))}
+          canReview={canReview}
+          lockReason={reviewLockReason}
           currentMemberId={member?.id ?? ""}
           currentMemberName={member?.display_name ?? ""}
         />

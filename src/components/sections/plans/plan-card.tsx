@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Users } from "lucide-react";
+import { Star, Users } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
 import { spaces } from "@/lib/spaces";
@@ -166,6 +166,21 @@ export function PlanCard({
               : todayLabel}
           </span>
           <div className="flex items-center gap-3">
+            {plan.rating_summary.average != null && (
+              <span
+                className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-paper-mute"
+                aria-label={`${plan.rating_summary.average} out of 5, ${plan.rating_summary.count} reviews`}
+              >
+                <Star
+                  className="h-3 w-3 fill-ferry-yellow text-ferry-yellow"
+                  aria-hidden
+                />
+                {plan.rating_summary.average.toFixed(1)}
+                <span className="text-paper-faint">
+                  ({plan.rating_summary.count})
+                </span>
+              </span>
+            )}
             <PlanAttendeeStack attendees={plan.attendees} />
             <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
               <Users className="h-3 w-3" aria-hidden />

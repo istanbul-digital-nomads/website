@@ -218,7 +218,7 @@ export async function getPlanById(
         author:members (id, display_name, avatar_url)
       ),
       reviews:plan_reviews (
-        id, plan_id, author_id, rating, would_return, body, created_at, updated_at,
+        id, plan_id, author_id, rating, would_return, quote, body, photos, created_at, updated_at,
         author:members (id, display_name, avatar_url)
       )
       `,

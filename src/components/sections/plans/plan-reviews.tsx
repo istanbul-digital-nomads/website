@@ -1,18 +1,34 @@
 "use client";
 
-import { useMemo, useState, type FormEvent } from "react";
+import { useMemo, useRef, useState, type FormEvent } from "react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Star, ThumbsUp, ThumbsDown, Trash2 } from "lucide-react";
-import { Textarea } from "@/components/ui/input";
+import {
+  Star,
+  ThumbsUp,
+  ThumbsDown,
+  Trash2,
+  ImagePlus,
+  Loader2,
+  Quote,
+  X,
+} from "lucide-react";
+import { Input, Textarea } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { showToast } from "@/lib/toast";
+import { createClient } from "@/lib/supabase/client";
+
+const MAX_PHOTOS = 4;
+const MAX_PHOTO_BYTES = 5 * 1024 * 1024; // 5 MB
 
 export interface ReviewItem {
   id: string;
   rating: number;
   would_return: boolean;
+  quote: string | null;
   body: string | null;
+  photos: string[];
   created_at: string;
   author: {
     id: string;
@@ -30,6 +46,28 @@ interface Props {
   lockReason: "not-attended" | "not-ended" | null;
   currentMemberId: string;
   currentMemberName: string;
+}
+
+// Read-only grid of review photos with a lightweight click-to-open.
+function PhotoGallery({ photos, alt }: { photos: string[]; alt: string }) {
+  if (photos.length === 0) return null;
+  return (
+    <ul className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4" aria-label={alt}>
+      {photos.map((url) => (
+        <li key={url} className="relative aspect-square overflow-hidden">
+          <a href={url} target="_blank" rel="noopener noreferrer">
+            <Image
+              src={url}
+              alt={alt}
+              fill
+              sizes="(max-width: 640px) 50vw, 160px"
+              className="object-cover transition-transform duration-fast hover:scale-105"
+            />
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 // Read-only row of 5 stars filled up to `value`.
@@ -68,9 +106,56 @@ export function PlanReviews({
   const [wouldReturn, setWouldReturn] = useState<boolean | null>(
     mine?.would_return ?? null,
   );
+  const [quote, setQuote] = useState(mine?.quote ?? "");
   const [body, setBody] = useState(mine?.body ?? "");
+  const [photos, setPhotos] = useState<string[]>(mine?.photos ?? []);
+  const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function handlePhotoPick(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files ?? []);
+    e.target.value = ""; // allow re-selecting the same file after an error
+    if (files.length === 0) return;
+    const room = MAX_PHOTOS - photos.length;
+    if (room <= 0) {
+      showToast.error(t("photoLimit", { max: MAX_PHOTOS }));
+      return;
+    }
+    setUploading(true);
+    try {
+      const supabase = createClient();
+      const added: string[] = [];
+      for (const file of files.slice(0, room)) {
+        if (file.size > MAX_PHOTO_BYTES) {
+          showToast.error(t("photoTooLarge"));
+          continue;
+        }
+        const ext = file.name.split(".").pop() ?? "jpg";
+        // Per-user folder so the storage RLS policy (folder = auth.uid) passes.
+        const path = `${currentMemberId}/${planId}/${crypto.randomUUID()}.${ext}`;
+        const { error: upErr } = await supabase.storage
+          .from("plan-photos")
+          .upload(path, file, { upsert: true, contentType: file.type });
+        if (upErr) {
+          showToast.error(t("photoError"));
+          continue;
+        }
+        const { data } = supabase.storage
+          .from("plan-photos")
+          .getPublicUrl(path);
+        added.push(data.publicUrl);
+      }
+      if (added.length > 0) setPhotos((p) => [...p, ...added]);
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  function removePhoto(url: string) {
+    setPhotos((p) => p.filter((u) => u !== url));
+  }
 
   const summary = useMemo(() => {
     if (reviews.length === 0)
@@ -94,7 +179,9 @@ export function PlanReviews({
         body: JSON.stringify({
           rating,
           would_return: wouldReturn,
+          quote: quote.trim() || null,
           body: body.trim() || null,
+          photos,
         }),
       });
       const json = await res.json();
@@ -106,7 +193,9 @@ export function PlanReviews({
         id: json.data.id,
         rating: json.data.rating,
         would_return: json.data.would_return,
+        quote: json.data.quote,
         body: json.data.body,
+        photos: json.data.photos ?? [],
         created_at: json.data.created_at,
         author: {
           id: currentMemberId,
@@ -140,7 +229,9 @@ export function PlanReviews({
       );
       setRating(0);
       setWouldReturn(null);
+      setQuote("");
       setBody("");
+      setPhotos([]);
     } finally {
       setDeleting(false);
     }
@@ -221,11 +312,26 @@ export function PlanReviews({
                   {r.would_return ? t("recommendYes") : t("recommendNo")}
                 </span>
               </div>
+              {r.quote && (
+                <blockquote className="mt-3 flex gap-2 border-s-2 border-terracotta ps-3 text-sm font-medium italic text-paper">
+                  <Quote
+                    className="h-3.5 w-3.5 shrink-0 text-terracotta"
+                    aria-hidden
+                  />
+                  <span>{r.quote}</span>
+                </blockquote>
+              )}
               {r.body && (
                 <p className="mt-2 whitespace-pre-wrap text-sm text-paper-dim">
                   {r.body}
                 </p>
               )}
+              <PhotoGallery
+                photos={r.photos ?? []}
+                alt={t("photoAlt", {
+                  name: r.author?.display_name ?? t("you"),
+                })}
+              />
             </li>
           );
         })}
@@ -300,6 +406,20 @@ export function PlanReviews({
             </div>
           </div>
 
+          {/* Standout quote */}
+          <div>
+            <Input
+              name="quote"
+              value={quote}
+              onChange={(e) => setQuote(e.target.value)}
+              placeholder={t("quotePlaceholder")}
+              maxLength={140}
+            />
+            <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-paper-faint">
+              {t("quoteHint")}
+            </p>
+          </div>
+
           <Textarea
             name="body"
             value={body}
@@ -308,10 +428,68 @@ export function PlanReviews({
             maxLength={1000}
             rows={3}
           />
+
+          {/* Photos */}
+          <div>
+            <p className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
+              {t("photosLabel", { count: photos.length, max: MAX_PHOTOS })}
+            </p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {photos.map((url) => (
+                <div
+                  key={url}
+                  className="relative h-20 w-20 overflow-hidden border border-ink-3"
+                >
+                  <Image
+                    src={url}
+                    alt=""
+                    fill
+                    sizes="80px"
+                    className="object-cover"
+                  />
+                  <button
+                    type="button"
+                    aria-label={t("removePhoto")}
+                    onClick={() => removePhoto(url)}
+                    className="absolute right-0.5 top-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-ink-0/70 text-paper transition-colors hover:bg-terracotta focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
+                  >
+                    <X className="h-3 w-3" aria-hidden />
+                  </button>
+                </div>
+              ))}
+              {photos.length < MAX_PHOTOS && (
+                <button
+                  type="button"
+                  disabled={uploading}
+                  onClick={() => fileInputRef.current?.click()}
+                  className="inline-flex h-20 w-20 flex-col items-center justify-center gap-1 border border-dashed border-ink-4 text-paper-mute transition-colors hover:border-terracotta hover:text-terracotta focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta disabled:opacity-50"
+                >
+                  {uploading ? (
+                    <Loader2 className="h-5 w-5 animate-spin" aria-hidden />
+                  ) : (
+                    <ImagePlus className="h-5 w-5" aria-hidden />
+                  )}
+                  <span className="font-mono text-[9px] uppercase tracking-wider">
+                    {t("addPhoto")}
+                  </span>
+                </button>
+              )}
+            </div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              multiple
+              className="sr-only"
+              onChange={handlePhotoPick}
+              aria-hidden
+            />
+          </div>
+
           <Button
             type="submit"
             loading={loading}
-            disabled={rating < 1 || wouldReturn === null}
+            disabled={rating < 1 || wouldReturn === null || uploading}
             size="sm"
           >
             {mine ? t("submitUpdate") : t("submit")}

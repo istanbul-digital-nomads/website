@@ -160,13 +160,30 @@ export const commentCreateSchema = z.object({
 // A review left by an attendee after a plan ends: a 1-5 star rating, a
 // "would you go again?" flag, and optional free text. Upsert semantics -
 // one review per attendee, editable.
+const SUPABASE_PUBLIC_URL_RE =
+  /^https:\/\/[a-z0-9-]+\.supabase\.co\/storage\/v1\/object\/public\/plan-photos\//;
+
+export const MAX_REVIEW_PHOTOS = 4;
+
 export const reviewUpsertSchema = z.object({
   rating: z.coerce.number().int().min(1).max(5),
   would_return: z.boolean(),
+  // A short standout highlight (one line), shown above the longer review body.
+  quote: z.preprocess(
+    emptyToNull,
+    z.string().trim().max(140).nullable().optional(),
+  ),
   body: z.preprocess(
     emptyToNull,
     z.string().trim().max(1000).nullable().optional(),
   ),
+  // Public URLs in the plan-photos bucket. The client uploads first, then
+  // sends back the resulting URLs - we only persist ones that look right.
+  photos: z
+    .array(z.string().url().regex(SUPABASE_PUBLIC_URL_RE))
+    .max(MAX_REVIEW_PHOTOS)
+    .optional()
+    .default([]),
 });
 
 export type ReviewUpsertInput = z.infer<typeof reviewUpsertSchema>;

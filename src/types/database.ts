@@ -663,6 +663,8 @@ export interface Database {
           rating: number;
           would_return: boolean;
           body: string | null;
+          quote: string | null;
+          photos: string[];
           created_at: string;
           updated_at: string;
         };
@@ -673,6 +675,8 @@ export interface Database {
           rating: number;
           would_return: boolean;
           body?: string | null;
+          quote?: string | null;
+          photos?: string[];
           created_at?: string;
           updated_at?: string;
         };
@@ -680,6 +684,8 @@ export interface Database {
           rating?: number;
           would_return?: boolean;
           body?: string | null;
+          quote?: string | null;
+          photos?: string[];
           updated_at?: string;
         };
       };

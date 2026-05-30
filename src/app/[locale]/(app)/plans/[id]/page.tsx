@@ -497,7 +497,9 @@ async function Content({
             id: r.id,
             rating: r.rating,
             would_return: r.would_return,
+            quote: r.quote,
             body: r.body,
+            photos: r.photos ?? [],
             created_at: r.created_at,
             author: r.author,
           }))}

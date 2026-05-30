@@ -378,7 +378,9 @@ export async function upsertReview(
         author_id: userId,
         rating: input.rating,
         would_return: input.would_return,
+        quote: input.quote ?? null,
         body: input.body ?? null,
+        photos: input.photos ?? [],
       },
       { onConflict: "plan_id,author_id" },
     )

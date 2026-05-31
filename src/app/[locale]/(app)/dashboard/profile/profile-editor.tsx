@@ -526,7 +526,12 @@ function SectionCard({
       )}
       <div className="mt-5 space-y-5">{children}</div>
       <div className="mt-6 flex justify-end">
-        <Button onClick={onSave} loading={saving} size="sm" className="px-6">
+        <Button
+          onClick={onSave}
+          loading={saving}
+          size="sm"
+          className="min-h-11 w-full px-6 sm:w-auto"
+        >
           {saveLabel}
         </Button>
       </div>

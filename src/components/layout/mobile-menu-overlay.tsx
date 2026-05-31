@@ -43,7 +43,10 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
         className="fixed inset-0 bg-black/20 backdrop-blur-sm"
         aria-hidden="true"
       />
-      <DialogPanel className="fixed inset-0 flex flex-col bg-[rgba(255,247,243,0.98)] backdrop-blur-xl transition-transform duration-300 data-[closed]:translate-y-full dark:bg-[rgba(26,29,39,0.98)]">
+      <DialogPanel
+        id="mobile-menu-overlay"
+        className="fixed inset-0 flex flex-col bg-[rgba(255,247,243,0.98)] backdrop-blur-xl transition-transform duration-300 data-[closed]:translate-y-full dark:bg-[rgba(26,29,39,0.98)]"
+      >
         <div
           className="flex items-center justify-between px-6"
           style={{
@@ -70,7 +73,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
           </div>
           <button
             onClick={onClose}
-            className="tap-highlight rounded-full border border-black/10 p-2.5 text-neutral-500 hover:bg-primary-50 dark:border-white/10 dark:hover:bg-white/10"
+            className="tap-highlight flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-neutral-500 hover:bg-primary-50 dark:border-white/10 dark:hover:bg-white/10"
             aria-label={tBottomNav("closeMenu")}
           >
             <X className="h-5 w-5" />

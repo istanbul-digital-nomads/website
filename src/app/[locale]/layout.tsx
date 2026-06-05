@@ -297,15 +297,22 @@ export default async function LocaleLayout({
             __html: `(function(){try{var t=localStorage.getItem("theme");var d=document.documentElement;if(t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme:dark)").matches))d.classList.add("dark")}catch(e){}})()`,
           }}
         />
-        {/* Google Consent Mode v2 default. Runs synchronously before the
-            lazyOnload GA scripts so the consent default is in the dataLayer
-            first. Defaults everything to denied; promotes analytics_storage to
-            granted only if the visitor already accepted on a prior visit (read
-            from the first-party in_consent cookie) to avoid a denied-ping flash.
-            Static string - reads no request data, so it's cacheComponents-safe. */}
+        {/* Google Consent Mode v2 default, region-scoped. Runs synchronously
+            before the lazyOnload GTM script so the consent default is in the
+            dataLayer first. ad_* stay denied everywhere (no ads on this site).
+            For analytics_storage:
+              - If the visitor already chose (in_consent cookie), honor that
+                choice globally - region is irrelevant once they've decided.
+              - Otherwise default by region: denied + wait_for_update in the
+                EEA/UK/CH (cookie banner gates analytics there), granted
+                everywhere else so non-EEA traffic is measured without a click.
+            Google resolves the visitor's region from IP, so this needs no
+            server-side geo - the string is static and cacheComponents-safe.
+            The region override is pushed before the global default; Consent
+            Mode applies the most specific (region-matching) default. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=window.gtag||gtag;var g='denied';try{if(/(?:^|;\\s*)in_consent=[^;]*analytics:granted/.test(document.cookie))g='granted';}catch(e){}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:g,functionality_storage:'granted',security_storage:'granted',wait_for_update:500});gtag('set','url_passthrough',true);gtag('set','ads_data_redaction',true);})()`,
+            __html: `(function(){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=window.gtag||gtag;var EEA=['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'];var prior='';try{if(/(?:^|;\\s*)in_consent=[^;]*analytics:granted/.test(document.cookie))prior='granted';else if(/(?:^|;\\s*)in_consent=[^;]*analytics:denied/.test(document.cookie))prior='denied';}catch(e){}if(prior){gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:prior,functionality_storage:'granted',security_storage:'granted'});}else{gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',region:EEA,wait_for_update:500});gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted',functionality_storage:'granted',security_storage:'granted'});}gtag('set','url_passthrough',true);gtag('set','ads_data_redaction',true);})()`,
           }}
         />
       </head>

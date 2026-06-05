@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.32.1] - 2026-06-06
+
+### Changed
+
+- **Consent Mode defaults are now region-scoped.** Outside the EEA/UK/Switzerland, `analytics_storage` now defaults to granted so non-EEA visitors are measured without needing to click the banner; inside the EEA/UK/CH it still defaults to denied with `wait_for_update`, so the cookie banner gates analytics there. Ad signals stay denied everywhere (no ads). A visitor's prior choice (the `in_consent` cookie) still wins globally. Google resolves the region from IP, so this needs no server-side geo and the `<head>` bootstrap stays cache-safe. Clears the "0% consent rate detected in some regions" container-quality warning in Tag Manager.
+
 ## [3.32.0] - 2026-06-06
 
 ### Changed

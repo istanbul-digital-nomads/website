@@ -45,9 +45,9 @@ declare global {
 /** True only when the visitor has explicitly granted analytics consent. */
 export function analyticsGranted(): boolean {
   if (typeof document === "undefined") return false;
-  return new RegExp(`(?:^|;\\s*)${CONSENT_COOKIE}=[^;]*${CONSENT_GRANTED}`).test(
-    document.cookie,
-  );
+  return new RegExp(
+    `(?:^|;\\s*)${CONSENT_COOKIE}=[^;]*${CONSENT_GRANTED}`,
+  ).test(document.cookie);
 }
 
 /** Fire a GA4 event. No-ops on the server, without consent, or before GA loads. */

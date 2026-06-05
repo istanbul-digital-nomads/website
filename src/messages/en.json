@@ -1,4 +1,14 @@
 {
+  "consent": {
+    "title": "A quick note on cookies",
+    "body": "We use a couple of analytics cookies to see which guides and spots people actually use, so we can make the site better. Nothing creepy, and you can say no anytime.",
+    "acceptAll": "Accept all",
+    "rejectNonEssential": "Reject non-essential",
+    "preferences": "Cookie settings",
+    "label": "Cookie consent",
+    "necessaryLabel": "Essential (always on)",
+    "analyticsLabel": "Analytics"
+  },
   "site": {
     "name": "Istanbul Nomads",
     "shortName": "Istanbul Nomads",

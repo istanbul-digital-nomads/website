@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import { createPublicClient } from "@/lib/supabase/server";
-import { devTokenStore } from "../link/route";
+import { devTokenStore } from "@/lib/telegram/dev-token-store";
 import { sendTelegram } from "@/lib/plans/telegram";
 
 interface TelegramUpdate {

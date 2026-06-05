@@ -5,6 +5,7 @@ import { useRouter } from "@/lib/i18n/routing";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { showToast } from "@/lib/toast";
+import { track } from "@/lib/analytics";
 
 interface Props {
   planId: string;
@@ -43,6 +44,7 @@ export function JoinLeaveButton({
         showToast.error(t("errorTitle"), json.error ?? t("errorBody"));
         return;
       }
+      track(method === "POST" ? "plan_join" : "plan_leave", { plan_id: planId });
       setJoined((v) => !v);
       startTransition(() => router.refresh());
     } finally {

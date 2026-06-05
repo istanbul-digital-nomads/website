@@ -13,6 +13,7 @@ import {
   type NavItem,
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { track } from "@/lib/analytics";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 
@@ -139,6 +140,12 @@ export function HeroFrame({ nomadCount = 0 }: Props) {
         <div className="flex flex-wrap items-center gap-3">
           <Link
             href={user ? "/today" : "/onboarding"}
+            onClick={() =>
+              track("hero_cta_click", {
+                authed: !!user,
+                destination: user ? "/today" : "/onboarding",
+              })
+            }
             className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3.5 text-sm font-semibold text-[#06101f] transition hover:bg-gold/90"
           >
             {user ? t("ctaPrimaryAuthed") : t("ctaPrimary")}

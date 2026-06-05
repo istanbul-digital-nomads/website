@@ -8,6 +8,7 @@ import { getEventByIdPublic } from "@/lib/supabase/queries";
 import { isStripeConfigured } from "@/lib/stripe";
 import { getEventPhoto } from "@/lib/editorial-photos";
 import { socialLinks } from "@/lib/constants";
+import { EventRsvpLink } from "@/components/sections/events/event-rsvp-link";
 import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { Container } from "@/components/ui/container";
 import { SectionEyebrow } from "@/components/ui/section-eyebrow";
@@ -183,17 +184,17 @@ async function EventDetailContent(props: Props) {
               </p>
             ) : (
               <>
-                <a
+                <EventRsvpLink
                   href={socialLinks.telegram}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  eventId={id}
+                  paid={isPaid}
                   className="mt-6 block bg-terracotta px-6 py-4 text-center text-sm font-medium text-[#06101f] transition-colors duration-fast hover:bg-terracotta-dim"
                 >
                   {paidCheckoutLive
                     ? t("detail.book")
                     : t("detail.rsvpTelegram")}{" "}
                   <span className="inline-dir-arrow" aria-hidden />
-                </a>
+                </EventRsvpLink>
                 <p className="mt-3 font-mono text-[10px] uppercase tracking-wider text-paper-faint">
                   {isPaid && !paidCheckoutLive
                     ? t("detail.paidFallbackNote")

@@ -1,4 +1,14 @@
 {
+  "consent": {
+    "title": "Çerezler hakkında kısa bir not",
+    "body": "Hangi rehberlere ve mekanlara gerçekten bakıldığını görüp siteyi daha iyi hale getirebilmek için birkaç analiz çerezi kullanıyoruz. Tuhaf bir şey yok, istediğin zaman hayır diyebilirsin.",
+    "acceptAll": "Tümünü kabul et",
+    "rejectNonEssential": "Zorunlu olmayanları reddet",
+    "preferences": "Çerez ayarları",
+    "label": "Çerez tercihi",
+    "necessaryLabel": "Zorunlu (her zaman açık)",
+    "analyticsLabel": "Analiz"
+  },
   "site": {
     "name": "Istanbul Nomads",
     "shortName": "Istanbul Nomads",

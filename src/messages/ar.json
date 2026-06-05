@@ -1,4 +1,14 @@
 {
+  "consent": {
+    "title": "كلمة سريعة عن الكوكيز",
+    "body": "نستخدم بعض كوكيز التحليلات لنعرف أي الأدلة والأماكن يستخدمها الناس فعلاً، حتى نحسّن الموقع. لا شيء مقلق، ويمكنك الرفض في أي وقت.",
+    "acceptAll": "قبول الكل",
+    "rejectNonEssential": "رفض غير الضروري",
+    "preferences": "إعدادات الكوكيز",
+    "label": "الموافقة على الكوكيز",
+    "necessaryLabel": "أساسية (مفعّلة دائماً)",
+    "analyticsLabel": "التحليلات"
+  },
   "site": {
     "name": "Istanbul Nomads",
     "shortName": "Istanbul Nomads",

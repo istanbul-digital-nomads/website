@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { showToast } from "@/lib/toast";
 import { cn } from "@/lib/utils";
+import { track } from "@/lib/analytics";
 import { StepAbout } from "./steps/step-about";
 import { StepContact } from "./steps/step-contact";
 import { StepInterests } from "./steps/step-interests";
@@ -130,6 +131,11 @@ export function OnboardingWizard({
     stepHeadingRef.current?.focus({ preventScroll: false });
   }, [currentStep]);
 
+  // Funnel: mark the start of a fresh onboarding (not the edit-profile flow).
+  useEffect(() => {
+    if (!isEdit) track("onboarding_start", { edit: false });
+  }, [isEdit]);
+
   // Hide the floating assistant launcher while onboarding - its sticky
   // mobile footer would overlap the bubble.
   useEffect(() => {
@@ -195,6 +201,10 @@ export function OnboardingWizard({
     } else {
       // Best-effort save so the member can resume if they bounce mid-flow.
       void saveProgress(formData);
+      track("onboarding_step", {
+        step_index: currentStep,
+        step_key: STEPS[currentStep].key,
+      });
       setCurrentStep((prev) => prev + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -263,6 +273,10 @@ export function OnboardingWizard({
         showToast.error(t("saveError"), error.message);
         return;
       }
+
+      track("onboarding_complete", { edit: isEdit });
+      // First-time completion = a new member joining the community.
+      if (!isEdit) track("sign_up", { method: "google" });
 
       showToast.success(isEdit ? t("profileUpdated") : t("welcome"));
       // Land newly-onboarded members on their dashboard; editors back

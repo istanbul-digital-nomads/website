@@ -19,9 +19,10 @@ import {
 } from "next-intl/server";
 import { isValidLocale } from "@/lib/i18n/config";
 import { getCachedMessages } from "@/lib/i18n/cache-translations";
-import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/layout/theme-provider";
+import { ConsentProvider } from "@/components/consent/consent-provider";
+import { AnalyticsConsentGate } from "@/components/consent/analytics-consent-gate";
 import { Footer } from "@/components/layout/footer";
 import {
   BottomTabBarIsland,
@@ -193,6 +194,15 @@ export async function generateMetadata({
       "expat",
     ],
     metadataBase: new URL("https://istanbulnomads.com"),
+    // PWA: static manifest (public/manifest.webmanifest). These fields don't
+    // depend on locale - the manifest is single-document and install-time.
+    manifest: "/manifest.webmanifest",
+    applicationName: "Istanbul Nomads",
+    appleWebApp: {
+      capable: true,
+      title: "Istanbul Nomads",
+      statusBarStyle: "default",
+    },
     openGraph: {
       title: "Istanbul Nomads",
       description,
@@ -287,6 +297,17 @@ export default async function LocaleLayout({
             __html: `(function(){try{var t=localStorage.getItem("theme");var d=document.documentElement;if(t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme:dark)").matches))d.classList.add("dark")}catch(e){}})()`,
           }}
         />
+        {/* Google Consent Mode v2 default. Runs synchronously before the
+            lazyOnload GA scripts so the consent default is in the dataLayer
+            first. Defaults everything to denied; promotes analytics_storage to
+            granted only if the visitor already accepted on a prior visit (read
+            from the first-party in_consent cookie) to avoid a denied-ping flash.
+            Static string - reads no request data, so it's cacheComponents-safe. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=window.gtag||gtag;var g='denied';try{if(/(?:^|;\\s*)in_consent=[^;]*analytics:granted/.test(document.cookie))g='granted';}catch(e){}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:g,functionality_storage:'granted',security_storage:'granted',wait_for_update:500});gtag('set','url_passthrough',true);gtag('set','ads_data_redaction',true);})()`,
+          }}
+        />
       </head>
       <body
         className={[
@@ -315,7 +336,8 @@ export default async function LocaleLayout({
           timeZone="Europe/Istanbul"
           now={new Date(0)}
         >
-          <ThemeProvider>
+          <ConsentProvider>
+            <ThemeProvider>
             {/* NavProgress + BottomTabBar read usePathname, which is
                 dynamic data on fully-dynamic routes (e.g. /events/[id]).
                 Wrapped in Suspense so they don't trip cacheComponents'
@@ -337,11 +359,12 @@ export default async function LocaleLayout({
             </Suspense>
             <CommandMenuIsland items={searchItems} />
             <AssistantWidgetIsland />
-          </ThemeProvider>
-          <ToasterIsland />
-          <WebMcpRegisterIsland />
-          <Analytics />
-          <SpeedInsights />
+            </ThemeProvider>
+            <ToasterIsland />
+            <WebMcpRegisterIsland />
+            <AnalyticsConsentGate />
+            <SpeedInsights />
+          </ConsentProvider>
         </NextIntlClientProvider>
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
@@ -350,7 +373,7 @@ export default async function LocaleLayout({
               strategy="lazyOnload"
             />
             <Script id="ga-init" strategy="lazyOnload">
-              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${process.env.NEXT_PUBLIC_GA_ID}');`}
+              {`window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','${process.env.NEXT_PUBLIC_GA_ID}',{anonymize_ip:true});`}
             </Script>
           </>
         )}

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { Redis } from "@upstash/redis";
+import { devTokenStore } from "@/lib/telegram/dev-token-store";
 
 const TOKEN_TTL_SECONDS = 600; // 10 min
 
@@ -58,10 +59,3 @@ export async function POST() {
     },
   });
 }
-
-// Exported so the webhook can read it when Upstash isn't configured.
-// Module-scope map; resets on cold start (fine for local dev only).
-export const devTokenStore = new Map<
-  string,
-  { userId: string; expiresAt: number }
->();

@@ -174,6 +174,30 @@ export async function getUserRSVP(eventId: string) {
   return { data: data as RSVP | null, error };
 }
 
+// All events the current member RSVP'd to (going/maybe), past + future,
+// soonest upcoming first. Powers the "your events" surface on the dashboard.
+export async function getMyRSVPdEvents(): Promise<Event[]> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return [];
+
+  const { data, error } = await supabase
+    .from("rsvps")
+    .select("event:events!inner (*)")
+    .eq("member_id", user.id)
+    .in("status", ["going", "maybe"]);
+
+  if (error || !data) return [];
+
+  const events = (data as unknown as Array<{ event: Event | null }>)
+    .map((r) => r.event)
+    .filter((e): e is Event => !!e);
+  // Soonest first; useful for "what's next" while still listing past ones.
+  return events.sort((a, b) => a.date.localeCompare(b.date));
+}
+
 // --- Members ---
 
 export async function getMembers() {
@@ -204,6 +228,23 @@ export async function getMembersPublic() {
     .eq("is_visible", true)
     .order("created_at", { ascending: false });
   return { data: data as MemberPublic[] | null, error };
+}
+
+// Real, live count of opt-in (publicly visible) members. Powers the hero's
+// "live nomads" pip - the number must always be true, so it comes straight
+// from the directory's source table. `head: true` skips row payloads and
+// asks Postgres for an exact count only. Cached + tagged like the other
+// member reads so it revalidates whenever the directory changes.
+export async function getVisibleMemberCount() {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("members");
+  const supabase = createPublicClient();
+  const { count, error } = await supabase
+    .from("members")
+    .select("id", { count: "exact", head: true })
+    .eq("is_visible", true);
+  return { count: count ?? 0, error };
 }
 
 export async function getMemberByIdPublic(id: string) {

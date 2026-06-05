@@ -13,16 +13,17 @@ import {
   type NavItem,
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { track } from "@/lib/analytics";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 
-type Props = { locale?: string };
+type Props = { locale?: string; nomadCount?: number };
 
 function isDropdown(item: NavItem): item is NavDropdownItem {
   return "children" in item;
 }
 
-export function HeroFrame(_props: Props) {
+export function HeroFrame({ nomadCount = 0 }: Props) {
   const t = useTranslations("home.heroLive");
   const tNav = useTranslations("nav");
   const tSite = useTranslations("site");
@@ -113,7 +114,7 @@ export function HeroFrame(_props: Props) {
             className="hero-live-pip inline-block h-1.5 w-1.5 rounded-full bg-moss"
             style={{ boxShadow: "0 0 8px rgb(134, 239, 172)" }}
           />
-          {t("livePip")}
+          {t("livePip", { count: nomadCount })}
         </div>
 
         <h1
@@ -139,6 +140,12 @@ export function HeroFrame(_props: Props) {
         <div className="flex flex-wrap items-center gap-3">
           <Link
             href={user ? "/today" : "/onboarding"}
+            onClick={() =>
+              track("hero_cta_click", {
+                authed: !!user,
+                destination: user ? "/today" : "/onboarding",
+              })
+            }
             className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3.5 text-sm font-semibold text-[#06101f] transition hover:bg-gold/90"
           >
             {user ? t("ctaPrimaryAuthed") : t("ctaPrimary")}

@@ -1,4 +1,14 @@
 {
+  "consent": {
+    "title": "Çerezler hakkında kısa bir not",
+    "body": "Hangi rehberlere ve mekanlara gerçekten bakıldığını görüp siteyi daha iyi hale getirebilmek için birkaç analiz çerezi kullanıyoruz. Tuhaf bir şey yok, istediğin zaman hayır diyebilirsin.",
+    "acceptAll": "Tümünü kabul et",
+    "rejectNonEssential": "Zorunlu olmayanları reddet",
+    "preferences": "Çerez ayarları",
+    "label": "Çerez tercihi",
+    "necessaryLabel": "Zorunlu (her zaman açık)",
+    "analyticsLabel": "Analiz"
+  },
   "site": {
     "name": "Istanbul Nomads",
     "shortName": "Istanbul Nomads",
@@ -1013,7 +1023,7 @@
       }
     },
     "heroLive": {
-      "livePip": "Şu an 21 göçebe çevrimiçi",
+      "livePip": "{count, plural, =0 {Haritadaki ilk göçebe sen ol} one {Toplulukta # göçebe} other {Toplulukta # göçebe}}",
       "headlineA": "Göçebeler bugün",
       "headlineB": "ne yapıyor",
       "headlineC": "İstanbul'da?",
@@ -3011,6 +3021,14 @@
       "trustReliableHost": "Güvenilir ev sahibi",
       "trustAllOnTime": "Zamanında geliyor",
       "trustActiveWeek": "Bu hafta aktif",
+      "badges": {
+        "first_plan": "İlk plan",
+        "regular": "Düzenli",
+        "veteran": "Veteran",
+        "one_year_istanbul": "İstanbul'da bir yıl",
+        "best_nomad_year": "Yılın göçebesi",
+        "top_host_year": "Yılın ev sahibi"
+      },
       "upcomingPlans": "Yaklaşan planlar",
       "hostingTag": "Düzenliyor",
       "goingTag": "Katılıyor",
@@ -3040,6 +3058,39 @@
       "todo": "Yapılacak",
       "completeProfile": "Profilini tamamla",
       "linksEyebrow": "Hızlı bağlantılar",
+      "activity": {
+        "eyebrow": "Etkinliklerin",
+        "plansTitle": "Katıldığın planlar",
+        "eventsTitle": "Katılacağın etkinlikler",
+        "plansEmpty": "Henüz hiçbir plana katılmadın.",
+        "eventsEmpty": "Henüz hiçbir etkinliğe katılacağını belirtmedin.",
+        "browsePlans": "Planlara göz at",
+        "browseEvents": "Etkinliklere göz at",
+        "upcoming": "Yaklaşan",
+        "past": "Geçmiş",
+        "cancelled": "İptal edildi",
+        "leaveReview": "Bir değerlendirme bırak",
+        "reviewed": "Değerlendirildi",
+        "upcomingCount": "{count, plural, other {# yaklaşan}}"
+      },
+      "badges": {
+        "eyebrow": "Rozetlerin",
+        "xp": "{xp} XP",
+        "nextHint": "Bir sonraki rozetine {count, plural, one {# plan} other {# plan}} kaldı",
+        "none": "İlk rozetini kazanmak için bir plana katıl ya da kendin düzenle.",
+        "first_plan": "İlk plan",
+        "regular": "Düzenli",
+        "veteran": "Veteran",
+        "one_year_istanbul": "İstanbul'da bir yıl",
+        "best_nomad_year": "Yılın göçebesi",
+        "top_host_year": "Yılın ev sahibi"
+      },
+      "hosted": {
+        "eyebrow": "Düzenlediğin planlar",
+        "empty": "Henüz hiç plan düzenlemedin.",
+        "share": "Plan paylaş",
+        "going": "{count, plural, one {# katılıyor} other {# katılıyor}}"
+      },
       "fields": {
         "bio": "Biyografi",
         "location": "Konum",

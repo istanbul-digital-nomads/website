@@ -1,0 +1,10 @@
+{
+  "//": "Dedicated tsconfig for the Serwist service worker. The app runs in a DOM lib context; the worker needs the WebWorker lib (ServiceWorkerGlobalScope etc.), so it's excluded from the main tsconfig and checked here. `pnpm type-check` runs both.",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": ["webworker", "esnext"],
+    "types": []
+  },
+  "include": ["src/app/sw.ts"],
+  "exclude": ["node_modules"]
+}

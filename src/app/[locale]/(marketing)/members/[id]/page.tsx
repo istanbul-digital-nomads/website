@@ -15,6 +15,7 @@ import { VerificationBadge } from "@/components/ui/verification-badge";
 import { isVerificationLevel } from "@/lib/verification";
 import { isCurrentStatus, STATUS_TONE } from "@/lib/member-profile";
 import { getMemberActivity } from "@/lib/member-activity";
+import { computeBadges, BADGE_ICONS, type BadgeSlug } from "@/lib/badges";
 import { neighborhoods as ALL_HOODS } from "@/lib/neighborhoods";
 import { ShareButton } from "@/components/ui/share-button";
 
@@ -137,6 +138,21 @@ async function MemberProfileContent(props: Props) {
         ),
       )
     : null;
+
+  // Earned badges (count tiers + anniversary + manual honors), computed on
+  // read from the activity aggregation. Rendered as a positive-only pill
+  // cluster next to the trust pills.
+  const badges = computeBadges({
+    planCount: activity.totalPlanCount,
+    firstAttendedDate: activity.trustSignals.firstAttendedDate,
+    manualBadgeSlugs: activity.manualBadgeSlugs,
+    todayIstanbul: today.toLocaleDateString("en-CA", {
+      timeZone: "Europe/Istanbul",
+    }),
+  });
+  const badgeLabels = Object.fromEntries(
+    badges.map((slug) => [slug, t(`profile.badges.${slug}`)]),
+  ) as Record<BadgeSlug, string>;
 
   return (
     <section className="bg-ink-1 pt-12 lg:pt-16">
@@ -307,6 +323,9 @@ async function MemberProfileContent(props: Props) {
                 activeThisWeek: t("profile.trustActiveWeek"),
               }}
             />
+
+            {/* Earned badges - count tiers, anniversary, manual honors. */}
+            <BadgePills badges={badges} labels={badgeLabels} />
 
             {/* Today's plans run their own query; stream them in their
                 own boundary so they never hold up the main profile. */}
@@ -666,6 +685,32 @@ function TrustPills({
           {labels.activeThisWeek}
         </span>
       ) : null}
+    </div>
+  );
+}
+
+// Earned-badge pill cluster. Like the trust pills it's positive-only: a
+// member only sees badges they've actually earned. Renders nothing when
+// there are none, so a brand-new profile doesn't show an empty row.
+function BadgePills({
+  badges,
+  labels,
+}: {
+  badges: BadgeSlug[];
+  labels: Record<BadgeSlug, string>;
+}) {
+  if (badges.length === 0) return null;
+  return (
+    <div className="mt-3 flex flex-wrap gap-2">
+      {badges.map((slug) => (
+        <span
+          key={slug}
+          className="inline-flex items-center gap-1.5 rounded-full bg-ferry-yellow/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-ferry-yellow"
+        >
+          <span aria-hidden>{BADGE_ICONS[slug]}</span>
+          {labels[slug]}
+        </span>
+      ))}
     </div>
   );
 }

@@ -1,6 +1,24 @@
 import createNextIntlPlugin from "next-intl/plugin";
+import withSerwistInit from "@serwist/next";
 
 const withNextIntl = createNextIntlPlugin("./src/lib/i18n/request.ts");
+
+// PWA service worker. swSrc compiles to public/sw.js at build time. Disabled in
+// dev so it never caches during local work / HMR. Serwist needs the webpack
+// build path on Next 16 (the `build` script passes --webpack); dev stays on
+// Turbopack. cacheOnNavigation lets visited pages work offline (NetworkFirst,
+// so they're never stale while online); reloadOnOnline refreshes when the
+// connection returns.
+const withSerwist = withSerwistInit({
+  swSrc: "src/app/sw.ts",
+  swDest: "public/sw.js",
+  cacheOnNavigation: true,
+  reloadOnOnline: true,
+  // Precache the offline fallback so it's available even on a never-visited
+  // page. Bump the revision when the offline page copy changes.
+  additionalPrecacheEntries: [{ url: "/offline", revision: "offline-v1" }],
+  disable: process.env.NODE_ENV === "development",
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -105,4 +123,4 @@ const nextConfig = {
   },
 };
 
-export default withNextIntl(nextConfig);
+export default withSerwist(withNextIntl(nextConfig));

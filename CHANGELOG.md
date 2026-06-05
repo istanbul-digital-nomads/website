@@ -4,6 +4,36 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.32.0] - 2026-06-06
+
+### Changed
+
+- **Analytics now loads through Google Tag Manager.** The site swaps the direct gtag.js loader for the new GTM container (`GTM-WVTC6K93`), which loads the GA4 Google tag (`G-CG3LT0ZV2X`) and forwards every funnel event from `track()` to GA4. Nothing changes for visitors: the Consent Mode v2 bootstrap still runs first with everything defaulted to denied, the script still loads with `lazyOnload` so it can't touch LCP, and the typed `track()` event layer is untouched - its gtag-style pushes land in the shared dataLayer where GTM picks them up (params ride along via `eventModel`). Set `NEXT_PUBLIC_GTM_ID` in Vercel; `NEXT_PUBLIC_GA_ID` isn't read anymore.
+
+## [3.31.0] - 2026-06-05
+
+### Added
+
+- **XP + badges on the dashboard and profiles (Phase 5).** Every member now has a light engagement layer: a subtle XP counter plus earned badges. The count tiers (First plan / Regular / Veteran at 1 / 5 / 15 plans), the "One year in Istanbul" anniversary badge, and the manually-awarded honors (Best nomad of the year, Top host of the year) all show as pills on the dashboard and on public profiles. The dashboard also shows a "next badge" hint. Automatic badges are computed on read from a member's plan activity - same source of truth as the trust pills, so nothing drifts and nothing can be farmed. The two editorial honors live in a new `member_badges` table (`035_member_badges.sql`), awarded out-of-band by an organizer. XP weights hosting (20) above joining (10).
+- **"Plans you've hosted" history on the dashboard.** A host can now get back to every plan they've created - upcoming first, then past - each with its going-attendee count, even after the plan drops off the active feed. Sits alongside the existing "plans you joined" and "events you're attending" surfaces.
+- **Real, live nomad count in the homepage hero.** The hero's "live" pip used to read a hardcoded "21 nomads online right now." It now shows the real number of opt-in members straight from the directory (e.g. "7 nomads in the community"), revalidates as people join, and drops to a "be the first nomad on the map" line at zero. Localized with correct ICU plurals in all five locales (en/tr/fa/ar/ru), so there's no fabricated number anywhere. Backed by a new cached `getVisibleMemberCount()` query tagged with `members` so it stays fresh.
+- **Cookie consent with Google Consent Mode v2.** A translated, RTL-safe consent banner (all five locales) now gates analytics. GA loads with consent defaulted to *denied* (cookieless pings, no GA cookies) and flips to *granted* only when you accept; the choice is remembered in a first-party `in_consent` cookie so returning visitors don't see the banner again or get a denied-flash. Vercel Analytics is gated behind the same toggle; Speed Insights (no behavioral data) stays on. New `ConsentProvider`/`CookieBanner` + an inline `<head>` consent-default bootstrap.
+- **GA4 funnel events.** A typed `track()` layer (`src/lib/analytics.ts`) that no-ops until consent is granted, wired into the key conversion points: hero CTA, onboarding (start/step/complete), login, sign-up, plan create (start/submit/success), plan join/leave, and event RSVP. Funnels themselves are composed in the GA4 UI from these clean events. (Set `NEXT_PUBLIC_GA_ID` in Vercel to start collecting.)
+- **Installable PWA with offline support.** Added a web app manifest, maskable + standard icons (192/512), Apple web-app meta, and a Serwist service worker. The app installs to the home screen (standalone, branded splash) and falls back to a `/offline` page when the connection drops. Caching is auth-safe: `/api`, `/auth`, and authenticated pages are network-only and never stored; only public static assets, images, and fonts are cached.
+
+### Changed
+
+- Member badge/hosted strings added in all five locales (en/tr/fa/ar/ru) with locale-correct ICU plural categories.
+- **Production build now runs on webpack** (`next build --webpack`) because the Serwist service worker compiles via webpack on Next 16. Local dev stays on Turbopack, and the service worker is disabled in dev.
+
+### Fixed
+
+- **The cinematic hero map now loads on mobile.** It used to be desktop-only - phones got a flat deep-water panel, which read as an empty black hero. The map now renders on mobile too: still lazy-loaded and gated on the first interaction (with a short unattended fallback so it appears without forcing a tap), and `prefers-reduced-motion` still gets the static frame.
+- **Hero fits the visible mobile viewport.** Switched the hero to `100dvh` so the bottom CTAs aren't hidden behind the mobile browser's address bar until you scroll.
+- **Hero overlay no longer darkens the mobile bottom nav.** The hero's text-contrast gradient (a high-z-index overlay) was leaking into the root stacking context and dimming the left "Home" tab of the fixed bottom tab bar. Isolating the hero's stacking context keeps the nav clean.
+- **Telegram dev-token store moved out of a route file.** The `/link` and `/webhook` Telegram routes shared an in-memory dev-fallback map by exporting it from `link/route.ts`; App Router forbids non-handler exports from route files, which broke the webpack production build. Extracted to `src/lib/telegram/dev-token-store.ts`.
+- **Assistant chat button no longer overlaps the mobile bottom nav.** The floating launcher sat at `bottom-5` (20px) inside the 64px tab bar and, being higher z-index, painted over the "Menu" tab. It now sits just above the tab bar on mobile (clearing the bar height + safe-area) and resets to its normal position on desktop where the tab bar is hidden. The open chat panel got the same treatment.
+
 ## [3.30.10] - 2026-05-29
 
 ### Fixed

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -34,6 +34,13 @@ export function BottomTabBar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const t = useTranslations("bottomNav");
+
+  // Safety net: close the sheet on any navigation, not just taps on its own
+  // links (covers back/forward and programmatic routing).
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- close on route change is intentional
+    setMenuOpen(false);
+  }, [pathname]);
 
   const isActive = (tab: Tab) => {
     if (tab.action === "menu") return menuOpen;
@@ -87,6 +94,8 @@ export function BottomTabBar() {
                   onClick={() => setMenuOpen(!menuOpen)}
                   className="relative flex flex-1"
                   aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
+                  aria-expanded={menuOpen}
+                  aria-controls="mobile-menu-overlay"
                 >
                   {content}
                 </button>

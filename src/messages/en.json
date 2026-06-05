@@ -1,4 +1,14 @@
 {
+  "consent": {
+    "title": "A quick note on cookies",
+    "body": "We use a couple of analytics cookies to see which guides and spots people actually use, so we can make the site better. Nothing creepy, and you can say no anytime.",
+    "acceptAll": "Accept all",
+    "rejectNonEssential": "Reject non-essential",
+    "preferences": "Cookie settings",
+    "label": "Cookie consent",
+    "necessaryLabel": "Essential (always on)",
+    "analyticsLabel": "Analytics"
+  },
   "site": {
     "name": "Istanbul Nomads",
     "shortName": "Istanbul Nomads",
@@ -993,7 +1003,7 @@
       }
     },
     "heroLive": {
-      "livePip": "21 nomads online right now",
+      "livePip": "{count, plural, =0 {Be the first nomad on the map} one {# nomad in the community} other {# nomads in the community}}",
       "headlineA": "What are nomads",
       "headlineB": "up to",
       "headlineC": "in Istanbul today?",
@@ -2996,6 +3006,14 @@
       "trustReliableHost": "Reliable host",
       "trustAllOnTime": "Shows up on time",
       "trustActiveWeek": "Active this week",
+      "badges": {
+        "first_plan": "First plan",
+        "regular": "Regular",
+        "veteran": "Veteran",
+        "one_year_istanbul": "One year in Istanbul",
+        "best_nomad_year": "Best nomad of the year",
+        "top_host_year": "Top host of the year"
+      },
       "upcomingPlans": "What's coming up",
       "hostingTag": "Hosting",
       "goingTag": "Going",
@@ -3020,6 +3038,39 @@
       "todo": "To do",
       "completeProfile": "Complete your profile",
       "linksEyebrow": "Quick links",
+      "activity": {
+        "eyebrow": "Your activity",
+        "plansTitle": "Plans you joined",
+        "eventsTitle": "Events you're attending",
+        "plansEmpty": "You haven't joined any plans yet.",
+        "eventsEmpty": "You haven't RSVP'd to any events yet.",
+        "browsePlans": "Browse plans",
+        "browseEvents": "Browse events",
+        "upcoming": "Upcoming",
+        "past": "Past",
+        "cancelled": "Cancelled",
+        "leaveReview": "Leave a review",
+        "reviewed": "Reviewed",
+        "upcomingCount": "{count, plural, one {# upcoming} other {# upcoming}}"
+      },
+      "badges": {
+        "eyebrow": "Your badges",
+        "xp": "{xp} XP",
+        "nextHint": "{count, plural, one {# plan} other {# plans}} to your next badge",
+        "none": "Join or host a plan to earn your first badge.",
+        "first_plan": "First plan",
+        "regular": "Regular",
+        "veteran": "Veteran",
+        "one_year_istanbul": "One year in Istanbul",
+        "best_nomad_year": "Best nomad of the year",
+        "top_host_year": "Top host of the year"
+      },
+      "hosted": {
+        "eyebrow": "Plans you've hosted",
+        "empty": "You haven't hosted any plans yet.",
+        "share": "Share a plan",
+        "going": "{count, plural, one {# going} other {# going}}"
+      },
       "fields": {
         "bio": "Bio",
         "location": "Location",

@@ -1,8 +1,8 @@
 import {
+  Beer,
   Coffee,
   Focus,
   Music,
-  Sunset,
   TreePine,
   Users,
   Utensils,
@@ -26,7 +26,7 @@ export const VIBE_ICONS: Record<PlanVibe, LucideIcon> = {
   cowork: Coffee,
   social: Users,
   meal: Utensils,
-  "after-work": Sunset,
+  "after-work": Beer,
   outdoor: TreePine,
   culture: Music,
 };

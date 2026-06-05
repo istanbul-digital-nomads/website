@@ -1,4 +1,14 @@
 {
+  "consent": {
+    "title": "یک نکته کوتاه دربارهٔ کوکی‌ها",
+    "body": "ما از چند کوکی تحلیلی استفاده می‌کنیم تا ببینیم مردم واقعاً از کدام راهنماها و مکان‌ها استفاده می‌کنند و سایت را بهتر کنیم. خبری از کارهای عجیب نیست و هر وقت بخواهی می‌توانی نه بگویی.",
+    "acceptAll": "قبول همه",
+    "rejectNonEssential": "رد موارد غیرضروری",
+    "preferences": "تنظیمات کوکی",
+    "label": "رضایت کوکی",
+    "necessaryLabel": "ضروری (همیشه فعال)",
+    "analyticsLabel": "تحلیلی"
+  },
   "site": {
     "name": "Istanbul Nomads",
     "shortName": "Istanbul Nomads",
@@ -993,7 +1003,7 @@
       }
     },
     "heroLive": {
-      "livePip": "اکنون ۲۱ کوچ‌نشین آنلاین",
+      "livePip": "{count, plural, =0 {اولین کوچ‌نشین روی نقشه باش} one {# کوچ‌نشین در جامعه} other {# کوچ‌نشین در جامعه}}",
       "headlineA": "کوچ‌نشین‌ها",
       "headlineB": "این روزها",
       "headlineC": "در استانبول چه می‌کنند؟",
@@ -2991,6 +3001,14 @@
       "trustReliableHost": "میزبان قابل اعتماد",
       "trustAllOnTime": "سر وقت می‌آید",
       "trustActiveWeek": "این هفته فعال",
+      "badges": {
+        "first_plan": "اولین برنامه",
+        "regular": "همیشگی",
+        "veteran": "کهنه‌کار",
+        "one_year_istanbul": "یک سال در استانبول",
+        "best_nomad_year": "نومد سال",
+        "top_host_year": "میزبان برتر سال"
+      },
       "upcomingPlans": "برنامه‌های پیش رو",
       "hostingTag": "میزبان",
       "goingTag": "می‌رود",
@@ -3020,6 +3038,39 @@
       "todo": "مانده",
       "completeProfile": "پروفایلت را کامل کن",
       "linksEyebrow": "دسترسی سریع",
+      "activity": {
+        "eyebrow": "فعالیت‌های تو",
+        "plansTitle": "برنامه‌هایی که به آن‌ها پیوستی",
+        "eventsTitle": "رویدادهایی که در آن‌ها شرکت می‌کنی",
+        "plansEmpty": "هنوز به هیچ برنامه‌ای نپیوسته‌ای.",
+        "eventsEmpty": "هنوز برای هیچ رویدادی اعلام حضور نکرده‌ای.",
+        "browsePlans": "مرور برنامه‌ها",
+        "browseEvents": "مرور رویدادها",
+        "upcoming": "پیش‌رو",
+        "past": "گذشته",
+        "cancelled": "لغوشده",
+        "leaveReview": "یک نظر بگذار",
+        "reviewed": "نظر داده‌شده",
+        "upcomingCount": "{count, plural, other {# پیش‌رو}}"
+      },
+      "badges": {
+        "eyebrow": "نشان‌های تو",
+        "xp": "{xp} XP",
+        "nextHint": "{count, plural, one {# برنامه} other {# برنامه}} تا نشان بعدی‌ات",
+        "none": "به یک برنامه بپیوند یا یکی میزبانی کن تا اولین نشانت را بگیری.",
+        "first_plan": "اولین برنامه",
+        "regular": "همیشگی",
+        "veteran": "کهنه‌کار",
+        "one_year_istanbul": "یک سال در استانبول",
+        "best_nomad_year": "نومد سال",
+        "top_host_year": "میزبان برتر سال"
+      },
+      "hosted": {
+        "eyebrow": "برنامه‌هایی که میزبانی کرده‌ای",
+        "empty": "هنوز هیچ برنامه‌ای را میزبانی نکرده‌ای.",
+        "share": "یک برنامه بگذار",
+        "going": "{count, plural, one {# نفر می‌آید} other {# نفر می‌آیند}}"
+      },
       "fields": {
         "bio": "معرفی",
         "location": "محل زندگی",

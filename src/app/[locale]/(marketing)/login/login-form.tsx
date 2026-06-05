@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { showToast } from "@/lib/toast";
+import { track } from "@/lib/analytics";
 
 export function LoginForm() {
   const t = useTranslations("loginPage");
@@ -12,6 +13,7 @@ export function LoginForm() {
 
   async function signInWithGoogle() {
     setLoading(true);
+    track("login", { method: "google" });
 
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithOAuth({

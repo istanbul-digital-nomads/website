@@ -320,6 +320,132 @@ export async function getMyAttendance(planIds: string[]): Promise<Set<string>> {
   );
 }
 
+// A plan the member joined, trimmed to what a dashboard row needs, plus a
+// flag for whether the plan has ended (so we can nudge a review).
+export interface AttendedPlan {
+  id: string;
+  title: string;
+  scheduled_date: string;
+  status: PlanRow["status"];
+  ended: boolean;
+  reviewed: boolean;
+}
+
+// All plans the current member is going to (past + future), newest first.
+// Drives the "your plans" surface on the dashboard. `reviewed` lets the UI
+// show "leave a review" only on ended plans the member hasn't reviewed yet.
+export async function getMyAttendedPlans(): Promise<AttendedPlan[]> {
+  const client = await createClient();
+  const {
+    data: { user },
+  } = await client.auth.getUser();
+  if (!user) return [];
+  const supabase = client as unknown as AnySupabase;
+
+  const { data, error } = await supabase
+    .from("plan_attendees")
+    .select(
+      `
+      plan:plans!inner (
+        id, title, scheduled_date, status, expires_at,
+        reviews:plan_reviews (author_id)
+      )
+      `,
+    )
+    .eq("member_id", user.id)
+    .eq("status", "going");
+
+  if (error || !data) return [];
+
+  type Raw = {
+    plan: {
+      id: string;
+      title: string;
+      scheduled_date: string;
+      status: PlanRow["status"];
+      expires_at: string;
+      reviews: Array<{ author_id: string }>;
+    } | null;
+  };
+
+  const now = Date.now();
+  return ((data as unknown as Raw[]) ?? [])
+    .map((row) => row.plan)
+    .filter((p): p is NonNullable<Raw["plan"]> => !!p)
+    .map((p) => ({
+      id: p.id,
+      title: p.title,
+      scheduled_date: p.scheduled_date,
+      status: p.status,
+      ended: new Date(p.expires_at).getTime() < now,
+      reviewed: (p.reviews ?? []).some((r) => r.author_id === user.id),
+    }))
+    .sort((a, b) => b.scheduled_date.localeCompare(a.scheduled_date));
+}
+
+// A plan the member created, trimmed to what a dashboard row needs.
+export interface HostedPlan {
+  id: string;
+  title: string;
+  scheduled_date: string;
+  status: PlanRow["status"];
+  ended: boolean;
+  attendee_count: number;
+}
+
+// Every plan the current member has hosted (created), upcoming first then
+// past, each with its going-attendee count. Drives the "plans you've
+// hosted" history on the dashboard - the only place a host can get back to
+// a plan they ran once it's dropped off the active feed.
+export async function getMyHostedPlans(): Promise<HostedPlan[]> {
+  const client = await createClient();
+  const {
+    data: { user },
+  } = await client.auth.getUser();
+  if (!user) return [];
+  const supabase = client as unknown as AnySupabase;
+
+  const { data, error } = await supabase
+    .from("plans")
+    .select(
+      `
+      id, title, scheduled_date, status, expires_at,
+      attendees:plan_attendees (member_id, status)
+      `,
+    )
+    .eq("creator_id", user.id);
+
+  if (error || !data) return [];
+
+  type Raw = {
+    id: string;
+    title: string;
+    scheduled_date: string;
+    status: PlanRow["status"];
+    expires_at: string;
+    attendees: Array<{ member_id: string; status: string }>;
+  };
+
+  const now = Date.now();
+  return (data as unknown as Raw[])
+    .map((p) => ({
+      id: p.id,
+      title: p.title,
+      scheduled_date: p.scheduled_date,
+      status: p.status,
+      ended: new Date(p.expires_at).getTime() < now,
+      attendee_count: (p.attendees ?? []).filter((a) => a.status === "going")
+        .length,
+    }))
+    .sort((a, b) => {
+      // Upcoming first (soonest at top), then past (most recent at top).
+      if (a.ended !== b.ended) return a.ended ? 1 : -1;
+      return a.ended
+        ? b.scheduled_date.localeCompare(a.scheduled_date)
+        : a.scheduled_date.localeCompare(b.scheduled_date);
+    });
+}
+
 export async function getMyTelegramSubscription(): Promise<{
   chat_id: number;
 } | null> {

@@ -16,6 +16,7 @@ import { Container } from "@/components/ui/container";
 import { BottomSheet, type SheetHeight } from "@/components/ui/bottom-sheet";
 import { cn } from "@/lib/utils";
 import { showToast } from "@/lib/toast";
+import { track } from "@/lib/analytics";
 import { todayInIstanbul, addDays } from "@/lib/plans/expiry";
 import { VIBE_ICONS, type PlanVibe } from "@/lib/plans/vibes";
 import type { NomadSpace } from "@/lib/spaces";
@@ -389,6 +390,11 @@ export function PlanCreateFlow({
     }
   }, [focusedUid]);
 
+  // Funnel: mark the start of a fresh plan (not the edit flow).
+  useEffect(() => {
+    if (!isEdit) track("plan_create_start", { edit: false });
+  }, [isEdit]);
+
   const focusedStop = stops.find((s) => s.uid === focusedUid) ?? null;
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -398,6 +404,11 @@ export function PlanCreateFlow({
       return;
     }
     setLoading(true);
+    track("plan_create_submit", {
+      stops: stops.length,
+      ticketed: canTicket && isTicketed,
+      edit: isEdit,
+    });
 
     // Lira (display unit) → cents (DB unit). 100 cents = 1 TL.
     const liraToCents = (s: string) => {
@@ -456,6 +467,7 @@ export function PlanCreateFlow({
       }
       showToast.success(isEdit ? t("updateSuccess") : t("successTitle"));
       const planId = isEdit ? initial.id : json.data.id;
+      track("plan_create_success", { plan_id: planId, edit: isEdit });
       router.push(`/plans/${planId}` as never);
     } catch {
       showToast.error(t("errorTitle"), t("errorBody"));

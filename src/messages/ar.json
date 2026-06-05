@@ -1,4 +1,14 @@
 {
+  "consent": {
+    "title": "كلمة سريعة عن الكوكيز",
+    "body": "نستخدم بعض كوكيز التحليلات لنعرف أي الأدلة والأماكن يستخدمها الناس فعلاً، حتى نحسّن الموقع. لا شيء مقلق، ويمكنك الرفض في أي وقت.",
+    "acceptAll": "قبول الكل",
+    "rejectNonEssential": "رفض غير الضروري",
+    "preferences": "إعدادات الكوكيز",
+    "label": "الموافقة على الكوكيز",
+    "necessaryLabel": "أساسية (مفعّلة دائماً)",
+    "analyticsLabel": "التحليلات"
+  },
   "site": {
     "name": "Istanbul Nomads",
     "shortName": "Istanbul Nomads",
@@ -1001,7 +1011,7 @@
       }
     },
     "heroLive": {
-      "livePip": "21 رحالة متصلون الآن",
+      "livePip": "{count, plural, =0 {كن أول رحّالة على الخريطة} one {رحّالة واحد في المجتمع} two {رحّالتان في المجتمع} few {# رحّالة في المجتمع} many {# رحّالة في المجتمع} other {# رحّالة في المجتمع}}",
       "headlineA": "ماذا يفعل",
       "headlineB": "الرحالة",
       "headlineC": "في إسطنبول اليوم؟",
@@ -2999,6 +3009,14 @@
       "trustReliableHost": "مضيف موثوق",
       "trustAllOnTime": "يحضر في الوقت",
       "trustActiveWeek": "نشط هذا الأسبوع",
+      "badges": {
+        "first_plan": "أول خطة",
+        "regular": "عضو منتظم",
+        "veteran": "عضو مخضرم",
+        "one_year_istanbul": "عام في إسطنبول",
+        "best_nomad_year": "رحّالة العام",
+        "top_host_year": "أفضل مضيف هذا العام"
+      },
       "upcomingPlans": "ما قادم",
       "hostingTag": "يستضيف",
       "goingTag": "سيشارك",
@@ -3028,6 +3046,39 @@
       "todo": "متبقٍّ",
       "completeProfile": "أكمل ملفك الشخصي",
       "linksEyebrow": "روابط سريعة",
+      "activity": {
+        "eyebrow": "نشاطك",
+        "plansTitle": "الخطط التي انضممت إليها",
+        "eventsTitle": "الفعاليات التي ستحضرها",
+        "plansEmpty": "لم تنضم إلى أي خطة بعد.",
+        "eventsEmpty": "لم تؤكد حضورك لأي فعالية بعد.",
+        "browsePlans": "تصفّح الخطط",
+        "browseEvents": "تصفّح الفعاليات",
+        "upcoming": "قادمة",
+        "past": "سابقة",
+        "cancelled": "ملغاة",
+        "leaveReview": "اترك تقييمًا",
+        "reviewed": "تم التقييم",
+        "upcomingCount": "{count, plural, zero {# قادمة} one {قادمة واحدة} two {قادمتان} few {# قادمة} many {# قادمة} other {# قادمة}}"
+      },
+      "badges": {
+        "eyebrow": "أوسمتك",
+        "xp": "{xp} نقطة",
+        "nextHint": "{count, plural, zero {لا خطط متبقية لوسامك التالي} one {خطة واحدة تفصلك عن وسامك التالي} two {خطتان تفصلانك عن وسامك التالي} few {# خطط تفصلك عن وسامك التالي} many {# خطة تفصلك عن وسامك التالي} other {# خطة تفصلك عن وسامك التالي}}",
+        "none": "انضم إلى خطة أو استضِف واحدة لتحصل على وسامك الأول.",
+        "first_plan": "أول خطة",
+        "regular": "عضو منتظم",
+        "veteran": "عضو مخضرم",
+        "one_year_istanbul": "عام في إسطنبول",
+        "best_nomad_year": "رحّالة العام",
+        "top_host_year": "أفضل مضيف هذا العام"
+      },
+      "hosted": {
+        "eyebrow": "الخطط التي استضفتها",
+        "empty": "لم تستضف أي خطة بعد.",
+        "share": "شارك خطة",
+        "going": "{count, plural, zero {لا مشاركين} one {مشارك واحد} two {مشاركان} few {# مشاركين} many {# مشاركاً} other {# مشارك}}"
+      },
       "fields": {
         "bio": "النبذة",
         "location": "الموقع",

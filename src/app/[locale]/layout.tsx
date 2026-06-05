@@ -19,9 +19,10 @@ import {
 } from "next-intl/server";
 import { isValidLocale } from "@/lib/i18n/config";
 import { getCachedMessages } from "@/lib/i18n/cache-translations";
-import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/layout/theme-provider";
+import { ConsentProvider } from "@/components/consent/consent-provider";
+import { AnalyticsConsentGate } from "@/components/consent/analytics-consent-gate";
 import { Footer } from "@/components/layout/footer";
 import {
   BottomTabBarIsland,
@@ -193,6 +194,15 @@ export async function generateMetadata({
       "expat",
     ],
     metadataBase: new URL("https://istanbulnomads.com"),
+    // PWA: static manifest (public/manifest.webmanifest). These fields don't
+    // depend on locale - the manifest is single-document and install-time.
+    manifest: "/manifest.webmanifest",
+    applicationName: "Istanbul Nomads",
+    appleWebApp: {
+      capable: true,
+      title: "Istanbul Nomads",
+      statusBarStyle: "default",
+    },
     openGraph: {
       title: "Istanbul Nomads",
       description,
@@ -287,6 +297,17 @@ export default async function LocaleLayout({
             __html: `(function(){try{var t=localStorage.getItem("theme");var d=document.documentElement;if(t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme:dark)").matches))d.classList.add("dark")}catch(e){}})()`,
           }}
         />
+        {/* Google Consent Mode v2 default. Runs synchronously before the
+            lazyOnload GA scripts so the consent default is in the dataLayer
+            first. Defaults everything to denied; promotes analytics_storage to
+            granted only if the visitor already accepted on a prior visit (read
+            from the first-party in_consent cookie) to avoid a denied-ping flash.
+            Static string - reads no request data, so it's cacheComponents-safe. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=window.gtag||gtag;var g='denied';try{if(/(?:^|;\\s*)in_consent=[^;]*analytics:granted/.test(document.cookie))g='granted';}catch(e){}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:g,functionality_storage:'granted',security_storage:'granted',wait_for_update:500});gtag('set','url_passthrough',true);gtag('set','ads_data_redaction',true);})()`,
+          }}
+        />
       </head>
       <body
         className={[
@@ -315,44 +336,47 @@ export default async function LocaleLayout({
           timeZone="Europe/Istanbul"
           now={new Date(0)}
         >
-          <ThemeProvider>
-            {/* NavProgress + BottomTabBar read usePathname, which is
+          <ConsentProvider>
+            <ThemeProvider>
+              {/* NavProgress + BottomTabBar read usePathname, which is
                 dynamic data on fully-dynamic routes (e.g. /events/[id]).
                 Wrapped in Suspense so they don't trip cacheComponents'
                 "uncached data outside Suspense" guard. */}
-            <Suspense fallback={null}>
-              <NavProgressIsland />
-            </Suspense>
-            {/* Header is mounted by the (marketing) and (app) route-group
+              <Suspense fallback={null}>
+                <NavProgressIsland />
+              </Suspense>
+              {/* Header is mounted by the (marketing) and (app) route-group
                 layouts; (home) deliberately omits it so the cinematic hero
                 owns the top of the viewport. No is-home shim needed. */}
-            <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">
-              <Suspense fallback={null}>{children}</Suspense>
-            </main>
-            <Suspense fallback={null}>
-              <Footer locale={typedLocale} />
-            </Suspense>
-            <Suspense fallback={null}>
-              <BottomTabBarIsland />
-            </Suspense>
-            <CommandMenuIsland items={searchItems} />
-            <AssistantWidgetIsland />
-          </ThemeProvider>
-          <ToasterIsland />
-          <WebMcpRegisterIsland />
-          <Analytics />
-          <SpeedInsights />
+              <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">
+                <Suspense fallback={null}>{children}</Suspense>
+              </main>
+              <Suspense fallback={null}>
+                <Footer locale={typedLocale} />
+              </Suspense>
+              <Suspense fallback={null}>
+                <BottomTabBarIsland />
+              </Suspense>
+              <CommandMenuIsland items={searchItems} />
+              <AssistantWidgetIsland />
+            </ThemeProvider>
+            <ToasterIsland />
+            <WebMcpRegisterIsland />
+            <AnalyticsConsentGate />
+            <SpeedInsights />
+          </ConsentProvider>
         </NextIntlClientProvider>
-        {process.env.NEXT_PUBLIC_GA_ID && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-              strategy="lazyOnload"
-            />
-            <Script id="ga-init" strategy="lazyOnload">
-              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${process.env.NEXT_PUBLIC_GA_ID}');`}
-            </Script>
-          </>
+        {/* Google Tag Manager (GTM-WVTC6K93). The container loads the GA4
+            Google tag (G-CG3LT0ZV2X) and forwards the funnel events from
+            src/lib/analytics.ts. `lazyOnload` is kept from the old direct
+            gtag.js setup - all funnel events fire from user gestures well
+            after load, and we'd rather protect LCP than capture an early
+            bounce. The Consent Mode v2 default in <head> runs synchronously
+            before this, so GTM boots with the right consent state. */}
+        {process.env.NEXT_PUBLIC_GTM_ID && (
+          <Script id="gtm-loader" strategy="lazyOnload">
+            {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GTM_ID}');`}
+          </Script>
         )}
       </body>
     </html>

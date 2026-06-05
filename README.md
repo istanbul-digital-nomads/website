@@ -92,7 +92,7 @@ Full per-route description, the user loop, and which surfaces are auth-required 
 | Auth           | Supabase Auth                                  | Magic link + Google + GitHub OAuth                                                 |
 | Storage        | Supabase Storage                               | Avatars, event images                                                              |
 | Hosting        | Vercel                                         | Preview deploys, edge network                                                      |
-| Analytics      | Plausible + Vercel Analytics                   | Privacy-friendly visitor tracking                                                  |
+| Analytics      | GA4 via Google Tag Manager + Vercel Analytics  | Consent-gated funnel + visitor tracking                                            |
 | Performance    | Vercel Speed Insights                          | Core Web Vitals monitoring                                                         |
 | Email          | Resend                                         | Transactional + newsletter                                                         |
 | Error Tracking | Sentry                                         | Runtime error monitoring                                                           |
@@ -159,7 +159,7 @@ Open [http://localhost:3000](http://localhost:3000) to see the site.
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-NEXT_PUBLIC_PLAUSIBLE_DOMAIN=istanbulnomads.com
+NEXT_PUBLIC_GTM_ID=your_gtm_container_id
 RESEND_API_KEY=your_resend_api_key
 SENTRY_DSN=your_sentry_dsn
 VERCEL_URL=                    # Auto-populated on Vercel

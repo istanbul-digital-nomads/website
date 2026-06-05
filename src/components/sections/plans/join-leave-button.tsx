@@ -44,7 +44,9 @@ export function JoinLeaveButton({
         showToast.error(t("errorTitle"), json.error ?? t("errorBody"));
         return;
       }
-      track(method === "POST" ? "plan_join" : "plan_leave", { plan_id: planId });
+      track(method === "POST" ? "plan_join" : "plan_leave", {
+        plan_id: planId,
+      });
       setJoined((v) => !v);
       startTransition(() => router.refresh());
     } finally {

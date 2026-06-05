@@ -1,14 +1,17 @@
 // Central GA4 event layer + consent constants.
 //
 // Every funnel event goes through `track()`, which is a no-op until the visitor
-// has granted analytics consent (Google Consent Mode v2) AND gtag has loaded.
-// GA loads with `strategy="lazyOnload"`, and each event below is fired from a
-// user gesture that happens well after load, so the "gtag missing" branch is
-// rare and harmless (we'd rather drop one early event than buffer/replay).
+// has granted analytics consent (Google Consent Mode v2). Events go through the
+// `gtag()` stub (defined in the <head> consent bootstrap), which pushes into the
+// shared dataLayer. GTM (loaded with `strategy="lazyOnload"`) picks these up and
+// its "GA4 - Event Forwarding" tag sends them to GA4 - the gtag-style push means
+// the params land in eventModel and are forwarded automatically. Each event below
+// fires from a user gesture that happens well after load, so the "stub missing"
+// branch is rare and harmless (we'd rather drop one early event than buffer/replay).
 //
 // The source of truth for "may we track" is the first-party `in_consent`
 // cookie that ConsentProvider writes and the inline <head> bootstrap reads -
-// it's cheaper and more reliable than poking gtag's internal consent state.
+// it's cheaper and more reliable than poking GTM's internal consent state.
 
 export const CONSENT_COOKIE = "in_consent";
 export const CONSENT_GRANTED = "analytics:granted";

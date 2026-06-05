@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.32.0] - 2026-06-06
+
+### Changed
+
+- **Analytics now loads through Google Tag Manager.** The site swaps the direct gtag.js loader for the new GTM container (`GTM-WVTC6K93`), which loads the GA4 Google tag (`G-CG3LT0ZV2X`) and forwards every funnel event from `track()` to GA4. Nothing changes for visitors: the Consent Mode v2 bootstrap still runs first with everything defaulted to denied, the script still loads with `lazyOnload` so it can't touch LCP, and the typed `track()` event layer is untouched - its gtag-style pushes land in the shared dataLayer where GTM picks them up (params ride along via `eventModel`). Set `NEXT_PUBLIC_GTM_ID` in Vercel; `NEXT_PUBLIC_GA_ID` isn't read anymore.
+
 ## [3.31.0] - 2026-06-05
 
 ### Added

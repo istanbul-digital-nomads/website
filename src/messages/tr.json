@@ -1013,7 +1013,7 @@
       }
     },
     "heroLive": {
-      "livePip": "Şu an 21 göçebe çevrimiçi",
+      "livePip": "{count, plural, =0 {Haritadaki ilk göçebe sen ol} one {Toplulukta # göçebe} other {Toplulukta # göçebe}}",
       "headlineA": "Göçebeler bugün",
       "headlineB": "ne yapıyor",
       "headlineC": "İstanbul'da?",

@@ -9,28 +9,30 @@ import "./hero-live.css";
 
 // The cinematic hero is a full MapLibre WebGL map (raster tiles + markers + an
 // animation loop). On a throttled mobile CPU that single component dominated
-// Total Blocking Time (~13.8s mobile TBT / 14.3s Speed Index in PSI). We only
-// run it where it earns its weight: desktop viewports with motion allowed.
-// Everywhere else (mobile, prefers-reduced-motion) the hero is the static
-// deep-water frame, and the ~1 MB maplibre chunk is never downloaded thanks to
-// the dynamic import below.
+// Total Blocking Time (~13.8s mobile TBT / 14.3s Speed Index in PSI), so we
+// keep two protections everywhere: the ~1 MB maplibre chunk loads via the
+// dynamic import below (never part of the initial bundle), and we don't mount
+// it until the page is interactive (see the gated effect). The map IS shown on
+// mobile - a black hero reads as broken - but mobile gets a shorter unattended
+// fallback so it appears without forcing the visitor to interact first. Only
+// prefers-reduced-motion keeps the static deep-water frame.
 const HeroCinematic = dynamic(
   () => import("./hero-cinematic").then((m) => m.HeroCinematic),
   { ssr: false },
 );
 
-type Props = { locale: string };
+type Props = { locale: string; nomadCount: number };
 
-export function HeroLiveClient({ locale }: Props) {
+export function HeroLiveClient({ locale, nomadCount }: Props) {
   const [stopIdx, setStopIdx] = useState(0);
   const [cinematic, setCinematic] = useState(false);
 
   useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 768px)").matches;
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    if (!desktop || reduced) return; // static hero on mobile / reduced-motion
+    if (reduced) return; // static hero for reduced-motion only
+    const desktop = window.matchMedia("(min-width: 768px)").matches;
 
     // Mount the heavy MapLibre tree on the first real engagement signal
     // (pointer move/down, wheel, scroll, key, touch) rather than on load.
@@ -38,9 +40,10 @@ export function HeroLiveClient({ locale }: Props) {
     // homepage; running it during load is what kept Lighthouse's blocking
     // time high. Gating it on interaction means the page reaches an
     // interactive, settled state first, then the cinematic map fades in the
-    // instant the visitor moves - which on a desktop hero is effectively
-    // immediate. The headline and CTAs render regardless. A generous fallback
-    // still mounts it for the rare visitor who never interacts.
+    // instant the visitor moves. The headline and CTAs render regardless. A
+    // fallback timer still mounts it for visitors who never interact - shorter
+    // on mobile, where there's no pointer hovering to trigger an early mount,
+    // so the map reliably appears instead of leaving a black hero.
     let done = false;
     const mount = () => {
       if (done) return;
@@ -57,17 +60,28 @@ export function HeroLiveClient({ locale }: Props) {
       "touchstart",
     ];
     events.forEach((e) => window.addEventListener(e, mount, opts));
-    const fallback = window.setTimeout(mount, 8000);
+    const fallback = window.setTimeout(mount, desktop ? 8000 : 3000);
     return () => {
       events.forEach((e) => window.removeEventListener(e, mount));
       window.clearTimeout(fallback);
     };
   }, []);
 
+  // 100dvh (not 100vh) so the hero matches the *visible* viewport on mobile
+  // Safari/Chrome - with 100vh the browser chrome overlaps the bottom CTAs
+  // until the user scrolls. minHeight keeps it from collapsing on very short
+  // landscape viewports.
   return (
+    // `isolate` contains the hero's internal z-stack. Its overlays use very
+    // high z-index values (the z-[1050] text-mask, z-[1100] header, z-[1200]
+    // tour callout) to sit above the map. Without an isolation boundary the
+    // section is z-auto and not a stacking context, so those values leak into
+    // the root stacking context and paint over the global fixed mobile nav
+    // (BottomTabBar, z-50) - darkening the left "Home" tab. Isolating scopes
+    // them to the hero so the bottom nav stays on top.
     <section
-      className="relative w-full overflow-hidden bg-deep-water text-cream"
-      style={{ height: "100vh", minHeight: 640 }}
+      className="relative isolate w-full overflow-hidden bg-deep-water text-cream"
+      style={{ height: "100dvh", minHeight: 640 }}
     >
       {cinematic && (
         <HeroErrorBoundary
@@ -77,7 +91,7 @@ export function HeroLiveClient({ locale }: Props) {
           <HeroCinematic onStopChange={setStopIdx} />
         </HeroErrorBoundary>
       )}
-      <HeroFrame locale={locale} />
+      <HeroFrame locale={locale} nomadCount={nomadCount} />
       {cinematic && <TourCallout stopIdx={stopIdx} />}
     </section>
   );

@@ -10,10 +10,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - **XP + badges on the dashboard and profiles (Phase 5).** Every member now has a light engagement layer: a subtle XP counter plus earned badges. The count tiers (First plan / Regular / Veteran at 1 / 5 / 15 plans), the "One year in Istanbul" anniversary badge, and the manually-awarded honors (Best nomad of the year, Top host of the year) all show as pills on the dashboard and on public profiles. The dashboard also shows a "next badge" hint. Automatic badges are computed on read from a member's plan activity - same source of truth as the trust pills, so nothing drifts and nothing can be farmed. The two editorial honors live in a new `member_badges` table (`035_member_badges.sql`), awarded out-of-band by an organizer. XP weights hosting (20) above joining (10).
 - **"Plans you've hosted" history on the dashboard.** A host can now get back to every plan they've created - upcoming first, then past - each with its going-attendee count, even after the plan drops off the active feed. Sits alongside the existing "plans you joined" and "events you're attending" surfaces.
+- **Real, live nomad count in the homepage hero.** The hero's "live" pip used to read a hardcoded "21 nomads online right now." It now shows the real number of opt-in members straight from the directory (e.g. "7 nomads in the community"), revalidates as people join, and drops to a "be the first nomad on the map" line at zero. Localized with correct ICU plurals in all five locales (en/tr/fa/ar/ru), so there's no fabricated number anywhere. Backed by a new cached `getVisibleMemberCount()` query tagged with `members` so it stays fresh.
 
 ### Changed
 
 - Member badge/hosted strings added in all five locales (en/tr/fa/ar/ru) with locale-correct ICU plural categories.
+
+### Fixed
+
+- **The cinematic hero map now loads on mobile.** It used to be desktop-only - phones got a flat deep-water panel, which read as an empty black hero. The map now renders on mobile too: still lazy-loaded and gated on the first interaction (with a short unattended fallback so it appears without forcing a tap), and `prefers-reduced-motion` still gets the static frame.
+- **Hero fits the visible mobile viewport.** Switched the hero to `100dvh` so the bottom CTAs aren't hidden behind the mobile browser's address bar until you scroll.
+- **Hero overlay no longer darkens the mobile bottom nav.** The hero's text-contrast gradient (a high-z-index overlay) was leaking into the root stacking context and dimming the left "Home" tab of the fixed bottom tab bar. Isolating the hero's stacking context keeps the nav clean.
 
 ## [3.30.10] - 2026-05-29
 

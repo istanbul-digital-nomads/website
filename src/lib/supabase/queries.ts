@@ -230,6 +230,23 @@ export async function getMembersPublic() {
   return { data: data as MemberPublic[] | null, error };
 }
 
+// Real, live count of opt-in (publicly visible) members. Powers the hero's
+// "live nomads" pip - the number must always be true, so it comes straight
+// from the directory's source table. `head: true` skips row payloads and
+// asks Postgres for an exact count only. Cached + tagged like the other
+// member reads so it revalidates whenever the directory changes.
+export async function getVisibleMemberCount() {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("members");
+  const supabase = createPublicClient();
+  const { count, error } = await supabase
+    .from("members")
+    .select("id", { count: "exact", head: true })
+    .eq("is_visible", true);
+  return { count: count ?? 0, error };
+}
+
 export async function getMemberByIdPublic(id: string) {
   "use cache";
   cacheLife("minutes");

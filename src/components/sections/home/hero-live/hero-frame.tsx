@@ -16,13 +16,13 @@ import { cn } from "@/lib/utils";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 
-type Props = { locale?: string };
+type Props = { locale?: string; nomadCount?: number };
 
 function isDropdown(item: NavItem): item is NavDropdownItem {
   return "children" in item;
 }
 
-export function HeroFrame(_props: Props) {
+export function HeroFrame({ nomadCount = 0 }: Props) {
   const t = useTranslations("home.heroLive");
   const tNav = useTranslations("nav");
   const tSite = useTranslations("site");
@@ -113,7 +113,7 @@ export function HeroFrame(_props: Props) {
             className="hero-live-pip inline-block h-1.5 w-1.5 rounded-full bg-moss"
             style={{ boxShadow: "0 0 8px rgb(134, 239, 172)" }}
           />
-          {t("livePip")}
+          {t("livePip", { count: nomadCount })}
         </div>
 
         <h1

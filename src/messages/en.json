@@ -993,7 +993,7 @@
       }
     },
     "heroLive": {
-      "livePip": "21 nomads online right now",
+      "livePip": "{count, plural, =0 {Be the first nomad on the map} one {# nomad in the community} other {# nomads in the community}}",
       "headlineA": "What are nomads",
       "headlineB": "up to",
       "headlineC": "in Istanbul today?",

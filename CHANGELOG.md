@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **Hero fits the visible mobile viewport.** Switched the hero to `100dvh` so the bottom CTAs aren't hidden behind the mobile browser's address bar until you scroll.
 - **Hero overlay no longer darkens the mobile bottom nav.** The hero's text-contrast gradient (a high-z-index overlay) was leaking into the root stacking context and dimming the left "Home" tab of the fixed bottom tab bar. Isolating the hero's stacking context keeps the nav clean.
 - **Telegram dev-token store moved out of a route file.** The `/link` and `/webhook` Telegram routes shared an in-memory dev-fallback map by exporting it from `link/route.ts`; App Router forbids non-handler exports from route files, which broke the webpack production build. Extracted to `src/lib/telegram/dev-token-store.ts`.
+- **Assistant chat button no longer overlaps the mobile bottom nav.** The floating launcher sat at `bottom-5` (20px) inside the 64px tab bar and, being higher z-index, painted over the "Menu" tab. It now sits just above the tab bar on mobile (clearing the bar height + safe-area) and resets to its normal position on desktop where the tab bar is hidden. The open chat panel got the same treatment.
 
 ## [3.30.10] - 2026-05-29
 

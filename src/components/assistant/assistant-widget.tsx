@@ -152,7 +152,7 @@ export function AssistantWidget() {
           type="button"
           onClick={() => setOpen(true)}
           aria-label={t("launcherLabel")}
-          className="fixed bottom-5 end-5 z-[90] inline-flex h-14 w-14 items-center justify-center rounded-full bg-terracotta text-[#06101f] shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/60 motion-safe:animate-marker-pulse"
+          className="fixed bottom-[calc(env(safe-area-inset-bottom)+4.75rem)] end-5 z-[90] inline-flex h-14 w-14 items-center justify-center rounded-full bg-terracotta text-[#06101f] shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/60 motion-safe:animate-marker-pulse md:bottom-5"
         >
           <MessageCircle className="h-6 w-6" />
         </button>
@@ -166,7 +166,7 @@ export function AssistantWidget() {
           role="dialog"
           aria-modal="false"
           aria-label={t("title")}
-          className="fixed bottom-5 end-5 z-[90] flex max-h-[min(620px,calc(100vh-2.5rem))] w-[min(380px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-ink-3 bg-ink-1 shadow-[0_24px_80px_rgba(0,0,0,0.5)] focus:outline-none"
+          className="fixed bottom-[calc(env(safe-area-inset-bottom)+4.75rem)] end-5 z-[90] flex max-h-[min(620px,calc(100dvh-8rem))] w-[min(380px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-ink-3 bg-ink-1 shadow-[0_24px_80px_rgba(0,0,0,0.5)] focus:outline-none md:bottom-5 md:max-h-[min(620px,calc(100vh-2.5rem))]"
         >
           {/* Header */}
           <div className="flex items-center justify-between gap-3 border-b border-ink-3 bg-ink-0/40 px-4 py-3">

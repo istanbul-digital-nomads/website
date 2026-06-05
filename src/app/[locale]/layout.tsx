@@ -338,27 +338,27 @@ export default async function LocaleLayout({
         >
           <ConsentProvider>
             <ThemeProvider>
-            {/* NavProgress + BottomTabBar read usePathname, which is
+              {/* NavProgress + BottomTabBar read usePathname, which is
                 dynamic data on fully-dynamic routes (e.g. /events/[id]).
                 Wrapped in Suspense so they don't trip cacheComponents'
                 "uncached data outside Suspense" guard. */}
-            <Suspense fallback={null}>
-              <NavProgressIsland />
-            </Suspense>
-            {/* Header is mounted by the (marketing) and (app) route-group
+              <Suspense fallback={null}>
+                <NavProgressIsland />
+              </Suspense>
+              {/* Header is mounted by the (marketing) and (app) route-group
                 layouts; (home) deliberately omits it so the cinematic hero
                 owns the top of the viewport. No is-home shim needed. */}
-            <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">
-              <Suspense fallback={null}>{children}</Suspense>
-            </main>
-            <Suspense fallback={null}>
-              <Footer locale={typedLocale} />
-            </Suspense>
-            <Suspense fallback={null}>
-              <BottomTabBarIsland />
-            </Suspense>
-            <CommandMenuIsland items={searchItems} />
-            <AssistantWidgetIsland />
+              <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">
+                <Suspense fallback={null}>{children}</Suspense>
+              </main>
+              <Suspense fallback={null}>
+                <Footer locale={typedLocale} />
+              </Suspense>
+              <Suspense fallback={null}>
+                <BottomTabBarIsland />
+              </Suspense>
+              <CommandMenuIsland items={searchItems} />
+              <AssistantWidgetIsland />
             </ThemeProvider>
             <ToasterIsland />
             <WebMcpRegisterIsland />

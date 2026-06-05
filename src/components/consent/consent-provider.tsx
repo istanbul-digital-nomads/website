@@ -31,7 +31,9 @@ interface ConsentContextValue {
   openPreferences: () => void;
 }
 
-const ConsentContext = createContext<ConsentContextValue | undefined>(undefined);
+const ConsentContext = createContext<ConsentContextValue | undefined>(
+  undefined,
+);
 
 export function useConsent() {
   const ctx = useContext(ConsentContext);

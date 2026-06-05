@@ -56,11 +56,7 @@ export function CookieBanner() {
             >
               {t("acceptAll")}
             </Button>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={rejectNonEssential}
-            >
+            <Button variant="secondary" size="sm" onClick={rejectNonEssential}>
               {t("rejectNonEssential")}
             </Button>
           </div>

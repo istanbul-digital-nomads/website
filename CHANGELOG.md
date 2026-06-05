@@ -4,6 +4,17 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.31.0] - 2026-06-05
+
+### Added
+
+- **XP + badges on the dashboard and profiles (Phase 5).** Every member now has a light engagement layer: a subtle XP counter plus earned badges. The count tiers (First plan / Regular / Veteran at 1 / 5 / 15 plans), the "One year in Istanbul" anniversary badge, and the manually-awarded honors (Best nomad of the year, Top host of the year) all show as pills on the dashboard and on public profiles. The dashboard also shows a "next badge" hint. Automatic badges are computed on read from a member's plan activity - same source of truth as the trust pills, so nothing drifts and nothing can be farmed. The two editorial honors live in a new `member_badges` table (`035_member_badges.sql`), awarded out-of-band by an organizer. XP weights hosting (20) above joining (10).
+- **"Plans you've hosted" history on the dashboard.** A host can now get back to every plan they've created - upcoming first, then past - each with its going-attendee count, even after the plan drops off the active feed. Sits alongside the existing "plans you joined" and "events you're attending" surfaces.
+
+### Changed
+
+- Member badge/hosted strings added in all five locales (en/tr/fa/ar/ru) with locale-correct ICU plural categories.
+
 ## [3.30.10] - 2026-05-29
 
 ### Fixed

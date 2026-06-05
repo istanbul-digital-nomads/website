@@ -3015,6 +3015,14 @@
       "trustReliableHost": "Надёжный хост",
       "trustAllOnTime": "Приходит вовремя",
       "trustActiveWeek": "Активен на этой неделе",
+      "badges": {
+        "first_plan": "Первый план",
+        "regular": "Завсегдатай",
+        "veteran": "Ветеран",
+        "one_year_istanbul": "Год в Стамбуле",
+        "best_nomad_year": "Номад года",
+        "top_host_year": "Лучший хост года"
+      },
       "upcomingPlans": "Что впереди",
       "hostingTag": "Ведёт",
       "goingTag": "Идёт",
@@ -3058,6 +3066,24 @@
         "leaveReview": "Оставить отзыв",
         "reviewed": "Отзыв оставлен",
         "upcomingCount": "{count, plural, one {# предстоящее} few {# предстоящих} many {# предстоящих} other {# предстоящих}}"
+      },
+      "badges": {
+        "eyebrow": "Ваши бейджи",
+        "xp": "{xp} XP",
+        "nextHint": "{count, plural, one {# план} few {# плана} many {# планов} other {# планов}} до следующего бейджа",
+        "none": "Присоединитесь к плану или проведите свой, чтобы получить первый бейдж.",
+        "first_plan": "Первый план",
+        "regular": "Завсегдатай",
+        "veteran": "Ветеран",
+        "one_year_istanbul": "Год в Стамбуле",
+        "best_nomad_year": "Номад года",
+        "top_host_year": "Лучший хост года"
+      },
+      "hosted": {
+        "eyebrow": "Планы, которые вы провели",
+        "empty": "Вы пока не провели ни одного плана.",
+        "share": "Поделиться планом",
+        "going": "{count, plural, one {# идёт} few {# идут} many {# идут} other {# идут}}"
       },
       "fields": {
         "bio": "О себе",

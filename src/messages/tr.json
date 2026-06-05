@@ -3011,6 +3011,14 @@
       "trustReliableHost": "Güvenilir ev sahibi",
       "trustAllOnTime": "Zamanında geliyor",
       "trustActiveWeek": "Bu hafta aktif",
+      "badges": {
+        "first_plan": "İlk plan",
+        "regular": "Düzenli",
+        "veteran": "Veteran",
+        "one_year_istanbul": "İstanbul'da bir yıl",
+        "best_nomad_year": "Yılın göçebesi",
+        "top_host_year": "Yılın ev sahibi"
+      },
       "upcomingPlans": "Yaklaşan planlar",
       "hostingTag": "Düzenliyor",
       "goingTag": "Katılıyor",
@@ -3054,6 +3062,24 @@
         "leaveReview": "Bir değerlendirme bırak",
         "reviewed": "Değerlendirildi",
         "upcomingCount": "{count, plural, other {# yaklaşan}}"
+      },
+      "badges": {
+        "eyebrow": "Rozetlerin",
+        "xp": "{xp} XP",
+        "nextHint": "Bir sonraki rozetine {count, plural, one {# plan} other {# plan}} kaldı",
+        "none": "İlk rozetini kazanmak için bir plana katıl ya da kendin düzenle.",
+        "first_plan": "İlk plan",
+        "regular": "Düzenli",
+        "veteran": "Veteran",
+        "one_year_istanbul": "İstanbul'da bir yıl",
+        "best_nomad_year": "Yılın göçebesi",
+        "top_host_year": "Yılın ev sahibi"
+      },
+      "hosted": {
+        "eyebrow": "Düzenlediğin planlar",
+        "empty": "Henüz hiç plan düzenlemedin.",
+        "share": "Plan paylaş",
+        "going": "{count, plural, one {# katılıyor} other {# katılıyor}}"
       },
       "fields": {
         "bio": "Biyografi",

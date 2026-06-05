@@ -51,6 +51,10 @@ export type TrustSignals = {
   // ISO date string of the most recent plan they attended. Null when
   // they've attended none.
   lastAttendedDate: string | null;
+  // ISO date string of the earliest plan they attended that's now in the
+  // past. Drives the one_year_istanbul badge. Null when they've attended
+  // none in the past.
+  firstAttendedDate: string | null;
 };
 
 export type MemberActivity = {
@@ -60,6 +64,9 @@ export type MemberActivity = {
   neighborhoodsVisited: string[];
   coAttendees: CoAttendee[];
   trustSignals: TrustSignals;
+  // Manually-awarded badge slugs from the member_badges table (the auto
+  // tier + anniversary badges are computed from the counts above).
+  manualBadgeSlugs: string[];
 };
 
 const PAST_PLANS_LIMIT = 6;
@@ -84,17 +91,19 @@ export async function getMemberActivity(
     from: (t: string) => any;
   };
 
-  // Run all four independent queries in parallel:
+  // Run all five independent queries in parallel:
   //   1. Plans the member attended (includes hosted - auto-attend row).
   //      creator_id pulled so we can flag HOSTING vs GOING on upcoming.
   //   2-4. Trust-signal counts (hosted / cancelled-hosted / no-show).
-  // The co-attendees query (query 5) still runs after because it needs the
-  // planIds returned by query 1.
+  //   5. Manually-awarded badges (best_nomad_year / top_host_year).
+  // The co-attendees query still runs after because it needs the planIds
+  // returned by query 1.
   const [
     { data: attendances },
     { count: hostedCountRaw },
     { count: cancelledHostedCountRaw },
     { count: noShowCountRaw },
+    { data: badgeRows },
   ] = await Promise.all([
     supabase
       .from("plan_attendees")
@@ -124,7 +133,15 @@ export async function getMemberActivity(
       .select("plan_id", { count: "exact", head: true })
       .eq("member_id", memberId)
       .eq("status", "no_show"),
+    supabase
+      .from("member_badges")
+      .select("badge_slug")
+      .eq("member_id", memberId),
   ]);
+
+  const manualBadgeSlugs = (
+    (badgeRows ?? []) as Array<{ badge_slug: string }>
+  ).map((r) => r.badge_slug);
 
   const rows = (attendances ?? []) as Array<{
     plan_id: string;
@@ -242,6 +259,9 @@ export async function getMemberActivity(
     joinedCount: past.filter((p) => p.creator_id !== memberId).length,
     noShowCount: noShowCountRaw ?? 0,
     lastAttendedDate: past[0]?.scheduled_date ?? null,
+    // `past` is sorted most-recent-first, so the earliest attended plan
+    // is the last element.
+    firstAttendedDate: past[past.length - 1]?.scheduled_date ?? null,
   };
 
   return {
@@ -251,5 +271,6 @@ export async function getMemberActivity(
     neighborhoodsVisited: Array.from(hoodSet).sort(),
     coAttendees,
     trustSignals,
+    manualBadgeSlugs,
   };
 }

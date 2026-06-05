@@ -2999,6 +2999,14 @@
       "trustReliableHost": "مضيف موثوق",
       "trustAllOnTime": "يحضر في الوقت",
       "trustActiveWeek": "نشط هذا الأسبوع",
+      "badges": {
+        "first_plan": "أول خطة",
+        "regular": "عضو منتظم",
+        "veteran": "عضو مخضرم",
+        "one_year_istanbul": "عام في إسطنبول",
+        "best_nomad_year": "رحّالة العام",
+        "top_host_year": "أفضل مضيف هذا العام"
+      },
       "upcomingPlans": "ما قادم",
       "hostingTag": "يستضيف",
       "goingTag": "سيشارك",
@@ -3042,6 +3050,24 @@
         "leaveReview": "اترك تقييمًا",
         "reviewed": "تم التقييم",
         "upcomingCount": "{count, plural, zero {# قادمة} one {قادمة واحدة} two {قادمتان} few {# قادمة} many {# قادمة} other {# قادمة}}"
+      },
+      "badges": {
+        "eyebrow": "أوسمتك",
+        "xp": "{xp} نقطة",
+        "nextHint": "{count, plural, zero {لا خطط متبقية لوسامك التالي} one {خطة واحدة تفصلك عن وسامك التالي} two {خطتان تفصلانك عن وسامك التالي} few {# خطط تفصلك عن وسامك التالي} many {# خطة تفصلك عن وسامك التالي} other {# خطة تفصلك عن وسامك التالي}}",
+        "none": "انضم إلى خطة أو استضِف واحدة لتحصل على وسامك الأول.",
+        "first_plan": "أول خطة",
+        "regular": "عضو منتظم",
+        "veteran": "عضو مخضرم",
+        "one_year_istanbul": "عام في إسطنبول",
+        "best_nomad_year": "رحّالة العام",
+        "top_host_year": "أفضل مضيف هذا العام"
+      },
+      "hosted": {
+        "eyebrow": "الخطط التي استضفتها",
+        "empty": "لم تستضف أي خطة بعد.",
+        "share": "شارك خطة",
+        "going": "{count, plural, zero {لا مشاركين} one {مشارك واحد} two {مشاركان} few {# مشاركين} many {# مشاركاً} other {# مشارك}}"
       },
       "fields": {
         "bio": "النبذة",

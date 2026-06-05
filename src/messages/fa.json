@@ -2991,6 +2991,14 @@
       "trustReliableHost": "میزبان قابل اعتماد",
       "trustAllOnTime": "سر وقت می‌آید",
       "trustActiveWeek": "این هفته فعال",
+      "badges": {
+        "first_plan": "اولین برنامه",
+        "regular": "همیشگی",
+        "veteran": "کهنه‌کار",
+        "one_year_istanbul": "یک سال در استانبول",
+        "best_nomad_year": "نومد سال",
+        "top_host_year": "میزبان برتر سال"
+      },
       "upcomingPlans": "برنامه‌های پیش رو",
       "hostingTag": "میزبان",
       "goingTag": "می‌رود",
@@ -3034,6 +3042,24 @@
         "leaveReview": "یک نظر بگذار",
         "reviewed": "نظر داده‌شده",
         "upcomingCount": "{count, plural, other {# پیش‌رو}}"
+      },
+      "badges": {
+        "eyebrow": "نشان‌های تو",
+        "xp": "{xp} XP",
+        "nextHint": "{count, plural, one {# برنامه} other {# برنامه}} تا نشان بعدی‌ات",
+        "none": "به یک برنامه بپیوند یا یکی میزبانی کن تا اولین نشانت را بگیری.",
+        "first_plan": "اولین برنامه",
+        "regular": "همیشگی",
+        "veteran": "کهنه‌کار",
+        "one_year_istanbul": "یک سال در استانبول",
+        "best_nomad_year": "نومد سال",
+        "top_host_year": "میزبان برتر سال"
+      },
+      "hosted": {
+        "eyebrow": "برنامه‌هایی که میزبانی کرده‌ای",
+        "empty": "هنوز هیچ برنامه‌ای را میزبانی نکرده‌ای.",
+        "share": "یک برنامه بگذار",
+        "going": "{count, plural, one {# نفر می‌آید} other {# نفر می‌آیند}}"
       },
       "fields": {
         "bio": "معرفی",

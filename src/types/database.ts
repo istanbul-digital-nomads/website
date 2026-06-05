@@ -655,6 +655,26 @@ export interface Database {
           body?: string;
         };
       };
+      member_badges: {
+        Row: {
+          id: string;
+          member_id: string;
+          badge_slug: string;
+          awarded_at: string;
+          note: string | null;
+        };
+        Insert: {
+          id?: string;
+          member_id: string;
+          badge_slug: string;
+          awarded_at?: string;
+          note?: string | null;
+        };
+        Update: {
+          badge_slug?: string;
+          note?: string | null;
+        };
+      };
       plan_reviews: {
         Row: {
           id: string;

@@ -2996,6 +2996,14 @@
       "trustReliableHost": "Reliable host",
       "trustAllOnTime": "Shows up on time",
       "trustActiveWeek": "Active this week",
+      "badges": {
+        "first_plan": "First plan",
+        "regular": "Regular",
+        "veteran": "Veteran",
+        "one_year_istanbul": "One year in Istanbul",
+        "best_nomad_year": "Best nomad of the year",
+        "top_host_year": "Top host of the year"
+      },
       "upcomingPlans": "What's coming up",
       "hostingTag": "Hosting",
       "goingTag": "Going",
@@ -3034,6 +3042,24 @@
         "leaveReview": "Leave a review",
         "reviewed": "Reviewed",
         "upcomingCount": "{count, plural, one {# upcoming} other {# upcoming}}"
+      },
+      "badges": {
+        "eyebrow": "Your badges",
+        "xp": "{xp} XP",
+        "nextHint": "{count, plural, one {# plan} other {# plans}} to your next badge",
+        "none": "Join or host a plan to earn your first badge.",
+        "first_plan": "First plan",
+        "regular": "Regular",
+        "veteran": "Veteran",
+        "one_year_istanbul": "One year in Istanbul",
+        "best_nomad_year": "Best nomad of the year",
+        "top_host_year": "Top host of the year"
+      },
+      "hosted": {
+        "eyebrow": "Plans you've hosted",
+        "empty": "You haven't hosted any plans yet.",
+        "share": "Share a plan",
+        "going": "{count, plural, one {# going} other {# going}}"
       },
       "fields": {
         "bio": "Bio",

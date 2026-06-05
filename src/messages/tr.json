@@ -3040,6 +3040,21 @@
       "todo": "Yapılacak",
       "completeProfile": "Profilini tamamla",
       "linksEyebrow": "Hızlı bağlantılar",
+      "activity": {
+        "eyebrow": "Etkinliklerin",
+        "plansTitle": "Katıldığın planlar",
+        "eventsTitle": "Katılacağın etkinlikler",
+        "plansEmpty": "Henüz hiçbir plana katılmadın.",
+        "eventsEmpty": "Henüz hiçbir etkinliğe katılacağını belirtmedin.",
+        "browsePlans": "Planlara göz at",
+        "browseEvents": "Etkinliklere göz at",
+        "upcoming": "Yaklaşan",
+        "past": "Geçmiş",
+        "cancelled": "İptal edildi",
+        "leaveReview": "Bir değerlendirme bırak",
+        "reviewed": "Değerlendirildi",
+        "upcomingCount": "{count, plural, other {# yaklaşan}}"
+      },
       "fields": {
         "bio": "Biyografi",
         "location": "Konum",

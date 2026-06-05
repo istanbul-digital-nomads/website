@@ -3028,6 +3028,21 @@
       "todo": "متبقٍّ",
       "completeProfile": "أكمل ملفك الشخصي",
       "linksEyebrow": "روابط سريعة",
+      "activity": {
+        "eyebrow": "نشاطك",
+        "plansTitle": "الخطط التي انضممت إليها",
+        "eventsTitle": "الفعاليات التي ستحضرها",
+        "plansEmpty": "لم تنضم إلى أي خطة بعد.",
+        "eventsEmpty": "لم تؤكد حضورك لأي فعالية بعد.",
+        "browsePlans": "تصفّح الخطط",
+        "browseEvents": "تصفّح الفعاليات",
+        "upcoming": "قادمة",
+        "past": "سابقة",
+        "cancelled": "ملغاة",
+        "leaveReview": "اترك تقييمًا",
+        "reviewed": "تم التقييم",
+        "upcomingCount": "{count, plural, zero {# قادمة} one {قادمة واحدة} two {قادمتان} few {# قادمة} many {# قادمة} other {# قادمة}}"
+      },
       "fields": {
         "bio": "النبذة",
         "location": "الموقع",

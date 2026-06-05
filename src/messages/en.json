@@ -3020,6 +3020,21 @@
       "todo": "To do",
       "completeProfile": "Complete your profile",
       "linksEyebrow": "Quick links",
+      "activity": {
+        "eyebrow": "Your activity",
+        "plansTitle": "Plans you joined",
+        "eventsTitle": "Events you're attending",
+        "plansEmpty": "You haven't joined any plans yet.",
+        "eventsEmpty": "You haven't RSVP'd to any events yet.",
+        "browsePlans": "Browse plans",
+        "browseEvents": "Browse events",
+        "upcoming": "Upcoming",
+        "past": "Past",
+        "cancelled": "Cancelled",
+        "leaveReview": "Leave a review",
+        "reviewed": "Reviewed",
+        "upcomingCount": "{count, plural, one {# upcoming} other {# upcoming}}"
+      },
       "fields": {
         "bio": "Bio",
         "location": "Location",

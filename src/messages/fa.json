@@ -3020,6 +3020,21 @@
       "todo": "مانده",
       "completeProfile": "پروفایلت را کامل کن",
       "linksEyebrow": "دسترسی سریع",
+      "activity": {
+        "eyebrow": "فعالیت‌های تو",
+        "plansTitle": "برنامه‌هایی که به آن‌ها پیوستی",
+        "eventsTitle": "رویدادهایی که در آن‌ها شرکت می‌کنی",
+        "plansEmpty": "هنوز به هیچ برنامه‌ای نپیوسته‌ای.",
+        "eventsEmpty": "هنوز برای هیچ رویدادی اعلام حضور نکرده‌ای.",
+        "browsePlans": "مرور برنامه‌ها",
+        "browseEvents": "مرور رویدادها",
+        "upcoming": "پیش‌رو",
+        "past": "گذشته",
+        "cancelled": "لغوشده",
+        "leaveReview": "یک نظر بگذار",
+        "reviewed": "نظر داده‌شده",
+        "upcomingCount": "{count, plural, other {# پیش‌رو}}"
+      },
       "fields": {
         "bio": "معرفی",
         "location": "محل زندگی",

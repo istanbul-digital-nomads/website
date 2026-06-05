@@ -3,7 +3,8 @@ import { Suspense } from "react";
 import { Link } from "@/lib/i18n/routing";
 import { redirect } from "next/navigation";
 import { getCachedTranslations } from "@/lib/i18n/cache-translations";
-import { getCurrentMember } from "@/lib/supabase/queries";
+import { getCurrentMember, getMyRSVPdEvents } from "@/lib/supabase/queries";
+import { getMyAttendedPlans } from "@/lib/plans/queries";
 import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { Container } from "@/components/ui/container";
 import { SectionEyebrow } from "@/components/ui/section-eyebrow";
@@ -69,6 +70,29 @@ async function DashboardContent({
     [t("fields.visible"), member.is_visible],
   ];
   const done = fields.filter(([, ok]) => ok).length;
+
+  // Plans the member joined + events they RSVP'd to. This is the only place
+  // a member can get back to a plan they attended (the /plans feed only shows
+  // active, upcoming plans) - and the path to leave a review on ended ones.
+  const [attendedPlans, rsvpEvents] = await Promise.all([
+    getMyAttendedPlans(),
+    getMyRSVPdEvents(),
+  ]);
+  // eslint-disable-next-line react-hooks/purity -- async server component, response is per-request
+  const nowMs = Date.now();
+  const upcomingPlans = attendedPlans.filter(
+    (p) => !p.ended && p.status === "active",
+  );
+  const pastPlans = attendedPlans.filter((p) => p.ended);
+  const upcomingEvents = rsvpEvents.filter(
+    (e) => new Date(e.date).getTime() >= nowMs,
+  );
+  const dateFmt = new Intl.DateTimeFormat(locale, {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
+  const fmtDay = (d: string) => dateFmt.format(new Date(`${d}T12:00:00Z`));
 
   // Profile editing, verification, and payouts now live in the dashboard
   // sub-nav, so these quick-links focus on exploring the rest of the app.
@@ -178,6 +202,120 @@ async function DashboardContent({
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+
+        {/* Your activity: plans joined + events RSVP'd. The one place to get
+            back to an attended plan and review it once it's ended. */}
+        <div className="pb-24">
+          <div className="flex items-baseline gap-3">
+            <span className="font-mono text-[11px] uppercase tracking-wider text-paper-faint">
+              N° 02
+            </span>
+            <h2 className="font-mono text-[11px] uppercase tracking-wider text-terracotta">
+              {t("activity.eyebrow")}
+            </h2>
+          </div>
+
+          <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:items-start">
+            {/* Plans */}
+            <div className="border border-ink-3 bg-ink-2 p-7">
+              <h3 className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
+                {t("activity.plansTitle")}
+              </h3>
+              {attendedPlans.length === 0 ? (
+                <p className="mt-4 text-sm text-paper-dim">
+                  {t("activity.plansEmpty")}{" "}
+                  <Link
+                    href="/plans"
+                    className="border-b border-terracotta pb-0.5 text-terracotta"
+                  >
+                    {t("activity.browsePlans")}
+                  </Link>
+                </p>
+              ) : (
+                <ul className="mt-4 divide-y divide-ink-3 border-t border-ink-3">
+                  {[...upcomingPlans, ...pastPlans].map((p) => (
+                    <li
+                      key={p.id}
+                      className="flex items-center justify-between gap-3 py-3"
+                    >
+                      <Link
+                        href={`/plans/${p.id}`}
+                        className="min-w-0 flex-1 text-sm text-paper transition-colors hover:text-terracotta"
+                      >
+                        <span className="block truncate">{p.title}</span>
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-paper-faint">
+                          {fmtDay(p.scheduled_date)}
+                          {p.status === "cancelled"
+                            ? ` · ${t("activity.cancelled")}`
+                            : p.ended
+                              ? ` · ${t("activity.past")}`
+                              : ` · ${t("activity.upcoming")}`}
+                        </span>
+                      </Link>
+                      {p.ended && p.status !== "cancelled" ? (
+                        <Link
+                          href={`/plans/${p.id}#reviews`}
+                          className="shrink-0 whitespace-nowrap font-mono text-[10px] uppercase tracking-wider text-moss transition-colors hover:text-paper"
+                        >
+                          {p.reviewed
+                            ? t("activity.reviewed")
+                            : t("activity.leaveReview")}
+                        </Link>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            {/* Events */}
+            <div className="border border-ink-3 bg-ink-2 p-7">
+              <h3 className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
+                {t("activity.eventsTitle")}
+              </h3>
+              {rsvpEvents.length === 0 ? (
+                <p className="mt-4 text-sm text-paper-dim">
+                  {t("activity.eventsEmpty")}{" "}
+                  <Link
+                    href="/events"
+                    className="border-b border-terracotta pb-0.5 text-terracotta"
+                  >
+                    {t("activity.browseEvents")}
+                  </Link>
+                </p>
+              ) : (
+                <ul className="mt-4 divide-y divide-ink-3 border-t border-ink-3">
+                  {rsvpEvents.map((e) => {
+                    const past = new Date(e.date).getTime() < nowMs;
+                    return (
+                      <li key={e.id} className="py-3">
+                        <Link
+                          href={`/events/${e.id}`}
+                          className="block text-sm text-paper transition-colors hover:text-terracotta"
+                        >
+                          <span className="block truncate">{e.title}</span>
+                          <span className="font-mono text-[10px] uppercase tracking-wider text-paper-faint">
+                            {dateFmt.format(new Date(e.date))}
+                            {past
+                              ? ` · ${t("activity.past")}`
+                              : ` · ${t("activity.upcoming")}`}
+                          </span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+              {upcomingEvents.length > 0 ? (
+                <p className="mt-4 font-mono text-[10px] uppercase tracking-wider text-paper-faint">
+                  {t("activity.upcomingCount", {
+                    count: upcomingEvents.length,
+                  })}
+                </p>
+              ) : null}
+            </div>
           </div>
         </div>
       </Container>

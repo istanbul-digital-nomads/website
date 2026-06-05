@@ -320,6 +320,69 @@ export async function getMyAttendance(planIds: string[]): Promise<Set<string>> {
   );
 }
 
+// A plan the member joined, trimmed to what a dashboard row needs, plus a
+// flag for whether the plan has ended (so we can nudge a review).
+export interface AttendedPlan {
+  id: string;
+  title: string;
+  scheduled_date: string;
+  status: PlanRow["status"];
+  ended: boolean;
+  reviewed: boolean;
+}
+
+// All plans the current member is going to (past + future), newest first.
+// Drives the "your plans" surface on the dashboard. `reviewed` lets the UI
+// show "leave a review" only on ended plans the member hasn't reviewed yet.
+export async function getMyAttendedPlans(): Promise<AttendedPlan[]> {
+  const client = await createClient();
+  const {
+    data: { user },
+  } = await client.auth.getUser();
+  if (!user) return [];
+  const supabase = client as unknown as AnySupabase;
+
+  const { data, error } = await supabase
+    .from("plan_attendees")
+    .select(
+      `
+      plan:plans!inner (
+        id, title, scheduled_date, status, expires_at,
+        reviews:plan_reviews (author_id)
+      )
+      `,
+    )
+    .eq("member_id", user.id)
+    .eq("status", "going");
+
+  if (error || !data) return [];
+
+  type Raw = {
+    plan: {
+      id: string;
+      title: string;
+      scheduled_date: string;
+      status: PlanRow["status"];
+      expires_at: string;
+      reviews: Array<{ author_id: string }>;
+    } | null;
+  };
+
+  const now = Date.now();
+  return ((data as unknown as Raw[]) ?? [])
+    .map((row) => row.plan)
+    .filter((p): p is NonNullable<Raw["plan"]> => !!p)
+    .map((p) => ({
+      id: p.id,
+      title: p.title,
+      scheduled_date: p.scheduled_date,
+      status: p.status,
+      ended: new Date(p.expires_at).getTime() < now,
+      reviewed: (p.reviews ?? []).some((r) => r.author_id === user.id),
+    }))
+    .sort((a, b) => b.scheduled_date.localeCompare(a.scheduled_date));
+}
+
 export async function getMyTelegramSubscription(): Promise<{
   chat_id: number;
 } | null> {

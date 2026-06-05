@@ -174,6 +174,30 @@ export async function getUserRSVP(eventId: string) {
   return { data: data as RSVP | null, error };
 }
 
+// All events the current member RSVP'd to (going/maybe), past + future,
+// soonest upcoming first. Powers the "your events" surface on the dashboard.
+export async function getMyRSVPdEvents(): Promise<Event[]> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return [];
+
+  const { data, error } = await supabase
+    .from("rsvps")
+    .select("event:events!inner (*)")
+    .eq("member_id", user.id)
+    .in("status", ["going", "maybe"]);
+
+  if (error || !data) return [];
+
+  const events = (data as unknown as Array<{ event: Event | null }>)
+    .map((r) => r.event)
+    .filter((e): e is Event => !!e);
+  // Soonest first; useful for "what's next" while still listing past ones.
+  return events.sort((a, b) => a.date.localeCompare(b.date));
+}
+
 // --- Members ---
 
 export async function getMembers() {

@@ -366,16 +366,17 @@ export default async function LocaleLayout({
             <SpeedInsights />
           </ConsentProvider>
         </NextIntlClientProvider>
-        {process.env.NEXT_PUBLIC_GA_ID && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-              strategy="lazyOnload"
-            />
-            <Script id="ga-init" strategy="lazyOnload">
-              {`window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','${process.env.NEXT_PUBLIC_GA_ID}',{anonymize_ip:true});`}
-            </Script>
-          </>
+        {/* Google Tag Manager (GTM-WVTC6K93). The container loads the GA4
+            Google tag (G-CG3LT0ZV2X) and forwards the funnel events from
+            src/lib/analytics.ts. `lazyOnload` is kept from the old direct
+            gtag.js setup - all funnel events fire from user gestures well
+            after load, and we'd rather protect LCP than capture an early
+            bounce. The Consent Mode v2 default in <head> runs synchronously
+            before this, so GTM boots with the right consent state. */}
+        {process.env.NEXT_PUBLIC_GTM_ID && (
+          <Script id="gtm-loader" strategy="lazyOnload">
+            {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GTM_ID}');`}
+          </Script>
         )}
       </body>
     </html>

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { showToast } from "@/lib/toast";
 import { socialLinks } from "@/lib/constants";
+import { track } from "@/lib/analytics";
 
 interface Props {
   currentLevel: "basic" | "verified" | "trusted";
@@ -62,6 +63,10 @@ export function VerifyForm({ currentLevel }: Props) {
         showToast.error(t("errorTitle"), json.error ?? t("errorBody"));
         return;
       }
+      track("verification_request_submit", {
+        requested_level: nextLevel,
+        reason_length: reason.trim().length,
+      });
       showToast.success(t("successTitle"), t("successBody"));
       router.refresh();
     } catch {

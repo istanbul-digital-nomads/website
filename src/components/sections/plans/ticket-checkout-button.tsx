@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { showToast } from "@/lib/toast";
+import { track } from "@/lib/analytics";
 
 // Buy-a-ticket button for ticketed plans. POSTs to the checkout API;
 // on success redirects to the iyzico hosted checkout. When payments
@@ -11,9 +12,12 @@ import { showToast } from "@/lib/toast";
 export function TicketCheckoutButton({
   planId,
   priceLabel,
+  entryFeeCents,
 }: {
   planId: string;
   priceLabel: string;
+  // Entry fee in cents (100 = 1 TL). Used only for the begin_checkout value.
+  entryFeeCents: number;
 }) {
   const t = useTranslations("plans.checkout");
   const [loading, setLoading] = useState(false);
@@ -35,6 +39,13 @@ export function TicketCheckoutButton({
         return;
       }
       if (json.checkoutUrl) {
+        // Real checkout is proceeding to the payment provider - record it.
+        // `purchase` is captured server-side from the iyzico callback.
+        track("begin_checkout", {
+          value: entryFeeCents / 100,
+          currency: "TRY",
+          plan_id: planId,
+        });
         window.location.href = json.checkoutUrl;
         return;
       }

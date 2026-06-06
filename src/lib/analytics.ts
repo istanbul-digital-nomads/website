@@ -31,7 +31,17 @@ export type AnalyticsEvent =
   | "plan_create_success"
   | "plan_join"
   | "plan_leave"
-  | "event_rsvp";
+  | "event_rsvp"
+  // GA4-recommended ecommerce name. Fired when a ticket checkout actually
+  // proceeds to the payment provider - not on the "payments not live" path -
+  // so it only counts real checkout starts. Carries value + currency so GA4
+  // Monetization reports populate. The matching `purchase` event is captured
+  // server-side from the iyzico callback (see payments docs), not here.
+  | "begin_checkout"
+  // A member submitted a verification request (Basic -> Verified).
+  | "verification_request_submit"
+  // A Command-K result was selected; carries the search term that led to it.
+  | "command_menu_select";
 
 type EventParams = Record<string, string | number | boolean | undefined>;
 

@@ -324,6 +324,7 @@ async function Content({
                 <TicketCheckoutButton
                   planId={plan.id}
                   priceLabel={`${(plan.entry_fee_cents / 100).toLocaleString(locale)} TL`}
+                  entryFeeCents={plan.entry_fee_cents}
                 />
               ) : (
                 <JoinLeaveButton

@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Search } from "lucide-react";
 import { isRtl, type Locale } from "@/lib/i18n/config";
 import { cn } from "@/lib/utils";
+import { track } from "@/lib/analytics";
 import type { SearchItem } from "@/lib/search";
 
 /**
@@ -20,6 +21,7 @@ import type { SearchItem } from "@/lib/search";
  */
 export function CommandMenu({ items }: { items: SearchItem[] }) {
   const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
   const router = useRouter();
   const locale = useLocale() as Locale;
   const rtl = isRtl(locale);
@@ -45,7 +47,12 @@ export function CommandMenu({ items }: { items: SearchItem[] }) {
   }, []);
 
   const handleSelect = useCallback(
-    (item: SearchItem) => {
+    (item: SearchItem, searchTerm: string) => {
+      track("command_menu_select", {
+        result_group: item.group,
+        destination: item.href,
+        search_term: searchTerm.trim(),
+      });
       setOpen(false);
       router.push(item.href);
     },
@@ -88,6 +95,8 @@ export function CommandMenu({ items }: { items: SearchItem[] }) {
             <Search className="h-4 w-4 shrink-0 text-paper-faint" />
             <Command.Input
               autoFocus
+              value={query}
+              onValueChange={setQuery}
               placeholder={t("placeholder")}
               className="h-14 min-w-0 flex-1 bg-transparent text-start text-[15px] text-paper outline-none placeholder:text-paper-faint"
             />
@@ -115,7 +124,7 @@ export function CommandMenu({ items }: { items: SearchItem[] }) {
                   <Command.Item
                     key={item.id}
                     value={`${item.title} ${item.subtitle ?? ""} ${(item.keywords ?? []).join(" ")}`}
-                    onSelect={() => handleSelect(item)}
+                    onSelect={() => handleSelect(item, query)}
                     className={cn(
                       "flex cursor-pointer items-center justify-between gap-4 px-3 py-2.5 text-start text-sm text-paper transition-colors aria-selected:bg-ink-2 data-[selected=true]:bg-ink-2",
                     )}

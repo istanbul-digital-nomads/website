@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.33.0] - 2026-06-06
+
+### Added
+
+- **More GA4 funnel events.** Three new `track()` events wired into the real flows: `begin_checkout` (fired when a ticketed-plan checkout actually proceeds to the payment provider, with the entry-fee value and TRY currency so GA4 Monetization reports populate), `verification_request_submit` (when a member applies for Verified, with the requested level), and `command_menu_select` (when a Command-K result is chosen, carrying the search term and result group). The matching `purchase` event is intentionally left to a server-side Measurement Protocol follow-up, since payment capture happens in the iyzico callback, not the browser.
+
 ## [3.32.1] - 2026-06-06
 
 ### Changed

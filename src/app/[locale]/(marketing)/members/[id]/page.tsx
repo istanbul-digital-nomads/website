@@ -16,6 +16,7 @@ import { isVerificationLevel } from "@/lib/verification";
 import { isCurrentStatus, STATUS_TONE } from "@/lib/member-profile";
 import { getMemberActivity } from "@/lib/member-activity";
 import { computeBadges, BADGE_ICONS, type BadgeSlug } from "@/lib/badges";
+import { todayInIstanbul } from "@/lib/plans/expiry";
 import { neighborhoods as ALL_HOODS } from "@/lib/neighborhoods";
 import { ShareButton } from "@/components/ui/share-button";
 
@@ -146,9 +147,7 @@ async function MemberProfileContent(props: Props) {
     planCount: activity.totalPlanCount,
     firstAttendedDate: activity.trustSignals.firstAttendedDate,
     manualBadgeSlugs: activity.manualBadgeSlugs,
-    todayIstanbul: today.toLocaleDateString("en-CA", {
-      timeZone: "Europe/Istanbul",
-    }),
+    todayIstanbul: todayInIstanbul(today),
   });
   const badgeLabels = Object.fromEntries(
     badges.map((slug) => [slug, t(`profile.badges.${slug}`)]),

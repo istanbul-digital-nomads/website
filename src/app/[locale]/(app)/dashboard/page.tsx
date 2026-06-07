@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { getCachedTranslations } from "@/lib/i18n/cache-translations";
 import { getCurrentMember, getMyRSVPdEvents } from "@/lib/supabase/queries";
 import { getMyAttendedPlans, getMyHostedPlans } from "@/lib/plans/queries";
+import { todayInIstanbul } from "@/lib/plans/expiry";
 import { getMemberActivity } from "@/lib/member-activity";
 import { computeBadges, nextTierProgress, BADGE_ICONS } from "@/lib/badges";
 import { deriveXp } from "@/lib/xp";
@@ -95,11 +96,9 @@ async function DashboardContent({
     (e) => new Date(e.date).getTime() >= nowMs,
   );
 
-  // XP + badges, computed on read from the same plan activity. `todayIstanbul`
-  // is derived once here so the badge math stays a pure call.
-  const todayIstanbul = new Date(nowMs).toLocaleDateString("en-CA", {
-    timeZone: "Europe/Istanbul",
-  });
+  // XP + badges, computed on read from the same plan activity. Reuse the
+  // shared Istanbul-date helper so the badge math stays a pure call.
+  const todayIstanbul = todayInIstanbul(new Date(nowMs));
   const xp = deriveXp({
     hostedCount: activity.trustSignals.hostedCount,
     joinedCount: activity.trustSignals.joinedCount,

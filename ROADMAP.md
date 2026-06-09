@@ -24,7 +24,7 @@ A detailed, implementation-ready plan for building istanbulnomads.com from MVP t
 - [x] Create `src/lib/constants.ts` with site config (name, description, URLs, social links, nav items)
 - [x] Create `src/lib/utils.ts` with `cn()` helper, `formatDate()`, `truncate()`
 - [x] Set up Vercel Analytics and Speed Insights in root layout
-- [ ] Set up Plausible analytics script in root layout
+- [x] Set up GA4 via Google Tag Manager in root layout (replaced the old Plausible idea)
 - [x] Configure `next-sitemap` for automatic sitemap.xml and robots.txt
 - [x] Create favicon set and app icons in `/public`
 - [x] Set up Open Graph image generation (default + per-page)

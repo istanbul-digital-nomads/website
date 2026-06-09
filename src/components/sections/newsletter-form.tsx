@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowRight, Check } from "lucide-react";
 import { showToast } from "@/lib/toast";
+import { track } from "@/lib/analytics";
 
 export function NewsletterForm({
   variant = "default",
@@ -36,6 +37,7 @@ export function NewsletterForm({
         return;
       }
 
+      track("generate_lead", { lead_source: "newsletter", variant });
       setSubscribed(true);
       showToast.success(t("toast.successTitle"), data.data.message);
     } catch {

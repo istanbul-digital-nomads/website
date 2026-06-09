@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Share2, Check, Loader2 } from "lucide-react";
 import { showToast } from "@/lib/toast";
+import { track } from "@/lib/analytics";
 import type { ShortableKind } from "@/lib/short-links";
 import { cn } from "@/lib/utils";
 
@@ -37,6 +38,18 @@ export function ShareButton({
       });
       if (!res.ok) throw new Error("share failed");
       const { url } = (await res.json()) as { url: string };
+
+      // GA4-recommended share event, fired at hand-off (a dismissed native
+      // sheet still counts as share intent, mirroring GA4's built-in share).
+      track("share", {
+        method:
+          typeof navigator !== "undefined" &&
+          typeof navigator.share === "function"
+            ? "native_sheet"
+            : "clipboard",
+        content_type: kind,
+        item_id: entityId,
+      });
 
       // Prefer the native share sheet when available (mobile); otherwise copy.
       if (typeof navigator !== "undefined" && navigator.share) {

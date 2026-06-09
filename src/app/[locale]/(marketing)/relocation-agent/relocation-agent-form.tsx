@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Textarea } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { showToast } from "@/lib/toast";
+import { track } from "@/lib/analytics";
 import { ChevronDown } from "lucide-react";
 import { COUNTRIES } from "@/lib/path-to-istanbul";
 import {
@@ -285,6 +286,12 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
   const tErrors = useTranslations("relocationAgentPage.form.errors");
   const tCountries = useTranslations("lookups.countryNames");
 
+  // Top of the relocation funnel; the matching bottom is the generate_lead
+  // fired on a successful plan response in handleSubmit.
+  useEffect(() => {
+    track("relocation_form_start");
+  }, []);
+
   const DURATION_OPTIONS = useMemo(
     () =>
       DURATION_VALUES.map((value) => ({
@@ -450,6 +457,14 @@ export function RelocationAgentForm({ onResult }: RelocationAgentFormProps) {
         return;
       }
 
+      // A personalized plan was generated - the lead moment of this funnel.
+      track("generate_lead", {
+        lead_source: "relocation_agent",
+        budget: intake.budget,
+        currency: intake.currency,
+        duration: intake.duration,
+        country: intake.originCountry || "not_provided",
+      });
       onResult(intake, json.data);
     } catch (err) {
       console.error(err);

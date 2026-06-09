@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Command } from "cmdk";
 import { useLocale, useTranslations } from "next-intl";
@@ -21,7 +21,10 @@ import type { SearchItem } from "@/lib/search";
  */
 export function CommandMenu({ items }: { items: SearchItem[] }) {
   const [open, setOpen] = useState(false);
-  const [query, setQuery] = useState("");
+  // Current search text, kept in a ref (not state): it's only read when a
+  // result is selected, the input stays uncontrolled (cmdk filters via its
+  // internal store), and typing doesn't re-render this whole component.
+  const queryRef = useRef("");
   const router = useRouter();
   const locale = useLocale() as Locale;
   const rtl = isRtl(locale);
@@ -46,12 +49,19 @@ export function CommandMenu({ items }: { items: SearchItem[] }) {
     };
   }, []);
 
+  // Fresh menu on every open: the input remounts empty (it unmounts with the
+  // overlay), so the captured term must reset with it or a no-typing selection
+  // would report the previous session's search_term.
+  useEffect(() => {
+    if (open) queryRef.current = "";
+  }, [open]);
+
   const handleSelect = useCallback(
-    (item: SearchItem, searchTerm: string) => {
+    (item: SearchItem) => {
       track("command_menu_select", {
         result_group: item.group,
         destination: item.href,
-        search_term: searchTerm.trim(),
+        search_term: queryRef.current.trim(),
       });
       setOpen(false);
       router.push(item.href);
@@ -95,8 +105,7 @@ export function CommandMenu({ items }: { items: SearchItem[] }) {
             <Search className="h-4 w-4 shrink-0 text-paper-faint" />
             <Command.Input
               autoFocus
-              value={query}
-              onValueChange={setQuery}
+              onValueChange={(value) => (queryRef.current = value)}
               placeholder={t("placeholder")}
               className="h-14 min-w-0 flex-1 bg-transparent text-start text-[15px] text-paper outline-none placeholder:text-paper-faint"
             />
@@ -124,7 +133,7 @@ export function CommandMenu({ items }: { items: SearchItem[] }) {
                   <Command.Item
                     key={item.id}
                     value={`${item.title} ${item.subtitle ?? ""} ${(item.keywords ?? []).join(" ")}`}
-                    onSelect={() => handleSelect(item, query)}
+                    onSelect={() => handleSelect(item)}
                     className={cn(
                       "flex cursor-pointer items-center justify-between gap-4 px-3 py-2.5 text-start text-sm text-paper transition-colors aria-selected:bg-ink-2 data-[selected=true]:bg-ink-2",
                     )}

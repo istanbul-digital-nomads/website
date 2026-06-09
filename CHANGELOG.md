@@ -4,11 +4,10 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.33.0] - 2026-06-10
+## [3.34.0] - 2026-06-10
 
 ### Added
 
-- **More GA4 funnel events.** Three new `track()` events wired into the real flows: `begin_checkout` (fired when a ticketed-plan checkout actually proceeds to the payment provider, with the entry-fee value and TRY currency so GA4 Monetization reports populate), `verification_request_submit` (when a member applies for Verified, with the requested level), and `command_menu_select` (when a Command-K result is chosen, carrying the search term and result group). The matching `purchase` event is intentionally left to a server-side Measurement Protocol follow-up, since payment capture happens in the iyzico callback, not the browser.
 - **Lead, share, and assistant tracking.** The remaining untracked surfaces now report to GA4. The three lead-capture moments (newsletter subscribe, surprise-event waitlist, relocation plan generated) all fire GA4's standard `generate_lead` event with a `lead_source` param, so the built-in Lead reports populate. `share` (also a GA4 standard name) fires from the share button on plans, blog posts, guides, member profiles, and paperwork pages with the method (native sheet vs clipboard) and what was shared. The assistant widget reports opens, flow steps (`assistant_flow_advance` with the node), and link-outs. `path_country_select` records which country a visitor picks on Path to Istanbul - including unsupported ones, which is the demand signal for the next playbook - and `relocation_form_start` gives the relocation funnel a top. Deliberately not tracked: the contact form (support, not funnel) and PWA installs (no install UI exists).
 
 ### Changed
@@ -24,6 +23,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **Command-K starts fresh every time.** The search input briefly became a controlled component to capture the search term for analytics, which kept the previous query (and its filtered results) across close/reopen and re-rendered the whole menu on every keystroke. The term is captured in a ref on an uncontrolled input instead - stale-query bug gone, typing no longer re-renders the menu.
 - **One Istanbul-date helper.** `getMemberActivity` still derived "today in Istanbul" inline after the dashboard and profile pages were moved to the shared `todayInIstanbul()` helper; it now uses the helper too, so the past/upcoming split and the badge math can't drift apart around midnight.
 - **Dead Plausible config removed.** `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` was still in `.env.example` (and ARCHITECTURE/ROADMAP still mentioned Plausible) even though nothing reads it - the stack is GA4 via GTM + Vercel Analytics.
+
+## [3.33.0] - 2026-06-06
+
+### Added
+
+- **More GA4 funnel events.** Three new `track()` events wired into the real flows: `begin_checkout` (fired when a ticketed-plan checkout actually proceeds to the payment provider, with the entry-fee value and TRY currency so GA4 Monetization reports populate), `verification_request_submit` (when a member applies for Verified, with the requested level), and `command_menu_select` (when a Command-K result is chosen, carrying the search term and result group). The matching `purchase` event is intentionally left to a server-side Measurement Protocol follow-up, since payment capture happens in the iyzico callback, not the browser.
 
 ## [3.32.1] - 2026-06-06
 

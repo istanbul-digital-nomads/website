@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
+import { track } from "@/lib/analytics";
 import {
   MessageCircle,
   X,
@@ -94,7 +95,10 @@ export function AssistantWidget() {
   // Open via custom event from anywhere on the site; suppress/unsuppress
   // let specific routes hide the launcher without a pathname hook.
   useEffect(() => {
-    const onOpen = () => setOpen(true);
+    const onOpen = () => {
+      track("assistant_open", { trigger: "page_cta" });
+      setOpen(true);
+    };
     const onSuppress = () => setSuppressed(true);
     const onUnsuppress = () => setSuppressed(false);
     window.addEventListener("open-assistant", onOpen);
@@ -124,6 +128,7 @@ export function AssistantWidget() {
   }, [transcript, open]);
 
   const advance = useCallback((optKey: string, nextId: string) => {
+    track("assistant_flow_advance", { node_id: nextId, option_key: optKey });
     setTranscript((prev) => [
       ...prev,
       { type: "user", optKey },
@@ -150,7 +155,10 @@ export function AssistantWidget() {
         <button
           ref={launcherRef}
           type="button"
-          onClick={() => setOpen(true)}
+          onClick={() => {
+            track("assistant_open", { trigger: "launcher" });
+            setOpen(true);
+          }}
           aria-label={t("launcherLabel")}
           className="fixed bottom-[calc(env(safe-area-inset-bottom)+4.75rem)] end-5 z-[90] inline-flex h-14 w-14 items-center justify-center rounded-full bg-terracotta text-[#06101f] shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/60 motion-safe:animate-marker-pulse md:bottom-5"
         >
@@ -227,7 +235,13 @@ export function AssistantWidget() {
                     <Link
                       key={opt.key}
                       href={opt.href!}
-                      onClick={() => setOpen(false)}
+                      onClick={() => {
+                        track("assistant_link_click", {
+                          destination: opt.href!,
+                          content_type: opt.kind ?? "page",
+                        });
+                        setOpen(false);
+                      }}
                       className="group flex items-center gap-3 rounded-xl border border-ink-3 bg-ink-2/50 px-3.5 py-2.5 transition-colors hover:border-terracotta/50 hover:bg-ink-2"
                     >
                       <Icon className="h-4 w-4 shrink-0 text-terracotta" />

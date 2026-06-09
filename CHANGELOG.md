@@ -4,11 +4,26 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.33.0] - 2026-06-06
+## [3.33.0] - 2026-06-10
 
 ### Added
 
 - **More GA4 funnel events.** Three new `track()` events wired into the real flows: `begin_checkout` (fired when a ticketed-plan checkout actually proceeds to the payment provider, with the entry-fee value and TRY currency so GA4 Monetization reports populate), `verification_request_submit` (when a member applies for Verified, with the requested level), and `command_menu_select` (when a Command-K result is chosen, carrying the search term and result group). The matching `purchase` event is intentionally left to a server-side Measurement Protocol follow-up, since payment capture happens in the iyzico callback, not the browser.
+- **Lead, share, and assistant tracking.** The remaining untracked surfaces now report to GA4. The three lead-capture moments (newsletter subscribe, surprise-event waitlist, relocation plan generated) all fire GA4's standard `generate_lead` event with a `lead_source` param, so the built-in Lead reports populate. `share` (also a GA4 standard name) fires from the share button on plans, blog posts, guides, member profiles, and paperwork pages with the method (native sheet vs clipboard) and what was shared. The assistant widget reports opens, flow steps (`assistant_flow_advance` with the node), and link-outs. `path_country_select` records which country a visitor picks on Path to Istanbul - including unsupported ones, which is the demand signal for the next playbook - and `relocation_form_start` gives the relocation funnel a top. Deliberately not tracked: the contact form (support, not funnel) and PWA installs (no install UI exists).
+
+### Changed
+
+- **One consent policy everywhere.** `track()` no longer requires an explicit "accept" before sending funnel events - it now only hard-stops on an explicit "reject", and otherwise lets Consent Mode's region-scoped state decide (denied-by-default in the EEA/UK/CH, granted elsewhere). Without this, the 3.32.1 region defaults only applied to page views: non-EEA visitors who never touched the banner showed up in GA4 with sessions but zero funnel events. Vercel Analytics follows the same rule now (it's cookieless, so only an explicit reject turns it off), which keeps its numbers comparable with GA4's instead of undercounting everyone who ignored the banner.
+- **The consent contract has one home.** The `<head>` bootstrap now interpolates the cookie name, the granted/denied values, and the EEA region list from `src/lib/analytics.ts` instead of hardcoding its own copies - the rendered script is still a static string (cache-safe), but renaming anything consent-related can no longer silently desync the bootstrap from `track()` and the banner.
+- **Dependency refresh.** All dependencies updated within their semver ranges (Next 16.2.8, React 19.2.7, Supabase JS 2.108, next-intl 4.13, and friends), and the unused `@next/third-parties` package is gone (its last import was removed back in April).
+
+### Fixed
+
+- **A "reject" now sticks past 180 days.** The consent cookie expires after 180 days but the banner (which reads localStorage) never re-asked, so a lapsed cookie silently flipped opted-out visitors back to the region default - outside the EEA that meant tracking someone who said no. The stored choice is now re-written on every visit, so the cookie only lapses after 180 days of not visiting at all, and Consent Mode gets a corrective update on load either way.
+- **`begin_checkout` no longer races the redirect.** The event used to be a fire-and-forget dataLayer push immediately followed by a full-page navigation to iyzico, which could destroy it before GTM sent it. The checkout button now gives GA4 a short window to flush (gtag `event_callback` with a 400ms timeout fallback) before redirecting.
+- **Command-K starts fresh every time.** The search input briefly became a controlled component to capture the search term for analytics, which kept the previous query (and its filtered results) across close/reopen and re-rendered the whole menu on every keystroke. The term is captured in a ref on an uncontrolled input instead - stale-query bug gone, typing no longer re-renders the menu.
+- **One Istanbul-date helper.** `getMemberActivity` still derived "today in Istanbul" inline after the dashboard and profile pages were moved to the shared `todayInIstanbul()` helper; it now uses the helper too, so the past/upcoming split and the badge math can't drift apart around midnight.
+- **Dead Plausible config removed.** `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` was still in `.env.example` (and ARCHITECTURE/ROADMAP still mentioned Plausible) even though nothing reads it - the stack is GA4 via GTM + Vercel Analytics.
 
 ## [3.32.1] - 2026-06-06
 

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { showToast } from "@/lib/toast";
-import { track } from "@/lib/analytics";
+import { trackThenNavigate } from "@/lib/analytics";
 
 // Buy-a-ticket button for ticketed plans. POSTs to the checkout API;
 // on success redirects to the iyzico hosted checkout. When payments
@@ -41,12 +41,20 @@ export function TicketCheckoutButton({
       if (json.checkoutUrl) {
         // Real checkout is proceeding to the payment provider - record it.
         // `purchase` is captured server-side from the iyzico callback.
-        track("begin_checkout", {
-          value: entryFeeCents / 100,
-          currency: "TRY",
-          plan_id: planId,
-        });
-        window.location.href = json.checkoutUrl;
+        // trackThenNavigate gives GA4 a short window (event_callback +
+        // timeout fallback) to flush the event before the full-page redirect
+        // would otherwise destroy the queued dataLayer push.
+        trackThenNavigate(
+          "begin_checkout",
+          {
+            value: entryFeeCents / 100,
+            currency: "TRY",
+            plan_id: planId,
+          },
+          () => {
+            window.location.href = json.checkoutUrl;
+          },
+        );
         return;
       }
       showToast.error(t("errorTitle"), t("errorBody"));

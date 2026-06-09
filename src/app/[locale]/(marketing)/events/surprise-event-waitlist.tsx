@@ -6,6 +6,7 @@ import { ArrowRight, Check, Sparkles, UserPlus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/container";
 import { showToast } from "@/lib/toast";
+import { track } from "@/lib/analytics";
 
 const GRADIENTS = [
   "from-rose-400 to-orange-400",
@@ -89,6 +90,7 @@ export function SurpriseEventWaitlist() {
         return;
       }
 
+      track("generate_lead", { lead_source: "surprise_event_waitlist" });
       setJoined(true);
       showToast.success(t("successTitle"), json.data.message);
 

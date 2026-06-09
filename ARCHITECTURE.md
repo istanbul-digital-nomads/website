@@ -183,7 +183,7 @@ No global state library needed. Keep it simple.
 - Image optimization with next/image
 - ISR for content pages (revalidate every hour)
 - Edge middleware for redirects and geo-detection
-- Plausible analytics (lightweight, no cookies)
+- GA4 via Google Tag Manager (consent-gated, loads lazyOnload so it can't touch LCP)
 - Vercel Speed Insights for Core Web Vitals monitoring (LCP, CLS, INP)
 - Vercel Web Analytics for visitor and page view tracking
 

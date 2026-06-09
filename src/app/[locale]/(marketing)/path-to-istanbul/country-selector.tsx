@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import { Search, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { COUNTRIES, type Country } from "@/lib/path-to-istanbul";
+import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 const WorldMap = dynamic(() => import("./world-map").then((m) => m.WorldMap), {
@@ -40,6 +41,12 @@ export function CountrySelector() {
   const supported = COUNTRIES.filter((c) => c.supported);
 
   function handleSelect(country: Country) {
+    // Unsupported picks are tracked too - they're the demand signal for
+    // which country playbook to write next.
+    track("path_country_select", {
+      country: country.slug,
+      supported: country.supported,
+    });
     if (country.supported) {
       router.push(`/path-to-istanbul/${country.slug}`);
     }

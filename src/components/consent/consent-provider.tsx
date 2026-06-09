@@ -70,6 +70,18 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
     } catch {
       /* ignore */
     }
+    if (stored === CONSENT_GRANTED || stored === CONSENT_DENIED) {
+      // Re-persist on every visit. localStorage never expires but the cookie's
+      // 180-day max-age does; without this, a lapsed cookie silently flips the
+      // visitor back to the <head> bootstrap's region default (granted outside
+      // the EEA) while the banner stays hidden - tracking someone who said no.
+      // Re-writing slides the cookie's expiry and the consent update corrects
+      // Consent Mode if this page load already booted from the wrong default.
+      persist(stored === CONSENT_GRANTED);
+      window.gtag?.("consent", "update", {
+        analytics_storage: stored === CONSENT_GRANTED ? "granted" : "denied",
+      });
+    }
     // One-shot post-hydration sync; consent is read once then user-driven.
     // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional one-shot boot sync (mirrors ThemeProvider)
     setConsent(

@@ -36,6 +36,12 @@ import { routing } from "@/lib/i18n/routing";
 import { bcp47, isRtl, type Locale } from "@/lib/i18n/config";
 import { getTimeOfDay } from "@/lib/ambient";
 import { getSearchItems } from "@/lib/search";
+import {
+  CONSENT_COOKIE,
+  CONSENT_DENIED,
+  CONSENT_GRANTED,
+  EEA_REGIONS,
+} from "@/lib/analytics";
 import "@/styles/globals.css";
 
 // Design System v2 font stack: Geist (UI/body), Fraunces (editorial display
@@ -307,12 +313,15 @@ export default async function LocaleLayout({
                 EEA/UK/CH (cookie banner gates analytics there), granted
                 everywhere else so non-EEA traffic is measured without a click.
             Google resolves the visitor's region from IP, so this needs no
-            server-side geo - the string is static and cacheComponents-safe.
+            server-side geo. The cookie name/values and the EEA list are
+            interpolated from @/lib/analytics (build-time constants), so the
+            consent contract has one home and the rendered string stays
+            byte-identical across requests - still cacheComponents-safe.
             The region override is pushed before the global default; Consent
             Mode applies the most specific (region-matching) default. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=window.gtag||gtag;var EEA=['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'];var prior='';try{if(/(?:^|;\\s*)in_consent=[^;]*analytics:granted/.test(document.cookie))prior='granted';else if(/(?:^|;\\s*)in_consent=[^;]*analytics:denied/.test(document.cookie))prior='denied';}catch(e){}if(prior){gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:prior,functionality_storage:'granted',security_storage:'granted'});}else{gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',region:EEA,wait_for_update:500});gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted',functionality_storage:'granted',security_storage:'granted'});}gtag('set','url_passthrough',true);gtag('set','ads_data_redaction',true);})()`,
+            __html: `(function(){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=window.gtag||gtag;function def(a,x){var o={ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:a,functionality_storage:'granted',security_storage:'granted'};for(var k in x)o[k]=x[k];gtag('consent','default',o);}var prior='';try{var c=document.cookie;if(/(?:^|;\\s*)${CONSENT_COOKIE}=[^;]*${CONSENT_GRANTED}/.test(c))prior='granted';else if(/(?:^|;\\s*)${CONSENT_COOKIE}=[^;]*${CONSENT_DENIED}/.test(c))prior='denied';}catch(e){}if(prior){def(prior);}else{def('denied',{region:${JSON.stringify(EEA_REGIONS)},wait_for_update:500});def('granted');}gtag('set','url_passthrough',true);gtag('set','ads_data_redaction',true);})()`,
           }}
         />
       </head>

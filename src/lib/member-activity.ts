@@ -9,6 +9,7 @@
 
 import { cacheLife, cacheTag } from "next/cache";
 import { createPublicClient } from "./supabase/server";
+import { todayInIstanbul } from "./plans/expiry";
 
 export type PastPlan = {
   id: string;
@@ -165,9 +166,7 @@ export async function getMemberActivity(
 
   // Split into past / upcoming on today's date in Istanbul. Use plain
   // YYYY-MM-DD string comparison (scheduled_date is a DATE column).
-  const todayIstanbul = new Date().toLocaleDateString("en-CA", {
-    timeZone: "Europe/Istanbul",
-  });
+  const todayIstanbul = todayInIstanbul();
 
   // Most recent past plans first.
   const past = plans

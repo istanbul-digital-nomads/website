@@ -35,7 +35,7 @@ export function SectionHead({ label, kickerLead, kickerRest, range }: Props) {
         </h2>
       </div>
       <span aria-hidden />
-      <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cream/32 md:text-right">
+      <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cream/32 md:text-end">
         {range}
       </div>
     </div>

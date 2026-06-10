@@ -27,7 +27,7 @@ export async function CtaBanner() {
                 className="bg-white text-primary-700 hover:bg-primary-50"
               >
                 {t("cta")}
-                <ArrowRight className="h-5 w-5" />
+                <ArrowRight className="h-5 w-5 rtl:-scale-x-100" />
               </Button>
             </a>
           </div>

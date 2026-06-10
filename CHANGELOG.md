@@ -4,6 +4,18 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.36.0] - 2026-06-10
+
+### Changed
+
+- **Product flow and copy polish pass.** A full walkthrough of every route plus three code audits (flow states, brand voice, i18n/RTL) drove a batch of fixes:
+  - The signed-out /plans counter no longer brags "0 plans running across 0 neighborhoods" - a quiet board now says plans usually pop up in the morning and invites you to drop the first one (new string in all 5 locales).
+  - The empty events board grew a real "Open the Telegram group" button instead of mentioning the group as dead text (all 5 locales).
+  - The Today board card finally speaks all 5 languages: "{n} open", "Reserve a seat", and "Join plan" were hardcoded English.
+  - Opening someone else's plan edit URL now lands on the plan itself instead of a fake 404.
+  - RTL fixes: arrows on the CTA banner, newsletter button, and Today cards now flip in Farsi/Arabic; the Today card's time gutter, right rail, and section ranges use logical CSS so the layout mirrors properly.
+  - Voice pass over the UI strings: contractions everywhere ("It's", "Couldn't"), banned-word cleanup ("unlocks" -> what it actually lets you do, "facilitated" -> "provided"), calmer toasts (fewer exclamation marks, "Something went wrong / try again later" -> specific next steps with a Telegram escape hatch), a more grounded assistant greeting, and the one em dash in the codebase is gone.
+
 ## [3.35.2] - 2026-06-10
 
 ### Fixed

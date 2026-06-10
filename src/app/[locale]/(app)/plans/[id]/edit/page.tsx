@@ -32,7 +32,9 @@ async function Content({
   ]);
   if (!member) redirect(`/login?next=/plans/${id}/edit`);
   if (!plan) notFound();
-  if (plan.creator_id !== member.id) notFound();
+  // Not the host: bounce to the plan itself instead of faking a 404 -
+  // the plan exists, this member just can't edit it.
+  if (plan.creator_id !== member.id) redirect(`/plans/${id}`);
 
   return (
     <PlanCreateFlow

@@ -16,17 +16,27 @@ export async function PlansTodayCounter() {
           <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gold/55">
             {t("eyebrow")}
           </p>
-          <p
-            className="mt-3 font-editorial leading-none text-gold"
-            style={{ fontSize: "clamp(3.5rem, 7vw, 5rem)" }}
-          >
-            <span className="tabular-nums" dir="ltr">
-              {count}
-            </span>
-          </p>
-          <p className="mt-2 text-sm text-cream/70">
-            {t("activeAcross", { hoods: hoodCount })}
-          </p>
+          {count === 0 ? (
+            /* A zero with "0 neighborhoods" under it reads like a dead
+               product. When the board is quiet, say so like a person. */
+            <p className="mt-4 max-w-[26ch] font-editorial text-xl leading-snug text-cream/85">
+              {t("quiet")}
+            </p>
+          ) : (
+            <>
+              <p
+                className="mt-3 font-editorial leading-none text-gold"
+                style={{ fontSize: "clamp(3.5rem, 7vw, 5rem)" }}
+              >
+                <span className="tabular-nums" dir="ltr">
+                  {count}
+                </span>
+              </p>
+              <p className="mt-2 text-sm text-cream/70">
+                {t("activeAcross", { hoods: hoodCount })}
+              </p>
+            </>
+          )}
         </div>
       </div>
 

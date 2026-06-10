@@ -15,7 +15,14 @@ export async function DELETE(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { error } = await supabase.from("rsvps").delete().eq("id", params.id);
+  // Filter by member_id as well as id: RLS already scopes this to the owner,
+  // but enforcing ownership in-app too means a single RLS regression can't
+  // turn this into a cross-user delete (defense in depth).
+  const { error } = await supabase
+    .from("rsvps")
+    .delete()
+    .eq("id", params.id)
+    .eq("member_id", user.id);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

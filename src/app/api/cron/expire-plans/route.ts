@@ -35,5 +35,16 @@ export async function GET(request: Request) {
   );
 
   void supabase; // satisfies lint
-  return NextResponse.json({ data: { ok: res.ok, status: res.status } });
+
+  // Return a non-2xx when the PATCH failed so Vercel's cron monitoring (which
+  // flags non-2xx runs) actually surfaces it - a 200 here would mask a
+  // silently-failing expiry sweep as a healthy run.
+  if (!res.ok) {
+    const detail = await res.text().catch(() => "");
+    return NextResponse.json(
+      { error: "expire-plans patch failed", status: res.status, detail },
+      { status: 502 },
+    );
+  }
+  return NextResponse.json({ data: { ok: true, status: res.status } });
 }

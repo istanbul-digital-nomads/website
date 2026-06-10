@@ -95,7 +95,7 @@ Full per-route description, the user loop, and which surfaces are auth-required 
 | Analytics      | GA4 via Google Tag Manager + Vercel Analytics  | Consent-gated funnel + visitor tracking                                            |
 | Performance    | Vercel Speed Insights                          | Core Web Vitals monitoring                                                         |
 | Email          | Resend                                         | Transactional + newsletter                                                         |
-| Error Tracking | Sentry                                         | Runtime error monitoring                                                           |
+| Error Tracking | Sentry (server-side)                           | Server / SSR / route-handler errors via instrumentation onRequestError; no client SDK |
 | CI/CD          | GitHub Actions                                 | Lint, type check, build on every PR                                                |
 | i18n           | next-intl                                      | Server-rendered translations, RTL support, locale-aware routing and metadata       |
 

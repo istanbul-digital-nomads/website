@@ -33,11 +33,17 @@ export async function GET(request: Request) {
   const cutoff = new Date(
     Date.now() - HOLDBACK_DAYS * 24 * 60 * 60 * 1000,
   ).toISOString();
-  const { data: due } = await sb
+  const { data: due, error: dueError } = await sb
     .from("plan_tickets")
     .select("id, payment_intent_id")
     .eq("status", "held")
     .lt("paid_at", cutoff);
+
+  // Surface the query failure as a non-2xx so cron monitoring catches it,
+  // instead of silently treating "couldn't read due tickets" as "nothing due".
+  if (dueError) {
+    return NextResponse.json({ error: dueError.message }, { status: 500 });
+  }
 
   const rows = (due ?? []) as Array<{
     id: string;

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathnameForActive } from "@/lib/use-pathname-active";
 import { useLocale, useTranslations } from "next-intl";
 import {
   Calendar,
@@ -64,7 +64,10 @@ function isDropdown(item: NavItem): item is NavDropdownItem {
 }
 
 export function Header({ counts = {} }: Props) {
-  const pathname = usePathname();
+  // Null until mount so the first client render matches the prerendered
+  // shell (no active-link indicators) - avoids a React #418 hydration
+  // mismatch on PPR pages. "" matches no href.
+  const pathname = usePathnameForActive() ?? "";
   const locale = useLocale() as Locale;
   const rtl = isRtl(locale);
   const { direction, scrolled, atTop } = useScrollDirection();

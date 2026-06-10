@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathnameForActive } from "@/lib/use-pathname-active";
 import { useTranslations } from "next-intl";
 import { ArrowRight, ChevronDown, LogOut, Play, User } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
@@ -242,7 +242,7 @@ function HeroAuthControl({
 // ── Hero-tone flat link. Active state shows a gold underline dot.
 function HeroFlatLink({ item }: { item: NavFlatItem }) {
   const tNav = useTranslations("nav");
-  const pathname = usePathname();
+  const pathname = usePathnameForActive();
   const active =
     pathname === item.href || pathname?.startsWith(item.href + "/");
   return (
@@ -274,7 +274,7 @@ function HeroDropdown({ item }: { item: NavDropdownItem }) {
   const ref = useRef<HTMLDivElement>(null);
   const tNav = useTranslations("nav");
   const tItems = useTranslations("nav.items");
-  const pathname = usePathname();
+  const pathname = usePathnameForActive();
   const active = item.children.some(
     (c) => pathname === c.href || pathname?.startsWith(c.href + "/"),
   );

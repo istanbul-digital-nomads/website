@@ -45,6 +45,7 @@ export function HeroLiveClient({ locale, nomadCount }: Props) {
     // on mobile, where there's no pointer hovering to trigger an early mount,
     // so the map reliably appears instead of leaving a black hero.
     let done = false;
+    let fallback: number | undefined;
     const mount = () => {
       if (done) return;
       done = true;
@@ -60,10 +61,21 @@ export function HeroLiveClient({ locale, nomadCount }: Props) {
       "touchstart",
     ];
     events.forEach((e) => window.addEventListener(e, mount, opts));
-    const fallback = window.setTimeout(mount, desktop ? 8000 : 3000);
+    // Unattended fallback: armed only after the load event plus a long
+    // quiet period. The old 3s mobile timer fired inside the initial trace
+    // window, so maplibre's WebGL init + tile work landed in TBT for every
+    // visitor who hadn't touched the screen yet (Lighthouse among them).
+    // Real sessions touch/scroll almost immediately and get the map via the
+    // gesture listeners above; the timer only covers the truly idle ones.
+    const arm = () => {
+      fallback = window.setTimeout(mount, 12000);
+    };
+    if (document.readyState === "complete") arm();
+    else window.addEventListener("load", arm, { once: true });
     return () => {
       events.forEach((e) => window.removeEventListener(e, mount));
-      window.clearTimeout(fallback);
+      window.removeEventListener("load", arm);
+      if (fallback) window.clearTimeout(fallback);
     };
   }, []);
 

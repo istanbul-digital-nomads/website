@@ -70,11 +70,13 @@ export function HeroFrame({ nomadCount = 0 }: Props) {
           className="group flex shrink-0 items-center gap-2.5"
           aria-label={tSite("shortName")}
         >
+          {/* width/height 96 (not the file's 512) so next/image serves a
+              ~3x-of-34px asset instead of a 1080px one for a 34px logo. */}
           <Image
             src="/images/logo-light.png"
             alt=""
-            width={512}
-            height={512}
+            width={96}
+            height={96}
             style={{ width: 34, height: "auto" }}
             priority
           />

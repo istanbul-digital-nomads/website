@@ -8,12 +8,18 @@ import { useConsent } from "./consent-provider";
 // Non-modal consent banner. `dir` is inherited from <html dir>, and the layout
 // is centered + symmetric, so it reads correctly in RTL (fa/ar) without extra
 // overrides. Colors use ink/paper tokens so it follows light/dark automatically.
-export function CookieBanner() {
+//
+// Always rendered (hidden by default via .consent-banner in globals.css) so
+// the markup is in the server HTML and the inline <head> bootstrap can show
+// it at first paint for undecided visitors. `open` takes over after
+// hydration: it drives data-open and the focus/Escape behavior.
+export function CookieBanner({ open }: { open: boolean }) {
   const t = useTranslations("consent");
   const { acceptAll, rejectNonEssential } = useConsent();
   const acceptRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
+    if (!open) return;
     acceptRef.current?.focus();
     function onKey(e: KeyboardEvent) {
       // Treat Esc / dismiss as "reject non-essential" (the privacy-safe default).
@@ -21,7 +27,7 @@ export function CookieBanner() {
     }
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [rejectNonEssential]);
+  }, [open, rejectNonEssential]);
 
   return (
     <div
@@ -29,7 +35,8 @@ export function CookieBanner() {
       aria-modal="false"
       aria-labelledby="consent-title"
       aria-describedby="consent-body"
-      className="fixed inset-x-0 bottom-0 z-[2000] flex justify-center px-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-4 md:px-6"
+      data-open={open || undefined}
+      className="consent-banner fixed inset-x-0 bottom-0 z-[2000] justify-center px-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-4 md:px-6"
     >
       <div className="w-full max-w-3xl rounded-2xl border border-ink-3 bg-ink-1/95 p-5 shadow-2xl backdrop-blur-md md:p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">

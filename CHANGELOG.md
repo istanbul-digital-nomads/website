@@ -4,6 +4,21 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.35.0] - 2026-06-10
+
+### Fixed
+
+- **Production hydration error gone (React #418).** The time-of-day accent class (`tod-*`) was server-rendered into the prerendered shell, so the build-time bucket (midday) disagreed with each request's fresh value and React regenerated the whole tree on the client - throwing the console error and pushing LCP out by seconds. The class is now applied by the inline pre-paint script from the visitor's clock (Istanbul is fixed UTC+3), so the shell is time-independent.
+- **The cookie banner no longer hijacks LCP.** It's now in the server HTML (shown pre-hydration via a class the consent bootstrap sets), and it's rendered before the streamed page content so its bytes arrive with the shell. Observed LCP on the homepage dropped from ~5-8s to ~0.2s.
+- **Zero layout shift.** The streamed footer replaced a null Suspense fallback and shifted the page as it arrived (CLS 0.078); it now streams into a height-stable placeholder. CLS is 0.
+- **WCAG AA contrast in dark mode.** `--paper-faint`, `--bosphorus`, and `--bosphorus-dim` were failing 4.5:1 as small text on the water surfaces (down to 1.8:1); all three are lightened to clear AA.
+- **Logo hygiene.** The header/footer/hero logos requested a 1080px image for a ~30px render (now 96px intrinsic) and duplicated the adjacent wordmark in alt text (now decorative with the link carrying the name).
+
+### Changed
+
+- **The hero map and GTM now wait for a gesture.** The mobile hero map used to mount on a 3s timer, dropping ~270KB of maplibre + WebGL setup into every load even when nobody touched the page; GTM loaded at `lazyOnload`. Both now mount on the first interaction (or a 12s idle fallback), which cut mobile Total Blocking Time from ~930ms to ~40ms. Tradeoff: a visitor who never touches the page isn't counted by GA4 unless they stay 12s; queued `track()` pushes replay when GTM loads, so funnel events aren't lost.
+- **JetBrains Mono isn't preloaded anymore** (~40KB out of the critical request graph; tiny labels render one visit in the fallback mono at worst, `display: optional` already prevented swaps).
+
 ## [3.34.1] - 2026-06-10
 
 ### Fixed

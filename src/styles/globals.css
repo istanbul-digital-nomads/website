@@ -59,7 +59,7 @@
     --paper: 246 236 217; /* cream */
     --paper-dim: 217 207 186;
     --paper-mute: 168 158 138;
-    --paper-faint: 112 104 90;
+    --paper-faint: 152 145 127; /* lightened from 112/104/90 to clear WCAG AA (~5.1:1) on the waterHi surface */
     --terracotta: 232 122 93; /* rose */
     --terracotta-dim: 198 91 64;
     /* In dark mode the accents already pass on the deep-water canvas, so the
@@ -67,8 +67,11 @@
     --terracotta-ink: 232 122 93;
     --gold-ink: 244 184 96;
     --moss-ink: 134 239 172;
-    --bosphorus: 61 107 138;
-    --bosphorus-dim: 47 84 112;
+    /* Both bosphorus tokens are used as 12px text on the waterHi surface
+       (e.g. the circles strip), so both need >=4.5:1 there. The dim variant
+       stays a step darker but only just clears the bar. */
+    --bosphorus: 116 166 198; /* was 61/107/138 (3.05:1) */
+    --bosphorus-dim: 112 156 186; /* was 47/84/112 (1.81:1) */
     --ferry-yellow: 244 184 96; /* gold */
     --moss: 134 239 172; /* live-green */
     --tod-accent: var(--ferry-yellow);
@@ -1344,4 +1347,18 @@ html.tod-night {
 
 .plan-stop-popup .maplibregl-popup-tip {
   display: none;
+}
+
+/* Cookie banner pre-hydration visibility. The banner is server-rendered
+   hidden; the inline <head> consent bootstrap adds `consent-undecided` to
+   <html> (synchronously, from the in_consent cookie) so undecided visitors
+   see the banner at first paint instead of after hydration - which used to
+   make it the LCP element seconds into the load. After hydration, React
+   drives visibility via data-open and removes the html class on decide. */
+.consent-banner {
+  display: none;
+}
+html.consent-undecided .consent-banner,
+.consent-banner[data-open="true"] {
+  display: flex;
 }

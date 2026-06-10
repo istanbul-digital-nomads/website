@@ -45,11 +45,13 @@ export async function Footer({ locale }: { locale: Locale }) {
         <div className="grid gap-10 border-b border-ink-3 py-12 lg:grid-cols-[1.4fr_2.4fr]">
           <div>
             <Link href="/" className="inline-flex items-center gap-3">
+              {/* Decorative: the adjacent wordmark names the link, so a
+                  matching alt would be read twice by screen readers. */}
               <Image
                 src="/images/logo-light.png"
-                alt={tSite("shortName")}
-                width={512}
-                height={512}
+                alt=""
+                width={96}
+                height={96}
                 className="block"
                 style={{ width: 32, height: "auto" }}
               />

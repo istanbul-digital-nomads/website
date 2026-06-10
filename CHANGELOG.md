@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.39.0] - 2026-06-10
+
+### Changed
+
+- **Long-form content now matches the rest of the site.** The shared MDX renderer (used by guides, blog posts, neighborhood pages, path-to-istanbul, and help articles) was still on the old design-system-v1 palette: cool slate-gray body text (`#526e89`/`#99a3ad`), red `primary-*` links and accents, and `font-bold` headings. Next to the cinematic cream/deep-water/gold surfaces everywhere else, the guide bodies read as a different website. Retuned every element to the design tokens - warm `text-paper-dim` body, gold inline links, Fraunces headings at the editorial 400 weight instead of chunky bold, ink-toned tables/code/blockquotes - so the whole content web shares one palette. The guide detail header (breadcrumb, title, date) moved off its hardcoded hex colors too. No content changed, only styling, and it's theme-correct in both light and dark.
+
 ## [3.38.0] - 2026-06-10
 
 ### Added

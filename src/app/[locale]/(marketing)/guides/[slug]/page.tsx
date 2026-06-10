@@ -133,24 +133,19 @@ export default async function GuidePage(props: GuidePageProps) {
       />
       <div className="mx-auto max-w-3xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-          <nav className="flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
-            <Link
-              href="/"
-              className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
-            >
+          <nav className="flex items-center gap-2 text-sm text-paper-mute">
+            <Link href="/" className="transition-colors hover:text-gold-ink">
               {tPage("breadcrumb.home")}
             </Link>
-            <span>/</span>
+            <span className="text-paper-faint">/</span>
             <Link
               href="/guides"
-              className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+              className="transition-colors hover:text-gold-ink"
             >
               {tPage("breadcrumb.guides")}
             </Link>
-            <span>/</span>
-            <span className="text-[#1a1a2e] dark:text-[#f2f3f4]">
-              {localizedTitle}
-            </span>
+            <span className="text-paper-faint">/</span>
+            <span className="text-paper">{localizedTitle}</span>
           </nav>
           <ShareButton
             kind="guide"
@@ -160,15 +155,15 @@ export default async function GuidePage(props: GuidePageProps) {
           />
         </div>
 
-        <h1 className="text-4xl font-bold tracking-tight text-[#1a1a2e] dark:text-[#f2f3f4]">
+        <h1 className="font-display text-4xl text-paper md:text-5xl">
           {localizedTitle}
         </h1>
-        <p className="mt-4 text-lg text-[#5d6d7e] dark:text-[#99a3ad]">
+        <p className="mt-4 text-lg leading-relaxed text-paper-dim">
           {guideContent?.frontmatter.description || localizedDescription}
         </p>
 
         {guideContent?.frontmatter.lastUpdated && (
-          <div className="mt-4 flex items-center gap-2 text-sm text-[#5d6d7e] dark:text-[#99a3ad]">
+          <div className="mt-4 flex items-center gap-2 text-sm text-paper-mute">
             <Calendar className="h-4 w-4" />
             {tPage("lastUpdatedTemplate", {
               date: formatDate(
@@ -189,17 +184,15 @@ export default async function GuidePage(props: GuidePageProps) {
             />
           </article>
         ) : (
-          <div className="mt-12 rounded-xl border border-dashed border-primary-200/50 bg-primary-50/30 p-12 text-center dark:border-primary-900/30 dark:bg-primary-950/10">
-            <p className="text-[#5d6d7e] dark:text-[#99a3ad]">
-              {tPage("comingSoon")}
-            </p>
-            <p className="mt-2 text-sm text-[#5d6d7e]/70 dark:text-[#99a3ad]/70">
+          <div className="mt-12 rounded-xl border border-dashed border-ink-3 bg-ink-2/30 p-12 text-center">
+            <p className="text-paper-dim">{tPage("comingSoon")}</p>
+            <p className="mt-2 text-sm text-paper-mute">
               {tPage("contributeIntro")}{" "}
               <a
                 href="https://t.me/istanbul_digital_nomads"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary-600 underline dark:text-primary-400"
+                className="text-gold-ink underline"
               >
                 {tPage("telegramLinkText")}
               </a>

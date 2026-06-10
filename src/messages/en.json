@@ -156,7 +156,10 @@
       "circles": "Circles",
       "perks": "Perks vault",
       "plans": "Today's plans",
-      "help": "Help & FAQ"
+      "help": "Help & FAQ",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "cookies": "Cookies"
     }
   },
   "auth": {
@@ -3924,6 +3927,17 @@
       "eventsDescription": "When someone RSVPs to your event, or an event you're attending changes.",
       "reminders": "Reminders",
       "remindersDescription": "A heads-up about an hour before a plan starts."
+    },
+    "danger": {
+      "title": "Delete account",
+      "description": "Permanently remove your account and everything tied to it - profile, plans, RSVPs, comments. This can't be undone.",
+      "start": "Delete my account",
+      "confirmLabel": "Type {word} to confirm",
+      "confirmWord": "DELETE",
+      "confirmButton": "Delete forever",
+      "cancel": "Cancel",
+      "errorTitle": "Couldn't delete your account",
+      "errorBody": "That didn't work. Try again, or email us and we'll remove it for you."
     }
   },
   "telegramNotifications": {
@@ -3942,5 +3956,15 @@
     "eventRsvp": "{actor} is coming to your event \"{title}\".",
     "eventUpdated": "Heads up: the event \"{title}\" was updated.",
     "ctaOpenEvent": "Open event"
+  },
+  "unsubscribe": {
+    "eyebrow": "Newsletter",
+    "title": "Unsubscribe",
+    "confirmBody": "Want to stop the newsletter for {email}? One tap and you're off the list.",
+    "confirmButton": "Unsubscribe me",
+    "doneBody": "Done - {email} won't get the newsletter anymore. Change your mind any time from the site.",
+    "errorBody": "This unsubscribe link is invalid or expired. If you still want off the list, reach out and we'll handle it.",
+    "backHome": "Back home",
+    "contactUs": "Contact us"
   }
 }

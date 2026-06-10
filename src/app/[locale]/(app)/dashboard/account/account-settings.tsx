@@ -2,7 +2,7 @@
 
 import { useCallback, useRef, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { Send, Check, Loader2, Link2Off } from "lucide-react";
+import { Send, Check, Loader2, Link2Off, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { showToast } from "@/lib/toast";
@@ -247,6 +247,11 @@ export function AccountSettings({
           </Button>
         </div>
       </div>
+
+      {/* Danger zone: delete account. Gated behind a type-to-confirm so it
+          can't be a one-click accident; the DELETE route erases everything
+          via auth.admin cascade. */}
+      <DeleteAccount />
     </div>
   );
 }
@@ -290,5 +295,95 @@ function ToggleRow({
         className="mt-1 h-4 w-4 shrink-0 rounded border-neutral-300 text-primary-600 focus:ring-primary-500 dark:border-neutral-600"
       />
     </label>
+  );
+}
+
+// Delete-account danger zone. Reveals a type-to-confirm input (the visitor
+// types the confirm word from the translations) before the DELETE fires, so
+// an erase can't happen on a single misclick. On success the session is
+// already cleared server-side; we hard-navigate home.
+function DeleteAccount() {
+  const t = useTranslations("accountPage.danger");
+  const [open, setOpen] = useState(false);
+  const [confirm, setConfirm] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  const confirmWord = t("confirmWord");
+
+  async function remove() {
+    if (confirm.trim().toUpperCase() !== confirmWord.toUpperCase()) return;
+    setDeleting(true);
+    try {
+      const res = await fetch("/api/members/me", { method: "DELETE" });
+      if (!res.ok) {
+        const json = await res.json().catch(() => ({}));
+        showToast.error(t("errorTitle"), json.error ?? t("errorBody"));
+        setDeleting(false);
+        return;
+      }
+      // Account + session gone. Full reload so all client auth state resets.
+      window.location.href = "/";
+    } catch {
+      showToast.error(t("errorTitle"), t("errorBody"));
+      setDeleting(false);
+    }
+  }
+
+  return (
+    <div className="rounded-xl border border-terracotta/30 bg-terracotta/[0.04] p-6">
+      <div className="flex items-start gap-3">
+        <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-terracotta/15 text-terracotta-ink">
+          <AlertTriangle className="h-5 w-5" aria-hidden />
+        </span>
+        <div className="flex-1">
+          <h2 className="font-display text-lg text-paper">{t("title")}</h2>
+          <p className="mt-1 text-[13px] text-paper-mute">{t("description")}</p>
+        </div>
+      </div>
+
+      <div className="mt-5">
+        {!open ? (
+          <Button variant="secondary" size="sm" onClick={() => setOpen(true)}>
+            {t("start")}
+          </Button>
+        ) : (
+          <div className="space-y-3">
+            <label className="block text-[13px] text-paper-dim">
+              {t("confirmLabel", { word: confirmWord })}
+            </label>
+            <input
+              type="text"
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}
+              autoComplete="off"
+              className="w-full max-w-xs rounded-lg border border-ink-3 bg-ink-1 px-3 py-2 text-sm text-paper outline-none focus:border-terracotta"
+              placeholder={confirmWord}
+            />
+            <div className="flex flex-wrap gap-2">
+              <Button
+                size="sm"
+                loading={deleting}
+                disabled={
+                  confirm.trim().toUpperCase() !== confirmWord.toUpperCase()
+                }
+                onClick={remove}
+                className="bg-terracotta text-[#06101f] hover:bg-terracotta/90"
+              >
+                {t("confirmButton")}
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => {
+                  setOpen(false);
+                  setConfirm("");
+                }}
+              >
+                {t("cancel")}
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

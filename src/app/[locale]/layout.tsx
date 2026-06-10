@@ -368,7 +368,15 @@ export default async function LocaleLayout({
                 layouts; (home) deliberately omits it so the cinematic hero
                 owns the top of the viewport. No is-home shim needed. */}
               <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">
-                <Suspense fallback={null}>{children}</Suspense>
+                {/* Viewport-height fallback: with a null fallback the shell
+                    painted the footer just below main's min-height (inside
+                    the first viewport), and the streamed page content then
+                    pushed it down - the whole page's CLS (~0.08). A full-dvh
+                    placeholder keeps the footer below the fold until the
+                    page content arrives. */}
+                <Suspense fallback={<div className="min-h-[100dvh]" />}>
+                  {children}
+                </Suspense>
               </main>
               {/* Height-stable fallback: a null fallback let the streamed
                   footer push surrounding layout when it arrived, which was

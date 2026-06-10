@@ -5,18 +5,38 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { validateGuideApplication } from "@/lib/validations";
 import { GuideApplicationEmail } from "@/lib/emails";
+import { rateLimit, getClientIp, rateLimitHeaders } from "@/lib/rate-limit";
 import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/config";
 
 function getResend() {
   return new Resend(process.env.RESEND_API_KEY);
 }
 
+// This route is unauthenticated (anyone can apply to be a guide) and each
+// accepted request writes a row AND sends an email, so it's throttled by IP
+// like the other public forms - otherwise it's an email-bomb / DB-flood vector.
+const APPLY_LIMIT = 3;
+const APPLY_WINDOW_MS = 60_000;
+
 export async function POST(request: Request) {
-  const body = await request.json();
+  const ip = getClientIp(request);
+  const rl = await rateLimit(`guide-apply:${ip}`, APPLY_LIMIT, APPLY_WINDOW_MS);
+  const rlHeaders = rateLimitHeaders(rl, APPLY_LIMIT);
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: "Too many requests. Try again in a minute." },
+      { status: 429, headers: rlHeaders },
+    );
+  }
+
+  const body = await request.json().catch(() => null);
   const result = validateGuideApplication(body);
 
   if (result.error) {
-    return NextResponse.json({ error: result.error }, { status: 400 });
+    return NextResponse.json(
+      { error: result.error },
+      { status: 400, headers: rlHeaders },
+    );
   }
 
   const application = result.data!;

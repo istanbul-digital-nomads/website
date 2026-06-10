@@ -41,13 +41,19 @@ export async function POST(request: Request) {
     );
   }
 
-  const body = await request.json();
-  const email = (body.email || "").trim().toLowerCase();
+  const body = await request.json().catch(() => null);
+  const email = (body?.email || "").trim().toLowerCase();
   const rawLocale =
     typeof body?.locale === "string" ? body.locale : defaultLocale;
   const locale: Locale = isValidLocale(rawLocale) ? rawLocale : defaultLocale;
 
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  // Keep email under ~254 chars (RFC max) so a giant string can't be used to
+  // probe the regex or bloat a row; combined with the format check below.
+  if (
+    !email ||
+    email.length > 254 ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  ) {
     return NextResponse.json(
       { error: "Please enter a valid email address." },
       { status: 400, headers: rlHeaders },

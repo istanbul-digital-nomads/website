@@ -123,4 +123,13 @@ const nextConfig = {
   },
 };
 
+// Deliberately NOT wrapped in withSentryConfig. Sentry is wired server-only:
+// instrumentation.ts initializes the SDK on the Node/edge runtimes and exports
+// onRequestError (a native Next hook), and route handlers call captureException
+// directly. The withSentryConfig webpack plugin would additionally inject the
+// ~51 KB browser SDK into the client bundle (uninitialized dead weight, since
+// there's no instrumentation-client.ts) and re-time server components enough to
+// trip Next 16's static-prerender crypto guard. We want neither, so we skip it.
+// Trade-off: no automatic source-map upload, so server stack traces are
+// minified - add withSentryConfig with SENTRY_AUTH_TOKEN later if that matters.
 export default withSerwist(withNextIntl(nextConfig));

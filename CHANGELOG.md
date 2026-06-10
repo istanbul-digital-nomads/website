@@ -4,6 +4,22 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.37.0] - 2026-06-10
+
+### Security
+
+- **Hardened the public API surface.** A six-dimension gap audit drove a batch of fixes: the unused, unauthenticated `GET /api/members` endpoint (which returned every member's `telegram_handle` over an unthrottled JSON route) is deleted - the directory already renders from a server query, so nothing used it; `POST /api/local-guides/apply` now rate-limits by IP like every other public form (it was an open email-bomb / DB-flood vector); the newsletter route guards against a malformed body and caps email length; and the RSVP delete now filters by `member_id` in-app as defense-in-depth on top of RLS.
+- **Transport + content-security headers.** Added `Strict-Transport-Security` and a `Content-Security-Policy-Report-Only` (so violations are reported without breaking anything) to every response, on top of the existing nosniff / frame / referrer / permissions headers.
+
+### Added
+
+- **Server-side error tracking with Sentry.** `instrumentation.ts` initializes the SDK on the Node and edge runtimes and exports `onRequestError`, so server, SSR, and route-handler errors are captured instead of vanishing into transient function logs. The iyzico payment callback - previously silent - now reports verify and persist failures and treats a thrown verify as unknown (reconcile) rather than marking a possibly-captured ticket failed. A branded `global-error.tsx` replaces the default white crash screen. Deliberately server-only: no `instrumentation-client.ts`, so the ~51 KB browser SDK never reaches the client and the homepage bundle (and its Lighthouse score) is untouched. No-ops until `SENTRY_DSN` is set in Vercel.
+
+### Fixed
+
+- **The plan-reminders cron was never scheduled.** It's now in `vercel.json` (every 15 min, matching its 55-70-minute send window), so the 1-hour-before reminder actually runs.
+- **Crons no longer hide failures.** `expire-plans` returned HTTP 200 even when its Supabase PATCH failed, and `release-payouts` swallowed its due-tickets query error - both now return non-2xx so Vercel cron monitoring flags a bad run instead of seeing green.
+
 ## [3.36.0] - 2026-06-10
 
 ### Changed

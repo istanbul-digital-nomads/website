@@ -156,7 +156,10 @@
       "circles": "Circles",
       "perks": "Perks kasası",
       "plans": "Bugünün planları",
-      "help": "Yardım & SSS"
+      "help": "Yardım & SSS",
+      "privacy": "Gizlilik",
+      "terms": "Koşullar",
+      "cookies": "Çerezler"
     }
   },
   "auth": {
@@ -3944,6 +3947,17 @@
       "eventsDescription": "Birisi etkinliğine katıldığını bildirdiğinde ya da katıldığın bir etkinlik değiştiğinde.",
       "reminders": "Hatırlatmalar",
       "remindersDescription": "Bir plan başlamadan yaklaşık bir saat önce ufak bir hatırlatma."
+    },
+    "danger": {
+      "title": "Hesabı sil",
+      "description": "Hesabını ve ona bağlı her şeyi (profil, planlar, katılımlar, yorumlar) kalıcı olarak siler. Geri alınamaz.",
+      "start": "Hesabımı sil",
+      "confirmLabel": "Onaylamak için {word} yaz",
+      "confirmWord": "SIL",
+      "confirmButton": "Kalıcı olarak sil",
+      "cancel": "Vazgeç",
+      "errorTitle": "Hesabın silinemedi",
+      "errorBody": "Olmadı. Tekrar dene ya da bize yaz, biz silelim."
     }
   },
   "telegramNotifications": {
@@ -3962,5 +3976,15 @@
     "eventRsvp": "{actor}, \"{title}\" etkinliğine geliyor.",
     "eventUpdated": "Haberin olsun: \"{title}\" etkinliği güncellendi.",
     "ctaOpenEvent": "Etkinliği aç"
+  },
+  "unsubscribe": {
+    "eyebrow": "Bülten",
+    "title": "Abonelikten çık",
+    "confirmBody": "{email} için bülteni durduralım mı? Tek dokunuşla listeden çıkarsın.",
+    "confirmButton": "Beni çıkar",
+    "doneBody": "Tamam - {email} artık bülten almayacak. İstediğin zaman tekrar abone olabilirsin.",
+    "errorBody": "Bu abonelikten çıkma bağlantısı geçersiz ya da süresi dolmuş. Yine de çıkmak istersen bize yaz, halledelim.",
+    "backHome": "Ana sayfa",
+    "contactUs": "Bize ulaş"
   }
 }

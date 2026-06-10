@@ -4,6 +4,19 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.38.0] - 2026-06-10
+
+### Added
+
+- **Legal pages.** Privacy Policy, Terms of Use, and a Cookie Policy now ship at `/privacy`, `/terms`, `/cookies`, linked from the footer's legal column and in the sitemap. The content is accurate to what the app actually does (what's collected, the processors we use, retention, and your rights under GDPR/KVKK), written in the site's voice. It's a solid first draft that should still get a once-over from counsel before you rely on it.
+- **Newsletter unsubscribe that works.** The welcome email used to link to a `/unsubscribe` page that didn't exist (a 404 on a legally-required opt-out). There's now a real unsubscribe page and API, and the email link carries an HMAC token so it can only unsubscribe that address - not an arbitrary one typed into the URL. The token-gated route deletes the row via the service client (the table has no public delete policy by design).
+- **Account deletion (right to erasure).** A "Delete account" danger zone in Dashboard → Account, gated behind a type-to-confirm. It deletes the auth user, which cascades through `members` and every member-owned table, so the whole data graph goes in one irreversible operation. New `DELETE /api/members/me`.
+- **More of the site in the sitemap.** Added `/members`, `/circles`, `/paperwork`, `/map`, `/help`, and the three legal pages, which were indexable but missing.
+
+### Notes
+
+- The four new locale strings (unsubscribe page, delete-account flow, footer labels) are translated for tr/ru/fa/ar and could use a native-speaker pass. Legal page bodies are English-only for now (their chrome localizes via the layout).
+
 ## [3.37.0] - 2026-06-10
 
 ### Security

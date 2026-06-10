@@ -117,7 +117,10 @@ export type FooterLinkKey =
   | "members"
   | "circles"
   | "plans"
-  | "help";
+  | "help"
+  | "privacy"
+  | "terms"
+  | "cookies";
 
 export const footerNav: Record<
   "community" | "resources" | "connect" | "legal",
@@ -150,6 +153,9 @@ export const footerNav: Record<
     { key: "email", href: `mailto:${socialLinks.email}`, external: true },
   ],
   legal: [
+    { key: "privacy", href: "/privacy" },
+    { key: "terms", href: "/terms" },
+    { key: "cookies", href: "/cookies" },
     { key: "photoCredits", href: "/credits" },
     { key: "openapi", href: "/openapi.json" },
     { key: "llmsTxt", href: "/llms.txt" },

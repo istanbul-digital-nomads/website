@@ -97,6 +97,10 @@ export default function GlobalError({
             >
               Try again
             </button>
+            {/* Plain anchor on purpose: global-error replaces the root layout
+                when the app has crashed, so next/link's router context isn't
+                available here. */}
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a
               href="/"
               style={{

@@ -2,6 +2,7 @@
 import * as React from "react";
 import { getTranslations } from "next-intl/server";
 import { defaultLocale, isRtl, type Locale } from "@/lib/i18n/config";
+import { signUnsubscribe } from "@/lib/newsletter-token";
 
 const brandColors = {
   bg: "#f6f0e9",
@@ -459,9 +460,13 @@ export async function NewsletterWelcomeEmail({
     namespace: "emails.newsletterWelcome",
   });
   const chrome = await getSharedChrome(locale);
-  const unsubscribeHref = `https://istanbulnomads.com/unsubscribe${
-    email ? `?email=${encodeURIComponent(email)}` : ""
-  }`;
+  // Sign the email so the link can only unsubscribe this address (not an
+  // arbitrary one typed into the URL). The unsubscribe API re-verifies it.
+  const unsubscribeHref = email
+    ? `https://istanbulnomads.com/unsubscribe?email=${encodeURIComponent(
+        email,
+      )}&token=${signUnsubscribe(email)}`
+    : "https://istanbulnomads.com/unsubscribe";
 
   return (
     <EmailLayout previewText={t("previewText")} locale={locale} {...chrome}>

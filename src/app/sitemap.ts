@@ -76,7 +76,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/local-guides", changeFrequency: "weekly", priority: 0.8 },
     { path: "/path-to-istanbul", changeFrequency: "weekly", priority: 0.9 },
     { path: "/local-guides/join", changeFrequency: "monthly", priority: 0.6 },
+    { path: "/members", changeFrequency: "weekly", priority: 0.7 },
+    { path: "/circles", changeFrequency: "weekly", priority: 0.7 },
+    { path: "/paperwork", changeFrequency: "weekly", priority: 0.7 },
+    { path: "/map", changeFrequency: "weekly", priority: 0.6 },
+    { path: "/help", changeFrequency: "monthly", priority: 0.6 },
     { path: "/contact", changeFrequency: "monthly", priority: 0.5 },
+    { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
+    { path: "/terms", changeFrequency: "yearly", priority: 0.3 },
+    { path: "/cookies", changeFrequency: "yearly", priority: 0.3 },
     { path: "/credits", changeFrequency: "monthly", priority: 0.3 },
   ];
 

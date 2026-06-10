@@ -84,7 +84,7 @@ export function NewsletterForm({
         <span className={isFooter ? "sr-only sm:not-sr-only" : undefined}>
           {loading ? "..." : t("subscribe")}
         </span>
-        {!loading && <ArrowRight className="h-3.5 w-3.5" />}
+        {!loading && <ArrowRight className="h-3.5 w-3.5 rtl:-scale-x-100" />}
       </button>
     </form>
   );

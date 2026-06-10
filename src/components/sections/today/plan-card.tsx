@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { ArrowRight } from "lucide-react";
 import { Avatar, AvatarStack, hueFor } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
@@ -24,6 +25,7 @@ const TONE: Record<string, string> = {
  * Adapts cleanly from desktop down to a stacked layout on small screens.
  */
 export function PlanCard({ plan }: Props) {
+  const t = useTranslations("today.card");
   const [expanded, setExpanded] = useState(plan.stops > 1);
 
   const tone = plan.vibeLabel ? (TONE[plan.vibeLabel] ?? "#f4b860") : "#f4b860";
@@ -48,7 +50,7 @@ export function PlanCard({ plan }: Props) {
     >
       {/* Time gutter */}
       <div
-        className="md:border-r md:pr-4"
+        className="md:border-e md:pe-4"
         style={{ borderColor: "rgba(246, 236, 217, 0.10)" }}
       >
         <div
@@ -103,7 +105,7 @@ export function PlanCard({ plan }: Props) {
             </span>
           )}
           {plan.hood && (
-            <span className="ml-auto text-[10px] font-semibold uppercase tracking-[0.18em] text-cream/32">
+            <span className="ms-auto text-[10px] font-semibold uppercase tracking-[0.18em] text-cream/32">
               {plan.hood}
             </span>
           )}
@@ -197,7 +199,7 @@ export function PlanCard({ plan }: Props) {
 
       {/* Right rail */}
       <aside
-        className="flex flex-col gap-4 md:border-l md:pl-6"
+        className="flex flex-col gap-4 md:border-s md:ps-6"
         style={{ borderColor: "rgba(246, 236, 217, 0.10)" }}
       >
         {/* Seats */}
@@ -229,8 +231,8 @@ export function PlanCard({ plan }: Props) {
                   / {plan.seats}
                 </span>
                 {seatsOpen != null && seatsOpen > 0 && (
-                  <span className="ml-auto text-[10px] font-semibold uppercase tracking-[0.18em] text-moss">
-                    {seatsOpen} open
+                  <span className="ms-auto text-[10px] font-semibold uppercase tracking-[0.18em] text-moss">
+                    {t("seatsOpen", { count: seatsOpen })}
                   </span>
                 )}
               </div>
@@ -311,8 +313,8 @@ export function PlanCard({ plan }: Props) {
                     : "border border-gold text-cream hover:bg-gold/10",
                 )}
               >
-                {isGuide ? "Reserve a seat" : "Join plan"}
-                <ArrowRight className="h-3.5 w-3.5" />
+                {isGuide ? t("reserveSeat") : t("joinPlan")}
+                <ArrowRight className="h-3.5 w-3.5 rtl:-scale-x-100" />
               </Link>
               {plan.host && (
                 <Link

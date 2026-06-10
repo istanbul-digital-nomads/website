@@ -170,13 +170,13 @@
   "newsletter": {
     "placeholder": "you@example.com",
     "subscribe": "Subscribe",
-    "subscribed": "You're subscribed!",
+    "subscribed": "You're subscribed - check your inbox",
     "ariaSubscribe": "Subscribe to the Sunday letter",
     "toast": {
-      "errorTitle": "Could not subscribe",
+      "errorTitle": "Couldn't subscribe",
       "successTitle": "You're in!",
       "failedTitle": "Something went wrong",
-      "failedBody": "Please try again later."
+      "failedBody": "Try again in a moment. Still stuck? Ping us on Telegram."
     }
   },
   "languageSwitcher": {
@@ -478,7 +478,7 @@
         "cafeWork": "Cafe work",
         "centralComfort": "Central comfort"
       },
-      "description": "Nisantasi is one of Istanbul's most polished residential districts: leafy side streets, apartment blocks with doormen, boutiques, clinics, gyms, and some of the city's most reliable cafe work sessions. It is not the cheapest base, but it is practical if you want central European-side living without being directly inside the Taksim nightlife flow.",
+      "description": "Nisantasi is one of Istanbul's most polished residential districts: leafy side streets, apartment blocks with doormen, boutiques, clinics, gyms, and some of the city's most reliable cafe work sessions. It's not the cheapest base, but it's practical if you want central European-side living without being directly inside the Taksim nightlife flow.",
       "vibe": "Polished, residential, upscale. Boutique streets with strong everyday convenience.",
       "transport": "Walk to Osmanbey metro, quick taxi or metro access to Taksim, Sisli, and Levent",
       "bestFor": ["Comfortable budgets", "Cafe work", "Central errands"]
@@ -491,7 +491,7 @@
         "founderFriendly": "Founder-friendly",
         "coworkingDensity": "Coworking density"
       },
-      "description": "Levent is not romantic Istanbul, and that is exactly the point. It is the business corridor: towers, malls, gyms, metro stops, and coworking spaces. Choose it if your Istanbul life is work-heavy, you want reliable infrastructure, or you need fast access to meetings around Maslak, Sisli, and the airport-side business spine.",
+      "description": "Levent is not romantic Istanbul, and that's exactly the point. It's the business corridor: towers, malls, gyms, metro stops, and coworking spaces. Choose it if your Istanbul life is work-heavy, you want reliable infrastructure, or you need fast access to meetings around Maslak, Sisli, and the airport-side business spine.",
       "vibe": "Corporate, practical, vertical. Less charm, more infrastructure.",
       "transport": "M2 metro through Levent and 4. Levent, buses along Buyukdere Avenue, easy taxi access north/south",
       "bestFor": ["Full-time remote", "Business access", "Coworking density"]
@@ -504,7 +504,7 @@
         "budget": "Budget",
         "historic": "Historic"
       },
-      "description": "Balat is beautiful, uneven, and very specific. The colorful houses and antique streets are real, but it is not as frictionless as Kadikoy or Nisantasi: hills, older buildings, fewer polished work options, and more day-tripper foot traffic on famous streets. Pick it for character, budget, and a slower Golden Horn rhythm.",
+      "description": "Balat is beautiful, uneven, and very specific. The colorful houses and antique streets are real, but it's not as frictionless as Kadikoy or Nisantasi: hills, older buildings, fewer polished work options, and more day-tripper foot traffic on famous streets. Pick it for character, budget, and a slower Golden Horn rhythm.",
       "vibe": "Historic, colorful, rough-edged. Big personality with practical tradeoffs.",
       "transport": "Buses and tram connections via Fener/Eminonu, quick taxis to Karakoy and Cihangir",
       "bestFor": ["Character", "Lower rent", "Slow creative days"]
@@ -517,7 +517,7 @@
         "quietNights": "Quiet nights",
         "businessAccess": "Business access"
       },
-      "description": "Atasehir is for a different kind of nomad: less ferry romance, more new-build convenience. You get towers, malls, business traffic, modern apartments, and access to Asian-side offices around the finance district. It is useful for longer stays if you want space, elevators, parking, gyms, and a quieter apartment after work.",
+      "description": "Atasehir is for a different kind of nomad: less ferry romance, more new-build convenience. You get towers, malls, business traffic, modern apartments, and access to Asian-side offices around the finance district. It's useful for longer stays if you want space, elevators, parking, gyms, and a quieter apartment after work.",
       "vibe": "Modern, spacious, corporate. Practical but less walkable than Kadikoy.",
       "transport": "Metro and buses across the Asian side, taxi access to Kadikoy, Umraniye, and the finance district",
       "bestFor": ["Newer apartments", "Asian-side business", "Quiet nights"]
@@ -567,7 +567,7 @@
       "description": "Widely credited as Turkey's first third-wave specialty coffee shop (opened 2012). Beans roasted in-house on a Loring S15. La Marzocco Strada EP, Hario V60, Aeropress. Small, well-designed space with low couches - better for a focused 2-3 hour session than all-day camp."
     },
     "moc-nisantasi": {
-      "description": "Australian-style specialty roaster founded by Sam Cevikoz. Roasts 12-origin beans in-house. Menu includes breakfasts and light meals (including Vegemite toast). Known for 24-28 hour cold brew. Hidden on a Nisantasi back street."
+      "description": "Australian-style specialty roaster founded by Sam Cevikoz. Roasts 12-origin beans in-house. Menu includes breakfasts and light meals (including Vegemite toast). Known for 24-28 hour cold brew. Tucked on a Nisantasi back street."
     },
     "coffeetopia": {
       "description": "Specialty coffee chain founded by Serif Basaran (World Barista Championship judge, AST trainer). The Besiktas branch is one of multiple city locations. Note: the 'near ferry terminal' claim matches the Eminonu branch, not Besiktas specifically - address needs on-the-ground verification."
@@ -618,7 +618,7 @@
     },
     "verification-levels": {
       "question": "What do the verification levels mean?",
-      "answer": "Basic (email and Telegram confirmed) is the default. Verified means an ID and selfie were checked - it unlocks paid plans. Trusted means you met an organizer in person in Istanbul."
+      "answer": "Basic (email and Telegram confirmed) is the default. Verified means your ID and selfie have been checked - that lets you host paid plans. Trusted means you met an organizer in person in Istanbul."
     },
     "how-to-verify": {
       "question": "How do I get verified?",
@@ -804,11 +804,11 @@
       "messageLabel": "Message",
       "messagePlaceholder": "How can we help?",
       "submit": "Send Message",
-      "successTitle": "Thanks for reaching out!",
+      "successTitle": "Got your message",
       "successBody": "We'll get back to you as soon as we can.",
-      "errorTitle": "Could not send message",
+      "errorTitle": "Couldn't send your message",
       "errorFallbackTitle": "Something went wrong",
-      "errorFallbackBody": "Please try again later."
+      "errorFallbackBody": "Try again in a moment. Still stuck? Ping us on Telegram."
     },
     "faq": {
       "title": "Frequently Asked Questions",
@@ -911,7 +911,8 @@
       },
       "spots": "{count} spots",
       "emptyUpcoming": "No events scheduled yet. New events are posted weekly in the Telegram group.",
-      "emptyPast": "No past events matching your filter."
+      "emptyPast": "No past events matching your filter.",
+      "emptyUpcomingCta": "Open the Telegram group"
     },
     "waitlist": {
       "badge": "Surprise event",
@@ -931,10 +932,10 @@
       "countOne": "1 nomad on the list",
       "countMany": "{count} nomads on the list",
       "andMore": " and {count} more",
-      "errorTitle": "Could not join the waitlist",
+      "errorTitle": "Couldn't join the waitlist",
       "successTitle": "You're on the list!",
       "errorFallbackTitle": "Something went wrong",
-      "errorFallbackBody": "Please try again later."
+      "errorFallbackBody": "Try again in a moment. Still stuck? Ping us on Telegram."
     }
   },
   "ctaBanner": {
@@ -1676,8 +1677,8 @@
     "toast": {
       "errorTitle": "Couldn't submit",
       "genericErrorTitle": "Something went wrong",
-      "genericErrorBody": "Please try again later.",
-      "successTitle": "Application submitted!",
+      "genericErrorBody": "Try again in a moment. Still stuck? Ping us on Telegram.",
+      "successTitle": "Application submitted",
       "successBody": "We'll review it and get back to you soon."
     }
   },
@@ -1831,7 +1832,7 @@
       "back": "Back",
       "continue": "Continue",
       "submit": "Submit Application",
-      "submitError": "Something went wrong. Please try again.",
+      "submitError": "That didn't work. Give it another try.",
       "saveError": "Couldn't save your profile",
       "signInAgain": "Please sign in again",
       "welcome": "Welcome to Istanbul Digital Nomads!",
@@ -1907,8 +1908,8 @@
         "memberTypeDescriptions": {
           "nomad": "Traveling through Istanbul, here for one to six months. Join plans and post free budget plans.",
           "remote_worker": "Settled longer-term. Building a routine, looking for a professional crowd and coworking rhythm.",
-          "local_guide": "Knows the city, wants to host walks, hikes, dinners, or coworking days. Paid plans unlock after verification.",
-          "tour_guide": "Licensed Turkish tour guide. Same as local guide plus a credential field. Paid plans unlock after verification."
+          "local_guide": "Knows the city, wants to host walks, hikes, dinners, or coworking days. You can host paid plans once you're verified.",
+          "tour_guide": "Licensed Turkish tour guide. Same as local guide plus a credential field. You can host paid plans once you're verified."
         },
         "isAgentLabel": "I also offer paperwork services",
         "isAgentHint": "Tick this if you help others with visa, ikamet, bank account opening, notary, or govt-office paperwork. Your services will appear on /paperwork after verification.",
@@ -1999,7 +2000,7 @@
         "photoSuccess": "Photo uploaded successfully.",
         "photoTooLarge": "Photo too large",
         "photoTooLargeDetail": "Maximum 10 MB.",
-        "photoUploadSuccess": "Photo uploaded!",
+        "photoUploadSuccess": "Photo uploaded",
         "uploadFailed": "Upload failed",
         "uploadFailedRetry": "Upload failed. Please try again.",
         "atmosphere": "What kind of atmosphere are you looking for?",
@@ -2009,7 +2010,7 @@
           "party": "Party-focused",
           "calm": "Calm and activity-based"
         },
-        "verifyNudgeTitle": "Verification unlocks paid plans",
+        "verifyNudgeTitle": "Verification lets you host paid plans",
         "verifyNudgeBody": "Once you finish, head to /dashboard/verify to apply for the Blue badge. We'll review on Telegram, usually within a couple of working days."
       }
     }
@@ -2854,7 +2855,7 @@
     "setupSubmitting": "Saving...",
     "setupSuccess": "Payout details saved",
     "setupErrorTitle": "Couldn't save",
-    "setupErrorBody": "Something went wrong. Try again or contact support.",
+    "setupErrorBody": "That didn't work. Try again, or ping us on Telegram if it keeps failing.",
     "historyTitle": "Ticket history",
     "noTickets": "No tickets sold yet. Once someone joins a paid plan you host, it shows up here.",
     "status": {
@@ -2879,7 +2880,7 @@
     },
     "page": {
       "title": "Verify your account",
-      "intro": "Verification unlocks paid plans on the platform. The Blue badge requires a real ID document; the Gold badge comes from meeting an organizer in Istanbul in person.",
+      "intro": "Verification is what lets you host paid plans. The Blue badge needs a government ID document; the Gold badge comes from meeting an organizer in Istanbul in person.",
       "currentLabel": "Current level",
       "applyLabel": "Apply for",
       "reasonLabel": "Why you want this badge",
@@ -2931,7 +2932,7 @@
     "minutesShort": "min",
     "viewProfile": "View profile",
     "contactCta": "Contact on Telegram",
-    "disclaimer": "Disclaimer: paperwork services are facilitated by independent agents. Istanbul Nomads doesn't provide legal advice. Hosts can't guarantee approval, office hours, or queue length. Bring your own documents and cash for fees."
+    "disclaimer": "Disclaimer: paperwork services are provided by independent agents. Istanbul Nomads doesn't provide legal advice. Hosts can't guarantee approval, office hours, or queue length. Bring your own documents and cash for fees."
   },
   "paperworkCreate": {
     "eyebrow": "New paperwork service",
@@ -2953,7 +2954,7 @@
     "submitting": "Publishing...",
     "successTitle": "Service published",
     "errorTitle": "Couldn't publish",
-    "errorBody": "Something went wrong. Try again or contact support.",
+    "errorBody": "That didn't work. Try again, or ping us on Telegram if it keeps failing.",
     "disclaimer": "By publishing, you agree to the Community Guidelines and confirm you're qualified to provide this service. Paid checkout is coming soon - until then, attendees contact you on Telegram."
   },
   "membersV2": {
@@ -3295,7 +3296,8 @@
     },
     "counter": {
       "eyebrow": "Live count",
-      "activeAcross": "plans running across {hoods} neighborhoods"
+      "activeAcross": "plans running across {hoods} neighborhoods",
+      "quiet": "Quiet right now - plans usually pop up in the morning. Sign in and be the first to drop one."
     },
     "howItWorks": {
       "eyebrow": "How it works",
@@ -3355,7 +3357,7 @@
       "notLiveTitle": "Payments aren't live yet",
       "notLiveBody": "Ticketed checkout is coming soon. For now, message the host on Telegram to arrange it.",
       "errorTitle": "Checkout failed",
-      "errorBody": "Something went wrong. Try again in a moment."
+      "errorBody": "That didn't work. Try again in a moment."
     },
     "money": {
       "sectionLabel": "Money",
@@ -3416,7 +3418,7 @@
       "successTitle": "Plan shared",
       "updateSuccess": "Plan updated",
       "errorTitle": "Couldn't share",
-      "errorBody": "Something went wrong. Try again in a moment."
+      "errorBody": "That didn't work. Try again in a moment."
     },
     "stops": "{count} stops",
     "transport": {
@@ -3520,7 +3522,7 @@
       "openSub": "across {hoods} hoods",
       "mine": "Your plan today",
       "mineSub": "{filled}/{seats} joined",
-      "mineNone": "—",
+      "mineNone": "-",
       "mineNoneSub": "post one in the rail",
       "hoods": "Neighborhoods",
       "hoodsSub": "with plans today"
@@ -3559,7 +3561,12 @@
       "nomad": "Nomad plans · free, budget shown up front",
       "shortcut": "⌘K · search any day, any neighborhood"
     },
-    "emptyBoard": "No plans on the board today. Post one - or check tomorrow."
+    "emptyBoard": "No plans on the board today. Post one - or check tomorrow.",
+    "card": {
+      "seatsOpen": "{count} open",
+      "reserveSeat": "Reserve a seat",
+      "joinPlan": "Join plan"
+    }
   },
   "howItWorks": {
     "loop": {
@@ -3817,19 +3824,19 @@
     "askCta": "Prefer to chat? Ask the assistant",
     "nodes": {
       "root": {
-        "message": "Hey! What brings you here today?"
+        "message": "What brings you here today?"
       },
       "new": {
         "message": "Welcome to Istanbul! Here's where to start."
       },
       "plans": {
-        "message": "Nice. What are you in the mood for today?"
+        "message": "What are you in the mood for today?"
       },
       "paperwork": {
         "message": "Got it. What do you need help with?"
       },
       "how": {
-        "message": "Happy to explain. Pick a topic:"
+        "message": "Pick a topic:"
       },
       "work": {
         "message": "Looking for a spot to work? Where are you?"

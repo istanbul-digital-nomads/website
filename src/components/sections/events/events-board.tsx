@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { eventTypes } from "@/lib/constants";
+import { eventTypes, socialLinks } from "@/lib/constants";
 import type { Locale } from "@/lib/i18n/config";
 import type { Event, EventType } from "@/types/models";
 
@@ -89,6 +89,19 @@ export function EventsBoard({
           <p className="font-mono text-[11px] uppercase tracking-wider text-paper-mute">
             {tab === "upcoming" ? tList("emptyUpcoming") : tList("emptyPast")}
           </p>
+          {/* The empty text mentions the Telegram group - give it a real
+              door instead of leaving the reader to hunt for the link. */}
+          {tab === "upcoming" && (
+            <a
+              href={socialLinks.telegram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 rounded-full border border-ink-3 px-4 py-2 font-grotesk text-[13px] text-paper transition-colors hover:border-ink-4"
+            >
+              {tList("emptyUpcomingCta")}
+              <ArrowRight className="h-3.5 w-3.5 rtl:-scale-x-100" />
+            </a>
+          )}
         </div>
       ) : (
         <div className="border-x border-b border-ink-3">

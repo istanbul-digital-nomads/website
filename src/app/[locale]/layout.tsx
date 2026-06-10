@@ -9,7 +9,6 @@ import {
   Space_Grotesk,
 } from "next/font/google";
 import localFont from "next/font/local";
-import Script from "next/script";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import {
@@ -34,7 +33,6 @@ import {
 } from "@/components/layout/client-islands";
 import { routing } from "@/lib/i18n/routing";
 import { bcp47, isRtl, type Locale } from "@/lib/i18n/config";
-import { getTimeOfDay } from "@/lib/ambient";
 import { getSearchItems } from "@/lib/search";
 import {
   CONSENT_COOKIE,
@@ -91,11 +89,13 @@ const spaceGrotesk = Space_Grotesk({
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   // Mono font is only used for small eyebrows / labels - `optional` avoids
-  // a font swap shifting LCP candidates.
+  // a font swap shifting LCP candidates. Preload off: the two weights cost
+  // ~40 KB in the critical request graph that Lighthouse charges against
+  // LCP, and tiny labels rendering one visit in the fallback mono is fine.
   display: "optional",
   weight: ["400", "500"],
   variable: "--font-mono",
-  preload: true,
+  preload: false,
 });
 
 // Persian-optimized "Bon (Pro)" - self-hosted from /public/fonts/bon/.
@@ -259,22 +259,22 @@ export default async function LocaleLayout({
     ),
   ) as typeof messages;
 
-  // Design System v2: time-of-day accent class. `getTimeOfDay` is a
-  // `use cache` function (cacheLife "minutes"), so this stays prerenderable
-  // and the accent catches up within a few minutes of each tod boundary.
-  const tod = await getTimeOfDay();
-
   // Design System v2 Phase 6: Command-K dataset, prebuilt server-side per
   // locale. All sources are either static (pages/guides/neighborhoods/
   // circles) or `use cache` (events), so this stays prerenderable.
   const searchItems = await getSearchItems(typedLocale);
 
   return (
+    // The tod-* accent class is added by the inline head script, not
+    // rendered here: server-rendering it baked one time-of-day bucket into
+    // the prerendered (PPR) shell at build time while each request's RSC
+    // payload computed a fresh one - the root-level mismatch made React 19
+    // throw #418 and regenerate the whole tree on the client, which is
+    // also what pushed LCP out by seconds.
     <html
       lang={bcp47[typedLocale]}
       dir={isRtl(typedLocale) ? "rtl" : "ltr"}
       translate="no"
-      className={`tod-${tod}`}
       suppressHydrationWarning
     >
       <head>
@@ -298,9 +298,12 @@ export default async function LocaleLayout({
           content="#14110f"
           media="(prefers-color-scheme: dark)"
         />
+        {/* Theme + time-of-day accent, both applied pre-paint. tod-* uses
+            Istanbul wall-clock (fixed UTC+3, no DST since 2016) computed on
+            the client so the prerendered shell stays time-independent. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme");var d=document.documentElement;if(t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme:dark)").matches))d.classList.add("dark")}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem("theme");var d=document.documentElement;if(t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme:dark)").matches))d.classList.add("dark");var h=new Date(Date.now()+10800000).getUTCHours();d.classList.add("tod-"+(h>=5&&h<9?"dawn":h>=9&&h<17?"midday":h>=17&&h<21?"dusk":"night"))}catch(e){}})()`,
           }}
         />
         {/* Google Consent Mode v2 default, region-scoped. Runs synchronously
@@ -321,7 +324,7 @@ export default async function LocaleLayout({
             Mode applies the most specific (region-matching) default. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=window.gtag||gtag;function def(a,x){var o={ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:a,functionality_storage:'granted',security_storage:'granted'};for(var k in x)o[k]=x[k];gtag('consent','default',o);}var prior='';try{var c=document.cookie;if(/(?:^|;\\s*)${CONSENT_COOKIE}=[^;]*${CONSENT_GRANTED}/.test(c))prior='granted';else if(/(?:^|;\\s*)${CONSENT_COOKIE}=[^;]*${CONSENT_DENIED}/.test(c))prior='denied';}catch(e){}if(prior){def(prior);}else{def('denied',{region:${JSON.stringify(EEA_REGIONS)},wait_for_update:500});def('granted');}gtag('set','url_passthrough',true);gtag('set','ads_data_redaction',true);})()`,
+            __html: `(function(){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=window.gtag||gtag;function def(a,x){var o={ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:a,functionality_storage:'granted',security_storage:'granted'};for(var k in x)o[k]=x[k];gtag('consent','default',o);}var prior='';try{var c=document.cookie;if(/(?:^|;\\s*)${CONSENT_COOKIE}=[^;]*${CONSENT_GRANTED}/.test(c))prior='granted';else if(/(?:^|;\\s*)${CONSENT_COOKIE}=[^;]*${CONSENT_DENIED}/.test(c))prior='denied';}catch(e){}if(prior){def(prior);}else{def('denied',{region:${JSON.stringify(EEA_REGIONS)},wait_for_update:500});def('granted');document.documentElement.classList.add('consent-undecided');}gtag('set','url_passthrough',true);gtag('set','ads_data_redaction',true);})()`,
           }}
         />
       </head>
@@ -367,7 +370,13 @@ export default async function LocaleLayout({
               <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">
                 <Suspense fallback={null}>{children}</Suspense>
               </main>
-              <Suspense fallback={null}>
+              {/* Height-stable fallback: a null fallback let the streamed
+                  footer push surrounding layout when it arrived, which was
+                  the page's entire CLS (0.078). The placeholder approximates
+                  the footer's height so the swap doesn't shift anything. */}
+              <Suspense
+                fallback={<div aria-hidden className="min-h-[600px]" />}
+              >
                 <Footer locale={typedLocale} />
               </Suspense>
               <Suspense fallback={null}>
@@ -384,15 +393,22 @@ export default async function LocaleLayout({
         </NextIntlClientProvider>
         {/* Google Tag Manager (GTM-WVTC6K93). The container loads the GA4
             Google tag (G-CG3LT0ZV2X) and forwards the funnel events from
-            src/lib/analytics.ts. `lazyOnload` is kept from the old direct
-            gtag.js setup - all funnel events fire from user gestures well
-            after load, and we'd rather protect LCP than capture an early
-            bounce. The Consent Mode v2 default in <head> runs synchronously
-            before this, so GTM boots with the right consent state. */}
+            src/lib/analytics.ts. Loading is deferred to the first user
+            gesture (or a 12s post-load fallback) instead of lazyOnload:
+            GTM+GA4 evaluation is a few hundred ms of main-thread work that
+            otherwise lands inside the initial trace on throttled mobile.
+            Real visitors interact almost immediately, and gtag-style pushes
+            made before GTM boots queue in the dataLayer and are replayed,
+            so funnel events fired pre-load aren't lost. The tradeoff:
+            never-interacting visitors who bounce inside 12s aren't counted.
+            The Consent Mode v2 default in <head> runs synchronously before
+            this, so GTM boots with the right consent state. */}
         {process.env.NEXT_PUBLIC_GTM_ID && (
-          <Script id="gtm-loader" strategy="lazyOnload">
-            {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GTM_ID}');`}
-          </Script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function(){var done=false;function load(){if(done)return;done=true;var w=window,d=document,l='dataLayer';w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName('script')[0],j=d.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id=${process.env.NEXT_PUBLIC_GTM_ID}';f.parentNode.insertBefore(j,f);}var evs=['pointerdown','pointermove','wheel','scroll','keydown','touchstart'];evs.forEach(function(e){addEventListener(e,load,{once:true,passive:true});});function arm(){setTimeout(load,12000);}if(document.readyState==='complete')arm();else addEventListener('load',arm,{once:true});})()`,
+            }}
+          />
         )}
       </body>
     </html>

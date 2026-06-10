@@ -101,13 +101,17 @@ export function Header({ counts = {} }: Props) {
             href="/"
             prefetch
             data-header-brand
+            aria-label={tSite("shortName")}
             className="flex shrink-0 items-center gap-2"
           >
+            {/* Decorative: the link carries the accessible name (the wordmark
+                span is hidden on mobile). width/height 96 so next/image serves
+                a small asset for the 28px render instead of a 1080px one. */}
             <Image
               src="/images/logo-light.png"
-              alt={tSite("shortName")}
-              width={512}
-              height={512}
+              alt=""
+              width={96}
+              height={96}
               className="block"
               style={{ width: 28, height: "auto" }}
               priority

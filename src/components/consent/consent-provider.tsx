@@ -81,6 +81,9 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
       window.gtag?.("consent", "update", {
         analytics_storage: stored === CONSENT_GRANTED ? "granted" : "denied",
       });
+      // The cookie may have lapsed while localStorage kept the decision, in
+      // which case the bootstrap pre-painted the banner - hide it again.
+      document.documentElement.classList.remove("consent-undecided");
     }
     // One-shot post-hydration sync; consent is read once then user-driven.
     // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional one-shot boot sync (mirrors ThemeProvider)
@@ -94,6 +97,8 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const apply = useCallback((granted: boolean) => {
+    // Stop the pre-hydration CSS rule from keeping the banner visible.
+    document.documentElement.classList.remove("consent-undecided");
     persist(granted);
     // Consent Mode v2 update. ad_* stay denied - this product has no ads.
     window.gtag?.("consent", "update", {
@@ -117,8 +122,16 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
     <ConsentContext.Provider
       value={{ consent, acceptAll, rejectNonEssential, openPreferences }}
     >
+      {/* Always rendered so the banner exists in the server HTML; the inline
+          <head> bootstrap shows it pre-hydration for undecided visitors (see
+          .consent-banner in globals.css). Mounting it only after hydration
+          used to make it the page's LCP element seconds into the load.
+          Rendered BEFORE children on purpose: it's position:fixed so DOM
+          order doesn't matter visually, but in the streamed HTML anything
+          after {children} only flushes once every dynamic Suspense hole has
+          resolved - which delayed the banner's first paint by seconds. */}
+      <CookieBanner open={!consent.decided} />
       {children}
-      {!consent.decided && <CookieBanner />}
     </ConsentContext.Provider>
   );
 }

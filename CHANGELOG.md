@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.35.2] - 2026-06-10
+
+### Fixed
+
+- **Zero CLS on production too.** The page-children Suspense fallback was null, so the shell painted the footer just inside the first viewport and the streamed page content pushed it down (CLS ~0.08, the whole page's score). The fallback is now a full-viewport placeholder, keeping the footer below the fold until content arrives.
+
 ## [3.35.1] - 2026-06-10
 
 ### Fixed

@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.35.1] - 2026-06-10
+
+### Fixed
+
+- **Second hydration mismatch source gone.** Active-link indicators (bottom tab bar, header nav, hero nav) were derived from `usePathname()` during render: the prerendered shell has no pathname (nothing active) while the client's first render adds the active marker - a structural mismatch that still threw React #418 after the time-of-day fix. A shared `usePathnameForActive()` hook keeps the first client render identical to the shell; indicators appear right after mount.
+
 ## [3.35.0] - 2026-06-10
 
 ### Fixed

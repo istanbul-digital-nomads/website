@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Home, BookOpen, Calendar, Send, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { usePathnameForActive } from "@/lib/use-pathname-active";
 import { socialLinks } from "@/lib/constants";
 import { MobileMenuOverlay } from "./mobile-menu-overlay";
 
@@ -32,6 +33,7 @@ const tabs: Tab[] = [
 
 export function BottomTabBar() {
   const pathname = usePathname();
+  const activePath = usePathnameForActive();
   const [menuOpen, setMenuOpen] = useState(false);
   const t = useTranslations("bottomNav");
 
@@ -45,8 +47,11 @@ export function BottomTabBar() {
   const isActive = (tab: Tab) => {
     if (tab.action === "menu") return menuOpen;
     if (tab.external) return false;
-    if (tab.href === "/") return pathname === "/";
-    return tab.href ? pathname.startsWith(tab.href) : false;
+    // activePath is null until mount, so the first client render matches the
+    // prerendered shell (no active indicator) - see usePathnameForActive.
+    if (!activePath) return false;
+    if (tab.href === "/") return activePath === "/";
+    return tab.href ? activePath.startsWith(tab.href) : false;
   };
 
   return (

@@ -40,6 +40,12 @@
     --ferry-yellow: 244 184 96; /* gold */
     --moss: 134 239 172; /* live-green */
     --tod-accent: var(--ferry-yellow);
+
+    /* Liquid-glass surface tokens. `tint` is the frosted pane's body,
+       `shine` is the specular edge that catches the light. Light theme:
+       white glass over the cream canvas. */
+    --glass-tint: 255 255 255;
+    --glass-shine: 255 255 255;
   }
 
   .dark {
@@ -75,6 +81,11 @@
     --ferry-yellow: 244 184 96; /* gold */
     --moss: 134 239 172; /* live-green */
     --tod-accent: var(--ferry-yellow);
+
+    /* Dark theme: water-tinted glass with a faint cream specular edge,
+       matching the ink-1 surfaces it replaces. */
+    --glass-tint: 10 26 47;
+    --glass-shine: 246 236 217;
   }
 
   * {
@@ -304,6 +315,54 @@
 
   .eyebrow {
     @apply font-mono text-eyebrow uppercase text-[#5d6d7e] dark:text-[#b7aaa0];
+  }
+
+  /* Liquid glass - frosted, saturated panes with a 1px specular top edge.
+     Use on floating chrome (header, palettes, tab bars, dropdowns); the
+     effect only reads when content moves behind it, so static in-flow
+     cards gain nothing. The specular edge lives in the background-image
+     gradient (not box-shadow) so Tailwind shadow utilities still compose.
+     `glass-strong` is the higher-opacity tier for surfaces carrying small
+     text over busy content. */
+  .glass,
+  .glass-strong {
+    background-image: linear-gradient(
+      to bottom,
+      rgb(var(--glass-shine) / 0.25) 0,
+      rgb(var(--glass-shine) / 0.25) 1px,
+      rgb(var(--glass-shine) / 0.07) 1px,
+      rgb(var(--glass-shine) / 0) 55%
+    );
+    -webkit-backdrop-filter: blur(20px) saturate(1.6);
+    backdrop-filter: blur(20px) saturate(1.6);
+  }
+
+  .glass {
+    background-color: rgb(var(--glass-tint) / 0.55);
+  }
+
+  .glass-strong {
+    background-color: rgb(var(--glass-tint) / 0.82);
+  }
+
+  /* No backdrop-filter support: go near-opaque so text stays readable. */
+  @supports not (
+    (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+  ) {
+    .glass,
+    .glass-strong {
+      background-color: rgb(var(--glass-tint) / 0.96);
+    }
+  }
+
+  /* Honor the OS-level "reduce transparency" preference. */
+  @media (prefers-reduced-transparency: reduce) {
+    .glass,
+    .glass-strong {
+      background-color: rgb(var(--glass-tint) / 0.98);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
   }
 
   .surface-blur {

@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.40.0] - 2026-06-11
+
+### Added
+
+- **Liquid-glass chrome.** The floating UI - sticky header, Explore/Community dropdowns, the mobile bottom tab bar, and the ⌘K command palette - now renders as frosted liquid glass: `blur(20px) saturate(1.6)` with a 1px specular top edge, instead of the old flat translucency. Built as two reusable utilities (`.glass` at 55% tint, `.glass-strong` at 82% for surfaces carrying small text) on new theme-aware tokens (`--glass-tint`, `--glass-shine`), so light mode gets white glass and dark mode gets water-blue glass with a cream shine. The specular edge lives in the background gradient rather than box-shadow, so Tailwind shadow utilities still compose. Falls back to near-opaque where `backdrop-filter` isn't supported and honors the OS "reduce transparency" preference. Static in-flow cards are deliberately untouched - glass only reads when content moves behind it.
+
 ## [3.39.0] - 2026-06-10
 
 ### Changed

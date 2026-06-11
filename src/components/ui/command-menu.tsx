@@ -92,7 +92,7 @@ export function CommandMenu({ items }: { items: SearchItem[] }) {
         aria-label={t("close")}
         onClick={() => setOpen(false)}
       />
-      <div className="fixed left-1/2 top-[10vh] z-[101] w-[min(680px,calc(100vw-24px))] -translate-x-1/2 overflow-hidden border border-ink-3 bg-ink-1 shadow-[0_24px_80px_rgba(0,0,0,0.45)] sm:top-[14vh]">
+      <div className="glass-strong fixed left-1/2 top-[10vh] z-[101] w-[min(680px,calc(100vw-24px))] -translate-x-1/2 overflow-hidden border border-ink-3/70 shadow-[0_24px_80px_rgba(0,0,0,0.45)] sm:top-[14vh]">
         <h2 id="command-menu-title" className="sr-only">
           {t("ariaLabel")}
         </h2>

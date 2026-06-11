@@ -57,7 +57,7 @@ export function BottomTabBar() {
   return (
     <>
       <div
-        className="animate-slide-up-bar fixed inset-x-0 bottom-0 z-50 border-t border-black/10 bg-[rgba(250,250,250,0.95)] backdrop-blur-md md:hidden dark:border-white/10 dark:bg-[rgba(26,29,39,0.96)]"
+        className="glass-strong animate-slide-up-bar fixed inset-x-0 bottom-0 z-50 border-t border-black/10 md:hidden dark:border-white/10"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
         <div className="flex h-16 items-stretch">

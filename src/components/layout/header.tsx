@@ -79,9 +79,9 @@ export function Header({ counts = {} }: Props) {
   return (
     <header
       className={cn(
-        "site-header sticky top-0 z-50 border-b border-ink-3 bg-ink-1/80 backdrop-blur-md transition-[background-color,box-shadow,transform] duration-300",
+        "site-header glass sticky top-0 z-50 border-b border-ink-3/70 transition-[background-color,box-shadow,transform] duration-300",
         scrolled &&
-          "is-scrolled bg-ink-1/95 shadow-[0_8px_24px_rgba(0,0,0,0.18)]",
+          "is-scrolled glass-strong shadow-[0_8px_24px_rgba(0,0,0,0.18)]",
         hideOnMobile && "max-md:-translate-y-full",
       )}
     >
@@ -305,7 +305,7 @@ function NavDropdown({
       {open && (
         <div
           role="menu"
-          className="absolute left-0 top-full z-50 mt-2 w-72 overflow-hidden rounded-xl border border-ink-3 bg-ink-1/95 p-1.5 shadow-[0_20px_48px_rgba(0,0,0,0.45)] backdrop-blur-xl"
+          className="glass-strong absolute left-0 top-full z-50 mt-2 w-72 overflow-hidden rounded-xl border border-ink-3/70 p-1.5 shadow-[0_20px_48px_rgba(0,0,0,0.45)]"
           dir={rtl ? "rtl" : "ltr"}
         >
           {item.children.map((child) => {

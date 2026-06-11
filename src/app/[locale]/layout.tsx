@@ -41,6 +41,7 @@ import {
   EEA_REGIONS,
 } from "@/lib/analytics";
 import "@/styles/globals.css";
+import "slot-text/style.css";
 
 // Design System v2 font stack: Geist (UI/body), Fraunces (editorial display
 // serif), JetBrains Mono (numbers/metadata). The CSS variable names are kept

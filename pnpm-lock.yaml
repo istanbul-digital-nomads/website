@@ -80,6 +80,9 @@ importers:
       resend:
         specifier: ^6.12.4
         version: 6.12.4(@react-email/render@2.0.8(react-dom@19.2.7(react@19.2.7))(react@19.2.7))
+      slot-text:
+        specifier: ^0.2.2
+        version: 0.2.2(react@19.2.7)
       sonner:
         specifier: ^2.0.7
         version: 2.0.7(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
@@ -4680,6 +4683,17 @@ packages:
   sirv@2.0.4:
     resolution: {integrity: sha512-94Bdh3cC2PKrbgSOUqTiGPWVZeSiXfKOVZNJniWoqrWrRkB1CJzBU3NEbiTsPcYy1lDsANA/THzS+9WBiy5nfQ==}
     engines: {node: '>= 10'}
+
+  slot-text@0.2.2:
+    resolution: {integrity: sha512-/XJR7fQKDxZQ0aA/s9kMHSz571GtiRIt0wZloHZ4yTMfIBFSwO/yGYcKZ+6YjchWEEjQ9x49s/xqTBuY+F+Vyw==}
+    peerDependencies:
+      react: '>=18 <20'
+      vue: '>=3.4 <4'
+    peerDependenciesMeta:
+      react:
+        optional: true
+      vue:
+        optional: true
 
   sonner@2.0.7:
     resolution: {integrity: sha512-W6ZN4p58k8aDKA4XPcx2hpIQXBRAgyiWVkYhT7CvK6D3iAu7xjvVyhQHg2/iaKJZ1XVJ4r7XuwGL+WGEK37i9w==}
@@ -10117,6 +10131,10 @@ snapshots:
       '@polka/url': 1.0.0-next.29
       mrmime: 2.0.1
       totalist: 3.0.1
+
+  slot-text@0.2.2(react@19.2.7):
+    optionalDependencies:
+      react: 19.2.7
 
   sonner@2.0.7(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
     dependencies:

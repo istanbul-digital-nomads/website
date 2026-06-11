@@ -18,6 +18,7 @@ import {
   X,
 } from "lucide-react";
 import { showToast } from "@/lib/toast";
+import { SlotLabel } from "@/components/ui/slot-label";
 import { cn } from "@/lib/utils";
 
 // Rich share sheet for a plan: a short link (copy / native share) plus a
@@ -78,9 +79,9 @@ export function PlanShareButton({
     if (!url) return;
     try {
       await navigator.clipboard.writeText(url);
+      // The button label itself rolls to "Copied" - no toast needed.
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-      showToast.success(t("copied"));
     } catch {
       showToast.info(url);
     }
@@ -223,7 +224,7 @@ export function PlanShareButton({
                 ) : (
                   <Copy className="h-3.5 w-3.5" aria-hidden />
                 )}
-                {t("copyLink")}
+                <SlotLabel text={copied ? t("copied") : t("copyLink")} />
               </button>
             </div>
             {typeof navigator !== "undefined" && "share" in navigator ? (

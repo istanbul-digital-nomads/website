@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.41.0] - 2026-06-12
+
+### Added
+
+- **Rolling labels on state-change buttons.** Tiny labels that flip between states now roll like a split-flap display instead of swapping instantly, via [slot-text](https://textmotion.dev/) (dependency-free, pure CSS transforms). Wired up where a label actually changes: the first-week planner's "Copy link" → "Copied", the plan share sheet's "Copy Link" → "Copied" (which also drops the now-redundant success toast - the button says it itself), and the newsletter button's "Subscribe" → "...". All three go through a new `SlotLabel` wrapper that falls back to a plain swap for Arabic and Persian (per-character cells would break cursive letter joining), for visitors who prefer reduced motion, and on the server pass. Screen readers hear the label exactly once via an `sr-only` twin; the animated cells are `aria-hidden`.
+
 ## [3.40.0] - 2026-06-11
 
 ### Added

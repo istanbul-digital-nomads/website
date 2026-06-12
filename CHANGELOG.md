@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.41.1] - 2026-06-12
+
+### Fixed
+
+- **Map no longer gets stuck as a tiny 400x300 tile.** When the map mounted before its container had been laid out (streamed page content, prerendered tabs), MapLibre fell back to its default 400x300 canvas - and its own resize tracking deliberately ignores the first resize notification, which is exactly the one carrying the real size. The result: map tiles squeezed into the left third of the frame with oversized canvas labels, and it never recovered without a window resize. The map component now watches its own container and resizes the canvas whenever the two drift apart. Fixes both the home page map section and the /map page.
+
 ## [3.41.0] - 2026-06-12
 
 ### Added

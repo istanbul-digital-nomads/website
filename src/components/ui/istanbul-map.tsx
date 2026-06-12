@@ -491,6 +491,33 @@ export function IstanbulMap({
     }
   }, [brands]);
 
+  // MapLibre measures its container at construction; when the map mounts
+  // before the container has been laid out (streamed Suspense fallback,
+  // prerender, background tab) it falls back to a 400x300 canvas - and its
+  // own ResizeObserver deliberately skips the first callback, which is the
+  // one carrying the real size. So the canvas stays 400x300 until the next
+  // genuine resize. Watch the container ourselves and nudge the map whenever
+  // the canvas drifts from it.
+  useEffect(() => {
+    if (!mapLoaded) return;
+    const map = mapRef.current?.getMap();
+    if (!map) return;
+    const container = map.getContainer();
+    const sync = () => {
+      const canvas = map.getCanvas();
+      if (
+        canvas.clientWidth !== container.clientWidth ||
+        canvas.clientHeight !== container.clientHeight
+      ) {
+        map.resize();
+      }
+    };
+    sync();
+    const observer = new ResizeObserver(sync);
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [mapLoaded]);
+
   // Selecting a neighborhood in the filter focuses it on the map (like clicking
   // its point): fit to the real border polygon when we have one, else fly to
   // the marker point. Only fires for newly-added slugs, not on deselect.

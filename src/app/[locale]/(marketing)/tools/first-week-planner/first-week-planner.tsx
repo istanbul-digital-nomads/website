@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { SlotLabel } from "@/components/ui/slot-label";
 import {
   arrivalProfileOptions,
   budgetComfortOptions,
@@ -222,7 +223,9 @@ export function FirstWeekPlanner({ initialInput }: Props) {
                 </Button>
                 <Button type="button" onClick={copyLink}>
                   <Link2 className="h-4 w-4" />
-                  {copied ? t("aside.copied") : t("aside.copyLink")}
+                  <SlotLabel
+                    text={copied ? t("aside.copied") : t("aside.copyLink")}
+                  />
                 </Button>
               </div>
             </div>

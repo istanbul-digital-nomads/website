@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { ArrowRight, Check } from "lucide-react";
 import { showToast } from "@/lib/toast";
 import { track } from "@/lib/analytics";
+import { SlotLabel } from "@/components/ui/slot-label";
 
 export function NewsletterForm({
   variant = "default",
@@ -82,7 +83,7 @@ export function NewsletterForm({
         aria-label={isFooter ? t("ariaSubscribe") : undefined}
       >
         <span className={isFooter ? "sr-only sm:not-sr-only" : undefined}>
-          {loading ? "..." : t("subscribe")}
+          <SlotLabel text={loading ? "..." : t("subscribe")} />
         </span>
         {!loading && <ArrowRight className="h-3.5 w-3.5 rtl:-scale-x-100" />}
       </button>

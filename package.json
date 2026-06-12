@@ -1,6 +1,6 @@
 {
   "name": "istanbul-digital-nomads-website",
-  "version": "3.40.0",
+  "version": "3.41.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -41,6 +41,7 @@
     "react-map-gl": "^8.1.1",
     "remark-gfm": "^4.0.1",
     "resend": "^6.12.4",
+    "slot-text": "^0.2.2",
     "sonner": "^2.0.7",
     "tailwind-merge": "^2.6.1",
     "zod": "^4.4.3"

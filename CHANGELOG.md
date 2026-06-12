@@ -4,6 +4,18 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.41.1] - 2026-06-12
+
+### Fixed
+
+- **Map no longer gets stuck as a tiny 400x300 tile.** When the map mounted before its container had been laid out (streamed page content, prerendered tabs), MapLibre fell back to its default 400x300 canvas - and its own resize tracking deliberately ignores the first resize notification, which is exactly the one carrying the real size. The result: map tiles squeezed into the left third of the frame with oversized canvas labels, and it never recovered without a window resize. The map component now watches its own container and resizes the canvas whenever the two drift apart. Fixes both the home page map section and the /map page.
+
+## [3.41.0] - 2026-06-12
+
+### Added
+
+- **Rolling labels on state-change buttons.** Tiny labels that flip between states now roll like a split-flap display instead of swapping instantly, via [slot-text](https://textmotion.dev/) (dependency-free, pure CSS transforms). Wired up where a label actually changes: the first-week planner's "Copy link" → "Copied", the plan share sheet's "Copy Link" → "Copied" (which also drops the now-redundant success toast - the button says it itself), and the newsletter button's "Subscribe" → "...". All three go through a new `SlotLabel` wrapper that falls back to a plain swap for Arabic and Persian (per-character cells would break cursive letter joining), for visitors who prefer reduced motion, and on the server pass. Screen readers hear the label exactly once via an `sr-only` twin; the animated cells are `aria-hidden`.
+
 ## [3.40.0] - 2026-06-11
 
 ### Added

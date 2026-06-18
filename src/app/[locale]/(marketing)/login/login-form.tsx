@@ -15,11 +15,22 @@ export function LoginForm() {
     setLoading(true);
     track("login", { method: "google" });
 
+    // Forward a safe relative `next` so gated flows (e.g. "save this spot")
+    // return the user to where they were. The /auth/callback route reads it.
+    const rawNext = new URLSearchParams(window.location.search).get("next");
+    const next =
+      rawNext && rawNext.startsWith("/") && !rawNext.startsWith("//")
+        ? rawNext
+        : null;
+    const callback = next
+      ? `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`
+      : `${window.location.origin}/auth/callback`;
+
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: callback,
       },
     });
 

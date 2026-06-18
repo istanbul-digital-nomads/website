@@ -1432,6 +1432,72 @@
       "vibe": "Atmosfer"
     }
   },
+  "spotFinder": {
+    "meta": {
+      "title": "Mekan Bulucu - Instagram'dan gördüğün İstanbul yerlerini kaydet",
+      "description": "Bir Instagram reel ya da gönderi linki yapıştır, yeri haritada bulmana yardım edelim, sonra da gidilecekler listene ekle."
+    },
+    "eyebrow": "Mekan bulucu",
+    "heading": "Instagram'da bir yer mi gördün? İşaretle.",
+    "subheading": "Bir Instagram reel ya da gönderi linki yapıştır. Nerede olduğunu çıkarmaya çalışırız, sen haritadaki işareti onaylarsın, o da listene kaydedilir. Tespit her zaman tam isabet olmuyor, o yüzden işareti istediğin gibi sürükleyebilir ya da kendin koyabilirsin.",
+    "input": {
+      "placeholder": "https://www.instagram.com/reel/...",
+      "paste": "Yapıştır",
+      "detect": "Bul",
+      "detecting": "Bakılıyor..."
+    },
+    "result": {
+      "found": "En iyi tahminimiz bu. İşareti kontrol et, kaymışsa düzelt.",
+      "none": "Bu linkten bir konum okuyamadık. İşareti yerin olduğu noktaya koy."
+    },
+    "map": {
+      "dragHint": "Kaydetmeden önce işareti tam noktaya sürükle."
+    },
+    "label": {
+      "label": "Bu mekana bir ad ver",
+      "placeholder": "örn. Walter's Coffee Roastery"
+    },
+    "save": "Mekanlarıma kaydet",
+    "saving": "Kaydediliyor...",
+    "savedCta": "Mekanlarını gör",
+    "signInToSave": "Mekanları listene kaydetmek için giriş yap.",
+    "errors": {
+      "detect": "Bu link kontrol edilemedi. Birazdan tekrar dene.",
+      "save": "Bu mekan kaydedilemedi. Tekrar dene.",
+      "already": "Bu mekanı zaten kaydetmişsin.",
+      "needLabel": "Önce mekana bir ad ver.",
+      "clipboard": "Panonu okuyamadık. Linki elle yapıştır."
+    },
+    "toasts": {
+      "saved": "Mekanlarına kaydedildi."
+    }
+  },
+  "dashboardSpots": {
+    "eyebrow": "Listen",
+    "title": "Gidilecek mekanlar",
+    "intro": "Instagram'dan ve site genelinden kaydettiğin yerler. Bir bildirim aç, bir topluluk planı bunlardan birine uğradığında sana haber verelim.",
+    "empty": {
+      "body": "Henüz kayıtlı mekan yok.",
+      "cta": "Bir Instagram linkinden bul"
+    },
+    "notifyHint": "Plan eşleşmesi bildirimleri yakında geliyor - bir mekanı şimdi aç, bildirimler aktif olunca başlasın.",
+    "notify": {
+      "on": "Bildiriyoruz",
+      "off": "Bana bildir"
+    },
+    "source": {
+      "instagram": "Instagram"
+    },
+    "viewMap": "Haritada aç",
+    "remove": "Mekanı kaldır",
+    "toasts": {
+      "removed": "Mekan kaldırıldı."
+    },
+    "errors": {
+      "update": "Bu güncellenemedi. Tekrar dene.",
+      "remove": "Bu kaldırılamadı. Tekrar dene."
+    }
+  },
   "firstWeekPlanner": {
     "meta": {
       "title": "İlk Hafta Planlayıcı - İstanbul Digital Nomads",
@@ -3118,6 +3184,7 @@
         "eyebrow": "Pano",
         "overview": "Genel bakış",
         "profile": "Profil",
+        "spots": "Mekanlar",
         "verification": "Doğrulama",
         "payouts": "Ödemeler",
         "account": "Hesap"

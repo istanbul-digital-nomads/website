@@ -4,6 +4,16 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.42.0] - 2026-06-18
+
+### Added
+
+- **Spot finder: save Istanbul places from an Instagram link.** Paste an Instagram reel or post link at `/tools/spot-finder` and we do a best-effort read of the public page (caption + any location tag), match it against our curated spaces or geocode it for free via OpenStreetMap Nominatim, and drop a pin you confirm or drag on the map before saving. Detection is honestly hit-or-miss - there's no official free Instagram location API - so the manual-pin fallback is always there: when we can't read a location, you just drop the pin yourself. Saved spots live in a new "Spots" tab in your dashboard (`/dashboard/spots`), each with an "open in maps" link and a "ping me" toggle. The toggle persists now and will start firing once the plan-match notifications land (next release).
+  - New `saved_spots` table (migration `036`) with own-row RLS, and `/api/spots` routes (`detect` is public + rate-limited; save/list/update/delete require auth).
+  - Detection/resolution helpers under `src/lib/spots/` are deterministic (regex + curated-dataset matching, no LLM), with geocode results cached in Redis to respect OSM's usage policy.
+  - The login screen now forwards a safe `next` param into the OAuth callback, so "save this spot" while logged out returns you to the finder after sign-in.
+  - Translated for tr/ru/fa/ar (RTL-aware), and the spot-finder is in the sitemap.
+
 ## [3.41.1] - 2026-06-12
 
 ### Fixed

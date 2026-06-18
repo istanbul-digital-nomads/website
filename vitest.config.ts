@@ -13,6 +13,9 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      // `server-only` throws when imported outside an RSC; stub it so unit
+      // tests can import pure helpers that live in server modules.
+      "server-only": path.resolve(__dirname, "./src/tests/empty-module.ts"),
     },
   },
 });

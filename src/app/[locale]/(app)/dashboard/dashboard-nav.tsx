@@ -3,7 +3,14 @@
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/lib/i18n/routing";
 import { Container } from "@/components/ui/container";
-import { LayoutDashboard, User, BadgeCheck, Wallet, Bell } from "lucide-react";
+import {
+  LayoutDashboard,
+  User,
+  BadgeCheck,
+  Wallet,
+  Bell,
+  MapPin,
+} from "lucide-react";
 import type { ComponentType } from "react";
 
 // Persistent sub-navigation across the /dashboard area so the profile
@@ -13,6 +20,7 @@ import type { ComponentType } from "react";
 const ICONS: Record<string, ComponentType<{ className?: string }>> = {
   overview: LayoutDashboard,
   profile: User,
+  spots: MapPin,
   account: Bell,
   verification: BadgeCheck,
   payouts: Wallet,

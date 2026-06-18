@@ -724,6 +724,40 @@ export interface Database {
           telegram_chat_id?: number;
         };
       };
+      saved_spots: {
+        Row: {
+          id: string;
+          member_id: string;
+          label: string;
+          space_id: string | null;
+          neighborhood_slug: string | null;
+          lat: number;
+          lng: number;
+          source: "instagram" | "manual";
+          source_url: string | null;
+          thumbnail_url: string | null;
+          notify_on_plan_match: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          member_id: string;
+          label: string;
+          space_id?: string | null;
+          neighborhood_slug?: string | null;
+          lat: number;
+          lng: number;
+          source?: "instagram" | "manual";
+          source_url?: string | null;
+          thumbnail_url?: string | null;
+          notify_on_plan_match?: boolean;
+          created_at?: string;
+        };
+        Update: {
+          label?: string;
+          notify_on_plan_match?: boolean;
+        };
+      };
       short_links: {
         Row: {
           code: string;

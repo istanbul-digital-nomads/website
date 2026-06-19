@@ -55,6 +55,7 @@ async function AccountContent({
     notify_tickets: member.notify_tickets ?? true,
     notify_events: member.notify_events ?? true,
     notify_reminders: member.notify_reminders ?? true,
+    notify_spot_matches: member.notify_spot_matches ?? true,
   };
 
   return (

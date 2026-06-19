@@ -93,6 +93,7 @@ export interface Database {
           notify_tickets: boolean;
           notify_events: boolean;
           notify_reminders: boolean;
+          notify_spot_matches: boolean;
           preferred_locale: string;
           created_at: string;
           updated_at: string;
@@ -756,6 +757,23 @@ export interface Database {
         Update: {
           label?: string;
           notify_on_plan_match?: boolean;
+        };
+      };
+      spot_match_notifications: {
+        Row: {
+          id: string;
+          saved_spot_id: string;
+          plan_id: string;
+          notified_at: string;
+        };
+        Insert: {
+          id?: string;
+          saved_spot_id: string;
+          plan_id: string;
+          notified_at?: string;
+        };
+        Update: {
+          notified_at?: string;
         };
       };
       short_links: {

@@ -14,6 +14,7 @@ type Prefs = {
   notify_tickets: boolean;
   notify_events: boolean;
   notify_reminders: boolean;
+  notify_spot_matches: boolean;
 };
 
 const CATEGORY_KEYS: Array<keyof Omit<Prefs, "notify_telegram">> = [
@@ -22,6 +23,7 @@ const CATEGORY_KEYS: Array<keyof Omit<Prefs, "notify_telegram">> = [
   "notify_tickets",
   "notify_events",
   "notify_reminders",
+  "notify_spot_matches",
 ];
 
 // Map each preference column to its i18n label/description key suffix.
@@ -31,6 +33,7 @@ const CATEGORY_I18N: Record<keyof Omit<Prefs, "notify_telegram">, string> = {
   notify_tickets: "tickets",
   notify_events: "events",
   notify_reminders: "reminders",
+  notify_spot_matches: "spotMatches",
 };
 
 export function AccountSettings({

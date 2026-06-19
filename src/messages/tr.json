@@ -1480,7 +1480,7 @@
       "body": "Henüz kayıtlı mekan yok.",
       "cta": "Bir Instagram linkinden bul"
     },
-    "notifyHint": "Plan eşleşmesi bildirimleri yakında geliyor - bir mekanı şimdi aç, bildirimler aktif olunca başlasın.",
+    "notifyHint": "Bir mekanı aç, bir topluluk planı oraya uğradığında sana haber verelim.",
     "notify": {
       "on": "Bildiriyoruz",
       "off": "Bana bildir"
@@ -4013,7 +4013,9 @@
       "events": "Etkinlikler ve katılımlar",
       "eventsDescription": "Birisi etkinliğine katıldığını bildirdiğinde ya da katıldığın bir etkinlik değiştiğinde.",
       "reminders": "Hatırlatmalar",
-      "remindersDescription": "Bir plan başlamadan yaklaşık bir saat önce ufak bir hatırlatma."
+      "remindersDescription": "Bir plan başlamadan yaklaşık bir saat önce ufak bir hatırlatma.",
+      "spotMatches": "Kayıtlı mekanlar",
+      "spotMatchesDescription": "Bir topluluk planı, kaydettiğin bir mekana uğradığında."
     },
     "danger": {
       "title": "Hesabı sil",
@@ -4031,6 +4033,7 @@
     "planJoined": "{actor}, \"{title}\" planına katıldı.",
     "planCancelled": "Plan iptal: \"{title}\" düzenleyen tarafından iptal edildi.",
     "planReminder": "Yaklaşık 1 saat içinde başlıyor: {title}",
+    "spotMatch": "Bir plan {spot} mekanına uğruyor: \"{title}\".",
     "ctaOpenPlan": "Planı aç",
     "planLeft": "{actor}, \"{title}\" planından ayrıldı.",
     "planCommented": "{actor}, \"{title}\" planına yorum yaptı.",

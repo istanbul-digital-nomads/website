@@ -1460,7 +1460,7 @@
       "body": "No spots saved yet.",
       "cta": "Find one from an Instagram link"
     },
-    "notifyHint": "Plan-match pings are coming soon - flip a spot on now and it'll start once they're live.",
+    "notifyHint": "Flip a spot on and we'll ping you when a community plan stops by it.",
     "notify": {
       "on": "Pinging you",
       "off": "Ping me"
@@ -3993,7 +3993,9 @@
       "events": "Events & RSVPs",
       "eventsDescription": "When someone RSVPs to your event, or an event you're attending changes.",
       "reminders": "Reminders",
-      "remindersDescription": "A heads-up about an hour before a plan starts."
+      "remindersDescription": "A heads-up about an hour before a plan starts.",
+      "spotMatches": "Saved spots",
+      "spotMatchesDescription": "When a community plan stops by a spot you've saved."
     },
     "danger": {
       "title": "Delete account",
@@ -4011,6 +4013,7 @@
     "planJoined": "{actor} joined your plan \"{title}\".",
     "planCancelled": "Plan cancelled: \"{title}\" was cancelled by the host.",
     "planReminder": "Starting in ~1h: {title}",
+    "spotMatch": "A plan stops by {spot}: \"{title}\".",
     "ctaOpenPlan": "Open plan",
     "planLeft": "{actor} left your plan \"{title}\".",
     "planCommented": "{actor} commented on your plan \"{title}\".",

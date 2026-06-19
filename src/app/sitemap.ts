@@ -80,6 +80,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/circles", changeFrequency: "weekly", priority: 0.7 },
     { path: "/paperwork", changeFrequency: "weekly", priority: 0.7 },
     { path: "/map", changeFrequency: "weekly", priority: 0.6 },
+    { path: "/tools/spot-finder", changeFrequency: "monthly", priority: 0.6 },
     { path: "/help", changeFrequency: "monthly", priority: 0.6 },
     { path: "/contact", changeFrequency: "monthly", priority: 0.5 },
     { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },

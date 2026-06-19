@@ -4,6 +4,25 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.43.0] - 2026-06-19
+
+### Added
+
+- **Spot finder, phase 2: get pinged when a plan visits a spot you saved.** The "ping me" toggle on each saved spot is now live. An hourly cron (`/api/cron/spot-matches`) checks active, upcoming community plans and, when a plan's stop is the same curated space or within ~150m of your saved pin, sends you a Telegram DM with a link to the plan. Matching is deliberately precise (same place, not just same neighborhood) to avoid noise, it never pings you about your own plan, and a new `spot_match_notifications` ledger means you're told about each plan at most once. Controlled by a new "Saved spots" toggle in Dashboard → Account (respects the master Telegram switch like every other category), and gated per-spot by the toggle on your list.
+  - Migration `037`: `members.notify_spot_matches` + the `spot_match_notifications` de-dupe table.
+  - Reuses the existing `notifyMember` pipeline (new `spot_matches` category) and the `plan-reminders` cron pattern.
+  - Notification + toggle copy translated for tr/ru/fa/ar.
+
+## [3.42.0] - 2026-06-18
+
+### Added
+
+- **Spot finder: save Istanbul places from an Instagram link.** Paste an Instagram reel or post link at `/tools/spot-finder` and we do a best-effort read of the public page (caption + any location tag), match it against our curated spaces or geocode it for free via OpenStreetMap Nominatim, and drop a pin you confirm or drag on the map before saving. Detection is honestly hit-or-miss - there's no official free Instagram location API - so the manual-pin fallback is always there: when we can't read a location, you just drop the pin yourself. Saved spots live in a new "Spots" tab in your dashboard (`/dashboard/spots`), each with an "open in maps" link and a "ping me" toggle. The toggle persists now and will start firing once the plan-match notifications land (next release).
+  - New `saved_spots` table (migration `036`) with own-row RLS, and `/api/spots` routes (`detect` is public + rate-limited; save/list/update/delete require auth).
+  - Detection/resolution helpers under `src/lib/spots/` are deterministic (regex + curated-dataset matching, no LLM), with geocode results cached in Redis to respect OSM's usage policy.
+  - The login screen now forwards a safe `next` param into the OAuth callback, so "save this spot" while logged out returns you to the finder after sign-in.
+  - Translated for tr/ru/fa/ar (RTL-aware), and the spot-finder is in the sitemap.
+
 ## [3.41.1] - 2026-06-12
 
 ### Fixed

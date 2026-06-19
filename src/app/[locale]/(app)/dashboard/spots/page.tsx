@@ -7,24 +7,27 @@ import { isValidLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { Container } from "@/components/ui/container";
 import { SectionEyebrow } from "@/components/ui/section-eyebrow";
 import { getCachedTranslations } from "@/lib/i18n/cache-translations";
-import { AccountSettings } from "./account-settings";
+import type { Database } from "@/types/database";
+import { SpotsList } from "./spots-list";
 
 export const metadata: Metadata = {
-  title: "Account",
+  title: "Spots to visit",
   robots: { index: false, follow: false },
 };
 
-export default function AccountPage(props: {
+type SavedSpot = Database["public"]["Tables"]["saved_spots"]["Row"];
+
+export default function SpotsPage(props: {
   params: Promise<{ locale: string }>;
 }) {
   return (
     <Suspense fallback={null}>
-      <AccountContent {...props} />
+      <SpotsContent {...props} />
     </Suspense>
   );
 }
 
-async function AccountContent({
+async function SpotsContent({
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -34,29 +37,18 @@ async function AccountContent({
 
   const { data: member } = await getCurrentMember();
   if (!member) {
-    redirect("/login?next=/dashboard/account");
+    redirect("/login?next=/dashboard/spots");
   }
 
-  // Own-row read of the Telegram subscription (RLS-allowed).
   const supabase = await createClient();
-  const { data: subRow } = await supabase
-    .from("telegram_subscriptions")
-    .select("linked_at")
+  const { data } = await supabase
+    .from("saved_spots")
+    .select("*")
     .eq("member_id", member.id)
-    .maybeSingle();
-  const sub = subRow as { linked_at: string } | null;
+    .order("created_at", { ascending: false });
+  const spots = (data ?? []) as SavedSpot[];
 
-  const t = getCachedTranslations(locale, "accountPage");
-
-  const prefs = {
-    notify_telegram: member.notify_telegram ?? true,
-    notify_plan_activity: member.notify_plan_activity ?? true,
-    notify_comments: member.notify_comments ?? true,
-    notify_tickets: member.notify_tickets ?? true,
-    notify_events: member.notify_events ?? true,
-    notify_reminders: member.notify_reminders ?? true,
-    notify_spot_matches: member.notify_spot_matches ?? true,
-  };
+  const t = getCachedTranslations(locale, "dashboardSpots");
 
   return (
     <section className="bg-ink-1 pt-16 lg:pt-24">
@@ -68,12 +60,7 @@ async function AccountContent({
         <p className="mt-6 max-w-xl text-sm text-paper-dim">{t("intro")}</p>
 
         <div className="mt-12 max-w-2xl pb-24">
-          <AccountSettings
-            memberId={member.id}
-            connected={Boolean(sub)}
-            linkedAt={sub?.linked_at ?? null}
-            prefs={prefs}
-          />
+          <SpotsList spots={spots} />
         </div>
       </Container>
     </section>

@@ -93,6 +93,7 @@ export interface Database {
           notify_tickets: boolean;
           notify_events: boolean;
           notify_reminders: boolean;
+          notify_spot_matches: boolean;
           preferred_locale: string;
           created_at: string;
           updated_at: string;
@@ -722,6 +723,57 @@ export interface Database {
         };
         Update: {
           telegram_chat_id?: number;
+        };
+      };
+      saved_spots: {
+        Row: {
+          id: string;
+          member_id: string;
+          label: string;
+          space_id: string | null;
+          neighborhood_slug: string | null;
+          lat: number;
+          lng: number;
+          source: "instagram" | "manual";
+          source_url: string | null;
+          thumbnail_url: string | null;
+          notify_on_plan_match: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          member_id: string;
+          label: string;
+          space_id?: string | null;
+          neighborhood_slug?: string | null;
+          lat: number;
+          lng: number;
+          source?: "instagram" | "manual";
+          source_url?: string | null;
+          thumbnail_url?: string | null;
+          notify_on_plan_match?: boolean;
+          created_at?: string;
+        };
+        Update: {
+          label?: string;
+          notify_on_plan_match?: boolean;
+        };
+      };
+      spot_match_notifications: {
+        Row: {
+          id: string;
+          saved_spot_id: string;
+          plan_id: string;
+          notified_at: string;
+        };
+        Insert: {
+          id?: string;
+          saved_spot_id: string;
+          plan_id: string;
+          notified_at?: string;
+        };
+        Update: {
+          notified_at?: string;
         };
       };
       short_links: {

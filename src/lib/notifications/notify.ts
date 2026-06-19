@@ -18,7 +18,8 @@ export type NotifyCategory =
   | "comments"
   | "tickets"
   | "events"
-  | "reminders";
+  | "reminders"
+  | "spot_matches";
 
 const CATEGORY_COLUMN: Record<NotifyCategory, string> = {
   plan_activity: "notify_plan_activity",
@@ -26,6 +27,7 @@ const CATEGORY_COLUMN: Record<NotifyCategory, string> = {
   tickets: "notify_tickets",
   events: "notify_events",
   reminders: "notify_reminders",
+  spot_matches: "notify_spot_matches",
 };
 
 type LooseClient = { from: (table: string) => any };

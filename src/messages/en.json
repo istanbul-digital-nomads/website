@@ -1412,6 +1412,72 @@
       "vibe": "Vibe"
     }
   },
+  "spotFinder": {
+    "meta": {
+      "title": "Spot Finder - save Istanbul places from Instagram",
+      "description": "Paste an Instagram reel or post link and we'll help you pin the place on a map, then save it to your spots-to-visit list."
+    },
+    "eyebrow": "Spot finder",
+    "heading": "Saw a place on Instagram? Pin it.",
+    "subheading": "Paste an Instagram reel or post link. We'll try to figure out where it is, you confirm the pin on the map, and it's saved to your list. Detection isn't perfect, so you can always drag the pin or drop your own.",
+    "input": {
+      "placeholder": "https://www.instagram.com/reel/...",
+      "paste": "Paste",
+      "detect": "Find it",
+      "detecting": "Looking..."
+    },
+    "result": {
+      "found": "Here's our best guess. Check the pin and fix it if it's off.",
+      "none": "Couldn't read a location from that link. Drop the pin where the place is."
+    },
+    "map": {
+      "dragHint": "Drag the pin to the exact spot before saving."
+    },
+    "label": {
+      "label": "Name this spot",
+      "placeholder": "e.g. Walter's Coffee Roastery"
+    },
+    "save": "Save to my spots",
+    "saving": "Saving...",
+    "savedCta": "See your spots",
+    "signInToSave": "Sign in to save spots to your list.",
+    "errors": {
+      "detect": "Couldn't check that link. Try again in a moment.",
+      "save": "Couldn't save that spot. Try again.",
+      "already": "You've already saved this spot.",
+      "needLabel": "Give the spot a name first.",
+      "clipboard": "Couldn't read your clipboard. Paste the link in manually."
+    },
+    "toasts": {
+      "saved": "Saved to your spots."
+    }
+  },
+  "dashboardSpots": {
+    "eyebrow": "Your list",
+    "title": "Spots to visit",
+    "intro": "Places you've saved from Instagram and around the site. Turn on a ping and we'll tell you when a community plan stops by one of them.",
+    "empty": {
+      "body": "No spots saved yet.",
+      "cta": "Find one from an Instagram link"
+    },
+    "notifyHint": "Flip a spot on and we'll ping you when a community plan stops by it.",
+    "notify": {
+      "on": "Pinging you",
+      "off": "Ping me"
+    },
+    "source": {
+      "instagram": "Instagram"
+    },
+    "viewMap": "Open in maps",
+    "remove": "Remove spot",
+    "toasts": {
+      "removed": "Spot removed."
+    },
+    "errors": {
+      "update": "Couldn't update that. Try again.",
+      "remove": "Couldn't remove that. Try again."
+    }
+  },
   "firstWeekPlanner": {
     "meta": {
       "title": "First Week Planner - Istanbul Digital Nomads",
@@ -3098,6 +3164,7 @@
         "eyebrow": "Dashboard",
         "overview": "Overview",
         "profile": "Profile",
+        "spots": "Spots",
         "verification": "Verification",
         "payouts": "Payouts",
         "account": "Account"
@@ -3926,7 +3993,9 @@
       "events": "Events & RSVPs",
       "eventsDescription": "When someone RSVPs to your event, or an event you're attending changes.",
       "reminders": "Reminders",
-      "remindersDescription": "A heads-up about an hour before a plan starts."
+      "remindersDescription": "A heads-up about an hour before a plan starts.",
+      "spotMatches": "Saved spots",
+      "spotMatchesDescription": "When a community plan stops by a spot you've saved."
     },
     "danger": {
       "title": "Delete account",
@@ -3944,6 +4013,7 @@
     "planJoined": "{actor} joined your plan \"{title}\".",
     "planCancelled": "Plan cancelled: \"{title}\" was cancelled by the host.",
     "planReminder": "Starting in ~1h: {title}",
+    "spotMatch": "A plan stops by {spot}: \"{title}\".",
     "ctaOpenPlan": "Open plan",
     "planLeft": "{actor} left your plan \"{title}\".",
     "planCommented": "{actor} commented on your plan \"{title}\".",

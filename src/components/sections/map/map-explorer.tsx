@@ -79,7 +79,11 @@ function FerryToggle({
 }
 
 export function MapExplorer({ labels }: MapExplorerProps) {
-  const [activeBrands, setActiveBrands] = useState<Set<string>>(new Set());
+  // Start with every brand on so all cafes/branches show on load. Visitors can
+  // toggle individual brands off from the filter bar to narrow things down.
+  const [activeBrands, setActiveBrands] = useState<Set<string>>(
+    () => new Set(brands.map((b) => b.slug)),
+  );
   const [activeHoods, setActiveHoods] = useState<Set<string>>(new Set());
   const [showPorts, setShowPorts] = useState(true);
   const [showRoutes, setShowRoutes] = useState(true);

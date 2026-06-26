@@ -4,6 +4,12 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.44.0] - 2026-06-26
+
+### Changed
+
+- **The map now shows every cafe and branch by default.** Brand pins used to start hidden, so you'd land on a neighborhood-only view and have to switch each brand on to see where the cafes are. Now every brand starts on - all ~490 branches are visible the moment the map loads - and you toggle brands off from the filter bar to narrow things down. Applies to both the home page map section and the `/map` page.
+
 ## [3.43.0] - 2026-06-19
 
 ### Added

@@ -291,9 +291,12 @@ export function IstanbulMap({
   const mapRef = useRef<any>(null);
 
   // Brand layer: which brands are toggled on, and which branch popup is open.
-  // Brands start off so the neighborhood overview stays the default focus.
+  // Every brand starts on so all cafes/branches show by default; visitors can
+  // toggle brands off from the overlay filter to narrow things down.
   // `activeBrands` is controlled when the parent passes a set, else internal.
-  const [internalBrands, setInternalBrands] = useState<Set<string>>(new Set());
+  const [internalBrands, setInternalBrands] = useState<Set<string>>(
+    () => new Set(brands.map((b) => b.slug)),
+  );
   const activeBrands = controlledBrands ?? internalBrands;
   // The clicked branch (drives the popup card). Holds the feature's props +
   // its coordinates so we don't need to look it up again.
@@ -338,8 +341,9 @@ export function IstanbulMap({
   }, [showFerryPorts, showFerryRoutes, ferries]);
 
   // Every Istanbul branch of every brand (from the official store locators),
-  // fetched once the first brand filter is switched on. ~490 points, so they
-  // render as a MapLibre circle layer rather than DOM markers.
+  // fetched as soon as any brand is active - which is on mount now that brands
+  // default to all-on. ~490 points, so they render as a MapLibre circle layer
+  // rather than DOM markers.
   const [brandPoints, setBrandPoints] = useState<BrandFeatureCollection | null>(
     null,
   );

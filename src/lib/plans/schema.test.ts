@@ -47,6 +47,21 @@ describe("planCreateSchema event steps", () => {
     expect(result.success).toBe(false);
   });
 
+  it("rejects a non-https / non-Luma event_url (XSS guard)", () => {
+    for (const bad of [
+      "javascript:alert(1)",
+      "http://lu.ma/abc123",
+      "https://evil.com/abc123",
+    ]) {
+      const result = planCreateSchema.safeParse({
+        scheduled_date: "2026-07-03",
+        title: "Meetup night",
+        stops: [{ ...baseEventStop, event_url: bad }],
+      });
+      expect(result.success, bad).toBe(false);
+    }
+  });
+
   it("still accepts a normal place step", () => {
     const result = planCreateSchema.safeParse({
       scheduled_date: "2026-07-03",

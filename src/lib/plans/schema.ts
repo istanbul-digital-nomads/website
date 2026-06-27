@@ -9,6 +9,34 @@ const timeRegex = /^([01]\d|2[0-3]):[0-5]\d$/;
 // Event-step providers. Generic on purpose - Luma is first, more can follow.
 export const EVENT_PROVIDERS = ["luma"] as const;
 
+// Luma hosts, duplicated from ./luma (which is server-only and can't be
+// imported here). An event_url must be https on one of these.
+const LUMA_URL_HOSTS = new Set([
+  "lu.ma",
+  "www.lu.ma",
+  "luma.com",
+  "www.luma.com",
+]);
+
+function isLumaUrl(v: string): boolean {
+  try {
+    const u = new URL(v);
+    return (
+      u.protocol === "https:" && LUMA_URL_HOSTS.has(u.hostname.toLowerCase())
+    );
+  } catch {
+    return false;
+  }
+}
+
+function isHttpsUrl(v: string): boolean {
+  try {
+    return new URL(v).protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
 const emptyToNull = (v: unknown) =>
   typeof v === "string" && v.trim() === "" ? null : v;
 
@@ -67,17 +95,36 @@ export const planStopSchema = z
       emptyToNull,
       z.enum(EVENT_PROVIDERS).nullable().optional(),
     ),
+    // Locked to an https Luma host so a hostile value (e.g. javascript:) can
+    // never reach the card's href. Mirrors LUMA_HOSTS in ./luma (kept inline -
+    // this schema is imported client-side and ./luma is server-only).
     event_url: z.preprocess(
       emptyToNull,
-      z.string().url().max(500).nullable().optional(),
+      z
+        .string()
+        .max(500)
+        .nullable()
+        .optional()
+        .refine((v) => v == null || isLumaUrl(v), {
+          message: "event_url must be an https lu.ma link",
+        }),
     ),
     event_title: z.preprocess(
       emptyToNull,
       z.string().max(200).nullable().optional(),
     ),
+    // https-only: covers are served from Luma's CDN, and this keeps any other
+    // scheme out of the card's <img src>.
     event_cover_url: z.preprocess(
       emptyToNull,
-      z.string().url().max(1000).nullable().optional(),
+      z
+        .string()
+        .max(1000)
+        .nullable()
+        .optional()
+        .refine((v) => v == null || isHttpsUrl(v), {
+          message: "event_cover_url must be https",
+        }),
     ),
     event_starts_at: z.preprocess(
       emptyToNull,

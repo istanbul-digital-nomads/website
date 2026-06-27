@@ -60,6 +60,12 @@ export function LumaEventCard({
   const t = useTranslations("plans.event");
   const dateLabel = formatDate(data.date, locale);
   const timeLabel = formatTime(data.startTime, data.endTime, locale);
+  // Defense in depth: the schema already pins these to https Luma URLs, but
+  // never hand an untrusted scheme to href/src in case data arrives elsewhere.
+  const safeHttps = (u: string | null) =>
+    u && /^https:\/\//i.test(u) ? u : null;
+  const safeUrl = safeHttps(data.url);
+  const safeCover = safeHttps(data.coverUrl);
 
   return (
     <div
@@ -68,11 +74,11 @@ export function LumaEventCard({
         className,
       )}
     >
-      {data.coverUrl && (
+      {safeCover && (
         // External lu.ma CDN image - plain <img> avoids next/image remote config.
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          src={data.coverUrl}
+          src={safeCover}
           alt=""
           loading="lazy"
           className="h-28 w-full object-cover"
@@ -83,15 +89,17 @@ export function LumaEventCard({
           <span className="inline-flex items-center gap-1 rounded-full border border-[#e54d63]/40 bg-[#e54d63]/10 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-[#e54d63]">
             {t("lumaBadge")}
           </span>
-          <a
-            href={data.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-paper-mute transition-colors hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
-          >
-            {t("viewOnLuma")}
-            <ExternalLink className="h-3 w-3" aria-hidden />
-          </a>
+          {safeUrl && (
+            <a
+              href={safeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-paper-mute transition-colors hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
+            >
+              {t("viewOnLuma")}
+              <ExternalLink className="h-3 w-3" aria-hidden />
+            </a>
+          )}
         </div>
 
         <p className="text-base font-medium leading-snug text-paper">

@@ -30,6 +30,9 @@ function initials(name?: string | null): string {
 }
 
 function stopLabel(stop: PlanCardSummary["stops"][number]): string {
+  if (stop.step_kind === "event") {
+    return stop.event_title ?? stop.custom_location ?? "Event";
+  }
   if (stop.space_id) {
     const sp = spaces.find((s) => s.id === stop.space_id);
     if (sp) return sp.name;
@@ -138,6 +141,7 @@ export function PlanCard({
                 firstStop.end_time,
                 locale,
               )}
+              isEvent={firstStop.step_kind === "event"}
               isFirst
             />
           )}
@@ -148,6 +152,7 @@ export function PlanCard({
               vibe={s.vibe}
               label={stopLabel(s)}
               time={formatStopTime(s.start_time, s.end_time, locale)}
+              isEvent={s.step_kind === "event"}
             />
           ))}
           {moreStops.length > 2 && (
@@ -201,12 +206,14 @@ function StopRow({
   label,
   time,
   isFirst,
+  isEvent,
 }: {
   ordinal: number;
   vibe?: PlanVibe;
   label: string;
   time: string;
   isFirst?: boolean;
+  isEvent?: boolean;
 }) {
   return (
     <li className="flex items-center gap-2">
@@ -221,11 +228,17 @@ function StopRow({
       >
         {ordinal}
       </span>
-      {vibe && (
-        <PlanVibeIcon
-          vibe={vibe}
-          className="h-3.5 w-3.5 shrink-0 text-terracotta"
-        />
+      {isEvent ? (
+        <span className="shrink-0 rounded-full border border-[#e54d63]/40 bg-[#e54d63]/10 px-1.5 font-mono text-[9px] font-semibold uppercase tracking-wider text-[#e54d63]">
+          Luma
+        </span>
+      ) : (
+        vibe && (
+          <PlanVibeIcon
+            vibe={vibe}
+            className="h-3.5 w-3.5 shrink-0 text-terracotta"
+          />
+        )
       )}
       <span className="truncate">{label}</span>
       {time && (

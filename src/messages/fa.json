@@ -3465,6 +3465,14 @@
       "capacityHelp": "برای نامحدود خالی بگذار. بازه ۲ تا ۲۰.",
       "addFirstStop": "اولین توقف را اضافه کن",
       "addStop": "توقف اضافه کن",
+      "addEvent": "رویداد اضافه کن",
+      "eventLinkLabel": "لینک رویداد Luma را بچسبان",
+      "eventLinkPlaceholder": "lu.ma/your-event",
+      "eventAdd": "اضافه کن",
+      "eventFetching": "در حال خواندن...",
+      "eventFetchError": "نشد آن رویداد را بخوانیم. لینک را بررسی کن و دوباره امتحان کن.",
+      "eventDateMismatch": "این رویداد در تاریخ برنامه‌ات نیست.",
+      "setPlanDateToEvent": "برنامه را روی {date} بگذار",
       "changeLocation": "تغییر مکان",
       "cancelPicker": "لغو",
       "stopCountCaption": "{count, plural, =1 {۱ توقف} other {# توقف}}",
@@ -3489,6 +3497,11 @@
       "updateSuccess": "برنامه به‌روزرسانی شد",
       "errorTitle": "اشتراک‌گذاری ممکن نشد",
       "errorBody": "مشکلی پیش آمد. کمی بعد دوباره امتحان کن."
+    },
+    "event": {
+      "lumaBadge": "Luma",
+      "viewOnLuma": "دیدن در Luma",
+      "untitled": "رویداد Luma"
     },
     "stops": "{count} توقف",
     "transport": {

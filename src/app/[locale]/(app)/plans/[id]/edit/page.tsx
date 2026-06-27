@@ -58,6 +58,13 @@ async function Content({
           transport_price_max: s.transport_price_max,
           cost_min_cents: s.cost_min_cents,
           cost_max_cents: s.cost_max_cents,
+          step_kind: s.step_kind,
+          event_provider: s.event_provider,
+          event_url: s.event_url,
+          event_title: s.event_title,
+          event_cover_url: s.event_cover_url,
+          event_starts_at: s.event_starts_at,
+          event_ends_at: s.event_ends_at,
         })),
       }}
     />

@@ -78,3 +78,34 @@ export function addDays(date: string, days: number): string {
   d.setUTCDate(d.getUTCDate() + days);
   return d.toISOString().slice(0, 10);
 }
+
+/**
+ * Convert a tz-aware ISO instant to its Istanbul-local date (YYYY-MM-DD) and
+ * time (HH:MM). Returns null for an unparseable input. Plans are Istanbul-local
+ * throughout, so an external event's day/time is always expressed in Istanbul.
+ */
+export function toIstanbulDateTime(
+  iso: string | undefined | null,
+): { date: string; time: string } | null {
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: ISTANBUL_TZ,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).formatToParts(d);
+  const get = (t: string) => parts.find((p) => p.type === t)?.value;
+  const y = get("year");
+  const m = get("month");
+  const day = get("day");
+  let hh = get("hour");
+  const mm = get("minute");
+  if (!y || !m || !day || hh == null || !mm) return null;
+  if (hh === "24") hh = "00"; // Intl can emit 24 for midnight in some runtimes.
+  return { date: `${y}-${m}-${day}`, time: `${hh}:${mm}` };
+}

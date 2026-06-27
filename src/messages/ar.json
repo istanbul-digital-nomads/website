@@ -3473,6 +3473,14 @@
       "capacityHelp": "اتركه فارغاً لعدم وجود حد. النطاق 2-20.",
       "addFirstStop": "أضف أول محطة",
       "addStop": "أضف محطة",
+      "addEvent": "أضف فعالية",
+      "eventLinkLabel": "الصق رابط فعالية Luma",
+      "eventLinkPlaceholder": "lu.ma/your-event",
+      "eventAdd": "أضف",
+      "eventFetching": "جارٍ القراءة...",
+      "eventFetchError": "تعذّرت قراءة هذه الفعالية. تحقق من الرابط وحاول مجدداً.",
+      "eventDateMismatch": "هذه الفعالية ليست في تاريخ خطتك.",
+      "setPlanDateToEvent": "اضبط الخطة على {date}",
       "changeLocation": "غيّر الموقع",
       "cancelPicker": "إلغاء",
       "stopCountCaption": "{count, plural, =1 {محطة واحدة} other {# محطات}}",
@@ -3497,6 +3505,11 @@
       "updateSuccess": "تم تحديث الخطة",
       "errorTitle": "تعذّرت المشاركة",
       "errorBody": "حدث خطأ ما. حاول مجدداً بعد قليل."
+    },
+    "event": {
+      "lumaBadge": "Luma",
+      "viewOnLuma": "عرض على Luma",
+      "untitled": "فعالية Luma"
     },
     "stops": "{count} محطات",
     "transport": {

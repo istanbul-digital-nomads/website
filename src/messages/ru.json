@@ -3489,6 +3489,14 @@
       "capacityHelp": "Оставь пустым - без лимита. Диапазон 2-20.",
       "addFirstStop": "Добавить первую точку",
       "addStop": "Добавить точку",
+      "addEvent": "Добавить событие",
+      "eventLinkLabel": "Вставь ссылку на событие в Luma",
+      "eventLinkPlaceholder": "lu.ma/your-event",
+      "eventAdd": "Добавить",
+      "eventFetching": "Читаю...",
+      "eventFetchError": "Не получилось прочитать событие. Проверь ссылку и попробуй ещё раз.",
+      "eventDateMismatch": "Это событие не в день твоего плана.",
+      "setPlanDateToEvent": "Поставить план на {date}",
       "changeLocation": "Сменить место",
       "cancelPicker": "Отмена",
       "stopCountCaption": "{count, plural, =1 {1 точка} few {# точки} other {# точек}}",
@@ -3513,6 +3521,11 @@
       "updateSuccess": "План обновлён",
       "errorTitle": "Не удалось опубликовать",
       "errorBody": "Что-то пошло не так. Попробуй чуть позже."
+    },
+    "event": {
+      "lumaBadge": "Luma",
+      "viewOnLuma": "Открыть в Luma",
+      "untitled": "Событие в Luma"
     },
     "stops": "{count} точек",
     "transport": {

@@ -3486,6 +3486,14 @@
       "addFirstStop": "İlk durağını ekle",
       "addStop": "Durak ekle",
       "changeLocation": "Konumu değiştir",
+      "addEvent": "Etkinlik ekle",
+      "eventLinkLabel": "Bir Luma etkinlik linki yapıştır",
+      "eventLinkPlaceholder": "lu.ma/etkinligin",
+      "eventAdd": "Ekle",
+      "eventFetching": "Okunuyor...",
+      "eventFetchError": "O etkinliği okuyamadık. Linki kontrol edip tekrar dene.",
+      "eventDateMismatch": "Bu etkinlik planının tarihinde değil.",
+      "setPlanDateToEvent": "Planı {date} olarak ayarla",
       "cancelPicker": "İptal",
       "stopCountCaption": "{count, plural, =1 {1 durak} other {# durak}}",
       "transportEyebrow": "Buraya nasıl gelinir",
@@ -3509,6 +3517,11 @@
       "updateSuccess": "Plan güncellendi",
       "errorTitle": "Paylaşılamadı",
       "errorBody": "Bir şeyler ters gitti. Birazdan tekrar dene."
+    },
+    "event": {
+      "lumaBadge": "Luma",
+      "viewOnLuma": "Luma'da gör",
+      "untitled": "Luma etkinliği"
     },
     "stops": "{count} durak",
     "transport": {

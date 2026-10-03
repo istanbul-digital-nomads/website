@@ -4,6 +4,15 @@ All notable changes to the Istanbul Nomads website will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.45.0] - 2026-06-27
+
+### Added
+
+- **Add a Luma event as a plan step.** Building a plan, you can now paste a `lu.ma` (or `luma.com`) event link and we read the event's public page for you - title, venue, cover image, and start/end time - and drop it in as its own step with a rich Luma card. No re-typing. We pull the times straight from the event and check they land on your plan's day: if the event's on a different date, saving is blocked with a one-tap "Set plan to <that date>" fix. Reading the link is best-effort (we parse the page's public event data, there's no official free Luma API), so if a page can't be read you can still add the event and fill the time in yourself.
+  - New `event` step kind on plan stops (migration `038`), built provider-agnostic so other event platforms can follow. Venue + time reuse the existing stop columns, so maps, the plan card, and feed expiry keep working unchanged.
+  - New `/api/plans/luma` detect route (auth-gated + rate-limited), with the read cached in Redis. URL parsing, schema.org JSON-LD extraction, and the date check are unit-tested, and verified end-to-end against a live Luma event page.
+  - Translated for tr/ru/fa/ar (RTL-aware).
+
 ## [3.44.0] - 2026-06-26
 
 ### Changed

@@ -20,7 +20,9 @@ import { PlanReviews } from "@/components/sections/plans/plan-reviews";
 import { JoinLeaveButton } from "@/components/sections/plans/join-leave-button";
 import { TicketCheckoutButton } from "@/components/sections/plans/ticket-checkout-button";
 import { PlanDetailMapLazy } from "@/components/sections/plans/plan-detail-map-lazy";
+import { LumaEventCard } from "@/components/sections/plans/luma-event-card";
 import { TRANSPORT_ICONS } from "@/lib/plans/transport";
+import { toIstanbulDateTime } from "@/lib/plans/expiry";
 import { getPlanById, type PlanStop } from "@/lib/plans/queries";
 import { getCurrentMember } from "@/lib/supabase/queries";
 import { spaces } from "@/lib/spaces";
@@ -413,44 +415,67 @@ async function Content({
                     </span>
                   </span>
                   <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-baseline justify-between gap-2">
-                      <p className="font-display text-h3 leading-tight text-paper">
-                        {stopLocationName(stop)}
-                      </p>
-                      {formatTime(stop.start_time, stop.end_time) && (
-                        <span
-                          className="font-mono text-[11px] uppercase tracking-wider text-terracotta"
-                          dir="ltr"
-                        >
-                          {formatTime(stop.start_time, stop.end_time)}
+                    {stop.step_kind === "event" ? (
+                      <LumaEventCard
+                        locale={locale}
+                        data={{
+                          title: stop.event_title,
+                          venueName: stop.custom_location,
+                          coverUrl: stop.event_cover_url,
+                          url: stop.event_url ?? "",
+                          date:
+                            toIstanbulDateTime(stop.event_starts_at)?.date ??
+                            null,
+                          startTime: stop.start_time
+                            ? stop.start_time.slice(0, 5)
+                            : null,
+                          endTime: stop.end_time
+                            ? stop.end_time.slice(0, 5)
+                            : null,
+                        }}
+                      />
+                    ) : (
+                      <div className="flex flex-wrap items-baseline justify-between gap-2">
+                        <p className="font-display text-h3 leading-tight text-paper">
+                          {stopLocationName(stop)}
+                        </p>
+                        {formatTime(stop.start_time, stop.end_time) && (
+                          <span
+                            className="font-mono text-[11px] uppercase tracking-wider text-terracotta"
+                            dir="ltr"
+                          >
+                            {formatTime(stop.start_time, stop.end_time)}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                    {stop.step_kind !== "event" && (
+                      <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-paper-dim">
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                          {t(`vibes.${stop.vibe}`)}
                         </span>
-                      )}
-                    </div>
-                    <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-paper-dim">
-                      <span className="font-mono text-[10px] uppercase tracking-wider text-paper-mute">
-                        {t(`vibes.${stop.vibe}`)}
-                      </span>
-                      {stop.neighborhood_slug && (
-                        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
-                          <MapPin className="h-3.5 w-3.5" aria-hidden />
-                          {stop.neighborhood_slug}
-                        </span>
-                      )}
-                      {(stop.cost_min_cents != null ||
-                        stop.cost_max_cents != null) && (
-                        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
-                          <Wallet
-                            className="h-3.5 w-3.5 text-moss"
-                            aria-hidden
-                          />
-                          {stop.cost_min_cents != null &&
-                          stop.cost_max_cents != null &&
-                          stop.cost_max_cents !== stop.cost_min_cents
-                            ? `₺${stop.cost_min_cents / 100} - ₺${stop.cost_max_cents / 100}`
-                            : `₺${(stop.cost_min_cents ?? stop.cost_max_cents)! / 100}`}
-                        </span>
-                      )}
-                    </div>
+                        {stop.neighborhood_slug && (
+                          <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                            <MapPin className="h-3.5 w-3.5" aria-hidden />
+                            {stop.neighborhood_slug}
+                          </span>
+                        )}
+                        {(stop.cost_min_cents != null ||
+                          stop.cost_max_cents != null) && (
+                          <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-paper-mute">
+                            <Wallet
+                              className="h-3.5 w-3.5 text-moss"
+                              aria-hidden
+                            />
+                            {stop.cost_min_cents != null &&
+                            stop.cost_max_cents != null &&
+                            stop.cost_max_cents !== stop.cost_min_cents
+                              ? `₺${stop.cost_min_cents / 100} - ₺${stop.cost_max_cents / 100}`
+                              : `₺${(stop.cost_min_cents ?? stop.cost_max_cents)! / 100}`}
+                          </span>
+                        )}
+                      </div>
+                    )}
                     {stop.notes && (
                       <p className="mt-3 whitespace-pre-wrap text-sm text-paper-dim">
                         {stop.notes}

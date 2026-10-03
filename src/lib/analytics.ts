@@ -74,6 +74,8 @@ export type AnalyticsEvent =
   | "plan_create_start"
   | "plan_create_submit"
   | "plan_create_success"
+  // A host added a Luma event link as a plan step (spot/event integration).
+  | "plan_luma_event_added"
   | "plan_join"
   | "plan_leave"
   | "event_rsvp"

@@ -577,6 +577,17 @@ export interface Database {
           transport_price_max: number | null;
           cost_min_cents: number | null;
           cost_max_cents: number | null;
+          // Event steps (Luma first). 'place' = a NomadSpace or dropped pin
+          // (event_* all null); 'event' = an external event whose details are
+          // snapshotted here. start_time/end_time/custom_location/lat/lng are
+          // reused for the event's time + venue.
+          step_kind: "place" | "event";
+          event_provider: "luma" | null;
+          event_url: string | null;
+          event_title: string | null;
+          event_cover_url: string | null;
+          event_starts_at: string | null;
+          event_ends_at: string | null;
           created_at: string;
         };
         Insert: {
@@ -614,6 +625,13 @@ export interface Database {
           transport_price_max?: number | null;
           cost_min_cents?: number | null;
           cost_max_cents?: number | null;
+          step_kind?: "place" | "event";
+          event_provider?: "luma" | null;
+          event_url?: string | null;
+          event_title?: string | null;
+          event_cover_url?: string | null;
+          event_starts_at?: string | null;
+          event_ends_at?: string | null;
           created_at?: string;
         };
         Update: {

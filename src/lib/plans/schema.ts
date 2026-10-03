@@ -1,9 +1,41 @@
 import { z } from "zod";
 import { PLAN_VIBES } from "./vibes";
 import { TRANSPORT_MODES } from "./transport";
+import { toIstanbulDateTime } from "./expiry";
 
 const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 const timeRegex = /^([01]\d|2[0-3]):[0-5]\d$/;
+
+// Event-step providers. Generic on purpose - Luma is first, more can follow.
+export const EVENT_PROVIDERS = ["luma"] as const;
+
+// Luma hosts, duplicated from ./luma (which is server-only and can't be
+// imported here). An event_url must be https on one of these.
+const LUMA_URL_HOSTS = new Set([
+  "lu.ma",
+  "www.lu.ma",
+  "luma.com",
+  "www.luma.com",
+]);
+
+function isLumaUrl(v: string): boolean {
+  try {
+    const u = new URL(v);
+    return (
+      u.protocol === "https:" && LUMA_URL_HOSTS.has(u.hostname.toLowerCase())
+    );
+  } catch {
+    return false;
+  }
+}
+
+function isHttpsUrl(v: string): boolean {
+  try {
+    return new URL(v).protocol === "https:";
+  } catch {
+    return false;
+  }
+}
 
 const emptyToNull = (v: unknown) =>
   typeof v === "string" && v.trim() === "" ? null : v;
@@ -56,12 +88,61 @@ export const planStopSchema = z
       numberOrNull,
       z.number().int().min(0).nullable().optional(),
     ),
+    // Event steps (Luma first). A 'place' step leaves these null and keeps the
+    // space/pin location rule below; an 'event' step needs a provider + url.
+    step_kind: z.enum(["place", "event"]).default("place"),
+    event_provider: z.preprocess(
+      emptyToNull,
+      z.enum(EVENT_PROVIDERS).nullable().optional(),
+    ),
+    // Locked to an https Luma host so a hostile value (e.g. javascript:) can
+    // never reach the card's href. Mirrors LUMA_HOSTS in ./luma (kept inline -
+    // this schema is imported client-side and ./luma is server-only).
+    event_url: z.preprocess(
+      emptyToNull,
+      z
+        .string()
+        .max(500)
+        .nullable()
+        .optional()
+        .refine((v) => v == null || isLumaUrl(v), {
+          message: "event_url must be an https lu.ma link",
+        }),
+    ),
+    event_title: z.preprocess(
+      emptyToNull,
+      z.string().max(200).nullable().optional(),
+    ),
+    // https-only: covers are served from Luma's CDN, and this keeps any other
+    // scheme out of the card's <img src>.
+    event_cover_url: z.preprocess(
+      emptyToNull,
+      z
+        .string()
+        .max(1000)
+        .nullable()
+        .optional()
+        .refine((v) => v == null || isHttpsUrl(v), {
+          message: "event_cover_url must be https",
+        }),
+    ),
+    event_starts_at: z.preprocess(
+      emptyToNull,
+      z.string().datetime({ offset: true }).nullable().optional(),
+    ),
+    event_ends_at: z.preprocess(
+      emptyToNull,
+      z.string().datetime({ offset: true }).nullable().optional(),
+    ),
   })
   .refine(
     (v) =>
-      !!v.space_id || (typeof v.lat === "number" && typeof v.lng === "number"),
+      v.step_kind === "event"
+        ? !!v.event_provider && !!v.event_url
+        : !!v.space_id ||
+          (typeof v.lat === "number" && typeof v.lng === "number"),
     {
-      message: "Pick a verified space, or drop a pin on the map",
+      message: "Pick a verified space, drop a pin, or add an event link",
       path: ["space_id"],
     },
   )
@@ -121,10 +202,31 @@ const planBase = z.object({
   currency: z.literal("TRY").optional().default("TRY"),
 });
 
+// Every event step must fall on the plan's day. The client blocks this with a
+// "set plan date to the event" prompt; this is the server-side backstop.
+// Only checks when both a scheduled_date and stops are in the payload.
+function eventDatesMatchPlanDay(v: {
+  scheduled_date?: string;
+  stops?: PlanStopInput[];
+}): boolean {
+  if (!v.scheduled_date || !v.stops) return true;
+  return v.stops.every((s) => {
+    if (s.step_kind !== "event" || !s.event_starts_at) return true;
+    const local = toIstanbulDateTime(s.event_starts_at);
+    return !local || local.date === v.scheduled_date;
+  });
+}
+
+const eventDateRefineMessage = {
+  message: "Event date must match the plan's date",
+  path: ["stops"],
+};
+
 export const planCreateSchema = planBase
   .extend({
     stops: z.array(planStopSchema).min(1, "Add at least one stop").max(8),
   })
+  .refine(eventDatesMatchPlanDay, eventDateRefineMessage)
   .refine(
     (v) =>
       !v.is_ticketed ||
@@ -149,9 +251,12 @@ export const planCreateSchema = planBase
 export type PlanCreateInput = z.infer<typeof planCreateSchema>;
 
 // Edit/PATCH. Stops, if present, replace the existing set wholesale.
-export const planUpdateSchema = planBase.partial().extend({
-  stops: z.array(planStopSchema).min(1).max(8).optional(),
-});
+export const planUpdateSchema = planBase
+  .partial()
+  .extend({
+    stops: z.array(planStopSchema).min(1).max(8).optional(),
+  })
+  .refine(eventDatesMatchPlanDay, eventDateRefineMessage);
 
 export const commentCreateSchema = z.object({
   body: z.string().trim().min(1).max(500),

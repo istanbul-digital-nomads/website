@@ -43,6 +43,14 @@ function stopRow(stop: PlanStopInput, planId: string, ordinal: number) {
       ordinal === 1 ? null : (stop.transport_price_max ?? null),
     cost_min_cents: stop.cost_min_cents ?? null,
     cost_max_cents: stop.cost_max_cents ?? null,
+    // Event steps (Luma first). 'place' stops leave every event_* field null.
+    step_kind: stop.step_kind ?? "place",
+    event_provider: stop.event_provider ?? null,
+    event_url: stop.event_url ?? null,
+    event_title: stop.event_title ?? null,
+    event_cover_url: stop.event_cover_url ?? null,
+    event_starts_at: stop.event_starts_at ?? null,
+    event_ends_at: stop.event_ends_at ?? null,
   };
 }
 

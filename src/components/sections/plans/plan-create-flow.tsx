@@ -10,14 +10,18 @@ import {
 } from "react";
 import { useRouter, Link as LocalizedLink } from "@/lib/i18n/routing";
 import { useLocale, useTranslations } from "next-intl";
-import { Plus } from "lucide-react";
+import { Plus, CalendarPlus, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { BottomSheet, type SheetHeight } from "@/components/ui/bottom-sheet";
 import { cn } from "@/lib/utils";
 import { showToast } from "@/lib/toast";
 import { track } from "@/lib/analytics";
-import { todayInIstanbul, addDays } from "@/lib/plans/expiry";
+import {
+  todayInIstanbul,
+  addDays,
+  toIstanbulDateTime,
+} from "@/lib/plans/expiry";
 import { VIBE_ICONS, type PlanVibe } from "@/lib/plans/vibes";
 import type { NomadSpace } from "@/lib/spaces";
 import { spaces } from "@/lib/spaces";
@@ -28,6 +32,22 @@ import { PlanStopEditor, type EditableStop } from "./plan-stop-editor";
 
 function uid() {
   return Math.random().toString(36).slice(2, 11);
+}
+
+// Shape returned by POST /api/plans/luma.
+export interface LumaDetect {
+  provider: "luma";
+  url: string;
+  title: string | null;
+  venueName: string | null;
+  lat: number | null;
+  lng: number | null;
+  coverUrl: string | null;
+  startsAt: string | null;
+  endsAt: string | null;
+  date: string | null;
+  startTime: string | null;
+  endTime: string | null;
 }
 
 function inferNeighborhood(lat: number, lng: number): NeighborhoodSlug | null {
@@ -112,6 +132,36 @@ function makeStopFromBranch(
   };
 }
 
+// A Luma event becomes an event step: venue in custom_location + lat/lng,
+// times in start_time/end_time (already Istanbul-local), event_* snapshotted.
+function makeStopFromLuma(d: LumaDetect): EditableStop {
+  return {
+    uid: uid(),
+    space_id: null,
+    custom_location: d.venueName,
+    neighborhood_slug:
+      d.lat != null && d.lng != null ? inferNeighborhood(d.lat, d.lng) : null,
+    lat: d.lat,
+    lng: d.lng,
+    start_time: d.startTime ?? "",
+    end_time: d.endTime ?? "",
+    vibe: "social",
+    notes: "",
+    transport_mode: null,
+    transport_price_min: "",
+    transport_price_max: "",
+    cost_min: "",
+    cost_max: "",
+    step_kind: "event",
+    event_provider: "luma",
+    event_url: d.url,
+    event_title: d.title,
+    event_cover_url: d.coverUrl,
+    event_starts_at: d.startsAt,
+    event_ends_at: d.endsAt,
+  };
+}
+
 export interface PlanInitialState {
   /** Existing plan id when editing - switches submit to PATCH. */
   id: string;
@@ -133,6 +183,13 @@ export interface PlanInitialState {
     transport_price_max: number | null;
     cost_min_cents: number | null;
     cost_max_cents: number | null;
+    step_kind?: "place" | "event";
+    event_provider?: "luma" | null;
+    event_url?: string | null;
+    event_title?: string | null;
+    event_cover_url?: string | null;
+    event_starts_at?: string | null;
+    event_ends_at?: string | null;
   }>;
 }
 
@@ -210,6 +267,13 @@ export function PlanCreateFlow({
           s.cost_min_cents != null ? String(s.cost_min_cents / 100) : "",
         cost_max:
           s.cost_max_cents != null ? String(s.cost_max_cents / 100) : "",
+        step_kind: s.step_kind ?? "place",
+        event_provider: s.event_provider ?? null,
+        event_url: s.event_url ?? null,
+        event_title: s.event_title ?? null,
+        event_cover_url: s.event_cover_url ?? null,
+        event_starts_at: s.event_starts_at ?? null,
+        event_ends_at: s.event_ends_at ?? null,
       })) ?? [],
     // initial only matters at first render; the prop is conceptually a one-shot seed.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -230,6 +294,8 @@ export function PlanCreateFlow({
     isEdit ? "half" : "peek",
   );
   const [loading, setLoading] = useState(false);
+  // Whether the "paste a Luma link" panel is open.
+  const [lumaOpen, setLumaOpen] = useState(false);
   const editorRef = useRef<HTMLDivElement>(null);
 
   // Auto-generate title from first two stops if user hasn't typed one.
@@ -343,14 +409,46 @@ export function PlanCreateFlow({
     setFocusedUid(targetUid);
     setPickerMode(false);
     setReplacingUid(null);
+    setLumaOpen(false);
     setSheetHeight("half");
   }, []);
+
+  // A detected Luma event becomes a new event step, focused right away.
+  const handleAddLuma = useCallback((d: LumaDetect) => {
+    const stop = makeStopFromLuma(d);
+    setStops((prev) => [...prev, stop]);
+    setFocusedUid(stop.uid);
+    setPickerMode(false);
+    setLumaOpen(false);
+    setSheetHeight("half");
+  }, []);
+
+  // The Istanbul-local date of any event step that doesn't match the plan's
+  // day. Drives the block banner + "set plan date" offer, and disables submit.
+  const eventDateMismatch = useMemo(() => {
+    for (const s of stops) {
+      if (s.step_kind === "event" && s.event_starts_at) {
+        const local = toIstanbulDateTime(s.event_starts_at);
+        if (local && local.date !== scheduledDate) return local.date;
+      }
+    }
+    return null;
+  }, [stops, scheduledDate]);
 
   function startAddPicker() {
     setFocusedUid(null);
     setReplacingUid(null);
+    setLumaOpen(false);
     setPickerMode(true);
     setSheetHeight("peek");
+  }
+
+  function startAddLuma() {
+    setFocusedUid(null);
+    setReplacingUid(null);
+    setPickerMode(false);
+    setLumaOpen((v) => !v);
+    setSheetHeight("half");
   }
 
   function startReplacePicker(targetUid: string) {
@@ -403,6 +501,10 @@ export function PlanCreateFlow({
       showToast.error(t("errorTitle"), t("noStops"));
       return;
     }
+    if (eventDateMismatch) {
+      showToast.error(t("errorTitle"), t("eventDateMismatch"));
+      return;
+    }
     setLoading(true);
     track("plan_create_submit", {
       stops: stops.length,
@@ -449,6 +551,13 @@ export function PlanCreateFlow({
           : null,
         cost_min_cents: liraToCents(s.cost_min),
         cost_max_cents: liraToCents(s.cost_max),
+        step_kind: s.step_kind ?? "place",
+        event_provider: s.event_provider ?? null,
+        event_url: s.event_url ?? null,
+        event_title: s.event_title ?? null,
+        event_cover_url: s.event_cover_url ?? null,
+        event_starts_at: s.event_starts_at ?? null,
+        event_ends_at: s.event_ends_at ?? null,
       })),
     };
 
@@ -556,9 +665,11 @@ export function PlanCreateFlow({
                 const VibeIcon = VIBE_ICONS[stop.vibe];
                 const active = stop.uid === focusedUid;
                 const label =
-                  spaces.find((sp) => sp.id === stop.space_id)?.name ??
-                  stop.custom_location ??
-                  "Pin";
+                  stop.step_kind === "event"
+                    ? (stop.event_title ?? stop.custom_location ?? "Event")
+                    : (spaces.find((sp) => sp.id === stop.space_id)?.name ??
+                      stop.custom_location ??
+                      "Pin");
                 return (
                   <button
                     key={stop.uid}
@@ -595,7 +706,30 @@ export function PlanCreateFlow({
                 <Plus className="h-3.5 w-3.5" aria-hidden />
                 {stops.length === 0 ? t("addFirstStop") : t("addStop")}
               </button>
+              <button
+                type="button"
+                onClick={startAddLuma}
+                aria-label={t("addEvent")}
+                aria-expanded={lumaOpen}
+                className={cn(
+                  "inline-flex shrink-0 items-center gap-1 rounded-full border border-dashed px-2.5 py-1.5 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta",
+                  lumaOpen
+                    ? "border-terracotta text-paper"
+                    : "border-ink-3 text-paper-mute hover:border-paper hover:text-paper",
+                )}
+              >
+                <CalendarPlus className="h-3.5 w-3.5" aria-hidden />
+                {t("addEvent")}
+              </button>
             </div>
+
+            {/* Paste-a-Luma-link panel */}
+            {lumaOpen && (
+              <LumaAdder
+                onAdd={handleAddLuma}
+                onClose={() => setLumaOpen(false)}
+              />
+            )}
           </div>
 
           {/* Focused stop editor */}
@@ -735,13 +869,33 @@ export function PlanCreateFlow({
             </div>
           )}
 
+          {/* Event date doesn't match the plan day: block + one-tap fix. */}
+          {eventDateMismatch && (
+            <div className="mx-4 mb-1 flex flex-wrap items-center justify-between gap-2 rounded-md border border-amber-500/40 bg-amber-500/5 px-3 py-2.5">
+              <p className="text-[13px] text-paper">{t("eventDateMismatch")}</p>
+              <button
+                type="button"
+                onClick={() => setScheduledDate(eventDateMismatch)}
+                className="inline-flex items-center rounded-full bg-amber-500/90 px-3 py-1.5 text-[11px] font-semibold text-ink-0 transition-colors hover:bg-amber-500"
+              >
+                {t("setPlanDateToEvent", {
+                  date: new Intl.DateTimeFormat(locale, {
+                    day: "numeric",
+                    month: "short",
+                    timeZone: "UTC",
+                  }).format(new Date(`${eventDateMismatch}T12:00:00Z`)),
+                })}
+              </button>
+            </div>
+          )}
+
           {/* Submit */}
           <div className="sticky bottom-0 border-t border-ink-3 bg-ink-1 px-4 py-3">
             <Button
               type="submit"
               size="lg"
               loading={loading}
-              disabled={stops.length === 0}
+              disabled={stops.length === 0 || !!eventDateMismatch}
               className="w-full"
             >
               {isEdit ? t("updateSubmit") : t("submit")}
@@ -750,6 +904,88 @@ export function PlanCreateFlow({
         </BottomSheet>
       </form>
     </Container>
+  );
+}
+
+// Inline "paste a lu.ma link" form. Calls the detect API, then hands a fully
+// resolved event up to the parent. Errors stay inline; the host can retry.
+function LumaAdder({
+  onAdd,
+  onClose,
+}: {
+  onAdd: (d: LumaDetect) => void;
+  onClose: () => void;
+}) {
+  const t = useTranslations("plans.create");
+  const [url, setUrl] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function submit() {
+    const trimmed = url.trim();
+    if (!trimmed || loading) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/plans/luma", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: trimmed }),
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        setError(json.error ?? t("eventFetchError"));
+        return;
+      }
+      track("plan_luma_event_added", {});
+      onAdd(json.data as LumaDetect);
+    } catch {
+      setError(t("eventFetchError"));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="mt-2 space-y-2 rounded-md border border-ink-3 bg-ink-0/40 p-3">
+      <label
+        htmlFor="luma-url"
+        className="font-mono text-[10px] uppercase tracking-wider text-paper-mute"
+      >
+        {t("eventLinkLabel")}
+      </label>
+      <div className="flex items-center gap-2">
+        <input
+          id="luma-url"
+          type="url"
+          inputMode="url"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              submit();
+            }
+            if (e.key === "Escape") onClose();
+          }}
+          placeholder={t("eventLinkPlaceholder")}
+          autoFocus
+          className="min-w-0 flex-1 rounded-md border border-ink-3 bg-transparent px-3 py-2 text-sm text-paper placeholder:text-paper-faint focus-visible:border-terracotta focus-visible:outline-none"
+        />
+        <button
+          type="button"
+          onClick={submit}
+          disabled={loading || !url.trim()}
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-terracotta px-3 py-2 text-sm font-medium text-[#06101f] transition-colors hover:bg-terracotta/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta disabled:opacity-50"
+        >
+          {loading && (
+            <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />
+          )}
+          {loading ? t("eventFetching") : t("eventAdd")}
+        </button>
+      </div>
+      {error && <p className="text-xs text-red-400">{error}</p>}
+    </div>
   );
 }
 

@@ -3465,6 +3465,14 @@
       "capacityHelp": "Leave blank for no limit. Range 2-20.",
       "addFirstStop": "Add your first stop",
       "addStop": "Add stop",
+      "addEvent": "Add event",
+      "eventLinkLabel": "Paste a Luma event link",
+      "eventLinkPlaceholder": "lu.ma/your-event",
+      "eventAdd": "Add",
+      "eventFetching": "Reading...",
+      "eventFetchError": "Couldn't read that event. Check the link and try again.",
+      "eventDateMismatch": "This event isn't on your plan's date.",
+      "setPlanDateToEvent": "Set plan to {date}",
       "changeLocation": "Change location",
       "cancelPicker": "Cancel",
       "stopCountCaption": "{count, plural, =1 {1 stop} other {# stops}}",
@@ -3489,6 +3497,11 @@
       "updateSuccess": "Plan updated",
       "errorTitle": "Couldn't share",
       "errorBody": "That didn't work. Try again in a moment."
+    },
+    "event": {
+      "lumaBadge": "Luma",
+      "viewOnLuma": "View on Luma",
+      "untitled": "Luma event"
     },
     "stops": "{count} stops",
     "transport": {
